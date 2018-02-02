@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+$horizontal-cell-padding: map-get($spacings, xxs);
+
+.mat-cell {
+  padding: map-get($spacings, xxxs) 0;
+}
+
+/* large columns */
+.mat-column-title {
+  flex: 4;
+}
+
+.mat-row {
+
+  .mat-column-cover-image {
+    font-size: 0;
+
+    img {
+      max-width: 88px;
+      height: auto;
+    }
+  }
+
+}

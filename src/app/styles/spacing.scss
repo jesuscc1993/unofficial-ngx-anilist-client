@@ -1,0 +1,55 @@
+@import 'variables';
+$positions: top left bottom right;
+$measures: margin padding;
+
+/* spacing by units */
+@each $measure in $measures {
+  @each $spacing, $value in $spacings {
+    /* by position */
+    @each $position in $positions {
+      .#{$measure}-#{$position}-#{$spacing} {
+        #{$measure}-#{$position}: $value;
+      }
+    }
+
+    /* general */
+    .#{$measure}-#{$spacing} {
+      #{$measure}: $value;
+    }
+
+    /* bidirectional */
+    .horizontal-#{$measure}-#{$spacing} {
+      #{$measure}-left: $value;
+      #{$measure}-right: $value;
+    }
+    .vertical-#{$measure}-#{$spacing} {
+      #{$measure}-top: $value;
+      #{$measure}-bottom: $value;
+    }
+  }
+}
+
+/* no spacing */
+@each $measure in $measures {
+  /* by position */
+  @each $position in $positions {
+    .no-#{$measure}-#{$position} {
+      #{$measure}-#{$position}: 0 !important;
+    }
+  }
+
+  /* general */
+  .no-#{$measure} {
+    #{$measure}: 0 !important;
+  }
+
+  /* bidirectional */
+  .no-horizontal-#{$measure} {
+    #{$measure}-left: 0 !important;
+    #{$measure}-right: 0 !important;
+  }
+  .no-vertical-#{$measure} {
+    #{$measure}-top: 0 !important;
+    #{$measure}-bottom: 0 !important;
+  }
+}

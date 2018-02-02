@@ -1,0 +1,58 @@
+@import 'app/styles/material';
+@import 'app/styles/spacing';
+
+/* core */
+body {
+  background: lightgray;
+  overflow-y: scroll;
+  margin: 0;
+
+  .content-wrapper {
+    @extend .vertical-padding-s;
+    @extend .horizontal-padding-m;
+    box-sizing: border-box;
+    text-align: center;
+    margin: auto;
+    max-width: 1152px;
+
+    > * {
+      text-align: left;
+    }
+  }
+}
+
+/* layout */
+.flex-box {
+  display: flex;
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  & > * {
+    flex: 1;
+  }
+}
+
+/* generic */
+.inline-block {
+  display: inline-block !important;
+}
+.display-block {
+  display: block !important;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+
+.auto-margin {
+  margin: auto !important;
+}
+
+[hidden] {
+  display: none !important;
+}

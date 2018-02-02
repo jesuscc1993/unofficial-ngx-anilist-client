@@ -1,0 +1,62 @@
+<mat-table #table matSort [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1">
+
+  <ng-container matColumnDef="cover-image">
+    <mat-header-cell *matHeaderCellDef>
+      Cover
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      <img [src]="anime.coverImage.medium">
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Title
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      {{ anime.title.romaji }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="start-date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Year
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      {{ anime.startDate.year }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="genres">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Genres
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      <div *ngFor="let genre of anime.genres; let i = index">
+        {{ genre }}<span *ngIf="i < anime.genres.length - 1">,</span>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="mean-score">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Score
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      {{ anime.meanScore }}/100
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="episodes">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Episodes
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      {{ anime.episodes }}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: tableRows"></mat-row>
+
+</mat-table>

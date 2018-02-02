@@ -1,0 +1,30 @@
+<form [formGroup]="searchForm" (ngSubmit)="search()">
+
+  <mat-card class="text-center">
+
+    <h1>
+      Anime search
+    </h1>
+
+    <mat-form-field>
+      <input matInput placeholder="Anime title" formControlName="query">
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" class="display-block auto-margin">
+      Search
+    </button>
+
+  </mat-card>
+
+  <mat-card *ngIf="animeList && animeList.length > 0" class="margin-top-s no-padding">
+    <app-anime-table [tableData]="animeList"></app-anime-table>
+
+    <mat-paginator
+      [length]="pagination.total"
+      [pageSize]="pagination.perPage"
+      [pageSizeOptions]="[5, 10, 25, 50, 100]"
+      (page)="changePage($event)">
+    </mat-paginator>
+  </mat-card>
+
+</form>
