@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatExpansionModule, MatGridListModule, MatInputModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatExpansionModule, MatGridListModule,
+  MatInputModule, MatMenuModule,
   MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
@@ -16,6 +17,7 @@ const modules: any[] = [
   MatChipsModule,
   MatDatepickerModule,
   MatDatepickerModule,
+  MatDividerModule,
   MatExpansionModule,
   MatGridListModule,
   MatInputModule,
