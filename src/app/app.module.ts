@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
 /* components */
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     AppComponent,
     PageNotFoundComponent,
     AnimeSearchComponent,
-    AnimeTableComponent
+    AnimeTableComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

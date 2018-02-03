@@ -1,0 +1,10 @@
+<mat-toolbar>
+  <i class="fa fa-github fa-1x margin-right-xxs clickable" [matMenuTriggerFor]="menu"></i>
+  Angular Material demo - Anime management client
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="viewOnGitHub()">
+      View on GitHub
+    </button>
+  </mat-menu>
+</mat-toolbar>

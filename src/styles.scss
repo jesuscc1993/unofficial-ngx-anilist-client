@@ -57,6 +57,11 @@ body {
   transition: .2s;
 }
 
+label[for],
+.clickable {
+  cursor: pointer;
+}
+
 [hidden] {
   display: none !important;
 }
