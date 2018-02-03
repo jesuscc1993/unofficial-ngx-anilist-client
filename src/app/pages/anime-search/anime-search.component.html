@@ -10,11 +10,14 @@
       <input matInput placeholder="Anime title" formControlName="query">
     </mat-form-field>
 
-    <button mat-raised-button color="accent" class="display-block auto-margin">
+    <button mat-raised-button color="accent" class="display-block auto-margin" [disabled]="searchForm.value.query.length < 1">
       Search
     </button>
 
   </mat-card>
+
+  <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
+  <div class="progress-placeholder"></div>
 
   <mat-card *ngIf="animeList && animeList.length > 0" class="margin-top-s no-padding">
     <app-anime-table [tableData]="animeList"></app-anime-table>
@@ -25,6 +28,13 @@
       [pageSizeOptions]="[5, 10, 25, 50, 100]"
       (page)="changePage($event)">
     </mat-paginator>
+  </mat-card>
+
+  <mat-card *ngIf="noResults" class="margin-top-s">
+    <h4>
+      <fa name="info-circle" size="1x" class="margin-right-xxs"></fa>
+      No results found
+    </h4>
   </mat-card>
 
 </form>
