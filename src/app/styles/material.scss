@@ -24,13 +24,17 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include angular-material-theme($app-theme);
 
 mat-card {
+  &.info {
+    background: map-get($mat-blue, 50);
+    color: #3F668C;
+  }
   &.warning {
-    background: map-get($mat-orange, 100);
-    color: map-get($mat-orange, 700);
+    background: map-get($mat-orange, 50);
+    color: #8C6C3F;
   }
   &.error {
-    background: map-get($mat-red, 200);
-    color: map-get($mat-red, 800);
+    background: map-get($mat-red, 50);
+    color: #8C3F3F;
   }
 }
 
