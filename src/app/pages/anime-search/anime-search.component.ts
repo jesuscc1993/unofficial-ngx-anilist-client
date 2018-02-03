@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
-import { Query } from '../../models/anilist/query';
-import { PageInfo } from '../../models/anilist/pageInfo';
+import { MediaQuery } from '../../models/anilist/query';
+import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
 import { mediaFormats } from '../../models/anilist/mediaFormats';
 
@@ -16,12 +16,15 @@ export class AnimeSearchComponent implements OnInit {
   searchForm: FormGroup;
 
   animeList: Anime[];
-  pagination: PageInfo;
+  pagination: PageQuery;
   mediaFormats: any[] = mediaFormats;
 
   searching: boolean;
   noResults: boolean;
   errorGotten: boolean;
+
+  minYear: number = 1900;
+  maxYear: number = new Date().getFullYear();
 
   constructor(
     private animeService: AnimeService,
@@ -29,7 +32,9 @@ export class AnimeSearchComponent implements OnInit {
   ) {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      format: ['']
+      format: [''],
+      startDate_greater: [undefined],
+      startDate_lesser: [undefined]
     });
   }
 
@@ -41,12 +46,14 @@ export class AnimeSearchComponent implements OnInit {
     this.searching = true;
     this.errorGotten = false;
 
-    const query: Query = {
+    let query: MediaQuery = {
       search: this.searchForm.value.search,
-      format: this.searchForm.value.format
+      format: this.searchForm.value.format,
+      startDate_lesser: this.getDateScalarFromYear(this.searchForm.value.startDate_lesser),
+      startDate_greater: this.getDateScalarFromYear(this.searchForm.value.startDate_greater)
     };
 
-    const pageInfo: PageInfo = {
+    const pageInfo: PageQuery = {
       pageIndex: page,
       perPage: perPage
     };
@@ -63,6 +70,10 @@ export class AnimeSearchComponent implements OnInit {
       this.searching = false;
 
     });
+  }
+
+  private getDateScalarFromYear(year: number) {
+    return year * 10000;
   }
 
   private changePage(pageEvent: PageEvent): void {

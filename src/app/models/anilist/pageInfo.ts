@@ -1,4 +1,4 @@
-export class PageInfo {
+export class PageQuery {
   pageIndex?: number;
   currentPage?: number;
   hasNextPage?: boolean;

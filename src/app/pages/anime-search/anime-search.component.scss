@@ -1,7 +1,14 @@
 @import "../../styles/variables";
 
-#searchInput {
+.wide-input {
   width: 320px;
+}
+
+.search-filters {
+  mat-form-field {
+    margin-left: map-get($spacings, xxs);
+    width: 120px;
+  }
 }
 
 .progress-placeholder {

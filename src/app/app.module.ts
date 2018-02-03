@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 /* modules */
 import { MaterialModule } from './modules/material.module';
 /* components */
@@ -38,7 +37,6 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     MaterialModule,
-    AngularFontAwesomeModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

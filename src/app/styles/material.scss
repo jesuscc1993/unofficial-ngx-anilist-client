@@ -26,9 +26,11 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 mat-card {
   &.warning {
     background: map-get($mat-orange, 100);
+    color: map-get($mat-orange, 700);
   }
   &.error {
     background: map-get($mat-red, 200);
+    color: map-get($mat-red, 800);
   }
 }
 

@@ -5,7 +5,7 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatRadioModule, MatSelectModule,
-  MatSortModule, MatTableModule, MatToolbarModule
+  MatSortModule, MatTableModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 
 const modules: any[] = [
@@ -25,7 +25,8 @@ const modules: any[] = [
   MatSelectModule,
   MatSortModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTooltipModule
 ]
 
 @NgModule({

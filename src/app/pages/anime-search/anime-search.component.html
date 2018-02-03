@@ -3,11 +3,13 @@
   <mat-card class="text-center">
 
     <h1>
-      Anime search
+      <label for="searchInput">
+        Anime search
+      </label>
     </h1>
 
-    <mat-form-field id="searchInput" class="display-block auto-margin">
-      <input matInput placeholder="Anime title" formControlName="search">
+    <mat-form-field class="wide-input display-block auto-margin">
+      <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
     </mat-form-field>
 
     <!--<mat-form-field id="yearInput">-->
@@ -16,18 +18,58 @@
       <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
     <!--</mat-form-field>-->
 
-    <mat-expansion-panel class="mat-elevation-z">
+    <mat-expansion-panel class="mat-elevation-z search-filters">
       <mat-expansion-panel-header>
         Advanced filters
       </mat-expansion-panel-header>
 
-      <mat-form-field id="formatFormat">
-        <mat-select placeholder="Format" formControlName="format">
-          <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-            {{ mediaFormat.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="filter-group">
+        <label (click)="formatInput.open()">
+          Format
+        </label>
+
+        <mat-form-field>
+          <mat-select #formatInput formControlName="format">
+            <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+              {{ mediaFormat.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="filter-group">
+        <label for="newerThanInput">
+          Air date >=
+        </label>
+
+        <mat-form-field>
+          <input
+              id="newerThanInput"
+              matInput type="number"
+              placeholder="Year"
+              formControlName="startDate_greater"
+              [min]="minYear" [max]="maxYear"
+          >
+        </mat-form-field>
+
+        <span class="margin-left-xxs">
+          &&
+        </span>
+
+        <label for="olderThanInput">
+           <
+        </label>
+
+        <mat-form-field>
+          <input
+              id="olderThanInput"
+              matInput type="number"
+              placeholder="Year"
+              formControlName="startDate_lesser"
+              [min]="minYear" [max]="maxYear"
+          >
+        </mat-form-field>
+      </div>
 
     </mat-expansion-panel>
 
@@ -42,14 +84,14 @@
 
   <mat-card *ngIf="errorGotten" class="error">
     <h4>
-      <fa name="exclamation-circle" size="1x" class="margin-right-xxs"></fa>
+      <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
       Error 500: Internal server error
     </h4>
   </mat-card>
 
   <mat-card *ngIf="noResults" class="warning">
     <h4>
-      <fa name="info-circle" size="1x" class="margin-right-xxs"></fa>
+      <i class="fa fa-info-circle fa-1x margin-right-xxs"></i>
       No results found
     </h4>
   </mat-card>

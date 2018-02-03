@@ -53,6 +53,10 @@ body {
   margin: auto !important;
 }
 
+.transition {
+  transition: .2s;
+}
+
 [hidden] {
   display: none !important;
 }
