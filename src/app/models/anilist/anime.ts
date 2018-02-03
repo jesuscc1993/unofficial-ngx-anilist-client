@@ -8,4 +8,5 @@ export class Anime {
   coverImage: CoverImage
   genres: string[];
   meanScore: number;
+  format: string;
 }
