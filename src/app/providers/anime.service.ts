@@ -72,17 +72,21 @@ export class AnimeService {
       variables: options
 
     }).map((response) => {
-      const serverResponse = this.getResponseData(response);
+      let serverResponse;
 
-      serverResponse.media.forEach((anime: Anime) => {
-        anime.format = new MediaFormat(anime.format).label;
-      });
+      if (this.isValidResponse(response)) {
+        serverResponse = this.getResponseData(response);
+
+        serverResponse.media.forEach((anime: Anime) => {
+          anime.format = new MediaFormat(anime.format).label;
+        });
+      }
 
       return serverResponse;
     });
   }
 
-  public isValidResponse(response: any): boolean {
+  private isValidResponse(response: any): boolean {
     return response && response.json() && response.json().data && response.json().data.Page;
   }
 
