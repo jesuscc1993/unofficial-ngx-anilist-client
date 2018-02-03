@@ -44,7 +44,9 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
       <div *ngFor="let genre of anime.genres; let i = index">
-        {{ genre }}<span *ngIf="i < anime.genres.length - 1">,</span>
+        <mat-chip>
+          {{ genre }}
+        </mat-chip>
       </div>
     </mat-cell>
   </ng-container>

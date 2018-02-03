@@ -47,3 +47,10 @@ mat-form-field {
     }
   }
 }
+
+.mat-chip:not(.mat-basic-chip) {
+  background-color: #999;
+  color: white;
+  padding: 0 6px;
+  border-radius: 9px;
+}
