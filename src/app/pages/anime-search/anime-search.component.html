@@ -33,7 +33,7 @@
   <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
   <div class="progress-placeholder"></div>
 
-  <mat-card *ngIf="animeList && animeList.length > 0" class="margin-top-s no-padding">
+  <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
     <app-anime-table [tableData]="animeList"></app-anime-table>
 
     <mat-paginator
@@ -44,14 +44,14 @@
     </mat-paginator>
   </mat-card>
 
-  <mat-card *ngIf="noResults" class="margin-top-s">
+  <mat-card *ngIf="noResults" class="warning">
     <h4>
       <fa name="info-circle" size="1x" class="margin-right-xxs"></fa>
       No results found
     </h4>
   </mat-card>
 
-  <mat-card *ngIf="errorGotten" class="margin-top-s">
+  <mat-card *ngIf="errorGotten" class="error">
     <h4>
       <fa name="exclamation-circle" size="1x" class="margin-right-xxs"></fa>
       Error 500: Internal server error

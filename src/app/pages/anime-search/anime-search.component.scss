@@ -1,7 +1,15 @@
+@import "../../styles/variables";
+
 #searchInput {
   width: 320px;
 }
 
 .progress-placeholder {
   height: 5px;
+}
+
+mat-card {
+  &:not(:first-of-type) {
+    margin-top: map-get($spacings, s);
+  }
 }

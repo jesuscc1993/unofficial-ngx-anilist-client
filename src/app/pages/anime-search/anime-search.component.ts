@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
+import { Query } from '../../models/anilist/query';
 import { PageInfo } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
-import { PageEvent } from '@angular/material';
-import { MediaFormats } from '../../models/anilist/mediaFormats';
-import { Query } from '../../models/anilist/query';
+import { mediaFormats } from '../../models/anilist/mediaFormats';
 
 @Component({
   selector: 'app-anime-search',
@@ -17,7 +17,7 @@ export class AnimeSearchComponent implements OnInit {
 
   animeList: Anime[];
   pagination: PageInfo;
-  mediaFormats: any[] = MediaFormats;
+  mediaFormats: any[] = mediaFormats;
 
   searching: boolean;
   noResults: boolean;

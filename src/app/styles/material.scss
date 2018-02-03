@@ -24,7 +24,12 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include angular-material-theme($app-theme);
 
 mat-card {
-  background: white;
+  &.warning {
+    background: map-get($mat-orange, 100);
+  }
+  &.error {
+    background: map-get($mat-red, 200);
+  }
 }
 
 .mat-raised-button.mat-accent,

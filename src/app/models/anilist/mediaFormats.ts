@@ -1,4 +1,4 @@
-const MediaFormats: any[] = [
+const mediaFormats: any[] = [
   { label: 'Any', value: '' },
   { label: 'TV', value: 'TV' },
   { label: 'TV short', value: 'TV_SHORT' },
@@ -8,4 +8,4 @@ const MediaFormats: any[] = [
   { label: 'ONA', value: 'ONA' },
   { label: 'Music', value: 'MUSIC' }
 ];
-export { MediaFormats }
+export { mediaFormats }
