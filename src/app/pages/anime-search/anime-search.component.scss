@@ -13,3 +13,7 @@ mat-card {
     margin-top: map-get($spacings, s);
   }
 }
+
+mat-expansion-panel:not(.mat-expanded) {
+  margin-bottom: map-get($spacings, s);
+}

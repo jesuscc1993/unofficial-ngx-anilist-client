@@ -16,13 +16,20 @@
       <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
     <!--</mat-form-field>-->
 
-    <mat-form-field id="formatFormat">
-      <mat-select placeholder="Format" formControlName="format">
-        <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-          {{ mediaFormat.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <mat-expansion-panel class="mat-elevation-z">
+      <mat-expansion-panel-header>
+        Advanced filters
+      </mat-expansion-panel-header>
+
+      <mat-form-field id="formatFormat">
+        <mat-select placeholder="Format" formControlName="format">
+          <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+            {{ mediaFormat.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </mat-expansion-panel>
 
     <button mat-raised-button color="accent" class="display-block auto-margin" [disabled]="!searchForm.valid">
       Search
@@ -33,15 +40,11 @@
   <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
   <div *ngIf="!searching" class="progress-placeholder"></div>
 
-  <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
-    <app-anime-table [tableData]="animeList"></app-anime-table>
-
-    <mat-paginator
-      [length]="pagination.total"
-      [pageSize]="pagination.perPage"
-      [pageSizeOptions]="[5, 10, 25, 50, 100]"
-      (page)="changePage($event)">
-    </mat-paginator>
+  <mat-card *ngIf="errorGotten" class="error">
+    <h4>
+      <fa name="exclamation-circle" size="1x" class="margin-right-xxs"></fa>
+      Error 500: Internal server error
+    </h4>
   </mat-card>
 
   <mat-card *ngIf="noResults" class="warning">
@@ -51,11 +54,15 @@
     </h4>
   </mat-card>
 
-  <mat-card *ngIf="errorGotten" class="error">
-    <h4>
-      <fa name="exclamation-circle" size="1x" class="margin-right-xxs"></fa>
-      Error 500: Internal server error
-    </h4>
+  <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
+    <app-anime-table [tableData]="animeList"></app-anime-table>
+
+    <mat-paginator
+      [length]="pagination.total"
+      [pageSize]="pagination.perPage"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      (page)="changePage($event)">
+    </mat-paginator>
   </mat-card>
 
 </form>

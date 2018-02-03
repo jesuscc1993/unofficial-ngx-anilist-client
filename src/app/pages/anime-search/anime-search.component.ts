@@ -39,6 +39,7 @@ export class AnimeSearchComponent implements OnInit {
 
   private search(page?: number, perPage?: number): void {
     this.searching = true;
+    this.errorGotten = false;
 
     const query: Query = {
       search: this.searchForm.value.search,
@@ -54,12 +55,13 @@ export class AnimeSearchComponent implements OnInit {
       this.noResults = response.media.length < 1;
       this.animeList = response.media;
       this.pagination = response.pageInfo;
+      this.searching = false;
 
     }, () => {
       this.errorGotten = true;
-
-    }, () => {
+      this.noResults = false;
       this.searching = false;
+
     });
   }
 

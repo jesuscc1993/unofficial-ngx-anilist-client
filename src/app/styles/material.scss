@@ -37,3 +37,11 @@ mat-card {
 .mat-mini-fab.mat-accent {
   color: white;
 }
+
+mat-form-field {
+  &.no-label {
+    .mat-input-infix {
+      border-top: none !important;
+    }
+  }
+}

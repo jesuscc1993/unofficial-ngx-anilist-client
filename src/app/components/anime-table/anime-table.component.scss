@@ -6,6 +6,13 @@ $horizontal-cell-padding: map-get($spacings, xxs);
   padding: map-get($spacings, xxxs) 0;
 }
 
+/* small columns */
+.mat-column-mean-score,
+.mat-column-start-date,
+.mat-column-episodes {
+  flex: calc(2/3);
+}
+
 /* large columns */
 .mat-column-title {
   flex: 4;
@@ -22,4 +29,37 @@ $horizontal-cell-padding: map-get($spacings, xxs);
     }
   }
 
+}
+
+@media (max-width: $desktop-s) {
+  .mat-column-mean-score,
+  .mat-column-start-date,
+  .mat-column-genres,
+  .mat-column-episodes {
+    display: none;
+  }
+
+  .mat-column-format {
+    flex: calc(1/2);
+  }
+}
+
+@media (max-width: $tablet-m) {
+  .mat-column-cover-image {
+    flex: calc(5/4);
+  }
+
+  .mat-column-format {
+    flex: calc(2/3);
+  }
+}
+
+@media (max-width: $tablet-s) {
+  .mat-column-cover-image {
+    flex: calc(7/4);
+  }
+
+  .mat-column-format {
+    flex: 1;
+  }
 }
