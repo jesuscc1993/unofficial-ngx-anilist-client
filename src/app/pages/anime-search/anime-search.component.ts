@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
 import { Query } from '../../models/anilist/query';
@@ -28,7 +28,7 @@ export class AnimeSearchComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.searchForm = this.formBuilder.group({
-      search: ['', Validators.required],
+      search: [''],
       format: ['']
     });
   }

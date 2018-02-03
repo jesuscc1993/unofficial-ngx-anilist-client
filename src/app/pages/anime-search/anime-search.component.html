@@ -31,7 +31,7 @@
   </mat-card>
 
   <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
-  <div class="progress-placeholder"></div>
+  <div *ngIf="!searching" class="progress-placeholder"></div>
 
   <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
     <app-anime-table [tableData]="animeList"></app-anime-table>
