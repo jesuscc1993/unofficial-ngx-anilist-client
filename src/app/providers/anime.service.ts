@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Query } from '../models/anilist/query';
+import { PageInfo } from '../models/anilist/pageInfo';
 
 @Injectable()
 export class AnimeService {
@@ -11,7 +13,7 @@ export class AnimeService {
   };
 
   query: string =
-    `query ($id: Int, $page: Int, $perPage: Int, $search: String, $type: MediaType) {
+    `query ($id: Int, $page: Int, $perPage: Int, $search: String, $type: MediaType, $format: MediaFormat) {
       Page (page: $page, perPage: $perPage) {
         pageInfo {
           total
@@ -20,7 +22,7 @@ export class AnimeService {
           hasNextPage
           perPage
         }
-        media (id: $id, search: $search, type: $type) {
+        media (id: $id, search: $search, type: $type, format: $format) {
           id
           title {
             romaji
@@ -33,7 +35,8 @@ export class AnimeService {
             medium
           },
           genres
-          meanScore
+          meanScore,
+          format
         }
       }
     }`;
@@ -44,18 +47,22 @@ export class AnimeService {
 
   }
 
-  public search(query: string, page?: number, perPage?: number): Observable<any> {
-    if (typeof page !== 'number' || page < 1) {
-      page = 1;
+  public search(query: Query, pageInfo: PageInfo): Observable<any> {
+    let options: any = Object.assign({}, this.options);
+
+    if (query.search) {
+      options.search = query.search;
     }
-    if (typeof perPage !== 'number') {
-      perPage = 10;
+    if (query.format) {
+      options.format = query.format;
     }
 
-    let options: any = Object.assign({}, this.options);
-    options.search = query;
-    options.page = page;
-    options.perPage = perPage;
+    options.page = pageInfo.pageIndex || 1;
+    options.perPage = pageInfo.perPage || 10;
+
+    if (options.page < 1) {
+      options.page = 1;
+    }
 
     return this.http.post(this.apiUrl, {
       query: this.query,

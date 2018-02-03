@@ -6,11 +6,25 @@
       Anime search
     </h1>
 
-    <mat-form-field>
-      <input matInput placeholder="Anime title" formControlName="query">
+    <mat-form-field id="searchInput" class="display-block auto-margin">
+      <input matInput placeholder="Anime title" formControlName="search">
     </mat-form-field>
 
-    <button mat-raised-button color="accent" class="display-block auto-margin" [disabled]="searchForm.value.query.length < 1">
+    <!--<mat-form-field id="yearInput">-->
+      <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
+      <!--<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>-->
+      <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
+    <!--</mat-form-field>-->
+
+    <mat-form-field id="formatFormat">
+      <mat-select placeholder="Format" formControlName="format">
+        <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+          {{ mediaFormat.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" class="display-block auto-margin" [disabled]="!searchForm.valid">
       Search
     </button>
 
@@ -34,6 +48,13 @@
     <h4>
       <fa name="info-circle" size="1x" class="margin-right-xxs"></fa>
       No results found
+    </h4>
+  </mat-card>
+
+  <mat-card *ngIf="errorGotten" class="margin-top-s">
+    <h4>
+      <fa name="exclamation-circle" size="1x" class="margin-right-xxs"></fa>
+      Error 500: Internal server error
     </h4>
   </mat-card>
 

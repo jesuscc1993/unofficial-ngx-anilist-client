@@ -18,6 +18,15 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="format">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Format
+    </mat-header-cell>
+    <mat-cell *matCellDef="let anime">
+      {{ anime.format }}
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="start-date">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
       Year
