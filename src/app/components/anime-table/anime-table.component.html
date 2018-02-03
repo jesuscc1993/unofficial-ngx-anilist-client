@@ -5,7 +5,9 @@
       Cover
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <img [src]="anime.coverImage.medium">
+      <a href="{{ 'https://anilist.co/anime/' + anime.id }}">
+        <img [src]="anime.coverImage.medium">
+      </a>
     </mat-cell>
   </ng-container>
 
