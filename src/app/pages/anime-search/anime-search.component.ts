@@ -24,7 +24,7 @@ export class AnimeSearchComponent implements OnInit {
   errorGotten: boolean;
 
   minYear: number = 1900;
-  maxYear: number = new Date().getFullYear();
+  maxYear: number = new Date().getFullYear() + 1;
 
   constructor(
     private animeService: AnimeService,
@@ -50,7 +50,7 @@ export class AnimeSearchComponent implements OnInit {
       search: this.searchForm.value.search,
       format: this.searchForm.value.format,
       startDate_lesser: this.getDateScalarFromYear(this.searchForm.value.startDate_lesser),
-      startDate_greater: this.getDateScalarFromYear(this.searchForm.value.startDate_greater)
+      startDate_greater: this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231
     };
 
     const pageInfo: PageQuery = {
