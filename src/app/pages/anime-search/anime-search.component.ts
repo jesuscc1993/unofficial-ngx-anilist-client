@@ -50,17 +50,16 @@ export class AnimeSearchComponent implements OnInit {
       perPage: perPage
     };
 
-    this.animeService.search(query, pageInfo).subscribe((serverResponse: any) => {
-      if (this.animeService.isValidResponse(serverResponse)) {
-        this.searching = false;
+    this.animeService.search(query, pageInfo).subscribe((response: any) => {
+      this.noResults = response.media.length < 1;
+      this.animeList = response.media;
+      this.pagination = response.pageInfo;
 
-        const response = this.animeService.getResponseData(serverResponse);
-        this.noResults = response.media.length < 1;
-        this.animeList = response.media;
-        this.pagination = response.pageInfo;
-      }
     }, () => {
       this.errorGotten = true;
+
+    }, () => {
+      this.searching = false;
     });
   }
 

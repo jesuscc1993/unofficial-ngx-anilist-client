@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { Query } from '../models/anilist/query';
 import { PageInfo } from '../models/anilist/pageInfo';
+import { Anime } from '../models/anilist/anime';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { MediaFormat } from '../models/anilist/mediaFormat';
 
 @Injectable()
 export class AnimeService {
@@ -67,6 +70,15 @@ export class AnimeService {
     return this.http.post(this.apiUrl, {
       query: this.query,
       variables: options
+
+    }).map((response) => {
+      const serverResponse = this.getResponseData(response);
+
+      serverResponse.media.forEach((anime: Anime) => {
+        anime.format = new MediaFormat(anime.format).label;
+      });
+
+      return serverResponse;
     });
   }
 
@@ -74,7 +86,7 @@ export class AnimeService {
     return response && response.json() && response.json().data && response.json().data.Page;
   }
 
-  public getResponseData(response: any): any {
+  private getResponseData(response: any): any {
     return response.json().data.Page;
   }
 
