@@ -16,10 +16,10 @@ export class ToolbarComponent implements OnInit {
   constructor(
       private animeService: AnimeService
   ) {
-    const locationParts: string[] = location.href.split('access_token=');
+    const locationParts: string[] = location.href.split('#access_token=');
     if (locationParts.length > 1) {
       this.animeService.setAccessToken(locationParts[1]);
-      history.replaceState({}, 'Login success', 'login');
+      history.replaceState({}, 'Login success', locationParts[0]);
 
     } else {
       this.loginAvailable = !this.animeService.getAccessToken() && environment.anilist_client_id >= 0;
