@@ -1,16 +1,32 @@
 <mat-toolbar>
-  <div class="full-width">
-    <i class="fa fa-github fa-1x margin-right-xxs clickable" [matMenuTriggerFor]="menu"></i>
-    Angular Material demo - Anime management client
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="viewOnGitHub()">
-        View on GitHub
-      </button>
-    </mat-menu>
+  <i class="fa fa-github fa-1x margin-right-xxs clickable" [matMenuTriggerFor]="githubMenu"></i>
+  Angular Material demo - Anime management client
 
-    <a *ngIf="loginAvailable" [href]=getApiLoginUrl() class="float-right">
-      Login with AniList
-    </a>
-  </div>
+  <mat-menu #githubMenu="matMenu">
+    <button mat-menu-item (click)="viewOnGitHub()">
+      View on GitHub
+    </button>
+  </mat-menu>
+
+  <span class="filler"></span>
+
+  <span *ngIf="user" class="margin-right-xs">
+    {{ user.name }}
+  </span>
+  <img *ngIf="user" class="avatar" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
+
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="viewProfile()">
+      View profile
+    </button>
+    <button mat-menu-item (click)="logout()">
+      Logout
+    </button>
+  </mat-menu>
+
+  <a *ngIf="loginAvailable" [href]=getApiLoginUrl()>
+    Login with AniList
+  </a>
+
 </mat-toolbar>

@@ -1,0 +1,11 @@
+.filler {
+  flex: 1 1 auto;
+}
+
+img.avatar {
+  $max-size: 64px;
+  max-width: $max-size;
+  max-height: $max-size;
+  width: auto;
+  height: auto;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -8,18 +8,21 @@ import { PageQuery } from '../models/anilist/pageInfo';
 import { Anime } from '../models/anilist/anime';
 import { MediaFormat } from '../models/anilist/mediaFormat';
 import { mediaSorts } from '../models/anilist/mediaSorts';
+import { User } from '../models/anilist/user';
 
 @Injectable()
 export class AnimeService {
-  apiUrl: string = 'https://graphql.anilist.co';
+  private apiUrl: string = 'https://graphql.anilist.co';
+  private accessTokenKey: string = 'accessToken';
+  private userKey: string = 'user';
 
-  options: any = {
+  private options: any = {
     type: 'ANIME'
   };
 
-  fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
+  private fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
 
-  animeFields: string =
+  private animeFields: string =
     `id
     title {
       romaji
@@ -35,7 +38,7 @@ export class AnimeService {
     meanScore,
     format`;
 
-  searchQuery: string =
+  private searchQuery: string =
     `query (
       $id: Int,
       $page: Int,
@@ -72,6 +75,43 @@ export class AnimeService {
       }
     }`;
 
+  private userQuery: string =
+    `{
+      Viewer {
+        id
+        name
+        avatar {
+          large
+        }
+        options {
+          displayAdultContent
+        }
+      }
+    }`;
+
+  private listQuery: string =
+    `query ($id: Int!, $listType: MediaType) {
+      MediaListCollection (userId: $id, type: $listType) {
+        statusLists {
+          ... mediaListEntry
+        }
+        customLists {
+          ... mediaListEntry
+        }
+        user {
+          id
+          name 
+          avatar {
+            large
+          }
+          mediaListOptions {
+            scoreFormat
+            rowOrder
+          }
+        }
+      }
+    }`;
+
   constructor (
     private http: Http
   ) {
@@ -79,10 +119,24 @@ export class AnimeService {
   }
 
   public setAccessToken(accessToken: string): void {
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem(this.accessTokenKey, accessToken);
   }
   public getAccessToken(): string {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem(this.accessTokenKey);
+  }
+  public removeAccessToken(): void {
+    localStorage.removeItem(this.accessTokenKey);
+  }
+
+  public setUser(user: User): void {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+  public getUser(): User {
+    const jsonString: string = localStorage.getItem(this.userKey);
+    return jsonString ? JSON.parse(jsonString) : undefined;
+  }
+  public removeUser(): void {
+    localStorage.removeItem(this.userKey);
   }
 
   public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
@@ -117,14 +171,13 @@ export class AnimeService {
       let serverResponse;
 
       if (this.isValidResponse(response)) {
-        serverResponse = this.getResponseData(response);
+        serverResponse = this.getResponseData(response).page;
 
         serverResponse.media.forEach((anime: Anime) => {
           anime.format = new MediaFormat(anime.format).label;
 
           if (anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
             anime.coverImage.medium = this.fallbackCover;
-
           }
         });
       }
@@ -133,12 +186,57 @@ export class AnimeService {
     });
   }
 
+  public queryUser(): Observable<User> {
+    return this.http.post(this.apiUrl, {
+      query: this.userQuery
+
+    }, this.getRequestOptions()).map((response) => {
+      let serverResponse;
+
+      if (this.isValidResponse(response)) {
+        serverResponse = this.getResponseData(response);
+      }
+
+      return serverResponse;
+    });
+  }
+
+  public getList(query: MediaQuery): Observable<any> {
+    return this.http.post(this.apiUrl, {
+      query: this.listQuery
+
+    }, this.getRequestOptions()).map((response) => {
+      let serverResponse;
+
+      if (this.isValidResponse(response)) {
+        serverResponse = this.getResponseData(response).page;
+
+        serverResponse.media.forEach((anime: Anime) => {
+          anime.format = new MediaFormat(anime.format).label;
+
+          if (anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
+            anime.coverImage.medium = this.fallbackCover;
+          }
+        });
+      }
+
+      return serverResponse;
+    });
+  }
+
+  private getRequestOptions(): RequestOptions {
+    const headers: any = {
+      Authorization: 'Bearer ' + this.getAccessToken()
+    };
+    return new RequestOptions({ headers: headers });
+  }
+
   private isValidResponse(response: any): boolean {
-    return response && response.json() && response.json().data && response.json().data.Page;
+    return response && response.json() && response.json().data;
   }
 
   private getResponseData(response: any): any {
-    return response.json().data.Page;
+    return response.json().data;
   }
 
 }
