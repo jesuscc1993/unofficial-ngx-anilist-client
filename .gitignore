@@ -28,6 +28,9 @@
 *.cmd
 *.sh
 
+# source files
+*.tif
+
 # misc
 /.sass-cache
 /connect.lock

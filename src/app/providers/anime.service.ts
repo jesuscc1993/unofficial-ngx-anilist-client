@@ -17,7 +17,7 @@ export class AnimeService {
     type: 'ANIME'
   };
 
-  fallbackCover: string = 'https://upload.wikimedia.org/wikipedia/commons/1/16/No_image_available_450_x_600.svg';
+  fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
 
   query: string =
     `query (
@@ -114,6 +114,7 @@ export class AnimeService {
 
           if (anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
             anime.coverImage.medium = this.fallbackCover;
+
           }
         });
       }
