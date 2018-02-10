@@ -75,6 +75,13 @@ export class AnimeService {
 
   }
 
+  public setAccessToken(accessToken: string): void {
+    localStorage.setItem('accessToken', accessToken);
+  }
+  public getAccessToken(): string {
+    return localStorage.getItem('accessToken');
+  }
+
   public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
     let options: any = Object.assign({}, this.options);
 

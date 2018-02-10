@@ -1,10 +1,16 @@
 <mat-toolbar>
-  <i class="fa fa-github fa-1x margin-right-xxs clickable" [matMenuTriggerFor]="menu"></i>
-  Angular Material demo - Anime management client
+  <div class="full-width">
+    <i class="fa fa-github fa-1x margin-right-xxs clickable" [matMenuTriggerFor]="menu"></i>
+    Angular Material demo - Anime management client
 
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="viewOnGitHub()">
-      View on GitHub
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="viewOnGitHub()">
+        View on GitHub
+      </button>
+    </mat-menu>
+
+    <a *ngIf="loginAvailable" [href]=getApiLoginUrl() class="float-right">
+      Login with AniList
+    </a>
+  </div>
 </mat-toolbar>

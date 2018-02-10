@@ -49,6 +49,17 @@ body {
   text-align: center;
 }
 
+.float-left {
+   float: left;
+ }
+.float-right {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
 .auto-margin {
   margin: auto !important;
 }
