@@ -33,7 +33,7 @@ const modules: any[] = [
   MatTableModule,
   MatToolbarModule,
   MatTooltipModule
-]
+];
 
 @NgModule({
   imports: modules,

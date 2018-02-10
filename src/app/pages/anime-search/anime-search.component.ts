@@ -39,7 +39,7 @@ export class AnimeSearchComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
@@ -75,7 +75,7 @@ export class AnimeSearchComponent implements OnInit {
     });
   }
 
-  private getDateScalarFromYear(year: number) {
+  private getDateScalarFromYear(year: number): number {
     return year * 10000;
   }
 

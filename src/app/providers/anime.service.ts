@@ -168,7 +168,7 @@ export class AnimeService {
       variables: options
 
     }).map((response) => {
-      let serverResponse;
+      let serverResponse: any;
 
       if (this.isValidResponse(response)) {
         serverResponse = this.getResponseData(response).page;
@@ -191,7 +191,7 @@ export class AnimeService {
       query: this.userQuery
 
     }, this.getRequestOptions()).map((response) => {
-      let serverResponse;
+      let serverResponse: any;
 
       if (this.isValidResponse(response)) {
         serverResponse = this.getResponseData(response);
@@ -206,7 +206,7 @@ export class AnimeService {
       query: this.listQuery
 
     }, this.getRequestOptions()).map((response) => {
-      let serverResponse;
+      let serverResponse: any;
 
       if (this.isValidResponse(response)) {
         serverResponse = this.getResponseData(response).page;
@@ -226,7 +226,7 @@ export class AnimeService {
 
   private getRequestOptions(): RequestOptions {
     const headers: any = {
-      Authorization: 'Bearer ' + this.getAccessToken()
+      Authorization: `Bearer ${this.getAccessToken()}`
     };
     return new RequestOptions({ headers: headers });
   }

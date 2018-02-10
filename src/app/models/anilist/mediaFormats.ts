@@ -8,4 +8,4 @@ const mediaFormats: any[] = [
   { label: 'ONA', value: 'ONA' },
   { label: 'Music', value: 'MUSIC' }
 ];
-export { mediaFormats }
+export { mediaFormats };

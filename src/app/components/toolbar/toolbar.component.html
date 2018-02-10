@@ -25,7 +25,7 @@
     </button>
   </mat-menu>
 
-  <a *ngIf="loginAvailable" [href]=getApiLoginUrl()>
+  <a *ngIf="!user && loginAvailable" [href]=getApiLoginUrl()>
     Login with AniList
   </a>
 

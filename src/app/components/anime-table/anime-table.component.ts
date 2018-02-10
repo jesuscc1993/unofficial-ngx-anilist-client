@@ -18,7 +18,7 @@ export class AnimeTableComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
@@ -28,7 +28,7 @@ export class AnimeTableComponent implements OnInit, OnChanges {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
 

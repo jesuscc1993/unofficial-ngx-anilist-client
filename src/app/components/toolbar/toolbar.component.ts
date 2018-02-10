@@ -22,11 +22,10 @@ export class ToolbarComponent implements OnInit {
     this.checkAndStoreAccessToken();
 
     this.user = this.animeService.getUser();
-    // this.user = undefined;
-    this.loginAvailable = !this.user && environment.anilist_client_id >= 0;
+    this.loginAvailable = environment.anilist_client_id >= 0;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
@@ -61,7 +60,8 @@ export class ToolbarComponent implements OnInit {
   private updateUserData(): void {
     this.animeService.queryUser().subscribe((response: any) => {
       this.animeService.setUser(response.Viewer);
-    })
+      this.user = this.animeService.getUser();
+    });
   }
 
 }

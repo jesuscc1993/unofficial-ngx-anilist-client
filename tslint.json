@@ -1,0 +1,44 @@
+{
+  "rules": {
+    "max-line-length": [
+      true,
+      160
+    ],
+    "new-parens": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": [true],
+    "no-console": true,
+    "no-duplicate-variable": true,
+    "curly": true,
+    "no-empty-interface": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration",
+      "property-declaration",
+      "variable-declaration"
+    ],
+    "no-invalid-this": true,
+    "no-switch-case-fall-through": true,
+    "triple-equals": true,
+    "class-name": true,
+    "prefer-template": true,
+    "semicolon": [true],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-module",
+      "check-separator",
+      "check-rest-spread",
+      "check-type",
+      "check-typecast",
+      "check-type-operator",
+      "check-preblock"
+    ]
+  }
+}
