@@ -6,9 +6,14 @@ export class MediaFormat {
 
   constructor(value: string) {
     this.value = value;
-    this.label = mediaFormats.filter((mediaType: any) => {
+
+    const matches: any[] = mediaFormats.filter((mediaType: any) => {
       return mediaType.value === value;
-    })[0].label;
+    });
+
+    if (matches.length) {
+      return matches[0].label;
+    }
   }
 
 }

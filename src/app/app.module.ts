@@ -14,6 +14,7 @@ import { AnimeService } from './providers/anime.service';
 /* pages */
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
+import { UserListComponent } from './pages/user-list/user-list.component';
 /* components */
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -21,6 +22,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
   { path: 'anime-search', component: AnimeSearchComponent },
+  { path: 'user-list', component: UserListComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     AppComponent,
     PageNotFoundComponent,
     AnimeSearchComponent,
+    UserListComponent,
     AnimeTableComponent,
     ToolbarComponent
   ],
