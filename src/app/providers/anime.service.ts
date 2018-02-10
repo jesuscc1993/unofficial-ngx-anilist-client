@@ -19,7 +19,23 @@ export class AnimeService {
 
   fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
 
-  query: string =
+  animeFields: string =
+    `id
+    title {
+      romaji
+    }
+    startDate {
+      year
+    },
+    episodes
+    coverImage {
+      medium
+    },
+    genres
+    meanScore,
+    format`;
+
+  searchQuery: string =
     `query (
       $id: Int,
       $page: Int,
@@ -51,20 +67,7 @@ export class AnimeService {
           startDate_greater: $startDate_greater,
           startDate_lesser: $startDate_lesser
         ) {
-          id
-          title {
-            romaji
-          }
-          startDate {
-            year
-          },
-          episodes
-          coverImage {
-            medium
-          },
-          genres
-          meanScore,
-          format
+          ${ this.animeFields }
         }
       }
     }`;
@@ -107,7 +110,7 @@ export class AnimeService {
     }
 
     return this.http.post(this.apiUrl, {
-      query: this.query,
+      query: this.searchQuery,
       variables: options
 
     }).map((response) => {
