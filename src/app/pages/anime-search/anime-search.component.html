@@ -97,7 +97,7 @@
   </mat-card>
 
   <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
-    <app-anime-table [tableData]="animeList"></app-anime-table>
+    <app-search-results-table [tableData]="animeList"></app-search-results-table>
 
     <mat-paginator
       [length]="pagination.total"

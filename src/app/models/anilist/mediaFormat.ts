@@ -12,7 +12,7 @@ export class MediaFormat {
     });
 
     if (matches.length) {
-      return matches[0].label;
+      return matches[0];
     }
   }
 

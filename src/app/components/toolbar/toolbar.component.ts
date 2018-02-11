@@ -37,6 +37,10 @@ export class ToolbarComponent implements OnInit {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
+  viewList(): void {
+    location.href = `user-list`;
+  }
+
   logout(): void {
     this.animeService.removeAccessToken();
     this.animeService.removeUser();

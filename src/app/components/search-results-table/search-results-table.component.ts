@@ -3,11 +3,11 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 import { Anime } from '../../models/anilist/anime';
 
 @Component({
-  selector: 'app-anime-table',
-  templateUrl: './anime-table.component.html',
-  styleUrls: ['./anime-table.component.scss']
+  selector: 'app-search-results-table',
+  templateUrl: './search-results-table.component.html',
+  styleUrls: ['./search-results-table.component.scss']
 })
-export class AnimeTableComponent implements OnInit, OnChanges {
+export class SearchResultsTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
   @ViewChild(MatSort) sort: MatSort;
 

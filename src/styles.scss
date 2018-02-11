@@ -71,6 +71,10 @@ body {
   transition: .2s;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 label[for],
 .clickable {
   cursor: pointer;

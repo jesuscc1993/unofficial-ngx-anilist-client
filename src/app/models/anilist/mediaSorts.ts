@@ -4,6 +4,6 @@ const mediaSorts: any[] = [
   { label: 'Year (asc)', value: 'START_DATE' },
   { label: 'Year (desc)', value: 'START_DATE_DESC' },
   { label: 'Year (asc)', value: 'START_DATE' },
-  { label: 'Year (desc)', value: 'START_DATE' },
+  { label: 'Year (desc)', value: 'START_DATE' }
 ];
 export { mediaSorts };

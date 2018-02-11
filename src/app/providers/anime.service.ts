@@ -86,7 +86,10 @@ export class AnimeService {
     }`;
 
   private listQuery: string =
-    `query ($id: Int!, $listType: MediaType) {
+    `query (
+      $id: Int!,
+      $listType: MediaType
+    ) {
       MediaListCollection (userId: $id, type: $listType) {
         statusLists {
           ... mediaListEntry
@@ -203,6 +206,7 @@ export class AnimeService {
   public getList(user: User): Observable<any> {
     let options: any = {
       listType: 'ANIME',
+      sort: 'SCORE',
       id: user.id
     };
 
@@ -211,20 +215,25 @@ export class AnimeService {
       variables: options
 
     }, this.getRequestOptions()).map((response) => {
-      let statusLists: any;
+      let statusLists: any[] = [];
+      let statusObjects: any[] = [];
 
       if (this.isValidResponse(response)) {
-        statusLists = this.getResponseData(response).MediaListCollection.statusLists;
-        let statuses: string[] = Object.keys(statusLists);
+        statusObjects = this.getResponseData(response).MediaListCollection.statusLists;
 
-        statuses.forEach((status: string) => {
-          statusLists[status].forEach((entry: any) => {
+        Object.keys(statusObjects).forEach((status: string) => {
+          let mediaEntries: any[] = [];
+
+          statusObjects[status].forEach((entry: any) => {
             this.parseAnimeData(entry.media);
+            mediaEntries.push(entry.media);
           });
+
+          this.sortListByTitle(statusObjects[status]);
         });
       }
 
-      return statusLists;
+      return statusObjects;
     });
   }
 
@@ -249,6 +258,24 @@ export class AnimeService {
     if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
       anime.coverImage.medium = this.fallbackCover;
     }
+  }
+
+  private sortListByTitle(array: any[]): void {
+    if (array && array.length) {
+      array.sort((a: any, b: any) => {
+        if (this.getListEntryTitle(a) < this.getListEntryTitle(b)) {
+          return -1;
+        } else if (this.getListEntryTitle(a) > this.getListEntryTitle(b)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+  }
+
+  private getListEntryTitle(entry: any): string {
+    return entry.media.title.romaji;
   }
 
 }

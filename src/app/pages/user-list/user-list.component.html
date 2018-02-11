@@ -1,3 +1,42 @@
-<pre>
-  {{ getListAsString() }}
-</pre>
+<h3>
+  <a href="/anime-search">
+    < Back to search
+  </a>
+</h3>
+
+<div *ngIf="multiListEnabled">
+  <div *ngFor="let status of statuses">
+    <a *ngIf="hasDataOfStatus(status)" href="{{ '/user-list#' + status }}" class="capitalize">
+      {{ status }}
+    </a>
+  </div>
+
+  <div *ngFor="let status of statuses">
+    <div *ngIf="hasDataOfStatus(status)">
+
+      <h3 [id]="status" class="capitalize">
+        {{ status }}
+      </h3>
+
+      <mat-card class="no-padding">
+        <app-user-list-table [tableData]="statusObjects[status]"></app-user-list-table>
+      </mat-card>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!multiListEnabled">
+  <h3 class="capitalize">
+    {{ 'completed' }}
+  </h3>
+
+  <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
+    <app-user-list-table [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"></app-user-list-table>
+  </mat-card>
+</div>
+
+<!-- Debug -->
+<!--<pre>-->
+  <!--{{ getListAsString() }}-->
+<!--</pre>-->

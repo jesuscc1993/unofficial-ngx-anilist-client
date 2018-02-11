@@ -10,7 +10,10 @@ import { AnimeService } from "../../providers/anime.service";
 export class UserListComponent implements OnInit {
 
   user: User;
-  statusLists: any;
+  statusObjects: any;
+  statuses: any;
+
+  multiListEnabled: boolean;
 
   constructor(
     private animeService: AnimeService
@@ -19,7 +22,8 @@ export class UserListComponent implements OnInit {
 
     if (this.user) {
       this.animeService.getList(this.user).subscribe((response) => {
-        this.statusLists = response;
+        this.statusObjects = response;
+        this.statuses = Object.keys(response).sort();
       });
     }
   }
@@ -28,8 +32,14 @@ export class UserListComponent implements OnInit {
 
   }
 
+  hasDataOfStatus(status: string): boolean {
+    return this.statusObjects &&
+           this.statusObjects[status] &&
+           this.statusObjects[status].length > 0;
+  }
+
   getListAsString(): string {
-    return JSON.stringify(this.statusLists, undefined, 2);
+    return JSON.stringify(this.statusObjects, undefined, 2);
   }
 
 }

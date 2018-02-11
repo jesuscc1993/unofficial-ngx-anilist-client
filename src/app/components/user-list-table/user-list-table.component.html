@@ -1,0 +1,75 @@
+<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" matSort>
+
+  <ng-container matColumnDef="cover-image">
+    <mat-header-cell *matHeaderCellDef>
+      Cover
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      <a href="{{ 'https://anilist.co/anime/' + entry.media.id }}">
+        <img [src]="entry.media.coverImage.medium">
+      </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Title
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      {{ entry.media.title.romaji }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="format">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Format
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      {{ entry.media.format }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="start-date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Year
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      {{ entry.media.startDate.year }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="genres">
+    <mat-header-cell *matHeaderCellDef>
+      Genres
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      <div *ngFor="let genre of entry.media.genres; let i = index">
+        <mat-chip>
+          {{ genre }}
+        </mat-chip>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="mean-score">
+    <mat-header-cell *matHeaderCellDef mat-sort-header="scoreRaw">
+      Score
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      {{ entry.scoreRaw / 10 }}/10
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="episodes">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      Episodes
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      {{ entry.media.episodes }}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: tableRows"></mat-row>
+
+</mat-table>

@@ -11,13 +11,16 @@ import { MaterialModule } from './modules/material.module';
 import { AppComponent } from './app.component';
 /* providers */
 import { AnimeService } from './providers/anime.service';
+/* pipes */
+import { SortPipe } from "./pipes/sort";
 /* pages */
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 /* components */
-import { AnimeTableComponent } from './components/anime-table/anime-table.component';
+import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -32,8 +35,10 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     AnimeSearchComponent,
     UserListComponent,
-    AnimeTableComponent,
-    ToolbarComponent
+    SearchResultsTableComponent,
+    ToolbarComponent,
+    SortPipe,
+    UserListTableComponent
   ],
   imports: [
     BrowserModule,
