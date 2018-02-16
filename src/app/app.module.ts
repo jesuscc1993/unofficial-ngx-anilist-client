@@ -2,7 +2,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 /* modules */
@@ -18,8 +18,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 /* components */
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 
 const appRoutes: Routes = [
@@ -36,16 +37,17 @@ const appRoutes: Routes = [
     AnimeSearchComponent,
     UserListComponent,
     SearchResultsTableComponent,
-    ToolbarComponent,
+    HeaderComponent,
     SortPipe,
-    UserListTableComponent
+    UserListTableComponent,
+    FooterComponent
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     MaterialModule,
     RouterModule.forRoot(appRoutes)
   ],

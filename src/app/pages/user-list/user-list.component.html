@@ -1,9 +1,3 @@
-<h3>
-  <a href="/anime-search">
-    < Back to search
-  </a>
-</h3>
-
 <div *ngIf="multiListEnabled">
   <div *ngFor="let status of statuses">
     <a *ngIf="hasDataOfStatus(status)" href="{{ '/user-list#' + status }}" class="capitalize">

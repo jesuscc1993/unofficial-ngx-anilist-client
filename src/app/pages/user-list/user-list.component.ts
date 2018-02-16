@@ -9,11 +9,11 @@ import { AnimeService } from "../../providers/anime.service";
 })
 export class UserListComponent implements OnInit {
 
-  user: User;
-  statusObjects: any;
-  statuses: any;
+  private user: User;
+  private statusObjects: any;
+  private statuses: any;
 
-  multiListEnabled: boolean;
+  private multiListEnabled: boolean;
 
   constructor(
     private animeService: AnimeService

@@ -11,8 +11,8 @@ export class SearchResultsTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
   @ViewChild(MatSort) sort: MatSort;
 
-  tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'mean-score', 'episodes'];
-  dataSource: MatTableDataSource<Anime>;
+  private tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'mean-score', 'episodes'];
+  private dataSource: MatTableDataSource<Anime>;
 
   constructor() {
 
@@ -34,5 +34,9 @@ export class SearchResultsTableComponent implements OnInit, OnChanges {
 
   private initializeDataSource(): void {
     this.dataSource = new MatTableDataSource<Anime>(this.tableData);
+  }
+
+  private viewOnAniList(anime: Anime): void {
+    location.href = `https://anilist.co/anime/${anime.id}`;
   }
 }

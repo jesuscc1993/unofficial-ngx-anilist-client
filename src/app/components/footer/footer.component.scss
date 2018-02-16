@@ -1,0 +1,11 @@
+@import "../../styles/variables";
+
+.mat-toolbar {
+  display: block;
+  height: auto;
+  padding: map-get($spacings, xs);
+
+  $font-size: map-get($font-sizes, s);
+  font-size: $font-size;
+  line-height: $font-size * 1.5;
+}

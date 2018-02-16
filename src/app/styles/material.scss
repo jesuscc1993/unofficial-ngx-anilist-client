@@ -58,3 +58,14 @@ mat-form-field {
   padding: 0 6px;
   border-radius: 9px;
 }
+
+a {
+  color: map-get($mat-orange, 800);
+  transition: color .2s;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: map-get($mat-orange, 500);
+  }
+}

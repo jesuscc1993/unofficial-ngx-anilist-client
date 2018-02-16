@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -117,7 +117,7 @@ export class AnimeService {
     }`;
 
   constructor (
-    private http: Http
+    private httpClient: HttpClient
   ) {
 
   }
@@ -169,7 +169,7 @@ export class AnimeService {
       options.page = 1;
     }
 
-    return this.http.post(this.apiUrl, {
+    return this.httpClient.post(this.apiUrl, {
       query: this.searchQuery,
       variables: options
 
@@ -189,7 +189,7 @@ export class AnimeService {
   }
 
   public queryUser(): Observable<User> {
-    return this.http.post(this.apiUrl, {
+    return this.httpClient.post(this.apiUrl, {
       query: this.userQuery
 
     }, this.getRequestOptions()).map((response) => {
@@ -210,7 +210,7 @@ export class AnimeService {
       id: user.id
     };
 
-    return this.http.post(this.apiUrl, {
+    return this.httpClient.post(this.apiUrl, {
       query: this.listQuery,
       variables: options
 
@@ -234,19 +234,19 @@ export class AnimeService {
     });
   }
 
-  private getRequestOptions(): RequestOptions {
+  private getRequestOptions(): any {
     const headers: any = {
       Authorization: `Bearer ${this.getAccessToken()}`
     };
-    return new RequestOptions({ headers: headers });
+    return { headers: headers };
   }
 
   private isValidResponse(response: any): boolean {
-    return response && response.json() && response.json().data;
+    return response && response.data;
   }
 
   private getResponseData(response: any): any {
-    return response.json().data;
+    return response.data;
   }
 
   private parseAnimeData(anime: Anime): void {

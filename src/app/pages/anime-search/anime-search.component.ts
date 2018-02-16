@@ -13,18 +13,18 @@ import { mediaFormats } from '../../models/anilist/mediaFormats';
   styleUrls: ['./anime-search.component.scss']
 })
 export class AnimeSearchComponent implements OnInit {
-  searchForm: FormGroup;
+  private searchForm: FormGroup;
 
-  animeList: Anime[];
-  pagination: PageQuery;
-  mediaFormats: any[] = mediaFormats;
+  private animeList: Anime[];
+  private pagination: PageQuery;
+  private mediaFormats: any[] = mediaFormats;
 
-  searching: boolean;
-  noResults: boolean;
-  errorGotten: boolean;
+  private searching: boolean;
+  private noResults: boolean;
+  private errorGotten: boolean;
 
-  minYear: number = 1900;
-  maxYear: number = new Date().getFullYear() + 1;
+  private minYear: number = 1900;
+  private maxYear: number = new Date().getFullYear() + 1;
 
   constructor(
     private animeService: AnimeService,

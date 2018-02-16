@@ -5,9 +5,16 @@
       Cover
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <a href="{{ 'https://anilist.co/anime/' + anime.id }}">
-        <img [src]="anime.coverImage.medium">
-      </a>
+      <!--<a href="{{ 'https://anilist.co/anime/' + anime.id }}">-->
+        <!--<img [src]="anime.coverImage.medium">-->
+      <!--</a>-->
+      <img [src]="anime.coverImage.medium" [matMenuTriggerFor]="entryMenu">
+
+      <mat-menu #entryMenu="matMenu">
+        <button mat-menu-item (click)="viewOnAniList(anime)">
+          View on AniList
+        </button>
+      </mat-menu>
     </mat-cell>
   </ng-container>
 

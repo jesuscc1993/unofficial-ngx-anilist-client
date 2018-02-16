@@ -5,6 +5,7 @@
 body {
   background: lightgray;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin: 0;
 
   .content-wrapper {
@@ -12,8 +13,15 @@ body {
     @extend .horizontal-padding-m;
     box-sizing: border-box;
     text-align: center;
-    margin: auto;
-    max-width: 1152px;
+
+    $header-height: 64px;
+    $footer-height: 74px;
+    min-height: calc(100vh - #{$header-height} - #{$footer-height});
+
+    .page-wrapper {
+      max-width: 1152px;
+      margin: auto;
+    }
 
     > * {
       text-align: left;
@@ -63,7 +71,7 @@ body {
   width: 100%;
 }
 
-.auto-margin {
+.margin-auto {
   margin: auto !important;
 }
 

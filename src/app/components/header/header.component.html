@@ -1,16 +1,18 @@
 <mat-toolbar>
 
-  <i class="fa fa-github fa-1x margin-right-xxs clickable" [matMenuTriggerFor]="githubMenu"></i>
-  Angular Material demo - Anime management client
+  <div>
+    <a *ngIf="!onRoot" [routerLink]="rootUrl">
+      <i class="fa fa-chevron-left fa-1x"></i> Back
+    </a>
+  </div>
 
-  <mat-menu #githubMenu="matMenu">
-    <button mat-menu-item (click)="viewOnGitHub()">
-      View on GitHub
-    </button>
-  </mat-menu>
+  <div class="centered-content">
+    Anime management client
+  </div>
 
   <span class="filler"></span>
 
+  <!-- logged in -->
   <span *ngIf="user" class="margin-right-xs">
     {{ user.name }}
   </span>
@@ -28,6 +30,7 @@
     </button>
   </mat-menu>
 
+  <!-- not logged in -->
   <a *ngIf="!user && loginAvailable" [href]=getApiLoginUrl()>
     Login with AniList
   </a>

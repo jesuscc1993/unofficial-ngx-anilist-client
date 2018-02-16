@@ -1,25 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class HeaderComponent implements OnInit {
 
-  private gitHubUrl: string = 'https://github.com/jesuscc1993/angular-material-demo';
+  private rootUrl: string = '/anime-search';
   private tokenPrefix: string = '#access_token=';
 
-  user: User;
-  loginAvailable: boolean;
+  private user: User;
+  private onRoot: boolean;
+  private loginAvailable: boolean;
 
   constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private animeService: AnimeService
   ) {
     this.checkAndStoreAccessToken();
+    this.subscribeToNavigation();
 
     this.user = this.animeService.getUser();
     this.loginAvailable = environment.anilist_client_id >= 0;
@@ -29,27 +34,29 @@ export class ToolbarComponent implements OnInit {
 
   }
 
-  viewOnGitHub(): void {
-    window.open(this.gitHubUrl);
-  }
-
-  viewProfile(): void {
+  private viewProfile(): void {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
-  viewList(): void {
-    location.href = `user-list`;
+  private viewList(): void {
+    this.router.navigate(['/user-list']);
   }
 
-  logout(): void {
+  private logout(): void {
     this.animeService.removeAccessToken();
     this.animeService.removeUser();
     this.user = undefined;
     this.loginAvailable = !this.user && environment.anilist_client_id >= 0;
   }
 
-  getApiLoginUrl(): string {
+  private getApiLoginUrl(): string {
     return `https://anilist.co/api/v2/oauth/authorize?client_id=${ environment.anilist_client_id }&response_type=token`;
+  }
+
+  private subscribeToNavigation(): void {
+    this.router.events.subscribe(() => {
+      this.onRoot = location.href.indexOf(this.rootUrl) >= 0;
+    });
   }
 
   private checkAndStoreAccessToken(): void {

@@ -2,6 +2,14 @@
   flex: 1 1 auto;
 }
 
+.centered-content {
+  left: 0;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  pointer-events: none;
+}
+
 img.avatar {
   $max-size: 64px;
   max-width: $max-size;
