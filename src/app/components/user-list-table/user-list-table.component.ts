@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Anime } from '../../models/anilist/anime';
 
 @Component({
@@ -10,9 +10,10 @@ import { Anime } from '../../models/anilist/anime';
 export class UserListTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'mean-score', 'episodes'];
-  dataSource: MatTableDataSource<Anime>;
+  private tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'mean-score', 'episodes'];
+  private dataSource: MatTableDataSource<Anime>;
 
   constructor() {
 
@@ -30,6 +31,7 @@ export class UserListTableComponent implements OnInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   private initializeDataSource(): void {

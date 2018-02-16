@@ -222,11 +222,8 @@ export class AnimeService {
         statusObjects = this.getResponseData(response).MediaListCollection.statusLists;
 
         Object.keys(statusObjects).forEach((status: string) => {
-          let mediaEntries: any[] = [];
-
           statusObjects[status].forEach((entry: any) => {
             this.parseAnimeData(entry.media);
-            mediaEntries.push(entry.media);
           });
 
           this.sortListByTitle(statusObjects[status]);

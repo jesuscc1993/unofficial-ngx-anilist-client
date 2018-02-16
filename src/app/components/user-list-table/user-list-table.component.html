@@ -73,3 +73,10 @@
   <mat-row *matRowDef="let myRowData; columns: tableRows"></mat-row>
 
 </mat-table>
+
+<mat-paginator
+  #paginator
+  [pageSize]="50"
+  [pageSizeOptions]="[5, 10, 25, 50, 100]"
+  [showFirstLastButtons]="true">
+</mat-paginator>
