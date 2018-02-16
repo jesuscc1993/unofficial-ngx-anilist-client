@@ -1,11 +1,9 @@
-import { CoverImage, StartDate, Title } from './dataTypes';
+import { StartDate } from './dataTypes';
+import { Media } from "./media";
 
-export class Anime {
-  id: number;
-  title: Title;
+export class Anime extends Media {
   startDate: StartDate;
   episodes: number;
-  coverImage: CoverImage;
   genres: string[];
   meanScore: number;
   format: string;

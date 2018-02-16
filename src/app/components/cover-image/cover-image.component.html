@@ -1,0 +1,7 @@
+<img [src]="media.coverImage.medium" [matMenuTriggerFor]="entryMenu" class="clickable">
+
+<mat-menu #entryMenu="matMenu">
+  <button mat-menu-item (click)="viewOnAniList(media)">
+    View on AniList
+  </button>
+</mat-menu>

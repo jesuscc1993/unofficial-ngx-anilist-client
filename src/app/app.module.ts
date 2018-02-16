@@ -22,6 +22,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
+import { CoverImageComponent } from './components/cover-image/cover-image.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -36,11 +37,12 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     AnimeSearchComponent,
     UserListComponent,
-    SearchResultsTableComponent,
     HeaderComponent,
-    SortPipe,
+    FooterComponent,
+    SearchResultsTableComponent,
     UserListTableComponent,
-    FooterComponent
+    CoverImageComponent,
+    SortPipe
   ],
   imports: [
     BrowserAnimationsModule,

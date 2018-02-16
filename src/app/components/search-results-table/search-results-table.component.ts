@@ -35,8 +35,4 @@ export class SearchResultsTableComponent implements OnInit, OnChanges {
   private initializeDataSource(): void {
     this.dataSource = new MatTableDataSource<Anime>(this.tableData);
   }
-
-  private viewOnAniList(anime: Anime): void {
-    location.href = `https://anilist.co/anime/${anime.id}`;
-  }
 }
