@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  private gitHubProjectUrl: string = 'https://github.com/jesuscc1993/angular-material-demo';
+  gitHubProjectUrl: string = 'https://github.com/jesuscc1993/angular-material-demo';
 
   constructor() {
 

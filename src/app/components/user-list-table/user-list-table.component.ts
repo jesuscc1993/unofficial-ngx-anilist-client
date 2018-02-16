@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { ListEntry } from "../../models/anilist/listEntry";
+import { ListEntry } from '../../models/anilist/listEntry';
 
 @Component({
   selector: 'app-user-list-table',
@@ -12,8 +12,8 @@ export class UserListTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  private tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'score', 'episodes'];
-  private dataSource: MatTableDataSource<ListEntry>;
+  tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'score', 'episodes'];
+  dataSource: MatTableDataSource<ListEntry>;
 
   constructor() {
 

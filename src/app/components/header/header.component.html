@@ -19,10 +19,10 @@
   <img *ngIf="user" class="avatar" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
 
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item (click)="viewProfile()">
+    <button mat-menu-item (click)="navigateToProfile()">
       View profile
     </button>
-    <button mat-menu-item (click)="viewList()">
+    <button mat-menu-item (click)="navigateToUserList()">
       View list
     </button>
     <button mat-menu-item (click)="logout()">
@@ -31,8 +31,8 @@
   </mat-menu>
 
   <!-- not logged in -->
-  <a *ngIf="!user && loginAvailable" [href]=getApiLoginUrl()>
-    Login with AniList
+  <a *ngIf="!user && loginAvailable" [href]=apiLoginUrl>
+    Log in with AniList
   </a>
 
 </mat-toolbar>

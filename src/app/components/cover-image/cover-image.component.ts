@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Media } from "../../models/anilist/media";
-import { Anime } from "../../models/anilist/anime";
+import { Media } from '../../models/anilist/media';
+import { Anime } from '../../models/anilist/anime';
 
 @Component({
   selector: 'app-cover-image',

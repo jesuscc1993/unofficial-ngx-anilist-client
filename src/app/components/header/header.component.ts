@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { environment } from '../../../environments/environment';
+import { apiLoginUrl } from '../../app.constants';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +12,14 @@ import { environment } from '../../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
-  private rootUrl: string = '/anime-search';
-  private tokenPrefix: string = '#access_token=';
+  rootUrl: string = '/anime-search';
+  userListUrl: string = '/user-list';
+  tokenPrefix: string = '#access_token=';
+  apiLoginUrl: string;
 
-  private user: User;
-  private onRoot: boolean;
-  private loginAvailable: boolean;
+  user: User;
+  onRoot: boolean;
+  loginAvailable: boolean;
 
   constructor(
     private router: Router,
@@ -26,6 +29,7 @@ export class HeaderComponent implements OnInit {
     this.checkAndStoreAccessToken();
     this.subscribeToNavigation();
 
+    this.apiLoginUrl = apiLoginUrl;
     this.user = this.animeService.getUser();
     this.loginAvailable = environment.anilist_client_id >= 0;
   }
@@ -34,12 +38,12 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  private viewProfile(): void {
+  private navigateToProfile(): void {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
-  private viewList(): void {
-    this.router.navigate(['/user-list']);
+  private navigateToUserList(): void {
+    this.router.navigate([this.userListUrl]);
   }
 
   private logout(): void {
@@ -47,10 +51,7 @@ export class HeaderComponent implements OnInit {
     this.animeService.removeUser();
     this.user = undefined;
     this.loginAvailable = !this.user && environment.anilist_client_id >= 0;
-  }
-
-  private getApiLoginUrl(): string {
-    return `https://anilist.co/api/v2/oauth/authorize?client_id=${ environment.anilist_client_id }&response_type=token`;
+    this.router.navigate([this.rootUrl]);
   }
 
   private subscribeToNavigation(): void {
@@ -72,6 +73,7 @@ export class HeaderComponent implements OnInit {
     this.animeService.queryUser().subscribe((response: any) => {
       this.animeService.setUser(response.Viewer);
       this.user = this.animeService.getUser();
+      this.navigateToUserList();
     });
   }
 

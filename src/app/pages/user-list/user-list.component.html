@@ -1,36 +1,41 @@
-<div *ngIf="multiListEnabled">
-  <div *ngFor="let status of statuses">
-    <a *ngIf="hasDataOfStatus(status)" href="{{ '/user-list#' + status }}" class="capitalize">
-      {{ status }}
-    </a>
-  </div>
+<div *ngIf="loggedIn && user">
+  <!--<div *ngIf="multiListEnabled">-->
+    <!--<div *ngFor="let status of statuses">-->
+      <!--<a *ngIf="hasDataOfStatus(status)" href="{{ '/user-list#' + status }}" class="capitalize">-->
+        <!--{{ status }}-->
+      <!--</a>-->
+    <!--</div>-->
+  <!---->
+    <!--<div *ngFor="let status of statuses">-->
+      <!--<div *ngIf="hasDataOfStatus(status)">-->
+  <!---->
+        <!--<h3 [id]="status" class="capitalize">-->
+          <!--{{ status }}-->
+        <!--</h3>-->
+  <!---->
+        <!--<mat-card class="no-padding">-->
+          <!--<app-user-list-table [tableData]="statusObjects[status]"></app-user-list-table>-->
+        <!--</mat-card>-->
+  <!---->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
-  <div *ngFor="let status of statuses">
-    <div *ngIf="hasDataOfStatus(status)">
+  <div *ngIf="!multiListEnabled">
+    <h3 class="capitalize">
+      {{ 'completed' }}
+    </h3>
 
-      <h3 [id]="status" class="capitalize">
-        {{ status }}
-      </h3>
-
-      <mat-card class="no-padding">
-        <app-user-list-table [tableData]="statusObjects[status]"></app-user-list-table>
-      </mat-card>
-
-    </div>
+    <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
+      <app-user-list-table [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"></app-user-list-table>
+    </mat-card>
   </div>
 </div>
 
-<div *ngIf="!multiListEnabled">
-  <h3 class="capitalize">
-    {{ 'completed' }}
-  </h3>
-
-  <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
-    <app-user-list-table [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"></app-user-list-table>
-  </mat-card>
-</div>
-
-<!-- Debug -->
-<!--<pre>-->
-  <!--{{ getListAsString() }}-->
-<!--</pre>-->
+<mat-card *ngIf="!loggedIn" class="warning">
+  <h4>
+    <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+    You are not logged in.
+    <a [href]=apiLoginUrl>Log in with AniList</a>.
+  </h4>
+</mat-card>

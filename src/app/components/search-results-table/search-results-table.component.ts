@@ -11,8 +11,8 @@ export class SearchResultsTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
   @ViewChild(MatSort) sort: MatSort;
 
-  private tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'mean-score', 'episodes'];
-  private dataSource: MatTableDataSource<Anime>;
+  tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'mean-score', 'episodes'];
+  dataSource: MatTableDataSource<Anime>;
 
   constructor() {
 

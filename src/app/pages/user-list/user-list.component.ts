@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "../../models/anilist/user";
-import { AnimeService } from "../../providers/anime.service";
+import { User } from '../../models/anilist/user';
+import { AnimeService } from '../../providers/anime.service';
+import { apiLoginUrl } from '../../app.constants';
 
 @Component({
   selector: 'app-user-list',
@@ -9,16 +10,20 @@ import { AnimeService } from "../../providers/anime.service";
 })
 export class UserListComponent implements OnInit {
 
-  private user: User;
-  private statusObjects: any;
-  private statuses: any;
+  user: User;
+  statusObjects: any;
+  statuses: any;
 
-  private multiListEnabled: boolean;
+  apiLoginUrl: string;
+  multiListEnabled: boolean;
+  loggedIn: boolean = true;
 
   constructor(
     private animeService: AnimeService
   ) {
+    this.apiLoginUrl = apiLoginUrl;
     this.user = this.animeService.getUser();
+    this.loggedIn = this.user !== undefined;
 
     if (this.user) {
       this.animeService.getList(this.user).subscribe((response) => {
