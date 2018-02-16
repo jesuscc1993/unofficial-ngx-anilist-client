@@ -13,10 +13,10 @@
   <span class="filler"></span>
 
   <!-- logged in -->
-  <span *ngIf="user" class="margin-right-xs">
+  <span *ngIf="user" class="padding-right-xs clickable" [matMenuTriggerFor]="userMenu">
     {{ user.name }}
   </span>
-  <img *ngIf="user" class="avatar" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
+  <img *ngIf="user" class="avatar clickable" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
 
   <mat-menu #userMenu="matMenu">
     <button mat-menu-item (click)="navigateToProfile()">
