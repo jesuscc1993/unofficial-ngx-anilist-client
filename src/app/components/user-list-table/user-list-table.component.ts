@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ListEntry } from "../../models/anilist/listEntry";
 
@@ -7,7 +7,7 @@ import { ListEntry } from "../../models/anilist/listEntry";
   templateUrl: './user-list-table.component.html',
   styleUrls: ['./user-list-table.component.scss']
 })
-export class UserListTableComponent implements OnInit, OnChanges {
+export class UserListTableComponent implements AfterViewInit {
   @Input() tableData: ListEntry[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -19,19 +19,19 @@ export class UserListTableComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnInit(): void {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.tableData.currentValue !== changes.tableData.previousValue) {
-      this.initializeDataSource();
-    }
-  }
-
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+    // TODO: Fix ExpressionChangedAfterItHasBeenCheckedError
+    this.initializeDataSource();
+    this.bindChildComponents();
+  }
+
+  private initializeDataSource(): void {
+    this.dataSource = new MatTableDataSource<ListEntry>(this.tableData);
+  }
+
+  private bindChildComponents(): void {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (listEntry: ListEntry, property: string) => {
       return {
         'title': listEntry.media.title.romaji.toLowerCase(),
@@ -43,9 +43,5 @@ export class UserListTableComponent implements OnInit, OnChanges {
 
       }[property];
     };
-  }
-
-  private initializeDataSource(): void {
-    this.dataSource = new MatTableDataSource<ListEntry>(this.tableData);
   }
 }

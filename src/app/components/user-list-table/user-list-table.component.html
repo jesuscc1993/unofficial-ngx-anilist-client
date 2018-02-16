@@ -30,7 +30,7 @@
   </ng-container>
 
   <ng-container matColumnDef="start-date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Year
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
@@ -39,7 +39,7 @@
   </ng-container>
 
   <ng-container matColumnDef="genres">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+    <mat-header-cell *matHeaderCellDef>
       Genres
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
@@ -52,7 +52,7 @@
   </ng-container>
 
   <ng-container matColumnDef="score">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Score
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
@@ -61,7 +61,7 @@
   </ng-container>
 
   <ng-container matColumnDef="episodes">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Episodes
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
@@ -70,7 +70,7 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
-  <mat-row *matRowDef="let myRowData; columns: tableRows"></mat-row>
+  <mat-row *matRowDef="let rowData; columns: tableRows"></mat-row>
 
 </mat-table>
 
