@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar, PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
+import { User } from '../../models/anilist/user';
 import { MediaQuery } from '../../models/anilist/query';
 import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
@@ -12,8 +13,9 @@ import { mediaFormats } from '../../models/anilist/mediaFormats';
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss']
 })
-export class AnimeSearchComponent implements OnInit {
+export class AnimeSearchComponent {
 
+  user: User;
   animeList: Anime[];
   searchForm: FormGroup;
   pagination: PageQuery;
@@ -31,16 +33,14 @@ export class AnimeSearchComponent implements OnInit {
     private formBuilder: FormBuilder,
     private matSnackBar: MatSnackBar
   ) {
+    this.user = this.animeService.getUser();
+
     this.searchForm = this.formBuilder.group({
       search: [''],
       format: [''],
       startDate_greater: [undefined],
       startDate_lesser: [undefined]
     });
-  }
-
-  ngOnInit(): void {
-
   }
 
   private search(page?: number, perPage?: number): void {

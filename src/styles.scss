@@ -1,5 +1,7 @@
 @import 'app/styles/material';
+@import 'app/styles/devices';
 @import 'app/styles/spacing';
+@import 'app/styles/series-table';
 
 /* core */
 body {
@@ -25,6 +27,10 @@ body {
 
     > * {
       text-align: left;
+    }
+
+    @media (max-width: $screen-xs) {
+      padding: map-get($spacings, xs) !important;
     }
   }
 }

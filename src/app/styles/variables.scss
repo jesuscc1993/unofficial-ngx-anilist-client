@@ -1,23 +1,24 @@
-$spacings: (
-  xxxs: 4px,
-  xxs: 8px,
-  xs: 16px,
-  s: 24px,
-  m: 32px,
-  l: 48px,
-  xl: 64px,
-  xxl: 96px,
-  xxxl: 128px
-);
+/* spacing */
+$spacing-xxxs: 4px;
+$spacing-xxs: 8px;
+$spacing-xs: 16px;
+$spacing-s: 24px;
+$spacing-m: 32px;
+$spacing-l: 48px;
+$spacing-xl: 64px;
+$spacing-xxl: 96px;
+$spacing-xxxl: 128px;
 
-$font-sizes: (
-  xs: 12px,
-  s: 14px,
-  m: 16px
-);
+/* font sizes */
+$font-size-xs: 12px;
+$font-size-s: 14px;
+$font-size-m: 16px;
 
-$desktop-l: 1920px;
-$desktop-m: 1360px;
-$desktop-s: 1024px;
-$tablet-m: 768px;
-$tablet-s: 576px;
+/* device sizes */
+$screen-xxxs: 320px;
+$screen-xxs: 480px;
+$screen-xs: 576px;
+$screen-s: 768px;
+$screen-m: 1024px;
+$screen-l: 1360px;
+$screen-xl: 1920px;

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/anilist/user';
+import { Component } from '@angular/core';
 import { AnimeService } from '../../providers/anime.service';
+import { User } from '../../models/anilist/user';
 import { apiLoginUrl } from '../../app.constants';
 
 @Component({
@@ -8,7 +8,7 @@ import { apiLoginUrl } from '../../app.constants';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
 
   user: User;
   statusObjects: any;
@@ -25,16 +25,16 @@ export class UserListComponent implements OnInit {
     this.user = this.animeService.getUser();
     this.loggedIn = this.user !== undefined;
 
+    this.getUserList();
+  }
+
+  private getUserList(): void {
     if (this.user) {
       this.animeService.getList(this.user).subscribe((response) => {
         this.statusObjects = response;
         this.statuses = Object.keys(response).sort();
       });
     }
-  }
-
-  ngOnInit(): void {
-
   }
 
   hasDataOfStatus(status: string): boolean {

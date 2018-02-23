@@ -32,7 +32,10 @@
 
   <!-- not logged in -->
   <a *ngIf="!user && loginAvailable" [href]=apiLoginUrl>
-    Log in with AniList
+    <span class="hide-s">
+      Log in with AniList
+    </span>
+    <i class="fa fa-sign-in fa-1x"></i>
   </a>
 
 </mat-toolbar>

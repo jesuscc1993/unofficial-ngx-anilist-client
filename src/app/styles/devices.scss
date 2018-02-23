@@ -1,0 +1,28 @@
+@import 'variables';
+
+$sizes: (
+  xxxs: $screen-xxxs,
+  xxs: $screen-xxs,
+  xs: $screen-xs,
+  s: $screen-s,
+  m: $screen-m,
+  l: $screen-l,
+  xl: $screen-xl
+);
+
+
+@each $size, $width in $sizes {
+
+  @media (max-width: $width) {
+    .hide-#{$size} {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: $width) {
+    .show-#{$size} {
+      display: none !important;
+    }
+  }
+
+}

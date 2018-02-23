@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+img {
+  max-width: 88px;
+  height: auto;
+}
+
+@media (max-width: $screen-xxs) {
+  img {
+    max-width: 48px;
+    height: auto;
+  }
+}

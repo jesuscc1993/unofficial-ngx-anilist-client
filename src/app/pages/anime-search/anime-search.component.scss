@@ -1,13 +1,15 @@
 @import "../../styles/variables";
 
 .wide-input {
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
 }
 
 .search-filters {
   mat-form-field {
-    margin-left: map-get($spacings, xxs);
-    width: 120px;
+    margin-left: $spacing-xxs;
+    width: 100%;
+    max-width: 120px;
   }
 }
 
@@ -17,10 +19,10 @@
 
 mat-card {
   &:not(:first-of-type) {
-    margin-top: map-get($spacings, s);
+    margin-top: $spacing-s;
   }
 }
 
 mat-expansion-panel:not(.mat-expanded) {
-  margin-bottom: map-get($spacings, s);
+  margin-bottom: $spacing-s;
 }

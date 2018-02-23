@@ -1,4 +1,17 @@
 @import 'variables';
+
+$spacings: (
+  xxxs: $spacing-xxxs,
+  xxs: $spacing-xxs,
+  xs: $spacing-xs,
+  s: $spacing-s,
+  m: $spacing-m,
+  l: $spacing-l,
+  xl: $spacing-xl,
+  xxl: $spacing-xxl,
+  xxxl: $spacing-xxxl
+);
+
 $positions: top left bottom right;
 $measures: margin padding;
 
