@@ -18,108 +18,15 @@ export class AnimeService {
   private accessTokenKey: string = 'accessToken';
   private userKey: string = 'user';
 
-  private animeFields: string =
-    `id
-    title {
-      romaji
-    }
-    startDate {
-      year
-    },
-    episodes
-    coverImage {
-      medium
-    },
-    genres
-    meanScore,
-    format`;
-
-  private searchQuery: string =
-    `query (
-      $id: Int,
-      $page: Int,
-      $perPage: Int,
-      $search: String,
-      $type: MediaType,
-      $format: MediaFormat,
-      $sort: [MediaSort],
-      $startDate_greater: FuzzyDateInt,
-      $startDate_lesser: FuzzyDateInt
-    ) {
-      Page (
-        page: $page,
-        perPage: $perPage
-      ) {
-        pageInfo {
-          total
-          currentPage
-          lastPage
-          hasNextPage
-          perPage
-        }
-        media (
-          id: $id,
-          search: $search,
-          type: $type,
-          format: $format,
-          sort: $sort,
-          startDate_greater: $startDate_greater,
-          startDate_lesser: $startDate_lesser
-        ) {
-          ${ this.animeFields }
-        }
-      }
-    }`;
-
-  private userQuery: string =
-    `{
-      Viewer {
-        id
-        name
-        avatar {
-          large
-        }
-        options {
-          displayAdultContent
-        }
-      }
-    }`;
-
-  private listQuery: string =
-    `query (
-      $id: Int!,
-      $listType: MediaType
-    ) {
-      MediaListCollection (userId: $id, type: $listType) {
-        statusLists {
-          ... mediaListEntry
-        }
-        user {
-          id
-          name 
-          avatar {
-            large
-          }
-          mediaListOptions {
-            scoreFormat
-            rowOrder
-          }
-        }
-      }
-    }
-
-    fragment mediaListEntry on MediaList {
-      id
-      scoreRaw: score (format: POINT_100)
-      media {
-        ${ this.animeFields }
-      }
-    }`;
+  private animeFields: string;
+  private userQuery: string;
+  private searchQuery: string;
+  private listQuery: string;
 
   constructor (
     private httpClient: HttpClient
   ) {
-
+    this.initializeQueries();
   }
 
   public setAccessToken(accessToken: string): void {
@@ -225,8 +132,6 @@ export class AnimeService {
           statusObjects[status].forEach((entry: any) => {
             this.parseAnimeData(entry.media);
           });
-
-          this.sortListByTitle(statusObjects[status]);
         });
       }
 
@@ -257,22 +162,104 @@ export class AnimeService {
     }
   }
 
-  private sortListByTitle(array: any[]): void {
-    if (array && array.length) {
-      array.sort((a: any, b: any) => {
-        if (this.getListEntryTitle(a) < this.getListEntryTitle(b)) {
-          return -1;
-        } else if (this.getListEntryTitle(a) > this.getListEntryTitle(b)) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    }
-  }
+  private initializeQueries(): void {
+    this.animeFields = `
+      id
+      title {
+        romaji
+      }
+      startDate {
+        year
+      },
+      episodes
+      coverImage {
+        medium
+      },
+      genres
+      meanScore,
+      format`;
 
-  private getListEntryTitle(entry: any): string {
-    return entry.media.title.romaji;
+    this.userQuery = `
+      {
+        Viewer {
+          id
+          name
+          avatar {
+            large
+          }
+          options {
+            displayAdultContent
+          }
+        }
+      }`;
+
+    this.searchQuery = `
+      query (
+        $id: Int,
+        $page: Int,
+        $perPage: Int,
+        $search: String,
+        $type: MediaType,
+        $format: MediaFormat,
+        $sort: [MediaSort],
+        $startDate_greater: FuzzyDateInt,
+        $startDate_lesser: FuzzyDateInt
+      ) {
+        Page (
+          page: $page,
+          perPage: $perPage
+        ) {
+          pageInfo {
+            total
+            currentPage
+            lastPage
+            hasNextPage
+            perPage
+          }
+          media (
+            id: $id,
+            search: $search,
+            type: $type,
+            format: $format,
+            sort: $sort,
+            startDate_greater: $startDate_greater,
+            startDate_lesser: $startDate_lesser
+          ) {
+            ${ this.animeFields }
+          }
+        }
+      }`;
+
+    this.listQuery = `
+      query (
+        $id: Int!,
+        $listType: MediaType
+      ) {
+        MediaListCollection (userId: $id, type: $listType) {
+          statusLists {
+            ... mediaListEntry
+          }
+          user {
+            id
+            name 
+            avatar {
+              large
+            }
+            mediaListOptions {
+              scoreFormat
+              rowOrder
+            }
+          }
+        }
+      }
+  
+      fragment mediaListEntry on MediaList {
+        id
+        scoreRaw: score (format: POINT_100)
+        media {
+          ${ this.animeFields }
+        }
+      }`;
   }
 
 }
