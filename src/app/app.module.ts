@@ -63,6 +63,9 @@ const appRoutes: Routes = [
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    ListEntryFormModalComponent
   ]
 })
 

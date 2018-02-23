@@ -23,14 +23,10 @@ $horizontal-cell-padding: $spacing-xxs;
 
   .mat-column-cover-image {
     font-size: 0;
+    overflow: visible;
   }
 
   @media (max-width: $screen-m) {
-    .mat-header-row,
-    .mat-row {
-      padding: 0 $spacing-xs;
-    }
-
     /* small columns */
     .mat-column-format,
     .mat-column-start-date,
@@ -84,11 +80,6 @@ $horizontal-cell-padding: $spacing-xxs;
   }
 
   @media (max-width: $screen-xxs) {
-    .mat-header-row,
-    .mat-row {
-      padding: 0 $spacing-xs;
-    }
-
     .mat-column-cover-image {
       flex: calc(7/5);
     }
@@ -99,9 +90,13 @@ $horizontal-cell-padding: $spacing-xxs;
   }
 
   @media (max-width: $screen-xxxs) {
-    .mat-column-cover-image,
+    .mat-column-cover-image img,
     .mat-column-format {
       display: none;
+    }
+
+    .mat-column-cover-image {
+      flex: 0;
     }
   }
 

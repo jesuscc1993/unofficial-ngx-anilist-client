@@ -34,7 +34,10 @@ export class AnimeSearchComponent {
     private matSnackBar: MatSnackBar
   ) {
     this.user = this.animeService.getUser();
+    this.setupForm();
+  }
 
+  private setupForm(): void {
     this.searchForm = this.formBuilder.group({
       search: [''],
       format: [''],

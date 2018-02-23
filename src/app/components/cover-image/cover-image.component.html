@@ -1,7 +1,13 @@
-<img [src]="media.coverImage.medium" [matMenuTriggerFor]="entryMenu" class="clickable">
+<i *ngIf="mode === 'add'" class="fa fa-bars menu-toggle clickable" [matMenuTriggerFor]="entryMenu"></i>
+
+<img [src]="media.coverImage.medium">
 
 <mat-menu #entryMenu="matMenu">
-  <button mat-menu-item (click)="viewOnAniList(media)">
+  <button mat-menu-item (click)="addToList()">
+    <i class="fa fa-plus fa-1x margin-right-xxxs"></i>
+    Add to list
+  </button>
+  <button mat-menu-item (click)="viewOnAniList()">
     <i class="fa fa-external-link fa-1x margin-right-xxxs"></i>
     View on AniList
   </button>
