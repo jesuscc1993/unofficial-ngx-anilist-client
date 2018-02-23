@@ -13,14 +13,20 @@ $sizes: (
 
 @each $size, $width in $sizes {
 
-  @media (max-width: $width) {
-    .hide-#{$size} {
+  @media (min-width: $width) {
+    .hide-above-#{$size} {
+      display: none !important;
+    }
+    .show-below-#{$size} {
       display: none !important;
     }
   }
 
-  @media (min-width: $width) {
-    .show-#{$size} {
+  @media (max-width: $width) {
+    .hide-below-#{$size} {
+      display: none !important;
+    }
+    .show-above-#{$size} {
       display: none !important;
     }
   }

@@ -3,14 +3,14 @@
   <div>
     <a *ngIf="!onRoot" [routerLink]="rootUrl">
       <i class="fa fa-chevron-left fa-1x"></i>
-      <span class="hide-xs">
+      <span class="hide-below-s">
         Back
       </span>
     </a>
   </div>
 
   <div class="centered-content">
-    <span class="hide-xxs">
+    <span class="hide-below-xxxs">
       Anime management client
     </span>
   </div>
@@ -18,10 +18,14 @@
   <span class="filler"></span>
 
   <!-- logged in -->
-  <span *ngIf="user" class="padding-right-xs clickable hide-s" [matMenuTriggerFor]="userMenu">
+  <span *ngIf="user" class="padding-right-xs clickable hide-below-s" [matMenuTriggerFor]="userMenu">
     {{ user.name }}
   </span>
-  <img *ngIf="user" class="avatar clickable" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
+  <img *ngIf="user" class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
+
+  <a *ngIf="user" class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
+    <i class="fa fa-bars fa-1x"></i>
+  </a>
 
   <mat-menu #userMenu="matMenu">
     <button mat-menu-item (click)="navigateToProfile()">
@@ -37,7 +41,7 @@
 
   <!-- not logged in -->
   <a *ngIf="!user && loginAvailable" [href]=apiLoginUrl>
-    <span class="hide-s">
+    <span class="hide-below-s">
       Log in with AniList
     </span>
     <i class="fa fa-sign-in fa-1x"></i>
