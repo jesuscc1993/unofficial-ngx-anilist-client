@@ -8,7 +8,7 @@
       </label>
     </h1>
 
-    <mat-form-field class="wide-input display-block margin-auto">
+    <mat-form-field class="wide-input display-block">
       <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
     </mat-form-field>
 
@@ -25,10 +25,14 @@
 
       <mat-divider></mat-divider>
 
+      <br class="hide-above-xxs">
+
       <div class="filter-group">
         <label (click)="formatInput.open()">
           Format
         </label>
+
+        <br class="hide-above-xxs">
 
         <mat-form-field>
           <mat-select #formatInput formControlName="format">
@@ -44,6 +48,8 @@
           Air date >
         </label>
 
+        <br class="hide-above-xxs">
+
         <mat-form-field>
           <input
               id="newerThanInput"
@@ -54,9 +60,13 @@
           >
         </mat-form-field>
 
+        <br class="hide-above-xxs">
+
         <label for="olderThanInput" class="margin-left-xxs">
           && <
         </label>
+
+        <br class="hide-above-xxs">
 
         <mat-form-field>
           <input

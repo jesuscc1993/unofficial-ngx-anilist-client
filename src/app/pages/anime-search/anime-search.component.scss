@@ -1,8 +1,11 @@
 @import "../../styles/variables";
 
+$max-input-size: 320px;
+
 .wide-input {
+  max-width: $max-input-size;
   width: 100%;
-  max-width: 320px;
+  margin: auto;
 }
 
 .search-filters {
@@ -25,4 +28,23 @@ mat-card {
 
 mat-expansion-panel:not(.mat-expanded) {
   margin-bottom: $spacing-s;
+}
+
+@media (max-width: #{$max-input-size + $spacing-m * 2 + 48}) {
+  .mat-expansion-panel-header,
+  .mat-expansion-panel-body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mat-expansion-panel-header {
+    max-width: $max-input-size;
+    width: 100%;
+    margin: auto;
+    box-sizing: border-box;
+
+    .mat-expansion-indicator {
+      padding-right: $spacing-xxxs;
+    }
+  }
 }
