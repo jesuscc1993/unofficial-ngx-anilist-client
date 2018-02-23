@@ -22,7 +22,7 @@ $sizes: (
     }
   }
 
-  @media (max-width: $width) {
+  @media (max-width: $width - 1) {
     .hide-below-#{$size} {
       display: none !important;
     }
