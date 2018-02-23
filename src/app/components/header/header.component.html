@@ -2,18 +2,23 @@
 
   <div>
     <a *ngIf="!onRoot" [routerLink]="rootUrl">
-      <i class="fa fa-chevron-left fa-1x"></i> Back
+      <i class="fa fa-chevron-left fa-1x"></i>
+      <span class="hide-xs">
+        Back
+      </span>
     </a>
   </div>
 
   <div class="centered-content">
-    Anime management client
+    <span class="hide-xxs">
+      Anime management client
+    </span>
   </div>
 
   <span class="filler"></span>
 
   <!-- logged in -->
-  <span *ngIf="user" class="padding-right-xs clickable" [matMenuTriggerFor]="userMenu">
+  <span *ngIf="user" class="padding-right-xs clickable hide-s" [matMenuTriggerFor]="userMenu">
     {{ user.name }}
   </span>
   <img *ngIf="user" class="avatar clickable" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">

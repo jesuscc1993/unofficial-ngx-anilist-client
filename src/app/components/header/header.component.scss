@@ -13,7 +13,7 @@
 img.avatar {
   $max-size: 64px;
   max-width: $max-size;
-  max-height: $max-size;
+  max-height: 100%;
   width: auto;
   height: auto;
 }
