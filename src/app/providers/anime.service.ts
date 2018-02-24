@@ -26,6 +26,7 @@ export class AnimeService {
   private searchQuery: string;
   private listQuery: string;
   private saveListEntryQuery: string;
+  private deleteListEntryQuery: string;
   private toggleFavouriteEntryQuery: string;
 
   constructor (
@@ -147,7 +148,7 @@ export class AnimeService {
   public saveListEntry(listEntry: ListEntry): Observable<any> {
     let options: any = {
       status: MediaStatus.COMPLETED,
-      mediaId: listEntry.mediaId,
+      mediaId: listEntry.media.id,
       scoreRaw: listEntry.scoreRaw
     };
 
@@ -158,9 +159,21 @@ export class AnimeService {
     }, this.getRequestOptions());
   }
 
+  public deleteListEntry(listEntry: ListEntry): Observable<any> {
+    let options: any = {
+      id: listEntry.id
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.deleteListEntryQuery,
+      variables: options
+
+    }, this.getRequestOptions());
+  }
+
   public toggleFavouriteEntry(listEntry: ListEntry): Observable<any> {
     let options: any = {
-      animeId: listEntry.mediaId
+      animeId: listEntry.media.id
     };
 
     return this.httpClient.post(this.apiUrl, {
@@ -297,6 +310,13 @@ export class AnimeService {
         SaveMediaListEntry (mediaId: $mediaId, status: $status, scoreRaw: $scoreRaw) {
           id
           status
+        }
+      }`;
+
+    this.deleteListEntryQuery = `
+      mutation ($id: Int) {
+        DeleteMediaListEntry (id: $id) {
+          deleted
         }
       }`;
 

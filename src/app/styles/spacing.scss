@@ -21,23 +21,23 @@ $measures: margin padding;
     /* by position */
     @each $position in $positions {
       .#{$measure}-#{$position}-#{$spacing} {
-        #{$measure}-#{$position}: $value;
+        #{$measure}-#{$position}: $value !important;
       }
     }
 
     /* general */
     .#{$measure}-#{$spacing} {
-      #{$measure}: $value;
+      #{$measure}: $value !important;
     }
 
     /* bidirectional */
     .horizontal-#{$measure}-#{$spacing} {
-      #{$measure}-left: $value;
-      #{$measure}-right: $value;
+      #{$measure}-left: $value !important;
+      #{$measure}-right: $value !important;
     }
     .vertical-#{$measure}-#{$spacing} {
-      #{$measure}-top: $value;
-      #{$measure}-bottom: $value;
+      #{$measure}-top: $value !important;
+      #{$measure}-bottom: $value !important;
     }
   }
 }

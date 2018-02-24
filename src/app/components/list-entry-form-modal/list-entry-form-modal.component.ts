@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Media } from '../../models/anilist/media';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+
 import { AnimeService } from '../../providers/anime.service';
 import { ListEntry } from '../../models/anilist/listEntry';
+import { Media } from '../../models/anilist/media';
 
 @Component({
   selector: 'app-list-entry-form-modal',
@@ -12,6 +13,7 @@ import { ListEntry } from '../../models/anilist/listEntry';
 })
 export class ListEntryFormModalComponent {
   media: Media;
+  listEntry: ListEntry;
   listEntryForm: FormGroup;
 
   constructor(
@@ -21,6 +23,7 @@ export class ListEntryFormModalComponent {
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.media = data.media;
+    this.listEntry = data.listEntry;
     this.setupForm();
   }
 
@@ -31,9 +34,9 @@ export class ListEntryFormModalComponent {
     });
   }
 
-  submit(): void {
+  saveEntry(): void {
     const listEntry: ListEntry = {
-      mediaId: this.media.id,
+      media: this.media,
       scoreRaw: this.listEntryForm.value.score
     };
 
@@ -41,9 +44,29 @@ export class ListEntryFormModalComponent {
       const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
       if (success) {
         listEntry.media = this.media;
-        this.dialogRef.close(listEntry);
+        this.dialogRef.close({
+          savedEntry: listEntry
+        });
       }
     });
+  }
+
+  deleteEntry(event: Event): void {
+    event.preventDefault();
+
+    this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
+      const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
+      if (success) {
+        this.dialogRef.close({
+          deletedEntry: this.listEntry
+        });
+      }
+    });
+  }
+
+  dismiss(event: Event): void {
+    event.preventDefault();
+    this.dialogRef.close();
   }
 
 }

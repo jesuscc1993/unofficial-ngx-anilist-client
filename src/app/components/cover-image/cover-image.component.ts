@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+
+import { AnimeService } from '../../providers/anime.service';
+import { ListEntry } from '../../models/anilist/listEntry';
 import { Media } from '../../models/anilist/media';
 import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry-form-modal.component';
 
@@ -10,6 +13,7 @@ import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry
   styleUrls: ['./cover-image.component.scss']
 })
 export class CoverImageComponent {
+  @Input() listEntry?: ListEntry;
   @Input() media: Media;
 
   userListUrl: string = '/user-list';
@@ -17,7 +21,8 @@ export class CoverImageComponent {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private animeService: AnimeService
   ) {
 
   }
@@ -27,20 +32,57 @@ export class CoverImageComponent {
   }
 
   saveToList(): void {
-    this.dialog.open(ListEntryFormModalComponent, {
-      width: '100vw',
-      maxWidth: '480px',
-      data: { media: this.media }
+    this.showFormModal().afterClosed().subscribe((result) => {
+      if (result) {
+        if (location.href.indexOf(this.userListUrl) >= 0) {
+          this.navigateToUserList();
+        }
 
-    }).afterClosed().subscribe(listEntry => {
-      this.showSavedToast(`Updated list entry for "${listEntry.media.title.romaji}"`);
-      this.navigateToUserList();
+        if (result.savedEntry) {
+          this.showSavedEntryToast(result.savedEntry);
+        }
+        if (result.deletedEntry) {
+          this.showDeletedEntryToast(result.deletedEntry);
+        }
+      }
     });
   }
 
-  private showSavedToast(message: string): void {
+  deleteEntry(): void {
+    this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
+      const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
+      if (success) {
+        if (location.href.indexOf(this.userListUrl) >= 0) {
+          this.navigateToUserList();
+        }
+
+        this.showDeletedEntryToast(this.listEntry);
+      }
+    });
+  }
+
+  private showFormModal(): MatDialogRef<ListEntryFormModalComponent> {
+    return this.dialog.open(ListEntryFormModalComponent, {
+      width: 'auto',
+      maxWidth: '640px',
+      data: {
+        listEntry: this.listEntry,
+        media: this.media
+      }
+    });
+  }
+
+  private showSavedEntryToast(listEntry: ListEntry): void {
+    this.showToast(`Updated list entry for "${listEntry.media.title.romaji}"`);
+  }
+
+  private showDeletedEntryToast(listEntry: ListEntry): void {
+    this.showToast(`Deleted list entry for "${listEntry.media.title.romaji}"`);
+  }
+
+  private showToast(message: string): void {
     this.matSnackBar.open(message, undefined, {
-      duration: 1000,
+      duration: 10000,
     });
   }
 

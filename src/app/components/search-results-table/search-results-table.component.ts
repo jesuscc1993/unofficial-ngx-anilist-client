@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+
 import { Anime } from '../../models/anilist/anime';
 
 @Component({

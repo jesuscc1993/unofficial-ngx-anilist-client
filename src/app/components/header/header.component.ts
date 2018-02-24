@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { environment } from '../../../environments/environment';

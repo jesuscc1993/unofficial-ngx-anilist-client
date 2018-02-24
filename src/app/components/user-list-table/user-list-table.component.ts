@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+
 import { ListEntry } from '../../models/anilist/listEntry';
+import { Anime } from '../../models/anilist/anime';
 
 @Component({
   selector: 'app-user-list-table',
@@ -33,13 +35,15 @@ export class UserListTableComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (listEntry: ListEntry, property: string) => {
+      const anime: Anime = (<Anime> listEntry.media);
+
       return {
-        'title': listEntry.media.title.romaji.toLowerCase(),
-        'format': listEntry.media.format.toLowerCase(),
-        'start-date': +listEntry.media.startDate.year,
-        'genres': listEntry.media.genres.length ? listEntry.media.genres[0] : '',
+        'title': anime.title.romaji.toLowerCase(),
+        'format': anime.format.toLowerCase(),
+        'start-date': +anime.startDate.year,
+        'genres': anime.genres.length ? anime.genres[0] : '',
         'score': +listEntry.scoreRaw,
-        'episodes': +listEntry.media.episodes
+        'episodes': +anime.episodes
 
       }[property];
     };
