@@ -161,9 +161,7 @@ export class AnimeService {
       if (this.isValidResponse(response)) {
         const responseData: any = this.getResponseData(response);
         if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
-          responseData.User.favourites.anime.edges.forEach((entry: any) => {
-            favourites.push(entry.node);
-          });
+          favourites = responseData.User.favourites.anime.nodes;
         }
       }
 
@@ -357,17 +355,8 @@ export class AnimeService {
         ) {
           favourites {
             anime {
-              edges {
-                favouriteOrder
-                node {
-                  id
-                  title {
-                    userPreferred
-                  }
-                  coverImage {
-                    large
-                  }
-                }
+              nodes {
+                ${ this.animeFields }
               }
             }
           }
