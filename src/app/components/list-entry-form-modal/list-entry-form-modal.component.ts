@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Media } from '../../models/anilist/media';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnimeService } from '../../providers/anime.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class ListEntryFormModalComponent {
   constructor(
     private animeService: AnimeService,
     private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<ListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.media = data.media;
@@ -24,13 +25,19 @@ export class ListEntryFormModalComponent {
 
   private setupForm(): void {
     this.listEntryForm = this.formBuilder.group({
-      score: [undefined],
+      score: [undefined, [Validators.max(100), Validators.min(0)]],
       favourite: [false]
     });
   }
 
   submit(): void {
+    this.animeService.saveListEntry({
+      mediaId: this.media.id,
+      scoreRaw: this.listEntryForm.value.score
 
+    }).subscribe((response) => {
+      this.dialogRef.close();
+    });
   }
 
 }

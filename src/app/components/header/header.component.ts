@@ -42,8 +42,10 @@ export class HeaderComponent implements OnInit {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
-  private navigateToUserList(): void {
-    this.router.navigate([this.userListUrl]);
+  private navigateToUserList(replaceUrl?: boolean): void {
+    this.router.navigate([this.userListUrl], {
+      replaceUrl: replaceUrl
+    });
   }
 
   private logout(): void {
@@ -73,7 +75,7 @@ export class HeaderComponent implements OnInit {
     this.animeService.queryUser().subscribe((response: any) => {
       this.animeService.setUser(response.Viewer);
       this.user = this.animeService.getUser();
-      this.navigateToUserList();
+      this.navigateToUserList(true);
     });
   }
 

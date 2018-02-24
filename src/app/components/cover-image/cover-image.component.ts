@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Media } from '../../models/anilist/media';
 import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry-form-modal.component';
 import { MatDialogRef } from '@angular/material/dialog/typings/dialog-ref';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cover-image',
@@ -11,10 +12,12 @@ import { MatDialogRef } from '@angular/material/dialog/typings/dialog-ref';
 })
 export class CoverImageComponent implements OnInit {
   @Input() media: Media;
-  @Input() mode: string;
+
+  userListUrl: string = '/user-list';
 
   constructor(
-    public dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
 
   }
@@ -27,15 +30,18 @@ export class CoverImageComponent implements OnInit {
     window.open(`https://anilist.co/anime/${this.media.id}`);
   }
 
-  addToList(): void {
-    let formModal: MatDialogRef<ListEntryFormModalComponent> = this.dialog.open(ListEntryFormModalComponent, {
+  saveToList(): void {
+    this.dialog.open(ListEntryFormModalComponent, {
       width: '100vw',
-      maxWidth: '768px',
+      maxWidth: '480px',
       data: { media: this.media }
-    });
 
-    formModal.afterClosed().subscribe(result => {
-
+    }).afterClosed().subscribe(result => {
+      this.router.navigate([this.userListUrl], {
+        queryParams: {
+          time: new Date().getTime()
+        }
+      });
     });
   }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { apiLoginUrl } from '../../app.constants';
@@ -19,13 +20,21 @@ export class UserListComponent {
   loggedIn: boolean = true;
 
   constructor(
+    private router: Router,
     private animeService: AnimeService
   ) {
     this.apiLoginUrl = apiLoginUrl;
     this.user = this.animeService.getUser();
     this.loggedIn = this.user !== undefined;
 
+    this.invalidateRouteReuse();
     this.getUserList();
+  }
+
+  private invalidateRouteReuse(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
   }
 
   private getUserList(): void {

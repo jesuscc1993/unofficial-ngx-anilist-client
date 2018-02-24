@@ -1,6 +1,7 @@
 import { Anime } from './anime';
 
 export class ListEntry {
-  media: Anime;
+  media?: Anime;
+  mediaId: number;
   scoreRaw: number;
 }

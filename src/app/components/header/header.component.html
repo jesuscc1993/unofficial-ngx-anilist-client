@@ -28,13 +28,13 @@
   </a>
 
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item (click)="navigateToProfile()">
-      <i class="fa fa-external-link fa-1x margin-right-xxxs"></i>
-      View profile
-    </button>
     <button mat-menu-item (click)="navigateToUserList()">
       <i class="fa fa-list fa-1x margin-right-xxxs"></i>
       View list
+    </button>
+    <button mat-menu-item (click)="navigateToProfile()">
+      <i class="fa fa-external-link fa-1x margin-right-xxxs"></i>
+      View profile
     </button>
     <button mat-menu-item (click)="logout()">
       <i class="fa fa-sign-out fa-1x margin-right-xxxs"></i>

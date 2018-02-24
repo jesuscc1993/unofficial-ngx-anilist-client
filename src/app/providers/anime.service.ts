@@ -9,6 +9,9 @@ import { Anime } from '../models/anilist/anime';
 import { MediaFormat } from '../models/anilist/mediaFormat';
 import { mediaSorts } from '../models/anilist/mediaSorts';
 import { User } from '../models/anilist/user';
+import { ListEntry } from '../models/anilist/listEntry';
+import { MediaTypes } from '../models/anilist/mediaType';
+import { MediaStatus } from '../models/anilist/mediaStatus';
 
 @Injectable()
 export class AnimeService {
@@ -22,6 +25,8 @@ export class AnimeService {
   private userQuery: string;
   private searchQuery: string;
   private listQuery: string;
+  private saveListEntryQuery: string;
+  private toggleFavouriteEntryQuery: string;
 
   constructor (
     private httpClient: HttpClient
@@ -52,7 +57,7 @@ export class AnimeService {
 
   public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
     let options: any = {
-      type: 'ANIME'
+      type: MediaTypes.ANIME
     };
 
     if (query.search) {
@@ -112,7 +117,7 @@ export class AnimeService {
 
   public getList(user: User): Observable<any> {
     let options: any = {
-      listType: 'ANIME',
+      listType: MediaTypes.ANIME,
       sort: 'SCORE',
       id: user.id
     };
@@ -137,6 +142,32 @@ export class AnimeService {
 
       return statusObjects;
     });
+  }
+
+  public saveListEntry(listEntry: ListEntry): Observable<any> {
+    let options: any = {
+      status: MediaStatus.COMPLETED,
+      mediaId: listEntry.mediaId,
+      scoreRaw: listEntry.scoreRaw
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.saveListEntryQuery,
+      variables: options
+
+    }, this.getRequestOptions());
+  }
+
+  public toggleFavouriteEntry(listEntry: ListEntry): Observable<any> {
+    let options: any = {
+      animeId: listEntry.mediaId
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.toggleFavouriteEntryQuery,
+      variables: options
+
+    }, this.getRequestOptions());
   }
 
   private getRequestOptions(): any {
@@ -258,6 +289,21 @@ export class AnimeService {
         scoreRaw: score (format: POINT_100)
         media {
           ${ this.animeFields }
+        }
+      }`;
+
+    this.saveListEntryQuery = `
+      mutation ($mediaId: Int, $status: MediaListStatus, $scoreRaw: Int) {
+        SaveMediaListEntry (mediaId: $mediaId, status: $status, scoreRaw: $scoreRaw) {
+          id
+          status
+        }
+      }`;
+
+    this.toggleFavouriteEntryQuery = `
+      mutation ($animeId: Int) {
+        ToggleFavourite (animeId: $mediaId) {
+          id
         }
       }`;
   }
