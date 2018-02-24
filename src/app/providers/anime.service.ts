@@ -148,7 +148,8 @@ export class AnimeService {
 
   public getListFavourites(user: User): Observable<Media[]> {
     let options: any = {
-      userId: user.id
+      userId: user.id,
+      page: 0
     };
 
     return this.httpClient.post(this.apiUrl, {
@@ -348,12 +349,15 @@ export class AnimeService {
 
     this.listFavouritesQuery = `
       query (
-        $userId: Int!
+        $userId: Int!,
+        $page: Int
       ) {
         User (
           id: $userId
         ) {
-          favourites {
+          favourites (
+            page: $page
+          ) {
             anime {
               nodes {
                 ${ this.animeFields }
