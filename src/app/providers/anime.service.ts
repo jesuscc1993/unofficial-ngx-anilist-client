@@ -121,7 +121,6 @@ export class AnimeService {
   public getList(user: User): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
-      sort: 'SCORE',
       userId: user.id
     };
 
@@ -318,7 +317,10 @@ export class AnimeService {
         $userId: Int!,
         $listType: MediaType
       ) {
-        MediaListCollection (userId: $userId, type: $listType) {
+        MediaListCollection (
+          userId: $userId,
+          type: $listType
+        ) {
           statusLists {
             ... mediaListEntry
           }
@@ -338,7 +340,9 @@ export class AnimeService {
   
       fragment mediaListEntry on MediaList {
         id
-        scoreRaw: score (format: POINT_100)
+        scoreRaw: score (
+          format: POINT_100
+        )
         media {
           ${ this.animeFields }
         }
@@ -348,7 +352,9 @@ export class AnimeService {
       query (
         $userId: Int!
       ) {
-        User (id: $userId) {
+        User (
+          id: $userId
+        ) {
           favourites {
             anime {
               edges {
@@ -369,23 +375,37 @@ export class AnimeService {
       }`;
 
     this.saveListEntryQuery = `
-      mutation ($mediaId: Int, $status: MediaListStatus, $scoreRaw: Int) {
-        SaveMediaListEntry (mediaId: $mediaId, status: $status, scoreRaw: $scoreRaw) {
+      mutation (
+        $mediaId: Int,
+        $status: MediaListStatus,
+        $scoreRaw: Int
+      ) {
+        SaveMediaListEntry (
+          mediaId: $mediaId,
+          status: $status,
+          scoreRaw: $scoreRaw
+        ) {
           id
           status
         }
       }`;
 
     this.deleteListEntryQuery = `
-      mutation ($id: Int) {
+      mutation (
+        $id: Int
+      ) {
         DeleteMediaListEntry (id: $id) {
           deleted
         }
       }`;
 
     this.toggleFavouriteEntryQuery = `
-      mutation ($animeId: Int) {
-        ToggleFavourite (animeId: $animeId) {
+      mutation (
+        $animeId: Int
+      ) {
+        ToggleFavourite (
+          animeId: $animeId
+        ) {
           anime {
             nodes {
               id
