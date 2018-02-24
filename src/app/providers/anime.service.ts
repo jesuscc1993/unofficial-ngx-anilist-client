@@ -160,9 +160,12 @@ export class AnimeService {
       let favourites: any[] = [];
 
       if (this.isValidResponse(response)) {
-        this.getResponseData(response).User.favourites.anime.edges.forEach((entry: any) => {
-          favourites.push(entry.node);
-        });
+        const responseData: any = this.getResponseData(response);
+        if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
+          responseData.User.favourites.anime.edges.forEach((entry: any) => {
+            favourites.push(entry.node);
+          });
+        }
       }
 
       return favourites;

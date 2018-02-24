@@ -22,7 +22,7 @@
   <!--</div>-->
 
   <div *ngIf="!multiListEnabled">
-    <div *ngIf="statusObjects['completed'] && statusObjects['completed'].length">
+    <div *ngIf="statusObjects && statusObjects['completed'] && statusObjects['completed'].length">
       <h3 class="capitalize">
         {{ 'completed' }}
       </h3>
