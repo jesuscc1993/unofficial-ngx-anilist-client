@@ -29,8 +29,7 @@ export class ListEntryFormModalComponent {
 
   private setupForm(): void {
     this.listEntryForm = this.formBuilder.group({
-      score: [undefined, [Validators.max(100), Validators.min(0)]],
-      favourite: [false]
+      score: [undefined, [Validators.max(100), Validators.min(0)]]
     });
   }
 
@@ -51,8 +50,8 @@ export class ListEntryFormModalComponent {
     });
   }
 
-  deleteEntry(event: Event): void {
-    event.preventDefault();
+  deleteEntry(event?: Event): void {
+    this.preventDefault(event);
 
     this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
@@ -64,9 +63,16 @@ export class ListEntryFormModalComponent {
     });
   }
 
-  dismiss(event: Event): void {
-    event.preventDefault();
+  dismiss(event?: Event): void {
+    this.preventDefault(event);
+
     this.dialogRef.close();
+  }
+
+  private preventDefault(event: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
   }
 
 }
