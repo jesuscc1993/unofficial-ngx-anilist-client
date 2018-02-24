@@ -50,13 +50,13 @@ export class CoverImageComponent {
 
   toggleFavourite(): void {
     this.animeService.toggleFavouriteEntry(this.listEntry).subscribe((response) => {
-      const success: boolean = response.data.ToggleFavourite.id !== undefined;
+      const success: boolean = response.data.ToggleFavourite !== undefined;
       if (success) {
         if (location.href.indexOf(this.userListUrl) >= 0) {
           this.navigateToUserList();
         }
 
-        this.showDeletedEntryToast(this.listEntry);
+        this.showToggledFavouriteToast(this.listEntry);
       }
     });
   }
@@ -87,6 +87,10 @@ export class CoverImageComponent {
 
   private showSavedEntryToast(listEntry: ListEntry): void {
     this.showToast(`Updated list entry for "${listEntry.media.title.romaji}"`);
+  }
+
+  private showToggledFavouriteToast(listEntry: ListEntry): void {
+    this.showToast(`Toggled entry "${listEntry.media.title.romaji}" as favourite`);
   }
 
   private showDeletedEntryToast(listEntry: ListEntry): void {

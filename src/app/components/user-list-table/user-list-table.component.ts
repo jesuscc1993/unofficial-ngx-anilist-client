@@ -11,6 +11,7 @@ import { Anime } from '../../models/anilist/anime';
 })
 export class UserListTableComponent implements AfterViewInit {
   @Input() tableData: ListEntry[];
+  @Input() favouriteIDs: number[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

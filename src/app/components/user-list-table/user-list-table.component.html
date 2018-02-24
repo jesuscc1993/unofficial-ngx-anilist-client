@@ -14,7 +14,10 @@
       Title
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
-      {{ entry.media.title.romaji }}
+      <span class="padding-right-xxxs">
+        {{ entry.media.title.romaji }}
+      </span>
+      <i *ngIf="favouriteIDs.indexOf(entry.media.id) >= 0" class="fa fa-heart fa-1x favourite float-right margin-right-xxxs"></i>
     </mat-cell>
   </ng-container>
 

@@ -169,6 +169,18 @@ export class AnimeService {
     });
   }
 
+  public getListFavouriteIDs(user: User): Observable<number[]> {
+    return this.getListFavourites(user).map((listFavourites) => {
+      let favouriteIDs: any[] = [];
+
+      listFavourites.forEach((media: Media) => {
+        favouriteIDs.push(media.id);
+      });
+
+      return favouriteIDs;
+    });
+  }
+
   public saveListEntry(listEntry: ListEntry): Observable<any> {
     let options: any = {
       status: MediaStatus.COMPLETED,

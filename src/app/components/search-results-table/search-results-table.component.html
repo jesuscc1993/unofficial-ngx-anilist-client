@@ -14,7 +14,9 @@
       Title
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      {{ anime.title.romaji }}
+      <span class="padding-right-xxxs">
+        {{ anime.title.romaji }}
+      </span>
     </mat-cell>
   </ng-container>
 

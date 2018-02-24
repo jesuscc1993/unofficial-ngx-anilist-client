@@ -28,7 +28,10 @@
       </h3>
 
       <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
-        <app-user-list-table [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"></app-user-list-table>
+        <app-user-list-table
+          [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"
+          [favouriteIDs]="favouriteIDs">
+        </app-user-list-table>
       </mat-card>
     </div>
   </div>
