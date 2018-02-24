@@ -22,13 +22,15 @@
   <!--</div>-->
 
   <div *ngIf="!multiListEnabled">
-    <h3 class="capitalize">
-      {{ 'completed' }}
-    </h3>
+    <div *ngIf="statusObjects['completed'] && statusObjects['completed'].length">
+      <h3 class="capitalize">
+        {{ 'completed' }}
+      </h3>
 
-    <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
-      <app-user-list-table [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"></app-user-list-table>
-    </mat-card>
+      <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
+        <app-user-list-table [tableData]="statusObjects['completed'] | sort: 'scoreRaw' : true"></app-user-list-table>
+      </mat-card>
+    </div>
   </div>
 </div>
 

@@ -3,15 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { MediaQuery } from '../models/anilist/query';
-import { PageQuery } from '../models/anilist/pageInfo';
 import { Anime } from '../models/anilist/anime';
-import { MediaFormat } from '../models/anilist/mediaFormat';
-import { mediaSorts } from '../models/anilist/mediaSorts';
-import { User } from '../models/anilist/user';
 import { ListEntry } from '../models/anilist/listEntry';
-import { MediaTypes } from '../models/anilist/mediaType';
+import { Media } from '../models/anilist/media';
+import { MediaFormat } from '../models/anilist/mediaFormat';
+import { MediaQuery } from '../models/anilist/query';
 import { MediaStatus } from '../models/anilist/mediaStatus';
+import { MediaTypes } from '../models/anilist/mediaType';
+import { PageQuery } from '../models/anilist/pageInfo';
+import { User } from '../models/anilist/user';
+import { mediaSorts } from '../models/anilist/mediaSorts';
 
 @Injectable()
 export class AnimeService {
@@ -25,6 +26,7 @@ export class AnimeService {
   private userQuery: string;
   private searchQuery: string;
   private listQuery: string;
+  private listFavouritesQuery: string;
   private saveListEntryQuery: string;
   private deleteListEntryQuery: string;
   private toggleFavouriteEntryQuery: string;
@@ -120,7 +122,7 @@ export class AnimeService {
     let options: any = {
       listType: MediaTypes.ANIME,
       sort: 'SCORE',
-      id: user.id
+      userId: user.id
     };
 
     return this.httpClient.post(this.apiUrl, {
@@ -142,6 +144,28 @@ export class AnimeService {
       }
 
       return statusObjects;
+    });
+  }
+
+  public getListFavourites(user: User): Observable<Media[]> {
+    let options: any = {
+      userId: user.id
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.listFavouritesQuery,
+      variables: options
+
+    }, this.getRequestOptions()).map((response) => {
+      let favourites: any[] = [];
+
+      if (this.isValidResponse(response)) {
+        this.getResponseData(response).User.favourites.anime.edges.forEach((entry: any) => {
+          favourites.push(entry.node);
+        });
+      }
+
+      return favourites;
     });
   }
 
@@ -276,10 +300,10 @@ export class AnimeService {
 
     this.listQuery = `
       query (
-        $id: Int!,
+        $userId: Int!,
         $listType: MediaType
       ) {
-        MediaListCollection (userId: $id, type: $listType) {
+        MediaListCollection (userId: $userId, type: $listType) {
           statusLists {
             ... mediaListEntry
           }
@@ -305,6 +329,30 @@ export class AnimeService {
         }
       }`;
 
+    this.listFavouritesQuery = `
+      query (
+        $userId: Int!
+      ) {
+        User (id: $userId) {
+          favourites {
+            anime {
+              edges {
+                favouriteOrder
+                node {
+                  id
+                  title {
+                    userPreferred
+                  }
+                  coverImage {
+                    large
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`;
+
     this.saveListEntryQuery = `
       mutation ($mediaId: Int, $status: MediaListStatus, $scoreRaw: Int) {
         SaveMediaListEntry (mediaId: $mediaId, status: $status, scoreRaw: $scoreRaw) {
@@ -322,8 +370,15 @@ export class AnimeService {
 
     this.toggleFavouriteEntryQuery = `
       mutation ($animeId: Int) {
-        ToggleFavourite (animeId: $mediaId) {
-          id
+        ToggleFavourite (animeId: $animeId) {
+          anime {
+            nodes {
+              id
+              title {
+                userPreferred
+              }
+            }
+          }
         }
       }`;
   }

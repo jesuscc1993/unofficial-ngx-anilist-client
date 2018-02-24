@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
+import { Media } from '../../models/anilist/media';
 import { apiLoginUrl } from '../../app.constants';
 
 @Component({
@@ -14,6 +16,7 @@ export class UserListComponent {
   user: User;
   statusObjects: any;
   statuses: any;
+  favourites: Media[];
 
   apiLoginUrl: string;
   multiListEnabled: boolean;
@@ -29,6 +32,7 @@ export class UserListComponent {
 
     this.invalidateRouteReuse();
     this.getUserList();
+    this.getUserListFavourites();
   }
 
   private invalidateRouteReuse(): void {
@@ -42,6 +46,14 @@ export class UserListComponent {
       this.animeService.getList(this.user).subscribe((response) => {
         this.statusObjects = response;
         this.statuses = Object.keys(response).sort();
+      });
+    }
+  }
+
+  private getUserListFavourites(): void {
+    if (this.user) {
+      this.animeService.getListFavourites(this.user).subscribe((favourites) => {
+        this.favourites = favourites;
       });
     }
   }

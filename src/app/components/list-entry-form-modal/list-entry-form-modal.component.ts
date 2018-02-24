@@ -29,7 +29,7 @@ export class ListEntryFormModalComponent {
 
   private setupForm(): void {
     this.listEntryForm = this.formBuilder.group({
-      score: [undefined, [Validators.max(100), Validators.min(0)]]
+      score: [undefined, [Validators.required, Validators.max(100), Validators.min(0)]]
     });
   }
 

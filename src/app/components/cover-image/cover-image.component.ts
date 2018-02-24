@@ -48,6 +48,19 @@ export class CoverImageComponent {
     });
   }
 
+  toggleFavourite(): void {
+    this.animeService.toggleFavouriteEntry(this.listEntry).subscribe((response) => {
+      const success: boolean = response.data.ToggleFavourite.id !== undefined;
+      if (success) {
+        if (location.href.indexOf(this.userListUrl) >= 0) {
+          this.navigateToUserList();
+        }
+
+        this.showDeletedEntryToast(this.listEntry);
+      }
+    });
+  }
+
   deleteEntry(): void {
     this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
@@ -64,7 +77,7 @@ export class CoverImageComponent {
   private showFormModal(): MatDialogRef<ListEntryFormModalComponent> {
     return this.dialog.open(ListEntryFormModalComponent, {
       width: 'auto',
-      maxWidth: '640px',
+      maxWidth: '672px',
       data: {
         listEntry: this.listEntry,
         media: this.media
