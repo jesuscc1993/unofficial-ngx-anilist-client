@@ -1,7 +1,7 @@
-import { Anime } from './anime';
+import { Media } from './media';
 
 export class ListEntry {
-  media?: Anime;
+  media?: Media;
   mediaId: number;
   scoreRaw: number;
 }

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Media } from '../../models/anilist/media';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnimeService } from '../../providers/anime.service';
+import { ListEntry } from '../../models/anilist/listEntry';
 
 @Component({
   selector: 'app-list-entry-form-modal',
@@ -31,12 +32,17 @@ export class ListEntryFormModalComponent {
   }
 
   submit(): void {
-    this.animeService.saveListEntry({
+    const listEntry: ListEntry = {
       mediaId: this.media.id,
       scoreRaw: this.listEntryForm.value.score
+    };
 
-    }).subscribe((response) => {
-      this.dialogRef.close();
+    this.animeService.saveListEntry(listEntry).subscribe((response) => {
+      const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
+      if (success) {
+        listEntry.media = this.media;
+        this.dialogRef.close(listEntry);
+      }
     });
   }
 

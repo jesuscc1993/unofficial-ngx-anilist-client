@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar, PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { MediaQuery } from '../../models/anilist/query';
@@ -30,8 +30,7 @@ export class AnimeSearchComponent {
 
   constructor(
     private animeService: AnimeService,
-    private formBuilder: FormBuilder,
-    private matSnackBar: MatSnackBar
+    private formBuilder: FormBuilder
   ) {
     this.user = this.animeService.getUser();
     this.setupForm();
@@ -68,8 +67,6 @@ export class AnimeSearchComponent {
       this.pagination = response.pageInfo;
       this.searching = false;
 
-      this.showSimpleSnack(`${response.pageInfo.total} result(s) found.`);
-
     }, () => {
       this.errorGotten = true;
       this.noResults = false;
@@ -84,12 +81,6 @@ export class AnimeSearchComponent {
 
   private changePage(pageEvent: PageEvent): void {
     this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
-  }
-
-  private showSimpleSnack(message: string): void {
-    this.matSnackBar.open(message, undefined, {
-      duration: 1000,
-    });
   }
 
 }
