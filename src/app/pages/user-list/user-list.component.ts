@@ -51,7 +51,7 @@ export class UserListComponent {
 
   private getListFavouriteIDs(): void {
     if (this.user) {
-      this.animeService.getListFavouriteIDs(this.user).subscribe((favouriteIDs) => {
+      this.animeService.getListFavouriteIDs(this.user, (favouriteIDs) => {
         this.favouriteIDs = favouriteIDs;
       });
     }

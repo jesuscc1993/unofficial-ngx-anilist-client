@@ -146,39 +146,51 @@ export class AnimeService {
     });
   }
 
-  public getListFavourites(user: User): Observable<Media[]> {
+  public getListFavourites(user: User, callback: Function): void {
     let options: any = {
       userId: user.id,
       page: 0
     };
 
-    return this.httpClient.post(this.apiUrl, {
+    let favourites: any[] = [];
+    this.queryResultsPage(options, favourites, callback);
+  }
+
+  private queryResultsPage(options: any, favourites: any[], callback: Function): void {
+    this.httpClient.post(this.apiUrl, {
       query: this.listFavouritesQuery,
       variables: options
 
-    }, this.getRequestOptions()).map((response) => {
-      let favourites: any[] = [];
+    }, this.getRequestOptions()).subscribe((response) => {
+      let results: any[] = [];
 
       if (this.isValidResponse(response)) {
         const responseData: any = this.getResponseData(response);
         if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
-          favourites = responseData.User.favourites.anime.nodes;
+          results = responseData.User.favourites.anime.nodes;
+          favourites = favourites.concat(results);
         }
       }
 
-      return favourites;
+      if (results.length >= 25) {
+        options.page++;
+        this.queryResultsPage(options, favourites, callback);
+
+      } else {
+        callback(favourites);
+      }
     });
   }
 
-  public getListFavouriteIDs(user: User): Observable<number[]> {
-    return this.getListFavourites(user).map((listFavourites) => {
+  public getListFavouriteIDs(user: User, callback: Function): void {
+    this.getListFavourites(user, (listFavourites) => {
       let favouriteIDs: any[] = [];
 
       listFavourites.forEach((media: Media) => {
         favouriteIDs.push(media.id);
       });
 
-      return favouriteIDs;
+      callback(favouriteIDs);
     });
   }
 
