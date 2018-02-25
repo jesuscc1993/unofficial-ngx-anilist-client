@@ -21,6 +21,7 @@ export class AnimeService {
   private fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
   private accessTokenKey: string = 'accessToken';
   private userKey: string = 'user';
+  private favouritesPageSize: number = 25;
 
   private animeFields: string;
   private userQuery: string;
@@ -172,7 +173,7 @@ export class AnimeService {
         }
       }
 
-      if (results.length >= 25) {
+      if (results.length >= this.favouritesPageSize) {
         options.page++;
         this.queryResultsPage(options, favourites, callback);
 
