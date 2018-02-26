@@ -21,7 +21,6 @@ export class AnimeService {
   private fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
   private accessTokenKey: string = 'accessToken';
   private userKey: string = 'user';
-  private favouritesPageSize: number = 25;
 
   private animeFields: string;
   private userQuery: string;
@@ -168,17 +167,19 @@ export class AnimeService {
       if (this.isValidResponse(response)) {
         const responseData: any = this.getResponseData(response);
         if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
-          results = responseData.User.favourites.anime.nodes;
+          const favouritesData: any = responseData.User.favourites.anime;
+          results = favouritesData.nodes;
           favourites = favourites.concat(results);
+
+          debugger;
+          if (favouritesData.pageInfo.hasNextPage) {
+            options.page++;
+            this.queryResultsPage(options, favourites, callback);
+
+          } else {
+            callback(favourites);
+          }
         }
-      }
-
-      if (results.length >= this.favouritesPageSize) {
-        options.page++;
-        this.queryResultsPage(options, favourites, callback);
-
-      } else {
-        callback(favourites);
       }
     });
   }
@@ -368,12 +369,19 @@ export class AnimeService {
         User (
           id: $userId
         ) {
-          favourites (
-            page: $page
-          ) {
-            anime {
+          favourites {
+            anime (
+              page: $page
+            ) {
               nodes {
                 ${ this.animeFields }
+              }
+              pageInfo {
+                total
+                currentPage
+                lastPage
+                hasNextPage
+                perPage
               }
             }
           }
