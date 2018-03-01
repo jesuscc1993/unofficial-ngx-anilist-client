@@ -23,6 +23,7 @@ export class AnimeService {
   private userKey: string = 'user';
 
   private animeFields: string;
+  private genresQuery: string;
   private userQuery: string;
   private searchQuery: string;
   private listQuery: string;
@@ -56,6 +57,21 @@ export class AnimeService {
   }
   public removeUser(): void {
     localStorage.removeItem(this.userKey);
+  }
+
+  public getGenres(): Observable<string[]> {
+    return this.httpClient.post(this.apiUrl, {
+      query: this.genresQuery
+
+    }, this.getRequestOptions()).map((response) => {
+      let serverResponse: any;
+
+      if (this.isValidResponse(response)) {
+        serverResponse = this.getResponseData(response).GenreCollection;
+      }
+
+      return serverResponse;
+    });
   }
 
   public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
@@ -257,6 +273,12 @@ export class AnimeService {
   }
 
   private initializeQueries(): void {
+
+    this.genresQuery = `
+      {
+        GenreCollection
+      }`;
+
     this.animeFields = `
       id
       title {
