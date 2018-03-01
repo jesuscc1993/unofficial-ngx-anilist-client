@@ -20,6 +20,7 @@ export class UserListComponent {
   apiLoginUrl: string;
   multiListEnabled: boolean;
   loggedIn: boolean;
+  ready: boolean;
 
   reloadOnUpdate: boolean = true;
 
@@ -47,6 +48,7 @@ export class UserListComponent {
       this.animeService.getList(this.user).subscribe((response) => {
         this.statusObjects = response;
         this.statuses = Object.keys(response).sort();
+        this.ready = true;
       });
     }
   }

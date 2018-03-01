@@ -1,4 +1,7 @@
-<div *ngIf="loggedIn && user">
+<mat-spinner *ngIf="loggedIn && !ready" mode="indeterminate" class="full-page"></mat-spinner>
+
+<div *ngIf="loggedIn && ready">
+
   <!--<div *ngIf="multiListEnabled">-->
     <!--<div *ngFor="let status of statuses">-->
       <!--<a *ngIf="hasDataOfStatus(status)" href="{{ '/user-list#' + status }}" class="capitalize">-->
@@ -22,7 +25,7 @@
   <!--</div>-->
 
   <div *ngIf="!multiListEnabled">
-    <div *ngIf="statusObjects && statusObjects['completed'] && statusObjects['completed'].length">
+    <div *ngIf="hasDataOfStatus('completed')">
       <h3 class="capitalize">
         {{ 'completed' }}
       </h3>
@@ -36,6 +39,19 @@
       </mat-card>
     </div>
   </div>
+
+  <div class="padding-top-xs padding-bottom-m">
+    <h3>
+      Settings
+    </h3>
+
+    <mat-slide-toggle
+            [checked]="reloadOnUpdate"
+            (change)="reloadOnUpdate = !reloadOnUpdate">
+      Reload on update
+    </mat-slide-toggle>
+  </div>
+
 </div>
 
 <mat-card *ngIf="!loggedIn" class="warning">

@@ -1,3 +1,4 @@
+@import 'variables';
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
@@ -46,6 +47,12 @@ mat-card {
 .mat-fab.mat-accent,
 .mat-mini-fab.mat-accent {
   color: white;
+}
+
+mat-spinner {
+  &.full-page {
+    margin: calc((100vh - #{$mat-toolbar-height} - #{$mat-spinner-size}) / 2) auto;
+  }
 }
 
 mat-form-field {
