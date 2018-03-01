@@ -5,7 +5,7 @@
       Cover
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
-      <app-cover-image [media]="entry.media" [listEntry]="entry"></app-cover-image>
+      <app-cover-image [media]="entry.media" [listEntry]="entry" [reloadOnUpdate]="reloadOnUpdate"></app-cover-image>
     </mat-cell>
   </ng-container>
 

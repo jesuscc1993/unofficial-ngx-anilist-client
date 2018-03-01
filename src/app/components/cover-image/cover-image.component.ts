@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
@@ -12,9 +12,10 @@ import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry
   templateUrl: './cover-image.component.html',
   styleUrls: ['./cover-image.component.scss']
 })
-export class CoverImageComponent {
+export class CoverImageComponent implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
+  @Input() reloadOnUpdate?: boolean;
 
   userListUrl: string = '/user-list';
 
@@ -27,6 +28,10 @@ export class CoverImageComponent {
 
   }
 
+  ngOnInit(): void {
+    this.reloadOnUpdate = this.reloadOnUpdate !== undefined ? this.reloadOnUpdate : true;
+  }
+
   viewOnAniList(): void {
     window.open(`https://anilist.co/anime/${this.media.id}`);
   }
@@ -34,9 +39,7 @@ export class CoverImageComponent {
   saveToList(): void {
     this.showFormModal().afterClosed().subscribe((result) => {
       if (result) {
-        if (location.href.indexOf(this.userListUrl) >= 0) {
-          this.navigateToUserList();
-        }
+        this.redirectIfRequired();
 
         if (result.savedEntry) {
           this.showSavedEntryToast(result.savedEntry);
@@ -52,9 +55,7 @@ export class CoverImageComponent {
     this.animeService.toggleFavouriteEntry(this.listEntry).subscribe((response) => {
       const success: boolean = response.data.ToggleFavourite !== undefined;
       if (success) {
-        if (location.href.indexOf(this.userListUrl) >= 0) {
-          this.navigateToUserList();
-        }
+        this.redirectIfRequired();
 
         this.showToggledFavouriteToast(this.listEntry);
       }
@@ -65,9 +66,7 @@ export class CoverImageComponent {
     this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
       if (success) {
-        if (location.href.indexOf(this.userListUrl) >= 0) {
-          this.navigateToUserList();
-        }
+        this.redirectIfRequired();
 
         this.showDeletedEntryToast(this.listEntry);
       }
@@ -83,6 +82,12 @@ export class CoverImageComponent {
         media: this.media
       }
     });
+  }
+
+  private redirectIfRequired(): void {
+    if (this.reloadOnUpdate && location.href.indexOf(this.userListUrl) >= 0) {
+      this.navigateToUserList();
+    }
   }
 
   private showSavedEntryToast(listEntry: ListEntry): void {

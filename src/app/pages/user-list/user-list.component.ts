@@ -19,7 +19,9 @@ export class UserListComponent {
 
   apiLoginUrl: string;
   multiListEnabled: boolean;
-  loggedIn: boolean = true;
+  loggedIn: boolean;
+
+  reloadOnUpdate: boolean = true;
 
   constructor(
     private router: Router,

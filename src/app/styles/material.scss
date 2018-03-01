@@ -23,6 +23,10 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 // that you are using.
 @include angular-material-theme($app-theme);
 
+body {
+  font-family: 'Roboto', 'Helvetica Neue', 'sans-serif';
+}
+
 mat-card {
   &.info {
     background: map-get($mat-blue, 50);
