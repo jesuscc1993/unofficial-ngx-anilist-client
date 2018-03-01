@@ -171,7 +171,6 @@ export class AnimeService {
           results = favouritesData.nodes;
           favourites = favourites.concat(results);
 
-          debugger;
           if (favouritesData.pageInfo.hasNextPage) {
             options.page++;
             this.queryResultsPage(options, favourites, callback);
