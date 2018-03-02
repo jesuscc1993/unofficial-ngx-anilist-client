@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
@@ -39,8 +39,9 @@ export class UserListComponent {
   }
 
   private invalidateRouteReuse(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
+    this.router.routeReuseStrategy.shouldReuseRoute = (activatedRouteSnapshot: ActivatedRouteSnapshot) => {
+      const samePage: boolean = location.href.indexOf(activatedRouteSnapshot.firstChild.url[0].path) >= 0;
+      return samePage && activatedRouteSnapshot.queryParams.time;
     };
   }
 

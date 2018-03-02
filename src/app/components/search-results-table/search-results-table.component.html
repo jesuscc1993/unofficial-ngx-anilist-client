@@ -44,7 +44,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
       <mat-list>
-        <mat-list-item *ngFor="let genre of entry.media.genres">
+        <mat-list-item *ngFor="let genre of anime.genres">
           <mat-chip>
             {{ genre }}
           </mat-chip>

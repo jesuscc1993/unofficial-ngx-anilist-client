@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { Anime } from '../models/anilist/anime';
 import { ListEntry } from '../models/anilist/listEntry';
 import { Media } from '../models/anilist/media';
-import { MediaFormat } from '../models/anilist/mediaFormat';
+import { MediaFormat } from '../models/anilist/mediaFormats';
 import { MediaQuery } from '../models/anilist/query';
 import { MediaStatus } from '../models/anilist/mediaStatus';
 import { MediaTypes } from '../models/anilist/mediaType';
@@ -137,7 +137,7 @@ export class AnimeService {
     let options: any = {
       listType: MediaTypes.ANIME,
       userId: user.id,
-      sort: ['SCORE']
+      sort: ['SCORE_DESC']
     };
 
     return this.httpClient.post(this.apiUrl, {

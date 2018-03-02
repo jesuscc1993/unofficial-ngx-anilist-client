@@ -1,0 +1,7 @@
+@import "../../styles/variables";
+
+.status-wrapper {
+  &:not(:last-of-type) {
+    margin-bottom: $spacing-l - $spacing-xxs;
+  }
+}

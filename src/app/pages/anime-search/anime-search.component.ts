@@ -6,7 +6,7 @@ import { User } from '../../models/anilist/user';
 import { MediaQuery } from '../../models/anilist/query';
 import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
-import { mediaFormats } from '../../models/anilist/mediaFormats';
+import { MediaFormat } from '../../models/anilist/mediaFormats';
 
 @Component({
   selector: 'app-anime-search',
@@ -19,7 +19,7 @@ export class AnimeSearchComponent {
   animeList: Anime[];
   searchForm: FormGroup;
   pagination: PageQuery;
-  mediaFormats: any[] = mediaFormats;
+  mediaFormats: any[] = MediaFormat.LIST;
   mediaGenres: string[];
 
   searching: boolean;
