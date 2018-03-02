@@ -77,6 +77,7 @@ export class AnimeService {
   public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
     let options: any = {
       type: MediaTypes.ANIME,
+      adultContent: query.adultContent || false,
       page: pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1,
       perPage: pageInfo.perPage || 10,
       sort: [mediaSorts[0].value]
@@ -322,7 +323,8 @@ export class AnimeService {
         $startDate_greater: FuzzyDateInt,
         $startDate_lesser: FuzzyDateInt,
         $formats: [MediaFormat],
-        $genres: [String]
+        $genres: [String],
+        $adultContent: Boolean
       ) {
         Page (
           page: $page,
@@ -339,12 +341,12 @@ export class AnimeService {
             id: $id,
             search: $search,
             type: $type,
+            isAdult: $adultContent,
             sort: $sort,
             startDate_greater: $startDate_greater,
             startDate_lesser: $startDate_lesser,
             format_in: $formats,
-            genre_in: $genres,
-            isAdult: false
+            genre_in: $genres
           ) {
             ${ this.animeFields }
           }
