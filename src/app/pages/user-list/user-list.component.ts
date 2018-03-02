@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
+import { ListEntry } from '../../models/anilist/listEntry';
 import { apiLoginUrl } from '../../app.constants';
 
 @Component({
@@ -33,16 +34,7 @@ export class UserListComponent {
     this.user = this.animeService.getUser();
     this.loggedIn = this.user !== undefined;
 
-    this.invalidateRouteReuse();
-    this.getUserList();
-    this.getListFavouriteIDs();
-  }
-
-  private invalidateRouteReuse(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = (activatedRouteSnapshot: ActivatedRouteSnapshot) => {
-      const samePage: boolean = location.href.indexOf(activatedRouteSnapshot.firstChild.url[0].path) >= 0;
-      return samePage && activatedRouteSnapshot.queryParams.time;
-    };
+    this.updateListData();
   }
 
   private getUserList(): void {
@@ -77,4 +69,19 @@ export class UserListComponent {
     return JSON.stringify(this.statusObjects, undefined, 2);
   }
 
+  onEntryUpdate(listEntry?: ListEntry): void {
+    if (this.reloadOnUpdate) {
+      this.updateListData();
+    }
+  }
+
+  private updateListData(): void {
+    this.statusObjects = undefined;
+    this.statuses = undefined;
+    this.favouriteIDs = undefined;
+    this.ready = false;
+
+    this.getUserList();
+    this.getListFavouriteIDs();
+  }
 }

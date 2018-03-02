@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
@@ -12,10 +12,10 @@ import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry
   templateUrl: './cover-image.component.html',
   styleUrls: ['./cover-image.component.scss']
 })
-export class CoverImageComponent implements OnInit {
+export class CoverImageComponent {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
-  @Input() reloadOnUpdate?: boolean;
+  @Output() onUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
 
   userListUrl: string = '/user-list';
 
@@ -28,10 +28,6 @@ export class CoverImageComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.reloadOnUpdate = this.reloadOnUpdate !== undefined ? this.reloadOnUpdate : true;
-  }
-
   viewOnAniList(): void {
     window.open(`https://anilist.co/anime/${this.media.id}`);
   }
@@ -39,14 +35,14 @@ export class CoverImageComponent implements OnInit {
   saveToList(): void {
     this.showFormModal().afterClosed().subscribe((result) => {
       if (result) {
-        this.redirectIfRequired();
-
         if (result.savedEntry) {
           this.showSavedEntryToast(result.savedEntry);
         }
         if (result.deletedEntry) {
           this.showDeletedEntryToast(result.deletedEntry);
         }
+
+        this.onUpdate.emit(result.savedEntry || result.deletedEntry);
       }
     });
   }
@@ -55,9 +51,8 @@ export class CoverImageComponent implements OnInit {
     this.animeService.toggleFavouriteEntry(this.listEntry).subscribe((response) => {
       const success: boolean = response.data.ToggleFavourite !== undefined;
       if (success) {
-        this.redirectIfRequired();
-
         this.showToggledFavouriteToast(this.listEntry);
+        this.onUpdate.emit(this.listEntry);
       }
     });
   }
@@ -66,9 +61,8 @@ export class CoverImageComponent implements OnInit {
     this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
       if (success) {
-        this.redirectIfRequired();
-
         this.showDeletedEntryToast(this.listEntry);
+        this.onUpdate.emit(this.listEntry);
       }
     });
   }
@@ -82,12 +76,6 @@ export class CoverImageComponent implements OnInit {
         media: this.media
       }
     });
-  }
-
-  private redirectIfRequired(): void {
-    if (this.reloadOnUpdate && location.href.indexOf(this.userListUrl) >= 0) {
-      this.navigateToUserList();
-    }
   }
 
   private showSavedEntryToast(listEntry: ListEntry): void {
@@ -105,14 +93,6 @@ export class CoverImageComponent implements OnInit {
   private showToast(message: string): void {
     this.matSnackBar.open(message, undefined, {
       duration: 10000,
-    });
-  }
-
-  private navigateToUserList(): void {
-    this.router.navigate([this.userListUrl], {
-      queryParams: {
-        time: new Date().getTime()
-      }
     });
   }
 

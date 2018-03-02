@@ -28,7 +28,7 @@
           <app-user-list-table
             [tableData]="statusObjects[status]"
             [favouriteIDs]="favouriteIDs"
-            [reloadOnUpdate]="reloadOnUpdate">
+            (onEntryUpdate)="onEntryUpdate($event)">
           </app-user-list-table>
         </mat-card>
 
@@ -42,11 +42,11 @@
         {{ 'completed' }}
       </h3>
 
-      <mat-card *ngIf="hasDataOfStatus('completed')" class="no-padding">
+      <mat-card class="no-padding">
         <app-user-list-table
           [tableData]="statusObjects['completed']"
           [favouriteIDs]="favouriteIDs"
-          [reloadOnUpdate]="reloadOnUpdate">
+          (onEntryUpdate)="onEntryUpdate($event)">
         </app-user-list-table>
       </mat-card>
     </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { ListEntry } from '../../models/anilist/listEntry';
@@ -12,7 +12,7 @@ import { Anime } from '../../models/anilist/anime';
 export class UserListTableComponent implements AfterViewInit {
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];
-  @Input() reloadOnUpdate: boolean;
+  @Output() onEntryUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -27,6 +27,10 @@ export class UserListTableComponent implements AfterViewInit {
     // TODO: Fix ExpressionChangedAfterItHasBeenCheckedError
     this.initializeDataSource();
     this.bindChildComponents();
+  }
+
+  onUpdate(listEntry?: ListEntry): void {
+    this.onEntryUpdate.emit(listEntry);
   }
 
   private initializeDataSource(): void {
