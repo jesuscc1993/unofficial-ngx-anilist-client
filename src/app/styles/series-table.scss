@@ -38,6 +38,20 @@ $horizontal-cell-padding: $spacing-xxs;
     }
   }
 
+  .mat-column-genres {
+    mat-list {
+      padding: 0;
+
+      mat-list-item {
+        height: $spacing-s;
+
+        .mat-list-item-content {
+          padding: 0;
+        }
+      }
+    }
+  }
+
   .mat-column-cover-image {
     overflow: visible;
     font-size: 0;

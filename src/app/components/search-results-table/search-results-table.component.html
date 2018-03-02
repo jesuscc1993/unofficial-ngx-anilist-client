@@ -43,11 +43,13 @@
       Genres
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <div *ngFor="let genre of anime.genres; let i = index">
-        <mat-chip>
-          {{ genre }}
-        </mat-chip>
-      </div>
+      <mat-list>
+        <mat-list-item *ngFor="let genre of entry.media.genres">
+          <mat-chip>
+            {{ genre }}
+          </mat-chip>
+        </mat-list-item>
+      </mat-list>
     </mat-cell>
   </ng-container>
 
