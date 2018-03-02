@@ -82,14 +82,17 @@ export class AnimeService {
     if (query.search) {
       options.search = query.search;
     }
-    if (query.format) {
-      options.format = query.format;
-    }
     if (query.startDate_greater) {
       options.startDate_greater = query.startDate_greater;
     }
     if (query.startDate_lesser) {
       options.startDate_lesser = query.startDate_lesser;
+    }
+    if (query.formats && query.formats.length) {
+      options.formats = query.formats;
+    }
+    if (query.genres && query.genres.length) {
+      options.genres = query.genres;
     }
 
     options.page = pageInfo.pageIndex || 1;
@@ -250,9 +253,12 @@ export class AnimeService {
   }
 
   private getRequestOptions(): any {
-    const headers: any = {
-      Authorization: `Bearer ${this.getAccessToken()}`
-    };
+    let headers: any = {};
+
+    if (this.getAccessToken()) {
+      headers.Authorization = `Bearer ${this.getAccessToken()}`;
+    }
+
     return { headers: headers };
   }
 
@@ -316,10 +322,11 @@ export class AnimeService {
         $perPage: Int,
         $search: String,
         $type: MediaType,
-        $format: MediaFormat,
         $sort: [MediaSort],
         $startDate_greater: FuzzyDateInt,
-        $startDate_lesser: FuzzyDateInt
+        $startDate_lesser: FuzzyDateInt,
+        $formats: [MediaFormat],
+        $genres: [String]
       ) {
         Page (
           page: $page,
@@ -336,10 +343,11 @@ export class AnimeService {
             id: $id,
             search: $search,
             type: $type,
-            format: $format,
             sort: $sort,
             startDate_greater: $startDate_greater,
-            startDate_lesser: $startDate_lesser
+            startDate_lesser: $startDate_lesser,
+            format_in: $formats,
+            genre_in: $genres
           ) {
             ${ this.animeFields }
           }

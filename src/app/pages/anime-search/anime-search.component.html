@@ -8,7 +8,7 @@
       </label>
     </h1>
 
-    <mat-form-field class="wide-input display-block">
+    <mat-form-field class="medium display-block margin-auto">
       <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
     </mat-form-field>
 
@@ -27,22 +27,7 @@
 
       <br class="hide-above-xxs">
 
-      <div class="filter-group">
-        <label (click)="formatInput.open()">
-          Format
-        </label>
-
-        <br class="hide-above-xxs">
-
-        <mat-form-field>
-          <mat-select #formatInput formControlName="format">
-            <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-              {{ mediaFormat.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
+      <!-- air date -->
       <div class="filter-group">
         <label for="newerThanInput">
           Air date >
@@ -76,6 +61,28 @@
               formControlName="startDate_lesser"
               [min]="minYear" [max]="maxYear"
           >
+        </mat-form-field>
+      </div>
+
+      <!-- formats -->
+      <div class="filter-group">
+        <mat-form-field class="large">
+          <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
+            <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+              {{ mediaFormat.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- genres -->
+      <div class="filter-group">
+        <mat-form-field class="large">
+          <mat-select placeholder="Genres" formControlName="genres" multiple>
+            <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
+              {{ genre }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 

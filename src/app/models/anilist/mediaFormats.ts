@@ -1,5 +1,4 @@
 const mediaFormats: any[] = [
-  { label: 'Any', value: '' },
   { label: 'TV', value: 'TV' },
   { label: 'TV short', value: 'TV_SHORT' },
   { label: 'Movie', value: 'MOVIE' },

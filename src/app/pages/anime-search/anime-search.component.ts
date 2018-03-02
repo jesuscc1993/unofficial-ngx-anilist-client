@@ -20,6 +20,7 @@ export class AnimeSearchComponent {
   searchForm: FormGroup;
   pagination: PageQuery;
   mediaFormats: any[] = mediaFormats;
+  mediaGenres: string[];
 
   searching: boolean;
   noResults: boolean;
@@ -34,14 +35,16 @@ export class AnimeSearchComponent {
   ) {
     this.user = this.animeService.getUser();
     this.setupForm();
+    this.getGenres();
   }
 
   private setupForm(): void {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      format: [''],
       startDate_greater: [undefined],
-      startDate_lesser: [undefined]
+      startDate_lesser: [undefined],
+      formats: [],
+      genres: []
     });
   }
 
@@ -51,9 +54,10 @@ export class AnimeSearchComponent {
 
     let query: MediaQuery = {
       search: this.searchForm.value.search,
-      format: this.searchForm.value.format,
       startDate_lesser: this.getDateScalarFromYear(this.searchForm.value.startDate_lesser),
-      startDate_greater: this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231
+      startDate_greater: this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231,
+      formats: this.searchForm.value.formats,
+      genres: this.searchForm.value.genres
     };
 
     const pageInfo: PageQuery = {
@@ -72,6 +76,12 @@ export class AnimeSearchComponent {
       this.noResults = false;
       this.searching = false;
 
+    });
+  }
+
+  private getGenres(): void {
+    this.animeService.getGenres().subscribe((mediaGenres) => {
+      this.mediaGenres = mediaGenres;
     });
   }
 

@@ -2,17 +2,22 @@
 
 $max-input-size: 320px;
 
-.wide-input {
-  max-width: $max-input-size;
+mat-form-field {
   width: 100%;
-  margin: auto;
+  max-width: 120px;
+
+  &.medium {
+    max-width: 320px;
+  }
+
+  &.large {
+    max-width: 640px;
+  }
 }
 
 .search-filters {
   mat-form-field {
     margin-left: $spacing-xxs;
-    width: 100%;
-    max-width: 120px;
   }
 }
 
