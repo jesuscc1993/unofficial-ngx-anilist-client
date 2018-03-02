@@ -40,6 +40,12 @@ mat-expansion-panel-header {
   padding: 0 $spacing-xxs;
 }
 
+@media (max-width: #{$screen-xxs}) {
+  button {
+    width: 100%;
+  }
+}
+
 //@media (max-width: #{2 * ($page-padding + $card-padding + $expansion-panel-padding) + $max-input-size}) {
 //  mat-expansion-panel-header {
 //    max-width: $max-input-size;
