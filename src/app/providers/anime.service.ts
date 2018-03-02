@@ -343,7 +343,8 @@ export class AnimeService {
             startDate_greater: $startDate_greater,
             startDate_lesser: $startDate_lesser,
             format_in: $formats,
-            genre_in: $genres
+            genre_in: $genres,
+            isAdult: false
           ) {
             ${ this.animeFields }
           }
