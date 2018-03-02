@@ -60,6 +60,10 @@
     </mat-slide-toggle>
   </div>
 
+  <app-genres-overview
+    [genreStatsList]="user.stats.favouredGenresOverview">
+  </app-genres-overview>
+
 </div>
 
 <mat-card *ngIf="errorGotten" class="error">

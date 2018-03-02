@@ -25,6 +25,7 @@ import { SearchResultsTableComponent } from './components/search-results-table/s
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 import { CoverImageComponent } from './components/cover-image/cover-image.component';
 import { ListEntryFormModalComponent } from './components/list-entry-form-modal/list-entry-form-modal.component';
+import { GenresOverviewComponent } from './components/genres-overview/genres-overview.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     UserListTableComponent,
     CoverImageComponent,
     ListEntryFormModalComponent,
-    SortPipe
+    SortPipe,
+    GenresOverviewComponent
   ],
   imports: [
     BrowserAnimationsModule,

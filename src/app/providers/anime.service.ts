@@ -309,6 +309,15 @@ export class AnimeService {
           options {
             displayAdultContent
           }
+          stats {
+            watchedTime
+            favouredGenresOverview {
+              genre
+              amount
+              meanScore
+              timeWatched
+            }
+          }
         }
       }`;
 
@@ -366,17 +375,6 @@ export class AnimeService {
         ) {
           statusLists {
             ... mediaListEntry
-          }
-          user {
-            id
-            name 
-            avatar {
-              large
-            }
-            mediaListOptions {
-              scoreFormat
-              rowOrder
-            }
           }
         }
       }
