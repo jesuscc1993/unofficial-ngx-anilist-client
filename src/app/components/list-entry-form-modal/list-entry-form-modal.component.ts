@@ -29,14 +29,14 @@ export class ListEntryFormModalComponent {
 
   private setupForm(): void {
     this.listEntryForm = this.formBuilder.group({
-      score: [undefined, [Validators.required, Validators.max(100), Validators.min(0)]]
+      score: [undefined, [Validators.required, Validators.max(10), Validators.min(0)]]
     });
   }
 
   saveEntry(): void {
     const listEntry: ListEntry = {
       media: this.media,
-      scoreRaw: this.listEntryForm.value.score
+      scoreRaw: this.listEntryForm.value.score * 10
     };
 
     this.animeService.saveListEntry(listEntry).subscribe((response) => {
