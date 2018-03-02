@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.mat-toolbar {
+mat-toolbar {
   display: block;
   height: auto;
   padding: $spacing-xs;
@@ -8,4 +8,14 @@
   $font-size: $font-size-s;
   font-size: $font-size;
   line-height: $font-size * 1.5;
+
+  .about-anilist {
+    color: #444;
+
+    .mat-icon[svgIcon="anilist"] {
+      height: 12px;
+      width: 16px;
+    }
+  }
+
 }
