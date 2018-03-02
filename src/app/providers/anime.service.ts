@@ -76,7 +76,10 @@ export class AnimeService {
 
   public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
     let options: any = {
-      type: MediaTypes.ANIME
+      type: MediaTypes.ANIME,
+      page: pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1,
+      perPage: pageInfo.perPage || 10,
+      sort: [mediaSorts[0].value]
     };
 
     if (query.search) {
@@ -93,14 +96,6 @@ export class AnimeService {
     }
     if (query.genres && query.genres.length) {
       options.genres = query.genres;
-    }
-
-    options.page = pageInfo.pageIndex || 1;
-    options.perPage = pageInfo.perPage || 10;
-    options.sort = [mediaSorts[0].value];
-
-    if (options.page < 1) {
-      options.page = 1;
     }
 
     return this.httpClient.post(this.apiUrl, {
@@ -140,7 +135,8 @@ export class AnimeService {
   public getList(user: User): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
-      userId: user.id
+      userId: user.id,
+      sort: ['SCORE']
     };
 
     return this.httpClient.post(this.apiUrl, {
@@ -357,11 +353,13 @@ export class AnimeService {
     this.listQuery = `
       query (
         $userId: Int!,
-        $listType: MediaType
+        $listType: MediaType,
+        $sort: [MediaListSort]
       ) {
         MediaListCollection (
           userId: $userId,
-          type: $listType
+          type: $listType,
+          sort: $sort
         ) {
           statusLists {
             ... mediaListEntry
