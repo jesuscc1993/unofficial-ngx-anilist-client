@@ -40,7 +40,7 @@ mat-expansion-panel-header {
   padding: 0 $spacing-xxs;
 }
 
-@media (max-width: #{$screen-xxs}) {
+@media (max-width: $screen-xxs) {
   button {
     width: 100%;
   }

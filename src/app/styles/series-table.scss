@@ -21,9 +21,26 @@ $horizontal-cell-padding: $spacing-xxs;
     flex: 4;
   }
 
-  .mat-column-cover-image {
-    font-size: 0;
+  .mat-column-title {
     overflow: visible;
+    display: flex;
+    align-items: center;
+
+    .favourite {
+      margin-left: auto;
+
+      @media (min-width: #{$screen-xxxs + 1}) {
+        margin-right: $spacing-xxxs;
+      }
+      @media (max-width: $screen-xxxs) {
+        margin-right: -$spacing-xs;
+      }
+    }
+  }
+
+  .mat-column-cover-image {
+    overflow: visible;
+    font-size: 0;
   }
 
   @media (max-width: $screen-m) {
