@@ -16,7 +16,6 @@ body {
     box-sizing: border-box;
     text-align: center;
 
-    $footer-height: 74px;
     min-height: calc(100vh - #{$mat-toolbar-height} - #{$footer-height});
 
     .page-wrapper {
