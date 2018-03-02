@@ -1,6 +1,14 @@
+<mat-card *ngIf="!loggedIn" class="warning">
+  <h4>
+    <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+    You are not logged in.
+    <a [href]=apiLoginUrl>Log in with AniList</a>.
+  </h4>
+</mat-card>
+
 <mat-spinner *ngIf="loggedIn && !ready" mode="indeterminate" class="full-page"></mat-spinner>
 
-<div *ngIf="loggedIn && ready">
+<div *ngIf="loggedIn && ready && !errorGotten">
 
   <!--<div *ngIf="multiListEnabled">-->
     <!--<div *ngFor="let status of statuses">-->
@@ -54,10 +62,9 @@
 
 </div>
 
-<mat-card *ngIf="!loggedIn" class="warning">
+<mat-card *ngIf="errorGotten" class="error">
   <h4>
     <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
-    You are not logged in.
-    <a [href]=apiLoginUrl>Log in with AniList</a>.
+    Error 500: Internal server error
   </h4>
 </mat-card>
