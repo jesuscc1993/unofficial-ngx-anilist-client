@@ -63,6 +63,16 @@ mat-form-field {
   }
 }
 
+mat-expansion-panel {
+  mat-expansion-panel-header {
+    padding: 0 $spacing-xxs;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0;
+  }
+}
+
 .mat-chip:not(.mat-basic-chip) {
   background-color: #999;
   color: white;

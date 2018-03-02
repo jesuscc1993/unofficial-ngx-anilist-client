@@ -1,23 +1,28 @@
 @import "../../styles/variables";
 
-$max-input-size: 320px;
+$max-input-size: 640px;
 
 mat-form-field {
   width: 100%;
-  max-width: 120px;
-
-  &.medium {
-    max-width: 320px;
-  }
-
-  &.large {
-    max-width: 640px;
-  }
 }
 
-.search-filters {
-  mat-form-field {
-    margin-left: $spacing-xxs;
+.filter-group {
+  max-width: $max-input-size;
+  margin: auto;
+
+  &.two-rows {
+    > * {
+      @media (min-width: #{$screen-xxs + 1}) {
+        max-width: calc(50% - #{$spacing-xs});
+
+        &:first-child {
+          float: left;
+        }
+        &:last-child {
+          float: right;
+        }
+      }
+    }
   }
 }
 
@@ -31,25 +36,18 @@ mat-card {
   }
 }
 
-mat-expansion-panel:not(.mat-expanded) {
-  margin-bottom: $spacing-s;
+mat-expansion-panel-header {
+  padding: 0 $spacing-xxs;
 }
 
-@media (max-width: #{$max-input-size + $spacing-m * 2 + 48}) {
-  .mat-expansion-panel-header,
-  .mat-expansion-panel-body {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .mat-expansion-panel-header {
-    max-width: $max-input-size;
-    width: 100%;
-    margin: auto;
-    box-sizing: border-box;
-
-    .mat-expansion-indicator {
-      padding-right: $spacing-xxxs;
-    }
-  }
-}
+//@media (max-width: #{2 * ($page-padding + $card-padding + $expansion-panel-padding) + $max-input-size}) {
+//  mat-expansion-panel-header {
+//    max-width: $max-input-size;
+//    width: 100%;
+//    margin: auto;
+//    box-sizing: border-box;
+//
+//    padding-left: 0;
+//    padding-right: 0;
+//  }
+//}

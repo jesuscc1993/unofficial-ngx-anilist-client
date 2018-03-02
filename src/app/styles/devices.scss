@@ -13,7 +13,7 @@ $sizes: (
 
 @each $size, $width in $sizes {
 
-  @media (min-width: $width) {
+  @media (min-width: $width + 1) {
     .hide-above-#{$size} {
       display: none !important;
     }
@@ -22,7 +22,7 @@ $sizes: (
     }
   }
 
-  @media (max-width: $width - 1) {
+  @media (max-width: $width) {
     .hide-below-#{$size} {
       display: none !important;
     }

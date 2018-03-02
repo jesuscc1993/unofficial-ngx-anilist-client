@@ -16,9 +16,8 @@ body {
     box-sizing: border-box;
     text-align: center;
 
-    $header-height: 64px;
     $footer-height: 74px;
-    min-height: calc(100vh - #{$header-height} - #{$footer-height});
+    min-height: calc(100vh - #{$mat-toolbar-height} - #{$footer-height});
 
     .page-wrapper {
       max-width: 1152px;

@@ -8,9 +8,11 @@
       </label>
     </h1>
 
-    <mat-form-field class="medium display-block margin-auto">
-      <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
-    </mat-form-field>
+    <div class="filter-group">
+      <mat-form-field class="medium display-block margin-auto">
+        <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
+      </mat-form-field>
+    </div>
 
     <!--<mat-form-field id="yearInput">-->
       <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
@@ -18,72 +20,60 @@
       <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
     <!--</mat-form-field>-->
 
-    <mat-expansion-panel class="mat-elevation-z search-filters">
+    <mat-expansion-panel class="mat-elevation-z padding-bottom-s search-filters">
       <mat-expansion-panel-header>
         Advanced filters
       </mat-expansion-panel-header>
 
       <mat-divider></mat-divider>
 
-      <br class="hide-above-xxs">
+      <div class="vertical-padding-xs">
 
-      <!-- air date -->
-      <div class="filter-group">
-        <label for="newerThanInput">
-          Air date >
-        </label>
+        <!-- air date -->
+        <div class="filter-group two-rows">
+          <mat-form-field class="medium">
+            <input
+                id="newerThanInput"
+                matInput type="number"
+                placeholder="Aired after year"
+                formControlName="startDate_greater"
+                [min]="minYear" [max]="maxYear"
+            >
+          </mat-form-field>
 
-        <br class="hide-above-xxs">
+          <mat-form-field class="medium">
+            <input
+                id="olderThanInput"
+                matInput type="number"
+                placeholder="Aired before year"
+                formControlName="startDate_lesser"
+                [min]="minYear" [max]="maxYear"
+            >
+          </mat-form-field>
+        </div>
 
-        <mat-form-field>
-          <input
-              id="newerThanInput"
-              matInput type="number"
-              placeholder="Year"
-              formControlName="startDate_greater"
-              [min]="minYear" [max]="maxYear"
-          >
-        </mat-form-field>
+        <!-- formats -->
+        <div class="filter-group">
+          <mat-form-field class="large">
+            <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
+              <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+                {{ mediaFormat.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        <br class="hide-above-xxs">
+        <!-- genres -->
+        <div class="filter-group">
+          <mat-form-field class="large">
+            <mat-select placeholder="Genre" formControlName="genres" multiple>
+              <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
+                {{ genre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        <label for="olderThanInput" class="margin-left-xxs">
-          && <
-        </label>
-
-        <br class="hide-above-xxs">
-
-        <mat-form-field>
-          <input
-              id="olderThanInput"
-              matInput type="number"
-              placeholder="Year"
-              formControlName="startDate_lesser"
-              [min]="minYear" [max]="maxYear"
-          >
-        </mat-form-field>
-      </div>
-
-      <!-- formats -->
-      <div class="filter-group">
-        <mat-form-field class="large">
-          <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
-            <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-              {{ mediaFormat.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <!-- genres -->
-      <div class="filter-group">
-        <mat-form-field class="large">
-          <mat-select placeholder="Genres" formControlName="genres" multiple>
-            <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
-              {{ genre }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
       </div>
 
       <mat-divider></mat-divider>
