@@ -13,6 +13,7 @@ import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry
   styleUrls: ['./cover-image.component.scss']
 })
 export class CoverImageComponent {
+  @Input() listEntryStatus?: string;
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
   @Output() onUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
@@ -72,6 +73,7 @@ export class CoverImageComponent {
       width: 'auto',
       maxWidth: '672px',
       data: {
+        listEntryStatus: this.listEntryStatus,
         listEntry: this.listEntry,
         media: this.media
       }

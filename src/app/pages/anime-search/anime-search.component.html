@@ -8,7 +8,7 @@
       </label>
     </h1>
 
-    <div class="filter-group">
+    <div class="form-group">
       <mat-form-field class="medium display-block margin-auto">
         <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
       </mat-form-field>
@@ -30,7 +30,7 @@
       <div class="vertical-padding-xs">
 
         <!-- air date -->
-        <div class="filter-group two-rows">
+        <div class="form-group two-rows">
           <mat-form-field class="medium">
             <input
                 id="newerThanInput"
@@ -53,7 +53,7 @@
         </div>
 
         <!-- formats -->
-        <div class="filter-group">
+        <div class="form-group">
           <mat-form-field class="large">
             <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
               <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
@@ -64,7 +64,7 @@
         </div>
 
         <!-- genres -->
-        <div class="filter-group">
+        <div class="form-group">
           <mat-form-field class="large">
             <mat-select placeholder="Genre" formControlName="genres" multiple>
               <mat-option *ngFor="let genre of mediaGenres" [value]="genre">

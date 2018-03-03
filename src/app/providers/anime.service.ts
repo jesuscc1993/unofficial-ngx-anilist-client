@@ -211,11 +211,11 @@ export class AnimeService {
     });
   }
 
-  public saveListEntry(listEntry: ListEntry): Observable<any> {
+  public saveListEntry(listEntryRequest: any): Observable<any> {
     let options: any = {
-      status: MediaStatus.COMPLETED,
-      mediaId: listEntry.media.id,
-      scoreRaw: listEntry.scoreRaw
+      status: (listEntryRequest.statusValue.toUpperCase() || MediaStatus.COMPLETED).toUpperCase(),
+      mediaId: listEntryRequest.media.id,
+      scoreRaw: listEntryRequest.scoreRaw
     };
 
     return this.httpClient.post(this.apiUrl, {

@@ -10,45 +10,30 @@
 
 <div *ngIf="loggedIn && ready && !errorGotten">
 
-  <div *ngIf="multiListEnabled">
-    <div *ngFor="let status of statuses">
-      <a *ngIf="hasDataOfStatus(status)" href="{{ '/user-list#' + status }}" class="capitalize">
-        {{ status }}
+  <div class="statuses-wrapper">
+    <span *ngFor="let status of statuses" class="status-wrapper">
+      <a *ngIf="hasDataOfStatus(status.value)" href="{{ '/user-list#' + status.value }}" class="capitalize">
+        {{ status.label }}
       </a>
-    </div>
-
-    <div *ngFor="let status of statuses" class="status-wrapper">
-      <div *ngIf="hasDataOfStatus(status)">
-
-        <h3 [id]="status" class="capitalize">
-          {{ status }}
-        </h3>
-
-        <mat-card class="no-padding">
-          <app-user-list-table
-            [tableData]="statusObjects[status]"
-            [favouriteIDs]="favouriteIDs"
-            (onEntryUpdate)="onEntryUpdate($event)">
-          </app-user-list-table>
-        </mat-card>
-
-      </div>
-    </div>
+    </span>
   </div>
 
-  <div *ngIf="!multiListEnabled">
-    <div *ngIf="hasDataOfStatus('completed')">
-      <h3 class="capitalize">
-        {{ 'completed' }}
+  <div *ngFor="let status of statuses" class="status-table-wrapper">
+    <div *ngIf="hasDataOfStatus(status.value)">
+
+      <h3 [id]="status.value" class="capitalize">
+        {{ status.label }}
       </h3>
 
       <mat-card class="no-padding">
         <app-user-list-table
-          [tableData]="statusObjects['completed']"
+          [tableStatus]="status.value"
+          [tableData]="statusObjects[status.value]"
           [favouriteIDs]="favouriteIDs"
           (onEntryUpdate)="onEntryUpdate($event)">
         </app-user-list-table>
       </mat-card>
+
     </div>
   </div>
 

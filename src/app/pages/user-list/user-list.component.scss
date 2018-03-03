@@ -1,6 +1,17 @@
 @import "../../styles/variables";
 
-.status-wrapper {
+.statuses-wrapper {
+  .status-wrapper {
+    &:not(:last-of-type) {
+      &::after {
+        content: ' | ';
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.status-table-wrapper {
   &:not(:last-of-type) {
     margin-bottom: $spacing-l - $spacing-xxs;
   }

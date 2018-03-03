@@ -10,6 +10,7 @@ import { Anime } from '../../models/anilist/anime';
   styleUrls: ['./user-list-table.component.scss']
 })
 export class UserListTableComponent implements AfterViewInit {
+  @Input() tableStatus: string;
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];
   @Output() onEntryUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();

@@ -1,12 +1,10 @@
 @import "../../styles/variables";
 
-$max-input-size: 640px;
-
 mat-form-field {
   width: 100%;
 }
 
-.filter-group {
+.form-group {
   max-width: $max-input-size;
   margin: auto;
 

@@ -1,23 +1,23 @@
 import { EnumMap } from '../enumMap';
 
 export class MediaStatus extends EnumMap {
-  static CURRENT: string = 'CURRENT';
-  static PLANNING: string = 'PLANNING';
-  static COMPLETED: string = 'COMPLETED';
-  static DROPPED: string = 'DROPPED';
-  static PAUSED: string = 'PAUSED';
-  static REPEATING: string = 'REPEATING';
+  static CURRENT: string = 'current';
+  static PLANNING: string = 'planning';
+  static COMPLETED: string = 'completed';
+  static DROPPED: string = 'dropped';
+  static PAUSED: string = 'paused';
+  static REPEATING: string = 'repeating';
 
   static LIST: any[] = [
-    { label: 'Watching', value: 'CURRENT' },
-    { label: 'Planned', value: 'PLANNING' },
-    { label: 'Completed', value: 'COMPLETED' },
-    { label: 'Dropped', value: 'DROPPED' },
-    { label: 'Paused', value: 'PAUSED' },
-    { label: 'Repeating', value: 'REPEATING' }
+    { label: 'Watching', value: 'current' },
+    { label: 'Planned', value: 'planning' },
+    { label: 'Completed', value: 'completed' },
+    { label: 'Dropped', value: 'dropped' },
+    { label: 'Paused', value: 'paused' },
+    { label: 'Repeating', value: 'repeating' }
   ];
 
   constructor(value: string) {
-    super(value, MediaStatus.LIST);
+    super(value, MediaStatus.LIST, true);
   }
 }

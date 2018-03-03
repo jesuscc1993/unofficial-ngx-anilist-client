@@ -5,6 +5,7 @@ import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { ListEntry } from '../../models/anilist/listEntry';
 import { apiLoginUrl } from '../../app.constants';
+import { MediaStatus } from '../../models/anilist/mediaStatus';
 
 @Component({
   selector: 'app-user-list',
@@ -15,11 +16,10 @@ export class UserListComponent {
 
   user: User;
   statusObjects: any;
-  statuses: any;
+  statuses: MediaStatus[];
   favouriteIDs: number[];
 
   apiLoginUrl: string;
-  multiListEnabled: boolean;
   loggedIn: boolean;
   ready: boolean;
   errorGotten: boolean;
@@ -41,7 +41,14 @@ export class UserListComponent {
     if (this.user) {
       this.animeService.getList(this.user).subscribe((response) => {
         this.statusObjects = response;
-        this.statuses = Object.keys(response).sort();
+
+        const statusValues: string[] = Object.keys(response).sort();
+        const statuses: MediaStatus[] = [];
+        statusValues.forEach((statusValue) => {
+          statuses.push(new MediaStatus(statusValue));
+        });
+        this.statuses = statuses;
+
         this.ready = true;
 
       }, (error) => {

@@ -20,7 +20,7 @@ export class MediaFormat extends EnumMap {
   ];
 
   constructor(value: string) {
-    super(value, MediaFormat.LIST);
+    super(value, MediaFormat.LIST, true);
   }
 
 }
