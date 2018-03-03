@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
@@ -41,8 +41,10 @@ export class AnimeSearchComponent {
   private setupForm(): void {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      startDate_greater: [undefined],
-      startDate_lesser: [undefined],
+      startDate_greater: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
+      startDate_lesser: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
+      averageScore_greater: [undefined, [Validators.min(0), Validators.max(10)]],
+      averageScore_lesser: [undefined, [Validators.min(0), Validators.max(10)]],
       formats: [],
       genres: []
     });
@@ -54,11 +56,22 @@ export class AnimeSearchComponent {
 
     let query: MediaQuery = {
       search: this.searchForm.value.search,
-      startDate_lesser: this.getDateScalarFromYear(this.searchForm.value.startDate_lesser),
-      startDate_greater: this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231,
       formats: this.searchForm.value.formats,
       genres: this.searchForm.value.genres
     };
+
+    if (this.searchForm.value.startDate_lesser) {
+      query.startDate_lesser = this.getDateScalarFromYear(this.searchForm.value.startDate_lesser);
+    }
+    if (this.searchForm.value.startDate_greater) {
+      query.startDate_greater = this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231;
+    }
+    if (this.searchForm.value.averageScore_greater) {
+      query.averageScore_greater = this.searchForm.value.averageScore_greater * 10;
+    }
+    if (this.searchForm.value.averageScore_lesser) {
+      query.averageScore_lesser = this.searchForm.value.averageScore_lesser * 10;
+    }
 
     const pageInfo: PageQuery = {
       pageIndex: page,

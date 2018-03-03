@@ -5,6 +5,8 @@ export class MediaQuery {
   adultContent?: boolean;
   startDate_greater?: number;
   startDate_lesser?: number;
+  averageScore_greater?: number;
+  averageScore_lesser?: number;
   formats?: string[];
   genres?: string[];
 }

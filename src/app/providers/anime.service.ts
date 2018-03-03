@@ -92,6 +92,12 @@ export class AnimeService {
     if (query.startDate_lesser) {
       options.startDate_lesser = query.startDate_lesser;
     }
+    if (query.averageScore_greater) {
+      options.averageScore_greater = query.averageScore_greater;
+    }
+    if (query.averageScore_lesser) {
+      options.averageScore_lesser = query.averageScore_lesser;
+    }
     if (query.formats && query.formats.length) {
       options.formats = query.formats;
     }
@@ -331,6 +337,8 @@ export class AnimeService {
         $sort: [MediaSort],
         $startDate_greater: FuzzyDateInt,
         $startDate_lesser: FuzzyDateInt,
+        $averageScore_greater: Int,
+        $averageScore_lesser: Int,
         $formats: [MediaFormat],
         $genres: [String],
         $adultContent: Boolean
@@ -354,6 +362,8 @@ export class AnimeService {
             sort: $sort,
             startDate_greater: $startDate_greater,
             startDate_lesser: $startDate_lesser,
+            averageScore_greater: $averageScore_greater,
+            averageScore_lesser: $averageScore_lesser,
             format_in: $formats,
             genre_in: $genres
           ) {

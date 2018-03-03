@@ -33,7 +33,6 @@
         <div class="form-group two-rows">
           <mat-form-field class="medium">
             <input
-                id="newerThanInput"
                 matInput type="number"
                 placeholder="Aired after year"
                 formControlName="startDate_greater"
@@ -43,11 +42,31 @@
 
           <mat-form-field class="medium">
             <input
-                id="olderThanInput"
                 matInput type="number"
                 placeholder="Aired before year"
                 formControlName="startDate_lesser"
                 [min]="minYear" [max]="maxYear"
+            >
+          </mat-form-field>
+        </div>
+
+        <!-- score -->
+        <div class="form-group two-rows">
+          <mat-form-field class="medium">
+            <input
+                matInput type="number"
+                placeholder="Scored above"
+                formControlName="averageScore_greater"
+                min="0" max="10" step=".1"
+            >
+          </mat-form-field>
+
+          <mat-form-field class="medium">
+            <input
+                matInput type="number"
+                placeholder="Scored below"
+                formControlName="averageScore_lesser"
+                min="0" max="10" step=".1"
             >
           </mat-form-field>
         </div>
