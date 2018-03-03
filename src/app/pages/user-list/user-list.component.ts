@@ -25,6 +25,7 @@ export class UserListComponent {
   errorGotten: boolean;
 
   reloadOnUpdate: boolean = true;
+  filter: string;
 
   constructor(
     private router: Router,
@@ -45,7 +46,9 @@ export class UserListComponent {
         const statusValues: string[] = Object.keys(response).sort();
         const statuses: MediaStatus[] = [];
         statusValues.forEach((statusValue) => {
-          statuses.push(new MediaStatus(statusValue));
+          let status: any = new MediaStatus(statusValue);
+          status.shown = true;
+          statuses.push(status);
         });
         this.statuses = statuses;
 
@@ -70,6 +73,10 @@ export class UserListComponent {
     return this.statusObjects &&
            this.statusObjects[status] &&
            this.statusObjects[status].length > 0;
+  }
+
+  applyFilter(filterValue: string): void {
+    this.filter = filterValue.trim().toLowerCase();
   }
 
   getListAsString(): string {

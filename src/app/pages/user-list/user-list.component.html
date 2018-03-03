@@ -10,16 +10,30 @@
 
 <div *ngIf="loggedIn && ready && !errorGotten">
 
-  <div class="statuses-wrapper">
-    <span *ngFor="let status of statuses" class="status-wrapper">
-      <a *ngIf="hasDataOfStatus(status.value)" href="{{ '/user-list#' + status.value }}" class="capitalize">
-        {{ status.label }}
-      </a>
-    </span>
-  </div>
+  <mat-card>
+    <div class="statuses-wrapper">
+      <mat-form-field class="full-width">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name">
+      </mat-form-field>
 
-  <div *ngFor="let status of statuses" class="status-table-wrapper">
-    <div *ngIf="hasDataOfStatus(status.value)">
+      <mat-divider></mat-divider>
+
+      <h3>
+        Show / Go to
+      </h3>
+
+      <span *ngFor="let status of statuses" class="status-wrapper">
+        <mat-checkbox [(ngModel)]="status.shown"></mat-checkbox>
+
+        <a *ngIf="hasDataOfStatus(status.value)" href="{{ '/user-list#' + status.value }}" class="capitalize">
+          {{ status.label }}
+        </a>
+      </span>
+    </div>
+  </mat-card>
+
+  <div *ngFor="let status of statuses">
+    <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
 
       <h3 [id]="status.value" class="capitalize">
         {{ status.label }}
@@ -30,6 +44,7 @@
           [tableStatus]="status.value"
           [tableData]="statusObjects[status.value]"
           [favouriteIDs]="favouriteIDs"
+          [filter]="filter"
           (onEntryUpdate)="onEntryUpdate($event)">
         </app-user-list-table>
       </mat-card>

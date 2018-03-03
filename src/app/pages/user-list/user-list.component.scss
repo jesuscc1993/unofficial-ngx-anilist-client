@@ -1,13 +1,15 @@
 @import "../../styles/variables";
 
 .statuses-wrapper {
+  mat-checkbox {
+    display: inline-block;
+    vertical-align: text-bottom;
+  }
+
   .status-wrapper {
-    &:not(:last-of-type) {
-      &::after {
-        content: ' | ';
-        display: inline-block;
-      }
-    }
+    margin-right: $spacing-xs;
+    display: inline-block;
+    min-width: 104px;
   }
 }
 

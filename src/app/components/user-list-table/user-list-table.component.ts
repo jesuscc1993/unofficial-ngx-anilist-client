@@ -1,4 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { ListEntry } from '../../models/anilist/listEntry';
@@ -9,10 +12,11 @@ import { Anime } from '../../models/anilist/anime';
   templateUrl: './user-list-table.component.html',
   styleUrls: ['./user-list-table.component.scss']
 })
-export class UserListTableComponent implements AfterViewInit {
+export class UserListTableComponent implements AfterViewInit, OnChanges {
   @Input() tableStatus: string;
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];
+  @Input() filter?: string;
   @Output() onEntryUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,6 +34,10 @@ export class UserListTableComponent implements AfterViewInit {
     this.bindChildComponents();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.dataSource.filter = changes.filter.currentValue;
+  }
+
   onUpdate(listEntry?: ListEntry): void {
     this.onEntryUpdate.emit(listEntry);
   }
@@ -41,6 +49,7 @@ export class UserListTableComponent implements AfterViewInit {
   private bindChildComponents(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
     this.dataSource.sortingDataAccessor = (listEntry: ListEntry, property: string) => {
       const anime: Anime = (<Anime> listEntry.media);
 
@@ -53,6 +62,10 @@ export class UserListTableComponent implements AfterViewInit {
         'episodes': +anime.episodes
 
       }[property];
+    };
+
+    this.dataSource.filterPredicate = (listEntry: ListEntry, filter: string) => {
+      return listEntry.media.title.romaji.trim().toLowerCase().indexOf(filter.trim().toLowerCase()) >= 0;
     };
   }
 }
