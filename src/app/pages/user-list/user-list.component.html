@@ -10,18 +10,18 @@
 
 <div *ngIf="loggedIn && ready && !errorGotten">
 
-  <mat-card>
+  <mat-card class="table-filter">
+    <mat-form-field class="full-width">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name">
+    </mat-form-field>
+  </mat-card>
+
+  <mat-card class="margin-top-s">
+    <h3>
+      Show / Go to
+    </h3>
+
     <div class="statuses-wrapper">
-      <mat-form-field class="full-width">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name">
-      </mat-form-field>
-
-      <mat-divider></mat-divider>
-
-      <h3>
-        Show / Go to
-      </h3>
-
       <span *ngFor="let status of statuses" class="status-wrapper">
         <mat-checkbox [(ngModel)]="status.shown"></mat-checkbox>
 

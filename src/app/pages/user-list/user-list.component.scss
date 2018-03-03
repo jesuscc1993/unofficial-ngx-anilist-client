@@ -1,5 +1,10 @@
 @import "../../styles/variables";
 
+.table-filter {
+  padding-top: $spacing-xxs !important;
+  padding-bottom: 0 !important;
+}
+
 .statuses-wrapper {
   mat-checkbox {
     display: inline-block;
