@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { ListEntry } from '../../models/anilist/listEntry';
-import { apiLoginUrl } from '../../app.constants';
 import { MediaStatus } from '../../models/anilist/mediaStatus';
+import { rootUrl } from '../../app.constants';
 
 @Component({
   selector: 'app-user-list',
@@ -13,13 +13,11 @@ import { MediaStatus } from '../../models/anilist/mediaStatus';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
-
   user: User;
   statusObjects: any;
   statuses: MediaStatus[];
   favouriteIDs: number[];
 
-  apiLoginUrl: string;
   loggedIn: boolean;
   ready: boolean;
   errorGotten: boolean;
@@ -31,9 +29,12 @@ export class UserListComponent {
     private router: Router,
     private animeService: AnimeService
   ) {
-    this.apiLoginUrl = apiLoginUrl;
     this.user = this.animeService.getUser();
     this.loggedIn = this.user !== undefined;
+
+    if (!this.loggedIn) {
+      this.router.navigate([rootUrl]);
+    }
 
     this.updateListData();
   }
@@ -41,17 +42,13 @@ export class UserListComponent {
   private getUserList(): void {
     if (this.user) {
       this.animeService.getList(this.user).subscribe((response) => {
-        this.statusObjects = response;
-
-        const statusValues: string[] = Object.keys(response).sort();
         const statuses: MediaStatus[] = [];
-        statusValues.forEach((statusValue) => {
-          let status: any = new MediaStatus(statusValue);
-          status.shown = true;
-          statuses.push(status);
+        Object.keys(response).sort().forEach((statusValue) => {
+          statuses.push(new MediaStatus(statusValue));
         });
-        this.statuses = statuses;
 
+        this.statusObjects = response;
+        this.statuses = statuses;
         this.ready = true;
 
       }, (error) => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,14 +13,12 @@ import { MediaTypes } from '../models/anilist/mediaType';
 import { PageQuery } from '../models/anilist/pageInfo';
 import { User } from '../models/anilist/user';
 import { mediaSorts } from '../models/anilist/mediaSorts';
+import { apiUrl, accessTokenCookieKey, userCookieKey } from '../app.constants';
 
 @Injectable()
 export class AnimeService {
-
-  private apiUrl: string = 'https://graphql.anilist.co';
+  private apiUrl: string = apiUrl;
   private fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
-  private accessTokenKey: string = 'accessToken';
-  private userKey: string = 'user';
 
   private animeFields: string;
   private genresQuery: string;
@@ -32,6 +30,8 @@ export class AnimeService {
   private deleteListEntryQuery: string;
   private toggleFavouriteEntryQuery: string;
 
+  userChange: EventEmitter<any> = new EventEmitter<any>();
+
   constructor (
     private httpClient: HttpClient
   ) {
@@ -39,24 +39,39 @@ export class AnimeService {
   }
 
   public setAccessToken(accessToken: string): void {
-    localStorage.setItem(this.accessTokenKey, accessToken);
+    localStorage.setItem(accessTokenCookieKey, accessToken);
   }
   public getAccessToken(): string {
-    return localStorage.getItem(this.accessTokenKey);
+    return localStorage.getItem(accessTokenCookieKey);
   }
   public removeAccessToken(): void {
-    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(accessTokenCookieKey);
   }
 
   public setUser(user: User): void {
-    localStorage.setItem(this.userKey, JSON.stringify(user));
+    localStorage.setItem(userCookieKey, JSON.stringify(user));
   }
   public getUser(): User {
-    const jsonString: string = localStorage.getItem(this.userKey);
+    const jsonString: string = localStorage.getItem(userCookieKey);
     return jsonString ? JSON.parse(jsonString) : undefined;
   }
   public removeUser(): void {
-    localStorage.removeItem(this.userKey);
+    localStorage.removeItem(userCookieKey);
+  }
+
+  public logIn(accessToken: string): void {
+    this.setAccessToken(accessToken);
+
+    this.queryUser().subscribe((response: any) => {
+      this.setUser(response.Viewer);
+      this.userChange.emit(this.getUser());
+    });
+  }
+
+  public logOut(): void {
+    this.removeAccessToken();
+    this.removeUser();
+    this.userChange.emit();
   }
 
   public getGenres(): Observable<string[]> {

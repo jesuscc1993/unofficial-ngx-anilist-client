@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
@@ -6,19 +6,21 @@ import { AnimeService } from '../../providers/anime.service';
 import { ListEntry } from '../../models/anilist/listEntry';
 import { Media } from '../../models/anilist/media';
 import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry-form-modal.component';
+import { User } from '../../models/anilist/user';
 
 @Component({
   selector: 'app-cover-image',
   templateUrl: './cover-image.component.html',
   styleUrls: ['./cover-image.component.scss']
 })
-export class CoverImageComponent {
+export class CoverImageComponent implements OnDestroy {
   @Input() listEntryStatus?: string;
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
   @Output() onUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
 
-  userListUrl: string = '/user-list';
+  private user: User;
+  private userChangeSubscription: any;
 
   constructor(
     private dialog: MatDialog,
@@ -26,7 +28,15 @@ export class CoverImageComponent {
     private matSnackBar: MatSnackBar,
     private animeService: AnimeService
   ) {
+    this.user = this.animeService.getUser();
 
+    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
+      this.user = user;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userChangeSubscription.unsubscribe();
   }
 
   viewOnAniList(): void {

@@ -1,3 +1,10 @@
+<mat-card *ngIf="!user" class="warning margin-bottom-xs">
+  <h4>
+    <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+    You are not logged in. Search will be available but most other features will not.
+  </h4>
+</mat-card>
+
 <form [formGroup]="searchForm" (ngSubmit)="search()">
 
   <mat-card class="text-center">

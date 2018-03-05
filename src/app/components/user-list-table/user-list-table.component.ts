@@ -35,7 +35,9 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource.filter = changes.filter.currentValue;
+    if (this.dataSource && changes.filter) {
+      this.dataSource.filter = changes.filter.currentValue;
+    }
   }
 
   onUpdate(listEntry?: ListEntry): void {

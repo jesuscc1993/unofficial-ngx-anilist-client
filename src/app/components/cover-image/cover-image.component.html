@@ -3,7 +3,7 @@
 <img [src]="media.coverImage.medium">
 
 <mat-menu #entryMenu="matMenu">
-  <button mat-menu-item (click)="saveToList()">
+  <button mat-menu-item (click)="saveToList()" [disabled]="!user">
     <i class="fa fa-refresh fa-1x margin-right-xxxs"></i>
     Save to list
   </button>

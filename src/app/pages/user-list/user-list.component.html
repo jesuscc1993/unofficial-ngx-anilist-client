@@ -1,14 +1,13 @@
-<mat-card *ngIf="!loggedIn" class="warning">
+<mat-card *ngIf="!user" class="warning">
   <h4>
     <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
     You are not logged in.
-    <a [href]=apiLoginUrl>Log in with AniList</a>.
   </h4>
 </mat-card>
 
-<mat-spinner *ngIf="loggedIn && !ready" mode="indeterminate" class="full-page"></mat-spinner>
+<mat-spinner *ngIf="user && !ready" mode="indeterminate" class="full-page"></mat-spinner>
 
-<div *ngIf="loggedIn && ready && !errorGotten">
+<div *ngIf="user && ready && !errorGotten">
 
   <mat-card class="table-filter">
     <mat-form-field class="full-width">

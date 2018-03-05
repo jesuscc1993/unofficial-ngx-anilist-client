@@ -17,6 +17,8 @@ export class MediaStatus extends EnumMap {
     { label: 'Repeating', value: 'repeating' }
   ];
 
+  shown: boolean = true;
+
   constructor(value: string) {
     super(value, MediaStatus.LIST, true);
   }

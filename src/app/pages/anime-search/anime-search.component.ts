@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
@@ -13,7 +13,7 @@ import { MediaFormat } from '../../models/anilist/mediaFormats';
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss']
 })
-export class AnimeSearchComponent {
+export class AnimeSearchComponent implements OnDestroy {
 
   user: User;
   animeList: Anime[];
@@ -29,6 +29,8 @@ export class AnimeSearchComponent {
   minYear: number = 1900;
   maxYear: number = new Date().getFullYear() + 1;
 
+  private userChangeSubscription: any;
+
   constructor(
     private animeService: AnimeService,
     private formBuilder: FormBuilder
@@ -36,6 +38,14 @@ export class AnimeSearchComponent {
     this.user = this.animeService.getUser();
     this.setupForm();
     this.getGenres();
+
+    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
+      this.user = user;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userChangeSubscription.unsubscribe();
   }
 
   private setupForm(): void {

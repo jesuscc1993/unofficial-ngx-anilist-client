@@ -7,11 +7,10 @@ import { apiLoginUrl } from '../../app.constants';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  apiLoginUrl: string;
+  apiLoginUrl: string = apiLoginUrl;
 
   constructor() {
-    this.apiLoginUrl = apiLoginUrl;
+
   }
 
   ngOnInit(): void {
