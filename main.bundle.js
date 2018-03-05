@@ -61,10 +61,22 @@ var AppComponent = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return apiLoginUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return apiUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return apiLoginUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return apiTokenPrefix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return accessTokenCookieKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return userCookieKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return rootUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return userListUrl; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 
+var apiUrl = 'https://graphql.anilist.co';
 var apiLoginUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=" + __WEBPACK_IMPORTED_MODULE_0__environments_environment__["a" /* environment */].anilist_client_id + "&response_type=token";
+var apiTokenPrefix = '#access_token=';
+var accessTokenCookieKey = 'accessToken';
+var userCookieKey = 'user';
+var rootUrl = '/anime-search';
+var userListUrl = '/user-list';
 
 
 /***/ }),
@@ -186,7 +198,7 @@ var AppModule = (function () {
 /***/ "../../../../../src/app/components/cover-image/cover-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<i class=\"fa fa-bars menu-toggle clickable\" [matMenuTriggerFor]=\"entryMenu\"></i>\n\n<img [src]=\"media.coverImage.medium\">\n\n<mat-menu #entryMenu=\"matMenu\">\n  <button mat-menu-item (click)=\"saveToList()\">\n    <i class=\"fa fa-refresh fa-1x margin-right-xxxs\"></i>\n    Save to list\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"toggleFavourite()\">\n    <i class=\"fa fa-star fa-1x margin-right-xxxs\"></i>\n    Toggle favourite\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"deleteEntry()\">\n    <i class=\"fa fa-trash fa-1x margin-right-xxxs\"></i>\n    Delete from list\n  </button>\n  <button mat-menu-item (click)=\"viewOnAniList()\">\n    <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n    View on AniList\n  </button>\n</mat-menu>"
+module.exports = "<i class=\"fa fa-bars menu-toggle clickable\" [matMenuTriggerFor]=\"entryMenu\"></i>\n\n<img [src]=\"media.coverImage.medium\">\n\n<mat-menu #entryMenu=\"matMenu\">\n  <button mat-menu-item (click)=\"saveToList()\" [disabled]=\"!user\">\n    <i class=\"fa fa-refresh fa-1x margin-right-xxxs\"></i>\n    Save to list\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"toggleFavourite()\">\n    <i class=\"fa fa-star fa-1x margin-right-xxxs\"></i>\n    Toggle favourite\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"deleteEntry()\">\n    <i class=\"fa fa-trash fa-1x margin-right-xxxs\"></i>\n    Delete from list\n  </button>\n  <button mat-menu-item (click)=\"viewOnAniList()\">\n    <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n    View on AniList\n  </button>\n</mat-menu>"
 
 /***/ }),
 
@@ -238,13 +250,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var CoverImageComponent = (function () {
     function CoverImageComponent(dialog, router, matSnackBar, animeService) {
+        var _this = this;
         this.dialog = dialog;
         this.router = router;
         this.matSnackBar = matSnackBar;
         this.animeService = animeService;
         this.onUpdate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
-        this.userListUrl = '/user-list';
+        this.user = this.animeService.getUser();
+        this.userChangeSubscription = this.animeService.userChange.subscribe(function (user) {
+            _this.user = user;
+        });
     }
+    CoverImageComponent.prototype.ngOnDestroy = function () {
+        this.userChangeSubscription.unsubscribe();
+    };
     CoverImageComponent.prototype.viewOnAniList = function () {
         window.open("https://anilist.co/anime/" + this.media.id);
     };
@@ -488,7 +507,7 @@ var GenresOverviewComponent = (function () {
 /***/ "../../../../../src/app/components/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n\n  <div>\n    <a *ngIf=\"!onRoot\" [routerLink]=\"rootUrl\">\n      <i class=\"fa fa-chevron-left fa-1x\"></i>\n      <span class=\"hide-below-s\">\n        Search\n      </span>\n    </a>\n  </div>\n\n  <div class=\"centered-content\">\n    <span class=\"hide-below-xxxs\">\n      Anime management client\n    </span>\n  </div>\n\n  <span class=\"filler\"></span>\n\n  <!-- logged in -->\n  <span *ngIf=\"user\" class=\"padding-right-xs clickable hide-below-s\" [matMenuTriggerFor]=\"userMenu\">\n    {{ user.name }}\n  </span>\n  <img *ngIf=\"user\" class=\"avatar clickable hide-below-s\" [src]=\"user.avatar.large\" [matMenuTriggerFor]=\"userMenu\">\n\n  <a *ngIf=\"user\" class=\"clickable show-below-s\" [matMenuTriggerFor]=\"userMenu\">\n    <i class=\"fa fa-bars fa-1x\"></i>\n  </a>\n\n  <mat-menu #userMenu=\"matMenu\">\n    <button mat-menu-item (click)=\"navigateToUserList()\">\n      <i class=\"fa fa-list fa-1x margin-right-xxxs\"></i>\n      View list\n    </button>\n    <button mat-menu-item (click)=\"navigateToProfile()\">\n      <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n      View profile\n    </button>\n    <button mat-menu-item (click)=\"logout()\">\n      <i class=\"fa fa-sign-out fa-1x margin-right-xxxs\"></i>\n      Log out\n    </button>\n  </mat-menu>\n\n  <!-- not logged in -->\n  <a *ngIf=\"!user && loginAvailable\" [href]=apiLoginUrl>\n    <span class=\"hide-below-s\">\n      Log in with AniList\n    </span>\n    <i class=\"fa fa-sign-in fa-1x\"></i>\n  </a>\n\n</mat-toolbar>"
+module.exports = "<mat-toolbar>\n\n  <div>\n    <a *ngIf=\"!onRoot\" [routerLink]=\"rootUrl\">\n      <i class=\"fa fa-chevron-left fa-1x\"></i>\n      <span class=\"hide-below-s\">\n        Search\n      </span>\n    </a>\n  </div>\n\n  <div class=\"centered-content\">\n    <span class=\"hide-below-xxxs\">\n      Anime management client\n    </span>\n  </div>\n\n  <span class=\"filler\"></span>\n\n  <!-- logged in -->\n  <span *ngIf=\"user\" class=\"padding-right-xs clickable hide-below-s\" [matMenuTriggerFor]=\"userMenu\">\n    {{ user.name }}\n  </span>\n  <img *ngIf=\"user\" class=\"avatar clickable hide-below-s\" [src]=\"user.avatar.large\" [matMenuTriggerFor]=\"userMenu\">\n\n  <a *ngIf=\"user\" class=\"clickable show-below-s\" [matMenuTriggerFor]=\"userMenu\">\n    <i class=\"fa fa-bars fa-1x\"></i>\n  </a>\n\n  <mat-menu #userMenu=\"matMenu\">\n    <button mat-menu-item (click)=\"navigateToUserList()\">\n      <i class=\"fa fa-list fa-1x margin-right-xxxs\"></i>\n      View list\n    </button>\n    <button mat-menu-item (click)=\"navigateToAnilistProfile()\">\n      <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n      View profile\n    </button>\n    <button mat-menu-item (click)=\"logOut()\">\n      <i class=\"fa fa-sign-out fa-1x margin-right-xxxs\"></i>\n      Log out\n    </button>\n  </mat-menu>\n\n  <!-- not logged in -->\n  <a *ngIf=\"!user && loginAvailable\" [href]=apiLoginUrl>\n    <span class=\"hide-below-s\">\n      Log in with AniList\n    </span>\n    <i class=\"fa fa-sign-in fa-1x\"></i>\n  </a>\n\n</mat-toolbar>"
 
 /***/ }),
 
@@ -536,56 +555,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HeaderComponent = (function () {
     function HeaderComponent(router, activatedRoute, animeService) {
+        var _this = this;
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.animeService = animeService;
-        this.rootUrl = '/anime-search';
-        this.userListUrl = '/user-list';
-        this.tokenPrefix = '#access_token=';
+        this.rootUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */];
+        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["b" /* apiLoginUrl */];
         this.checkAndStoreAccessToken();
         this.subscribeToNavigation();
-        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["a" /* apiLoginUrl */];
-        this.user = this.animeService.getUser();
         this.loginAvailable = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].anilist_client_id >= 0;
+        this.user = this.animeService.getUser();
+        this.userChangeSubscription = this.animeService.userChange.subscribe(function (user) {
+            _this.user = user;
+        });
     }
-    HeaderComponent.prototype.ngOnInit = function () {
+    HeaderComponent.prototype.ngOnDestroy = function () {
+        this.userChangeSubscription.unsubscribe();
     };
-    HeaderComponent.prototype.navigateToProfile = function () {
+    HeaderComponent.prototype.navigateToAnilistProfile = function () {
         window.open("https://anilist.co/user/" + this.user.name);
     };
     HeaderComponent.prototype.navigateToUserList = function (replaceUrl) {
-        this.router.navigate([this.userListUrl], {
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["g" /* userListUrl */]], {
             replaceUrl: replaceUrl
         });
     };
-    HeaderComponent.prototype.logout = function () {
-        this.animeService.removeAccessToken();
-        this.animeService.removeUser();
+    HeaderComponent.prototype.navigateToHomePage = function (replaceUrl) {
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]], {
+            replaceUrl: replaceUrl
+        });
+    };
+    HeaderComponent.prototype.logOut = function () {
+        this.animeService.logOut();
         this.user = undefined;
-        this.loginAvailable = !this.user && __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].anilist_client_id >= 0;
-        this.router.navigate([this.rootUrl]);
+        this.loginAvailable = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].anilist_client_id >= 0;
+        this.navigateToHomePage();
     };
     HeaderComponent.prototype.subscribeToNavigation = function () {
         var _this = this;
         this.router.events.subscribe(function () {
-            _this.onRoot = location.href.indexOf(_this.rootUrl) >= 0;
+            _this.onRoot = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]) >= 0;
         });
     };
     HeaderComponent.prototype.checkAndStoreAccessToken = function () {
-        if (location.href.indexOf(this.tokenPrefix) >= 0) {
-            var locationParts = location.href.split('&')[0].split(this.tokenPrefix);
-            this.animeService.setAccessToken(locationParts[1]);
+        if (location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["c" /* apiTokenPrefix */]) >= 0) {
+            var locationParts = location.href.split('&')[0].split(__WEBPACK_IMPORTED_MODULE_4__app_constants__["c" /* apiTokenPrefix */]);
             history.replaceState({}, 'Login success', locationParts[0]);
-            this.updateUserData();
+            this.animeService.logIn(locationParts[1]);
+            this.navigateToHomePage(true);
         }
-    };
-    HeaderComponent.prototype.updateUserData = function () {
-        var _this = this;
-        this.animeService.queryUser().subscribe(function (response) {
-            _this.animeService.setUser(response.Viewer);
-            _this.user = _this.animeService.getUser();
-            _this.navigateToUserList(true);
-        });
     };
     HeaderComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -868,7 +886,9 @@ var UserListTableComponent = (function () {
         this.bindChildComponents();
     };
     UserListTableComponent.prototype.ngOnChanges = function (changes) {
-        this.dataSource.filter = changes.filter.currentValue;
+        if (this.dataSource && changes.filter) {
+            this.dataSource.filter = changes.filter.currentValue;
+        }
     };
     UserListTableComponent.prototype.onUpdate = function (listEntry) {
         this.onEntryUpdate.emit(listEntry);
@@ -1050,7 +1070,9 @@ var __extends = (this && this.__extends) || (function () {
 var MediaStatus = (function (_super) {
     __extends(MediaStatus, _super);
     function MediaStatus(value) {
-        return _super.call(this, value, MediaStatus.LIST, true) || this;
+        var _this = _super.call(this, value, MediaStatus.LIST, true) || this;
+        _this.shown = true;
+        return _this;
     }
     MediaStatus.CURRENT = 'current';
     MediaStatus.PLANNING = 'planning';
@@ -1172,7 +1194,7 @@ var MaterialModule = (function () {
 /***/ "../../../../../src/app/pages/anime-search/anime-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n  <mat-card class=\"text-center\">\n\n    <h1>\n      <label for=\"searchInput\">\n        Anime search\n      </label>\n    </h1>\n\n    <div class=\"form-group\">\n      <mat-form-field class=\"medium display-block margin-auto\">\n        <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n      </mat-form-field>\n    </div>\n\n    <!--<mat-form-field id=\"yearInput\">-->\n      <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n      <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n      <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n    <!--</mat-form-field>-->\n\n    <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n      <mat-expansion-panel-header>\n        Advanced filters\n      </mat-expansion-panel-header>\n\n      <mat-divider></mat-divider>\n\n      <div class=\"vertical-padding-xs\">\n\n        <!-- air date -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired after year\"\n                formControlName=\"startDate_greater\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired before year\"\n                formControlName=\"startDate_lesser\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- score -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored above\"\n                formControlName=\"averageScore_greater\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored below\"\n                formControlName=\"averageScore_lesser\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- formats -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n              <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                {{ mediaFormat.label }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n        <!-- genres -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n              <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                {{ genre }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n      </div>\n\n      <mat-divider></mat-divider>\n\n    </mat-expansion-panel>\n\n    <button mat-raised-button color=\"accent\" class=\"display-block margin-auto\" [disabled]=\"!searchForm.valid\">\n      <i class=\"fa fa-search fa-1x baseline margin-right-xxxs\"></i>\n      Search\n    </button>\n\n  </mat-card>\n\n  <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n  <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n  <mat-card *ngIf=\"errorGotten\" class=\"error\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n      Error 500: Internal server error\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"noResults\" class=\"info\">\n    <h4>\n      <i class=\"fa fa-info-circle fa-1x margin-right-xxs\"></i>\n      No results found\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n    <app-search-results-table [tableData]=\"animeList\"></app-search-results-table>\n\n    <mat-paginator\n      [length]=\"pagination.total\"\n      [pageSize]=\"pagination.perPage\"\n      [pageSizeOptions]=\"[5, 10, 25, 50]\"\n      (page)=\"changePage($event)\">\n    </mat-paginator>\n  </mat-card>\n\n</form>"
+module.exports = "<mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in. Search will be available but most other features will not.\n  </h4>\n</mat-card>\n\n<form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n  <mat-card class=\"text-center\">\n\n    <h1>\n      <label for=\"searchInput\">\n        Anime search\n      </label>\n    </h1>\n\n    <div class=\"form-group\">\n      <mat-form-field class=\"medium display-block margin-auto\">\n        <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n      </mat-form-field>\n    </div>\n\n    <!--<mat-form-field id=\"yearInput\">-->\n      <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n      <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n      <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n    <!--</mat-form-field>-->\n\n    <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n      <mat-expansion-panel-header>\n        Advanced filters\n      </mat-expansion-panel-header>\n\n      <mat-divider></mat-divider>\n\n      <div class=\"vertical-padding-xs\">\n\n        <!-- air date -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired after year\"\n                formControlName=\"startDate_greater\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired before year\"\n                formControlName=\"startDate_lesser\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- score -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored above\"\n                formControlName=\"averageScore_greater\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored below\"\n                formControlName=\"averageScore_lesser\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- formats -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n              <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                {{ mediaFormat.label }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n        <!-- genres -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n              <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                {{ genre }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n      </div>\n\n      <mat-divider></mat-divider>\n\n    </mat-expansion-panel>\n\n    <button mat-raised-button color=\"accent\" class=\"display-block margin-auto\" [disabled]=\"!searchForm.valid\">\n      <i class=\"fa fa-search fa-1x baseline margin-right-xxxs\"></i>\n      Search\n    </button>\n\n  </mat-card>\n\n  <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n  <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n  <mat-card *ngIf=\"errorGotten\" class=\"error\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n      Error 500: Internal server error\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"noResults\" class=\"info\">\n    <h4>\n      <i class=\"fa fa-info-circle fa-1x margin-right-xxs\"></i>\n      No results found\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n    <app-search-results-table [tableData]=\"animeList\"></app-search-results-table>\n\n    <mat-paginator\n      [length]=\"pagination.total\"\n      [pageSize]=\"pagination.perPage\"\n      [pageSizeOptions]=\"[5, 10, 25, 50]\"\n      (page)=\"changePage($event)\">\n    </mat-paginator>\n  </mat-card>\n\n</form>"
 
 /***/ }),
 
@@ -1218,6 +1240,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var AnimeSearchComponent = (function () {
     function AnimeSearchComponent(animeService, formBuilder) {
+        var _this = this;
         this.animeService = animeService;
         this.formBuilder = formBuilder;
         this.mediaFormats = __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaFormats__["a" /* MediaFormat */].LIST;
@@ -1226,7 +1249,13 @@ var AnimeSearchComponent = (function () {
         this.user = this.animeService.getUser();
         this.setupForm();
         this.getGenres();
+        this.userChangeSubscription = this.animeService.userChange.subscribe(function (user) {
+            _this.user = user;
+        });
     }
+    AnimeSearchComponent.prototype.ngOnDestroy = function () {
+        this.userChangeSubscription.unsubscribe();
+    };
     AnimeSearchComponent.prototype.setupForm = function () {
         this.searchForm = this.formBuilder.group({
             search: [''],
@@ -1347,7 +1376,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var LoginComponent = (function () {
     function LoginComponent() {
-        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_1__app_constants__["a" /* apiLoginUrl */];
+        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_1__app_constants__["b" /* apiLoginUrl */];
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
@@ -1430,7 +1459,7 @@ var PageNotFoundComponent = (function () {
 /***/ "../../../../../src/app/pages/user-list/user-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card *ngIf=\"!loggedIn\" class=\"warning\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in.\n    <a [href]=apiLoginUrl>Log in with AniList</a>.\n  </h4>\n</mat-card>\n\n<mat-spinner *ngIf=\"loggedIn && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n<div *ngIf=\"loggedIn && ready && !errorGotten\">\n\n  <mat-card class=\"table-filter\">\n    <mat-form-field class=\"full-width\">\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter by name\">\n    </mat-form-field>\n  </mat-card>\n\n  <mat-card class=\"margin-top-s\">\n    <h3>\n      Show / Go to\n    </h3>\n\n    <div class=\"statuses-wrapper\">\n      <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n        <mat-checkbox [(ngModel)]=\"status.shown\"></mat-checkbox>\n\n        <a *ngIf=\"hasDataOfStatus(status.value)\" href=\"{{ '/user-list#' + status.value }}\" class=\"capitalize\">\n          {{ status.label }}\n        </a>\n      </span>\n    </div>\n  </mat-card>\n\n  <div *ngFor=\"let status of statuses\">\n    <div *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n\n      <h3 [id]=\"status.value\" class=\"capitalize\">\n        {{ status.label }}\n      </h3>\n\n      <mat-card class=\"no-padding\">\n        <app-user-list-table\n          [tableStatus]=\"status.value\"\n          [tableData]=\"statusObjects[status.value]\"\n          [favouriteIDs]=\"favouriteIDs\"\n          [filter]=\"filter\"\n          (onEntryUpdate)=\"onEntryUpdate($event)\">\n        </app-user-list-table>\n      </mat-card>\n\n    </div>\n  </div>\n\n  <div class=\"padding-top-xs padding-bottom-m\">\n    <h3>\n      Settings\n    </h3>\n\n    <mat-slide-toggle\n            [checked]=\"reloadOnUpdate\"\n            (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n      Reload on update\n    </mat-slide-toggle>\n  </div>\n\n  <app-genres-overview\n    [genreStatsList]=\"user.stats.favouredGenresOverview\">\n  </app-genres-overview>\n\n</div>\n\n<mat-card *ngIf=\"errorGotten\" class=\"error\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    Error 500: Internal server error\n  </h4>\n</mat-card>"
+module.exports = "<mat-card *ngIf=\"!user\" class=\"warning\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in.\n  </h4>\n</mat-card>\n\n<mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n<div *ngIf=\"user && ready && !errorGotten\">\n\n  <mat-card class=\"table-filter\">\n    <mat-form-field class=\"full-width\">\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter by name\">\n    </mat-form-field>\n  </mat-card>\n\n  <mat-card class=\"margin-top-s\">\n    <h3>\n      Show / Go to\n    </h3>\n\n    <div class=\"statuses-wrapper\">\n      <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n        <mat-checkbox [(ngModel)]=\"status.shown\"></mat-checkbox>\n\n        <a *ngIf=\"hasDataOfStatus(status.value)\" href=\"{{ '/user-list#' + status.value }}\" class=\"capitalize\">\n          {{ status.label }}\n        </a>\n      </span>\n    </div>\n  </mat-card>\n\n  <div *ngFor=\"let status of statuses\">\n    <div *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n\n      <h3 [id]=\"status.value\" class=\"capitalize\">\n        {{ status.label }}\n      </h3>\n\n      <mat-card class=\"no-padding\">\n        <app-user-list-table\n          [tableStatus]=\"status.value\"\n          [tableData]=\"statusObjects[status.value]\"\n          [favouriteIDs]=\"favouriteIDs\"\n          [filter]=\"filter\"\n          (onEntryUpdate)=\"onEntryUpdate($event)\">\n        </app-user-list-table>\n      </mat-card>\n\n    </div>\n  </div>\n\n  <div class=\"padding-top-xs padding-bottom-m\">\n    <h3>\n      Settings\n    </h3>\n\n    <mat-slide-toggle\n            [checked]=\"reloadOnUpdate\"\n            (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n      Reload on update\n    </mat-slide-toggle>\n  </div>\n\n  <app-genres-overview\n    [genreStatsList]=\"user.stats.favouredGenresOverview\">\n  </app-genres-overview>\n\n</div>\n\n<mat-card *ngIf=\"errorGotten\" class=\"error\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    Error 500: Internal server error\n  </h4>\n</mat-card>"
 
 /***/ }),
 
@@ -1460,8 +1489,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1481,23 +1510,22 @@ var UserListComponent = (function () {
         this.router = router;
         this.animeService = animeService;
         this.reloadOnUpdate = true;
-        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_3__app_constants__["a" /* apiLoginUrl */];
         this.user = this.animeService.getUser();
         this.loggedIn = this.user !== undefined;
+        if (!this.loggedIn) {
+            this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]]);
+        }
         this.updateListData();
     }
     UserListComponent.prototype.getUserList = function () {
         var _this = this;
         if (this.user) {
             this.animeService.getList(this.user).subscribe(function (response) {
-                _this.statusObjects = response;
-                var statusValues = Object.keys(response).sort();
                 var statuses = [];
-                statusValues.forEach(function (statusValue) {
-                    var status = new __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */](statusValue);
-                    status.shown = true;
-                    statuses.push(status);
+                Object.keys(response).sort().forEach(function (statusValue) {
+                    statuses.push(new __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaStatus__["a" /* MediaStatus */](statusValue));
                 });
+                _this.statusObjects = response;
                 _this.statuses = statuses;
                 _this.ready = true;
             }, function (error) {
@@ -1611,6 +1639,7 @@ var SortPipe = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaType__ = __webpack_require__("../../../../../src/app/models/anilist/mediaType.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaSorts__ = __webpack_require__("../../../../../src/app/models/anilist/mediaSorts.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1627,33 +1656,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AnimeService = (function () {
     function AnimeService(httpClient) {
         this.httpClient = httpClient;
-        this.apiUrl = 'https://graphql.anilist.co';
+        this.apiUrl = __WEBPACK_IMPORTED_MODULE_7__app_constants__["d" /* apiUrl */];
         this.fallbackCover = 'assets/pictures/non-vectorial/no-cover-available.png';
-        this.accessTokenKey = 'accessToken';
-        this.userKey = 'user';
+        this.userChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.initializeQueries();
     }
     AnimeService.prototype.setAccessToken = function (accessToken) {
-        localStorage.setItem(this.accessTokenKey, accessToken);
+        localStorage.setItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* accessTokenCookieKey */], accessToken);
     };
     AnimeService.prototype.getAccessToken = function () {
-        return localStorage.getItem(this.accessTokenKey);
+        return localStorage.getItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* accessTokenCookieKey */]);
     };
     AnimeService.prototype.removeAccessToken = function () {
-        localStorage.removeItem(this.accessTokenKey);
+        localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* accessTokenCookieKey */]);
     };
     AnimeService.prototype.setUser = function (user) {
-        localStorage.setItem(this.userKey, JSON.stringify(user));
+        localStorage.setItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["f" /* userCookieKey */], JSON.stringify(user));
     };
     AnimeService.prototype.getUser = function () {
-        var jsonString = localStorage.getItem(this.userKey);
+        var jsonString = localStorage.getItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["f" /* userCookieKey */]);
         return jsonString ? JSON.parse(jsonString) : undefined;
     };
     AnimeService.prototype.removeUser = function () {
-        localStorage.removeItem(this.userKey);
+        localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["f" /* userCookieKey */]);
+    };
+    AnimeService.prototype.logIn = function (accessToken) {
+        var _this = this;
+        this.setAccessToken(accessToken);
+        this.queryUser().subscribe(function (response) {
+            _this.setUser(response.Viewer);
+            _this.userChange.emit(_this.getUser());
+        });
+    };
+    AnimeService.prototype.logOut = function () {
+        this.removeAccessToken();
+        this.removeUser();
+        this.userChange.emit();
     };
     AnimeService.prototype.getGenres = function () {
         var _this = this;
