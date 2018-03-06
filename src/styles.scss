@@ -37,6 +37,10 @@ body {
 .flex-box {
   display: flex;
 
+  &.center {
+    align-items: center;
+  }
+
   &.wrap {
     flex-wrap: wrap;
   }

@@ -1,53 +1,59 @@
 <mat-toolbar>
 
   <div>
-    <a *ngIf="!onRoot" [routerLink]="rootUrl">
-      <i class="fa fa-chevron-left fa-1x"></i>
-      <span class="hide-below-s">
-        Search
-      </span>
-    </a>
-  </div>
-
-  <div class="centered-content">
-    <span class="hide-below-xxxs">
+    <span class="hide-below-s">
       Anime management client
     </span>
+  </div>
+
+  <div class="centered-content section-links" *ngIf="user">
+    <a [routerLink]="rootUrl" [class.active]="onRoot">
+      <i class="fa fa-search fa-2x"></i>
+      <small>
+        Anime search
+      </small>
+    </a>
+    <a [routerLink]="userListUrl" [class.active]="onUserList">
+      <i class="fa fa-list-ul fa-2x"></i>
+      <small>
+        User's list
+      </small>
+    </a>
   </div>
 
   <span class="filler"></span>
 
   <!-- logged in -->
-  <span *ngIf="user" class="padding-right-xs clickable hide-below-s" [matMenuTriggerFor]="userMenu">
-    {{ user.name }}
-  </span>
-  <img *ngIf="user" class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
+  <div *ngIf="user" class="flex-box center">
+    <span class="padding-right-xs clickable hide-below-s" [matMenuTriggerFor]="userMenu">
+      {{ user.name }}
+    </span>
+    <img class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
 
-  <a *ngIf="user" class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
-    <i class="fa fa-bars fa-1x"></i>
-  </a>
+    <a class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
+      <i class="fa fa-bars fa-1x"></i>
+    </a>
 
-  <mat-menu #userMenu="matMenu">
-    <button mat-menu-item (click)="navigateToUserList()">
-      <i class="fa fa-list fa-1x margin-right-xxxs"></i>
-      View list
-    </button>
-    <button mat-menu-item (click)="navigateToAnilistProfile()">
-      <i class="fa fa-external-link fa-1x margin-right-xxxs"></i>
-      View profile
-    </button>
-    <button mat-menu-item (click)="logOut()">
-      <i class="fa fa-sign-out fa-1x margin-right-xxxs"></i>
-      Log out
-    </button>
-  </mat-menu>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="navigateToAnilistProfile()">
+        <i class="fa fa-external-link fa-1x margin-right-xxxs"></i>
+        View profile
+      </button>
+      <button mat-menu-item (click)="logOut()">
+        <i class="fa fa-sign-out fa-1x margin-right-xxxs"></i>
+        Log out
+      </button>
+    </mat-menu>
+  </div>
 
   <!-- not logged in -->
-  <a *ngIf="!user && loginAvailable" [href]=apiLoginUrl>
+  <div *ngIf="!user" class="flex-box center">
+    <a *ngIf="loginAvailable" [href]=apiLoginUrl>
     <span class="hide-below-s">
       Log in with AniList
     </span>
-    <i class="fa fa-sign-in fa-1x"></i>
-  </a>
+      <i class="fa fa-sign-in fa-1x"></i>
+    </a>
+  </div>
 
 </mat-toolbar>

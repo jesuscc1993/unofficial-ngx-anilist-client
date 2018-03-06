@@ -1,19 +1,53 @@
-.filler {
-  flex: 1 1 auto;
-}
+@import '../../styles/variables';
 
-.centered-content {
-  left: 0;
-  width: 100%;
-  position: absolute;
-  text-align: center;
-  pointer-events: none;
-}
+mat-toolbar {
+  height: $mat-toolbar-height;
 
-img.avatar {
-  $max-size: 64px;
-  max-width: $max-size;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  > * {
+    &.centered-content {
+      z-index: 0;
+    }
+    &:not(.centered-content) {
+      z-index: 1;
+    }
+  }
+
+  .filler {
+    flex: 1 1 auto;
+  }
+
+  .centered-content {
+    left: 0;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+  }
+
+  .section-links {
+    a {
+      vertical-align: middle;
+      display: inline-block;
+      width: $spacing-xxl;
+
+      &.active {
+        pointer-events: none;
+        color: #999;
+      }
+
+      small {
+        display: block;
+        font-size: 12px;
+        line-height: 12px;
+      }
+    }
+  }
+
+  img.avatar {
+    $max-size: $mat-toolbar-height;
+    max-width: $max-size;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
 }

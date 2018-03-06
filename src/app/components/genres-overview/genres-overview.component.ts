@@ -19,6 +19,10 @@ export class GenresOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.calculateStatistics();
+  }
+
+  private calculateStatistics(): void {
     let totalCount: number = 0;
 
     this.genreStatsList.forEach((genreStats: GenreStats) => {

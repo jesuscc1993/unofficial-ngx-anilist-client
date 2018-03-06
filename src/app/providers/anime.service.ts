@@ -308,6 +308,7 @@ export class AnimeService {
       title {
         romaji
       }
+      description,
       startDate {
         year
       },

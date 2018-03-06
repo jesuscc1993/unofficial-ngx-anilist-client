@@ -12,11 +12,13 @@ import { apiLoginUrl, rootUrl, apiTokenPrefix, userListUrl } from '../../app.con
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnDestroy {
-  rootUrl: string = rootUrl;
   apiLoginUrl: string = apiLoginUrl;
+  rootUrl: string = rootUrl;
+  userListUrl: string = userListUrl;
 
   user: User;
   onRoot: boolean;
+  onUserList: boolean;
   loginAvailable: boolean;
 
   private userChangeSubscription: any;
@@ -67,6 +69,7 @@ export class HeaderComponent implements OnDestroy {
   private subscribeToNavigation(): void {
     this.router.events.subscribe(() => {
       this.onRoot = location.href.indexOf(rootUrl) >= 0;
+      this.onUserList = location.href.indexOf(userListUrl) >= 0;
     });
   }
 
