@@ -1,0 +1,15 @@
+<h3 class="header">
+  <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
+
+  <div class="title">
+    {{ media.title.romaji }}
+  </div>
+</h3>
+
+<mat-divider></mat-divider>
+
+<div class="content">
+  <img [src]="media.coverImage.large" class="cover">
+
+  <div [innerHTML]="media.description"></div>
+</div>

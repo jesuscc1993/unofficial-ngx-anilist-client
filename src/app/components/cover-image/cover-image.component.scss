@@ -7,7 +7,7 @@
 }
 
 i.fa.menu-toggle {
-  $size: 24px;
+  $size: $spacing-s;
   width: $size;
   margin-left: -$size;
   font-size: 16px;
@@ -15,14 +15,17 @@ i.fa.menu-toggle {
   vertical-align: bottom;
 }
 
-img {
-  max-width: 88px;
-  height: auto;
+.action-icon {
+  min-width: $spacing-s;
 }
 
-@media (max-width: $screen-xxs) {
-  img {
+img.cover {
+  height: auto;
+
+  @media (min-width: $screen-xxs + 1) {
+    max-width: 88px;
+  }
+  @media (max-width: $screen-xxs) {
     max-width: 48px;
-    height: auto;
   }
 }

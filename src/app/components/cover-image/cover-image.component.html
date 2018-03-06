@@ -1,22 +1,26 @@
 <i class="fa fa-bars menu-toggle clickable" [matMenuTriggerFor]="entryMenu"></i>
 
-<img [src]="media.coverImage.medium">
+<img [src]="media.coverImage.medium" class="cover">
 
 <mat-menu #entryMenu="matMenu">
   <button mat-menu-item (click)="saveToList()" [disabled]="!user">
-    <i class="fa fa-refresh fa-1x margin-right-xxxs"></i>
+    <i class="fa fa-refresh fa-1x action-icon"></i>
     Save to list
   </button>
   <button *ngIf="listEntry" mat-menu-item (click)="toggleFavourite()">
-    <i class="fa fa-star fa-1x margin-right-xxxs"></i>
+    <i class="fa fa-star fa-1x action-icon"></i>
     Toggle favourite
   </button>
   <button *ngIf="listEntry" mat-menu-item (click)="deleteEntry()">
-    <i class="fa fa-trash fa-1x margin-right-xxxs"></i>
+    <i class="fa fa-trash fa-1x action-icon"></i>
     Delete from list
   </button>
+  <button *ngIf="media" mat-menu-item (click)="showDetail()">
+    <i class="fa fa-id-card-o fa-1x action-icon"></i>
+    Show details
+  </button>
   <button mat-menu-item (click)="viewOnAniList()">
-    <i class="fa fa-external-link fa-1x margin-right-xxxs"></i>
+    <i class="fa fa-external-link fa-1x action-icon"></i>
     View on AniList
   </button>
 </mat-menu>

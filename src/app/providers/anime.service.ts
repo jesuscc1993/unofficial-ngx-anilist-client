@@ -292,6 +292,7 @@ export class AnimeService {
     anime.format = new MediaFormat(anime.format).label;
 
     if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
+      debugger;
       anime.coverImage.medium = this.fallbackCover;
     }
   }
@@ -314,7 +315,8 @@ export class AnimeService {
       },
       episodes
       coverImage {
-        medium
+        medium,
+        large
       },
       genres
       meanScore,

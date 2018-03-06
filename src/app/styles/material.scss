@@ -73,6 +73,11 @@ mat-expansion-panel {
   }
 }
 
+mat-dialog-container {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
 .mat-chip:not(.mat-basic-chip) {
   background-color: #999;
   color: white;

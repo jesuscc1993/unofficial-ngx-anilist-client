@@ -24,7 +24,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 import { CoverImageComponent } from './components/cover-image/cover-image.component';
-import { ListEntryFormModalComponent } from './components/list-entry-form-modal/list-entry-form-modal.component';
+import { MediaDetailModalComponent } from './modals/media-detail-modal/media-detail-modal.component';
+import { ListEntryFormModalComponent } from './modals/list-entry-form-modal/list-entry-form-modal.component';
 import { GenresOverviewComponent } from './components/genres-overview/genres-overview.component';
 
 const appRoutes: Routes = [
@@ -47,9 +48,10 @@ const appRoutes: Routes = [
     SearchResultsTableComponent,
     UserListTableComponent,
     CoverImageComponent,
+    MediaDetailModalComponent,
     ListEntryFormModalComponent,
-    SortPipe,
-    GenresOverviewComponent
+    GenresOverviewComponent,
+    SortPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -67,6 +69,7 @@ const appRoutes: Routes = [
     AppComponent
   ],
   entryComponents: [
+    MediaDetailModalComponent,
     ListEntryFormModalComponent
   ]
 })

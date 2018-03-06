@@ -8,4 +8,5 @@ export class StartDate {
 
 export class CoverImage {
   medium: string;
+  large: string;
 }

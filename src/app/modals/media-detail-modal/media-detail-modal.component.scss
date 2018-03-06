@@ -1,0 +1,19 @@
+@import "../../styles/variables";
+
+.header {
+  margin: 0 0 $spacing-xs;
+
+  .title {
+    padding-right: $spacing-xs;
+  }
+}
+
+.content {
+  img.cover {
+    float: left;
+    width: $screen-xxxs / 2;
+    margin-right: $spacing-xs - $spacing-xxxs;
+  }
+
+  margin: $spacing-xs 0 0;
+}

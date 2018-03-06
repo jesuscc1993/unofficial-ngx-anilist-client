@@ -5,8 +5,9 @@ import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
 import { ListEntry } from '../../models/anilist/listEntry';
 import { Media } from '../../models/anilist/media';
-import { ListEntryFormModalComponent } from '../list-entry-form-modal/list-entry-form-modal.component';
+import { ListEntryFormModalComponent } from '../../modals/list-entry-form-modal/list-entry-form-modal.component';
 import { User } from '../../models/anilist/user';
+import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
 
 @Component({
   selector: 'app-cover-image',
@@ -20,6 +21,7 @@ export class CoverImageComponent implements OnDestroy {
   @Output() onUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
 
   private user: User;
+  private modalConfig: any;
   private userChangeSubscription: any;
 
   constructor(
@@ -30,6 +32,12 @@ export class CoverImageComponent implements OnDestroy {
   ) {
     this.user = this.animeService.getUser();
 
+    this.modalConfig = {
+      width: 'auto',
+      minWidth: '480px',
+      maxWidth: '672px'
+    };
+
     this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
       this.user = user;
     });
@@ -37,10 +45,6 @@ export class CoverImageComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.userChangeSubscription.unsubscribe();
-  }
-
-  viewOnAniList(): void {
-    window.open(`https://anilist.co/anime/${this.media.id}`);
   }
 
   saveToList(): void {
@@ -78,16 +82,28 @@ export class CoverImageComponent implements OnDestroy {
     });
   }
 
+  showDetail(): void {
+    let config: any = Object.assign({}, this.modalConfig);
+    config.data = {
+      media: this.media
+    };
+
+    this.dialog.open(MediaDetailModalComponent, config);
+  }
+
+  viewOnAniList(): void {
+    window.open(`https://anilist.co/anime/${this.media.id}`);
+  }
+
   private showFormModal(): MatDialogRef<ListEntryFormModalComponent> {
-    return this.dialog.open(ListEntryFormModalComponent, {
-      width: 'auto',
-      maxWidth: '672px',
-      data: {
-        listEntryStatus: this.listEntryStatus,
-        listEntry: this.listEntry,
-        media: this.media
-      }
-    });
+    let config: any = Object.assign({}, this.modalConfig);
+    config.data = {
+      listEntryStatus: this.listEntryStatus,
+      listEntry: this.listEntry,
+      media: this.media
+    };
+
+    return this.dialog.open(ListEntryFormModalComponent, config);
   }
 
   private showSavedEntryToast(listEntry: ListEntry): void {

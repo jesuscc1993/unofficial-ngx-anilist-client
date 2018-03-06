@@ -1,5 +1,9 @@
 <h3 class="header">
-  {{ media.title.romaji }}
+  <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
+
+  <div class="title">
+    {{ media.title.romaji }}
+  </div>
 </h3>
 
 <mat-divider></mat-divider>
