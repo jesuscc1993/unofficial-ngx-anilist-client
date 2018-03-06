@@ -105,8 +105,9 @@ var userListUrl = '/user-list';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_search_results_table_search_results_table_component__ = __webpack_require__("../../../../../src/app/components/search-results-table/search-results-table.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_user_list_table_user_list_table_component__ = __webpack_require__("../../../../../src/app/components/user-list-table/user-list-table.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_cover_image_cover_image_component__ = __webpack_require__("../../../../../src/app/components/cover-image/cover-image.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_list_entry_form_modal_list_entry_form_modal_component__ = __webpack_require__("../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_genres_overview_genres_overview_component__ = __webpack_require__("../../../../../src/app/components/genres-overview/genres-overview.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modals_media_detail_modal_media_detail_modal_component__ = __webpack_require__("../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modals_list_entry_form_modal_list_entry_form_modal_component__ = __webpack_require__("../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_genres_overview_genres_overview_component__ = __webpack_require__("../../../../../src/app/components/genres-overview/genres-overview.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -141,6 +142,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
     { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_11__pages_login_login_component__["a" /* LoginComponent */] },
@@ -164,9 +166,10 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_16__components_search_results_table_search_results_table_component__["a" /* SearchResultsTableComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__components_user_list_table_user_list_table_component__["a" /* UserListTableComponent */],
                 __WEBPACK_IMPORTED_MODULE_18__components_cover_image_cover_image_component__["a" /* CoverImageComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__components_list_entry_form_modal_list_entry_form_modal_component__["a" /* ListEntryFormModalComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__pipes_sort__["a" /* SortPipe */],
-                __WEBPACK_IMPORTED_MODULE_20__components_genres_overview_genres_overview_component__["a" /* GenresOverviewComponent */]
+                __WEBPACK_IMPORTED_MODULE_19__modals_media_detail_modal_media_detail_modal_component__["a" /* MediaDetailModalComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__modals_list_entry_form_modal_list_entry_form_modal_component__["a" /* ListEntryFormModalComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__components_genres_overview_genres_overview_component__["a" /* GenresOverviewComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__pipes_sort__["a" /* SortPipe */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
@@ -184,7 +187,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]
             ],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_19__components_list_entry_form_modal_list_entry_form_modal_component__["a" /* ListEntryFormModalComponent */]
+                __WEBPACK_IMPORTED_MODULE_19__modals_media_detail_modal_media_detail_modal_component__["a" /* MediaDetailModalComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__modals_list_entry_form_modal_list_entry_form_modal_component__["a" /* ListEntryFormModalComponent */]
             ]
         })
     ], AppModule);
@@ -198,7 +202,7 @@ var AppModule = (function () {
 /***/ "../../../../../src/app/components/cover-image/cover-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<i class=\"fa fa-bars menu-toggle clickable\" [matMenuTriggerFor]=\"entryMenu\"></i>\n\n<img [src]=\"media.coverImage.medium\">\n\n<mat-menu #entryMenu=\"matMenu\">\n  <button mat-menu-item (click)=\"saveToList()\" [disabled]=\"!user\">\n    <i class=\"fa fa-refresh fa-1x margin-right-xxxs\"></i>\n    Save to list\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"toggleFavourite()\">\n    <i class=\"fa fa-star fa-1x margin-right-xxxs\"></i>\n    Toggle favourite\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"deleteEntry()\">\n    <i class=\"fa fa-trash fa-1x margin-right-xxxs\"></i>\n    Delete from list\n  </button>\n  <button mat-menu-item (click)=\"viewOnAniList()\">\n    <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n    View on AniList\n  </button>\n</mat-menu>"
+module.exports = "<i class=\"fa fa-bars menu-toggle clickable\" [matMenuTriggerFor]=\"entryMenu\"></i>\n\n<img [src]=\"media.coverImage.medium\" class=\"cover\">\n\n<mat-menu #entryMenu=\"matMenu\">\n  <button mat-menu-item (click)=\"saveToList()\" [disabled]=\"!user\">\n    <i class=\"fa fa-refresh fa-1x action-icon\"></i>\n    Save to list\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"toggleFavourite()\">\n    <i class=\"fa fa-star fa-1x action-icon\"></i>\n    Toggle favourite\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"deleteEntry()\">\n    <i class=\"fa fa-trash fa-1x action-icon\"></i>\n    Delete from list\n  </button>\n  <button *ngIf=\"media\" mat-menu-item (click)=\"showDetail()\">\n    <i class=\"fa fa-id-card-o fa-1x action-icon\"></i>\n    Show details\n  </button>\n  <button mat-menu-item (click)=\"viewOnAniList()\">\n    <i class=\"fa fa-external-link fa-1x action-icon\"></i>\n    View on AniList\n  </button>\n</mat-menu>"
 
 /***/ }),
 
@@ -210,7 +214,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n:host {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  overflow: visible; }\n\ni.fa.menu-toggle {\n  width: 24px;\n  margin-left: -24px;\n  font-size: 16px;\n  text-align: center;\n  vertical-align: bottom; }\n\nimg {\n  max-width: 88px;\n  height: auto; }\n\n@media (max-width: 480px) {\n  img {\n    max-width: 48px;\n    height: auto; } }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n:host {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  overflow: visible; }\n\ni.fa.menu-toggle {\n  width: 24px;\n  margin-left: -24px;\n  font-size: 16px;\n  text-align: center;\n  vertical-align: bottom; }\n\n.action-icon {\n  min-width: 24px; }\n\nimg.cover {\n  height: auto; }\n  @media (min-width: 481px) {\n    img.cover {\n      max-width: 88px; } }\n  @media (max-width: 480px) {\n    img.cover {\n      max-width: 48px; } }\n", ""]);
 
 // exports
 
@@ -231,7 +235,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_listEntry__ = __webpack_require__("../../../../../src/app/models/anilist/listEntry.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_anilist_media__ = __webpack_require__("../../../../../src/app/models/anilist/media.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__list_entry_form_modal_list_entry_form_modal_component__ = __webpack_require__("../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modals_list_entry_form_modal_list_entry_form_modal_component__ = __webpack_require__("../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modals_media_detail_modal_media_detail_modal_component__ = __webpack_require__("../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -248,6 +253,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CoverImageComponent = (function () {
     function CoverImageComponent(dialog, router, matSnackBar, animeService) {
         var _this = this;
@@ -257,15 +263,17 @@ var CoverImageComponent = (function () {
         this.animeService = animeService;
         this.onUpdate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.user = this.animeService.getUser();
+        this.modalConfig = {
+            width: 'auto',
+            minWidth: '480px',
+            maxWidth: '672px'
+        };
         this.userChangeSubscription = this.animeService.userChange.subscribe(function (user) {
             _this.user = user;
         });
     }
     CoverImageComponent.prototype.ngOnDestroy = function () {
         this.userChangeSubscription.unsubscribe();
-    };
-    CoverImageComponent.prototype.viewOnAniList = function () {
-        window.open("https://anilist.co/anime/" + this.media.id);
     };
     CoverImageComponent.prototype.saveToList = function () {
         var _this = this;
@@ -301,16 +309,24 @@ var CoverImageComponent = (function () {
             }
         });
     };
+    CoverImageComponent.prototype.showDetail = function () {
+        var config = Object.assign({}, this.modalConfig);
+        config.data = {
+            media: this.media
+        };
+        this.dialog.open(__WEBPACK_IMPORTED_MODULE_7__modals_media_detail_modal_media_detail_modal_component__["a" /* MediaDetailModalComponent */], config);
+    };
+    CoverImageComponent.prototype.viewOnAniList = function () {
+        window.open("https://anilist.co/anime/" + this.media.id);
+    };
     CoverImageComponent.prototype.showFormModal = function () {
-        return this.dialog.open(__WEBPACK_IMPORTED_MODULE_6__list_entry_form_modal_list_entry_form_modal_component__["a" /* ListEntryFormModalComponent */], {
-            width: 'auto',
-            maxWidth: '672px',
-            data: {
-                listEntryStatus: this.listEntryStatus,
-                listEntry: this.listEntry,
-                media: this.media
-            }
-        });
+        var config = Object.assign({}, this.modalConfig);
+        config.data = {
+            listEntryStatus: this.listEntryStatus,
+            listEntry: this.listEntry,
+            media: this.media
+        };
+        return this.dialog.open(__WEBPACK_IMPORTED_MODULE_6__modals_list_entry_form_modal_list_entry_form_modal_component__["a" /* ListEntryFormModalComponent */], config);
     };
     CoverImageComponent.prototype.showSavedEntryToast = function (listEntry) {
         this.showToast("Updated list entry for \"" + listEntry.media.title.romaji + "\"");
@@ -429,7 +445,7 @@ var FooterComponent = (function () {
 /***/ "../../../../../src/app/components/genres-overview/genres-overview.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>\n  Genres Overview\n</h3>\n\n<mat-grid-list *ngIf=\"genreStatsList && genreStatsList.length | sort: 'amount'\" [cols]=\"getColumnCount()\" rowHeight=\"32px\">\n  <mat-grid-tile *ngFor=\"let genreStats of genreStatsList\">\n    {{ genreStats.genre }} ({{ genreStats.percentage }}%)\n  </mat-grid-tile>\n</mat-grid-list>"
+module.exports = "<h3>\n  Genres Overview\n</h3>\n\n<mat-grid-list *ngIf=\"genreStatsList && genreStatsList.length | sort: 'amount'\" [cols]=\"getColumnCount()\" rowHeight=\"32px\">\n  <mat-grid-tile *ngFor=\"let genreStats of genreStatsList\" [matTooltip]=\"genreStats.amount + ' entries'\" matTooltipPosition=\"above\">\n    {{ genreStats.genre }} ({{ genreStats.percentage }}%)\n  </mat-grid-tile>\n</mat-grid-list>"
 
 /***/ }),
 
@@ -441,7 +457,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "mat-grid-tile {\n  cursor: default; }\n", ""]);
 
 // exports
 
@@ -473,6 +489,9 @@ var GenresOverviewComponent = (function () {
         this.minColumnWidth = 160;
     }
     GenresOverviewComponent.prototype.ngOnInit = function () {
+        this.calculateStatistics();
+    };
+    GenresOverviewComponent.prototype.calculateStatistics = function () {
         var totalCount = 0;
         this.genreStatsList.forEach(function (genreStats) {
             totalCount += genreStats.amount;
@@ -507,7 +526,7 @@ var GenresOverviewComponent = (function () {
 /***/ "../../../../../src/app/components/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n\n  <div>\n    <a *ngIf=\"!onRoot\" [routerLink]=\"rootUrl\">\n      <i class=\"fa fa-chevron-left fa-1x\"></i>\n      <span class=\"hide-below-s\">\n        Search\n      </span>\n    </a>\n  </div>\n\n  <div class=\"centered-content\">\n    <span class=\"hide-below-xxxs\">\n      Anime management client\n    </span>\n  </div>\n\n  <span class=\"filler\"></span>\n\n  <!-- logged in -->\n  <span *ngIf=\"user\" class=\"padding-right-xs clickable hide-below-s\" [matMenuTriggerFor]=\"userMenu\">\n    {{ user.name }}\n  </span>\n  <img *ngIf=\"user\" class=\"avatar clickable hide-below-s\" [src]=\"user.avatar.large\" [matMenuTriggerFor]=\"userMenu\">\n\n  <a *ngIf=\"user\" class=\"clickable show-below-s\" [matMenuTriggerFor]=\"userMenu\">\n    <i class=\"fa fa-bars fa-1x\"></i>\n  </a>\n\n  <mat-menu #userMenu=\"matMenu\">\n    <button mat-menu-item (click)=\"navigateToUserList()\">\n      <i class=\"fa fa-list fa-1x margin-right-xxxs\"></i>\n      View list\n    </button>\n    <button mat-menu-item (click)=\"navigateToAnilistProfile()\">\n      <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n      View profile\n    </button>\n    <button mat-menu-item (click)=\"logOut()\">\n      <i class=\"fa fa-sign-out fa-1x margin-right-xxxs\"></i>\n      Log out\n    </button>\n  </mat-menu>\n\n  <!-- not logged in -->\n  <a *ngIf=\"!user && loginAvailable\" [href]=apiLoginUrl>\n    <span class=\"hide-below-s\">\n      Log in with AniList\n    </span>\n    <i class=\"fa fa-sign-in fa-1x\"></i>\n  </a>\n\n</mat-toolbar>"
+module.exports = "<mat-toolbar>\n\n  <div>\n    <span class=\"hide-below-s\">\n      Anime management client\n    </span>\n  </div>\n\n  <div class=\"centered-content section-links\" *ngIf=\"user\">\n    <a [routerLink]=\"rootUrl\" [class.active]=\"onRoot\">\n      <i class=\"fa fa-search fa-2x\"></i>\n      <small>\n        Anime search\n      </small>\n    </a>\n    <a [routerLink]=\"userListUrl\" [class.active]=\"onUserList\">\n      <i class=\"fa fa-list-ul fa-2x\"></i>\n      <small>\n        User's list\n      </small>\n    </a>\n  </div>\n\n  <span class=\"filler\"></span>\n\n  <!-- logged in -->\n  <div *ngIf=\"user\" class=\"flex-box center\">\n    <span class=\"padding-right-xs clickable hide-below-s\" [matMenuTriggerFor]=\"userMenu\">\n      {{ user.name }}\n    </span>\n    <img class=\"avatar clickable hide-below-s\" [src]=\"user.avatar.large\" [matMenuTriggerFor]=\"userMenu\">\n\n    <a class=\"clickable show-below-s\" [matMenuTriggerFor]=\"userMenu\">\n      <i class=\"fa fa-bars fa-1x\"></i>\n    </a>\n\n    <mat-menu #userMenu=\"matMenu\">\n      <button mat-menu-item (click)=\"navigateToAnilistProfile()\">\n        <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n        View profile\n      </button>\n      <button mat-menu-item (click)=\"logOut()\">\n        <i class=\"fa fa-sign-out fa-1x margin-right-xxxs\"></i>\n        Log out\n      </button>\n    </mat-menu>\n  </div>\n\n  <!-- not logged in -->\n  <div *ngIf=\"!user\" class=\"flex-box center\">\n    <a *ngIf=\"loginAvailable\" [href]=apiLoginUrl>\n    <span class=\"hide-below-s\">\n      Log in with AniList\n    </span>\n      <i class=\"fa fa-sign-in fa-1x\"></i>\n    </a>\n  </div>\n\n</mat-toolbar>"
 
 /***/ }),
 
@@ -519,7 +538,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".filler {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto; }\n\n.centered-content {\n  left: 0;\n  width: 100%;\n  position: absolute;\n  text-align: center;\n  pointer-events: none; }\n\nimg.avatar {\n  max-width: 64px;\n  max-height: 100%;\n  width: auto;\n  height: auto; }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\nmat-toolbar {\n  height: 64px; }\n  mat-toolbar > *.centered-content {\n    z-index: 0; }\n  mat-toolbar > *:not(.centered-content) {\n    z-index: 1; }\n  mat-toolbar .filler {\n    -ms-flex: 1 1 auto;\n        flex: 1 1 auto; }\n  mat-toolbar .centered-content {\n    left: 0;\n    width: 100%;\n    position: absolute;\n    text-align: center; }\n  mat-toolbar .section-links a {\n    vertical-align: middle;\n    display: inline-block;\n    width: 96px; }\n    mat-toolbar .section-links a.active {\n      pointer-events: none;\n      color: #999; }\n    mat-toolbar .section-links a small {\n      display: block;\n      font-size: 12px;\n      line-height: 12px; }\n  mat-toolbar img.avatar {\n    max-width: 64px;\n    max-height: 100%;\n    width: auto;\n    height: auto; }\n", ""]);
 
 // exports
 
@@ -559,8 +578,9 @@ var HeaderComponent = (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.animeService = animeService;
-        this.rootUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */];
         this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["b" /* apiLoginUrl */];
+        this.rootUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */];
+        this.userListUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["g" /* userListUrl */];
         this.checkAndStoreAccessToken();
         this.subscribeToNavigation();
         this.loginAvailable = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].anilist_client_id >= 0;
@@ -595,6 +615,7 @@ var HeaderComponent = (function () {
         var _this = this;
         this.router.events.subscribe(function () {
             _this.onRoot = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]) >= 0;
+            _this.onUserList = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["g" /* userListUrl */]) >= 0;
         });
     };
     HeaderComponent.prototype.checkAndStoreAccessToken = function () {
@@ -616,133 +637,6 @@ var HeaderComponent = (function () {
             __WEBPACK_IMPORTED_MODULE_2__providers_anime_service__["a" /* AnimeService */]])
     ], HeaderComponent);
     return HeaderComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<h3 class=\"header\">\n  {{ media.title.romaji }}\n</h3>\n\n<mat-divider></mat-divider>\n\n<div class=\"content\">\n  <form [formGroup]=\"listEntryForm\" (ngSubmit)=\"saveEntry()\">\n\n    <!-- status -->\n    <div class=\"form-group\">\n      <mat-form-field>\n        <mat-select placeholder=\"Status\" formControlName=\"statusValue\">\n          <mat-option *ngFor=\"let status of mediaStatusList\" [value]=\"status.value\">\n            {{ status.label }}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </div>\n\n    <!-- score -->\n    <div class=\"form-group\">\n      <mat-form-field class=\"score-input\">\n        <mat-label>Score</mat-label>\n        <input\n          matInput type=\"number\" min=\"0\" max=\"10\" step=\".1\"\n          [placeholder]=\"listEntry ? listEntry.scoreRaw / 10 : 5\" formControlName=\"score\" required>\n      </mat-form-field> / 10\n    </div>\n\n    <!--<mat-slider min=\"0\" max=\"10\" value=\"5\" step=\"0.5\" tickInterval=\"2\" class=\"full-width no-padding\"></mat-slider>-->\n\n    <mat-divider class=\"padding-bottom-xs\"></mat-divider>\n\n    <!--<span *ngIf=\"listEntry !== undefined\">-->\n      <!--<button mat-raised-button color=\"warn\" class=\"margin-right-s square-button\" (click)=\"deleteEntry($event)\">-->\n        <!--<i class=\"fa fa-trash fa-1x baseline\"></i>-->\n      <!--</button>-->\n    <!--</span>-->\n\n    <span class=\"float-right\">\n      <button mat-raised-button color=\"accent\" class=\"margin-right-xs\" [disabled]=\"!listEntryForm.valid\">\n        <i class=\"fa fa-send fa-1x baseline margin-right-xxxs\"></i>\n        Submit\n      </button>\n\n      <button mat-raised-button class=\"float-right\" (click)=\"dismiss($event)\">\n        <i class=\"fa fa-times fa-1x baseline margin-right-xxxs\"></i>\n        Cancel\n      </button>\n    </span>\n\n  </form>\n</div>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content .form-group {\n    margin: auto; }\n  .content mat-form-field {\n    width: 100%; }\n    .content mat-form-field.score-input {\n      width: 64px; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListEntryFormModalComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-var ListEntryFormModalComponent = (function () {
-    function ListEntryFormModalComponent(animeService, formBuilder, dialogRef, data) {
-        this.animeService = animeService;
-        this.formBuilder = formBuilder;
-        this.dialogRef = dialogRef;
-        this.data = data;
-        this.mediaStatusList = __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].LIST;
-        this.listEntry = data.listEntry;
-        this.listEntryStatus = data.listEntryStatus;
-        this.media = data.media;
-        this.setupForm();
-    }
-    ListEntryFormModalComponent.prototype.setupForm = function () {
-        this.listEntryForm = this.formBuilder.group({
-            statusValue: [this.listEntryStatus || __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].COMPLETED, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required]],
-            score: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0)]]
-        });
-    };
-    ListEntryFormModalComponent.prototype.saveEntry = function () {
-        var _this = this;
-        var listEntry = {
-            media: this.media,
-            scoreRaw: this.listEntryForm.value.score * 10
-        };
-        var listEntryRequest = Object.assign({}, listEntry);
-        listEntryRequest.statusValue = this.listEntryForm.value.statusValue;
-        this.animeService.saveListEntry(listEntryRequest).subscribe(function (response) {
-            var success = response.data.SaveMediaListEntry.id !== undefined;
-            if (success) {
-                listEntry.media = _this.media;
-                _this.dialogRef.close({
-                    savedEntry: listEntry
-                });
-            }
-        });
-    };
-    ListEntryFormModalComponent.prototype.deleteEntry = function (event) {
-        var _this = this;
-        this.preventDefault(event);
-        this.animeService.deleteListEntry(this.listEntry).subscribe(function (response) {
-            var success = response.data.DeleteMediaListEntry.deleted === true;
-            if (success) {
-                _this.dialogRef.close({
-                    deletedEntry: _this.listEntry
-                });
-            }
-        });
-    };
-    ListEntryFormModalComponent.prototype.dismiss = function (event) {
-        this.preventDefault(event);
-        this.dialogRef.close();
-    };
-    ListEntryFormModalComponent.prototype.preventDefault = function (event) {
-        if (event) {
-            event.preventDefault();
-        }
-    };
-    ListEntryFormModalComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'app-list-entry-form-modal',
-            template: __webpack_require__("../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/components/list-entry-form-modal/list-entry-form-modal.component.scss")]
-        }),
-        __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_anime_service__["a" /* AnimeService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_material__["h" /* MatDialogRef */], Object])
-    ], ListEntryFormModalComponent);
-    return ListEntryFormModalComponent;
 }());
 
 
@@ -951,6 +845,204 @@ var UserListTableComponent = (function () {
         __metadata("design:paramtypes", [])
     ], UserListTableComponent);
     return UserListTableComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div class=\"content\">\n  <form [formGroup]=\"listEntryForm\" (ngSubmit)=\"saveEntry()\">\n\n    <!-- status -->\n    <div class=\"form-group\">\n      <mat-form-field>\n        <mat-select placeholder=\"Status\" formControlName=\"statusValue\">\n          <mat-option *ngFor=\"let status of mediaStatusList\" [value]=\"status.value\">\n            {{ status.label }}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </div>\n\n    <!-- score -->\n    <div class=\"form-group\">\n      <mat-form-field class=\"score-input\">\n        <mat-label>Score</mat-label>\n        <input\n          matInput type=\"number\" min=\"0\" max=\"10\" step=\".1\"\n          [placeholder]=\"listEntry ? listEntry.scoreRaw / 10 : 5\" formControlName=\"score\" required>\n      </mat-form-field> / 10\n    </div>\n\n    <!--<mat-slider min=\"0\" max=\"10\" value=\"5\" step=\"0.5\" tickInterval=\"2\" class=\"full-width no-padding\"></mat-slider>-->\n\n    <mat-divider class=\"padding-bottom-xs\"></mat-divider>\n\n    <!--<span *ngIf=\"listEntry !== undefined\">-->\n      <!--<button mat-raised-button color=\"warn\" class=\"margin-right-s square-button\" (click)=\"deleteEntry($event)\">-->\n        <!--<i class=\"fa fa-trash fa-1x baseline\"></i>-->\n      <!--</button>-->\n    <!--</span>-->\n\n    <span class=\"float-right\">\n      <button mat-raised-button color=\"accent\" class=\"margin-right-xs\" [disabled]=\"!listEntryForm.valid\">\n        <i class=\"fa fa-send fa-1x baseline margin-right-xxxs\"></i>\n        Submit\n      </button>\n\n      <button mat-raised-button class=\"float-right\" (click)=\"dismiss($event)\">\n        <i class=\"fa fa-times fa-1x baseline margin-right-xxxs\"></i>\n        Cancel\n      </button>\n    </span>\n\n  </form>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n  .header .title {\n    padding-right: 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content .form-group {\n    margin: auto; }\n  .content mat-form-field {\n    width: 100%; }\n    .content mat-form-field.score-input {\n      width: 64px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListEntryFormModalComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var ListEntryFormModalComponent = (function () {
+    function ListEntryFormModalComponent(animeService, formBuilder, dialogRef, data) {
+        this.animeService = animeService;
+        this.formBuilder = formBuilder;
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.mediaStatusList = __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].LIST;
+        this.listEntry = data.listEntry;
+        this.listEntryStatus = data.listEntryStatus;
+        this.media = data.media;
+        this.setupForm();
+    }
+    ListEntryFormModalComponent.prototype.setupForm = function () {
+        this.listEntryForm = this.formBuilder.group({
+            statusValue: [this.listEntryStatus || __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].COMPLETED, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required]],
+            score: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0)]]
+        });
+    };
+    ListEntryFormModalComponent.prototype.saveEntry = function () {
+        var _this = this;
+        var listEntry = {
+            media: this.media,
+            scoreRaw: this.listEntryForm.value.score * 10
+        };
+        var listEntryRequest = Object.assign({}, listEntry);
+        listEntryRequest.statusValue = this.listEntryForm.value.statusValue;
+        this.animeService.saveListEntry(listEntryRequest).subscribe(function (response) {
+            var success = response.data.SaveMediaListEntry.id !== undefined;
+            if (success) {
+                listEntry.media = _this.media;
+                _this.dialogRef.close({
+                    savedEntry: listEntry
+                });
+            }
+        });
+    };
+    ListEntryFormModalComponent.prototype.deleteEntry = function (event) {
+        var _this = this;
+        this.preventDefault(event);
+        this.animeService.deleteListEntry(this.listEntry).subscribe(function (response) {
+            var success = response.data.DeleteMediaListEntry.deleted === true;
+            if (success) {
+                _this.dialogRef.close({
+                    deletedEntry: _this.listEntry
+                });
+            }
+        });
+    };
+    ListEntryFormModalComponent.prototype.dismiss = function (event) {
+        this.preventDefault(event);
+        this.dialogRef.close();
+    };
+    ListEntryFormModalComponent.prototype.preventDefault = function (event) {
+        if (event) {
+            event.preventDefault();
+        }
+    };
+    ListEntryFormModalComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-list-entry-form-modal',
+            template: __webpack_require__("../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.scss")]
+        }),
+        __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MAT_DIALOG_DATA */])),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_anime_service__["a" /* AnimeService */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_material__["h" /* MatDialogRef */], Object])
+    ], ListEntryFormModalComponent);
+    return ListEntryFormModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div class=\"content\">\n  <img [src]=\"media.coverImage.large\" class=\"cover\">\n\n  <div [innerHTML]=\"media.description\"></div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n  .header .title {\n    padding-right: 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content img.cover {\n    float: left;\n    width: 160px;\n    margin-right: 12px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaDetailModalComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var MediaDetailModalComponent = (function () {
+    function MediaDetailModalComponent(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.media = data.media;
+    }
+    MediaDetailModalComponent.prototype.dismiss = function (event) {
+        this.dialogRef.close();
+    };
+    MediaDetailModalComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-media-detail-modal',
+            template: __webpack_require__("../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.scss")]
+        }),
+        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_material__["h" /* MatDialogRef */], Object])
+    ], MediaDetailModalComponent);
+    return MediaDetailModalComponent;
 }());
 
 
@@ -1459,7 +1551,7 @@ var PageNotFoundComponent = (function () {
 /***/ "../../../../../src/app/pages/user-list/user-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card *ngIf=\"!user\" class=\"warning\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in.\n  </h4>\n</mat-card>\n\n<mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n<div *ngIf=\"user && ready && !errorGotten\">\n\n  <mat-card class=\"table-filter\">\n    <mat-form-field class=\"full-width\">\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter by name\">\n    </mat-form-field>\n  </mat-card>\n\n  <mat-card class=\"margin-top-s\">\n    <h3>\n      Show / Go to\n    </h3>\n\n    <div class=\"statuses-wrapper\">\n      <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n        <mat-checkbox [(ngModel)]=\"status.shown\"></mat-checkbox>\n\n        <a *ngIf=\"hasDataOfStatus(status.value)\" href=\"{{ '/user-list#' + status.value }}\" class=\"capitalize\">\n          {{ status.label }}\n        </a>\n      </span>\n    </div>\n  </mat-card>\n\n  <div *ngFor=\"let status of statuses\">\n    <div *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n\n      <h3 [id]=\"status.value\" class=\"capitalize\">\n        {{ status.label }}\n      </h3>\n\n      <mat-card class=\"no-padding\">\n        <app-user-list-table\n          [tableStatus]=\"status.value\"\n          [tableData]=\"statusObjects[status.value]\"\n          [favouriteIDs]=\"favouriteIDs\"\n          [filter]=\"filter\"\n          (onEntryUpdate)=\"onEntryUpdate($event)\">\n        </app-user-list-table>\n      </mat-card>\n\n    </div>\n  </div>\n\n  <div class=\"padding-top-xs padding-bottom-m\">\n    <h3>\n      Settings\n    </h3>\n\n    <mat-slide-toggle\n            [checked]=\"reloadOnUpdate\"\n            (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n      Reload on update\n    </mat-slide-toggle>\n  </div>\n\n  <app-genres-overview\n    [genreStatsList]=\"user.stats.favouredGenresOverview\">\n  </app-genres-overview>\n\n</div>\n\n<mat-card *ngIf=\"errorGotten\" class=\"error\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    Error 500: Internal server error\n  </h4>\n</mat-card>"
+module.exports = "<mat-card *ngIf=\"!user\" class=\"warning\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in.\n  </h4>\n</mat-card>\n\n<mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n<div *ngIf=\"user && ready && !errorGotten\">\n\n  <mat-card class=\"table-filter\">\n    <mat-form-field class=\"full-width\">\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter by name\">\n    </mat-form-field>\n  </mat-card>\n\n  <mat-card class=\"margin-top-s\">\n    <h3>\n      Show / Go to\n    </h3>\n\n    <div class=\"statuses-wrapper\">\n      <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n        <mat-checkbox [(ngModel)]=\"status.shown\"></mat-checkbox>\n\n        <a *ngIf=\"hasDataOfStatus(status.value)\" href=\"{{ '/user-list#' + status.value }}\" class=\"capitalize\">\n          {{ status.label }}\n        </a>\n      </span>\n    </div>\n  </mat-card>\n\n  <div *ngFor=\"let status of statuses\">\n    <div *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n\n      <h3 [id]=\"status.value\" class=\"capitalize\">\n        {{ status.label }}\n      </h3>\n\n      <mat-card class=\"no-padding\">\n        <app-user-list-table\n          [tableStatus]=\"status.value\"\n          [tableData]=\"statusObjects[status.value]\"\n          [favouriteIDs]=\"favouriteIDs\"\n          [filter]=\"filter\"\n          (onEntryUpdate)=\"onEntryUpdate($event)\">\n        </app-user-list-table>\n      </mat-card>\n\n    </div>\n  </div>\n\n  <div class=\"padding-top-xs padding-bottom-m\">\n    <h3>\n      Settings\n    </h3>\n\n    <mat-slide-toggle\n      [checked]=\"reloadOnUpdate\"\n      (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n      Reload on update\n    </mat-slide-toggle>\n  </div>\n\n  <app-genres-overview\n    [genreStatsList]=\"user.stats.favouredGenresOverview\">\n  </app-genres-overview>\n\n</div>\n\n<mat-card *ngIf=\"errorGotten\" class=\"error\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    Error 500: Internal server error\n  </h4>\n</mat-card>"
 
 /***/ }),
 
@@ -1875,12 +1967,13 @@ var AnimeService = (function () {
     AnimeService.prototype.parseAnimeData = function (anime) {
         anime.format = new __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaFormats__["a" /* MediaFormat */](anime.format).label;
         if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
+            debugger;
             anime.coverImage.medium = this.fallbackCover;
         }
     };
     AnimeService.prototype.initializeQueries = function () {
         this.genresQuery = "\n      {\n        GenreCollection\n      }";
-        this.animeFields = "\n      id\n      title {\n        romaji\n      }\n      startDate {\n        year\n      },\n      episodes\n      coverImage {\n        medium\n      },\n      genres\n      meanScore,\n      format";
+        this.animeFields = "\n      id\n      title {\n        romaji\n      }\n      description,\n      startDate {\n        year\n      },\n      episodes\n      coverImage {\n        medium,\n        large\n      },\n      genres\n      meanScore,\n      format";
         this.userQuery = "\n      {\n        Viewer {\n          id\n          name\n          avatar {\n            large\n          }\n          options {\n            displayAdultContent\n          }\n          stats {\n            watchedTime\n            favouredGenresOverview {\n              genre\n              amount\n              meanScore\n              timeWatched\n            }\n          }\n        }\n      }";
         this.searchQuery = "\n      query (\n        $id: Int,\n        $page: Int,\n        $perPage: Int,\n        $search: String,\n        $type: MediaType,\n        $sort: [MediaSort],\n        $startDate_greater: FuzzyDateInt,\n        $startDate_lesser: FuzzyDateInt,\n        $averageScore_greater: Int,\n        $averageScore_lesser: Int,\n        $formats: [MediaFormat],\n        $genres: [String],\n        $adultContent: Boolean\n      ) {\n        Page (\n          page: $page,\n          perPage: $perPage\n        ) {\n          pageInfo {\n            total\n            currentPage\n            lastPage\n            hasNextPage\n            perPage\n          }\n          media (\n            id: $id,\n            search: $search,\n            type: $type,\n            isAdult: $adultContent,\n            sort: $sort,\n            startDate_greater: $startDate_greater,\n            startDate_lesser: $startDate_lesser,\n            averageScore_greater: $averageScore_greater,\n            averageScore_lesser: $averageScore_lesser,\n            format_in: $formats,\n            genre_in: $genres\n          ) {\n            " + this.animeFields + "\n          }\n        }\n      }";
         this.listQuery = "\n      query (\n        $userId: Int!,\n        $listType: MediaType,\n        $sort: [MediaListSort]\n      ) {\n        MediaListCollection (\n          userId: $userId,\n          type: $listType,\n          sort: $sort\n        ) {\n          statusLists {\n            ... mediaListEntry\n          }\n        }\n      }\n  \n      fragment mediaListEntry on MediaList {\n        id\n        scoreRaw: score (\n          format: POINT_100\n        )\n        media {\n          " + this.animeFields + "\n        }\n      }";
@@ -1910,6 +2003,7 @@ var AnimeService = (function () {
 // `ng build --env=prod` then `envi ronment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
+    // anilist_client_id: 319, // local
     anilist_client_id: 324,
     production: false
 };
