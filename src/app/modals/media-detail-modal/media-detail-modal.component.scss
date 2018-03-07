@@ -11,6 +11,7 @@
 .content {
   img.cover {
     float: left;
+    max-width: 33vw;
     width: $screen-xxxs / 2;
     margin-right: $spacing-xs - $spacing-xxxs;
   }

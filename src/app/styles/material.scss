@@ -74,6 +74,7 @@ mat-expansion-panel {
 }
 
 mat-dialog-container {
+  max-width: 100vw;
   max-height: 100vh;
   overflow-y: auto;
 }

@@ -34,7 +34,6 @@ export class CoverImageComponent implements OnDestroy {
 
     this.modalConfig = {
       width: 'auto',
-      minWidth: '480px',
       maxWidth: '672px'
     };
 
