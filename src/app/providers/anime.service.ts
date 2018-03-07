@@ -309,17 +309,17 @@ export class AnimeService {
       title {
         romaji
       }
-      description,
+      description
       startDate {
         year
-      },
+      }
       episodes
       coverImage {
-        medium,
+        medium
         large
-      },
+      }
       genres
-      meanScore,
+      meanScore
       format`;
 
     this.userQuery = `
