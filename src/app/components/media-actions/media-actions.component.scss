@@ -6,7 +6,7 @@
   overflow: visible;
 }
 
-i.fa.menu-toggle {
+.menu-toggle {
   $size: $spacing-s;
   width: $size;
   margin-left: -$size;
@@ -17,15 +17,4 @@ i.fa.menu-toggle {
 
 .action-icon {
   min-width: $spacing-s;
-}
-
-img.cover {
-  height: auto;
-
-  @media (min-width: $screen-xxs + 1) {
-    max-width: 88px;
-  }
-  @media (max-width: $screen-xxs) {
-    max-width: 48px;
-  }
 }

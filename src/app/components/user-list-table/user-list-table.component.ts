@@ -21,7 +21,7 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  tableRows: string[] = ['cover-image', 'title', 'format', 'start-date', 'genres', 'score', 'episodes'];
+  tableRows: string[] = ['actions', 'cover-image', 'title', 'format', 'start-date', 'genres', 'score', 'episodes'];
   dataSource: MatTableDataSource<ListEntry>;
 
   constructor() {

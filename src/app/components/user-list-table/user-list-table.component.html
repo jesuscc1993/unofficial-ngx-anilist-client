@@ -1,16 +1,25 @@
 <mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" matSort class="series-table">
 
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+
+    </mat-header-cell>
+    <mat-cell *matCellDef="let entry">
+      <app-media-actions
+        [listEntryStatus]="tableStatus"
+        [listEntry]="entry"
+        [media]="entry.media"
+        (onUpdate)="onUpdate($event)">
+      </app-media-actions>
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="cover-image">
     <mat-header-cell *matHeaderCellDef>
       Cover
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
-      <app-cover-image
-        [listEntryStatus]="tableStatus"
-        [listEntry]="entry"
-        [media]="entry.media"
-        (onUpdate)="onUpdate($event)">
-      </app-cover-image>
+      <img [src]="entry.media.coverImage.medium" class="cover">
     </mat-cell>
   </ng-container>
 

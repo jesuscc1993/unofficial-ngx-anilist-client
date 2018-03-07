@@ -1,7 +1,5 @@
 <i class="fa fa-bars menu-toggle clickable" [matMenuTriggerFor]="entryMenu"></i>
 
-<img [src]="media.coverImage.medium" class="cover">
-
 <mat-menu #entryMenu="matMenu">
   <button mat-menu-item (click)="saveToList()" [disabled]="!user">
     <i class="fa fa-refresh fa-1x action-icon"></i>

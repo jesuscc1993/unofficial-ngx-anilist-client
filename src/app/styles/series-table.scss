@@ -8,6 +8,12 @@ $horizontal-cell-padding: $spacing-xxs;
     padding: $spacing-xxxs 0;
   }
 
+  .mat-column-actions {
+    overflow: visible;
+    font-size: 0;
+    flex: 0;
+  }
+
   /* small columns */
   .mat-column-start-date,
   .mat-column-score,
@@ -53,8 +59,16 @@ $horizontal-cell-padding: $spacing-xxs;
   }
 
   .mat-column-cover-image {
-    overflow: visible;
-    font-size: 0;
+    img.cover {
+      height: auto;
+
+      @media (min-width: $screen-xxs + 1) {
+        max-width: 88px;
+      }
+      @media (max-width: $screen-xxs) {
+        max-width: 48px;
+      }
+    }
   }
 
   @media (max-width: $screen-m) {

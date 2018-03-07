@@ -10,11 +10,11 @@ import { User } from '../../models/anilist/user';
 import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
 
 @Component({
-  selector: 'app-cover-image',
-  templateUrl: './cover-image.component.html',
-  styleUrls: ['./cover-image.component.scss']
+  selector: 'app-media-actions',
+  templateUrl: './media-actions.component.html',
+  styleUrls: ['./media-actions.component.scss']
 })
-export class CoverImageComponent implements OnDestroy {
+export class MediaActionsComponent implements OnDestroy {
   @Input() listEntryStatus?: string;
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
