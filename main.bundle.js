@@ -61,13 +61,14 @@ var AppComponent = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return apiUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return apiLoginUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return apiTokenPrefix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return apiUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return apiLoginUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return apiTokenPrefix; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return accessTokenCookieKey; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return userCookieKey; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return rootUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return userListUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return userCookieKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return animeSearchUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return userListUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return rootUrl; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 
 var apiUrl = 'https://graphql.anilist.co';
@@ -75,8 +76,9 @@ var apiLoginUrl = "https://anilist.co/api/v2/oauth/authorize?client_id=" + __WEB
 var apiTokenPrefix = '#access_token=';
 var accessTokenCookieKey = 'accessToken';
 var userCookieKey = 'user';
-var rootUrl = '/anime-search';
+var animeSearchUrl = '/anime-search';
 var userListUrl = '/user-list';
+var rootUrl = animeSearchUrl;
 
 
 /***/ }),
@@ -202,7 +204,7 @@ var AppModule = (function () {
 /***/ "../../../../../src/app/components/footer/footer.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n\n  <div class=\"text-center\">\n    <div>\n      About\n    </div>\n\n    <div class=\"links-wrapper\">\n      <a [href]=\"gitHubProjectUrl\">\n        <i class=\"fa fa-github fa-1x\"></i> GitHub\n      </a>\n    </div>\n\n    <div class=\"about-anilist margin-top-xxs\">\n      Powered by the <mat-icon svgIcon=\"anilist\"></mat-icon> AniList API\n    </div>\n  </div>\n\n</mat-toolbar>"
+module.exports = "<mat-toolbar>\n\n  <div class=\"text-center\">\n    <div>\n      About\n    </div>\n\n    <div class=\"links-wrapper\">\n      <a [href]=\"gitHubProjectUrl\">\n        <i class=\"fa fa-github fa-1x\"></i> GitHub repository\n      </a>\n    </div>\n\n    <div class=\"about-anilist margin-top-xxs\">\n      Powered by the <mat-icon svgIcon=\"anilist\"></mat-icon> AniList API\n    </div>\n  </div>\n\n</mat-toolbar>"
 
 /***/ }),
 
@@ -349,7 +351,7 @@ var GenresOverviewComponent = (function () {
 /***/ "../../../../../src/app/components/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n\n  <div>\n    <span class=\"hide-below-s\">\n      Anime management client\n    </span>\n  </div>\n\n  <div class=\"centered-content section-links\" *ngIf=\"user\">\n    <a [routerLink]=\"rootUrl\" [class.active]=\"onRoot\">\n      <i class=\"fa fa-search fa-2x\"></i>\n      <small>\n        Anime search\n      </small>\n    </a>\n    <a [routerLink]=\"userListUrl\" [class.active]=\"onUserList\">\n      <i class=\"fa fa-list-ul fa-2x\"></i>\n      <small>\n        User's list\n      </small>\n    </a>\n  </div>\n\n  <span class=\"filler\"></span>\n\n  <!-- logged in -->\n  <div *ngIf=\"user\" class=\"flex-box center\">\n    <span class=\"padding-right-xs clickable hide-below-s\" [matMenuTriggerFor]=\"userMenu\">\n      {{ user.name }}\n    </span>\n    <img class=\"avatar clickable hide-below-s\" [src]=\"user.avatar.large\" [matMenuTriggerFor]=\"userMenu\">\n\n    <a class=\"clickable show-below-s\" [matMenuTriggerFor]=\"userMenu\">\n      <i class=\"fa fa-bars fa-1x\"></i>\n    </a>\n\n    <mat-menu #userMenu=\"matMenu\">\n      <button mat-menu-item (click)=\"navigateToAnilistProfile()\">\n        <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n        View profile\n      </button>\n      <button mat-menu-item (click)=\"logOut()\">\n        <i class=\"fa fa-sign-out fa-1x margin-right-xxxs\"></i>\n        Log out\n      </button>\n    </mat-menu>\n  </div>\n\n  <!-- not logged in -->\n  <div *ngIf=\"!user\" class=\"flex-box center\">\n    <a *ngIf=\"loginAvailable\" [href]=apiLoginUrl>\n    <span class=\"hide-below-s\">\n      Log in with AniList\n    </span>\n      <i class=\"fa fa-sign-in fa-1x\"></i>\n    </a>\n  </div>\n\n</mat-toolbar>"
+module.exports = "<mat-toolbar>\n\n  <div>\n    <span class=\"hide-below-s\">\n      Anime management client\n    </span>\n  </div>\n\n  <div class=\"centered-content section-links\" *ngIf=\"user\">\n    <a [routerLink]=\"animeSearchUrl\" [class.active]=\"onAnimeSearch\">\n      <i class=\"fa fa-search fa-2x\"></i>\n      <small>\n        Anime search\n      </small>\n    </a>\n    <a [routerLink]=\"userListUrl\" [class.active]=\"onUserList\">\n      <i class=\"fa fa-list-ul fa-2x\"></i>\n      <small>\n        User's list\n      </small>\n    </a>\n  </div>\n\n  <span class=\"filler\"></span>\n\n  <!-- logged in -->\n  <div *ngIf=\"user\" class=\"flex-box center\">\n    <span class=\"padding-right-xs clickable hide-below-s\" [matMenuTriggerFor]=\"userMenu\">\n      {{ user.name }}\n    </span>\n    <img class=\"avatar clickable hide-below-s\" [src]=\"user.avatar.large\" [matMenuTriggerFor]=\"userMenu\">\n\n    <a class=\"clickable show-below-s\" [matMenuTriggerFor]=\"userMenu\">\n      <i class=\"fa fa-bars fa-1x\"></i>\n    </a>\n\n    <mat-menu #userMenu=\"matMenu\">\n      <button mat-menu-item (click)=\"navigateToAnilistProfile()\">\n        <i class=\"fa fa-external-link fa-1x margin-right-xxxs\"></i>\n        View profile\n      </button>\n      <button mat-menu-item (click)=\"logOut()\">\n        <i class=\"fa fa-sign-out fa-1x margin-right-xxxs\"></i>\n        Log out\n      </button>\n    </mat-menu>\n  </div>\n\n  <!-- not logged in -->\n  <div *ngIf=\"!user\" class=\"flex-box center\">\n    <a *ngIf=\"loginAvailable\" [href]=apiLoginUrl>\n    <span class=\"hide-below-s\">\n      Log in with AniList\n    </span>\n      <i class=\"fa fa-sign-in fa-1x\"></i>\n    </a>\n  </div>\n\n</mat-toolbar>"
 
 /***/ }),
 
@@ -401,9 +403,9 @@ var HeaderComponent = (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.animeService = animeService;
-        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["b" /* apiLoginUrl */];
-        this.rootUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */];
-        this.userListUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["g" /* userListUrl */];
+        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["c" /* apiLoginUrl */];
+        this.animeSearchUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["b" /* animeSearchUrl */];
+        this.userListUrl = __WEBPACK_IMPORTED_MODULE_4__app_constants__["h" /* userListUrl */];
         this.checkAndStoreAccessToken();
         this.subscribeToNavigation();
         this.loginAvailable = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].anilist_client_id >= 0;
@@ -419,12 +421,12 @@ var HeaderComponent = (function () {
         window.open("https://anilist.co/user/" + this.user.name);
     };
     HeaderComponent.prototype.navigateToUserList = function (replaceUrl) {
-        this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["g" /* userListUrl */]], {
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["h" /* userListUrl */]], {
             replaceUrl: replaceUrl
         });
     };
     HeaderComponent.prototype.navigateToHomePage = function (replaceUrl) {
-        this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]], {
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["f" /* rootUrl */]], {
             replaceUrl: replaceUrl
         });
     };
@@ -437,13 +439,14 @@ var HeaderComponent = (function () {
     HeaderComponent.prototype.subscribeToNavigation = function () {
         var _this = this;
         this.router.events.subscribe(function () {
-            _this.onRoot = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]) >= 0;
-            _this.onUserList = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["g" /* userListUrl */]) >= 0;
+            _this.onRoot = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["f" /* rootUrl */]) >= 0;
+            _this.onAnimeSearch = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["b" /* animeSearchUrl */]) >= 0;
+            _this.onUserList = location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["h" /* userListUrl */]) >= 0;
         });
     };
     HeaderComponent.prototype.checkAndStoreAccessToken = function () {
-        if (location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["c" /* apiTokenPrefix */]) >= 0) {
-            var locationParts = location.href.split('&')[0].split(__WEBPACK_IMPORTED_MODULE_4__app_constants__["c" /* apiTokenPrefix */]);
+        if (location.href.indexOf(__WEBPACK_IMPORTED_MODULE_4__app_constants__["d" /* apiTokenPrefix */]) >= 0) {
+            var locationParts = location.href.split('&')[0].split(__WEBPACK_IMPORTED_MODULE_4__app_constants__["d" /* apiTokenPrefix */]);
             history.replaceState({}, 'Login success', locationParts[0]);
             this.animeService.logIn(locationParts[1]);
             this.navigateToHomePage(true);
@@ -469,7 +472,7 @@ var HeaderComponent = (function () {
 /***/ "../../../../../src/app/components/media-actions/media-actions.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<i class=\"fa fa-bars menu-toggle clickable\" [matMenuTriggerFor]=\"entryMenu\"></i>\n\n<mat-menu #entryMenu=\"matMenu\">\n  <button mat-menu-item (click)=\"saveToList()\" [disabled]=\"!user\">\n    <i class=\"fa fa-refresh fa-1x action-icon\"></i>\n    Save to list\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"toggleFavourite()\">\n    <i class=\"fa fa-star fa-1x action-icon\"></i>\n    Toggle favourite\n  </button>\n  <button *ngIf=\"listEntry\" mat-menu-item (click)=\"deleteEntry()\">\n    <i class=\"fa fa-trash fa-1x action-icon\"></i>\n    Delete from list\n  </button>\n  <button *ngIf=\"media\" mat-menu-item (click)=\"showDetail()\">\n    <i class=\"fa fa-id-card-o fa-1x action-icon\"></i>\n    Show details\n  </button>\n  <button mat-menu-item (click)=\"viewOnAniList()\">\n    <i class=\"fa fa-external-link fa-1x action-icon\"></i>\n    View on AniList\n  </button>\n</mat-menu>"
+module.exports = "<i class=\"fa fa-bars menu-toggle clickable\" [matMenuTriggerFor]=\"entryMenu\"></i>\n\n<mat-menu #entryMenu=\"matMenu\">\n  <button mat-menu-item (click)=\"saveToList()\" [disabled]=\"!user\">\n    <i class=\"fa fa-1x action-icon\" [class.fa-plus]=\"!isUpdateAvailable()\" [class.fa-refresh]=\"isUpdateAvailable()\"></i>\n    {{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}\n  </button>\n  <button *ngIf=\"isUpdateAvailable()\" mat-menu-item (click)=\"toggleFavourite()\">\n    <i class=\"fa fa-star fa-1x action-icon\"></i>\n    Toggle favourite\n  </button>\n  <button *ngIf=\"isUpdateAvailable()\" mat-menu-item (click)=\"deleteEntry()\">\n    <i class=\"fa fa-trash fa-1x action-icon\"></i>\n    Delete from list\n  </button>\n  <button *ngIf=\"media\" mat-menu-item (click)=\"showDetail()\">\n    <i class=\"fa fa-id-card-o fa-1x action-icon\"></i>\n    Show details\n  </button>\n  <button mat-menu-item (click)=\"viewOnAniList()\">\n    <i class=\"fa fa-external-link fa-1x action-icon\"></i>\n    View on AniList\n  </button>\n</mat-menu>"
 
 /***/ }),
 
@@ -481,7 +484,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n:host {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  overflow: visible; }\n\n.menu-toggle {\n  width: 24px;\n  margin-left: -24px;\n  font-size: 16px;\n  text-align: center;\n  vertical-align: bottom; }\n\n.action-icon {\n  min-width: 24px; }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n:host {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  overflow: visible; }\n\n.action-icon {\n  min-width: 24px; }\n", ""]);
 
 // exports
 
@@ -538,6 +541,11 @@ var MediaActionsComponent = (function () {
             _this.user = user;
         });
     }
+    MediaActionsComponent.prototype.ngOnInit = function () {
+        if (this.media.mediaListEntry && !this.listEntry) {
+            this.listEntry = this.media.mediaListEntry;
+        }
+    };
     MediaActionsComponent.prototype.ngOnDestroy = function () {
         this.userChangeSubscription.unsubscribe();
     };
@@ -557,26 +565,29 @@ var MediaActionsComponent = (function () {
     };
     MediaActionsComponent.prototype.toggleFavourite = function () {
         var _this = this;
-        this.animeService.toggleFavouriteEntry(this.listEntry).subscribe(function (response) {
+        var targetEntry = this.getListEntry();
+        this.animeService.toggleFavouriteEntry(targetEntry).subscribe(function (response) {
             var success = response.data.ToggleFavourite !== undefined;
             if (success) {
-                _this.showToggledFavouriteToast(_this.listEntry);
-                _this.onUpdate.emit(_this.listEntry);
+                _this.showToggledFavouriteToast(targetEntry);
+                _this.onUpdate.emit(targetEntry);
             }
         });
     };
     MediaActionsComponent.prototype.deleteEntry = function () {
         var _this = this;
-        this.animeService.deleteListEntry(this.listEntry).subscribe(function (response) {
+        var targetEntry = this.getListEntry();
+        this.animeService.deleteListEntry(targetEntry).subscribe(function (response) {
             var success = response.data.DeleteMediaListEntry.deleted === true;
             if (success) {
-                _this.showDeletedEntryToast(_this.listEntry);
-                _this.onUpdate.emit(_this.listEntry);
+                _this.showDeletedEntryToast(targetEntry);
+                _this.onUpdate.emit(targetEntry);
             }
         });
     };
     MediaActionsComponent.prototype.showDetail = function () {
         var config = Object.assign({}, this.modalConfig);
+        config.maxWidth = '800px';
         config.data = {
             media: this.media
         };
@@ -585,10 +596,19 @@ var MediaActionsComponent = (function () {
     MediaActionsComponent.prototype.viewOnAniList = function () {
         window.open("https://anilist.co/anime/" + this.media.id);
     };
+    MediaActionsComponent.prototype.isUpdateAvailable = function () {
+        return !!this.listEntry && !!this.user;
+    };
+    MediaActionsComponent.prototype.getListEntry = function () {
+        var mediaCopy = Object.assign({}, this.media);
+        mediaCopy.mediaListEntry = undefined;
+        var listEntryCopy = Object.assign({}, this.listEntry);
+        listEntryCopy.media = mediaCopy;
+        return listEntryCopy;
+    };
     MediaActionsComponent.prototype.showFormModal = function () {
         var config = Object.assign({}, this.modalConfig);
         config.data = {
-            listEntryStatus: this.listEntryStatus,
             listEntry: this.listEntry,
             media: this.media
         };
@@ -608,10 +628,6 @@ var MediaActionsComponent = (function () {
             duration: 10000,
         });
     };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
-        __metadata("design:type", String)
-    ], MediaActionsComponent.prototype, "listEntryStatus", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_4__models_anilist_listEntry__["a" /* ListEntry */])
@@ -645,7 +661,7 @@ var MediaActionsComponent = (function () {
 /***/ "../../../../../src/app/components/search-results-table/search-results-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <app-media-actions [media]=\"anime\"></app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <img [src]=\"anime.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title\">\n    <mat-header-cell *matHeaderCellDef>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <span class=\"padding-right-xxxs\">\n        {{ anime.title.romaji }}\n      </span>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef>\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of anime.genres\">\n          <mat-chip>\n            {{ genre }}\n          </mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"mean-score\">\n    <mat-header-cell *matHeaderCellDef>\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.meanScore / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef>\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>"
+module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <app-media-actions [media]=\"anime\"></app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <img [src]=\"anime.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title\">\n    <mat-header-cell *matHeaderCellDef>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <span class=\"title\">\n        {{ anime.title.romaji }}\n      </span>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef>\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of anime.genres\">\n          <mat-chip>{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"mean-score\">\n    <mat-header-cell *matHeaderCellDef>\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.meanScore / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef>\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>"
 
 /***/ }),
 
@@ -728,7 +744,7 @@ var SearchResultsTableComponent = (function () {
 /***/ "../../../../../src/app/components/user-list-table/user-list-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" matSort class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <app-media-actions\n        [listEntryStatus]=\"tableStatus\"\n        [listEntry]=\"entry\"\n        [media]=\"entry.media\"\n        (onUpdate)=\"onUpdate($event)\">\n      </app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <img [src]=\"entry.media.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <span class=\"padding-right-xxxs\">\n        {{ entry.media.title.romaji }}\n      </span>\n      <i *ngIf=\"favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0\"\n         class=\"fa fa-heart fa-1x favourite\">\n      </i>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of entry.media.genres\">\n          <mat-chip>\n            {{ genre }}\n          </mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"score\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.scoreRaw / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>\n\n<mat-paginator\n  #paginator\n  [pageSize]=\"10\"\n  [pageSizeOptions]=\"[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]\"\n  [showFirstLastButtons]=\"true\">\n</mat-paginator>"
+module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" matSort class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <app-media-actions\n        [listEntry]=\"entry\"\n        [media]=\"entry.media\"\n        (onUpdate)=\"onUpdate($event)\">\n      </app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <img [src]=\"entry.media.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <span class=\"title\">\n        {{ entry.media.title.romaji }}\n      </span>\n      <i *ngIf=\"favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0\"\n         class=\"fa fa-heart fa-1x favourite\">\n      </i>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of entry.media.genres\">\n          <mat-chip>{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"score\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.scoreRaw / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>\n\n<mat-paginator\n  #paginator\n  [pageSize]=\"10\"\n  [pageSizeOptions]=\"[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]\"\n  [showFirstLastButtons]=\"true\">\n</mat-paginator>"
 
 /***/ }),
 
@@ -853,7 +869,7 @@ var UserListTableComponent = (function () {
 /***/ "../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div class=\"content\">\n  <form [formGroup]=\"listEntryForm\" (ngSubmit)=\"saveEntry()\">\n\n    <!-- status -->\n    <div class=\"form-group\">\n      <mat-form-field>\n        <mat-select placeholder=\"Status\" formControlName=\"statusValue\">\n          <mat-option *ngFor=\"let status of mediaStatusList\" [value]=\"status.value\">\n            {{ status.label }}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </div>\n\n    <!-- score -->\n    <div class=\"form-group\">\n      <mat-form-field class=\"score-input\">\n        <mat-label>Score</mat-label>\n        <input\n          matInput type=\"number\" min=\"0\" max=\"10\" step=\".1\"\n          [placeholder]=\"listEntry ? listEntry.scoreRaw / 10 : 5\" formControlName=\"score\" required>\n      </mat-form-field> / 10\n    </div>\n\n    <!--<mat-slider min=\"0\" max=\"10\" value=\"5\" step=\"0.5\" tickInterval=\"2\" class=\"full-width no-padding\"></mat-slider>-->\n\n    <mat-divider class=\"padding-bottom-xs\"></mat-divider>\n\n    <!--<span *ngIf=\"listEntry !== undefined\">-->\n      <!--<button mat-raised-button color=\"warn\" class=\"margin-right-s square-button\" (click)=\"deleteEntry($event)\">-->\n        <!--<i class=\"fa fa-trash fa-1x baseline\"></i>-->\n      <!--</button>-->\n    <!--</span>-->\n\n    <span class=\"float-right\">\n      <button mat-raised-button color=\"accent\" class=\"margin-right-xs\" [disabled]=\"!listEntryForm.valid\">\n        <i class=\"fa fa-send fa-1x baseline margin-right-xxxs\"></i>\n        Submit\n      </button>\n\n      <button mat-raised-button class=\"float-right\" (click)=\"dismiss($event)\">\n        <i class=\"fa fa-times fa-1x baseline margin-right-xxxs\"></i>\n        Cancel\n      </button>\n    </span>\n\n  </form>\n</div>"
+module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div class=\"content\">\n  <form [formGroup]=\"listEntryForm\" (ngSubmit)=\"saveEntry()\">\n\n    <!-- status -->\n    <div class=\"form-group\">\n      <mat-form-field>\n        <mat-select placeholder=\"Status\" formControlName=\"status\">\n          <mat-option *ngFor=\"let status of liestEntryStatusList\" [value]=\"status.value\">\n            {{ status.label }}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </div>\n\n    <!-- score -->\n    <div class=\"form-group\">\n      <mat-form-field class=\"score-input\">\n        <mat-label>Score</mat-label>\n        <input\n          matInput type=\"number\" min=\"0\" max=\"10\" step=\".1\"\n          [placeholder]=\"listEntry ? listEntry.scoreRaw / 10 : 5\" formControlName=\"score\" required>\n      </mat-form-field> / 10\n    </div>\n\n    <!--<mat-slider min=\"0\" max=\"10\" value=\"5\" step=\"0.5\" tickInterval=\"2\" class=\"full-width no-padding\"></mat-slider>-->\n\n    <mat-divider class=\"padding-bottom-xs\"></mat-divider>\n\n    <!--<span *ngIf=\"listEntry !== undefined\">-->\n      <!--<button mat-raised-button color=\"warn\" class=\"margin-right-s square-button\" (click)=\"deleteEntry($event)\">-->\n        <!--<i class=\"fa fa-trash fa-1x baseline\"></i>-->\n      <!--</button>-->\n    <!--</span>-->\n\n    <span class=\"float-right\">\n      <button mat-raised-button color=\"accent\" class=\"margin-right-xs\" [disabled]=\"!listEntryForm.valid || !isSubmitEnabled()\">\n        <i class=\"fa fa-send fa-1x baseline margin-right-xxxs\"></i>\n        Submit\n      </button>\n\n      <button mat-raised-button class=\"float-right\" (click)=\"dismiss($event)\">\n        <i class=\"fa fa-times fa-1x baseline margin-right-xxxs\"></i>\n        Cancel\n      </button>\n    </span>\n\n  </form>\n</div>"
 
 /***/ }),
 
@@ -884,7 +900,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_listEntryStatus__ = __webpack_require__("../../../../../src/app/models/anilist/listEntryStatus.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -908,33 +924,35 @@ var ListEntryFormModalComponent = (function () {
         this.formBuilder = formBuilder;
         this.dialogRef = dialogRef;
         this.data = data;
-        this.mediaStatusList = __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].LIST;
+        this.liestEntryStatusList = __WEBPACK_IMPORTED_MODULE_4__models_anilist_listEntryStatus__["a" /* ListEntryStatus */].LIST;
         this.listEntry = data.listEntry;
-        this.listEntryStatus = data.listEntryStatus;
         this.media = data.media;
         this.setupForm();
     }
     ListEntryFormModalComponent.prototype.setupForm = function () {
+        if (this.listEntry) {
+            this.originalEntry = Object.assign({}, this.listEntry);
+        }
         this.listEntryForm = this.formBuilder.group({
-            statusValue: [this.listEntryStatus || __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].COMPLETED, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required]],
-            score: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0)]]
+            status: [
+                this.originalEntry && this.originalEntry.status ? this.originalEntry.status : __WEBPACK_IMPORTED_MODULE_4__models_anilist_listEntryStatus__["a" /* ListEntryStatus */].COMPLETED,
+                [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required]
+            ],
+            score: [
+                this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined,
+                [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0)]
+            ]
         });
     };
     ListEntryFormModalComponent.prototype.saveEntry = function () {
         var _this = this;
-        var listEntry = {
-            media: this.media,
-            scoreRaw: this.listEntryForm.value.score * 10
-        };
-        var listEntryRequest = Object.assign({}, listEntry);
-        listEntryRequest.statusValue = this.listEntryForm.value.statusValue;
-        this.animeService.saveListEntry(listEntryRequest).subscribe(function (response) {
+        var entryToSave = this.getFormEntry();
+        this.animeService.saveListEntry(entryToSave).subscribe(function (response) {
             var success = response.data.SaveMediaListEntry.id !== undefined;
             if (success) {
-                listEntry.media = _this.media;
-                _this.dialogRef.close({
-                    savedEntry: listEntry
-                });
+                _this.listEntry.scoreRaw = entryToSave.scoreRaw;
+                _this.listEntry.status = entryToSave.status;
+                _this.dialogRef.close(_this.listEntry);
             }
         });
     };
@@ -953,6 +971,16 @@ var ListEntryFormModalComponent = (function () {
     ListEntryFormModalComponent.prototype.dismiss = function (event) {
         this.preventDefault(event);
         this.dialogRef.close();
+    };
+    ListEntryFormModalComponent.prototype.isSubmitEnabled = function () {
+        return !this.originalEntry || this.getFormEntry() !== this.originalEntry;
+    };
+    ListEntryFormModalComponent.prototype.getFormEntry = function () {
+        return {
+            media: this.media,
+            scoreRaw: this.listEntryForm.value.score * 10,
+            status: this.listEntryForm.value.status
+        };
     };
     ListEntryFormModalComponent.prototype.preventDefault = function (event) {
         if (event) {
@@ -980,7 +1008,7 @@ var ListEntryFormModalComponent = (function () {
 /***/ "../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div class=\"content\">\n  <img [src]=\"media.coverImage.large\" class=\"cover\">\n\n  <div [innerHTML]=\"media.description\"></div>\n</div>"
+module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"media\" class=\"content\">\n  <img [src]=\"media.coverImage && media.coverImage.large\" class=\"cover\">\n\n  <div *ngIf=\"media.description\">\n    <h4 class=\"margin-bottom-xxs\">\n      Description:\n    </h4>\n\n    <div [innerHTML]=\"media.description\"></div>\n  </div>\n\n  <div *ngIf=\"media.studios && media.studios.nodes && media.studios.nodes.length\">\n    <h4 class=\"margin-bottom-xxs\">\n      Studio:\n    </h4>\n\n    <span>\n      {{ media.studios.nodes[0].name }}\n    </span>\n  </div>\n\n  <div *ngIf=\"media.status && media.status.length\">\n    <h4 class=\"margin-bottom-xxs\">\n      Status:\n    </h4>\n\n    <span>\n      {{ media.status }}\n    </span>\n  </div>\n\n  <div *ngIf=\"media.tags && media.tags.length\">\n    <h4 class=\"margin-bottom-xxs\">\n      Tags:\n    </h4>\n\n    <span *ngFor=\"let tag of media.tags\">\n      <span *ngIf=\"!tag.isMediaSpoiler\">\n        <mat-chip [title]=\"tag.description\">{{ tag.name }}</mat-chip>\n      </span>\n    </span>\n  </div>\n\n</div>"
 
 /***/ }),
 
@@ -992,7 +1020,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n  .header .title {\n    padding-right: 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content img.cover {\n    float: left;\n    max-width: 33vw;\n    width: 160px;\n    margin-right: 12px; }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n  .header .title {\n    padding-right: 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content img.cover {\n    float: left;\n    max-width: 33vw;\n    width: 160px;\n    margin-right: 12px; }\n  .content mat-chip {\n    padding: 0 4px;\n    border-radius: 3px; }\n", ""]);
 
 // exports
 
@@ -1063,6 +1091,51 @@ var ListEntry = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/models/anilist/listEntryStatus.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListEntryStatus; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enumMap__ = __webpack_require__("../../../../../src/app/models/enumMap.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var ListEntryStatus = (function (_super) {
+    __extends(ListEntryStatus, _super);
+    function ListEntryStatus(value) {
+        var _this = _super.call(this, value, ListEntryStatus.LIST, true) || this;
+        _this.shown = true;
+        return _this;
+    }
+    ListEntryStatus.COMPLETED = 'completed';
+    ListEntryStatus.CURRENT = 'current';
+    ListEntryStatus.DROPPED = 'dropped';
+    ListEntryStatus.PAUSED = 'paused';
+    ListEntryStatus.PLANNING = 'planning';
+    ListEntryStatus.REPEATING = 'repeating';
+    ListEntryStatus.LIST = [
+        { label: 'Completed', value: 'completed' },
+        { label: 'Dropped', value: 'dropped' },
+        { label: 'Paused', value: 'paused' },
+        { label: 'Planned', value: 'planning' },
+        { label: 'Repeating', value: 'repeating' },
+        { label: 'Watching', value: 'current' }
+    ];
+    return ListEntryStatus;
+}(__WEBPACK_IMPORTED_MODULE_0__enumMap__["a" /* EnumMap */]));
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/models/anilist/media.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1100,21 +1173,21 @@ var MediaFormat = (function (_super) {
     function MediaFormat(value) {
         return _super.call(this, value, MediaFormat.LIST, true) || this;
     }
+    MediaFormat.MOVIE = 'MOVIE';
+    MediaFormat.MUSIC = 'MUSIC';
+    MediaFormat.ONA = 'ONA';
+    MediaFormat.OVA = 'OVA';
+    MediaFormat.SPECIAL = 'SPECIAL';
     MediaFormat.TV = 'TV';
     MediaFormat.TV_SHORT = 'TV_SHORT';
-    MediaFormat.MOVIE = 'MOVIE';
-    MediaFormat.SPECIAL = 'SPECIAL';
-    MediaFormat.OVA = 'OVA';
-    MediaFormat.ONA = 'ONA';
-    MediaFormat.MUSIC = 'MUSIC';
     MediaFormat.LIST = [
-        { label: 'TV', value: 'TV' },
-        { label: 'TV short', value: 'TV_SHORT' },
         { label: 'Movie', value: 'MOVIE' },
-        { label: 'Special', value: 'SPECIAL' },
-        { label: 'OVA', value: 'OVA' },
+        { label: 'Music', value: 'MUSIC' },
         { label: 'ONA', value: 'ONA' },
-        { label: 'Music', value: 'MUSIC' }
+        { label: 'OVA', value: 'OVA' },
+        { label: 'Special', value: 'SPECIAL' },
+        { label: 'TV short', value: 'TV_SHORT' },
+        { label: 'TV', value: 'TV' }
     ];
     return MediaFormat;
 }(__WEBPACK_IMPORTED_MODULE_0__enumMap__["a" /* EnumMap */]));
@@ -1133,8 +1206,6 @@ var mediaSorts = [
     { label: 'Title (desc)', value: 'TITLE_ROMAJI_DESC' },
     { label: 'Year (asc)', value: 'START_DATE' },
     { label: 'Year (desc)', value: 'START_DATE_DESC' },
-    { label: 'Year (asc)', value: 'START_DATE' },
-    { label: 'Year (desc)', value: 'START_DATE' }
 ];
 
 
@@ -1161,23 +1232,17 @@ var __extends = (this && this.__extends) || (function () {
 var MediaStatus = (function (_super) {
     __extends(MediaStatus, _super);
     function MediaStatus(value) {
-        var _this = _super.call(this, value, MediaStatus.LIST, true) || this;
-        _this.shown = true;
-        return _this;
+        return _super.call(this, value, MediaStatus.LIST, true) || this;
     }
-    MediaStatus.CURRENT = 'current';
-    MediaStatus.PLANNING = 'planning';
-    MediaStatus.COMPLETED = 'completed';
-    MediaStatus.DROPPED = 'dropped';
-    MediaStatus.PAUSED = 'paused';
-    MediaStatus.REPEATING = 'repeating';
+    MediaStatus.FINISHED = 'FINISHED';
+    MediaStatus.RELEASING = 'RELEASING';
+    MediaStatus.NOT_YET_RELEASED = 'NOT_YET_RELEASED';
+    MediaStatus.CANCELLED = 'CANCELLED';
     MediaStatus.LIST = [
-        { label: 'Watching', value: 'current' },
-        { label: 'Planned', value: 'planning' },
-        { label: 'Completed', value: 'completed' },
-        { label: 'Dropped', value: 'dropped' },
-        { label: 'Paused', value: 'paused' },
-        { label: 'Repeating', value: 'repeating' }
+        { label: 'Finished', value: 'FINISHED' },
+        { label: 'Airing', value: 'RELEASING' },
+        { label: 'Unaired', value: 'NOT_YET_RELEASED' },
+        { label: 'Cancelled', value: 'CANCELLED' }
     ];
     return MediaStatus;
 }(__WEBPACK_IMPORTED_MODULE_0__enumMap__["a" /* EnumMap */]));
@@ -1297,7 +1362,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\nmat-form-field {\n  width: 100%; }\n\n.form-group {\n  max-width: 640px;\n  margin: auto; }\n  @media (min-width: 481px) {\n    .form-group.two-rows > * {\n      max-width: calc(50% - 16px); }\n      .form-group.two-rows > *:first-child {\n        float: left; }\n      .form-group.two-rows > *:last-child {\n        float: right; } }\n\n.progress-placeholder {\n  height: 5px; }\n\nmat-card:not(:first-of-type) {\n  margin-top: 24px; }\n\nmat-expansion-panel-header {\n  padding: 0 8px; }\n\n@media (max-width: 480px) {\n  button {\n    width: 100%; } }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\nmat-form-field {\n  width: 100%; }\n\n#searchInput {\n  font-size: 16px;\n  line-height: 24px; }\n\n.form-group {\n  max-width: 640px;\n  margin: auto; }\n  @media (min-width: 481px) {\n    .form-group.two-rows > * {\n      max-width: calc(50% - 16px); }\n      .form-group.two-rows > *:first-child {\n        float: left; }\n      .form-group.two-rows > *:last-child {\n        float: right; } }\n\n.progress-placeholder {\n  height: 5px; }\n\nmat-card:not(:first-of-type) {\n  margin-top: 24px; }\n\nmat-expansion-panel-header {\n  padding: 0 8px; }\n\n@media (max-width: 480px) {\n  button {\n    width: 100%; } }\n", ""]);
 
 // exports
 
@@ -1314,8 +1379,10 @@ module.exports = module.exports.toString();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimeSearchComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaFormats__ = __webpack_require__("../../../../../src/app/models/anilist/mediaFormats.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaFormats__ = __webpack_require__("../../../../../src/app/models/anilist/mediaFormats.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1329,17 +1396,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var AnimeSearchComponent = (function () {
-    function AnimeSearchComponent(animeService, formBuilder) {
+    function AnimeSearchComponent(router, activatedRoute, animeService, formBuilder) {
         var _this = this;
+        this.router = router;
+        this.activatedRoute = activatedRoute;
         this.animeService = animeService;
         this.formBuilder = formBuilder;
-        this.mediaFormats = __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaFormats__["a" /* MediaFormat */].LIST;
+        this.mediaFormats = __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaFormats__["a" /* MediaFormat */].LIST;
         this.minYear = 1900;
         this.maxYear = new Date().getFullYear() + 1;
         this.user = this.animeService.getUser();
         this.setupForm();
         this.getGenres();
+        this.activatedRoute.queryParams.subscribe(function (params) {
+            if (params['search'] && params['search'].length) {
+                _this.searchForm.controls['search'].setValue(params['search']);
+                _this.search();
+            }
+        });
         this.userChangeSubscription = this.animeService.userChange.subscribe(function (user) {
             _this.user = user;
         });
@@ -1360,6 +1437,7 @@ var AnimeSearchComponent = (function () {
     };
     AnimeSearchComponent.prototype.search = function (page, perPage) {
         var _this = this;
+        this.updateQueryParams();
         this.searching = true;
         this.errorGotten = false;
         var query = {
@@ -1403,6 +1481,13 @@ var AnimeSearchComponent = (function () {
     AnimeSearchComponent.prototype.getDateScalarFromYear = function (year) {
         return year * 10000;
     };
+    AnimeSearchComponent.prototype.updateQueryParams = function () {
+        var queryParams = {};
+        if (this.searchForm.value.search && this.searchForm.value.search.length) {
+            queryParams.search = this.searchForm.value.search;
+        }
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_5__app_constants__["b" /* animeSearchUrl */]], { queryParams: queryParams });
+    };
     AnimeSearchComponent.prototype.changePage = function (pageEvent) {
         this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
     };
@@ -1412,7 +1497,9 @@ var AnimeSearchComponent = (function () {
             template: __webpack_require__("../../../../../src/app/pages/anime-search/anime-search.component.html"),
             styles: [__webpack_require__("../../../../../src/app/pages/anime-search/anime-search.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__providers_anime_service__["a" /* AnimeService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_anime_service__["a" /* AnimeService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
     ], AnimeSearchComponent);
     return AnimeSearchComponent;
@@ -1467,7 +1554,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var LoginComponent = (function () {
     function LoginComponent() {
-        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_1__app_constants__["b" /* apiLoginUrl */];
+        this.apiLoginUrl = __WEBPACK_IMPORTED_MODULE_1__app_constants__["c" /* apiLoginUrl */];
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
@@ -1580,7 +1667,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_anilist_listEntryStatus__ = __webpack_require__("../../../../../src/app/models/anilist/listEntryStatus.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1604,7 +1691,7 @@ var UserListComponent = (function () {
         this.user = this.animeService.getUser();
         this.loggedIn = this.user !== undefined;
         if (!this.loggedIn) {
-            this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["e" /* rootUrl */]]);
+            this.router.navigate([__WEBPACK_IMPORTED_MODULE_4__app_constants__["f" /* rootUrl */]]);
         }
         this.updateListData();
     }
@@ -1614,7 +1701,7 @@ var UserListComponent = (function () {
             this.animeService.getList(this.user).subscribe(function (response) {
                 var statuses = [];
                 Object.keys(response).sort().forEach(function (statusValue) {
-                    statuses.push(new __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaStatus__["a" /* MediaStatus */](statusValue));
+                    statuses.push(new __WEBPACK_IMPORTED_MODULE_3__models_anilist_listEntryStatus__["a" /* ListEntryStatus */](statusValue));
                 });
                 _this.statusObjects = response;
                 _this.statuses = statuses;
@@ -1726,11 +1813,12 @@ var SortPipe = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaFormats__ = __webpack_require__("../../../../../src/app/models/anilist/mediaFormats.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaType__ = __webpack_require__("../../../../../src/app/models/anilist/mediaType.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaSorts__ = __webpack_require__("../../../../../src/app/models/anilist/mediaSorts.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_anilist_listEntryStatus__ = __webpack_require__("../../../../../src/app/models/anilist/listEntryStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaFormats__ = __webpack_require__("../../../../../src/app/models/anilist/mediaFormats.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__ = __webpack_require__("../../../../../src/app/models/anilist/mediaType.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__ = __webpack_require__("../../../../../src/app/models/anilist/mediaSorts.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1748,32 +1836,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AnimeService = (function () {
     function AnimeService(httpClient) {
         this.httpClient = httpClient;
-        this.apiUrl = __WEBPACK_IMPORTED_MODULE_7__app_constants__["d" /* apiUrl */];
+        this.apiUrl = __WEBPACK_IMPORTED_MODULE_8__app_constants__["e" /* apiUrl */];
         this.fallbackCover = 'assets/pictures/non-vectorial/no-cover-available.png';
         this.userChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.initializeQueries();
     }
     AnimeService.prototype.setAccessToken = function (accessToken) {
-        localStorage.setItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* accessTokenCookieKey */], accessToken);
+        localStorage.setItem(__WEBPACK_IMPORTED_MODULE_8__app_constants__["a" /* accessTokenCookieKey */], accessToken);
     };
     AnimeService.prototype.getAccessToken = function () {
-        return localStorage.getItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* accessTokenCookieKey */]);
+        return localStorage.getItem(__WEBPACK_IMPORTED_MODULE_8__app_constants__["a" /* accessTokenCookieKey */]);
     };
     AnimeService.prototype.removeAccessToken = function () {
-        localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["a" /* accessTokenCookieKey */]);
+        localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_8__app_constants__["a" /* accessTokenCookieKey */]);
     };
     AnimeService.prototype.setUser = function (user) {
-        localStorage.setItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["f" /* userCookieKey */], JSON.stringify(user));
+        localStorage.setItem(__WEBPACK_IMPORTED_MODULE_8__app_constants__["g" /* userCookieKey */], JSON.stringify(user));
     };
     AnimeService.prototype.getUser = function () {
-        var jsonString = localStorage.getItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["f" /* userCookieKey */]);
+        var jsonString = localStorage.getItem(__WEBPACK_IMPORTED_MODULE_8__app_constants__["g" /* userCookieKey */]);
         return jsonString ? JSON.parse(jsonString) : undefined;
     };
     AnimeService.prototype.removeUser = function () {
-        localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_7__app_constants__["f" /* userCookieKey */]);
+        localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_8__app_constants__["g" /* userCookieKey */]);
     };
     AnimeService.prototype.logIn = function (accessToken) {
         var _this = this;
@@ -1803,11 +1892,11 @@ var AnimeService = (function () {
     AnimeService.prototype.search = function (query, pageInfo) {
         var _this = this;
         var options = {
-            type: __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            type: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             adultContent: query.adultContent || false,
             page: pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1,
             perPage: pageInfo.perPage || 10,
-            sort: [__WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaSorts__["a" /* mediaSorts */][0].value]
+            sort: [__WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* mediaSorts */][0].value]
         };
         if (query.search) {
             options.search = query.search;
@@ -1833,7 +1922,7 @@ var AnimeService = (function () {
         return this.httpClient.post(this.apiUrl, {
             query: this.searchQuery,
             variables: options
-        }).map(function (response) {
+        }, this.getRequestOptions()).map(function (response) {
             var serverResponse;
             if (_this.isValidResponse(response)) {
                 serverResponse = _this.getResponseData(response).Page;
@@ -1859,7 +1948,7 @@ var AnimeService = (function () {
     AnimeService.prototype.getList = function (user) {
         var _this = this;
         var options = {
-            listType: __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             userId: user.id,
             sort: ['SCORE_DESC']
         };
@@ -1873,7 +1962,7 @@ var AnimeService = (function () {
                 statusObjects = _this.getResponseData(response).MediaListCollection.statusLists;
                 Object.keys(statusObjects).forEach(function (status) {
                     statusObjects[status].forEach(function (entry) {
-                        _this.parseAnimeData(entry.media);
+                        _this.parseListEntryData(entry);
                     });
                 });
             }
@@ -1923,7 +2012,7 @@ var AnimeService = (function () {
     };
     AnimeService.prototype.saveListEntry = function (listEntryRequest) {
         var options = {
-            status: (listEntryRequest.statusValue.toUpperCase() || __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaStatus__["a" /* MediaStatus */].COMPLETED).toUpperCase(),
+            status: (listEntryRequest.status || __WEBPACK_IMPORTED_MODULE_3__models_anilist_listEntryStatus__["a" /* ListEntryStatus */].COMPLETED).toUpperCase(),
             mediaId: listEntryRequest.media.id,
             scoreRaw: listEntryRequest.scoreRaw
         };
@@ -1964,20 +2053,41 @@ var AnimeService = (function () {
         return response.data;
     };
     AnimeService.prototype.parseAnimeData = function (anime) {
-        anime.format = new __WEBPACK_IMPORTED_MODULE_3__models_anilist_mediaFormats__["a" /* MediaFormat */](anime.format).label;
-        if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
-            debugger;
-            anime.coverImage.medium = this.fallbackCover;
+        if (anime) {
+            if (anime.format) {
+                anime.format = new __WEBPACK_IMPORTED_MODULE_4__models_anilist_mediaFormats__["a" /* MediaFormat */](anime.format).label;
+            }
+            if (anime.status) {
+                anime.status = new __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaStatus__["a" /* MediaStatus */](anime.status).label;
+            }
+            if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
+                anime.coverImage.medium = this.fallbackCover;
+            }
+            if (anime.mediaListEntry) {
+                this.parseListEntryData(anime.mediaListEntry);
+            }
+        }
+    };
+    AnimeService.prototype.parseListEntryData = function (listEntry) {
+        if (listEntry) {
+            if (listEntry.status) {
+                listEntry.status = new __WEBPACK_IMPORTED_MODULE_3__models_anilist_listEntryStatus__["a" /* ListEntryStatus */](listEntry.status).value;
+            }
+            if (listEntry.media) {
+                this.parseAnimeData(listEntry.media);
+            }
         }
     };
     AnimeService.prototype.initializeQueries = function () {
+        this.pageInfoFields = "\n      currentPage\n      hasNextPage\n      lastPage\n      perPage\n      total";
+        this.listAnimeFields = "\n      coverImage {\n        large\n        medium\n      }\n      description\n      episodes\n      format\n      genres\n      id\n      meanScore\n      startDate {\n        year\n      }\n      status\n      studios(isMain: true) {\n        nodes {\n          name\n        }\n      }\n      tags {\n        description\n        isMediaSpoiler\n        name\n      }\n      title {\n        romaji\n      }";
+        this.searchAnimeFields = this.listAnimeFields + "\n      mediaListEntry {\n        id\n        scoreRaw: score (\n          format: POINT_100\n        )\n        status\n      }";
         this.genresQuery = "\n      {\n        GenreCollection\n      }";
-        this.animeFields = "\n      id\n      title {\n        romaji\n      }\n      description\n      startDate {\n        year\n      }\n      episodes\n      coverImage {\n        medium\n        large\n      }\n      genres\n      meanScore\n      format";
-        this.userQuery = "\n      {\n        Viewer {\n          id\n          name\n          avatar {\n            large\n          }\n          options {\n            displayAdultContent\n          }\n          stats {\n            watchedTime\n            favouredGenresOverview {\n              genre\n              amount\n              meanScore\n              timeWatched\n            }\n          }\n        }\n      }";
-        this.searchQuery = "\n      query (\n        $id: Int,\n        $page: Int,\n        $perPage: Int,\n        $search: String,\n        $type: MediaType,\n        $sort: [MediaSort],\n        $startDate_greater: FuzzyDateInt,\n        $startDate_lesser: FuzzyDateInt,\n        $averageScore_greater: Int,\n        $averageScore_lesser: Int,\n        $formats: [MediaFormat],\n        $genres: [String],\n        $adultContent: Boolean\n      ) {\n        Page (\n          page: $page,\n          perPage: $perPage\n        ) {\n          pageInfo {\n            total\n            currentPage\n            lastPage\n            hasNextPage\n            perPage\n          }\n          media (\n            id: $id,\n            search: $search,\n            type: $type,\n            isAdult: $adultContent,\n            sort: $sort,\n            startDate_greater: $startDate_greater,\n            startDate_lesser: $startDate_lesser,\n            averageScore_greater: $averageScore_greater,\n            averageScore_lesser: $averageScore_lesser,\n            format_in: $formats,\n            genre_in: $genres\n          ) {\n            " + this.animeFields + "\n          }\n        }\n      }";
-        this.listQuery = "\n      query (\n        $userId: Int!,\n        $listType: MediaType,\n        $sort: [MediaListSort]\n      ) {\n        MediaListCollection (\n          userId: $userId,\n          type: $listType,\n          sort: $sort\n        ) {\n          statusLists {\n            ... mediaListEntry\n          }\n        }\n      }\n  \n      fragment mediaListEntry on MediaList {\n        id\n        scoreRaw: score (\n          format: POINT_100\n        )\n        media {\n          " + this.animeFields + "\n        }\n      }";
-        this.listFavouritesQuery = "\n      query (\n        $userId: Int!,\n        $page: Int\n      ) {\n        User (\n          id: $userId\n        ) {\n          favourites {\n            anime (\n              page: $page\n            ) {\n              nodes {\n                " + this.animeFields + "\n              }\n              pageInfo {\n                total\n                currentPage\n                lastPage\n                hasNextPage\n                perPage\n              }\n            }\n          }\n        }\n      }";
-        this.saveListEntryQuery = "\n      mutation (\n        $mediaId: Int,\n        $status: MediaListStatus,\n        $scoreRaw: Int\n      ) {\n        SaveMediaListEntry (\n          mediaId: $mediaId,\n          status: $status,\n          scoreRaw: $scoreRaw\n        ) {\n          id\n          status\n        }\n      }";
+        this.userQuery = "\n      {\n        Viewer {\n          avatar {\n            large\n          }\n          id\n          name\n          options {\n            displayAdultContent\n          }\n          stats {\n            favouredGenresOverview {\n              amount\n              genre\n              meanScore\n              timeWatched\n            }\n            watchedTime\n          }\n        }\n      }";
+        this.searchQuery = "\n      query (\n        $adultContent: Boolean,\n        $averageScore_greater: Int,\n        $averageScore_lesser: Int,\n        $formats: [MediaFormat],\n        $genres: [String],\n        $id: Int,\n        $page: Int,\n        $perPage: Int,\n        $search: String,\n        $sort: [MediaSort],\n        $startDate_greater: FuzzyDateInt,\n        $startDate_lesser: FuzzyDateInt,\n        $type: MediaType\n      ) {\n        Page (\n          page: $page,\n          perPage: $perPage\n        ) {\n          pageInfo {\n            " + this.pageInfoFields + "\n          }\n          media (\n            averageScore_greater: $averageScore_greater,\n            averageScore_lesser: $averageScore_lesser,\n            format_in: $formats,\n            genre_in: $genres,\n            isAdult: $adultContent,\n            search: $search,\n            sort: $sort,\n            startDate_greater: $startDate_greater,\n            startDate_lesser: $startDate_lesser,\n            type: $type,\n            id: $id\n          ) {\n            " + this.searchAnimeFields + "\n          }\n        }\n      }";
+        this.listQuery = "\n      query (\n        $listType: MediaType,\n        $sort: [MediaListSort],\n        $userId: Int!\n      ) {\n        MediaListCollection (\n          sort: $sort,\n          type: $listType,\n          userId: $userId\n        ) {\n          statusLists {\n            ... mediaListEntry\n          }\n        }\n      }\n  \n      fragment mediaListEntry on MediaList {\n        id\n        media {\n          " + this.listAnimeFields + "\n        }\n        scoreRaw: score (\n          format: POINT_100\n        )\n        status\n      }";
+        this.listFavouritesQuery = "\n      query (\n        $userId: Int!,\n        $page: Int\n      ) {\n        User (\n          id: $userId\n        ) {\n          favourites {\n            anime (\n              page: $page\n            ) {\n              nodes {\n                id\n              }\n              pageInfo {\n                " + this.pageInfoFields + "\n              }\n            }\n          }\n        }\n      }";
+        this.saveListEntryQuery = "\n      mutation (\n        $mediaId: Int,\n        $scoreRaw: Int,\n        $status: MediaListStatus\n      ) {\n        SaveMediaListEntry (\n          mediaId: $mediaId,\n          scoreRaw: $scoreRaw,\n          status: $status\n        ) {\n          id\n          status\n        }\n      }";
         this.deleteListEntryQuery = "\n      mutation (\n        $id: Int\n      ) {\n        DeleteMediaListEntry (id: $id) {\n          deleted\n        }\n      }";
         this.toggleFavouriteEntryQuery = "\n      mutation (\n        $animeId: Int\n      ) {\n        ToggleFavourite (\n          animeId: $animeId\n        ) {\n          anime {\n            nodes {\n              id\n              title {\n                userPreferred\n              }\n            }\n          }\n        }\n      }";
     };
