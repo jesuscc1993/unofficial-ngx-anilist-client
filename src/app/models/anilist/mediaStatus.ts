@@ -1,25 +1,20 @@
 import { EnumMap } from '../enumMap';
 
 export class MediaStatus extends EnumMap {
-  static COMPLETED: string = 'completed';
-  static CURRENT: string = 'current';
-  static DROPPED: string = 'dropped';
-  static PAUSED: string = 'paused';
-  static PLANNING: string = 'planning';
-  static REPEATING: string = 'repeating';
+  static FINISHED: string = 'FINISHED';
+  static RELEASING: string = 'RELEASING';
+  static NOT_YET_RELEASED: string = 'NOT_YET_RELEASED';
+  static CANCELLED: string = 'CANCELLED';
 
   static LIST: any[] = [
-    { label: 'Completed', value: 'completed' },
-    { label: 'Dropped', value: 'dropped' },
-    { label: 'Paused', value: 'paused' },
-    { label: 'Planned', value: 'planning' },
-    { label: 'Repeating', value: 'repeating' },
-    { label: 'Watching', value: 'current' }
+    { label: 'Finished', value: 'FINISHED' },
+    { label: 'Airing', value: 'RELEASING' },
+    { label: 'Unaired', value: 'NOT_YET_RELEASED' },
+    { label: 'Cancelled', value: 'CANCELLED' }
   ];
-
-  shown: boolean = true;
 
   constructor(value: string) {
     super(value, MediaStatus.LIST, true);
   }
+
 }

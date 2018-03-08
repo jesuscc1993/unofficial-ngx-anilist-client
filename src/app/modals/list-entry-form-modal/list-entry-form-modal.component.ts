@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AnimeService } from '../../providers/anime.service';
 import { ListEntry } from '../../models/anilist/listEntry';
 import { Media } from '../../models/anilist/media';
-import { MediaStatus } from '../../models/anilist/mediaStatus';
+import { ListEntryStatus } from '../../models/anilist/listEntryStatus';
 
 @Component({
   selector: 'app-list-entry-form-modal',
@@ -17,7 +17,7 @@ export class ListEntryFormModalComponent {
   listEntry: ListEntry;
   media: Media;
   listEntryForm: FormGroup;
-  mediaStatusList: any[] = MediaStatus.LIST;
+  liestEntryStatusList: any[] = ListEntryStatus.LIST;
 
   constructor(
     private animeService: AnimeService,
@@ -37,7 +37,7 @@ export class ListEntryFormModalComponent {
 
     this.listEntryForm = this.formBuilder.group({
       status: [
-        this.originalEntry && this.originalEntry.status ? this.originalEntry.status : MediaStatus.COMPLETED,
+        this.originalEntry && this.originalEntry.status ? this.originalEntry.status : ListEntryStatus.COMPLETED,
         [Validators.required]
       ],
       score: [
@@ -53,10 +53,9 @@ export class ListEntryFormModalComponent {
     this.animeService.saveListEntry(entryToSave).subscribe((response) => {
       const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
       if (success) {
-        entryToSave.media = this.media;
-        this.dialogRef.close({
-          savedEntry: entryToSave
-        });
+        this.listEntry.scoreRaw = entryToSave.scoreRaw;
+        this.listEntry.status = entryToSave.status;
+        this.dialogRef.close(this.listEntry);
       }
     });
   }

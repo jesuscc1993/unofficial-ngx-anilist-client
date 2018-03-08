@@ -15,7 +15,7 @@
     <div class="form-group">
       <mat-form-field>
         <mat-select placeholder="Status" formControlName="status">
-          <mat-option *ngFor="let status of mediaStatusList" [value]="status.value">
+          <mat-option *ngFor="let status of liestEntryStatusList" [value]="status.value">
             {{ status.label }}
           </mat-option>
         </mat-select>

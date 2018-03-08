@@ -7,6 +7,8 @@ export class Media {
   id: number;
   meanScore: number;
   mediaListEntry: ListEntry;
+  status: string;
+  studios: any;
   tags: Tag[];
   title: Title;
 }

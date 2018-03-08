@@ -27,7 +27,7 @@
       Title
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
-      <span class="padding-right-xxxs">
+      <span class="title">
         {{ entry.media.title.romaji }}
       </span>
       <i *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0"

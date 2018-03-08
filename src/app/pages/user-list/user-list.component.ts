@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { ListEntry } from '../../models/anilist/listEntry';
-import { MediaStatus } from '../../models/anilist/mediaStatus';
+import { ListEntryStatus } from '../../models/anilist/listEntryStatus';
 import { rootUrl } from '../../app.constants';
 
 @Component({
@@ -15,7 +15,7 @@ import { rootUrl } from '../../app.constants';
 export class UserListComponent {
   user: User;
   statusObjects: any;
-  statuses: MediaStatus[];
+  statuses: ListEntryStatus[];
   favouriteIDs: number[];
 
   loggedIn: boolean;
@@ -42,9 +42,9 @@ export class UserListComponent {
   private getUserList(): void {
     if (this.user) {
       this.animeService.getList(this.user).subscribe((response) => {
-        const statuses: MediaStatus[] = [];
+        const statuses: ListEntryStatus[] = [];
         Object.keys(response).sort().forEach((statusValue) => {
-          statuses.push(new MediaStatus(statusValue));
+          statuses.push(new ListEntryStatus(statusValue));
         });
 
         this.statusObjects = response;

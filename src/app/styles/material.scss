@@ -1,53 +1,4 @@
 @import 'variables';
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://www.google.com/design/spec/style/color.html
-$app-primary: mat-palette($mat-orange);
-$app-accent: mat-palette($mat-orange, A400, A100, A700);
-
-// The warn palette is optional (defaults to red).
-$app-warn: mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($app-theme);
-
-body {
-  font-family: 'Roboto', 'Helvetica Neue', 'sans-serif';
-}
-
-mat-card {
-  &.info {
-    background: map-get($mat-blue, 50);
-    color: #3F668C;
-  }
-  &.warning {
-    background: map-get($mat-orange, 50);
-    color: #8C6C3F;
-  }
-  &.error {
-    background: map-get($mat-red, 50);
-    color: #8C3F3F;
-  }
-}
-
-.mat-raised-button.mat-accent,
-.mat-fab.mat-accent,
-.mat-mini-fab.mat-accent {
-  color: white;
-}
 
 mat-spinner {
   &.full-page {
@@ -79,24 +30,14 @@ mat-dialog-container {
   overflow-y: auto;
 }
 
-.mat-chip:not(.mat-basic-chip) {
-  background-color: #999;
-  color: white;
-  padding: 0 6px;
-  border-radius: 9px;
-}
-
-a {
-  color: map-get($mat-orange, 800);
-  transition: color .2s;
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    color: map-get($mat-orange, 500);
-  }
+.mat-dialog-container {
+  padding: 0;
 }
 
 .mat-snack-bar-container {
   max-width: 100vw !important;
+}
+
+.mat-chip {
+  outline: none;
 }

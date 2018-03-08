@@ -3,15 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { User } from '../models/anilist/user';
 import { Anime } from '../models/anilist/anime';
 import { ListEntry } from '../models/anilist/listEntry';
+import { ListEntryStatus } from '../models/anilist/listEntryStatus';
 import { Media } from '../models/anilist/media';
 import { MediaFormat } from '../models/anilist/mediaFormats';
-import { MediaQuery } from '../models/anilist/query';
 import { MediaStatus } from '../models/anilist/mediaStatus';
 import { MediaTypes } from '../models/anilist/mediaType';
+import { MediaQuery } from '../models/anilist/query';
 import { PageQuery } from '../models/anilist/pageInfo';
-import { User } from '../models/anilist/user';
 import { mediaSorts } from '../models/anilist/mediaSorts';
 import { apiUrl, accessTokenCookieKey, userCookieKey } from '../app.constants';
 
@@ -237,7 +238,7 @@ export class AnimeService {
 
   public saveListEntry(listEntryRequest: any): Observable<any> {
     let options: any = {
-      status: (listEntryRequest.status || MediaStatus.COMPLETED).toUpperCase(),
+      status: (listEntryRequest.status || ListEntryStatus.COMPLETED).toUpperCase(),
       mediaId: listEntryRequest.media.id,
       scoreRaw: listEntryRequest.scoreRaw
     };
@@ -297,6 +298,10 @@ export class AnimeService {
         anime.format = new MediaFormat(anime.format).label;
       }
 
+      if (anime.status) {
+        anime.status = new MediaStatus(anime.status).label;
+      }
+
       if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
         anime.coverImage.medium = this.fallbackCover;
       }
@@ -310,7 +315,7 @@ export class AnimeService {
   private parseListEntryData(listEntry: ListEntry): void {
     if (listEntry) {
       if (listEntry.status) {
-        listEntry.status = new MediaStatus(listEntry.status).value;
+        listEntry.status = new ListEntryStatus(listEntry.status).value;
       }
 
       if (listEntry.media) {
@@ -341,6 +346,12 @@ export class AnimeService {
       meanScore
       startDate {
         year
+      }
+      status
+      studios(isMain: true) {
+        nodes {
+          name
+        }
       }
       tags {
         description

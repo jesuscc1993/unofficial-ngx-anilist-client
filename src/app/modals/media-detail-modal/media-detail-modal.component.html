@@ -19,6 +19,26 @@
     <div [innerHTML]="media.description"></div>
   </div>
 
+  <div *ngIf="media.studios && media.studios.nodes && media.studios.nodes.length">
+    <h4 class="margin-bottom-xxs">
+      Studio:
+    </h4>
+
+    <span>
+      {{ media.studios.nodes[0].name }}
+    </span>
+  </div>
+
+  <div *ngIf="media.status && media.status.length">
+    <h4 class="margin-bottom-xxs">
+      Status:
+    </h4>
+
+    <span>
+      {{ media.status }}
+    </span>
+  </div>
+
   <div *ngIf="media.tags && media.tags.length">
     <h4 class="margin-bottom-xxs">
       Tags:
