@@ -1,15 +1,6 @@
 @import "../../styles/variables";
 
-.header {
-  margin: 0 0 $spacing-xs;
-
-  .title {
-    padding-right: $spacing-xs;
-  }
-}
-
 .content {
-  margin: $spacing-xs 0 0;
 
   .form-group {
     //max-width: $max-input-size / 2;

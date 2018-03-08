@@ -8,7 +8,7 @@ $horizontal-cell-padding: $spacing-xxs;
     padding: $spacing-xxxs 0;
 
     &:not(.mat-column-cover-image) {
-      $vertical-padding: $spacing-xxxs / 2;
+      $vertical-padding: $spacing-xxxxs;
       padding-left: $vertical-padding;
       padding-right: $vertical-padding;
     }

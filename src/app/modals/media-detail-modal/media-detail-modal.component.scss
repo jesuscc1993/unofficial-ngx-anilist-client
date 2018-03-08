@@ -1,15 +1,6 @@
 @import "../../styles/variables";
 
-.header {
-  margin: 0 0 $spacing-xs;
-
-  .title {
-    padding-right: $spacing-xs;
-  }
-}
-
 .content {
-  margin: $spacing-xs 0 0;
 
   img.cover {
     float: left;
@@ -20,8 +11,33 @@
 
   mat-chip {
     $vertical-padding: $spacing-xxxs;
-    padding: 0 $vertical-padding;
+    margin: $spacing-xxxxs 0;
+    padding: $spacing-xxxxs $vertical-padding;
     border-radius: $vertical-padding * 3/4;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .property-value-pair {
+    display: flex;
+    align-items: flex-start;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .property,
+    .value {
+      display: inline-block;
+    }
+
+    .property {
+      min-width: 64px;
+    }
+
+    .value {
+      width: calc(100% - 72px);
+    }
   }
 
 }

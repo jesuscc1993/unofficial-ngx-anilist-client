@@ -1,4 +1,4 @@
-<h3 class="header">
+<h3 class="header no-margin">
   <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
 
   <div class="title">
@@ -19,36 +19,38 @@
     <div [innerHTML]="media.description"></div>
   </div>
 
-  <div *ngIf="media.studios && media.studios.nodes && media.studios.nodes.length">
-    <h4 class="margin-bottom-xxs">
+  <p *ngIf="media.studios && media.studios.nodes && media.studios.nodes.length" class="property-value-pair">
+    <strong class="property">
       Studio:
-    </h4>
+    </strong>
 
-    <span>
+    <span class="value">
       {{ media.studios.nodes[0].name }}
     </span>
-  </div>
+  </p>
 
-  <div *ngIf="media.status && media.status.length">
-    <h4 class="margin-bottom-xxs">
+  <p *ngIf="media.status && media.status.length" class="property-value-pair">
+    <strong class="property">
       Status:
-    </h4>
+    </strong>
 
-    <span>
+    <span class="value">
       {{ media.status }}
     </span>
-  </div>
+  </p>
 
-  <div *ngIf="media.tags && media.tags.length">
-    <h4 class="margin-bottom-xxs">
+  <p *ngIf="media.tags && media.tags.length" class="property-value-pair">
+    <strong class="property">
       Tags:
-    </h4>
+    </strong>
 
-    <span *ngFor="let tag of media.tags">
-      <span *ngIf="!tag.isMediaSpoiler">
-        <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
+    <span class="value">
+      <span *ngFor="let tag of media.tags">
+        <span *ngIf="!tag.isMediaSpoiler">
+          <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
+        </span>
       </span>
     </span>
-  </div>
+  </p>
 
 </div>

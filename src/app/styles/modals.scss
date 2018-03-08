@@ -1,0 +1,45 @@
+@import 'variables';
+
+mat-dialog-container {
+  $header-height: 72px;
+
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 0 !important;
+
+  .header {
+    .title {
+      padding-right: $spacing-xs;
+    }
+  }
+
+  .content {
+    max-width: 100vw;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+}
+
+@mixin setup-modal($padding) {
+  $header-height: $spacing-s + $padding * 2;
+
+  .header {
+    padding: $padding;
+  }
+
+  .content {
+    max-height: calc(100vh - #{$header-height});
+    padding: $padding;
+  }
+}
+
+@media (min-width: $screen-s + 1) {
+  @include setup-modal($spacing-s);
+}
+
+@media (max-width: $screen-s) {
+  @include setup-modal($spacing-xs);
+}
