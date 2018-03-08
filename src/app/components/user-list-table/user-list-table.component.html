@@ -6,7 +6,6 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let entry">
       <app-media-actions
-        [listEntryStatus]="tableStatus"
         [listEntry]="entry"
         [media]="entry.media"
         (onUpdate)="onUpdate($event)">
@@ -62,9 +61,7 @@
     <mat-cell *matCellDef="let entry">
       <mat-list>
         <mat-list-item *ngFor="let genre of entry.media.genres">
-          <mat-chip>
-            {{ genre }}
-          </mat-chip>
+          <mat-chip>{{ genre }}</mat-chip>
         </mat-list-item>
       </mat-list>
     </mat-cell>

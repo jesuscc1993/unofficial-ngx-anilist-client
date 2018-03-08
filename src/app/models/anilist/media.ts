@@ -1,9 +1,12 @@
-import { CoverImage, Title } from './dataTypes';
+import { CoverImage, Tag, Title } from './dataTypes';
+import { ListEntry } from './listEntry';
 
 export class Media {
-  id: number;
-  title: Title;
-  description: string;
   coverImage: CoverImage;
+  description: string;
+  id: number;
   meanScore: number;
+  mediaListEntry: ListEntry;
+  tags: Tag[];
+  title: Title;
 }

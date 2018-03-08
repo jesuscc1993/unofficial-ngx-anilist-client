@@ -14,7 +14,7 @@
     <!-- status -->
     <div class="form-group">
       <mat-form-field>
-        <mat-select placeholder="Status" formControlName="statusValue">
+        <mat-select placeholder="Status" formControlName="status">
           <mat-option *ngFor="let status of mediaStatusList" [value]="status.value">
             {{ status.label }}
           </mat-option>
@@ -43,7 +43,7 @@
     <!--</span>-->
 
     <span class="float-right">
-      <button mat-raised-button color="accent" class="margin-right-xs" [disabled]="!listEntryForm.valid">
+      <button mat-raised-button color="accent" class="margin-right-xs" [disabled]="!listEntryForm.valid || !isSubmitEnabled()">
         <i class="fa fa-send fa-1x baseline margin-right-xxxs"></i>
         Submit
       </button>

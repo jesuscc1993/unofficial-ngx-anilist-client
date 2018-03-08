@@ -13,7 +13,7 @@ import { MediaStatus } from '../../models/anilist/mediaStatus';
   styleUrls: ['./list-entry-form-modal.component.scss']
 })
 export class ListEntryFormModalComponent {
-  listEntryStatus: string;
+  originalEntry: ListEntry;
   listEntry: ListEntry;
   media: Media;
   listEntryForm: FormGroup;
@@ -26,32 +26,36 @@ export class ListEntryFormModalComponent {
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.listEntry = data.listEntry;
-    this.listEntryStatus = data.listEntryStatus;
     this.media = data.media;
     this.setupForm();
   }
 
   private setupForm(): void {
+    if (this.listEntry) {
+      this.originalEntry = Object.assign({}, this.listEntry);
+    }
+
     this.listEntryForm = this.formBuilder.group({
-      statusValue: [this.listEntryStatus || MediaStatus.COMPLETED, [Validators.required]],
-      score: [undefined, [Validators.required, Validators.max(10), Validators.min(0)]]
+      status: [
+        this.originalEntry && this.originalEntry.status ? this.originalEntry.status : MediaStatus.COMPLETED,
+        [Validators.required]
+      ],
+      score: [
+        this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined,
+        [Validators.required, Validators.max(10), Validators.min(0)]
+      ]
     });
   }
 
   saveEntry(): void {
-    const listEntry: ListEntry = {
-      media: this.media,
-      scoreRaw: this.listEntryForm.value.score * 10
-    };
-    const listEntryRequest: any = Object.assign({}, listEntry);
-    listEntryRequest.statusValue = this.listEntryForm.value.statusValue;
+    const entryToSave: ListEntry = this.getFormEntry();
 
-    this.animeService.saveListEntry(listEntryRequest).subscribe((response) => {
+    this.animeService.saveListEntry(entryToSave).subscribe((response) => {
       const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
       if (success) {
-        listEntry.media = this.media;
+        entryToSave.media = this.media;
         this.dialogRef.close({
-          savedEntry: listEntry
+          savedEntry: entryToSave
         });
       }
     });
@@ -74,6 +78,18 @@ export class ListEntryFormModalComponent {
     this.preventDefault(event);
 
     this.dialogRef.close();
+  }
+
+  isSubmitEnabled(): boolean {
+    return !this.originalEntry || this.getFormEntry() !== this.originalEntry;
+  }
+
+  private getFormEntry(): ListEntry {
+    return {
+      media: this.media,
+      scoreRaw: this.listEntryForm.value.score * 10,
+      status: this.listEntryForm.value.status
+    };
   }
 
   private preventDefault(event: Event): void {

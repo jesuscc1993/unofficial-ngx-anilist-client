@@ -1,12 +1,14 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { MediaQuery } from '../../models/anilist/query';
 import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
 import { MediaFormat } from '../../models/anilist/mediaFormats';
+import { animeSearchUrl } from '../../app.constants';
 
 @Component({
   selector: 'app-anime-search',
@@ -32,12 +34,21 @@ export class AnimeSearchComponent implements OnDestroy {
   private userChangeSubscription: any;
 
   constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private animeService: AnimeService,
     private formBuilder: FormBuilder
   ) {
     this.user = this.animeService.getUser();
     this.setupForm();
     this.getGenres();
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params['search'] && params['search'].length) {
+        this.searchForm.controls['search'].setValue(params['search']);
+        this.search();
+      }
+    });
 
     this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
       this.user = user;
@@ -61,6 +72,8 @@ export class AnimeSearchComponent implements OnDestroy {
   }
 
   private search(page?: number, perPage?: number): void {
+    this.updateQueryParams();
+
     this.searching = true;
     this.errorGotten = false;
 
@@ -110,6 +123,14 @@ export class AnimeSearchComponent implements OnDestroy {
 
   private getDateScalarFromYear(year: number): number {
     return year * 10000;
+  }
+
+  private updateQueryParams(): void {
+    const queryParams: any = {};
+    if (this.searchForm.value.search && this.searchForm.value.search.length) {
+      queryParams.search = this.searchForm.value.search;
+    }
+    this.router.navigate([animeSearchUrl], { queryParams: queryParams });
   }
 
   private changePage(pageEvent: PageEvent): void {

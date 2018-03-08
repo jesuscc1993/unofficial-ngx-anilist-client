@@ -8,8 +8,27 @@
 
 <mat-divider></mat-divider>
 
-<div class="content">
-  <img [src]="media.coverImage.large" class="cover">
+<div *ngIf="media" class="content">
+  <img [src]="media.coverImage && media.coverImage.large" class="cover">
 
-  <div [innerHTML]="media.description"></div>
+  <div *ngIf="media.description">
+    <h4 class="margin-bottom-xxs">
+      Description:
+    </h4>
+
+    <div [innerHTML]="media.description"></div>
+  </div>
+
+  <div *ngIf="media.tags && media.tags.length">
+    <h4 class="margin-bottom-xxs">
+      Tags:
+    </h4>
+
+    <span *ngFor="let tag of media.tags">
+      <span *ngIf="!tag.isMediaSpoiler">
+        <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
+      </span>
+    </span>
+  </div>
+
 </div>

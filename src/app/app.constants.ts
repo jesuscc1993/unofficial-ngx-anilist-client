@@ -7,5 +7,6 @@ export const apiTokenPrefix: string = '#access_token=';
 export const accessTokenCookieKey: string = 'accessToken';
 export const userCookieKey: string = 'user';
 
-export const rootUrl: string = '/anime-search';
+export const animeSearchUrl: string = '/anime-search';
 export const userListUrl: string = '/user-list';
+export const rootUrl: string = animeSearchUrl;

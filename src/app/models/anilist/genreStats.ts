@@ -1,7 +1,7 @@
 export class GenreStats {
-  genre?: string;
   amount?: number;
-  percentage?: number;
+  genre?: string;
   meanScore?: number;
+  percentage?: number;
   timeWatched?: number;
 }

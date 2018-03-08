@@ -20,7 +20,10 @@ export class AnimeService {
   private apiUrl: string = apiUrl;
   private fallbackCover: string = 'assets/pictures/non-vectorial/no-cover-available.png';
 
-  private animeFields: string;
+  private pageInfoFields: string;
+  private listAnimeFields: string;
+  private searchAnimeFields: string;
+
   private genresQuery: string;
   private userQuery: string;
   private searchQuery: string;
@@ -124,7 +127,7 @@ export class AnimeService {
       query: this.searchQuery,
       variables: options
 
-    }).map((response) => {
+    }, this.getRequestOptions()).map((response) => {
       let serverResponse: any;
 
       if (this.isValidResponse(response)) {
@@ -174,7 +177,7 @@ export class AnimeService {
 
         Object.keys(statusObjects).forEach((status: string) => {
           statusObjects[status].forEach((entry: any) => {
-            this.parseAnimeData(entry.media);
+            this.parseListEntryData(entry);
           });
         });
       }
@@ -234,7 +237,7 @@ export class AnimeService {
 
   public saveListEntry(listEntryRequest: any): Observable<any> {
     let options: any = {
-      status: (listEntryRequest.statusValue.toUpperCase() || MediaStatus.COMPLETED).toUpperCase(),
+      status: (listEntryRequest.status || MediaStatus.COMPLETED).toUpperCase(),
       mediaId: listEntryRequest.media.id,
       scoreRaw: listEntryRequest.scoreRaw
     };
@@ -289,117 +292,153 @@ export class AnimeService {
   }
 
   private parseAnimeData(anime: Anime): void {
-    anime.format = new MediaFormat(anime.format).label;
+    if (anime) {
+      if (anime.format) {
+        anime.format = new MediaFormat(anime.format).label;
+      }
 
-    if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
-      debugger;
-      anime.coverImage.medium = this.fallbackCover;
+      if (anime.coverImage && anime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
+        anime.coverImage.medium = this.fallbackCover;
+      }
+
+      if (anime.mediaListEntry) {
+        this.parseListEntryData(anime.mediaListEntry);
+      }
+    }
+  }
+
+  private parseListEntryData(listEntry: ListEntry): void {
+    if (listEntry) {
+      if (listEntry.status) {
+        listEntry.status = new MediaStatus(listEntry.status).value;
+      }
+
+      if (listEntry.media) {
+        this.parseAnimeData(<Anime> listEntry.media);
+      }
     }
   }
 
   private initializeQueries(): void {
+
+    this.pageInfoFields = `
+      currentPage
+      hasNextPage
+      lastPage
+      perPage
+      total`;
+
+    this.listAnimeFields = `
+      coverImage {
+        large
+        medium
+      }
+      description
+      episodes
+      format
+      genres
+      id
+      meanScore
+      startDate {
+        year
+      }
+      tags {
+        description
+        isMediaSpoiler
+        name
+      }
+      title {
+        romaji
+      }`;
+
+    this.searchAnimeFields = `${this.listAnimeFields}
+      mediaListEntry {
+        id
+        scoreRaw: score (
+          format: POINT_100
+        )
+        status
+      }`;
 
     this.genresQuery = `
       {
         GenreCollection
       }`;
 
-    this.animeFields = `
-      id
-      title {
-        romaji
-      }
-      description
-      startDate {
-        year
-      }
-      episodes
-      coverImage {
-        medium
-        large
-      }
-      genres
-      meanScore
-      format`;
-
     this.userQuery = `
       {
         Viewer {
-          id
-          name
           avatar {
             large
           }
+          id
+          name
           options {
             displayAdultContent
           }
           stats {
-            watchedTime
             favouredGenresOverview {
-              genre
               amount
+              genre
               meanScore
               timeWatched
             }
+            watchedTime
           }
         }
       }`;
 
     this.searchQuery = `
       query (
-        $id: Int,
-        $page: Int,
-        $perPage: Int,
-        $search: String,
-        $type: MediaType,
-        $sort: [MediaSort],
-        $startDate_greater: FuzzyDateInt,
-        $startDate_lesser: FuzzyDateInt,
+        $adultContent: Boolean,
         $averageScore_greater: Int,
         $averageScore_lesser: Int,
         $formats: [MediaFormat],
         $genres: [String],
-        $adultContent: Boolean
+        $id: Int,
+        $page: Int,
+        $perPage: Int,
+        $search: String,
+        $sort: [MediaSort],
+        $startDate_greater: FuzzyDateInt,
+        $startDate_lesser: FuzzyDateInt,
+        $type: MediaType
       ) {
         Page (
           page: $page,
           perPage: $perPage
         ) {
           pageInfo {
-            total
-            currentPage
-            lastPage
-            hasNextPage
-            perPage
+            ${this.pageInfoFields}
           }
           media (
-            id: $id,
-            search: $search,
-            type: $type,
-            isAdult: $adultContent,
-            sort: $sort,
-            startDate_greater: $startDate_greater,
-            startDate_lesser: $startDate_lesser,
             averageScore_greater: $averageScore_greater,
             averageScore_lesser: $averageScore_lesser,
             format_in: $formats,
-            genre_in: $genres
+            genre_in: $genres,
+            isAdult: $adultContent,
+            search: $search,
+            sort: $sort,
+            startDate_greater: $startDate_greater,
+            startDate_lesser: $startDate_lesser,
+            type: $type,
+            id: $id
           ) {
-            ${ this.animeFields }
+            ${this.searchAnimeFields}
           }
         }
       }`;
 
     this.listQuery = `
       query (
-        $userId: Int!,
         $listType: MediaType,
-        $sort: [MediaListSort]
+        $sort: [MediaListSort],
+        $userId: Int!
       ) {
         MediaListCollection (
-          userId: $userId,
+          sort: $sort,
           type: $listType,
-          sort: $sort
+          userId: $userId
         ) {
           statusLists {
             ... mediaListEntry
@@ -409,12 +448,13 @@ export class AnimeService {
   
       fragment mediaListEntry on MediaList {
         id
+        media {
+          ${this.listAnimeFields}
+        }
         scoreRaw: score (
           format: POINT_100
         )
-        media {
-          ${ this.animeFields }
-        }
+        status
       }`;
 
     this.listFavouritesQuery = `
@@ -430,14 +470,10 @@ export class AnimeService {
               page: $page
             ) {
               nodes {
-                ${ this.animeFields }
+                id
               }
               pageInfo {
-                total
-                currentPage
-                lastPage
-                hasNextPage
-                perPage
+                ${this.pageInfoFields}
               }
             }
           }
@@ -447,13 +483,13 @@ export class AnimeService {
     this.saveListEntryQuery = `
       mutation (
         $mediaId: Int,
-        $status: MediaListStatus,
-        $scoreRaw: Int
+        $scoreRaw: Int,
+        $status: MediaListStatus
       ) {
         SaveMediaListEntry (
           mediaId: $mediaId,
-          status: $status,
-          scoreRaw: $scoreRaw
+          scoreRaw: $scoreRaw,
+          status: $status
         ) {
           id
           status

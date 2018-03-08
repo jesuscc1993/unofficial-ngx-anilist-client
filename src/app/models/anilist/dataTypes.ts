@@ -10,3 +10,9 @@ export class CoverImage {
   medium: string;
   large: string;
 }
+
+export class Tag {
+  description: string;
+  isMediaSpoiler: boolean;
+  name: string;
+}

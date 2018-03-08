@@ -2,14 +2,14 @@
 
 <mat-menu #entryMenu="matMenu">
   <button mat-menu-item (click)="saveToList()" [disabled]="!user">
-    <i class="fa fa-refresh fa-1x action-icon"></i>
-    Save to list
+    <i class="fa fa-1x action-icon" [class.fa-plus]="!isUpdateAvailable()" [class.fa-refresh]="isUpdateAvailable()"></i>
+    {{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}
   </button>
-  <button *ngIf="listEntry" mat-menu-item (click)="toggleFavourite()">
+  <button *ngIf="isUpdateAvailable()" mat-menu-item (click)="toggleFavourite()">
     <i class="fa fa-star fa-1x action-icon"></i>
     Toggle favourite
   </button>
-  <button *ngIf="listEntry" mat-menu-item (click)="deleteEntry()">
+  <button *ngIf="isUpdateAvailable()" mat-menu-item (click)="deleteEntry()">
     <i class="fa fa-trash fa-1x action-icon"></i>
     Delete from list
   </button>

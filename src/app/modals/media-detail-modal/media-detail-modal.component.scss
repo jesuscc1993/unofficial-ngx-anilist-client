@@ -9,6 +9,8 @@
 }
 
 .content {
+  margin: $spacing-xs 0 0;
+
   img.cover {
     float: left;
     max-width: 33vw;
@@ -16,5 +18,10 @@
     margin-right: $spacing-xs - $spacing-xxxs;
   }
 
-  margin: $spacing-xs 0 0;
+  mat-chip {
+    $vertical-padding: $spacing-xxxs;
+    padding: 0 $vertical-padding;
+    border-radius: $vertical-padding * 3/4;
+  }
+
 }
