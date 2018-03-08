@@ -881,7 +881,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n  .header .title {\n    padding-right: 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content .form-group {\n    margin: auto; }\n  .content mat-form-field {\n    width: 100%; }\n    .content mat-form-field.score-input {\n      width: 72px; }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.content .form-group {\n  margin: auto; }\n\n.content mat-form-field {\n  width: 100%; }\n  .content mat-form-field.score-input {\n    width: 72px; }\n", ""]);
 
 // exports
 
@@ -1008,7 +1008,7 @@ var ListEntryFormModalComponent = (function () {
 /***/ "../../../../../src/app/modals/media-detail-modal/media-detail-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3 class=\"header\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"media\" class=\"content\">\n  <img [src]=\"media.coverImage && media.coverImage.large\" class=\"cover\">\n\n  <div *ngIf=\"media.description\">\n    <h4 class=\"margin-bottom-xxs\">\n      Description:\n    </h4>\n\n    <div [innerHTML]=\"media.description\"></div>\n  </div>\n\n  <div *ngIf=\"media.studios && media.studios.nodes && media.studios.nodes.length\">\n    <h4 class=\"margin-bottom-xxs\">\n      Studio:\n    </h4>\n\n    <span>\n      {{ media.studios.nodes[0].name }}\n    </span>\n  </div>\n\n  <div *ngIf=\"media.status && media.status.length\">\n    <h4 class=\"margin-bottom-xxs\">\n      Status:\n    </h4>\n\n    <span>\n      {{ media.status }}\n    </span>\n  </div>\n\n  <div *ngIf=\"media.tags && media.tags.length\">\n    <h4 class=\"margin-bottom-xxs\">\n      Tags:\n    </h4>\n\n    <span *ngFor=\"let tag of media.tags\">\n      <span *ngIf=\"!tag.isMediaSpoiler\">\n        <mat-chip [title]=\"tag.description\">{{ tag.name }}</mat-chip>\n      </span>\n    </span>\n  </div>\n\n</div>"
+module.exports = "<h3 class=\"header no-margin\">\n  <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n  <div class=\"title\">\n    {{ media.title.romaji }}\n  </div>\n</h3>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"media\" class=\"content\">\n  <img [src]=\"media.coverImage && media.coverImage.large\" class=\"cover\">\n\n  <div *ngIf=\"media.description\">\n    <h4 class=\"margin-bottom-xxs\">\n      Description:\n    </h4>\n\n    <div [innerHTML]=\"media.description\"></div>\n  </div>\n\n  <p *ngIf=\"media.studios && media.studios.nodes && media.studios.nodes.length\" class=\"property-value-pair\">\n    <strong class=\"property\">\n      Studio:\n    </strong>\n\n    <span class=\"value\">\n      {{ media.studios.nodes[0].name }}\n    </span>\n  </p>\n\n  <p *ngIf=\"media.status && media.status.length\" class=\"property-value-pair\">\n    <strong class=\"property\">\n      Status:\n    </strong>\n\n    <span class=\"value\">\n      {{ media.status }}\n    </span>\n  </p>\n\n  <p *ngIf=\"media.tags && media.tags.length\" class=\"property-value-pair\">\n    <strong class=\"property\">\n      Tags:\n    </strong>\n\n    <span class=\"value\">\n      <span *ngFor=\"let tag of media.tags\">\n        <span *ngIf=\"!tag.isMediaSpoiler\">\n          <mat-chip [title]=\"tag.description\">{{ tag.name }}</mat-chip>\n        </span>\n      </span>\n    </span>\n  </p>\n\n</div>"
 
 /***/ }),
 
@@ -1020,7 +1020,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.header {\n  margin: 0 0 16px; }\n  .header .title {\n    padding-right: 16px; }\n\n.content {\n  margin: 16px 0 0; }\n  .content img.cover {\n    float: left;\n    max-width: 33vw;\n    width: 160px;\n    margin-right: 12px; }\n  .content mat-chip {\n    padding: 0 4px;\n    border-radius: 3px; }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\n.content img.cover {\n  float: left;\n  max-width: 33vw;\n  width: 160px;\n  margin-right: 12px; }\n\n.content mat-chip {\n  margin: 2px 0;\n  padding: 2px 4px;\n  border-radius: 3px;\n  display: inline-block;\n  white-space: nowrap; }\n\n.content .property-value-pair {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start; }\n  .content .property-value-pair:last-child {\n    margin-bottom: 0; }\n  .content .property-value-pair .property,\n  .content .property-value-pair .value {\n    display: inline-block; }\n  .content .property-value-pair .property {\n    min-width: 64px; }\n  .content .property-value-pair .value {\n    width: calc(100% - 72px); }\n", ""]);
 
 // exports
 
@@ -2112,8 +2112,8 @@ var AnimeService = (function () {
 // `ng build --env=prod` then `envi ronment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    // anilist_client_id: 329, // local
-    anilist_client_id: 331,
+    anilist_client_id: 329,
+    // anilist_client_id: 331, // GitHub
     production: false
 };
 
