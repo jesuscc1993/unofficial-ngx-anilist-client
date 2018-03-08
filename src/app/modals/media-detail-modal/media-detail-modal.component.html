@@ -12,14 +12,14 @@
   <img [src]="media.coverImage && media.coverImage.large" class="cover">
 
   <div *ngIf="media.description">
-    <h4 class="margin-bottom-xxs">
+    <h4 class="no-margin-top margin-bottom-xxs">
       Description:
     </h4>
 
     <div [innerHTML]="media.description"></div>
   </div>
 
-  <p *ngIf="media.studios && media.studios.nodes && media.studios.nodes.length" class="property-value-pair">
+  <p *ngIf="media.studios && media.studios.nodes && media.studios.nodes.length" class="property-value-pair flex-box">
     <strong class="property">
       Studio:
     </strong>
@@ -29,7 +29,7 @@
     </span>
   </p>
 
-  <p *ngIf="media.status && media.status.length" class="property-value-pair">
+  <p *ngIf="media.status && media.status.length" class="property-value-pair flex-box">
     <strong class="property">
       Status:
     </strong>
@@ -39,7 +39,7 @@
     </span>
   </p>
 
-  <p *ngIf="media.tags && media.tags.length" class="property-value-pair">
+  <p *ngIf="media.tags && media.tags.length" class="property-value-pair flex-box">
     <strong class="property">
       Tags:
     </strong>

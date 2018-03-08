@@ -19,7 +19,6 @@
   }
 
   .property-value-pair {
-    display: flex;
     align-items: flex-start;
 
     &:last-child {
@@ -32,11 +31,11 @@
     }
 
     .property {
-      min-width: 64px;
+      min-width: $spacing-xl;
     }
 
     .value {
-      width: calc(100% - 72px);
+      width: calc(100% - #{$spacing-xxl - $spacing-s});
     }
   }
 

@@ -58,10 +58,6 @@ a {
   &.wrap {
     flex-wrap: wrap;
   }
-
-  & > * {
-    flex: 1;
-  }
 }
 
 /* generic */
