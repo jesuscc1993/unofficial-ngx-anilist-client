@@ -1,7 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PageEvent } from '@angular/material';
+import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { MediaQuery } from '../../models/anilist/query';
@@ -15,7 +16,8 @@ import { animeSearchUrl } from '../../app.constants';
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss']
 })
-export class AnimeSearchComponent implements OnDestroy {
+export class AnimeSearchComponent implements OnInit, OnDestroy {
+  @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
 
   user: User;
   animeList: Anime[];
@@ -44,6 +46,12 @@ export class AnimeSearchComponent implements OnDestroy {
     this.setupForm();
     this.getGenres();
 
+    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
+      this.user = user;
+    });
+  }
+
+  ngOnInit(): void {
     this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(params => {
       if (params.search && params.search.length) {
 
@@ -54,12 +62,9 @@ export class AnimeSearchComponent implements OnDestroy {
           }
         });
 
+        this.expansionPanel.open();
         this.search();
       }
-    });
-
-    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
-      this.user = user;
     });
   }
 
