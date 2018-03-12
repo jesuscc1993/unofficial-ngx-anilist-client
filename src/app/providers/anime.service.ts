@@ -342,6 +342,7 @@ export class AnimeService {
       total`;
 
     this.listAnimeFields = `
+      averageScore
       coverImage {
         large
         medium
@@ -352,7 +353,6 @@ export class AnimeService {
       format
       genres
       id
-      meanScore
       startDate {
         year
       }

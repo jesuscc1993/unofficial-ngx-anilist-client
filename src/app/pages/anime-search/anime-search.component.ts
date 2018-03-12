@@ -45,8 +45,15 @@ export class AnimeSearchComponent implements OnDestroy {
     this.getGenres();
 
     this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      if (params['search'] && params['search'].length) {
-        this.searchForm.controls['search'].setValue(params['search']);
+      if (params.search && params.search.length) {
+
+        Object.keys(params).forEach((fieldKey) => {
+          const field: any = params[fieldKey];
+          if (field) {
+            this.searchForm.controls[fieldKey].setValue(field);
+          }
+        });
+
         this.search();
       }
     });
@@ -113,7 +120,6 @@ export class AnimeSearchComponent implements OnDestroy {
       this.errorGotten = true;
       this.noResults = false;
       this.searching = false;
-
     });
   }
 
@@ -129,9 +135,15 @@ export class AnimeSearchComponent implements OnDestroy {
 
   private updateQueryParams(): void {
     const queryParams: any = {};
-    if (this.searchForm.value.search && this.searchForm.value.search.length) {
-      queryParams.search = this.searchForm.value.search;
-    }
+
+    Object.keys(this.searchForm.value).forEach((fieldKey) => {
+      const field: any = this.searchForm.value[fieldKey];
+
+      if (typeof field !== 'object') {
+        queryParams[fieldKey] = field;
+      }
+    });
+
     this.router.navigate([animeSearchUrl], { queryParams: queryParams });
   }
 

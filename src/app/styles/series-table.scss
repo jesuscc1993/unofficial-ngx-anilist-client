@@ -134,7 +134,7 @@ $horizontal-cell-padding: $spacing-xxs;
       flex: .95;
     }
     .mat-column-score,
-    .mat-column-mean-score {
+    .mat-column-average-score {
       flex: .4;
     }
     .mat-column-episodes {
@@ -159,7 +159,7 @@ $horizontal-cell-padding: $spacing-xxs;
       flex: 1.65;
     }
     .mat-column-score,
-    .mat-column-mean-score {
+    .mat-column-average-score {
       flex: .6;
     }
     .mat-column-episodes {
@@ -171,7 +171,7 @@ $horizontal-cell-padding: $spacing-xxs;
     .mat-column-start-date,
     .mat-column-genres,
     .mat-column-score,
-    .mat-column-mean-score,
+    .mat-column-average-score,
     .mat-column-episodes {
       display: none;
     }
