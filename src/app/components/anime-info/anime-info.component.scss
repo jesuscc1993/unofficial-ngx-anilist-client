@@ -11,15 +11,6 @@ img.cover {
   float: left;
 }
 
-mat-chip {
-  $vertical-padding: $spacing-xxxs;
-  margin: $spacing-xxxxs 0;
-  padding: $spacing-xxxxs $vertical-padding;
-  border-radius: $vertical-padding * 3/4;
-  display: inline-block;
-  white-space: nowrap;
-}
-
 .general-info-only {
   .property-value-pair {
     .property {

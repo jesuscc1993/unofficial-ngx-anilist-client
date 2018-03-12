@@ -30,4 +30,21 @@ mat-expansion-panel {
 
 .mat-chip {
   outline: none;
+
+  &.rounded {
+    $height: 22px;
+    line-height: $height;
+    border-radius: $height / 2;
+    padding: $spacing-xxxxs $spacing-xxs;
+  }
+
+  &:not(.rounded) {
+    $vertical-padding: $spacing-xxxs;
+    margin: $spacing-xxxxs 0;
+    padding: $spacing-xxxxs $vertical-padding;
+    border-radius: $vertical-padding * 3/4;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
 }

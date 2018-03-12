@@ -65,10 +65,12 @@ $horizontal-cell-padding: $spacing-xxs;
           padding: 0;
 
           .mat-chip {
-            $height: 19px;
-            line-height: $height;
-            border-radius: $height / 2;
-            padding: 0 $spacing-xxs;
+            &.rounded {
+              $height: 19px;
+              line-height: $height;
+              border-radius: $height / 2;
+              padding: 0 $spacing-xxs;
+            }
           }
         }
       }

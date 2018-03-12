@@ -17,6 +17,7 @@
 
     <!-- right column -->
     <div class="column right">
+
       <p *ngIf="!generalInfoOnly && anime.format" class="property-value-pair flex-box">
         <strong class="property">
           Format:
@@ -47,16 +48,6 @@
         </span>
       </p>
 
-      <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
-        <strong class="property">
-          Status:
-        </strong>
-
-        <span class="value">
-          {{ anime.status }}
-        </span>
-      </p>
-
       <p *ngIf="!generalInfoOnly && anime.startDate.year" class="property-value-pair flex-box">
         <strong class="property">
           Year:
@@ -64,6 +55,16 @@
 
         <span class="value">
           {{ anime.startDate.year }}
+        </span>
+      </p>
+
+      <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
+        <strong class="property">
+          Status:
+        </strong>
+
+        <span class="value">
+          {{ anime.status }}
         </span>
       </p>
 
@@ -76,11 +77,34 @@
           {{ anime.studios.nodes[0].name }}
         </span>
       </p>
+
+      <p *ngIf="anime.meanScore" class="property-value-pair flex-box">
+        <strong class="property">
+          Score:
+        </strong>
+
+        <span class="value">
+          {{ anime.meanScore / 10 }}/10
+        </span>
+      </p>
+
     </div>
 
   </div>
 
   <!-- below columns -->
+  <p *ngIf="!generalInfoOnly && anime.genres && anime.genres.length" class="property-value-pair flex-box no-margin-bottom">
+    <strong class="property">
+      Genres:
+    </strong>
+
+    <span class="value">
+      <span *ngFor="let genre of anime.genres">
+        <mat-chip class="rounded">{{ genre }}</mat-chip>
+      </span>
+    </span>
+  </p>
+
   <p *ngIf="anime.tags && anime.tags.length" class="property-value-pair flex-box no-margin-bottom">
     <strong class="property">
       Tags:
