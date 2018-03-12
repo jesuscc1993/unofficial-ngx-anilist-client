@@ -329,8 +329,7 @@ export class AnimeService {
 
   /* formatting */
   public getFormattedMediaDuration(media: Media): string {
-    const duration: string = media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
-    return `${duration}${media.format.toLowerCase() === 'movie' ? '' : ' per episode'}`;
+    return media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
   }
 
   private initializeQueries(): void {

@@ -1,55 +1,87 @@
 <div *ngIf="anime" [class.general-info-only]="generalInfoOnly">
-  <img [src]="anime.coverImage && anime.coverImage.large" class="cover">
 
-  <div *ngIf="anime.description">
-    <h4 class="no-margin-top margin-bottom-xxs">
-      Description:
-    </h4>
+  <div [class.row]="showAsColumns">
 
-    <div [innerHTML]="anime.description"></div>
+    <!-- left column -->
+    <div class="column left">
+      <img [src]="anime.coverImage && anime.coverImage.large" class="cover">
+
+      <div *ngIf="anime.description">
+        <h4 class="no-margin-top margin-bottom-xxs">
+          Description:
+        </h4>
+
+        <div [innerHTML]="anime.description"></div>
+      </div>
+    </div>
+
+    <!-- right column -->
+    <div class="column right">
+      <p *ngIf="!generalInfoOnly && anime.format" class="property-value-pair flex-box">
+        <strong class="property">
+          Format:
+        </strong>
+
+        <span class="value">
+          {{ anime.format }}
+        </span>
+      </p>
+
+      <p *ngIf="!generalInfoOnly && anime.episodes" class="property-value-pair flex-box">
+        <strong class="property">
+          Episodes:
+        </strong>
+
+        <span class="value">
+          {{ anime.episodes }}
+        </span>
+      </p>
+
+      <p *ngIf="!generalInfoOnly && anime.duration" class="property-value-pair flex-box">
+        <strong class="property">
+          Duration:
+        </strong>
+
+        <span class="value">
+          {{ getFormattedMediaDuration(anime) }}
+        </span>
+      </p>
+
+      <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
+        <strong class="property">
+          Status:
+        </strong>
+
+        <span class="value">
+          {{ anime.status }}
+        </span>
+      </p>
+
+      <p *ngIf="!generalInfoOnly && anime.startDate.year" class="property-value-pair flex-box">
+        <strong class="property">
+          Year:
+        </strong>
+
+        <span class="value">
+          {{ anime.startDate.year }}
+        </span>
+      </p>
+
+      <p *ngIf="anime.studios && anime.studios.nodes && anime.studios.nodes.length" class="property-value-pair flex-box">
+        <strong class="property">
+          Studio:
+        </strong>
+
+        <span class="value">
+          {{ anime.studios.nodes[0].name }}
+        </span>
+      </p>
+    </div>
+
   </div>
 
-  <p *ngIf="!generalInfoOnly && anime.episodes" class="property-value-pair flex-box">
-    <strong class="property">
-      Episodes:
-    </strong>
-
-    <span class="value">
-      {{ anime.episodes }}
-    </span>
-  </p>
-
-  <p *ngIf="!generalInfoOnly && anime.duration" class="property-value-pair flex-box">
-    <strong class="property">
-      Duration:
-    </strong>
-
-    <span class="value">
-      {{ anime.duration }}
-    </span>
-  </p>
-
-  <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
-    <strong class="property">
-      Status:
-    </strong>
-
-    <span class="value">
-      {{ anime.status }}
-    </span>
-  </p>
-
-  <p *ngIf="anime.studios && anime.studios.nodes && anime.studios.nodes.length" class="property-value-pair flex-box">
-    <strong class="property">
-      Studio:
-    </strong>
-
-    <span class="value">
-      {{ anime.studios.nodes[0].name }}
-    </span>
-  </p>
-
-  <p *ngIf="anime.tags && anime.tags.length" class="property-value-pair flex-box">
+  <!-- below columns -->
+  <p *ngIf="anime.tags && anime.tags.length" class="property-value-pair flex-box no-margin-bottom">
     <strong class="property">
       Tags:
     </strong>

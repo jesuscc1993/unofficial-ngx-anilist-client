@@ -27,3 +27,35 @@ mat-chip {
     }
   }
 }
+
+@media (min-width: $screen-m) {
+
+  .row {
+    display: flex;
+    align-items: start;
+
+    .column {
+      $column-padding: $spacing-xs;
+      $right-column-width: 192px;
+      display: inline-block;
+
+      &.left {
+        width: calc(100% - #{$right-column-width});
+        padding-right: $column-padding;
+        border-right: 1px solid lightgray;
+      }
+
+      &.right {
+        width: $right-column-width;
+        padding-left: $column-padding;
+
+        .property-value-pair {
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+
+}
