@@ -4,14 +4,17 @@ $horizontal-cell-padding: $spacing-xxs;
 
 .series-table {
 
+  mat-header-cell,
   mat-cell {
-    padding: $spacing-xxxs 0;
-
     &:not(.mat-column-cover-image) {
       $vertical-padding: $spacing-xxxxs;
       padding-left: $vertical-padding;
       padding-right: $vertical-padding;
     }
+  }
+
+  mat-cell {
+    padding: $spacing-xxxs 0;
   }
 
   .mat-column-actions {
