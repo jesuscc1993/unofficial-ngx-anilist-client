@@ -73,6 +73,18 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     this.userChangeSubscription.unsubscribe();
   }
 
+  clearFilters(event?: Event): void {
+    this.preventDefault(event);
+    this.setupForm();
+    this.updateQueryParams();
+  }
+
+  private preventDefault(event: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
+  }
+
   private setupForm(): void {
     this.searchForm = this.formBuilder.group({
       search: [''],
@@ -144,7 +156,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     Object.keys(this.searchForm.value).forEach((fieldKey) => {
       const field: any = this.searchForm.value[fieldKey];
 
-      if (typeof field !== 'object') {
+      if (field && (typeof field !== 'object' && (typeof field !== 'string' || field.length > 0))) {
         queryParams[fieldKey] = field;
       }
     });

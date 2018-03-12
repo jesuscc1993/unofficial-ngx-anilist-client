@@ -102,14 +102,26 @@
 
       </div>
 
+      <div class="text-center padding-bottom-xs">
+
+        <button mat-raised-button (click)="clearFilters($event)">
+          Clear filters
+        </button>
+
+      </div>
+
       <mat-divider></mat-divider>
 
     </mat-expansion-panel>
 
-    <button mat-raised-button color="accent" class="display-block margin-auto" [disabled]="!searchForm.valid">
-      <i class="fa fa-search fa-1x baseline margin-right-xxxs"></i>
-      Search
-    </button>
+    <div class="text-center">
+
+      <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
+        <i class="fa fa-search fa-1x baseline margin-right-xxxs"></i>
+        Search
+      </button>
+
+    </div>
 
   </mat-card>
 
