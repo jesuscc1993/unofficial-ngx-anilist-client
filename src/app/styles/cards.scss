@@ -1,0 +1,28 @@
+@import 'variables';
+
+@mixin setup-card-padding($padding) {
+  mat-card {
+
+    &.composite {
+      $header-height: $spacing-s + $padding * 2;
+      padding: 0 !important;
+
+      .header {
+        padding: $padding;
+      }
+
+      .content {
+        padding: $padding;
+      }
+    }
+
+  }
+}
+
+@media (min-width: $screen-s + 1) {
+  @include setup-card-padding($spacing-s);
+}
+
+@media (max-width: $screen-s) {
+  @include setup-card-padding($spacing-xs);
+}

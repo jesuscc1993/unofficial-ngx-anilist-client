@@ -8,7 +8,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-
   gitHubProjectUrl: string = 'https://github.com/jesuscc1993/angular-material-demo';
 
   constructor(

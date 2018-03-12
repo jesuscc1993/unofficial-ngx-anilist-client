@@ -1,0 +1,29 @@
+@import "../../styles/variables";
+
+$cover-width: $screen-xxxs / 2;
+$max-cover-width: 33vw;
+$content-padding: $spacing-xs - $spacing-xxxs;
+
+img.cover {
+  width: $cover-width;
+  max-width: $max-cover-width;
+  margin-right: $content-padding;
+  float: left;
+}
+
+mat-chip {
+  $vertical-padding: $spacing-xxxs;
+  margin: $spacing-xxxxs 0;
+  padding: $spacing-xxxxs $vertical-padding;
+  border-radius: $vertical-padding * 3/4;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.general-info-only {
+  .property-value-pair {
+    .property {
+      min-width: $spacing-xl !important;
+    }
+  }
+}

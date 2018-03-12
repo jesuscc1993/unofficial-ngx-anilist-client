@@ -32,6 +32,7 @@ export class AnimeSearchComponent implements OnDestroy {
   maxYear: number = new Date().getFullYear() + 1;
 
   private userChangeSubscription: any;
+  private queryParamsSubscription: any;
 
   constructor(
     private router: Router,
@@ -43,7 +44,7 @@ export class AnimeSearchComponent implements OnDestroy {
     this.setupForm();
     this.getGenres();
 
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(params => {
       if (params['search'] && params['search'].length) {
         this.searchForm.controls['search'].setValue(params['search']);
         this.search();
@@ -56,6 +57,7 @@ export class AnimeSearchComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.queryParamsSubscription.unsubscribe();
     this.userChangeSubscription.unsubscribe();
   }
 

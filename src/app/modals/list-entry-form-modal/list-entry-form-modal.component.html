@@ -1,58 +1,68 @@
-<h3 class="header no-margin">
-  <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
+<mat-card class="composite">
 
-  <div class="title">
-    {{ media.title.romaji }}
+  <div class="header no-margin">
+    <i class="fa fa-times fa-1x float-right clickable" (click)="dismiss()"></i>
+
+    <div class="title">
+      <h3 class="no-margin">
+        {{ media.title.romaji }}
+      </h3>
+    </div>
   </div>
-</h3>
 
-<mat-divider></mat-divider>
+  <mat-divider></mat-divider>
 
-<div class="content">
   <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
+    <div class="content padding-bottom-xs">
 
-    <!-- status -->
-    <div class="form-group">
-      <mat-form-field>
-        <mat-select placeholder="Status" formControlName="status">
-          <mat-option *ngFor="let status of liestEntryStatusList" [value]="status.value">
-            {{ status.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <!-- status -->
+      <div class="form-group">
+        <mat-form-field>
+          <mat-select placeholder="Status" formControlName="status">
+            <mat-option *ngFor="let status of liestEntryStatusList" [value]="status.value">
+              {{ status.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- score -->
+      <div class="form-group">
+        <mat-form-field class="score-input">
+          <mat-label>Score</mat-label>
+          <input
+            matInput type="number" min="0" max="10" step=".1"
+            [placeholder]="listEntry ? listEntry.scoreRaw / 10 : 5" formControlName="score" required>
+        </mat-form-field> / 10
+      </div>
+
+      <!--<mat-slider min="0" max="10" value="5" step="0.5" tickInterval="2" class="full-width no-padding"></mat-slider>-->
+
+      <!--<span *ngIf="listEntry !== undefined">-->
+        <!--<button mat-raised-button color="warn" class="margin-right-s square-button" (click)="deleteEntry($event)">-->
+          <!--<i class="fa fa-trash fa-1x baseline"></i>-->
+        <!--</button>-->
+      <!--</span>-->
+
     </div>
 
-    <!-- score -->
-    <div class="form-group">
-      <mat-form-field class="score-input">
-        <mat-label>Score</mat-label>
-        <input
-          matInput type="number" min="0" max="10" step=".1"
-          [placeholder]="listEntry ? listEntry.scoreRaw / 10 : 5" formControlName="score" required>
-      </mat-form-field> / 10
+    <mat-divider></mat-divider>
+
+    <div class="content">
+
+      <span class="float-right">
+        <button mat-raised-button color="accent" class="margin-right-xs" [disabled]="!listEntryForm.valid || !isSubmitEnabled()">
+          <i class="fa fa-send fa-1x baseline margin-right-xxxs"></i>
+          Submit
+        </button>
+
+        <button mat-raised-button class="float-right" (click)="dismiss($event)">
+          <i class="fa fa-times fa-1x baseline margin-right-xxxs"></i>
+          Cancel
+        </button>
+      </span>
+
     </div>
-
-    <!--<mat-slider min="0" max="10" value="5" step="0.5" tickInterval="2" class="full-width no-padding"></mat-slider>-->
-
-    <mat-divider class="padding-bottom-xs"></mat-divider>
-
-    <!--<span *ngIf="listEntry !== undefined">-->
-      <!--<button mat-raised-button color="warn" class="margin-right-s square-button" (click)="deleteEntry($event)">-->
-        <!--<i class="fa fa-trash fa-1x baseline"></i>-->
-      <!--</button>-->
-    <!--</span>-->
-
-    <span class="float-right">
-      <button mat-raised-button color="accent" class="margin-right-xs" [disabled]="!listEntryForm.valid || !isSubmitEnabled()">
-        <i class="fa fa-send fa-1x baseline margin-right-xxxs"></i>
-        Submit
-      </button>
-
-      <button mat-raised-button class="float-right" (click)="dismiss($event)">
-        <i class="fa fa-times fa-1x baseline margin-right-xxxs"></i>
-        Cancel
-      </button>
-    </span>
-
   </form>
-</div>
+
+</mat-card>

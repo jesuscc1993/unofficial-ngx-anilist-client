@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 import { Media } from '../../models/anilist/media';
 
 @Component({
@@ -12,6 +13,7 @@ export class MediaDetailModalComponent {
 
   constructor(
     private dialogRef: MatDialogRef<MediaDetailModalComponent>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.media = data.media;
@@ -19,6 +21,11 @@ export class MediaDetailModalComponent {
 
   dismiss(event?: Event): void {
     this.dialogRef.close();
+  }
+
+  goToDetail(): void {
+    this.router.navigate(['anime-detail/', this.media.id]);
+    this.dismiss();
   }
 
 }

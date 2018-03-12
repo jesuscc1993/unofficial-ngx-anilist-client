@@ -1,0 +1,69 @@
+<div *ngIf="anime" [class.general-info-only]="generalInfoOnly">
+  <img [src]="anime.coverImage && anime.coverImage.large" class="cover">
+
+  <div *ngIf="anime.description">
+    <h4 class="no-margin-top margin-bottom-xxs">
+      Description:
+    </h4>
+
+    <div [innerHTML]="anime.description"></div>
+  </div>
+
+  <p *ngIf="!generalInfoOnly && anime.episodes" class="property-value-pair flex-box">
+    <strong class="property">
+      Episodes:
+    </strong>
+
+    <span class="value">
+      {{ anime.episodes }}
+    </span>
+  </p>
+
+  <p *ngIf="!generalInfoOnly && anime.duration" class="property-value-pair flex-box">
+    <strong class="property">
+      Duration:
+    </strong>
+
+    <span class="value">
+      {{ anime.duration }}
+    </span>
+  </p>
+
+  <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
+    <strong class="property">
+      Status:
+    </strong>
+
+    <span class="value">
+      {{ anime.status }}
+    </span>
+  </p>
+
+  <p *ngIf="anime.studios && anime.studios.nodes && anime.studios.nodes.length" class="property-value-pair flex-box">
+    <strong class="property">
+      Studio:
+    </strong>
+
+    <span class="value">
+      {{ anime.studios.nodes[0].name }}
+    </span>
+  </p>
+
+  <p *ngIf="anime.tags && anime.tags.length" class="property-value-pair flex-box">
+    <strong class="property">
+      Tags:
+    </strong>
+
+    <span class="value">
+      <span *ngFor="let tag of anime.tags">
+        <span *ngIf="!tag.isMediaSpoiler">
+          <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
+        </span>
+      </span>
+    </span>
+  </p>
+
+  <!-- float fix -->
+  <div></div>
+
+</div>

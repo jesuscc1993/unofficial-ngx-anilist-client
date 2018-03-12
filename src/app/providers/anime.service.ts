@@ -93,15 +93,18 @@ export class AnimeService {
     });
   }
 
-  public search(query: MediaQuery, pageInfo: PageQuery): Observable<any> {
+  public search(query: MediaQuery, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
       type: MediaTypes.ANIME,
       adultContent: query.adultContent || false,
-      page: pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1,
-      perPage: pageInfo.perPage || 10,
+      page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
+      perPage: pageInfo ? (pageInfo.perPage || 10) : 1,
       sort: [mediaSorts[0].value]
     };
 
+    if (query.id) {
+      options.id = query.id;
+    }
     if (query.search) {
       options.search = query.search;
     }
@@ -324,6 +327,12 @@ export class AnimeService {
     }
   }
 
+  /* formatting */
+  public getFormattedMediaDuration(media: Media): string {
+    const duration: string = media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
+    return `${duration}${media.format.toLowerCase() === 'movie' ? '' : ' per episode'}`;
+  }
+
   private initializeQueries(): void {
 
     this.pageInfoFields = `
@@ -339,6 +348,7 @@ export class AnimeService {
         medium
       }
       description
+      duration
       episodes
       format
       genres

@@ -17,21 +17,25 @@ import { SortPipe } from './pipes/sort';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
+import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
+/* modals */
+import { MediaDetailModalComponent } from './modals/media-detail-modal/media-detail-modal.component';
+import { ListEntryFormModalComponent } from './modals/list-entry-form-modal/list-entry-form-modal.component';
 /* components */
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 import { MediaActionsComponent } from './components/media-actions/media-actions.component';
-import { MediaDetailModalComponent } from './modals/media-detail-modal/media-detail-modal.component';
-import { ListEntryFormModalComponent } from './modals/list-entry-form-modal/list-entry-form-modal.component';
 import { GenresOverviewComponent } from './components/genres-overview/genres-overview.component';
+import { AnimeInfoComponent } from './components/anime-info/anime-info.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'anime-search', component: AnimeSearchComponent },
+  { path: 'anime-detail/:id', component: AnimeDetailComponent },
   { path: 'user-list', component: UserListComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -42,6 +46,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     LoginComponent,
     AnimeSearchComponent,
+    AnimeDetailComponent,
     UserListComponent,
     HeaderComponent,
     FooterComponent,
@@ -51,7 +56,8 @@ const appRoutes: Routes = [
     MediaDetailModalComponent,
     ListEntryFormModalComponent,
     GenresOverviewComponent,
-    SortPipe
+    SortPipe,
+    AnimeInfoComponent
   ],
   imports: [
     BrowserAnimationsModule,

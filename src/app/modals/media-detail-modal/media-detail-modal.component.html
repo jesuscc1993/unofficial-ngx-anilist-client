@@ -1,56 +1,33 @@
-<h3 class="header no-margin">
-  <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
+<mat-card class="composite">
 
-  <div class="title">
-    {{ media.title.romaji }}
-  </div>
-</h3>
+  <div class="header no-margin">
+    <i class="fa fa-times fa-1x float-right clickable" (click)="dismiss()"></i>
 
-<mat-divider></mat-divider>
-
-<div *ngIf="media" class="content">
-  <img [src]="media.coverImage && media.coverImage.large" class="cover">
-
-  <div *ngIf="media.description">
-    <h4 class="no-margin-top margin-bottom-xxs">
-      Description:
-    </h4>
-
-    <div [innerHTML]="media.description"></div>
+    <div class="title">
+      <h3 class="no-margin">
+        {{ media.title.romaji }}
+      </h3>
+    </div>
   </div>
 
-  <p *ngIf="media.studios && media.studios.nodes && media.studios.nodes.length" class="property-value-pair flex-box">
-    <strong class="property">
-      Studio:
-    </strong>
+  <mat-divider></mat-divider>
 
-    <span class="value">
-      {{ media.studios.nodes[0].name }}
-    </span>
-  </p>
+  <div class="content">
+    <app-anime-info
+      *ngIf="media"
+      [anime]="media"
+      [generalInfoOnly]="true">
+    </app-anime-info>
+  </div>
 
-  <p *ngIf="media.status && media.status.length" class="property-value-pair flex-box">
-    <strong class="property">
-      Status:
-    </strong>
+  <mat-divider></mat-divider>
 
-    <span class="value">
-      {{ media.status }}
-    </span>
-  </p>
+  <div class="content">
+    <div class="float-left full-width text-center">
+      <button mat-raised-button (click)="goToDetail()">
+        Read more
+      </button>
+    </div>
+  </div>
 
-  <p *ngIf="media.tags && media.tags.length" class="property-value-pair flex-box">
-    <strong class="property">
-      Tags:
-    </strong>
-
-    <span class="value">
-      <span *ngFor="let tag of media.tags">
-        <span *ngIf="!tag.isMediaSpoiler">
-          <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
-        </span>
-      </span>
-    </span>
-  </p>
-
-</div>
+</mat-card>

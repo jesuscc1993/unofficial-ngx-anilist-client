@@ -17,28 +17,27 @@ $horizontal-cell-padding: $spacing-xxs;
   .mat-column-actions {
     overflow: visible;
     font-size: 0;
-    flex: 0;
 
     .menu-toggle {
       $size: $spacing-s;
       width: $size;
       margin-left: -$size;
-      font-size: 16px;
+      font-size: $font-size-m;
       text-align: center;
       vertical-align: bottom;
     }
 
   }
 
-  .mat-column-start-date,
-  .mat-column-score,
-  .mat-column-mean-score,
   .mat-column-episodes {
-    flex: 0.65;
+    .duration-icon {
+      $cell-padding: $spacing-xxxxs;
+      line-height: $font-size-m * 1.25;
+      float: right;
+    }
   }
 
   .mat-column-title {
-    flex: 4;
     overflow: visible;
     display: flex;
     align-items: center;
@@ -94,7 +93,7 @@ $horizontal-cell-padding: $spacing-xxs;
 
     .mat-header-row,
     .mat-row {
-      padding: 0 $spacing-xxs 0 $actions-column-width;
+      padding: 0 $spacing-s 0 $actions-column-width;
     }
 
     .mat-column-actions {
@@ -108,6 +107,10 @@ $horizontal-cell-padding: $spacing-xxs;
 
 
   /* columns */
+
+  .mat-column-actions {
+    flex: 0;
+  }
 
   @media (min-width: $screen-m + 1) {
     .mat-column-cover-image {

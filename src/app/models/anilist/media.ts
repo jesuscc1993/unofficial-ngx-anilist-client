@@ -4,6 +4,8 @@ import { ListEntry } from './listEntry';
 export class Media {
   coverImage: CoverImage;
   description: string;
+  duration: number;
+  format: string;
   id: number;
   meanScore: number;
   mediaListEntry: ListEntry;

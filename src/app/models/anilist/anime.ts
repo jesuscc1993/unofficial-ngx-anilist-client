@@ -5,5 +5,4 @@ export class Anime extends Media {
   startDate: StartDate;
   episodes: number;
   genres: string[];
-  format: string;
 }

@@ -1,0 +1,22 @@
+@import 'variables';
+
+.property-value-pair {
+  align-items: flex-start;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .property,
+  .value {
+    display: inline-block;
+  }
+
+  .property {
+    min-width: $spacing-xl + $spacing-xs;
+  }
+
+  .value {
+    width: calc(100% - #{$spacing-xxl - $spacing-s});
+  }
+}
