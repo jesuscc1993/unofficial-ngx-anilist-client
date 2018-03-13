@@ -1,6 +1,4 @@
-# angular-material-demo
-
-## Description
+# Angular Material demo
 Anime management client demo built in [Angular](https://angular.io/) 5 and [Angular Material](https://material.angular.io/).
 
 ## Features
