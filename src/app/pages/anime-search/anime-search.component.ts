@@ -24,7 +24,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   animeList: Anime[];
   searchForm: FormGroup;
   pagination: PageQuery;
-  sort: MediaSort;
+  sort: string;
 
   mediaFormats: any[] = MediaFormat.LIST;
   mediaGenres: string[];
@@ -55,18 +55,19 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      if (params.search && params.search.length) {
+      Object.keys(params).forEach((fieldKey) => {
+        const field: any = this.searchForm.controls[fieldKey];
+        const value: any = params[fieldKey];
 
-        Object.keys(params).forEach((fieldKey) => {
-          const field: any = params[fieldKey];
-          if (field) {
-            this.searchForm.controls[fieldKey].setValue(field);
-          }
-        });
+        if (field && value) {
+          field.setValue(value);
+        }
+      });
 
-        this.expansionPanel.open();
-        this.search();
-      }
+      this.sort = params.sort;
+
+      this.expansionPanel.open();
+      this.search();
     });
   }
 
@@ -82,7 +83,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   sortBy(mediaSort: MediaSort): void {
-    this.sort = mediaSort;
+    this.sort = mediaSort ? mediaSort.value : undefined;
     this.search();
   }
 
@@ -114,7 +115,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       search: this.searchForm.value.search,
       formats: this.searchForm.value.formats,
       genres: this.searchForm.value.genres,
-      sort: this.sort ? this.sort.value : undefined
+      sort: this.sort
     };
 
     if (this.searchForm.value.startDate_lesser) {
@@ -159,7 +160,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   private updateQueryParams(): void {
-    const queryParams: any = {};
+    const queryParams: any = {
+      sort: this.sort
+    };
 
     Object.keys(this.searchForm.value).forEach((fieldKey) => {
       const field: any = this.searchForm.value[fieldKey];
