@@ -1679,22 +1679,20 @@ var AnimeSearchComponent = (function () {
     }
     AnimeSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(function (params) {
-            var fieldKeys = Object.keys(params);
-            if (fieldKeys.length) {
-                Object.keys(params).forEach(function (fieldKey) {
-                    var field = _this.searchForm.controls[fieldKey];
-                    var value = params[fieldKey];
-                    if (field && value) {
-                        field.setValue(value);
-                    }
-                });
-                _this.sort = params.sort;
-                _this.expansionPanel.open();
-                _this.search();
-            }
-            _this.queryParamsSubscription.unsubscribe();
-        });
+        var queryParams = this.activatedRoute.snapshot.queryParams;
+        var fieldKeys = Object.keys(queryParams);
+        if (fieldKeys.length) {
+            Object.keys(queryParams).forEach(function (fieldKey) {
+                var field = _this.searchForm.controls[fieldKey];
+                var value = queryParams[fieldKey];
+                if (field && value) {
+                    field.setValue(value);
+                }
+            });
+            this.sort = queryParams.sort;
+            this.expansionPanel.open();
+            this.search();
+        }
     };
     AnimeSearchComponent.prototype.ngOnDestroy = function () {
         this.userChangeSubscription.unsubscribe();
