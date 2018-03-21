@@ -36,7 +36,6 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   errorGotten: boolean;
 
   private userChangeSubscription: any;
-  private queryParamsSubscription: any;
 
   constructor(
     private router: Router,
@@ -54,27 +53,24 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      const fieldKeys: string[] = Object.keys(params);
+    const queryParams: any = this.activatedRoute.snapshot.queryParams;
+    const fieldKeys: string[] = Object.keys(queryParams);
 
-      if (fieldKeys.length) {
-        Object.keys(params).forEach((fieldKey) => {
-          const field: any = this.searchForm.controls[fieldKey];
-          const value: any = params[fieldKey];
+    if (fieldKeys.length) {
+      Object.keys(queryParams).forEach((fieldKey) => {
+        const field: any = this.searchForm.controls[fieldKey];
+        const value: any = queryParams[fieldKey];
 
-          if (field && value) {
-            field.setValue(value);
-          }
-        });
+        if (field && value) {
+          field.setValue(value);
+        }
+      });
 
-        this.sort = params.sort;
+      this.sort = queryParams.sort;
 
-        this.expansionPanel.open();
-        this.search();
-      }
-
-      this.queryParamsSubscription.unsubscribe();
-    });
+      this.expansionPanel.open();
+      this.search();
+    }
   }
 
   ngOnDestroy(): void {
