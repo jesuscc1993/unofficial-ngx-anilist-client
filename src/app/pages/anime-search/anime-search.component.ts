@@ -10,6 +10,7 @@ import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
 import { MediaFormat } from '../../models/anilist/mediaFormats';
 import { animeSearchUrl } from '../../app.constants';
+import { MediaSort } from '../../models/anilist/mediaSorts';
 
 @Component({
   selector: 'app-anime-search',
@@ -23,15 +24,16 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   animeList: Anime[];
   searchForm: FormGroup;
   pagination: PageQuery;
+  sort: MediaSort;
+
   mediaFormats: any[] = MediaFormat.LIST;
   mediaGenres: string[];
+  minYear: number = 1900;
+  maxYear: number = new Date().getFullYear() + 1;
 
   searching: boolean;
   noResults: boolean;
   errorGotten: boolean;
-
-  minYear: number = 1900;
-  maxYear: number = new Date().getFullYear() + 1;
 
   private userChangeSubscription: any;
   private queryParamsSubscription: any;
@@ -79,6 +81,11 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     this.updateQueryParams();
   }
 
+  sortBy(mediaSort: MediaSort): void {
+    this.sort = mediaSort;
+    this.search();
+  }
+
   private preventDefault(event: Event): void {
     if (event) {
       event.preventDefault();
@@ -106,7 +113,8 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     let query: MediaQuery = {
       search: this.searchForm.value.search,
       formats: this.searchForm.value.formats,
-      genres: this.searchForm.value.genres
+      genres: this.searchForm.value.genres,
+      sort: this.sort ? this.sort.value : undefined
     };
 
     if (this.searchForm.value.startDate_lesser) {

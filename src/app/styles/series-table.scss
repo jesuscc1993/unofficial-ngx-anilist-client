@@ -40,7 +40,7 @@ $horizontal-cell-padding: $spacing-xxs;
     }
   }
 
-  .mat-column-title {
+  .mat-column-title-romaji {
     overflow: visible;
     display: flex;
     align-items: center;
@@ -119,51 +119,49 @@ $horizontal-cell-padding: $spacing-xxs;
 
   @media (min-width: $screen-m + 1) {
     .mat-column-cover-image {
-      flex: .95;
+      flex: .8;
     }
-    .mat-column-title {
+    .mat-column-title-romaji {
       flex: 4;
     }
     .mat-column-format {
-      flex: .6;
+      flex: .55;
     }
     .mat-column-start-date {
-      flex: .35;
+      flex: .4;
     }
     .mat-column-genres {
       flex: .95;
     }
-    .mat-column-score,
-    .mat-column-average-score {
-      flex: .4;
+    .mat-column-score {
+      flex: .45;
     }
     .mat-column-episodes {
-      flex: .5;
+      flex: .6;
     }
   }
 
   @media (max-width: $screen-m) {
     .mat-column-cover-image {
-      flex: 1.4;
+      flex: 1.55;
     }
-    .mat-column-title {
+    .mat-column-title-romaji {
       flex: 4;
     }
     .mat-column-format {
-      flex: .9;
+      flex: .95;
     }
     .mat-column-start-date {
-      flex: .55;
+      flex: .7;
     }
     .mat-column-genres {
-      flex: 1.65;
+      flex: 1.75;
     }
-    .mat-column-score,
-    .mat-column-average-score {
-      flex: .6;
+    .mat-column-score {
+      flex: .8;
     }
     .mat-column-episodes {
-      flex: .75;
+      flex: 1.1;
     }
   }
 
@@ -171,7 +169,6 @@ $horizontal-cell-padding: $spacing-xxs;
     .mat-column-start-date,
     .mat-column-genres,
     .mat-column-score,
-    .mat-column-average-score,
     .mat-column-episodes {
       display: none;
     }

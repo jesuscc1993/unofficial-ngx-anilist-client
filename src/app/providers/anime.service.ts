@@ -13,7 +13,7 @@ import { MediaStatus } from '../models/anilist/mediaStatus';
 import { MediaTypes } from '../models/anilist/mediaType';
 import { MediaQuery } from '../models/anilist/query';
 import { PageQuery } from '../models/anilist/pageInfo';
-import { mediaSorts } from '../models/anilist/mediaSorts';
+import { MediaSort } from '../models/anilist/mediaSorts';
 import { apiUrl, accessTokenCookieKey, userCookieKey } from '../app.constants';
 
 @Injectable()
@@ -99,7 +99,7 @@ export class AnimeService {
       adultContent: query.adultContent || false,
       page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
       perPage: pageInfo ? (pageInfo.perPage || 10) : 1,
-      sort: [mediaSorts[0].value]
+      sort: query.sort || MediaSort.TITLE_ROMAJI
     };
 
     if (query.id) {
@@ -165,7 +165,7 @@ export class AnimeService {
     let options: any = {
       listType: MediaTypes.ANIME,
       userId: user.id,
-      sort: ['SCORE_DESC']
+      sort: MediaSort.SCORE_DESC
     };
 
     return this.httpClient.post(this.apiUrl, {

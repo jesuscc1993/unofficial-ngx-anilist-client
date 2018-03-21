@@ -1,4 +1,5 @@
-<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" class="series-table">
+<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" class="series-table"
+           matSort (matSortChange)="sortBy($event)">
 
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef>
@@ -18,8 +19,8 @@
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>
+  <ng-container matColumnDef="title-romaji">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       Title
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
@@ -30,7 +31,7 @@
   </ng-container>
 
   <ng-container matColumnDef="format">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       Format
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
@@ -39,7 +40,7 @@
   </ng-container>
 
   <ng-container matColumnDef="start-date">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Year
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
@@ -60,8 +61,8 @@
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="average-score">
-    <mat-header-cell *matHeaderCellDef>
+  <ng-container matColumnDef="score">
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Score
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
@@ -70,7 +71,7 @@
   </ng-container>
 
   <ng-container matColumnDef="episodes">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Episodes
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">

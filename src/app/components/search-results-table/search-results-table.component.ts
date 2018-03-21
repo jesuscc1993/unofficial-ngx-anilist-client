@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
 import { Anime } from '../../models/anilist/anime';
+import { MediaSort } from '../../models/anilist/mediaSorts';
 
 @Component({
   selector: 'app-search-results-table',
@@ -10,9 +11,10 @@ import { Anime } from '../../models/anilist/anime';
 })
 export class SearchResultsTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
+  @Output() onSortChange: EventEmitter<MediaSort> = new EventEmitter<MediaSort>();
   @ViewChild(MatSort) sort: MatSort;
 
-  tableRows: string[] = ['actions', 'cover-image', 'title', 'format', 'start-date', 'genres', 'average-score', 'episodes'];
+  tableRows: string[] = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
   dataSource: MatTableDataSource<Anime>;
 
   constructor() {
@@ -31,6 +33,10 @@ export class SearchResultsTableComponent implements OnInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+  }
+
+  sortBy(sort: any): void {
+    this.onSortChange.emit(MediaSort.fromSort(sort));
   }
 
   private initializeDataSource(): void {

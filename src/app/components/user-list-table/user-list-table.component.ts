@@ -21,7 +21,7 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  tableRows: string[] = ['actions', 'cover-image', 'title', 'format', 'start-date', 'genres', 'score', 'episodes'];
+  tableRows: string[] = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
   dataSource: MatTableDataSource<ListEntry>;
 
   constructor() {
@@ -56,7 +56,7 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
       const anime: Anime = (<Anime> listEntry.media);
 
       return {
-        'title': anime.title.romaji.toLowerCase(),
+        'title-romaji': anime.title.romaji.toLowerCase(),
         'format': anime.format.toLowerCase(),
         'start-date': +anime.startDate.year,
         'genres': anime.genres.length ? anime.genres[0] : '',
