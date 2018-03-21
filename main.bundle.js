@@ -1680,16 +1680,16 @@ var AnimeSearchComponent = (function () {
     AnimeSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(function (params) {
-            if (params.search && params.search.length) {
-                Object.keys(params).forEach(function (fieldKey) {
-                    var field = params[fieldKey];
-                    if (field) {
-                        _this.searchForm.controls[fieldKey].setValue(field);
-                    }
-                });
-                _this.expansionPanel.open();
-                _this.search();
-            }
+            Object.keys(params).forEach(function (fieldKey) {
+                var field = _this.searchForm.controls[fieldKey];
+                var value = params[fieldKey];
+                if (field && value) {
+                    field.setValue(value);
+                }
+            });
+            _this.sort = params.sort;
+            _this.expansionPanel.open();
+            _this.search();
         });
     };
     AnimeSearchComponent.prototype.ngOnDestroy = function () {
@@ -1702,7 +1702,7 @@ var AnimeSearchComponent = (function () {
         this.updateQueryParams();
     };
     AnimeSearchComponent.prototype.sortBy = function (mediaSort) {
-        this.sort = mediaSort;
+        this.sort = mediaSort ? mediaSort.value : undefined;
         this.search();
     };
     AnimeSearchComponent.prototype.preventDefault = function (event) {
@@ -1730,7 +1730,7 @@ var AnimeSearchComponent = (function () {
             search: this.searchForm.value.search,
             formats: this.searchForm.value.formats,
             genres: this.searchForm.value.genres,
-            sort: this.sort ? this.sort.value : undefined
+            sort: this.sort
         };
         if (this.searchForm.value.startDate_lesser) {
             query.startDate_lesser = this.getDateScalarFromYear(this.searchForm.value.startDate_lesser);
@@ -1770,7 +1770,9 @@ var AnimeSearchComponent = (function () {
     };
     AnimeSearchComponent.prototype.updateQueryParams = function () {
         var _this = this;
-        var queryParams = {};
+        var queryParams = {
+            sort: this.sort
+        };
         Object.keys(this.searchForm.value).forEach(function (fieldKey) {
             var field = _this.searchForm.value[fieldKey];
             if (field && (typeof field !== 'object' && (typeof field !== 'string' || field.length > 0))) {
