@@ -1,5 +1,3 @@
-import { MediaSort } from './mediaSorts';
-
 export class MediaQuery {
   adultContent?: boolean;
   averageScore_greater?: number;
@@ -8,7 +6,7 @@ export class MediaQuery {
   genres?: string[];
   id?: number;
   search?: string;
-  sort?: MediaSort;
+  sort?: string;
   startDate_greater?: number;
   startDate_lesser?: number;
   type?: string;
