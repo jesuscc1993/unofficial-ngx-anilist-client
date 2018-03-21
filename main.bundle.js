@@ -748,7 +748,7 @@ var MediaActionsComponent = (function () {
 /***/ "../../../../../src/app/components/search-results-table/search-results-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <app-media-actions [media]=\"anime\"></app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <img [src]=\"anime.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title\">\n    <mat-header-cell *matHeaderCellDef>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <span class=\"title\">\n        {{ anime.title.romaji }}\n      </span>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef>\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of anime.genres\">\n          <mat-chip class=\"rounded\">{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"average-score\">\n    <mat-header-cell *matHeaderCellDef>\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.averageScore / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef>\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>"
+module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" class=\"series-table\"\n           matSort (matSortChange)=\"sortBy($event)\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <app-media-actions [media]=\"anime\"></app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <img [src]=\"anime.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title-romaji\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <span class=\"title\">\n        {{ anime.title.romaji }}\n      </span>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of anime.genres\">\n          <mat-chip class=\"rounded\">{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"score\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.averageScore / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let anime\">\n      {{ anime.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>"
 
 /***/ }),
 
@@ -777,6 +777,7 @@ module.exports = module.exports.toString();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchResultsTableComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_anilist_mediaSorts__ = __webpack_require__("../../../../../src/app/models/anilist/mediaSorts.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -788,9 +789,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var SearchResultsTableComponent = (function () {
     function SearchResultsTableComponent() {
-        this.tableRows = ['actions', 'cover-image', 'title', 'format', 'start-date', 'genres', 'average-score', 'episodes'];
+        this.onSortChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.tableRows = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
     }
     SearchResultsTableComponent.prototype.ngOnInit = function () {
     };
@@ -802,6 +805,9 @@ var SearchResultsTableComponent = (function () {
     SearchResultsTableComponent.prototype.ngAfterViewInit = function () {
         this.dataSource.sort = this.sort;
     };
+    SearchResultsTableComponent.prototype.sortBy = function (sort) {
+        this.onSortChange.emit(__WEBPACK_IMPORTED_MODULE_2__models_anilist_mediaSorts__["a" /* MediaSort */].fromSort(sort));
+    };
     SearchResultsTableComponent.prototype.initializeDataSource = function () {
         this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](this.tableData);
     };
@@ -809,6 +815,10 @@ var SearchResultsTableComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Array)
     ], SearchResultsTableComponent.prototype, "tableData", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */])
+    ], SearchResultsTableComponent.prototype, "onSortChange", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["C" /* MatSort */]),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["C" /* MatSort */])
@@ -831,7 +841,7 @@ var SearchResultsTableComponent = (function () {
 /***/ "../../../../../src/app/components/user-list-table/user-list-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" matSort class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <app-media-actions\n        [listEntry]=\"entry\"\n        [media]=\"entry.media\"\n        (onUpdate)=\"onUpdate($event)\">\n      </app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <img [src]=\"entry.media.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <span class=\"title\">\n        {{ entry.media.title.romaji }}\n      </span>\n      <i *ngIf=\"favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0\"\n         class=\"fa fa-heart fa-1x favourite\">\n      </i>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of entry.media.genres\">\n          <mat-chip class=\"rounded\">{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"score\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.scoreRaw / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>\n\n<mat-paginator\n  #paginator\n  [pageSize]=\"10\"\n  [pageSizeOptions]=\"[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]\"\n  [showFirstLastButtons]=\"true\">\n</mat-paginator>"
+module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" matSort class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <app-media-actions\n        [listEntry]=\"entry\"\n        [media]=\"entry.media\"\n        (onUpdate)=\"onUpdate($event)\">\n      </app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <img [src]=\"entry.media.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title-romaji\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <span class=\"title\">\n        {{ entry.media.title.romaji }}\n      </span>\n      <i *ngIf=\"favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0\"\n         class=\"fa fa-heart fa-1x favourite\">\n      </i>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of entry.media.genres\">\n          <mat-chip class=\"rounded\">{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"score\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.scoreRaw / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let rowData; columns: tableRows\"></mat-row>\n\n</mat-table>\n\n<mat-paginator\n  #paginator\n  [pageSize]=\"10\"\n  [pageSizeOptions]=\"[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]\"\n  [showFirstLastButtons]=\"true\">\n</mat-paginator>"
 
 /***/ }),
 
@@ -874,7 +884,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var UserListTableComponent = (function () {
     function UserListTableComponent() {
         this.onEntryUpdate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
-        this.tableRows = ['actions', 'cover-image', 'title', 'format', 'start-date', 'genres', 'score', 'episodes'];
+        this.tableRows = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
     }
     UserListTableComponent.prototype.ngAfterViewInit = function () {
         // TODO: Fix ExpressionChangedAfterItHasBeenCheckedError
@@ -898,7 +908,7 @@ var UserListTableComponent = (function () {
         this.dataSource.sortingDataAccessor = function (listEntry, property) {
             var anime = listEntry.media;
             return {
-                'title': anime.title.romaji.toLowerCase(),
+                'title-romaji': anime.title.romaji.toLowerCase(),
                 'format': anime.format.toLowerCase(),
                 'start-date': +anime.startDate.year,
                 'genres': anime.genres.length ? anime.genres[0] : '',
@@ -1324,13 +1334,55 @@ var MediaFormat = (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return mediaSorts; });
-var mediaSorts = [
-    { label: 'Title (asc)', value: 'TITLE_ROMAJI' },
-    { label: 'Title (desc)', value: 'TITLE_ROMAJI_DESC' },
-    { label: 'Year (asc)', value: 'START_DATE' },
-    { label: 'Year (desc)', value: 'START_DATE_DESC' },
-];
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MediaSort; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enumMap__ = __webpack_require__("../../../../../src/app/models/enumMap.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var MediaSort = (function (_super) {
+    __extends(MediaSort, _super);
+    function MediaSort(value) {
+        return _super.call(this, value, MediaSort.LIST, true) || this;
+    }
+    MediaSort.fromSort = function (sort) {
+        var sortKey = sort.active.replace(/-/g, '_');
+        if (sort.direction === 'desc') {
+            sortKey += "_" + sort.direction;
+        }
+        return new MediaSort(sortKey);
+    };
+    MediaSort.TITLE_ROMAJI = 'TITLE_ROMAJI';
+    MediaSort.TITLE_ROMAJI_DESC = 'TITLE_ROMAJI_DESC';
+    MediaSort.FORMAT = 'FORMAT';
+    MediaSort.FORMAT_DESC = 'FORMAT_DESC';
+    MediaSort.START_DATE = 'START_DATE';
+    MediaSort.START_DATE_DESC = 'START_DATE_DESC';
+    MediaSort.SCORE = 'SCORE';
+    MediaSort.SCORE_DESC = 'SCORE_DESC';
+    MediaSort.EPISODES = 'EPISODES';
+    MediaSort.EPISODES_DESC = 'EPISODES_DESC';
+    MediaSort.LIST = [
+        { label: 'Title (asc)', value: 'TITLE_ROMAJI' },
+        { label: 'Title (desc)', value: 'TITLE_ROMAJI_DESC' },
+        { label: 'Format (asc)', value: 'FORMAT' },
+        { label: 'Format (desc)', value: 'FORMAT_DESC' },
+        { label: 'Year (asc)', value: 'START_DATE' },
+        { label: 'Year (desc)', value: 'START_DATE_DESC' },
+        { label: 'Score (asc)', value: 'SCORE' },
+        { label: 'Score (desc)', value: 'SCORE_DESC' },
+        { label: 'Episodes (asc)', value: 'EPISODES' },
+        { label: 'Episodes (desc)', value: 'EPISODES_DESC' }
+    ];
+    return MediaSort;
+}(__WEBPACK_IMPORTED_MODULE_0__enumMap__["a" /* EnumMap */]));
 
 
 
@@ -1558,7 +1610,7 @@ var AnimeDetailComponent = (function () {
 /***/ "../../../../../src/app/pages/anime-search/anime-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in. Search will be available but most other features will not.\n  </h4>\n</mat-card>\n\n<form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n  <mat-card class=\"text-center\">\n\n    <h1>\n      <label for=\"searchInput\">\n        Anime search\n      </label>\n    </h1>\n\n    <div class=\"form-group\">\n      <mat-form-field class=\"medium display-block margin-auto\">\n        <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n      </mat-form-field>\n    </div>\n\n    <!--<mat-form-field id=\"yearInput\">-->\n      <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n      <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n      <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n    <!--</mat-form-field>-->\n\n    <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n      <mat-expansion-panel-header>\n        Advanced filters\n      </mat-expansion-panel-header>\n\n      <mat-divider></mat-divider>\n\n      <div class=\"vertical-padding-xs\">\n\n        <!-- air date -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired after year\"\n                formControlName=\"startDate_greater\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired before year\"\n                formControlName=\"startDate_lesser\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- score -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored above\"\n                formControlName=\"averageScore_greater\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored below\"\n                formControlName=\"averageScore_lesser\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- formats -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n              <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                {{ mediaFormat.label }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n        <!-- genres -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n              <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                {{ genre }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n      </div>\n\n      <div class=\"text-center padding-bottom-xs\">\n\n        <button mat-raised-button (click)=\"clearFilters($event)\">\n          Clear filters\n        </button>\n\n      </div>\n\n      <mat-divider></mat-divider>\n\n    </mat-expansion-panel>\n\n    <div class=\"text-center\">\n\n      <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n        <i class=\"fa fa-search fa-1x baseline margin-right-xxxs\"></i>\n        Search\n      </button>\n\n    </div>\n\n  </mat-card>\n\n  <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n  <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n  <mat-card *ngIf=\"errorGotten\" class=\"error\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n      Error 500: Internal server error\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"noResults\" class=\"info\">\n    <h4>\n      <i class=\"fa fa-info-circle fa-1x margin-right-xxs\"></i>\n      No results found\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n    <app-search-results-table [tableData]=\"animeList\"></app-search-results-table>\n\n    <mat-paginator\n      [length]=\"pagination.total\"\n      [pageSize]=\"pagination.perPage\"\n      [pageSizeOptions]=\"[5, 10, 25, 50]\"\n      (page)=\"changePage($event)\">\n    </mat-paginator>\n  </mat-card>\n\n</form>"
+module.exports = "<mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n    You are not logged in. Search will be available but most other features will not.\n  </h4>\n</mat-card>\n\n<form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n  <mat-card class=\"text-center\">\n\n    <h1>\n      <label for=\"searchInput\">\n        Anime search\n      </label>\n    </h1>\n\n    <div class=\"form-group\">\n      <mat-form-field class=\"medium display-block margin-auto\">\n        <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n      </mat-form-field>\n    </div>\n\n    <!--<mat-form-field id=\"yearInput\">-->\n      <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n      <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n      <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n    <!--</mat-form-field>-->\n\n    <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n      <mat-expansion-panel-header>\n        Advanced filters\n      </mat-expansion-panel-header>\n\n      <mat-divider></mat-divider>\n\n      <div class=\"vertical-padding-xs\">\n\n        <!-- air date -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired after year\"\n                formControlName=\"startDate_greater\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Aired before year\"\n                formControlName=\"startDate_lesser\"\n                [min]=\"minYear\" [max]=\"maxYear\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- score -->\n        <div class=\"form-group two-rows\">\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored above\"\n                formControlName=\"averageScore_greater\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n\n          <mat-form-field class=\"medium\">\n            <input\n                matInput type=\"number\"\n                placeholder=\"Scored below\"\n                formControlName=\"averageScore_lesser\"\n                min=\"0\" max=\"10\" step=\".1\"\n            >\n          </mat-form-field>\n        </div>\n\n        <!-- formats -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n              <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                {{ mediaFormat.label }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n        <!-- genres -->\n        <div class=\"form-group\">\n          <mat-form-field class=\"large\">\n            <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n              <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                {{ genre }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n      </div>\n\n      <div class=\"text-center padding-bottom-xs\">\n\n        <button mat-raised-button (click)=\"clearFilters($event)\">\n          Clear filters\n        </button>\n\n      </div>\n\n      <mat-divider></mat-divider>\n\n    </mat-expansion-panel>\n\n    <div class=\"text-center\">\n\n      <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n        <i class=\"fa fa-search fa-1x baseline margin-right-xxxs\"></i>\n        Search\n      </button>\n\n    </div>\n\n  </mat-card>\n\n  <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n  <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n  <mat-card *ngIf=\"errorGotten\" class=\"error\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle fa-1x margin-right-xxs\"></i>\n      Error 500: Internal server error\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"noResults\" class=\"info\">\n    <h4>\n      <i class=\"fa fa-info-circle fa-1x margin-right-xxs\"></i>\n      No results found\n    </h4>\n  </mat-card>\n\n  <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n    <app-search-results-table\n      [tableData]=\"animeList\"\n      (onSortChange)=\"sortBy($event)\">\n    </app-search-results-table>\n\n    <mat-paginator\n      [length]=\"pagination.total\"\n      [pageSize]=\"pagination.perPage\"\n      [pageSizeOptions]=\"[5, 10, 25, 50]\"\n      (page)=\"changePage($event)\">\n    </mat-paginator>\n  </mat-card>\n\n</form>"
 
 /***/ }),
 
@@ -1649,6 +1701,10 @@ var AnimeSearchComponent = (function () {
         this.setupForm();
         this.updateQueryParams();
     };
+    AnimeSearchComponent.prototype.sortBy = function (mediaSort) {
+        this.sort = mediaSort;
+        this.search();
+    };
     AnimeSearchComponent.prototype.preventDefault = function (event) {
         if (event) {
             event.preventDefault();
@@ -1673,7 +1729,8 @@ var AnimeSearchComponent = (function () {
         var query = {
             search: this.searchForm.value.search,
             formats: this.searchForm.value.formats,
-            genres: this.searchForm.value.genres
+            genres: this.searchForm.value.genres,
+            sort: this.sort ? this.sort.value : undefined
         };
         if (this.searchForm.value.startDate_lesser) {
             query.startDate_lesser = this.getDateScalarFromYear(this.searchForm.value.startDate_lesser);
@@ -2134,7 +2191,7 @@ var AnimeService = (function () {
             adultContent: query.adultContent || false,
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1,
-            sort: [__WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* mediaSorts */][0].value]
+            sort: query.sort || __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* MediaSort */].TITLE_ROMAJI
         };
         if (query.id) {
             options.id = query.id;
@@ -2191,7 +2248,7 @@ var AnimeService = (function () {
         var options = {
             listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             userId: user.id,
-            sort: ['SCORE_DESC']
+            sort: __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* MediaSort */].SCORE_DESC
         };
         return this.httpClient.post(this.apiUrl, {
             query: this.listQuery,
