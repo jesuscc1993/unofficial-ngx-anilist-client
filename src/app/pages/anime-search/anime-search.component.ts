@@ -55,24 +55,29 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.queryParamsSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      Object.keys(params).forEach((fieldKey) => {
-        const field: any = this.searchForm.controls[fieldKey];
-        const value: any = params[fieldKey];
+      const fieldKeys: string[] = Object.keys(params);
 
-        if (field && value) {
-          field.setValue(value);
-        }
-      });
+      if (fieldKeys.length) {
+        Object.keys(params).forEach((fieldKey) => {
+          const field: any = this.searchForm.controls[fieldKey];
+          const value: any = params[fieldKey];
 
-      this.sort = params.sort;
+          if (field && value) {
+            field.setValue(value);
+          }
+        });
 
-      this.expansionPanel.open();
-      this.search();
+        this.sort = params.sort;
+
+        this.expansionPanel.open();
+        this.search();
+      }
+
+      this.queryParamsSubscription.unsubscribe();
     });
   }
 
   ngOnDestroy(): void {
-    this.queryParamsSubscription.unsubscribe();
     this.userChangeSubscription.unsubscribe();
   }
 
