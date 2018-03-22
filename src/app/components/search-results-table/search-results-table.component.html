@@ -80,6 +80,14 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
-  <mat-row *matRowDef="let rowData; columns: tableRows"></mat-row>
+  <mat-row
+    *matRowDef="let anime; columns: tableRows"
+    [class.completed]="anime.mediaListEntry && anime.mediaListEntry.status === 'completed'"
+    [class.dropped]="anime.mediaListEntry && anime.mediaListEntry.status === 'dropped'"
+    [class.paused]="anime.mediaListEntry && anime.mediaListEntry.status === 'paused'"
+    [class.planned]="anime.mediaListEntry && anime.mediaListEntry.status === 'planning'"
+    [class.repeating]="anime.mediaListEntry && anime.mediaListEntry.status === 'repeating'"
+    [class.watching]="anime.mediaListEntry && anime.mediaListEntry.status === 'current'">
+  </mat-row>
 
 </mat-table>

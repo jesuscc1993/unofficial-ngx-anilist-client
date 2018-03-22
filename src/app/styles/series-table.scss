@@ -4,17 +4,37 @@ $horizontal-cell-padding: $spacing-xxs;
 
 .series-table {
 
-  mat-header-cell,
-  mat-cell {
-    &:not(.mat-column-cover-image) {
-      $vertical-padding: $spacing-xxxxs;
-      padding-left: $vertical-padding;
-      padding-right: $vertical-padding;
-    }
-  }
+  mat-row {
+    $bg-intensity: .5;
 
-  mat-cell {
-    padding: $spacing-xxxs 0;
+    &.completed,
+    &.rewatching {
+      $color: map-get($mat-blue, 50);
+      background: rgba($color, $bg-intensity);
+    }
+    &.planned,
+    &.watching,
+    &.paused {
+      $color: map-get($mat-orange, 50);
+      background: rgba($color, $bg-intensity);
+    }
+    &.dropped {
+      $color: map-get($mat-red, 50);
+      background: rgba($color, $bg-intensity);
+    }
+
+    mat-header-cell,
+    mat-cell {
+      &:not(.mat-column-cover-image) {
+        $vertical-padding: $spacing-xxxxs;
+        padding-left: $vertical-padding;
+        padding-right: $vertical-padding;
+      }
+    }
+
+    mat-cell {
+      padding: $spacing-xxxs 0;
+    }
   }
 
   .mat-column-actions {

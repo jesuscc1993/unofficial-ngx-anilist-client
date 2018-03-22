@@ -1,4 +1,4 @@
-@import 'variables';
+@import 'colors';
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
@@ -27,15 +27,15 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 mat-card {
   &.info {
     background: map-get($mat-blue, 50);
-    color: #3F668C;
+    color: $blue;
   }
   &.warning {
     background: map-get($mat-orange, 50);
-    color: #8C6C3F;
+    color: $orange;
   }
   &.error {
     background: map-get($mat-red, 50);
-    color: #8C3F3F;
+    color: $red;
   }
 }
 
