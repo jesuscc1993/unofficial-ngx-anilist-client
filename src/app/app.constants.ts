@@ -13,6 +13,7 @@ export const userListUrl: string = '/user-list';
 export const rootUrl: string = animeSearchUrl;
 
 export const modalConfig: any = {
+  minWidth: '480px',
   width: 'auto',
   maxWidth: '672px'
 };
