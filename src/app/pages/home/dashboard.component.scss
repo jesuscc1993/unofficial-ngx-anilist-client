@@ -1,0 +1,35 @@
+@import '../../styles/variables';
+
+.columns-wrapper {
+
+  .column {
+    $sidebar-width: 24%;
+    $padding: $spacing-xxxs * 1.5;
+    padding: 0 $padding $padding;
+    font-size: inherit;
+    vertical-align: top;
+    display: inline-block;
+    box-sizing: border-box;
+
+    &.left-sidebar {
+      width: $sidebar-width;
+    }
+
+    &.main-content {
+      width: calc(100% - #{$sidebar-width * 2});
+    }
+
+    &.right-sidebar {
+      width: $sidebar-width;
+    }
+
+    @media (max-width: $screen-m) {
+      width: 100% !important;
+
+      &.left-sidebar,
+      &.right-sidebar {
+        float: none;
+      }
+    }
+  }
+}

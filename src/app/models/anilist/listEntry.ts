@@ -5,4 +5,5 @@ export class ListEntry {
   scoreRaw?: number;
   status?: string;
   media?: Media;
+  updatedAt?: number;
 }

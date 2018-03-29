@@ -1,18 +1,29 @@
 @import 'variables';
 
-@mixin setup-card-padding($padding) {
+@mixin setup-card-padding($regular-padding, $compact-padding) {
   mat-card {
 
     &.composite {
-      $header-height: $spacing-s + $padding * 2;
+      $header-height: $spacing-s + $regular-padding * 2;
       padding: 0 !important;
 
-      .header {
-        padding: $padding;
-      }
+      &.compact {
+        .header {
+          padding: $compact-padding;
+        }
 
-      .content {
-        padding: $padding;
+        .content {
+          padding: $compact-padding;
+        }
+      }
+      &:not(.compact) {
+        .header {
+          padding: $regular-padding;
+        }
+
+        .content {
+          padding: $regular-padding;
+        }
       }
     }
 
@@ -20,9 +31,9 @@
 }
 
 @media (min-width: $screen-s + 1) {
-  @include setup-card-padding($spacing-s);
+  @include setup-card-padding($spacing-s, $spacing-xs);
 }
 
 @media (max-width: $screen-s) {
-  @include setup-card-padding($spacing-xs);
+  @include setup-card-padding($spacing-xs, $spacing-xs);
 }

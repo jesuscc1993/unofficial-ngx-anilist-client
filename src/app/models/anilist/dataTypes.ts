@@ -2,8 +2,10 @@ export class Title {
   romaji: string;
 }
 
-export class StartDate {
+export class FuzzyDate {
   year: number;
+  month: number;
+  day: number;
 }
 
 export class CoverImage {

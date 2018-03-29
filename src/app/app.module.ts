@@ -11,11 +11,14 @@ import { MaterialModule } from './modules/material.module';
 import { AppComponent } from './app.component';
 /* providers */
 import { AnimeService } from './providers/anime.service';
+/* utils */
+import { DateUtil } from './utils/date.util';
 /* pipes */
 import { SortPipe } from './pipes/sort';
 /* pages */
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/home/dashboard.component';
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
 import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
@@ -30,10 +33,14 @@ import { UserListTableComponent } from './components/user-list-table/user-list-t
 import { MediaActionsComponent } from './components/media-actions/media-actions.component';
 import { GenresOverviewComponent } from './components/genres-overview/genres-overview.component';
 import { AnimeInfoComponent } from './components/anime-info/anime-info.component';
+import { RecentlyFinishedMediaComponent } from './components/recently-finished-media/recently-finished-media.component';
+import { RecentlyUpdatedListEntriesComponent } from './components/recently-updated-list-entries/recently-updated-list-entries.component';
+import { CoverMediaComponent } from './components/cover-media/cover-media.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'anime-search', component: AnimeSearchComponent },
   { path: 'anime-detail/:id', component: AnimeDetailComponent },
   { path: 'user-list', component: UserListComponent },
@@ -45,6 +52,7 @@ const appRoutes: Routes = [
     AppComponent,
     PageNotFoundComponent,
     LoginComponent,
+    DashboardComponent,
     AnimeSearchComponent,
     AnimeDetailComponent,
     UserListComponent,
@@ -57,7 +65,10 @@ const appRoutes: Routes = [
     ListEntryFormModalComponent,
     GenresOverviewComponent,
     SortPipe,
-    AnimeInfoComponent
+    AnimeInfoComponent,
+    RecentlyFinishedMediaComponent,
+    RecentlyUpdatedListEntriesComponent,
+    CoverMediaComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -69,7 +80,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    AnimeService
+    AnimeService,
+    DateUtil
   ],
   bootstrap: [
     AppComponent

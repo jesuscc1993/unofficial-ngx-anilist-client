@@ -5,9 +5,14 @@
 
     <div class="title">
       <h3 class="no-margin">
-        {{ media.title.romaji }}
+        <app-media-actions *ngIf="media" [media]="media" class="inline-block margin-right-xxxs"></app-media-actions>
+
+        <span>
+          {{ media.title.romaji }}
+        </span>
       </h3>
     </div>
+
   </div>
 
   <mat-divider></mat-divider>

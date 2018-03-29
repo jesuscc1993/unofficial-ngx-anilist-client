@@ -1,27 +1,31 @@
-<mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
+<div class="narrow-page">
 
-<mat-card class="composite">
+  <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
 
-  <div *ngIf="anime">
+  <mat-card class="composite">
 
-    <div class="header">
-      <h3 class="no-margin">
-        {{ anime.title.romaji }}
-      </h3>
+    <div *ngIf="anime">
+
+      <div class="header">
+        <h3 class="no-margin">
+          {{ anime.title.romaji }}
+        </h3>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="content">
+
+        <app-anime-info
+          *ngIf="anime"
+          [anime]="anime"
+          [showAsColumns]="true">
+        </app-anime-info>
+
+      </div>
+
     </div>
 
-    <mat-divider></mat-divider>
+  </mat-card>
 
-    <div class="content">
-
-      <app-anime-info
-        *ngIf="anime"
-        [anime]="anime"
-        [showAsColumns]="true">
-      </app-anime-info>
-
-    </div>
-
-  </div>
-
-</mat-card>
+</div>

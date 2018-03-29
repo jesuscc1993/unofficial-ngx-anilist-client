@@ -1,0 +1,19 @@
+<div *ngIf="media" (click)="showDetail()" class="clickable">
+  <div [style.background-image]="'url(' + media.coverImage.medium + ')'" class="cover">
+
+    <div class="backdrop">
+      <div class="full-width">
+
+        <div *ngIf="media.title">
+          {{ media.title.romaji }}
+        </div>
+
+        <div *ngIf="media.averageScore">
+          ({{ media.averageScore / 10 }})
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

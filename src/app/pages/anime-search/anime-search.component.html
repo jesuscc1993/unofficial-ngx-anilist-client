@@ -1,159 +1,163 @@
-<mat-card *ngIf="!user" class="warning margin-bottom-xs">
-  <h4>
-    <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
-    You are not logged in. Search will be available but most other features will not.
-  </h4>
-</mat-card>
+<div class="narrow-page">
 
-<form [formGroup]="searchForm" (ngSubmit)="search()">
+  <mat-card *ngIf="!user" class="warning margin-bottom-xs">
+    <h4>
+      <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+      You are not logged in. Search will be available but most other features will not.
+    </h4>
+  </mat-card>
 
-  <mat-card class="text-center">
+  <form [formGroup]="searchForm" (ngSubmit)="search()">
 
-    <h1>
-      <label for="searchInput">
-        Anime search
-      </label>
-    </h1>
+    <mat-card class="text-center">
 
-    <div class="form-group">
-      <mat-form-field class="medium display-block margin-auto">
-        <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
-      </mat-form-field>
-    </div>
+      <h1>
+        <label for="searchInput">
+          Anime search
+        </label>
+      </h1>
 
-    <!--<mat-form-field id="yearInput">-->
-      <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
-      <!--<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>-->
-      <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
-    <!--</mat-form-field>-->
-
-    <mat-expansion-panel class="mat-elevation-z padding-bottom-s search-filters">
-      <mat-expansion-panel-header>
-        Advanced filters
-      </mat-expansion-panel-header>
-
-      <mat-divider></mat-divider>
-
-      <div class="vertical-padding-xs">
-
-        <!-- air date -->
-        <div class="form-group two-rows">
-          <mat-form-field class="medium">
-            <input
-                matInput type="number"
-                placeholder="Aired after year"
-                formControlName="startDate_greater"
-                [min]="minYear" [max]="maxYear"
-            >
-          </mat-form-field>
-
-          <mat-form-field class="medium">
-            <input
-                matInput type="number"
-                placeholder="Aired before year"
-                formControlName="startDate_lesser"
-                [min]="minYear" [max]="maxYear"
-            >
-          </mat-form-field>
-        </div>
-
-        <!-- score -->
-        <div class="form-group two-rows">
-          <mat-form-field class="medium">
-            <input
-                matInput type="number"
-                placeholder="Scored above"
-                formControlName="averageScore_greater"
-                min="0" max="10" step=".1"
-            >
-          </mat-form-field>
-
-          <mat-form-field class="medium">
-            <input
-                matInput type="number"
-                placeholder="Scored below"
-                formControlName="averageScore_lesser"
-                min="0" max="10" step=".1"
-            >
-          </mat-form-field>
-        </div>
-
-        <!-- formats -->
-        <div class="form-group">
-          <mat-form-field class="large">
-            <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
-              <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-                {{ mediaFormat.label }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <!-- genres -->
-        <div class="form-group">
-          <mat-form-field class="large">
-            <mat-select placeholder="Genre" formControlName="genres" multiple>
-              <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
-                {{ genre }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
+      <div class="form-group">
+        <mat-form-field class="medium display-block margin-auto">
+          <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
+        </mat-form-field>
       </div>
 
-      <div class="text-center padding-bottom-xs">
+      <!--<mat-form-field id="yearInput">-->
+        <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
+        <!--<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>-->
+        <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
+      <!--</mat-form-field>-->
 
-        <button mat-raised-button (click)="clearFilters($event)">
-          Clear filters
+      <mat-expansion-panel class="mat-elevation-z padding-bottom-s search-filters">
+        <mat-expansion-panel-header>
+          Advanced filters
+        </mat-expansion-panel-header>
+
+        <mat-divider></mat-divider>
+
+        <div class="vertical-padding-xs">
+
+          <!-- air date -->
+          <div class="form-group two-rows">
+            <mat-form-field class="medium">
+              <input
+                  matInput type="number"
+                  placeholder="Aired after year"
+                  formControlName="startDate_greater"
+                  [min]="minYear" [max]="maxYear"
+              >
+            </mat-form-field>
+
+            <mat-form-field class="medium">
+              <input
+                  matInput type="number"
+                  placeholder="Aired before year"
+                  formControlName="startDate_lesser"
+                  [min]="minYear" [max]="maxYear"
+              >
+            </mat-form-field>
+          </div>
+
+          <!-- score -->
+          <div class="form-group two-rows">
+            <mat-form-field class="medium">
+              <input
+                  matInput type="number"
+                  placeholder="Scored above"
+                  formControlName="averageScore_greater"
+                  min="0" max="10" step=".1"
+              >
+            </mat-form-field>
+
+            <mat-form-field class="medium">
+              <input
+                  matInput type="number"
+                  placeholder="Scored below"
+                  formControlName="averageScore_lesser"
+                  min="0" max="10" step=".1"
+              >
+            </mat-form-field>
+          </div>
+
+          <!-- formats -->
+          <div class="form-group">
+            <mat-form-field class="large">
+              <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+                  {{ mediaFormat.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- genres -->
+          <div class="form-group">
+            <mat-form-field class="large">
+              <mat-select placeholder="Genre" formControlName="genres" multiple>
+                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
+                  {{ genre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="text-center padding-bottom-xs">
+
+          <button mat-raised-button (click)="clearFilters($event)">
+            Clear filters
+          </button>
+
+        </div>
+
+        <mat-divider></mat-divider>
+
+      </mat-expansion-panel>
+
+      <div class="text-center">
+
+        <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
+          <i class="fa fa-search fa-1x baseline margin-right-xxxs"></i>
+          Search
         </button>
 
       </div>
 
-      <mat-divider></mat-divider>
+    </mat-card>
 
-    </mat-expansion-panel>
+    <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
+    <div *ngIf="!searching" class="progress-placeholder"></div>
 
-    <div class="text-center">
+    <mat-card *ngIf="errorGotten" class="error">
+      <h4>
+        <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+        Error 500: Internal server error
+      </h4>
+    </mat-card>
 
-      <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
-        <i class="fa fa-search fa-1x baseline margin-right-xxxs"></i>
-        Search
-      </button>
+    <mat-card *ngIf="noResults" class="info">
+      <h4>
+        <i class="fa fa-info-circle fa-1x margin-right-xxs"></i>
+        No results found
+      </h4>
+    </mat-card>
 
-    </div>
+    <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
+      <app-search-results-table
+        [tableData]="animeList"
+        (onSortChange)="sortBy($event)">
+      </app-search-results-table>
 
-  </mat-card>
+      <mat-paginator
+        [length]="pagination.total"
+        [pageSize]="pagination.perPage"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="changePage($event)">
+      </mat-paginator>
+    </mat-card>
 
-  <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
-  <div *ngIf="!searching" class="progress-placeholder"></div>
+  </form>
 
-  <mat-card *ngIf="errorGotten" class="error">
-    <h4>
-      <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
-      Error 500: Internal server error
-    </h4>
-  </mat-card>
-
-  <mat-card *ngIf="noResults" class="info">
-    <h4>
-      <i class="fa fa-info-circle fa-1x margin-right-xxs"></i>
-      No results found
-    </h4>
-  </mat-card>
-
-  <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
-    <app-search-results-table
-      [tableData]="animeList"
-      (onSortChange)="sortBy($event)">
-    </app-search-results-table>
-
-    <mat-paginator
-      [length]="pagination.total"
-      [pageSize]="pagination.perPage"
-      [pageSizeOptions]="[5, 10, 25, 50]"
-      (page)="changePage($event)">
-    </mat-paginator>
-  </mat-card>
-
-</form>
+</div>

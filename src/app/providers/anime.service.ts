@@ -24,11 +24,14 @@ export class AnimeService {
   private pageInfoFields: string;
   private listAnimeFields: string;
   private searchAnimeFields: string;
+  private listEntryFields: string;
 
   private genresQuery: string;
   private userQuery: string;
   private searchQuery: string;
   private listQuery: string;
+  private updatedEntriesQuery: string;
+  private finishedAiringMediaQuery: string;
   private listFavouritesQuery: string;
   private saveListEntryQuery: string;
   private deleteListEntryQuery: string;
@@ -97,9 +100,10 @@ export class AnimeService {
     let options: any = {
       type: MediaTypes.ANIME,
       adultContent: query.adultContent || false,
+      sort: query.sort || MediaSort.TITLE_ROMAJI,
+
       page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
-      perPage: pageInfo ? (pageInfo.perPage || 10) : 1,
-      sort: query.sort || MediaSort.TITLE_ROMAJI
+      perPage: pageInfo ? (pageInfo.perPage || 10) : 1
     };
 
     if (query.id) {
@@ -187,6 +191,55 @@ export class AnimeService {
       }
 
       return statusObjects;
+    });
+  }
+
+  public getRecentlyUpdated(user: User, pageInfo?: PageQuery): Observable<any> {
+    let options: any = {
+      listType: MediaTypes.ANIME,
+      userId: user.id,
+      sort: MediaSort.UPDATED_TIME_DESC,
+
+      page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
+      perPage: pageInfo ? (pageInfo.perPage || 10) : 1
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.updatedEntriesQuery,
+      variables: options
+
+    }, this.getRequestOptions()).map((response: any) => {
+      const entryList: ListEntry[] = response ? response.data.Page.mediaList : [];
+
+      entryList.forEach((entry: any) => {
+        this.parseListEntryData(entry);
+      });
+
+      return entryList;
+    });
+  }
+
+  public getRecentlyFinishedAiring(pageInfo?: PageQuery): Observable<any> {
+    let options: any = {
+      listType: MediaTypes.ANIME,
+      sort: MediaSort.END_DATE_DESC,
+
+      page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
+      perPage: pageInfo ? (pageInfo.perPage || 10) : 1
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.finishedAiringMediaQuery,
+      variables: options
+
+    }, this.getRequestOptions()).map((response: any) => {
+      const mediaList: Media[] = response ? response.data.Page.media : [];
+
+      mediaList.forEach((media: any) => {
+        this.parseAnimeData(media);
+      });
+
+      return mediaList;
     });
   }
 
@@ -380,6 +433,18 @@ export class AnimeService {
         status
       }`;
 
+    this.listEntryFields = `
+      id
+      media {
+        ${this.listAnimeFields}
+      }
+      scoreRaw: score (
+        format: POINT_100
+      )
+      status
+      updatedAt
+    `;
+
     this.genresQuery = `
       {
         GenreCollection
@@ -416,13 +481,14 @@ export class AnimeService {
         $formats: [MediaFormat],
         $genres: [String],
         $id: Int,
-        $page: Int,
-        $perPage: Int,
         $search: String,
         $sort: [MediaSort],
         $startDate_greater: FuzzyDateInt,
         $startDate_lesser: FuzzyDateInt,
-        $type: MediaType
+        $type: MediaType,
+        
+        $page: Int,
+        $perPage: Int
       ) {
         Page (
           page: $page,
@@ -461,20 +527,70 @@ export class AnimeService {
           userId: $userId
         ) {
           statusLists {
-            ... mediaListEntry
+            ... mediaListEntryFields
           }
         }
       }
   
-      fragment mediaListEntry on MediaList {
-        id
-        media {
-          ${this.listAnimeFields}
+      fragment mediaListEntryFields on MediaList {
+        ${this.listEntryFields}
+      }`;
+
+    this.updatedEntriesQuery = `
+      query (
+        $listType: MediaType,
+        $sort: [MediaListSort],
+        $userId: Int!,
+        
+        $page: Int,
+        $perPage: Int
+      ) {
+        Page (
+          page: $page,
+          perPage: $perPage
+        ) {
+          mediaList (
+            sort: $sort,
+            type: $listType,
+            userId: $userId
+          ) {
+            ... mediaListEntryFields
+          }
         }
-        scoreRaw: score (
-          format: POINT_100
-        )
-        status
+      }
+  
+      fragment mediaListEntryFields on MediaList {
+        ${this.listEntryFields}
+      }`;
+
+    this.finishedAiringMediaQuery = `
+      query (
+        $listType: MediaType,
+        $sort: [MediaSort],
+        
+        $page: Int,
+        $perPage: Int
+      ) {
+        Page (
+          page: $page,
+          perPage: $perPage
+        ) {
+          media(
+            sort: $sort,
+            type: $listType,
+            status: ${MediaStatus.FINISHED},
+            onList: true
+          ) {
+            ${this.listAnimeFields}
+            mediaListEntry {
+              ...mediaListEntryFields
+            }
+          }
+        }
+      }
+  
+      fragment mediaListEntryFields on MediaList {
+        ${this.listEntryFields}
       }`;
 
     this.listFavouritesQuery = `

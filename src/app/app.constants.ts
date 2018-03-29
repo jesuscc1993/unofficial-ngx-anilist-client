@@ -7,6 +7,12 @@ export const apiTokenPrefix: string = '#access_token=';
 export const accessTokenCookieKey: string = 'accessToken';
 export const userCookieKey: string = 'user';
 
+export const dashboardUrl: string = '/dashboard';
 export const animeSearchUrl: string = '/anime-search';
 export const userListUrl: string = '/user-list';
 export const rootUrl: string = animeSearchUrl;
+
+export const modalConfig: any = {
+  width: 'auto',
+  maxWidth: '672px'
+};

@@ -8,6 +8,7 @@ import { Media } from '../../models/anilist/media';
 import { ListEntryFormModalComponent } from '../../modals/list-entry-form-modal/list-entry-form-modal.component';
 import { User } from '../../models/anilist/user';
 import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
+import { modalConfig } from '../../app.constants';
 
 @Component({
   selector: 'app-media-actions',
@@ -21,7 +22,6 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
 
   user: User;
 
-  private modalConfig: any;
   private userChangeSubscription: any;
 
   constructor(
@@ -32,18 +32,13 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
   ) {
     this.user = this.animeService.getUser();
 
-    this.modalConfig = {
-      width: 'auto',
-      maxWidth: '672px'
-    };
-
     this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    if (this.media.mediaListEntry && !this.listEntry) {
+    if (this.media && this.media.mediaListEntry && !this.listEntry) {
       this.listEntry = this.media.mediaListEntry;
     }
   }
@@ -92,7 +87,7 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
   }
 
   showDetail(): void {
-    let config: any = Object.assign({}, this.modalConfig);
+    let config: any = Object.assign({}, modalConfig);
     config.maxWidth = '800px';
     config.data = {
       media: this.media
@@ -120,7 +115,7 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
   }
 
   private showFormModal(): MatDialogRef<ListEntryFormModalComponent> {
-    let config: any = Object.assign({}, this.modalConfig);
+    let config: any = Object.assign({}, modalConfig);
     config.data = {
       listEntry: this.listEntry,
       media: this.media

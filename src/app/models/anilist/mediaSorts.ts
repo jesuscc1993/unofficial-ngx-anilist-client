@@ -11,6 +11,10 @@ export class MediaSort extends EnumMap {
   static SCORE_DESC: string = 'SCORE_DESC';
   static EPISODES: string = 'EPISODES';
   static EPISODES_DESC: string = 'EPISODES_DESC';
+  static UPDATED_TIME: string = 'UPDATED_TIME';
+  static UPDATED_TIME_DESC: string = 'UPDATED_TIME_DESC';
+  static END_DATE: string = 'END_DATE';
+  static END_DATE_DESC: string = 'END_DATE_DESC';
 
   static LIST: any[] = [
     { label: 'Title (asc)', value: 'TITLE_ROMAJI' },
@@ -22,7 +26,11 @@ export class MediaSort extends EnumMap {
     { label: 'Score (asc)', value: 'SCORE' },
     { label: 'Score (desc)', value: 'SCORE_DESC' },
     { label: 'Episodes (asc)', value: 'EPISODES' },
-    { label: 'Episodes (desc)', value: 'EPISODES_DESC' }
+    { label: 'Episodes (desc)', value: 'EPISODES_DESC' },
+    { label: 'Time updated (asc)', value: 'UPDATED_TIME' },
+    { label: 'Time updated (desc)', value: 'UPDATED_TIME_DESC' },
+    { label: 'Date ended (asc)', value: 'END_DATE' },
+    { label: 'Date ended (desc)', value: 'END_DATE_DESC' }
   ];
 
   constructor(value: string) {

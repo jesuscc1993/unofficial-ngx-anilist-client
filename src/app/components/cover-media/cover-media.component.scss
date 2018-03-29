@@ -1,0 +1,38 @@
+@import '../../styles/variables';
+
+.cover {
+  $width: 100px;
+  $height: 138px;
+  width: $width;
+  height: $height;
+  background-position: center center;
+  background-size: cover;
+
+  &:hover {
+    .backdrop {
+      opacity: 1;
+    }
+  }
+  &:not(:hover) {
+    .backdrop {
+      opacity: 0;
+    }
+  }
+
+  .backdrop {
+    font-size: $font-size-xs;
+    padding: $spacing-xxxs;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    transition: .2s;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+
+    background: rgba(black, .5);
+    color: white;
+  }
+}

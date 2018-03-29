@@ -23,7 +23,7 @@ body {
 
     min-height: calc(100vh - #{$mat-toolbar-height} - #{$footer-height});
 
-    .page-wrapper {
+    .narrow-page {
       max-width: 1152px;
       margin: auto;
     }

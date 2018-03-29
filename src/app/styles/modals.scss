@@ -13,6 +13,12 @@ mat-dialog-container {
     .title {
       padding-right: $spacing-xs;
     }
+
+    > i.fa {
+      &:before {
+        vertical-align: middle;
+      }
+    }
   }
 
   .content {

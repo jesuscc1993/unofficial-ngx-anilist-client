@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeService } from '../../providers/anime.service';
 import { User } from '../../models/anilist/user';
 import { environment } from '../../../environments/environment';
-import { apiLoginUrl, rootUrl, apiTokenPrefix, userListUrl, animeSearchUrl } from '../../app.constants';
+import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../app.constants';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +13,13 @@ import { apiLoginUrl, rootUrl, apiTokenPrefix, userListUrl, animeSearchUrl } fro
 })
 export class HeaderComponent implements OnDestroy {
   apiLoginUrl: string = apiLoginUrl;
+  dashboardUrl: string = dashboardUrl;
   animeSearchUrl: string = animeSearchUrl;
   userListUrl: string = userListUrl;
 
   user: User;
   onRoot: boolean;
+  onDashboard: boolean;
   onAnimeSearch: boolean;
   onUserList: boolean;
   loginAvailable: boolean;
@@ -70,6 +72,7 @@ export class HeaderComponent implements OnDestroy {
   private subscribeToNavigation(): void {
     this.router.events.subscribe(() => {
       this.onRoot = location.href.indexOf(rootUrl) >= 0;
+      this.onDashboard = location.href.indexOf(dashboardUrl) >= 0;
       this.onAnimeSearch = location.href.indexOf(animeSearchUrl) >= 0;
       this.onUserList = location.href.indexOf(userListUrl) >= 0;
     });

@@ -1,86 +1,90 @@
-<mat-card *ngIf="!user" class="alert warning">
-  <h4>
-    <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
-    You are not logged in.
-  </h4>
-</mat-card>
+<div class="narrow-page">
 
-<mat-spinner *ngIf="user && !ready" mode="indeterminate" class="full-page"></mat-spinner>
-
-<div *ngIf="user && ready && !errorGotten">
-
-  <div *ngIf="statuses && statuses.length">
-    <mat-card class="table-filter">
-      <mat-form-field class="full-width">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name">
-      </mat-form-field>
-    </mat-card>
-
-    <mat-card class="margin-top-s">
-      <h3>
-        Show / Go to
-      </h3>
-
-      <div class="statuses-wrapper">
-        <span *ngFor="let status of statuses" class="status-wrapper">
-          <mat-checkbox [(ngModel)]="status.shown"></mat-checkbox>
-
-          <a *ngIf="hasDataOfStatus(status.value)" href="{{ '/user-list#' + status.value }}" class="capitalize">
-            {{ status.label }}
-          </a>
-        </span>
-      </div>
-    </mat-card>
-
-    <div *ngFor="let status of statuses">
-      <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
-
-        <h3 [id]="status.value" class="capitalize">
-          {{ status.label }}
-        </h3>
-
-        <mat-card class="no-padding">
-          <app-user-list-table
-            [tableStatus]="status.value"
-            [tableData]="statusObjects[status.value]"
-            [favouriteIDs]="favouriteIDs"
-            [filter]="filter"
-            (onEntryUpdate)="onEntryUpdate($event)">
-          </app-user-list-table>
-        </mat-card>
-
-      </div>
-    </div>
-
-    <div class="padding-top-xs padding-bottom-m">
-      <h3>
-        Settings
-      </h3>
-
-      <mat-slide-toggle
-        [checked]="reloadOnUpdate"
-        (change)="reloadOnUpdate = !reloadOnUpdate">
-        Reload on update
-      </mat-slide-toggle>
-    </div>
-
-    <app-genres-overview
-      [genreStatsList]="user.stats.favouredGenresOverview">
-    </app-genres-overview>
-  </div>
-
-  <mat-card *ngIf="!statuses || !statuses.length">
+  <mat-card *ngIf="!user" class="alert warning">
     <h4>
       <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
-      You haven't added any entries yet.
+      You are not logged in.
+    </h4>
+  </mat-card>
+
+  <mat-spinner *ngIf="user && !ready" mode="indeterminate" class="full-page"></mat-spinner>
+
+  <div *ngIf="user && ready && !errorGotten">
+
+    <div *ngIf="statuses && statuses.length">
+      <mat-card class="table-filter">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name">
+        </mat-form-field>
+      </mat-card>
+
+      <mat-card class="margin-top-s">
+        <h3>
+          Show / Go to
+        </h3>
+
+        <div class="statuses-wrapper">
+          <span *ngFor="let status of statuses" class="status-wrapper">
+            <mat-checkbox [(ngModel)]="status.shown"></mat-checkbox>
+
+            <a *ngIf="hasDataOfStatus(status.value)" href="{{ '/user-list#' + status.value }}" class="capitalize">
+              {{ status.label }}
+            </a>
+          </span>
+        </div>
+      </mat-card>
+
+      <div *ngFor="let status of statuses">
+        <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
+
+          <h3 [id]="status.value" class="capitalize">
+            {{ status.label }}
+          </h3>
+
+          <mat-card class="no-padding">
+            <app-user-list-table
+              [tableStatus]="status.value"
+              [tableData]="statusObjects[status.value]"
+              [favouriteIDs]="favouriteIDs"
+              [filter]="filter"
+              (onEntryUpdate)="onEntryUpdate($event)">
+            </app-user-list-table>
+          </mat-card>
+
+        </div>
+      </div>
+
+      <div class="padding-top-xs padding-bottom-m">
+        <h3>
+          Settings
+        </h3>
+
+        <mat-slide-toggle
+          [checked]="reloadOnUpdate"
+          (change)="reloadOnUpdate = !reloadOnUpdate">
+          Reload on update
+        </mat-slide-toggle>
+      </div>
+
+      <app-genres-overview
+        [genreStatsList]="user.stats.favouredGenresOverview">
+      </app-genres-overview>
+    </div>
+
+    <mat-card *ngIf="!statuses || !statuses.length">
+      <h4>
+        <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+        You haven't added any entries yet.
+      </h4>
+    </mat-card>
+
+  </div>
+
+  <mat-card *ngIf="errorGotten" class="error">
+    <h4>
+      <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+      Error 500: Internal server error
     </h4>
   </mat-card>
 
 </div>
-
-<mat-card *ngIf="errorGotten" class="error">
-  <h4>
-    <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
-    Error 500: Internal server error
-  </h4>
-</mat-card>

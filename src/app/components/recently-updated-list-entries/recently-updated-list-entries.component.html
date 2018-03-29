@@ -1,0 +1,15 @@
+<mat-card class="composite compact">
+
+  <div class="header">
+    <h4 class="no-margin">
+      Recently updated
+    </h4>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="content cover-media-grid">
+    <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
+  </div>
+
+</mat-card>
