@@ -8,8 +8,12 @@
 
   <mat-divider></mat-divider>
 
-  <div class="content cover-media-grid">
-    <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
+  <div class="content">
+    <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
+
+    <div *ngIf="listEntries && listEntries.length" class="cover-media-grid">
+      <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
+    </div>
   </div>
 
 </mat-card>

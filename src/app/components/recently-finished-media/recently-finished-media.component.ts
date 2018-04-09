@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { AnimeService } from '../../providers/anime.service';
 import { DateUtil } from '../../utils/date.util';
-import { ListEntry } from '../../models/anilist/listEntry';
+import { Media } from '../../models/anilist/media';
 
 @Component({
   selector: 'app-recently-finished-media',
@@ -11,7 +11,7 @@ import { ListEntry } from '../../models/anilist/listEntry';
 })
 export class RecentlyFinishedMediaComponent {
 
-  mediaList: ListEntry[];
+  mediaList: Media[];
   maxEntries: number = 16;
 
   ready: boolean;
@@ -21,17 +21,30 @@ export class RecentlyFinishedMediaComponent {
     private animeService: AnimeService,
     private dateUtil: DateUtil
   ) {
-    this.animeService.getRecentlyFinishedAiring({
-      perPage: this.maxEntries
 
-    }).subscribe((listEntries) => {
-      this.mediaList = listEntries;
-      this.ready = true;
+    this.animeService.getListMediaIds(this.animeService.getUser()).subscribe((listMediaIds) => {
+
+      this.animeService.getRecentlyFinishedAiring({
+        idNotIn: listMediaIds.completed
+      }, {
+        perPage: this.maxEntries
+
+      }).subscribe((listEntries) => {
+        this.mediaList = listEntries;
+        this.ready = true;
+
+      }, (error) => {
+        this.onError();
+      });
 
     }, (error) => {
-      this.errorGotten = true;
-      this.ready = true;
+      this.onError();
     });
+  }
+
+  private onError(): void {
+    this.errorGotten = true;
+    this.ready = true;
   }
 
 }

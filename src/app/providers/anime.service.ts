@@ -30,6 +30,7 @@ export class AnimeService {
   private userQuery: string;
   private searchQuery: string;
   private listQuery: string;
+  private listMediaIdsQuery: string;
   private updatedEntriesQuery: string;
   private finishedAiringMediaQuery: string;
   private listFavouritesQuery: string;
@@ -177,7 +178,6 @@ export class AnimeService {
       variables: options
 
     }, this.getRequestOptions()).map((response) => {
-      let statusLists: any[] = [];
       let statusObjects: any[] = [];
 
       if (this.isValidResponse(response)) {
@@ -186,6 +186,33 @@ export class AnimeService {
         Object.keys(statusObjects).forEach((status: string) => {
           statusObjects[status].forEach((entry: any) => {
             this.parseListEntryData(entry);
+          });
+        });
+      }
+
+      return statusObjects;
+    });
+  }
+
+  public getListMediaIds(user: User): Observable<any> {
+    let options: any = {
+      listType: MediaTypes.ANIME,
+      userId: user.id
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: this.listMediaIdsQuery,
+      variables: options
+
+    }, this.getRequestOptions()).map((response) => {
+      let statusObjects: any[] = [];
+
+      if (this.isValidResponse(response)) {
+        statusObjects = this.getResponseData(response).MediaListCollection.statusLists;
+
+        Object.keys(statusObjects).forEach((status: string) => {
+          statusObjects[status].forEach((entry: any, index: number) => {
+            statusObjects[status][index] = entry.media.id;
           });
         });
       }
@@ -219,10 +246,12 @@ export class AnimeService {
     });
   }
 
-  public getRecentlyFinishedAiring(pageInfo?: PageQuery): Observable<any> {
+  public getRecentlyFinishedAiring(query: any, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
       sort: MediaSort.END_DATE_DESC,
+
+      idNotIn: query ? query.idNotIn : undefined,
 
       page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
       perPage: pageInfo ? (pageInfo.perPage || 10) : 1
@@ -536,6 +565,29 @@ export class AnimeService {
         ${this.listEntryFields}
       }`;
 
+    this.listMediaIdsQuery = `
+      query (
+        $listType: MediaType,
+        $sort: [MediaListSort],
+        $userId: Int!
+      ) {
+        MediaListCollection (
+          sort: $sort,
+          type: $listType,
+          userId: $userId
+        ) {
+          statusLists {
+            ... mediaListEntryFields
+          }
+        }
+      }
+  
+      fragment mediaListEntryFields on MediaList {
+        media {
+          id
+        }
+      }`;
+
     this.updatedEntriesQuery = `
       query (
         $listType: MediaType,
@@ -568,6 +620,8 @@ export class AnimeService {
         $listType: MediaType,
         $sort: [MediaSort],
         
+        $idNotIn: [Int],
+        
         $page: Int,
         $perPage: Int
       ) {
@@ -579,6 +633,7 @@ export class AnimeService {
             sort: $sort,
             type: $listType,
             status: ${MediaStatus.FINISHED},
+            id_not_in: $idNotIn,
             onList: true
           ) {
             ${this.listAnimeFields}
