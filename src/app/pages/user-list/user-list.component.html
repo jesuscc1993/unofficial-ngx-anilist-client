@@ -2,7 +2,7 @@
 
   <mat-card *ngIf="!user" class="alert warning">
     <h4>
-      <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+      <i class="fa fa-exclamation-circle margin-right-xxs"></i>
       You are not logged in.
     </h4>
   </mat-card>
@@ -25,11 +25,15 @@
 
         <div class="statuses-wrapper">
           <span *ngFor="let status of statuses" class="status-wrapper">
-            <mat-checkbox [(ngModel)]="status.shown"></mat-checkbox>
+            <div *ngIf="hasDataOfStatus(status.value)">
+              <mat-checkbox [(ngModel)]="status.shown">
+                {{ status.label }}
+              </mat-checkbox>
 
-            <a *ngIf="hasDataOfStatus(status.value)" href="{{ '/user-list#' + status.value }}" class="capitalize">
-              {{ status.label }}
-            </a>
+              <a href="{{ '/user-list#' + status.value }}" class="capitalize">
+                <i class="fa fa-arrow-down go-to-icon"></i>
+              </a>
+            </div>
           </span>
         </div>
       </mat-card>
@@ -73,7 +77,7 @@
 
     <mat-card *ngIf="!statuses || !statuses.length">
       <h4>
-        <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+        <i class="fa fa-exclamation-circle margin-right-xxs"></i>
         You haven't added any entries yet.
       </h4>
     </mat-card>
@@ -82,7 +86,7 @@
 
   <mat-card *ngIf="errorGotten" class="error">
     <h4>
-      <i class="fa fa-exclamation-circle fa-1x margin-right-xxs"></i>
+      <i class="fa fa-exclamation-circle margin-right-xxs"></i>
       Error 500: Internal server error
     </h4>
   </mat-card>

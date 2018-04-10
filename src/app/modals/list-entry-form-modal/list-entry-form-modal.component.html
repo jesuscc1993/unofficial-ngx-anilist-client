@@ -1,7 +1,7 @@
 <mat-card class="composite">
 
   <div class="header no-margin">
-    <i class="fa fa-times fa-1x float-right clickable" (click)="dismiss()"></i>
+    <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
 
     <div class="title">
       <h3 class="no-margin">
@@ -40,7 +40,7 @@
 
       <!--<span *ngIf="listEntry !== undefined">-->
         <!--<button mat-raised-button color="warn" class="margin-right-s square-button" (click)="deleteEntry($event)">-->
-          <!--<i class="fa fa-trash fa-1x baseline"></i>-->
+          <!--<i class="fa fa-trash baseline"></i>-->
         <!--</button>-->
       <!--</span>-->
 
@@ -52,12 +52,12 @@
 
       <span class="float-right">
         <button mat-raised-button color="accent" class="margin-right-xs" [disabled]="!listEntryForm.valid || !isSubmitEnabled()">
-          <i class="fa fa-send fa-1x baseline margin-right-xxxs"></i>
+          <i class="fa fa-send baseline margin-right-xxxs"></i>
           Submit
         </button>
 
         <button mat-raised-button class="float-right" (click)="dismiss($event)">
-          <i class="fa fa-times fa-1x baseline margin-right-xxxs"></i>
+          <i class="fa fa-times baseline margin-right-xxxs"></i>
           Cancel
         </button>
       </span>

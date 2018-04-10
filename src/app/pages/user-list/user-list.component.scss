@@ -15,6 +15,11 @@
     margin-right: $spacing-xs;
     display: inline-block;
     min-width: 104px;
+
+    .go-to-icon {
+      line-height: $spacing-s;
+      vertical-align: bottom;
+    }
   }
 }
 
