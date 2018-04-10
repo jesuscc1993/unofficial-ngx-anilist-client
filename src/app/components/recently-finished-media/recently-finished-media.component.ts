@@ -12,7 +12,7 @@ import { Media } from '../../models/anilist/media';
 export class RecentlyFinishedMediaComponent {
 
   mediaList: Media[];
-  maxEntries: number = 16;
+  maxEntries: number = 20;
 
   ready: boolean;
   errorGotten: boolean;
@@ -21,7 +21,6 @@ export class RecentlyFinishedMediaComponent {
     private animeService: AnimeService,
     private dateUtil: DateUtil
   ) {
-
     this.animeService.getListMediaIds(this.animeService.getUser()).subscribe((listMediaIds) => {
 
       this.animeService.getRecentlyFinishedAiring({

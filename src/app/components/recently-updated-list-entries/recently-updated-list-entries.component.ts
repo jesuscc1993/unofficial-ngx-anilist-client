@@ -12,7 +12,7 @@ import { User } from '../../models/anilist/user';
 export class RecentlyUpdatedListEntriesComponent {
 
   listEntries: ListEntry[];
-  maxEntries: number = 16;
+  maxEntries: number = 20;
 
   ready: boolean;
   errorGotten: boolean;

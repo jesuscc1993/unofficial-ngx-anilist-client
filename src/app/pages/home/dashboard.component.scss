@@ -5,7 +5,7 @@
   .column {
     $sidebar-width: 24%;
     $padding: $spacing-xxxs * 1.5;
-    padding: 0 $padding $padding;
+    padding: 0 $padding;
     font-size: inherit;
     vertical-align: top;
     display: inline-block;
@@ -13,6 +13,7 @@
 
     &.left-sidebar {
       width: $sidebar-width;
+      padding-left: 0;
     }
 
     &.main-content {
@@ -21,6 +22,7 @@
 
     &.right-sidebar {
       width: $sidebar-width;
+      padding-right: 0;
     }
 
     @media (max-width: $screen-m) {
