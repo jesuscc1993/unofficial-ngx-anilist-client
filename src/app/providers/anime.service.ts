@@ -15,6 +15,16 @@ import { MediaQuery } from '../models/anilist/query';
 import { PageQuery } from '../models/anilist/pageInfo';
 import { MediaSort } from '../models/anilist/mediaSorts';
 import { apiUrl, accessTokenCookieKey, userCookieKey } from '../app.constants';
+import {
+  deleteListEntryQuery,
+  finishedAiringMediaQuery,
+  genresQuery, listFavouritesQuery,
+  listMediaIdsQuery,
+  listQuery, saveListEntryQuery,
+  searchQuery, toggleFavouriteEntryQuery,
+  updatedEntriesQuery,
+  userQuery
+} from './anime-queries';
 
 @Injectable()
 export class AnimeService {
@@ -26,47 +36,65 @@ export class AnimeService {
   private searchAnimeFields: string;
   private listEntryFields: string;
 
-  private genresQuery: string;
-  private userQuery: string;
-  private searchQuery: string;
-  private listQuery: string;
-  private listMediaIdsQuery: string;
-  private updatedEntriesQuery: string;
-  private finishedAiringMediaQuery: string;
-  private listFavouritesQuery: string;
-  private saveListEntryQuery: string;
-  private deleteListEntryQuery: string;
-  private toggleFavouriteEntryQuery: string;
-
   userChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor (
     private httpClient: HttpClient
   ) {
-    this.initializeQueries();
+
   }
 
+  /**
+   * Stores the access token for the currently logged in user
+   * @param {string} accessToken
+   */
   public setAccessToken(accessToken: string): void {
     localStorage.setItem(accessTokenCookieKey, accessToken);
   }
+
+  /**
+   * Returns the access token for the currently logged in user
+   * @returns {string}
+   */
   public getAccessToken(): string {
     return localStorage.getItem(accessTokenCookieKey);
   }
+
+  /**
+   * Clears the access token for the currently logged in user
+   */
   public removeAccessToken(): void {
     localStorage.removeItem(accessTokenCookieKey);
   }
 
+  /**
+   * Stores the currently logged in user
+   * @param {User} user
+   */
   public setUser(user: User): void {
     localStorage.setItem(userCookieKey, JSON.stringify(user));
   }
+
+  /**
+   * Returns the currently logged in user
+   * @returns {User}
+   */
   public getUser(): User {
     const jsonString: string = localStorage.getItem(userCookieKey);
     return jsonString ? JSON.parse(jsonString) : undefined;
   }
+
+  /**
+   * Clears the currently logged in user
+   */
   public removeUser(): void {
     localStorage.removeItem(userCookieKey);
   }
 
+  /**
+   * Retrieves and stores the current user based on their access token
+   * @param {string} accessToken
+   */
   public logIn(accessToken: string): void {
     this.setAccessToken(accessToken);
 
@@ -76,15 +104,22 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Clears the user and their access token
+   */
   public logOut(): void {
     this.removeAccessToken();
     this.removeUser();
     this.userChange.emit();
   }
 
+  /**
+   * Returns the available genres to use as filters
+   * @returns {Observable<string[]>}
+   */
   public getGenres(): Observable<string[]> {
     return this.httpClient.post(this.apiUrl, {
-      query: this.genresQuery
+      query: genresQuery
 
     }, this.getRequestOptions()).map((response) => {
       let serverResponse: any;
@@ -97,6 +132,12 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns paginated media based on the query
+   * @param {MediaQuery} query
+   * @param {PageQuery} pageInfo
+   * @returns {Observable<any>}
+   */
   public search(query: MediaQuery, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
       type: MediaTypes.ANIME,
@@ -133,7 +174,7 @@ export class AnimeService {
     }
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.searchQuery,
+      query: searchQuery,
       variables: options
 
     }, this.getRequestOptions()).map((response) => {
@@ -151,9 +192,13 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns hte currently logged in user
+   * @returns {Observable<User>}
+   */
   public queryUser(): Observable<User> {
     return this.httpClient.post(this.apiUrl, {
-      query: this.userQuery
+      query: userQuery
 
     }, this.getRequestOptions()).map((response) => {
       let serverResponse: any;
@@ -166,6 +211,11 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns the anime list for the given user
+   * @param {User} user
+   * @returns {Observable<any>}
+   */
   public getList(user: User): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
@@ -174,7 +224,7 @@ export class AnimeService {
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.listQuery,
+      query: listQuery,
       variables: options
 
     }, this.getRequestOptions()).map((response) => {
@@ -194,6 +244,11 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns the media ids for all the entries on the given user's list
+   * @param {User} user
+   * @returns {Observable<any>}
+   */
   public getListMediaIds(user: User): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
@@ -201,7 +256,7 @@ export class AnimeService {
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.listMediaIdsQuery,
+      query: listMediaIdsQuery,
       variables: options
 
     }, this.getRequestOptions()).map((response) => {
@@ -221,6 +276,12 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns the most recently updated list entries for the given user
+   * @param {User} user
+   * @param {PageQuery} pageInfo
+   * @returns {Observable<any>}
+   */
   public getRecentlyUpdated(user: User, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
@@ -232,7 +293,7 @@ export class AnimeService {
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.updatedEntriesQuery,
+      query: updatedEntriesQuery,
       variables: options
 
     }, this.getRequestOptions()).map((response: any) => {
@@ -246,6 +307,12 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns the most recently finished airing media on the given user's list
+   * @param query
+   * @param {PageQuery} pageInfo
+   * @returns {Observable<any>}
+   */
   public getRecentlyFinishedAiring(query: any, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
       listType: MediaTypes.ANIME,
@@ -258,7 +325,7 @@ export class AnimeService {
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.finishedAiringMediaQuery,
+      query: finishedAiringMediaQuery,
       variables: options
 
     }, this.getRequestOptions()).map((response: any) => {
@@ -272,6 +339,11 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns the anime favourited by the given user
+   * @param {User} user
+   * @param {Function} callback
+   */
   public getListFavourites(user: User, callback: Function): void {
     let options: any = {
       userId: user.id,
@@ -279,12 +351,18 @@ export class AnimeService {
     };
 
     let favourites: any[] = [];
-    this.queryResultsPage(options, favourites, callback);
+    this.queryFavouritesResultsPage(options, favourites, callback);
   }
 
-  private queryResultsPage(options: any, favourites: any[], callback: Function): void {
+  /**
+   * Returns the paginated anime favourited by the given user
+   * @param options
+   * @param {any[]} favourites
+   * @param {Function} callback
+   */
+  private queryFavouritesResultsPage(options: any, favourites: any[], callback: Function): void {
     this.httpClient.post(this.apiUrl, {
-      query: this.listFavouritesQuery,
+      query: listFavouritesQuery,
       variables: options
 
     }, this.getRequestOptions()).subscribe((response) => {
@@ -299,7 +377,7 @@ export class AnimeService {
 
           if (favouritesData.pageInfo.hasNextPage) {
             options.page++;
-            this.queryResultsPage(options, favourites, callback);
+            this.queryFavouritesResultsPage(options, favourites, callback);
 
           } else {
             callback(favourites);
@@ -309,6 +387,11 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Returns the media IDs for the anime favourited by the given user
+   * @param {User} user
+   * @param {Function} callback
+   */
   public getListFavouriteIDs(user: User, callback: Function): void {
     this.getListFavourites(user, (listFavourites) => {
       let favouriteIDs: any[] = [];
@@ -321,6 +404,11 @@ export class AnimeService {
     });
   }
 
+  /**
+   * Creates or updates the provided list entry for the currently logged in user
+   * @param listEntryRequest
+   * @returns {Observable<any>}
+   */
   public saveListEntry(listEntryRequest: any): Observable<any> {
     let options: any = {
       status: (listEntryRequest.status || ListEntryStatus.COMPLETED).toUpperCase(),
@@ -329,34 +417,53 @@ export class AnimeService {
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.saveListEntryQuery,
+      query: saveListEntryQuery,
       variables: options
 
     }, this.getRequestOptions());
   }
 
+  /**
+   * Removes the provided list entry for the currently logged in user
+   * @param {ListEntry} listEntry
+   * @returns {Observable<any>}
+   */
   public deleteListEntry(listEntry: ListEntry): Observable<any> {
     let options: any = {
       id: listEntry.id
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.deleteListEntryQuery,
+      query: deleteListEntryQuery,
       variables: options
 
     }, this.getRequestOptions());
   }
 
+  /**
+   * Toggles an anime as favourite for the currently logged in user
+   * @param {ListEntry} listEntry
+   * @returns {Observable<any>}
+   */
   public toggleFavouriteEntry(listEntry: ListEntry): Observable<any> {
     let options: any = {
       animeId: listEntry.media.id
     };
 
     return this.httpClient.post(this.apiUrl, {
-      query: this.toggleFavouriteEntryQuery,
+      query: toggleFavouriteEntryQuery,
       variables: options
 
     }, this.getRequestOptions());
+  }
+
+  /**
+   * Returns a media's duration formatted as hours and/or minutes
+   * @param {Media} media
+   * @returns {string}
+   */
+  public getFormattedMediaDuration(media: Media): string {
+    return media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
   }
 
   private getRequestOptions(): any {
@@ -407,312 +514,6 @@ export class AnimeService {
         this.parseAnimeData(<Anime> listEntry.media);
       }
     }
-  }
-
-  /* formatting */
-  public getFormattedMediaDuration(media: Media): string {
-    return media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
-  }
-
-  private initializeQueries(): void {
-
-    this.pageInfoFields = `
-      currentPage
-      hasNextPage
-      lastPage
-      perPage
-      total`;
-
-    this.listAnimeFields = `
-      averageScore
-      coverImage {
-        large
-        medium
-      }
-      description
-      duration
-      episodes
-      format
-      genres
-      id
-      startDate {
-        year
-      }
-      status
-      studios(isMain: true) {
-        nodes {
-          name
-        }
-      }
-      tags {
-        description
-        isMediaSpoiler
-        name
-      }
-      title {
-        romaji
-      }`;
-
-    this.searchAnimeFields = `${this.listAnimeFields}
-      mediaListEntry {
-        id
-        scoreRaw: score (
-          format: POINT_100
-        )
-        status
-      }`;
-
-    this.listEntryFields = `
-      id
-      media {
-        ${this.listAnimeFields}
-      }
-      scoreRaw: score (
-        format: POINT_100
-      )
-      status
-      updatedAt
-    `;
-
-    this.genresQuery = `
-      {
-        GenreCollection
-      }`;
-
-    this.userQuery = `
-      {
-        Viewer {
-          avatar {
-            large
-          }
-          id
-          name
-          options {
-            displayAdultContent
-          }
-          stats {
-            favouredGenresOverview {
-              amount
-              genre
-              meanScore
-              timeWatched
-            }
-            watchedTime
-          }
-        }
-      }`;
-
-    this.searchQuery = `
-      query (
-        $adultContent: Boolean,
-        $averageScore_greater: Int,
-        $averageScore_lesser: Int,
-        $formats: [MediaFormat],
-        $genres: [String],
-        $id: Int,
-        $search: String,
-        $sort: [MediaSort],
-        $startDate_greater: FuzzyDateInt,
-        $startDate_lesser: FuzzyDateInt,
-        $type: MediaType,
-        
-        $page: Int,
-        $perPage: Int
-      ) {
-        Page (
-          page: $page,
-          perPage: $perPage
-        ) {
-          pageInfo {
-            ${this.pageInfoFields}
-          }
-          media (
-            averageScore_greater: $averageScore_greater,
-            averageScore_lesser: $averageScore_lesser,
-            format_in: $formats,
-            genre_in: $genres,
-            isAdult: $adultContent,
-            search: $search,
-            sort: $sort,
-            startDate_greater: $startDate_greater,
-            startDate_lesser: $startDate_lesser,
-            type: $type,
-            id: $id
-          ) {
-            ${this.searchAnimeFields}
-          }
-        }
-      }`;
-
-    this.listQuery = `
-      query (
-        $listType: MediaType,
-        $sort: [MediaListSort],
-        $userId: Int!
-      ) {
-        MediaListCollection (
-          sort: $sort,
-          type: $listType,
-          userId: $userId
-        ) {
-          statusLists {
-            ... mediaListEntryFields
-          }
-        }
-      }
-  
-      fragment mediaListEntryFields on MediaList {
-        ${this.listEntryFields}
-      }`;
-
-    this.listMediaIdsQuery = `
-      query (
-        $listType: MediaType,
-        $sort: [MediaListSort],
-        $userId: Int!
-      ) {
-        MediaListCollection (
-          sort: $sort,
-          type: $listType,
-          userId: $userId
-        ) {
-          statusLists {
-            ... mediaListEntryFields
-          }
-        }
-      }
-  
-      fragment mediaListEntryFields on MediaList {
-        media {
-          id
-        }
-      }`;
-
-    this.updatedEntriesQuery = `
-      query (
-        $listType: MediaType,
-        $sort: [MediaListSort],
-        $userId: Int!,
-        
-        $page: Int,
-        $perPage: Int
-      ) {
-        Page (
-          page: $page,
-          perPage: $perPage
-        ) {
-          mediaList (
-            sort: $sort,
-            type: $listType,
-            userId: $userId
-          ) {
-            ... mediaListEntryFields
-          }
-        }
-      }
-  
-      fragment mediaListEntryFields on MediaList {
-        ${this.listEntryFields}
-      }`;
-
-    this.finishedAiringMediaQuery = `
-      query (
-        $listType: MediaType,
-        $sort: [MediaSort],
-        
-        $idNotIn: [Int],
-        
-        $page: Int,
-        $perPage: Int
-      ) {
-        Page (
-          page: $page,
-          perPage: $perPage
-        ) {
-          media(
-            sort: $sort,
-            type: $listType,
-            status: ${MediaStatus.FINISHED},
-            id_not_in: $idNotIn,
-            onList: true
-          ) {
-            ${this.listAnimeFields}
-            mediaListEntry {
-              ...mediaListEntryFields
-            }
-          }
-        }
-      }
-  
-      fragment mediaListEntryFields on MediaList {
-        ${this.listEntryFields}
-      }`;
-
-    this.listFavouritesQuery = `
-      query (
-        $userId: Int!,
-        $page: Int
-      ) {
-        User (
-          id: $userId
-        ) {
-          favourites {
-            anime (
-              page: $page
-            ) {
-              nodes {
-                id
-              }
-              pageInfo {
-                ${this.pageInfoFields}
-              }
-            }
-          }
-        }
-      }`;
-
-    this.saveListEntryQuery = `
-      mutation (
-        $mediaId: Int,
-        $scoreRaw: Int,
-        $status: MediaListStatus
-      ) {
-        SaveMediaListEntry (
-          mediaId: $mediaId,
-          scoreRaw: $scoreRaw,
-          status: $status
-        ) {
-          id
-          status
-        }
-      }`;
-
-    this.deleteListEntryQuery = `
-      mutation (
-        $id: Int
-      ) {
-        DeleteMediaListEntry (id: $id) {
-          deleted
-        }
-      }`;
-
-    this.toggleFavouriteEntryQuery = `
-      mutation (
-        $animeId: Int
-      ) {
-        ToggleFavourite (
-          animeId: $animeId
-        ) {
-          anime {
-            nodes {
-              id
-              title {
-                userPreferred
-              }
-            }
-          }
-        }
-      }`;
   }
 
 }
