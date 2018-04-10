@@ -146,13 +146,9 @@ export const listQuery: string = `
       userId: $userId
     ) {
       statusLists {
-        ... mediaListEntryFields
+        ${listEntryFields}
       }
     }
-  }
-
-  fragment mediaListEntryFields on MediaList {
-    ${listEntryFields}
   }
 `;
 
@@ -168,14 +164,10 @@ export const listMediaIdsQuery: string = `
       userId: $userId
     ) {
       statusLists {
-        ... mediaListEntryFields
+        media {
+          id
+        }
       }
-    }
-  }
-
-  fragment mediaListEntryFields on MediaList {
-    media {
-      id
     }
   }
 `;
@@ -198,13 +190,9 @@ export const updatedEntriesQuery: string = `
         type: $listType,
         userId: $userId
       ) {
-        ... mediaListEntryFields
+        ${listEntryFields}
       }
     }
-  }
-
-  fragment mediaListEntryFields on MediaList {
-    ${listEntryFields}
   }
 `;
 
@@ -231,14 +219,10 @@ export const finishedAiringMediaQuery: string = `
       ) {
         ${listAnimeFields}
         mediaListEntry {
-          ...mediaListEntryFields
+          ${listEntryFields}
         }
       }
     }
-  }
-
-  fragment mediaListEntryFields on MediaList {
-    ${listEntryFields}
   }
 `;
 
