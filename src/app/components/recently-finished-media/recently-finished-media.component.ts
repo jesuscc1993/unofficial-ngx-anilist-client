@@ -12,7 +12,7 @@ import { PageEvent } from '@angular/material';
 })
 export class RecentlyFinishedMediaComponent {
 
-  listMediaIds: any;
+  blacklistedIds: number[];
   mediaList: Media[];
   pagination: PageQuery;
   maxEntries: number = 16;
@@ -24,7 +24,7 @@ export class RecentlyFinishedMediaComponent {
     private animeService: AnimeService
   ) {
     this.animeService.getListMediaIds(this.animeService.getUser()).subscribe((listMediaIds) => {
-      this.listMediaIds = listMediaIds;
+      this.blacklistedIds = listMediaIds.completed.concat(listMediaIds.dropped);
 
       this.getRecentlyFinishedAiring();
 
@@ -40,7 +40,7 @@ export class RecentlyFinishedMediaComponent {
 
   private getRecentlyFinishedAiring(): void {
     this.animeService.getRecentlyFinishedAiring({
-      idNotIn: this.listMediaIds ? this.listMediaIds.completed : undefined
+      idNotIn: this.blacklistedIds
     }, {
       perPage: this.maxEntries,
       pageIndex: this.pagination ? this.pagination.pageIndex : undefined
