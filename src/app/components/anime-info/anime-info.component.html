@@ -58,6 +58,16 @@
         </span>
       </p>
 
+      <p *ngIf="anime.format && anime.format.length" class="property-value-pair flex-box">
+        <strong class="property">
+          Format:
+        </strong>
+
+        <span class="value">
+          {{ anime.format }}
+        </span>
+      </p>
+
       <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
         <strong class="property">
           Status:
