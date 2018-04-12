@@ -18,10 +18,14 @@ import { apiUrl, accessTokenCookieKey, userCookieKey } from '../app.constants';
 import {
   deleteListEntryQuery,
   finishedAiringMediaQuery,
-  genresQuery, listFavouritesQuery,
+  genresQuery,
+  listFavouritesQuery,
   listMediaIdsQuery,
-  listQuery, saveListEntryQuery,
-  searchQuery, toggleFavouriteEntryQuery,
+  listQuery,
+  relatedMediaQuery,
+  saveListEntryQuery,
+  searchQuery,
+  toggleFavouriteEntryQuery,
   updatedEntriesQuery,
   userQuery
 } from './anime-queries';
@@ -297,13 +301,13 @@ export class AnimeService {
       variables: options
 
     }, this.getRequestOptions()).map((response: any) => {
-      const entryList: ListEntry[] = response ? response.data.Page.mediaList : [];
+      const listResponse: any = response ? response.data.Page : [];
 
-      entryList.forEach((entry: any) => {
+      listResponse.mediaList.forEach((entry: any) => {
         this.parseListEntryData(entry);
       });
 
-      return entryList;
+      return listResponse;
     });
   }
 
@@ -329,13 +333,47 @@ export class AnimeService {
       variables: options
 
     }, this.getRequestOptions()).map((response: any) => {
-      const mediaList: Media[] = response ? response.data.Page.media : [];
+      const mediaResponse: any = response ? response.data.Page : [];
 
-      mediaList.forEach((media: any) => {
+      mediaResponse.media.forEach((media: Anime) => {
         this.parseAnimeData(media);
       });
 
-      return mediaList;
+      return mediaResponse;
+    });
+  }
+
+  /**
+   * Returns the related media for the entries on the given user's list
+   * @param {User} user
+   * @returns {Observable<any>}
+   */
+  public getRelatedMedia(user: User): Observable<any> {
+    let options: any = {
+      listType: MediaTypes.ANIME,
+      userId: user.id
+    };
+
+    return this.httpClient.post(this.apiUrl, {
+      query: relatedMediaQuery,
+      variables: options
+
+    }, this.getRequestOptions()).map((response: any) => {
+      let statusObjects: any[] = [];
+
+      if (this.isValidResponse(response)) {
+        statusObjects = this.getResponseData(response).MediaListCollection.statusLists;
+
+        // TODO remove extra info and add conditional query on detail
+
+        Object.keys(statusObjects).forEach((status: string) => {
+          statusObjects[status].forEach((entry: any, index: number) => {
+            statusObjects[status][index] = entry.media.id;
+          });
+        });
+      }
+
+      return statusObjects;
     });
   }
 

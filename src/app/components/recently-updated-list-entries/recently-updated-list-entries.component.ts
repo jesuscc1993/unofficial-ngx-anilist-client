@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { AnimeService } from '../../providers/anime.service';
 import { ListEntry } from '../../models/anilist/listEntry';
 import { User } from '../../models/anilist/user';
+import { PageQuery } from '../../models/anilist/pageInfo';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-recently-updated-list-entries',
@@ -11,8 +13,10 @@ import { User } from '../../models/anilist/user';
 })
 export class RecentlyUpdatedListEntriesComponent {
 
+  user: User;
   listEntries: ListEntry[];
-  maxEntries: number = 20;
+  pagination: PageQuery;
+  maxEntries: number = 16;
 
   ready: boolean;
   errorGotten: boolean;
@@ -20,13 +24,24 @@ export class RecentlyUpdatedListEntriesComponent {
   constructor(
     private animeService: AnimeService
   ) {
-    const user: User = this.animeService.getUser();
-    if (user) {
-      this.animeService.getRecentlyUpdated(user, {
-        perPage: this.maxEntries
+    this.user = this.animeService.getUser();
+    this.getRecentlyUpdated();
+  }
 
-      }).subscribe((listEntries) => {
-        this.listEntries = listEntries;
+  changePage(pageEvent: PageEvent): void {
+    this.pagination.pageIndex = pageEvent.pageIndex + 1;
+    this.getRecentlyUpdated();
+  }
+
+  private getRecentlyUpdated(): void {
+    if (this.user) {
+      this.animeService.getRecentlyUpdated(this.user, {
+        perPage: this.maxEntries,
+        pageIndex: this.pagination ? this.pagination.pageIndex : undefined
+
+      }).subscribe((response) => {
+        this.listEntries = response.mediaList;
+        this.pagination = response.pageInfo;
         this.ready = true;
 
       }, (error) => {
@@ -35,5 +50,4 @@ export class RecentlyUpdatedListEntriesComponent {
       });
     }
   }
-
 }

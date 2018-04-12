@@ -2,26 +2,18 @@
 
   <div class="header">
     <h4 class="no-margin">
-      Your latest list updates
+      Media related to what you have watched
     </h4>
   </div>
 
   <mat-divider></mat-divider>
 
-  <div class="content no-padding-bottom">
+  <div class="content">
     <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
 
-    <div *ngIf="listEntries && listEntries.length" class="cover-media-grid">
-      <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
+    <div *ngIf="mediaList && mediaList.length" class="cover-media-grid">
+      <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
     </div>
-
-    <mat-paginator
-      *ngIf="pagination"
-      [length]="pagination.total"
-      [pageSize]="pagination.perPage"
-      (page)="changePage($event)"
-      class="basic">
-    </mat-paginator>
 
     <mat-card *ngIf="errorGotten" class="error">
       <h4>

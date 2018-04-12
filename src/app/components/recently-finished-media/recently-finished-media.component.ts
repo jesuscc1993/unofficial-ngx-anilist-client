@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 import { AnimeService } from '../../providers/anime.service';
-import { DateUtil } from '../../utils/date.util';
 import { Media } from '../../models/anilist/media';
+import { PageQuery } from '../../models/anilist/pageInfo';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-recently-finished-media',
@@ -11,30 +12,43 @@ import { Media } from '../../models/anilist/media';
 })
 export class RecentlyFinishedMediaComponent {
 
+  listMediaIds: any;
   mediaList: Media[];
-  maxEntries: number = 20;
+  pagination: PageQuery;
+  maxEntries: number = 16;
 
   ready: boolean;
   errorGotten: boolean;
 
   constructor(
-    private animeService: AnimeService,
-    private dateUtil: DateUtil
+    private animeService: AnimeService
   ) {
     this.animeService.getListMediaIds(this.animeService.getUser()).subscribe((listMediaIds) => {
+      this.listMediaIds = listMediaIds;
 
-      this.animeService.getRecentlyFinishedAiring({
-        idNotIn: listMediaIds.completed
-      }, {
-        perPage: this.maxEntries
+      this.getRecentlyFinishedAiring();
 
-      }).subscribe((listEntries) => {
-        this.mediaList = listEntries;
-        this.ready = true;
+    }, (error) => {
+      this.onError();
+    });
+  }
 
-      }, (error) => {
-        this.onError();
-      });
+  changePage(pageEvent: PageEvent): void {
+    this.pagination.pageIndex = pageEvent.pageIndex + 1;
+    this.getRecentlyFinishedAiring();
+  }
+
+  private getRecentlyFinishedAiring(): void {
+    this.animeService.getRecentlyFinishedAiring({
+      idNotIn: this.listMediaIds ? this.listMediaIds.completed : undefined
+    }, {
+      perPage: this.maxEntries,
+      pageIndex: this.pagination ? this.pagination.pageIndex : undefined
+
+    }).subscribe((response) => {
+      this.mediaList = response.media;
+      this.pagination = response.pageInfo;
+      this.ready = true;
 
     }, (error) => {
       this.onError();

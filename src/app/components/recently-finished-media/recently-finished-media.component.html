@@ -8,12 +8,20 @@
 
   <mat-divider></mat-divider>
 
-  <div class="content">
+  <div class="content no-padding-bottom">
     <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
 
     <div *ngIf="mediaList && mediaList.length" class="cover-media-grid">
       <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
     </div>
+
+    <mat-paginator
+      *ngIf="pagination"
+      [length]="pagination.total"
+      [pageSize]="pagination.perPage"
+      (page)="changePage($event)"
+      class="basic">
+    </mat-paginator>
 
     <mat-card *ngIf="errorGotten" class="error">
       <h4>

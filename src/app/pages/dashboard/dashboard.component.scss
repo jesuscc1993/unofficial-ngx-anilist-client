@@ -26,6 +26,7 @@
     }
 
     @media (max-width: $screen-m) {
+      padding: $padding 0;
       width: 100% !important;
 
       &.left-sidebar,

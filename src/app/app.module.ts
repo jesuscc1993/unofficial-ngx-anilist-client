@@ -18,7 +18,7 @@ import { SortPipe } from './pipes/sort';
 /* pages */
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/home/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
 import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
@@ -35,6 +35,7 @@ import { GenresOverviewComponent } from './components/genres-overview/genres-ove
 import { AnimeInfoComponent } from './components/anime-info/anime-info.component';
 import { RecentlyFinishedMediaComponent } from './components/recently-finished-media/recently-finished-media.component';
 import { RecentlyUpdatedListEntriesComponent } from './components/recently-updated-list-entries/recently-updated-list-entries.component';
+import { ListRelatedMediaComponent } from './components/list-related-media/list-related-media.component';
 import { CoverMediaComponent } from './components/cover-media/cover-media.component';
 
 const appRoutes: Routes = [
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     AnimeInfoComponent,
     RecentlyFinishedMediaComponent,
     RecentlyUpdatedListEntriesComponent,
+    ListRelatedMediaComponent,
     CoverMediaComponent
   ],
   imports: [

@@ -152,6 +152,30 @@ export const listQuery: string = `
   }
 `;
 
+export const relatedMediaQuery: string = `
+  query (
+    $listType: MediaType,
+    $sort: [MediaListSort],
+    $userId: Int!
+  ) {
+    MediaListCollection (
+      sort: $sort,
+      type: $listType,
+      userId: $userId
+    ) {
+      statusLists {
+        media {
+          relations {
+            nodes {
+              ${listAnimeFields}
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const listMediaIdsQuery: string = `
   query (
     $listType: MediaType,
@@ -185,6 +209,9 @@ export const updatedEntriesQuery: string = `
       page: $page,
       perPage: $perPage
     ) {
+      pageInfo {
+        ${pageInfoFields}
+      }
       mediaList (
         sort: $sort,
         type: $listType,
@@ -210,6 +237,9 @@ export const finishedAiringMediaQuery: string = `
       page: $page,
       perPage: $perPage
     ) {
+      pageInfo {
+        ${pageInfoFields}
+      }
       media(
         sort: $sort,
         type: $listType,
