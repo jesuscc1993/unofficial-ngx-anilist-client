@@ -2,7 +2,7 @@
 
   <div class="header">
     <h4 class="no-margin">
-      Recently updated
+      Your latest list updates
     </h4>
   </div>
 
@@ -14,6 +14,14 @@
     <div *ngIf="listEntries && listEntries.length" class="cover-media-grid">
       <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
     </div>
+
+    <mat-card *ngIf="errorGotten" class="error">
+      <h4>
+        <i class="fa fa-exclamation-circle margin-right-xxs"></i>
+        Error 500: Internal server error
+      </h4>
+    </mat-card>
+
   </div>
 
 </mat-card>

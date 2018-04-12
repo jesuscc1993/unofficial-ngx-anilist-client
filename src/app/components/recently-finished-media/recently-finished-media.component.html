@@ -14,6 +14,14 @@
     <div *ngIf="mediaList && mediaList.length" class="cover-media-grid">
       <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
     </div>
+
+    <mat-card *ngIf="errorGotten" class="error">
+      <h4>
+        <i class="fa fa-exclamation-circle margin-right-xxs"></i>
+        Error 500: Internal server error
+      </h4>
+    </mat-card>
+
   </div>
 
 </mat-card>
