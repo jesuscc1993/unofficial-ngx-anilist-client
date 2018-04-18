@@ -58,7 +58,7 @@
         </span>
       </p>
 
-      <p *ngIf="anime.format && anime.format.length" class="property-value-pair flex-box">
+      <p *ngIf="!generalInfoOnly && anime.format && anime.format.length" class="property-value-pair flex-box">
         <strong class="property">
           Format:
         </strong>
@@ -88,7 +88,7 @@
         </span>
       </p>
 
-      <p *ngIf="anime.averageScore" class="property-value-pair flex-box">
+      <p *ngIf="!generalInfoOnly && anime.averageScore" class="property-value-pair flex-box">
         <strong class="property">
           Score:
         </strong>
