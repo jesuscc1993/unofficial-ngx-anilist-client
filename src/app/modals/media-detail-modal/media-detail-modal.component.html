@@ -5,7 +5,12 @@
 
     <div class="title">
       <h3 class="no-margin">
-        <app-media-actions *ngIf="media" [media]="media" class="inline-block margin-right-xxxs"></app-media-actions>
+        <app-media-actions
+          *ngIf="media"
+          [media]="media"
+          [fromModal]="true"
+          class="inline-block margin-right-xxxs">
+        </app-media-actions>
 
         <span>
           {{ media.title.romaji }}

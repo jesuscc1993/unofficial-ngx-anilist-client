@@ -18,6 +18,7 @@ import { modalConfig } from '../../app.constants';
 export class MediaActionsComponent implements OnInit, OnDestroy {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
+  @Input() fromModal?: boolean;
   @Output() onUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
 
   user: User;

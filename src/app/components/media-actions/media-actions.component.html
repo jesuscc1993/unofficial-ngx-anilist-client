@@ -13,9 +13,9 @@
     <i class="fa fa-trash action-icon"></i>
     Delete from list
   </button>
-  <button *ngIf="media" mat-menu-item (click)="showDetail()">
+  <button *ngIf="media && !fromModal" mat-menu-item (click)="showDetail()">
     <i class="fa fa-id-card-o action-icon"></i>
-    Show details
+    Additional info
   </button>
   <button mat-menu-item (click)="viewOnAniList()">
     <i class="fa fa-external-link action-icon"></i>
