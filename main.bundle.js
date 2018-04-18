@@ -3116,8 +3116,8 @@ var DateUtil = (function () {
 // `ng build --env=prod` then `envi ronment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    anilist_client_id: 329,
-    // anilist_client_id: 331, // GitHub
+    // anilist_client_id: 329, // local
+    anilist_client_id: 331,
     production: false
 };
 
