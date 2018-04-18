@@ -31,7 +31,11 @@ Presents all the data relevant to an anime<sup>1</sup> in a single page.
 ### Anime table entry
 Displays the most basic anime information<sup>1</sup> in a single row.
 
+Different background colors<sup>2</sup> are used based for entries already on the user's list.
+
 <sup>1</sup> cover, title, format, year, genres, average score and episode count
+
+<sup>2</sup> blue for planned, orange for unfinished and red for dropped.
 
 &#42; Used on the search and user's list pages' tables.
 
