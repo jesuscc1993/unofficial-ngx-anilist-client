@@ -153,6 +153,7 @@
       <mat-paginator
         [length]="pagination.total"
         [pageSize]="pagination.perPage"
+        [pageIndex]="pagination.pageIndex"
         [pageSizeOptions]="[5, 10, 25, 50]"
         (page)="changePage($event)">
       </mat-paginator>

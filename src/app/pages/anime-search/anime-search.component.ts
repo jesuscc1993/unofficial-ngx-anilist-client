@@ -141,6 +141,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       this.noResults = response.media.length < 1;
       this.animeList = response.media;
       this.pagination = response.pageInfo;
+      this.pagination.pageIndex = response.pageInfo.currentPage - 1;
       this.searching = false;
 
     }, () => {
