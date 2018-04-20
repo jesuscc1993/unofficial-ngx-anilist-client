@@ -8,7 +8,7 @@ Anime management client demo built in [Angular](https://angular.io/) 5 and [Angu
 ### Search
 Allows for paginated searching of anime series in a table format.
 
-Filters<sup>1</sup> can be used to refine the search. Single value filters are stored on the URL and retrieved when loading.
+Filters<sup>1</sup> can be used to refine the search. They also are stored on the URL and retrieved when loading.
 
 <sup>1</sup> title, aired before, aired after, scored above, scored below, format type and genre
 

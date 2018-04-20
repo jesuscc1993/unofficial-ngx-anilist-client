@@ -59,7 +59,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     if (fieldKeys.length) {
       Object.keys(queryParams).forEach((fieldKey) => {
         const field: any = this.searchForm.controls[fieldKey];
-        const value: any = queryParams[fieldKey];
+        const value: any = JSON.parse(queryParams[fieldKey]);
 
         if (field && value) {
           field.setValue(value);
@@ -169,8 +169,8 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     Object.keys(this.searchForm.value).forEach((fieldKey) => {
       const field: any = this.searchForm.value[fieldKey];
 
-      if (field && (typeof field !== 'object' && (typeof field !== 'string' || field.length > 0))) {
-        queryParams[fieldKey] = field;
+      if (field && (typeof field !== 'string' || field.length > 0)) {
+        queryParams[fieldKey] = JSON.stringify(field);
       }
     });
 
