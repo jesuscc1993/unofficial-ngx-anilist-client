@@ -171,11 +171,14 @@ export class AnimeService {
     if (query.averageScore_lesser) {
       options.averageScore_lesser = query.averageScore_lesser;
     }
+    if (query.genres && query.genres.length) {
+      options.genres = query.genres;
+    }
     if (query.formats && query.formats.length) {
       options.formats = query.formats;
     }
-    if (query.genres && query.genres.length) {
-      options.genres = query.genres;
+    if (query.statuses && query.statuses.length) {
+      options.statuses = query.statuses;
     }
 
     return this.httpClient.post(this.apiUrl, {

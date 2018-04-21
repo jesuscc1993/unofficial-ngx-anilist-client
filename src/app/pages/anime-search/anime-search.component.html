@@ -80,17 +80,6 @@
             </mat-form-field>
           </div>
 
-          <!-- formats -->
-          <div class="form-group">
-            <mat-form-field>
-              <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
-                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-                  {{ mediaFormat.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
           <!-- genres -->
           <div class="form-group">
             <mat-form-field>
@@ -102,7 +91,29 @@
             </mat-form-field>
           </div>
 
-          <!-- exclude on list -->
+          <!-- formats -->
+          <div class="form-group">
+            <mat-form-field>
+              <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+                  {{ mediaFormat.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- statuses -->
+          <div class="form-group">
+            <mat-form-field>
+              <mat-select placeholder="Status" #formatInput formControlName="statuses" multiple>
+                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus.value">
+                  {{ mediaStatus.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- on list -->
           <div class="form-group">
             <mat-form-field>
               <mat-select placeholder="On list?" formControlName="onList">

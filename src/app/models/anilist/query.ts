@@ -3,8 +3,9 @@ export class MediaQuery {
   onList?: boolean;
   averageScore_greater?: number;
   averageScore_lesser?: number;
-  formats?: string[];
   genres?: string[];
+  formats?: string[];
+  statuses?: string[];
   id?: number;
   search?: string;
   sort?: string;

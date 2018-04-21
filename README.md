@@ -10,7 +10,7 @@ Allows for paginated searching of anime series in a table format.
 
 Filters<sup>1</sup> can be used to refine the search. They also are stored on the URL and retrieved when loading.
 
-<sup>1</sup> title, aired before, aired after, scored above, scored below, format type, genre and on list
+<sup>1</sup> title, aired before, aired after, scored above, scored below, genres, formats, statuses and on list
 
 ### User list
 Allows for paginated searching of the anime series on the logged user's list.

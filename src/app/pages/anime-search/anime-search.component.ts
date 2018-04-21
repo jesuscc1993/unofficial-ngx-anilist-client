@@ -9,6 +9,7 @@ import { MediaQuery } from '../../models/anilist/query';
 import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
 import { MediaFormat } from '../../models/anilist/mediaFormats';
+import { MediaStatus } from '../../models/anilist/mediaStatus';
 import { OnListOptions } from '../../models/anilist/onListOptions';
 import { MediaSort } from '../../models/anilist/mediaSorts';
 import { animeSearchUrl } from '../../app.constants';
@@ -28,8 +29,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   sort: string;
   excludeOnList: boolean;
 
-  mediaFormats: any[] = MediaFormat.LIST;
   mediaGenres: string[];
+  mediaFormats: any[] = MediaFormat.LIST;
+  mediaStatuses: any[] = MediaStatus.LIST;
   onListOptions: any[] = OnListOptions.LIST;
   minYear: number = 1900;
   maxYear: number = new Date().getFullYear() + 1;
@@ -104,8 +106,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       startDate_lesser: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
       averageScore_greater: [undefined, [Validators.min(0), Validators.max(10)]],
       averageScore_lesser: [undefined, [Validators.min(0), Validators.max(10)]],
-      formats: [[]],
       genres: [[]],
+      formats: [[]],
+      statuses: [[]],
       onList: [undefined]
     });
   }
@@ -120,8 +123,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
     let query: MediaQuery = {
       search: filters.search,
-      formats: filters.formats,
       genres: filters.genres,
+      formats: filters.formats,
+      statuses: filters.statuses,
       onList: filters.onList,
       sort: this.sort
     };
