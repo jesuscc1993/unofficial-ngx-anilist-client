@@ -1828,6 +1828,40 @@ var MediaTypes = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/models/anilist/onListOptions.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OnListOptions; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enumMap__ = __webpack_require__("../../../../../src/app/models/enumMap.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var OnListOptions = (function (_super) {
+    __extends(OnListOptions, _super);
+    function OnListOptions(value) {
+        return _super.call(this, value, OnListOptions.LIST, true) || this;
+    }
+    OnListOptions.LIST = [
+        { label: 'Not on list', value: false },
+        { label: 'On list only', value: true },
+        { label: 'Both', value: undefined }
+    ];
+    return OnListOptions;
+}(__WEBPACK_IMPORTED_MODULE_0__enumMap__["a" /* EnumMap */]));
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/models/enumMap.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1995,7 +2029,7 @@ var AnimeDetailComponent = (function () {
 /***/ "../../../../../src/app/pages/anime-search/anime-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"narrow-page\">\n\n  <mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      You are not logged in. Search will be available but most other features will not.\n    </h4>\n  </mat-card>\n\n  <form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n    <mat-card class=\"text-center\">\n\n      <h1>\n        <label for=\"searchInput\">\n          Anime search\n        </label>\n      </h1>\n\n      <div class=\"form-group\">\n        <mat-form-field class=\"medium display-block margin-auto\">\n          <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n        </mat-form-field>\n      </div>\n\n      <!--<mat-form-field id=\"yearInput\">-->\n        <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n        <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n        <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n      <!--</mat-form-field>-->\n\n      <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n        <mat-expansion-panel-header>\n          Advanced filters\n        </mat-expansion-panel-header>\n\n        <mat-divider></mat-divider>\n\n        <div class=\"vertical-padding-xs\">\n\n          <!-- air date -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired after year\"\n                  formControlName=\"startDate_greater\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired before year\"\n                  formControlName=\"startDate_lesser\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- score -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored above\"\n                  formControlName=\"averageScore_greater\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored below\"\n                  formControlName=\"averageScore_lesser\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- formats -->\n          <div class=\"form-group\">\n            <mat-form-field class=\"large\">\n              <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                  {{ mediaFormat.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- genres -->\n          <div class=\"form-group\">\n            <mat-form-field class=\"large\">\n              <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n        </div>\n\n        <div class=\"text-center padding-bottom-xs\">\n\n          <button mat-raised-button type=\"button\" (click)=\"clearFilters($event)\">\n            Clear filters\n          </button>\n\n        </div>\n\n        <mat-divider></mat-divider>\n\n      </mat-expansion-panel>\n\n      <div class=\"text-center\">\n\n        <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n          <i class=\"fa fa-search baseline margin-right-xxxs\"></i>\n          Search\n        </button>\n\n      </div>\n\n    </mat-card>\n\n    <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n    <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n    <mat-card *ngIf=\"errorGotten\" class=\"error\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        Error 500: Internal server error\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"noResults\" class=\"info\">\n      <h4>\n        <i class=\"fa fa-info-circle margin-right-xxs\"></i>\n        No results found\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n      <app-search-results-table\n        [tableData]=\"animeList\"\n        (onSortChange)=\"sortBy($event)\">\n      </app-search-results-table>\n\n      <mat-paginator\n        [length]=\"pagination.total\"\n        [pageSize]=\"pagination.perPage\"\n        [pageSizeOptions]=\"[5, 10, 25, 50]\"\n        (page)=\"changePage($event)\">\n      </mat-paginator>\n    </mat-card>\n\n  </form>\n\n</div>"
+module.exports = "<div class=\"narrow-page\">\n\n  <mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      You are not logged in. Search will be available but most other features will not.\n    </h4>\n  </mat-card>\n\n  <form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n    <mat-card class=\"text-center\">\n\n      <h1>\n        <label for=\"searchInput\">\n          Anime search\n        </label>\n      </h1>\n\n      <div class=\"form-group\">\n        <mat-form-field class=\"medium display-block margin-auto\">\n          <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n        </mat-form-field>\n      </div>\n\n      <!--<mat-form-field id=\"yearInput\">-->\n        <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n        <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n        <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n      <!--</mat-form-field>-->\n\n      <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n        <mat-expansion-panel-header>\n          Advanced filters\n        </mat-expansion-panel-header>\n\n        <mat-divider></mat-divider>\n\n        <div class=\"vertical-padding-xs\">\n\n          <!-- air date -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired after year\"\n                  formControlName=\"startDate_greater\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired before year\"\n                  formControlName=\"startDate_lesser\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- score -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored above\"\n                  formControlName=\"averageScore_greater\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored below\"\n                  formControlName=\"averageScore_lesser\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- genres -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- formats -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                  {{ mediaFormat.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- statuses -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"Status\" #formatInput formControlName=\"statuses\" multiple>\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus.value\">\n                  {{ mediaStatus.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- on list -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"On list?\" formControlName=\"onList\">\n                <mat-option *ngFor=\"let option of onListOptions\" [value]=\"option.value\">\n                  {{ option.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n        </div>\n\n        <div class=\"text-center padding-bottom-xs\">\n\n          <button mat-raised-button type=\"button\" (click)=\"clearFilters($event)\">\n            Clear filters\n          </button>\n\n        </div>\n\n        <mat-divider></mat-divider>\n\n      </mat-expansion-panel>\n\n      <div class=\"text-center\">\n\n        <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n          <i class=\"fa fa-search baseline margin-right-xxxs\"></i>\n          Search\n        </button>\n\n      </div>\n\n    </mat-card>\n\n    <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n    <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n    <mat-card *ngIf=\"errorGotten\" class=\"error\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        Error 500: Internal server error\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"noResults\" class=\"info\">\n      <h4>\n        <i class=\"fa fa-info-circle margin-right-xxs\"></i>\n        No results found\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n      <app-search-results-table\n        [tableData]=\"animeList\"\n        (onSortChange)=\"sortBy($event)\">\n      </app-search-results-table>\n\n      <mat-paginator\n        [length]=\"pagination.total\"\n        [pageSize]=\"pagination.perPage\"\n        [pageIndex]=\"pagination.pageIndex\"\n        [pageSizeOptions]=\"[5, 10, 25, 50]\"\n        (page)=\"changePage($event)\">\n      </mat-paginator>\n    </mat-card>\n\n  </form>\n\n</div>"
 
 /***/ }),
 
@@ -2028,7 +2062,9 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaFormats__ = __webpack_require__("../../../../../src/app/models/anilist/mediaFormats.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_anilist_onListOptions__ = __webpack_require__("../../../../../src/app/models/anilist/onListOptions.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2045,6 +2081,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var AnimeSearchComponent = (function () {
     function AnimeSearchComponent(router, activatedRoute, animeService, formBuilder) {
         var _this = this;
@@ -2053,6 +2091,8 @@ var AnimeSearchComponent = (function () {
         this.animeService = animeService;
         this.formBuilder = formBuilder;
         this.mediaFormats = __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaFormats__["a" /* MediaFormat */].LIST;
+        this.mediaStatuses = __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaStatus__["a" /* MediaStatus */].LIST;
+        this.onListOptions = __WEBPACK_IMPORTED_MODULE_7__models_anilist_onListOptions__["a" /* OnListOptions */].LIST;
         this.minYear = 1900;
         this.maxYear = new Date().getFullYear() + 1;
         this.user = this.animeService.getUser();
@@ -2069,7 +2109,7 @@ var AnimeSearchComponent = (function () {
         if (fieldKeys.length) {
             Object.keys(queryParams).forEach(function (fieldKey) {
                 var field = _this.searchForm.controls[fieldKey];
-                var value = queryParams[fieldKey];
+                var value = JSON.parse(queryParams[fieldKey]);
                 if (field && value) {
                     field.setValue(value);
                 }
@@ -2103,8 +2143,10 @@ var AnimeSearchComponent = (function () {
             startDate_lesser: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(this.minYear), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(this.maxYear)]],
             averageScore_greater: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10)]],
             averageScore_lesser: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10)]],
-            formats: [],
-            genres: []
+            genres: [[]],
+            formats: [[]],
+            statuses: [[]],
+            onList: [undefined]
         });
     };
     AnimeSearchComponent.prototype.search = function (page, perPage) {
@@ -2112,23 +2154,26 @@ var AnimeSearchComponent = (function () {
         this.updateQueryParams();
         this.searching = true;
         this.errorGotten = false;
+        var filters = this.searchForm.value;
         var query = {
-            search: this.searchForm.value.search,
-            formats: this.searchForm.value.formats,
-            genres: this.searchForm.value.genres,
+            search: filters.search,
+            genres: filters.genres,
+            formats: filters.formats,
+            statuses: filters.statuses,
+            onList: filters.onList,
             sort: this.sort
         };
-        if (this.searchForm.value.startDate_lesser) {
-            query.startDate_lesser = this.getDateScalarFromYear(this.searchForm.value.startDate_lesser);
+        if (filters.startDate_lesser) {
+            query.startDate_lesser = this.getDateScalarFromYear(filters.startDate_lesser);
         }
-        if (this.searchForm.value.startDate_greater) {
-            query.startDate_greater = this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231;
+        if (filters.startDate_greater) {
+            query.startDate_greater = this.getDateScalarFromYear(filters.startDate_greater - 1) + 1231;
         }
-        if (this.searchForm.value.averageScore_greater) {
-            query.averageScore_greater = this.searchForm.value.averageScore_greater * 10;
+        if (filters.averageScore_greater) {
+            query.averageScore_greater = filters.averageScore_greater * 10;
         }
-        if (this.searchForm.value.averageScore_lesser) {
-            query.averageScore_lesser = this.searchForm.value.averageScore_lesser * 10;
+        if (filters.averageScore_lesser) {
+            query.averageScore_lesser = filters.averageScore_lesser * 10;
         }
         var pageInfo = {
             pageIndex: page,
@@ -2138,6 +2183,7 @@ var AnimeSearchComponent = (function () {
             _this.noResults = response.media.length < 1;
             _this.animeList = response.media;
             _this.pagination = response.pageInfo;
+            _this.pagination.pageIndex = response.pageInfo.currentPage - 1;
             _this.searching = false;
         }, function () {
             _this.errorGotten = true;
@@ -2155,17 +2201,17 @@ var AnimeSearchComponent = (function () {
         return year * 10000;
     };
     AnimeSearchComponent.prototype.updateQueryParams = function () {
-        var _this = this;
         var queryParams = {
             sort: this.sort
         };
-        Object.keys(this.searchForm.value).forEach(function (fieldKey) {
-            var field = _this.searchForm.value[fieldKey];
-            if (field && (typeof field !== 'object' && (typeof field !== 'string' || field.length > 0))) {
-                queryParams[fieldKey] = field;
+        var filters = this.searchForm.value;
+        Object.keys(filters).forEach(function (fieldKey) {
+            var field = filters[fieldKey];
+            if (field && field.length !== 0) {
+                queryParams[fieldKey] = JSON.stringify(field);
             }
         });
-        this.router.navigate([__WEBPACK_IMPORTED_MODULE_6__app_constants__["b" /* animeSearchUrl */]], { queryParams: queryParams });
+        this.router.navigate([__WEBPACK_IMPORTED_MODULE_8__app_constants__["b" /* animeSearchUrl */]], { queryParams: queryParams });
     };
     AnimeSearchComponent.prototype.changePage = function (pageEvent) {
         this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
@@ -2551,10 +2597,6 @@ var SortPipe = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export pageInfoFields */
-/* unused harmony export listAnimeFields */
-/* unused harmony export searchAnimeFields */
-/* unused harmony export listEntryFields */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return genresQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return userQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return searchQuery; });
@@ -2567,20 +2609,29 @@ var SortPipe = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return saveListEntryQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return deleteListEntryQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return toggleFavouriteEntryQuery; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
-
+var filterTypes = {};
+var filterMappings = {};
+/* filters */
+filterTypes.page = "\n  $page: Int,\n  $perPage: Int,\n";
+filterMappings.page = "\n  page: $page,\n  perPage: $perPage,\n";
+filterTypes.mediaCollection = "\n  $mediaType: MediaType,\n  $sort: [MediaListSort],\n  $userId: Int!,\n";
+filterMappings.mediaCollection = "\n  sort: $sort,\n  type: $mediaType,\n  userId: $userId,\n";
+filterTypes.media = "\n  $mediaType: MediaType,\n  $sort: [MediaSort],\n  $adultContent: Boolean,\n  $averageScore_greater: Int,\n  $averageScore_lesser: Int,\n  $genres: [String],\n  $formats: [MediaFormat],\n  $statuses: [MediaStatus],\n  $search: String,\n  $startDate_greater: FuzzyDateInt,\n  $startDate_lesser: FuzzyDateInt,\n  $status: MediaStatus,\n  $id: Int,\n  $idNotIn: [Int],\n  $onList: Boolean,\n";
+filterMappings.media = "\n  sort: $sort,\n  type: $mediaType,\n  isAdult: $adultContent,\n  averageScore_greater: $averageScore_greater,\n  averageScore_lesser: $averageScore_lesser,\n  genre_in: $genres,\n  format_in: $formats,\n  status_in: $statuses,\n  search: $search,\n  startDate_greater: $startDate_greater,\n  startDate_lesser: $startDate_lesser,\n  status: $status,\n  id: $id,\n  id_not_in: $idNotIn,\n  onList: $onList,\n";
+/* fields */
 var pageInfoFields = "\n  currentPage\n  hasNextPage\n  lastPage\n  perPage\n  total\n";
 var listAnimeFields = "\n  averageScore\n  coverImage {\n    large\n    medium\n  }\n  description\n  duration\n  episodes\n  format\n  genres\n  id\n  startDate {\n    year\n  }\n  status\n  studios(isMain: true) {\n    nodes {\n      name\n    }\n  }\n  tags {\n    description\n    isMediaSpoiler\n    name\n  }\n  title {\n    romaji\n  }\n";
 var searchAnimeFields = listAnimeFields + "\n  mediaListEntry {\n    id\n    scoreRaw: score (\n      format: POINT_100\n    )\n    status\n  }\n";
 var listEntryFields = "\n  id\n  media {\n    " + listAnimeFields + "\n  }\n  scoreRaw: score (\n    format: POINT_100\n  )\n  status\n  updatedAt\n";
+/* queries */
 var genresQuery = "\n  {\n    GenreCollection\n  }\n";
 var userQuery = "\n  {\n    Viewer {\n      avatar {\n        large\n      }\n      id\n      name\n      options {\n        displayAdultContent\n      }\n      stats {\n        favouredGenresOverview {\n          amount\n          genre\n          meanScore\n          timeWatched\n        }\n        watchedTime\n      }\n    }\n  }\n";
-var searchQuery = "\n  query (\n    $adultContent: Boolean,\n    $averageScore_greater: Int,\n    $averageScore_lesser: Int,\n    $formats: [MediaFormat],\n    $genres: [String],\n    $id: Int,\n    $search: String,\n    $sort: [MediaSort],\n    $startDate_greater: FuzzyDateInt,\n    $startDate_lesser: FuzzyDateInt,\n    $type: MediaType,\n    \n    $page: Int,\n    $perPage: Int\n  ) {\n    Page (\n      page: $page,\n      perPage: $perPage\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        averageScore_greater: $averageScore_greater,\n        averageScore_lesser: $averageScore_lesser,\n        format_in: $formats,\n        genre_in: $genres,\n        isAdult: $adultContent,\n        search: $search,\n        sort: $sort,\n        startDate_greater: $startDate_greater,\n        startDate_lesser: $startDate_lesser,\n        type: $type,\n        id: $id\n      ) {\n        " + searchAnimeFields + "\n      }\n    }\n  }\n";
-var listQuery = "\n  query (\n    $listType: MediaType,\n    $sort: [MediaListSort],\n    $userId: Int!\n  ) {\n    MediaListCollection (\n      sort: $sort,\n      type: $listType,\n      userId: $userId\n    ) {\n      statusLists {\n        " + listEntryFields + "\n      }\n    }\n  }\n";
-var relatedMediaQuery = "\n  query (\n    $listType: MediaType,\n    $sort: [MediaListSort],\n    $userId: Int!\n  ) {\n    MediaListCollection (\n      sort: $sort,\n      type: $listType,\n      userId: $userId\n    ) {\n      statusLists {\n        media {\n          relations {\n            nodes {\n              " + listAnimeFields + "\n            }\n          }\n        }\n      }\n    }\n  }\n";
-var listMediaIdsQuery = "\n  query (\n    $listType: MediaType,\n    $sort: [MediaListSort],\n    $userId: Int!\n  ) {\n    MediaListCollection (\n      sort: $sort,\n      type: $listType,\n      userId: $userId\n    ) {\n      statusLists {\n        media {\n          id\n        }\n      }\n    }\n  }\n";
-var updatedEntriesQuery = "\n  query (\n    $listType: MediaType,\n    $sort: [MediaListSort],\n    $userId: Int!,\n    \n    $page: Int,\n    $perPage: Int\n  ) {\n    Page (\n      page: $page,\n      perPage: $perPage\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      mediaList (\n        sort: $sort,\n        type: $listType,\n        userId: $userId\n      ) {\n        " + listEntryFields + "\n      }\n    }\n  }\n";
-var finishedAiringMediaQuery = "\n  query (\n    $listType: MediaType,\n    $sort: [MediaSort],\n    \n    $idNotIn: [Int],\n    \n    $page: Int,\n    $perPage: Int\n  ) {\n    Page (\n      page: $page,\n      perPage: $perPage\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media(\n        sort: $sort,\n        type: $listType,\n        status: " + __WEBPACK_IMPORTED_MODULE_0__models_anilist_mediaStatus__["a" /* MediaStatus */].FINISHED + ",\n        id_not_in: $idNotIn,\n        onList: true\n      ) {\n        " + listAnimeFields + "\n        mediaListEntry {\n          " + listEntryFields + "\n        }\n      }\n    }\n  }\n";
+var searchQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + searchAnimeFields + "\n      }\n    }\n  }\n";
+var listQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      statusLists {\n        " + listEntryFields + "\n      }\n    }\n  }\n";
+var relatedMediaQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      statusLists {\n        media {\n          relations {\n            nodes {\n              " + listAnimeFields + "\n            }\n          }\n        }\n      }\n    }\n  }\n";
+var listMediaIdsQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      statusLists {\n        media {\n          id\n        }\n      }\n    }\n  }\n";
+var updatedEntriesQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      mediaList (\n        " + filterMappings.mediaCollection + "\n      ) {\n        " + listEntryFields + "\n      }\n    }\n  }\n";
+var finishedAiringMediaQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + listAnimeFields + "\n\n        mediaListEntry {\n          " + listEntryFields + "\n        }\n      }\n    }\n  }\n";
 var listFavouritesQuery = "\n  query (\n    $userId: Int!,\n    $page: Int\n  ) {\n    User (\n      id: $userId\n    ) {\n      favourites {\n        anime (\n          page: $page\n        ) {\n          nodes {\n            id\n          }\n          pageInfo {\n            " + pageInfoFields + "\n          }\n        }\n      }\n    }\n  }\n";
 var saveListEntryQuery = "\n  mutation (\n    $mediaId: Int,\n    $scoreRaw: Int,\n    $status: MediaListStatus\n  ) {\n    SaveMediaListEntry (\n      mediaId: $mediaId,\n      scoreRaw: $scoreRaw,\n      status: $status\n    ) {\n      id\n      status\n    }\n  }\n";
 var deleteListEntryQuery = "\n  mutation (\n    $id: Int\n  ) {\n    DeleteMediaListEntry (id: $id) {\n      deleted\n    }\n  }\n";
@@ -2716,8 +2767,9 @@ var AnimeService = (function () {
     AnimeService.prototype.search = function (query, pageInfo) {
         var _this = this;
         var options = {
-            type: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            mediaType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             adultContent: query.adultContent || false,
+            onList: query.onList,
             sort: query.sort || __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* MediaSort */].TITLE_ROMAJI,
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1
@@ -2740,11 +2792,14 @@ var AnimeService = (function () {
         if (query.averageScore_lesser) {
             options.averageScore_lesser = query.averageScore_lesser;
         }
+        if (query.genres && query.genres.length) {
+            options.genres = query.genres;
+        }
         if (query.formats && query.formats.length) {
             options.formats = query.formats;
         }
-        if (query.genres && query.genres.length) {
-            options.genres = query.genres;
+        if (query.statuses && query.statuses.length) {
+            options.statuses = query.statuses;
         }
         return this.httpClient.post(this.apiUrl, {
             query: __WEBPACK_IMPORTED_MODULE_9__anime_queries__["i" /* searchQuery */],
@@ -2784,7 +2839,7 @@ var AnimeService = (function () {
     AnimeService.prototype.getList = function (user) {
         var _this = this;
         var options = {
-            listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            mediaType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             userId: user.id,
             sort: __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* MediaSort */].SCORE_DESC
         };
@@ -2812,7 +2867,7 @@ var AnimeService = (function () {
     AnimeService.prototype.getListMediaIds = function (user) {
         var _this = this;
         var options = {
-            listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            mediaType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             userId: user.id
         };
         return this.httpClient.post(this.apiUrl, {
@@ -2840,7 +2895,7 @@ var AnimeService = (function () {
     AnimeService.prototype.getRecentlyUpdated = function (user, pageInfo) {
         var _this = this;
         var options = {
-            listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            mediaType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             userId: user.id,
             sort: __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* MediaSort */].UPDATED_TIME_DESC,
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
@@ -2866,8 +2921,10 @@ var AnimeService = (function () {
     AnimeService.prototype.getRecentlyFinishedAiring = function (query, pageInfo) {
         var _this = this;
         var options = {
-            listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            mediaType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            status: __WEBPACK_IMPORTED_MODULE_5__models_anilist_mediaStatus__["a" /* MediaStatus */].FINISHED,
             sort: __WEBPACK_IMPORTED_MODULE_7__models_anilist_mediaSorts__["a" /* MediaSort */].END_DATE_DESC,
+            onList: true,
             idNotIn: query ? query.idNotIn : undefined,
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1
@@ -2891,7 +2948,7 @@ var AnimeService = (function () {
     AnimeService.prototype.getRelatedMedia = function (user) {
         var _this = this;
         var options = {
-            listType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
+            mediaType: __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaType__["a" /* MediaTypes */].ANIME,
             userId: user.id
         };
         return this.httpClient.post(this.apiUrl, {
