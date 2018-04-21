@@ -1,5 +1,6 @@
 export class MediaQuery {
   adultContent?: boolean;
+  onList?: boolean;
   averageScore_greater?: number;
   averageScore_lesser?: number;
   formats?: string[];

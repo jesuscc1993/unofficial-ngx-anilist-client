@@ -82,7 +82,7 @@
 
           <!-- formats -->
           <div class="form-group">
-            <mat-form-field class="large">
+            <mat-form-field>
               <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
                 <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
                   {{ mediaFormat.label }}
@@ -93,10 +93,21 @@
 
           <!-- genres -->
           <div class="form-group">
-            <mat-form-field class="large">
+            <mat-form-field>
               <mat-select placeholder="Genre" formControlName="genres" multiple>
                 <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
                   {{ genre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- exclude on list -->
+          <div class="form-group">
+            <mat-form-field>
+              <mat-select placeholder="On list?" formControlName="onList">
+                <mat-option *ngFor="let option of onListOptions" [value]="option.value">
+                  {{ option.label }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

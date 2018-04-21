@@ -146,6 +146,7 @@ export class AnimeService {
     let options: any = {
       mediaType: MediaTypes.ANIME,
       adultContent: query.adultContent || false,
+      onList: query.onList,
       sort: query.sort || MediaSort.TITLE_ROMAJI,
 
       page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,

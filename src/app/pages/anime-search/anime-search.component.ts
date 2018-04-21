@@ -9,8 +9,9 @@ import { MediaQuery } from '../../models/anilist/query';
 import { PageQuery } from '../../models/anilist/pageInfo';
 import { Anime } from '../../models/anilist/anime';
 import { MediaFormat } from '../../models/anilist/mediaFormats';
-import { animeSearchUrl } from '../../app.constants';
+import { OnListOptions } from '../../models/anilist/onListOptions';
 import { MediaSort } from '../../models/anilist/mediaSorts';
+import { animeSearchUrl } from '../../app.constants';
 
 @Component({
   selector: 'app-anime-search',
@@ -25,9 +26,11 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   pagination: PageQuery;
   sort: string;
+  excludeOnList: boolean;
 
   mediaFormats: any[] = MediaFormat.LIST;
   mediaGenres: string[];
+  onListOptions: any[] = OnListOptions.LIST;
   minYear: number = 1900;
   maxYear: number = new Date().getFullYear() + 1;
 
@@ -101,8 +104,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       startDate_lesser: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
       averageScore_greater: [undefined, [Validators.min(0), Validators.max(10)]],
       averageScore_lesser: [undefined, [Validators.min(0), Validators.max(10)]],
-      formats: [],
-      genres: []
+      formats: [[]],
+      genres: [[]],
+      onList: [undefined]
     });
   }
 
@@ -112,24 +116,27 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     this.searching = true;
     this.errorGotten = false;
 
+    const filters: any = this.searchForm.value;
+
     let query: MediaQuery = {
-      search: this.searchForm.value.search,
-      formats: this.searchForm.value.formats,
-      genres: this.searchForm.value.genres,
+      search: filters.search,
+      formats: filters.formats,
+      genres: filters.genres,
+      onList: filters.onList,
       sort: this.sort
     };
 
-    if (this.searchForm.value.startDate_lesser) {
-      query.startDate_lesser = this.getDateScalarFromYear(this.searchForm.value.startDate_lesser);
+    if (filters.startDate_lesser) {
+      query.startDate_lesser = this.getDateScalarFromYear(filters.startDate_lesser);
     }
-    if (this.searchForm.value.startDate_greater) {
-      query.startDate_greater = this.getDateScalarFromYear(this.searchForm.value.startDate_greater - 1) + 1231;
+    if (filters.startDate_greater) {
+      query.startDate_greater = this.getDateScalarFromYear(filters.startDate_greater - 1) + 1231;
     }
-    if (this.searchForm.value.averageScore_greater) {
-      query.averageScore_greater = this.searchForm.value.averageScore_greater * 10;
+    if (filters.averageScore_greater) {
+      query.averageScore_greater = filters.averageScore_greater * 10;
     }
-    if (this.searchForm.value.averageScore_lesser) {
-      query.averageScore_lesser = this.searchForm.value.averageScore_lesser * 10;
+    if (filters.averageScore_lesser) {
+      query.averageScore_lesser = filters.averageScore_lesser * 10;
     }
 
     const pageInfo: PageQuery = {
@@ -166,10 +173,12 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       sort: this.sort
     };
 
-    Object.keys(this.searchForm.value).forEach((fieldKey) => {
-      const field: any = this.searchForm.value[fieldKey];
+    const filters: any = this.searchForm.value;
 
-      if (field && (typeof field !== 'string' || field.length > 0)) {
+    Object.keys(filters).forEach((fieldKey) => {
+      const field: any = filters[fieldKey];
+
+      if (field && field.length !== 0) {
         queryParams[fieldKey] = JSON.stringify(field);
       }
     });
