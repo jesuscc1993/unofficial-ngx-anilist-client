@@ -2065,6 +2065,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_anilist_mediaStatus__ = __webpack_require__("../../../../../src/app/models/anilist/mediaStatus.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_anilist_onListOptions__ = __webpack_require__("../../../../../src/app/models/anilist/onListOptions.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_generic_util__ = __webpack_require__("../../../../../src/app/utils/generic.util.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2074,6 +2075,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -2110,7 +2112,7 @@ var AnimeSearchComponent = (function () {
             Object.keys(queryParams).forEach(function (fieldKey) {
                 var field = _this.searchForm.controls[fieldKey];
                 var value = JSON.parse(queryParams[fieldKey]);
-                if (field && value) {
+                if (field && __WEBPACK_IMPORTED_MODULE_9__utils_generic_util__["a" /* GenericUtil */].isSet(value)) {
                     field.setValue(value);
                 }
             });
@@ -2207,7 +2209,7 @@ var AnimeSearchComponent = (function () {
         var filters = this.searchForm.value;
         Object.keys(filters).forEach(function (fieldKey) {
             var field = filters[fieldKey];
-            if (field && field.length !== 0) {
+            if (__WEBPACK_IMPORTED_MODULE_9__utils_generic_util__["a" /* GenericUtil */].isSet(field) && field.length !== 0) {
                 queryParams[fieldKey] = JSON.stringify(field);
             }
         });
@@ -3146,10 +3148,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var DateUtil = (function () {
     function DateUtil() {
     }
-    DateUtil.prototype.dateFromFuzzyDate = function (fuzzyDate) {
+    DateUtil.dateFromFuzzyDate = function (fuzzyDate) {
         return new Date((fuzzyDate.year || '1970') + "-" + (fuzzyDate.month || '01') + "-" + (fuzzyDate.day || '01'));
     };
-    DateUtil.prototype.timeFromFuzzyDate = function (fuzzyDate) {
+    DateUtil.timeFromFuzzyDate = function (fuzzyDate) {
         return this.dateFromFuzzyDate(fuzzyDate).getTime();
     };
     DateUtil = __decorate([
@@ -3157,6 +3159,39 @@ var DateUtil = (function () {
         __metadata("design:paramtypes", [])
     ], DateUtil);
     return DateUtil;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/utils/generic.util.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GenericUtil; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var GenericUtil = (function () {
+    function GenericUtil() {
+    }
+    GenericUtil.isSet = function (variable) {
+        return variable !== undefined && variable !== null;
+    };
+    GenericUtil = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [])
+    ], GenericUtil);
+    return GenericUtil;
 }());
 
 
