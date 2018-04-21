@@ -2114,7 +2114,7 @@ var AnimeSearchComponent = (function () {
                     field.setValue(value);
                 }
             });
-            this.sort = queryParams.sort;
+            this.sort = JSON.parse(queryParams.sort);
             this.expansionPanel.open();
             this.search();
         }
@@ -2202,7 +2202,7 @@ var AnimeSearchComponent = (function () {
     };
     AnimeSearchComponent.prototype.updateQueryParams = function () {
         var queryParams = {
-            sort: this.sort
+            sort: JSON.stringify(this.sort)
         };
         var filters = this.searchForm.value;
         Object.keys(filters).forEach(function (fieldKey) {
