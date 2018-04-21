@@ -1,57 +1,64 @@
-import { MediaStatus } from '../models/anilist/mediaStatus';
+const filterTypes: any = {};
+const filterMappings: any = {};
 
 /* filters */
 
-export const pageFilterTypes: string = `
+filterTypes.page = `
   $page: Int,
   $perPage: Int,
 `;
-export const pageFilterMappings: string = `
+filterMappings.page = `
   page: $page,
   perPage: $perPage,
 `;
 
-export const mediaFilterTypes: string = `
+filterTypes.mediaCollection = `
+  $mediaType: MediaType,
+  $sort: [MediaListSort],
+  $userId: Int!,
+`;
+filterMappings.mediaCollection = `
+  sort: $sort,
+  type: $mediaType,
+  userId: $userId,
+`;
+
+filterTypes.media = `
+  $mediaType: MediaType,
+  $sort: [MediaSort],
   $adultContent: Boolean,
   $averageScore_greater: Int,
   $averageScore_lesser: Int,
   $formats: [MediaFormat],
   $genres: [String],
-  $id: Int,
   $search: String,
-  $sort: [MediaSort],
   $startDate_greater: FuzzyDateInt,
   $startDate_lesser: FuzzyDateInt,
-  $type: MediaType,
+  $status: MediaStatus,
+  $id: Int,
+  $idNotIn: [Int],
+  $onList: Boolean,
 `;
-export const mediaFilterMappings: string = `
+filterMappings.media = `
+  sort: $sort,
+  type: $mediaType,
+  isAdult: $adultContent,
   averageScore_greater: $averageScore_greater,
   averageScore_lesser: $averageScore_lesser,
   format_in: $formats,
   genre_in: $genres,
-  isAdult: $adultContent,
   search: $search,
-  sort: $sort,
   startDate_greater: $startDate_greater,
   startDate_lesser: $startDate_lesser,
-  type: $type,
+  status: $status,
   id: $id,
-`;
-
-export const mediaCollectionFilterTypes: string = `
-  $listType: MediaType,
-  $sort: [MediaListSort],
-  $userId: Int!,
-`;
-export const mediaCollectionFilterMappings: string = `
-  sort: $sort,
-  type: $listType,
-  userId: $userId,
+  id_not_in: $idNotIn,
+  onList: $onList,
 `;
 
 /* fields */
 
-export const pageInfoFields: string = `
+const pageInfoFields: string = `
   currentPage
   hasNextPage
   lastPage
@@ -59,7 +66,7 @@ export const pageInfoFields: string = `
   total
 `;
 
-export const listAnimeFields: string = `
+const listAnimeFields: string = `
   averageScore
   coverImage {
     large
@@ -90,7 +97,7 @@ export const listAnimeFields: string = `
   }
 `;
 
-export const searchAnimeFields: string = `${listAnimeFields}
+const searchAnimeFields: string = `${listAnimeFields}
   mediaListEntry {
     id
     scoreRaw: score (
@@ -100,7 +107,7 @@ export const searchAnimeFields: string = `${listAnimeFields}
   }
 `;
 
-export const listEntryFields: string = `
+const listEntryFields: string = `
   id
   media {
     ${listAnimeFields}
@@ -146,17 +153,17 @@ export const userQuery: string = `
 
 export const searchQuery: string = `
   query (
-    ${mediaFilterTypes}
-    ${pageFilterTypes}
+    ${filterTypes.media}
+    ${filterTypes.page}
   ) {
     Page (
-      ${pageFilterMappings}
+      ${filterMappings.page}
     ) {
       pageInfo {
         ${pageInfoFields}
       }
       media (
-        ${mediaFilterMappings}
+        ${filterMappings.media}
       ) {
         ${searchAnimeFields}
       }
@@ -166,10 +173,10 @@ export const searchQuery: string = `
 
 export const listQuery: string = `
   query (
-    ${mediaCollectionFilterTypes}
+    ${filterTypes.mediaCollection}
   ) {
     MediaListCollection (
-      ${mediaCollectionFilterMappings}
+      ${filterMappings.mediaCollection}
     ) {
       statusLists {
         ${listEntryFields}
@@ -180,10 +187,10 @@ export const listQuery: string = `
 
 export const relatedMediaQuery: string = `
   query (
-    ${mediaCollectionFilterTypes}
+    ${filterTypes.mediaCollection}
   ) {
     MediaListCollection (
-      ${mediaCollectionFilterMappings}
+      ${filterMappings.mediaCollection}
     ) {
       statusLists {
         media {
@@ -200,10 +207,10 @@ export const relatedMediaQuery: string = `
 
 export const listMediaIdsQuery: string = `
   query (
-    ${mediaCollectionFilterTypes}
+    ${filterTypes.mediaCollection}
   ) {
     MediaListCollection (
-      ${mediaCollectionFilterMappings}
+      ${filterMappings.mediaCollection}
     ) {
       statusLists {
         media {
@@ -216,17 +223,17 @@ export const listMediaIdsQuery: string = `
 
 export const updatedEntriesQuery: string = `
   query (
-    ${mediaCollectionFilterTypes}
-    ${pageFilterTypes}
+    ${filterTypes.mediaCollection}
+    ${filterTypes.page}
   ) {
     Page (
-      ${pageFilterMappings}
+      ${filterMappings.page}
     ) {
       pageInfo {
         ${pageInfoFields}
       }
       mediaList (
-        ${mediaCollectionFilterMappings}
+        ${filterMappings.mediaCollection}
       ) {
         ${listEntryFields}
       }
@@ -236,27 +243,20 @@ export const updatedEntriesQuery: string = `
 
 export const finishedAiringMediaQuery: string = `
   query (
-    $listType: MediaType,
-    $sort: [MediaSort],
-    
-    $idNotIn: [Int],
-    
-    ${pageFilterTypes}
+    ${filterTypes.media}
+    ${filterTypes.page}
   ) {
     Page (
-      ${pageFilterMappings}
+      ${filterMappings.page}
     ) {
       pageInfo {
         ${pageInfoFields}
       }
-      media(
-        sort: $sort,
-        type: $listType,
-        status: ${MediaStatus.FINISHED},
-        id_not_in: $idNotIn,
-        onList: true
+      media (
+        ${filterMappings.media}
       ) {
         ${listAnimeFields}
+
         mediaListEntry {
           ${listEntryFields}
         }

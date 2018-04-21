@@ -144,7 +144,7 @@ export class AnimeService {
    */
   public search(query: MediaQuery, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
-      type: MediaTypes.ANIME,
+      mediaType: MediaTypes.ANIME,
       adultContent: query.adultContent || false,
       sort: query.sort || MediaSort.TITLE_ROMAJI,
 
@@ -222,7 +222,7 @@ export class AnimeService {
    */
   public getList(user: User): Observable<any> {
     let options: any = {
-      listType: MediaTypes.ANIME,
+      mediaType: MediaTypes.ANIME,
       userId: user.id,
       sort: MediaSort.SCORE_DESC
     };
@@ -255,7 +255,7 @@ export class AnimeService {
    */
   public getListMediaIds(user: User): Observable<any> {
     let options: any = {
-      listType: MediaTypes.ANIME,
+      mediaType: MediaTypes.ANIME,
       userId: user.id
     };
 
@@ -288,7 +288,7 @@ export class AnimeService {
    */
   public getRecentlyUpdated(user: User, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
-      listType: MediaTypes.ANIME,
+      mediaType: MediaTypes.ANIME,
       userId: user.id,
       sort: MediaSort.UPDATED_TIME_DESC,
 
@@ -319,8 +319,10 @@ export class AnimeService {
    */
   public getRecentlyFinishedAiring(query: any, pageInfo?: PageQuery): Observable<any> {
     let options: any = {
-      listType: MediaTypes.ANIME,
+      mediaType: MediaTypes.ANIME,
+      status: MediaStatus.FINISHED,
       sort: MediaSort.END_DATE_DESC,
+      onList: true,
 
       idNotIn: query ? query.idNotIn : undefined,
 
@@ -350,7 +352,7 @@ export class AnimeService {
    */
   public getRelatedMedia(user: User): Observable<any> {
     let options: any = {
-      listType: MediaTypes.ANIME,
+      mediaType: MediaTypes.ANIME,
       userId: user.id
     };
 
