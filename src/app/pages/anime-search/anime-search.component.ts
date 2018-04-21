@@ -13,6 +13,7 @@ import { MediaStatus } from '../../models/anilist/mediaStatus';
 import { OnListOptions } from '../../models/anilist/onListOptions';
 import { MediaSort } from '../../models/anilist/mediaSorts';
 import { animeSearchUrl } from '../../app.constants';
+import { GenericUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'app-anime-search',
@@ -66,7 +67,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
         const field: any = this.searchForm.controls[fieldKey];
         const value: any = JSON.parse(queryParams[fieldKey]);
 
-        if (field && value) {
+        if (field && GenericUtil.isSet(value)) {
           field.setValue(value);
         }
       });
@@ -182,7 +183,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     Object.keys(filters).forEach((fieldKey) => {
       const field: any = filters[fieldKey];
 
-      if (field && field.length !== 0) {
+      if (GenericUtil.isSet(field) && field.length !== 0) {
         queryParams[fieldKey] = JSON.stringify(field);
       }
     });
