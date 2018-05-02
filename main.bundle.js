@@ -1218,7 +1218,7 @@ var SearchResultsTableComponent = (function () {
 /***/ "../../../../../src/app/components/user-list-table/user-list-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" matSort class=\"series-table\">\n\n  <ng-container matColumnDef=\"actions\">\n    <mat-header-cell *matHeaderCellDef>\n\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <app-media-actions\n        [listEntry]=\"entry\"\n        [media]=\"entry.media\"\n        (onUpdate)=\"onUpdate($event)\">\n      </app-media-actions>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"cover-image\">\n    <mat-header-cell *matHeaderCellDef>\n      Cover\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <img [src]=\"entry.media.coverImage.medium\" class=\"cover\">\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"title-romaji\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Title\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <span class=\"title\">\n        {{ entry.media.title.romaji }}\n      </span>\n      <i *ngIf=\"favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0\"\n         class=\"fa fa-heart favourite\">\n      </i>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"format\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header>\n      Format\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.format }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"start-date\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Year\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.startDate.year }}\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"genres\">\n    <mat-header-cell *matHeaderCellDef>\n      Genres\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      <mat-list>\n        <mat-list-item *ngFor=\"let genre of entry.media.genres\">\n          <mat-chip class=\"rounded\">{{ genre }}</mat-chip>\n        </mat-list-item>\n      </mat-list>\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"score\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Score\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.scoreRaw / 10 }}/10\n    </mat-cell>\n  </ng-container>\n\n  <ng-container matColumnDef=\"episodes\">\n    <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n      Episodes\n    </mat-header-cell>\n    <mat-cell *matCellDef=\"let entry\">\n      {{ entry.media.episodes }}\n    </mat-cell>\n  </ng-container>\n\n  <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n  <mat-row *matRowDef=\"let entry; columns: tableRows\"></mat-row>\n\n</mat-table>\n\n<mat-paginator\n  #paginator\n  [pageSize]=\"10\"\n  [pageSizeOptions]=\"[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]\"\n  [showFirstLastButtons]=\"true\">\n</mat-paginator>"
+module.exports = "<h3 [id]=\"tableStatus.value\" class=\"capitalize no-margin-bottom margin-top-xxs vertical-padding-xs\">\n  {{ tableStatus.label }}\n</h3>\n\n<mat-card class=\"no-padding\">\n\n  <mat-table #table [dataSource]=\"dataSource\" [hidden]=\"!dataSource || dataSource.data.length < 1\" matSort class=\"series-table\">\n\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef>\n\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        <app-media-actions\n          [listEntry]=\"entry\"\n          [media]=\"entry.media\"\n          (onUpdate)=\"onUpdate($event)\">\n        </app-media-actions>\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cover-image\">\n      <mat-header-cell *matHeaderCellDef>\n        Cover\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        <img [src]=\"entry.media.coverImage.medium\" class=\"cover\">\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"title-romaji\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>\n        Title\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        <span class=\"title\">\n          {{ entry.media.title.romaji }}\n        </span>\n        <i *ngIf=\"favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0\"\n           class=\"fa fa-heart favourite\">\n        </i>\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"format\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>\n        Format\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        {{ entry.media.format }}\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"start-date\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n        Year\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        {{ entry.media.startDate.year }}\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"genres\">\n      <mat-header-cell *matHeaderCellDef>\n        Genres\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        <mat-list>\n          <mat-list-item *ngFor=\"let genre of entry.media.genres\">\n            <mat-chip class=\"rounded\">{{ genre }}</mat-chip>\n          </mat-list-item>\n        </mat-list>\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"score\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n        Score\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        {{ entry.scoreRaw / 10 }}/10\n      </mat-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"episodes\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header start=\"desc\">\n        Episodes\n      </mat-header-cell>\n      <mat-cell *matCellDef=\"let entry\">\n        {{ entry.media.episodes }}\n      </mat-cell>\n    </ng-container>\n\n    <mat-header-row *matHeaderRowDef=\"tableRows\"></mat-header-row>\n    <mat-row *matRowDef=\"let entry; columns: tableRows\"></mat-row>\n\n  </mat-table>\n\n  <mat-paginator\n    #paginator\n    [pageSize]=\"10\"\n    [pageSizeOptions]=\"[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]\"\n    [showFirstLastButtons]=\"true\"\n    (page)=\"onPageChange()\">\n  </mat-paginator>\n\n</mat-card>"
 
 /***/ }),
 
@@ -1247,6 +1247,7 @@ module.exports = module.exports.toString();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserListTableComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_generic_util__ = __webpack_require__("../../../../../src/app/utils/generic.util.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1258,8 +1259,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var UserListTableComponent = (function () {
-    function UserListTableComponent() {
+    function UserListTableComponent(elementRef) {
+        this.elementRef = elementRef;
         this.onEntryUpdate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.tableRows = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
     }
@@ -1297,6 +1300,9 @@ var UserListTableComponent = (function () {
             return listEntry.media.title.romaji.trim().toLowerCase().indexOf(filter.trim().toLowerCase()) >= 0;
         };
     };
+    UserListTableComponent.prototype.onPageChange = function () {
+        __WEBPACK_IMPORTED_MODULE_2__utils_generic_util__["a" /* GenericUtil */].scrollToRef(this.elementRef);
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", String)
@@ -1331,7 +1337,7 @@ var UserListTableComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/user-list-table/user-list-table.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/user-list-table/user-list-table.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */]])
     ], UserListTableComponent);
     return UserListTableComponent;
 }());
@@ -1343,7 +1349,7 @@ var UserListTableComponent = (function () {
 /***/ "../../../../../src/app/modals/list-entry-form-modal/list-entry-form-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"composite\">\n\n  <div class=\"header no-margin\">\n    <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n    <div class=\"title\">\n      <h3 class=\"no-margin\">\n        {{ media.title.romaji }}\n      </h3>\n    </div>\n  </div>\n\n  <mat-divider></mat-divider>\n\n  <form [formGroup]=\"listEntryForm\" (ngSubmit)=\"saveEntry()\">\n    <div class=\"content padding-bottom-xs\">\n\n      <!-- status -->\n      <div class=\"form-group\">\n        <mat-form-field>\n          <mat-select placeholder=\"Status\" formControlName=\"status\">\n            <mat-option *ngFor=\"let status of liestEntryStatusList\" [value]=\"status.value\">\n              {{ status.label }}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </div>\n\n      <!-- score -->\n      <div class=\"form-group\">\n        <mat-form-field class=\"score-input\">\n          <mat-label>Score</mat-label>\n          <input\n            matInput type=\"number\" min=\"0\" max=\"10\" step=\".1\"\n            [placeholder]=\"listEntry ? listEntry.scoreRaw / 10 : 5\" formControlName=\"score\" required>\n        </mat-form-field> / 10\n      </div>\n\n      <!--<mat-slider min=\"0\" max=\"10\" value=\"5\" step=\"0.5\" tickInterval=\"2\" class=\"full-width no-padding\"></mat-slider>-->\n\n      <!--<span *ngIf=\"listEntry !== undefined\">-->\n        <!--<button mat-raised-button color=\"warn\" class=\"margin-right-s square-button\" (click)=\"deleteEntry($event)\">-->\n          <!--<i class=\"fa fa-trash baseline\"></i>-->\n        <!--</button>-->\n      <!--</span>-->\n\n    </div>\n\n    <mat-divider></mat-divider>\n\n    <div class=\"content\">\n\n      <span class=\"float-right\">\n        <button mat-raised-button color=\"accent\" class=\"margin-right-xs\" [disabled]=\"!listEntryForm.valid || !isSubmitEnabled()\">\n          <i class=\"fa fa-send baseline margin-right-xxxs\"></i>\n          Submit\n        </button>\n\n        <button mat-raised-button class=\"float-right\" (click)=\"dismiss($event)\">\n          <i class=\"fa fa-times baseline margin-right-xxxs\"></i>\n          Cancel\n        </button>\n      </span>\n\n    </div>\n  </form>\n\n</mat-card>"
+module.exports = "<mat-card class=\"composite\">\n\n  <div class=\"header no-margin\">\n    <i class=\"fa fa-times float-right clickable\" (click)=\"dismiss()\"></i>\n\n    <div class=\"title\">\n      <h3 class=\"no-margin\">\n        {{ media.title.romaji }}\n      </h3>\n    </div>\n  </div>\n\n  <mat-divider></mat-divider>\n\n  <form [formGroup]=\"listEntryForm\" (ngSubmit)=\"saveEntry()\">\n    <div class=\"content padding-bottom-xs\">\n\n      <!-- status -->\n      <div class=\"form-group\">\n        <mat-form-field>\n          <mat-select placeholder=\"Status\" formControlName=\"status\">\n            <mat-option *ngFor=\"let status of liestEntryStatusList\" [value]=\"status.value\">\n              {{ status.label }}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </div>\n\n      <!-- score -->\n      <div class=\"form-group\">\n        <mat-form-field class=\"score-input\">\n          <mat-label>Score</mat-label>\n          <input\n            matInput type=\"number\" min=\"0\" max=\"10\" step=\".1\"\n            [placeholder]=\"listEntry ? listEntry.scoreRaw / 10 : 5\" formControlName=\"score\">\n        </mat-form-field> / 10\n      </div>\n\n      <!--<mat-slider min=\"0\" max=\"10\" value=\"5\" step=\"0.5\" tickInterval=\"2\" class=\"full-width no-padding\"></mat-slider>-->\n\n      <!--<span *ngIf=\"listEntry !== undefined\">-->\n        <!--<button mat-raised-button color=\"warn\" class=\"margin-right-s square-button\" (click)=\"deleteEntry($event)\">-->\n          <!--<i class=\"fa fa-trash baseline\"></i>-->\n        <!--</button>-->\n      <!--</span>-->\n\n    </div>\n\n    <mat-divider></mat-divider>\n\n    <div class=\"content\">\n\n      <span class=\"float-right\">\n        <button mat-raised-button color=\"accent\" class=\"margin-right-xs\" [disabled]=\"!listEntryForm.valid || !isSubmitEnabled()\">\n          <i class=\"fa fa-send baseline margin-right-xxxs\"></i>\n          Submit\n        </button>\n\n        <button mat-raised-button class=\"float-right\" (click)=\"dismiss($event)\">\n          <i class=\"fa fa-times baseline margin-right-xxxs\"></i>\n          Cancel\n        </button>\n      </span>\n\n    </div>\n  </form>\n\n</mat-card>"
 
 /***/ }),
 
@@ -1414,7 +1420,7 @@ var ListEntryFormModalComponent = (function () {
             ],
             score: [
                 this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined,
-                [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0)]
+                [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0)]
             ]
         });
     };
@@ -2029,7 +2035,7 @@ var AnimeDetailComponent = (function () {
 /***/ "../../../../../src/app/pages/anime-search/anime-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"narrow-page\">\n\n  <mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      You are not logged in. Search will be available but most other features will not.\n    </h4>\n  </mat-card>\n\n  <form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n    <mat-card class=\"text-center\">\n\n      <h1>\n        <label for=\"searchInput\">\n          Anime search\n        </label>\n      </h1>\n\n      <div class=\"form-group\">\n        <mat-form-field class=\"medium display-block margin-auto\">\n          <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n        </mat-form-field>\n      </div>\n\n      <!--<mat-form-field id=\"yearInput\">-->\n        <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n        <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n        <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n      <!--</mat-form-field>-->\n\n      <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n        <mat-expansion-panel-header>\n          Advanced filters\n        </mat-expansion-panel-header>\n\n        <mat-divider></mat-divider>\n\n        <div class=\"vertical-padding-xs\">\n\n          <!-- air date -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired after year\"\n                  formControlName=\"startDate_greater\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired before year\"\n                  formControlName=\"startDate_lesser\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- score -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored above\"\n                  formControlName=\"averageScore_greater\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n\n            <mat-form-field class=\"medium\">\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored below\"\n                  formControlName=\"averageScore_lesser\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- genres -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"Genre\" formControlName=\"genres\" multiple>\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- formats -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"Format\" #formatInput formControlName=\"formats\" multiple>\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                  {{ mediaFormat.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- statuses -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"Status\" #formatInput formControlName=\"statuses\" multiple>\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus.value\">\n                  {{ mediaStatus.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- on list -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"On list?\" formControlName=\"onList\">\n                <mat-option *ngFor=\"let option of onListOptions\" [value]=\"option.value\">\n                  {{ option.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n        </div>\n\n        <div class=\"text-center padding-bottom-xs\">\n\n          <button mat-raised-button type=\"button\" (click)=\"clearFilters($event)\">\n            Clear filters\n          </button>\n\n        </div>\n\n        <mat-divider></mat-divider>\n\n      </mat-expansion-panel>\n\n      <div class=\"text-center\">\n\n        <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n          <i class=\"fa fa-search baseline margin-right-xxxs\"></i>\n          Search\n        </button>\n\n      </div>\n\n    </mat-card>\n\n    <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n    <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n    <mat-card *ngIf=\"errorGotten\" class=\"error\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        Error 500: Internal server error\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"noResults\" class=\"info\">\n      <h4>\n        <i class=\"fa fa-info-circle margin-right-xxs\"></i>\n        No results found\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n      <app-search-results-table\n        [tableData]=\"animeList\"\n        (onSortChange)=\"sortBy($event)\">\n      </app-search-results-table>\n\n      <mat-paginator\n        [length]=\"pagination.total\"\n        [pageSize]=\"pagination.perPage\"\n        [pageIndex]=\"pagination.pageIndex\"\n        [pageSizeOptions]=\"[5, 10, 25, 50]\"\n        (page)=\"changePage($event)\">\n      </mat-paginator>\n    </mat-card>\n\n  </form>\n\n</div>"
+module.exports = "<div class=\"narrow-page\">\n\n  <mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      You are not logged in. Search will be available but most other features will not.\n    </h4>\n  </mat-card>\n\n  <form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n\n    <mat-card class=\"text-center\">\n\n      <h1>\n        <label for=\"searchInput\">\n          Anime search\n        </label>\n      </h1>\n\n      <div class=\"form-group\">\n        <mat-form-field class=\"medium display-block margin-auto\">\n          <input id=\"searchInput\" matInput placeholder=\"Anime title\" formControlName=\"search\">\n        </mat-form-field>\n      </div>\n\n      <!--<mat-form-field id=\"yearInput\">-->\n        <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n        <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n        <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n      <!--</mat-form-field>-->\n\n      <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n        <mat-expansion-panel-header>\n          Advanced filters\n        </mat-expansion-panel-header>\n\n        <mat-divider></mat-divider>\n\n        <div class=\"vertical-padding-xs\">\n\n          <!-- air date -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired after year\"\n                  formControlName=\"startDate_greater\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n\n            <mat-form-field>\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Aired before year\"\n                  formControlName=\"startDate_lesser\"\n                  [min]=\"minYear\" [max]=\"maxYear\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- score -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored above\"\n                  formControlName=\"averageScore_greater\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n\n            <mat-form-field>\n              <input\n                  matInput type=\"number\"\n                  placeholder=\"Scored below\"\n                  formControlName=\"averageScore_lesser\"\n                  min=\"0\" max=\"10\" step=\".1\"\n              >\n            </mat-form-field>\n          </div>\n\n          <!-- genre -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select placeholder=\"Genre in...\" formControlName=\"genre_in\" multiple>\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select placeholder=\"Genre not in...\" formControlName=\"genre_not_in\" multiple>\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- format -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select placeholder=\"Format in...\" #formatInput formControlName=\"format_in\" multiple>\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                  {{ mediaFormat.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select placeholder=\"Format not in...\" #formatInput formControlName=\"format_not_in\" multiple>\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat.value\">\n                  {{ mediaFormat.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- status -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select placeholder=\"Status in...\" #formatInput formControlName=\"status_in\" multiple>\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus.value\">\n                  {{ mediaStatus.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select placeholder=\"Status not in...\" #formatInput formControlName=\"status_not_in\" multiple>\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus.value\">\n                  {{ mediaStatus.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- on list -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"On list?\" formControlName=\"onList\">\n                <mat-option *ngFor=\"let option of onListOptions\" [value]=\"option.value\">\n                  {{ option.label }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n        </div>\n\n        <div class=\"text-center padding-bottom-xs\">\n\n          <button mat-raised-button type=\"button\" (click)=\"clearFilters($event)\">\n            Clear filters\n          </button>\n\n        </div>\n\n        <mat-divider></mat-divider>\n\n      </mat-expansion-panel>\n\n      <div class=\"text-center\">\n\n        <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n          <i class=\"fa fa-search baseline margin-right-xxxs\"></i>\n          Search\n        </button>\n\n      </div>\n\n    </mat-card>\n\n    <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n    <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n    <mat-card *ngIf=\"errorGotten\" class=\"error\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        Error 500: Internal server error\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"noResults\" class=\"info\">\n      <h4>\n        <i class=\"fa fa-info-circle margin-right-xxs\"></i>\n        No results found\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n      <app-search-results-table\n        [tableData]=\"animeList\"\n        (onSortChange)=\"sortBy($event)\">\n      </app-search-results-table>\n\n      <mat-paginator\n        [length]=\"pagination.total\"\n        [pageSize]=\"pagination.perPage\"\n        [pageIndex]=\"pagination.pageIndex\"\n        [pageSizeOptions]=\"[5, 10, 25, 50]\"\n        (page)=\"changePage($event)\">\n      </mat-paginator>\n    </mat-card>\n\n  </form>\n\n</div>"
 
 /***/ }),
 
@@ -2066,6 +2072,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__models_anilist_onListOptions__ = __webpack_require__("../../../../../src/app/models/anilist/onListOptions.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_constants__ = __webpack_require__("../../../../../src/app/app.constants.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_generic_util__ = __webpack_require__("../../../../../src/app/utils/generic.util.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_search_results_table_search_results_table_component__ = __webpack_require__("../../../../../src/app/components/search-results-table/search-results-table.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2075,6 +2082,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -2116,7 +2124,7 @@ var AnimeSearchComponent = (function () {
                     field.setValue(value);
                 }
             });
-            this.sort = JSON.parse(queryParams.sort);
+            this.sort = queryParams.sort ? JSON.parse(queryParams.sort) : this.sort;
             this.expansionPanel.open();
             this.search();
         }
@@ -2145,23 +2153,30 @@ var AnimeSearchComponent = (function () {
             startDate_lesser: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(this.minYear), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(this.maxYear)]],
             averageScore_greater: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10)]],
             averageScore_lesser: [undefined, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].min(0), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["j" /* Validators */].max(10)]],
-            genres: [[]],
-            formats: [[]],
-            statuses: [[]],
+            genre_in: [[]],
+            genre_not_in: [[]],
+            format_in: [[]],
+            format_not_in: [[]],
+            status_in: [[]],
+            status_not_in: [[]],
             onList: [undefined]
         });
     };
     AnimeSearchComponent.prototype.search = function (page, perPage) {
         var _this = this;
+        __WEBPACK_IMPORTED_MODULE_9__utils_generic_util__["a" /* GenericUtil */].scrollToRef(this.resultsTable);
         this.updateQueryParams();
         this.searching = true;
         this.errorGotten = false;
         var filters = this.searchForm.value;
         var query = {
             search: filters.search,
-            genres: filters.genres,
-            formats: filters.formats,
-            statuses: filters.statuses,
+            genre_in: filters.genre_in,
+            genre_not_in: filters.genre_not_in,
+            format_in: filters.format_in,
+            format_not_in: filters.format_not_in,
+            status_in: filters.status_in,
+            status_not_in: filters.status_not_in,
             onList: filters.onList,
             sort: this.sort
         };
@@ -2222,6 +2237,10 @@ var AnimeSearchComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["k" /* MatExpansionPanel */]),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_material__["k" /* MatExpansionPanel */])
     ], AnimeSearchComponent.prototype, "expansionPanel", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_10__components_search_results_table_search_results_table_component__["a" /* SearchResultsTableComponent */], { read: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */] }),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    ], AnimeSearchComponent.prototype, "resultsTable", void 0);
     AnimeSearchComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-anime-search',
@@ -2427,7 +2446,7 @@ var PageNotFoundComponent = (function () {
 /***/ "../../../../../src/app/pages/user-list/user-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"narrow-page\">\n\n  <mat-card *ngIf=\"!user\" class=\"alert warning\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      You are not logged in.\n    </h4>\n  </mat-card>\n\n  <mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n  <div *ngIf=\"user && ready && !errorGotten\">\n\n    <div *ngIf=\"statuses && statuses.length\">\n      <mat-card class=\"table-filter\">\n        <mat-form-field class=\"full-width\">\n          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter by name\">\n        </mat-form-field>\n      </mat-card>\n\n      <mat-card class=\"margin-top-s\">\n        <h3>\n          Show / Go to\n        </h3>\n\n        <div class=\"statuses-wrapper\">\n          <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n            <div *ngIf=\"hasDataOfStatus(status.value)\">\n              <mat-checkbox [(ngModel)]=\"status.shown\">\n                {{ status.label }}\n              </mat-checkbox>\n\n              <a href=\"{{ '/user-list#' + status.value }}\" class=\"capitalize\">\n                <i class=\"fa fa-arrow-down go-to-icon\"></i>\n              </a>\n            </div>\n          </span>\n        </div>\n      </mat-card>\n\n      <div *ngFor=\"let status of statuses\">\n        <div *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n\n          <h3 [id]=\"status.value\" class=\"capitalize\">\n            {{ status.label }}\n          </h3>\n\n          <mat-card class=\"no-padding\">\n            <app-user-list-table\n              [tableStatus]=\"status.value\"\n              [tableData]=\"statusObjects[status.value]\"\n              [favouriteIDs]=\"favouriteIDs\"\n              [filter]=\"filter\"\n              (onEntryUpdate)=\"onEntryUpdate($event)\">\n            </app-user-list-table>\n          </mat-card>\n\n        </div>\n      </div>\n\n      <div class=\"padding-top-xs padding-bottom-m\">\n        <h3>\n          Settings\n        </h3>\n\n        <mat-slide-toggle\n          [checked]=\"reloadOnUpdate\"\n          (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n          Reload on update\n        </mat-slide-toggle>\n      </div>\n\n      <app-genres-overview\n        [genreStatsList]=\"user.stats.favouredGenresOverview\">\n      </app-genres-overview>\n    </div>\n\n    <mat-card *ngIf=\"!statuses || !statuses.length\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        You haven't added any entries yet.\n      </h4>\n    </mat-card>\n\n  </div>\n\n  <mat-card *ngIf=\"errorGotten\" class=\"error\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      Error 500: Internal server error\n    </h4>\n  </mat-card>\n\n</div>"
+module.exports = "<div class=\"narrow-page\">\n\n  <mat-card *ngIf=\"!user\" class=\"alert warning\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      You are not logged in.\n    </h4>\n  </mat-card>\n\n  <mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n  <div *ngIf=\"user && ready && !errorGotten\">\n\n    <div *ngIf=\"statuses && statuses.length\">\n      <mat-card class=\"table-filter\">\n        <mat-form-field class=\"full-width\">\n          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter by name\">\n        </mat-form-field>\n      </mat-card>\n\n      <mat-card class=\"margin-top-s\">\n        <h3>\n          Show / Go to\n        </h3>\n\n        <div class=\"statuses-wrapper\">\n          <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n            <div *ngIf=\"hasDataOfStatus(status.value)\">\n              <mat-checkbox [(ngModel)]=\"status.shown\">\n                {{ status.label }}\n              </mat-checkbox>\n\n              <a href=\"{{ '/user-list#' + status.value }}\" class=\"capitalize\">\n                <i class=\"fa fa-arrow-down go-to-icon\"></i>\n              </a>\n            </div>\n          </span>\n        </div>\n      </mat-card>\n\n      <div *ngFor=\"let status of statuses\">\n        <div *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n\n          <app-user-list-table\n            [tableStatus]=\"status\"\n            [tableData]=\"statusObjects[status.value]\"\n            [favouriteIDs]=\"favouriteIDs\"\n            [filter]=\"filter\"\n            (onEntryUpdate)=\"onEntryUpdate($event)\">\n          </app-user-list-table>\n\n        </div>\n      </div>\n\n      <div class=\"padding-top-xs padding-bottom-m\">\n        <h3>\n          Settings\n        </h3>\n\n        <mat-slide-toggle\n          [checked]=\"reloadOnUpdate\"\n          (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n          Reload on update\n        </mat-slide-toggle>\n      </div>\n\n      <app-genres-overview\n        [genreStatsList]=\"user.stats.favouredGenresOverview\">\n      </app-genres-overview>\n    </div>\n\n    <mat-card *ngIf=\"!statuses || !statuses.length\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        You haven't added any entries yet.\n      </h4>\n    </mat-card>\n\n  </div>\n\n  <mat-card *ngIf=\"errorGotten\" class=\"error\">\n    <h4>\n      <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n      Error 500: Internal server error\n    </h4>\n  </mat-card>\n\n</div>"
 
 /***/ }),
 
@@ -2618,8 +2637,8 @@ filterTypes.page = "\n  $page: Int,\n  $perPage: Int,\n";
 filterMappings.page = "\n  page: $page,\n  perPage: $perPage,\n";
 filterTypes.mediaCollection = "\n  $mediaType: MediaType,\n  $sort: [MediaListSort],\n  $userId: Int!,\n";
 filterMappings.mediaCollection = "\n  sort: $sort,\n  type: $mediaType,\n  userId: $userId,\n";
-filterTypes.media = "\n  $mediaType: MediaType,\n  $sort: [MediaSort],\n  $adultContent: Boolean,\n  $averageScore_greater: Int,\n  $averageScore_lesser: Int,\n  $genres: [String],\n  $formats: [MediaFormat],\n  $statuses: [MediaStatus],\n  $search: String,\n  $startDate_greater: FuzzyDateInt,\n  $startDate_lesser: FuzzyDateInt,\n  $status: MediaStatus,\n  $id: Int,\n  $idNotIn: [Int],\n  $onList: Boolean,\n";
-filterMappings.media = "\n  sort: $sort,\n  type: $mediaType,\n  isAdult: $adultContent,\n  averageScore_greater: $averageScore_greater,\n  averageScore_lesser: $averageScore_lesser,\n  genre_in: $genres,\n  format_in: $formats,\n  status_in: $statuses,\n  search: $search,\n  startDate_greater: $startDate_greater,\n  startDate_lesser: $startDate_lesser,\n  status: $status,\n  id: $id,\n  id_not_in: $idNotIn,\n  onList: $onList,\n";
+filterTypes.media = "\n  $mediaType: MediaType,\n  $sort: [MediaSort],\n  $adultContent: Boolean,\n  $averageScore_greater: Int,\n  $averageScore_lesser: Int,\n  $genre_in: [String],\n  $genre_not_in: [String],\n  $format_in: [MediaFormat],\n  $format_not_in: [MediaFormat],\n  $status_in: [MediaStatus],\n  $status_not_in: [MediaStatus],\n  $search: String,\n  $startDate_greater: FuzzyDateInt,\n  $startDate_lesser: FuzzyDateInt,\n  $status: MediaStatus,\n  $id: Int,\n  $idNotIn: [Int],\n  $onList: Boolean,\n";
+filterMappings.media = "\n  sort: $sort,\n  type: $mediaType,\n  isAdult: $adultContent,\n  averageScore_greater: $averageScore_greater,\n  averageScore_lesser: $averageScore_lesser,\n  genre_in: $genre_in,\n  genre_not_in: $genre_not_in,\n  format_in: $format_in,\n  format_not_in: $format_not_in,\n  status_in: $status_in,\n  status_not_in: $status_not_in,\n  search: $search,\n  startDate_greater: $startDate_greater,\n  startDate_lesser: $startDate_lesser,\n  status: $status,\n  id: $id,\n  id_not_in: $idNotIn,\n  onList: $onList,\n";
 /* fields */
 var pageInfoFields = "\n  currentPage\n  hasNextPage\n  lastPage\n  perPage\n  total\n";
 var listAnimeFields = "\n  averageScore\n  coverImage {\n    large\n    medium\n  }\n  description\n  duration\n  episodes\n  format\n  genres\n  id\n  startDate {\n    year\n  }\n  status\n  studios(isMain: true) {\n    nodes {\n      name\n    }\n  }\n  tags {\n    description\n    isMediaSpoiler\n    name\n  }\n  title {\n    romaji\n  }\n";
@@ -2682,6 +2701,20 @@ var AnimeService = (function () {
         this.apiUrl = __WEBPACK_IMPORTED_MODULE_8__app_constants__["e" /* apiUrl */];
         this.fallbackCover = 'assets/pictures/non-vectorial/no-cover-available.png';
         this.userChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.searchFilters = [
+            'id',
+            'search',
+            'startDate_greater',
+            'startDate_lesser',
+            'averageScore_greater',
+            'averageScore_lesser',
+            'genre_in',
+            'genre_not_in',
+            'format_in',
+            'format_not_in',
+            'status_in',
+            'status_not_in'
+        ];
     }
     /**
      * Stores the access token for the currently logged in user
@@ -2776,33 +2809,11 @@ var AnimeService = (function () {
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1
         };
-        if (query.id) {
-            options.id = query.id;
-        }
-        if (query.search) {
-            options.search = query.search;
-        }
-        if (query.startDate_greater) {
-            options.startDate_greater = query.startDate_greater;
-        }
-        if (query.startDate_lesser) {
-            options.startDate_lesser = query.startDate_lesser;
-        }
-        if (query.averageScore_greater) {
-            options.averageScore_greater = query.averageScore_greater;
-        }
-        if (query.averageScore_lesser) {
-            options.averageScore_lesser = query.averageScore_lesser;
-        }
-        if (query.genres && query.genres.length) {
-            options.genres = query.genres;
-        }
-        if (query.formats && query.formats.length) {
-            options.formats = query.formats;
-        }
-        if (query.statuses && query.statuses.length) {
-            options.statuses = query.statuses;
-        }
+        this.searchFilters.forEach(function (filter) {
+            if (query[filter] && query[filter].length) {
+                options[filter] = query[filter];
+            }
+        });
         return this.httpClient.post(this.apiUrl, {
             query: __WEBPACK_IMPORTED_MODULE_9__anime_queries__["i" /* searchQuery */],
             variables: options
@@ -3186,6 +3197,19 @@ var GenericUtil = (function () {
     }
     GenericUtil.isSet = function (variable) {
         return variable !== undefined && variable !== null;
+    };
+    GenericUtil.scrollToTop = function () {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    };
+    GenericUtil.scrollTo = function (element) {
+        if (element) {
+            element.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        }
+    };
+    GenericUtil.scrollToRef = function (elementRef) {
+        if (elementRef && elementRef.nativeElement) {
+            this.scrollTo(elementRef.nativeElement);
+        }
     };
     GenericUtil = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
