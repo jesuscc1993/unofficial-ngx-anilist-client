@@ -171,14 +171,17 @@ export class AnimeService {
     if (query.averageScore_lesser) {
       options.averageScore_lesser = query.averageScore_lesser;
     }
-    if (query.genres && query.genres.length) {
-      options.genres = query.genres;
+    if (query.genre_in && query.genre_in.length) {
+      options.genre_in = query.genre_in;
     }
-    if (query.formats && query.formats.length) {
-      options.formats = query.formats;
+    if (query.genre_not_in && query.genre_not_in.length) {
+      options.genre_not_in = query.genre_not_in;
     }
-    if (query.statuses && query.statuses.length) {
-      options.statuses = query.statuses;
+    if (query.format_in && query.format_in.length) {
+      options.format_in = query.format_in;
+    }
+    if (query.status_in && query.status_in.length) {
+      options.status_in = query.status_in;
     }
 
     return this.httpClient.post(this.apiUrl, {

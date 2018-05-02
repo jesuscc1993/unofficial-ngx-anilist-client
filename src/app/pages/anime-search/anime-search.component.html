@@ -40,7 +40,7 @@
 
           <!-- air date -->
           <div class="form-group two-rows">
-            <mat-form-field class="medium">
+            <mat-form-field>
               <input
                   matInput type="number"
                   placeholder="Aired after year"
@@ -49,7 +49,7 @@
               >
             </mat-form-field>
 
-            <mat-form-field class="medium">
+            <mat-form-field>
               <input
                   matInput type="number"
                   placeholder="Aired before year"
@@ -61,7 +61,7 @@
 
           <!-- score -->
           <div class="form-group two-rows">
-            <mat-form-field class="medium">
+            <mat-form-field>
               <input
                   matInput type="number"
                   placeholder="Scored above"
@@ -70,7 +70,7 @@
               >
             </mat-form-field>
 
-            <mat-form-field class="medium">
+            <mat-form-field>
               <input
                   matInput type="number"
                   placeholder="Scored below"
@@ -80,10 +80,19 @@
             </mat-form-field>
           </div>
 
-          <!-- genres -->
-          <div class="form-group">
+          <!-- genre in -->
+          <div class="form-group two-rows">
             <mat-form-field>
-              <mat-select placeholder="Genre" formControlName="genres" multiple>
+              <mat-select placeholder="Genre in..." formControlName="genre_in" multiple>
+                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
+                  {{ genre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- genre not in -->
+            <mat-form-field>
+              <mat-select placeholder="Genre not in..." formControlName="genre_not_in" multiple>
                 <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
                   {{ genre }}
                 </mat-option>
@@ -91,10 +100,10 @@
             </mat-form-field>
           </div>
 
-          <!-- formats -->
+          <!-- format_in -->
           <div class="form-group">
             <mat-form-field>
-              <mat-select placeholder="Format" #formatInput formControlName="formats" multiple>
+              <mat-select placeholder="Format in..." #formatInput formControlName="format_in" multiple>
                 <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
                   {{ mediaFormat.label }}
                 </mat-option>
@@ -102,10 +111,10 @@
             </mat-form-field>
           </div>
 
-          <!-- statuses -->
+          <!-- status_in -->
           <div class="form-group">
             <mat-form-field>
-              <mat-select placeholder="Status" #formatInput formControlName="statuses" multiple>
+              <mat-select placeholder="Status in..." #formatInput formControlName="status_in" multiple>
                 <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus.value">
                   {{ mediaStatus.label }}
                 </mat-option>

@@ -107,9 +107,10 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       startDate_lesser: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
       averageScore_greater: [undefined, [Validators.min(0), Validators.max(10)]],
       averageScore_lesser: [undefined, [Validators.min(0), Validators.max(10)]],
-      genres: [[]],
-      formats: [[]],
-      statuses: [[]],
+      genre_in: [[]],
+      genre_not_in: [[]],
+      format_in: [[]],
+      status_in: [[]],
       onList: [undefined]
     });
   }
@@ -125,9 +126,10 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
     let query: MediaQuery = {
       search: filters.search,
-      genres: filters.genres,
-      formats: filters.formats,
-      statuses: filters.statuses,
+      genre_in: filters.genre_in,
+      genre_not_in: filters.genre_not_in,
+      format_in: filters.format_in,
+      status_in: filters.status_in,
       onList: filters.onList,
       sort: this.sort
     };
