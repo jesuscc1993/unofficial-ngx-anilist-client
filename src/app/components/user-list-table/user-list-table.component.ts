@@ -1,11 +1,12 @@
 import {
-  AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,
+  AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { ListEntry } from '../../models/anilist/listEntry';
 import { Anime } from '../../models/anilist/anime';
+import { GenericUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'app-user-list-table',
@@ -24,7 +25,9 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
   tableRows: string[] = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
   dataSource: MatTableDataSource<ListEntry>;
 
-  constructor() {
+  constructor(
+    private elementRef: ElementRef
+  ) {
 
   }
 
@@ -70,4 +73,9 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
       return listEntry.media.title.romaji.trim().toLowerCase().indexOf(filter.trim().toLowerCase()) >= 0;
     };
   }
+
+  private onPageChange(): void {
+    GenericUtil.scrollTo(this.elementRef.nativeElement);
+  }
+
 }

@@ -42,7 +42,7 @@ export class ListEntryFormModalComponent {
       ],
       score: [
         this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined,
-        [Validators.required, Validators.max(10), Validators.min(0)]
+        [Validators.max(10), Validators.min(0)]
       ]
     });
   }

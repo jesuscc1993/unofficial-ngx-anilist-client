@@ -72,7 +72,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
         }
       });
 
-      this.sort = JSON.parse(queryParams.sort);
+      this.sort = queryParams.sort ? JSON.parse(queryParams.sort) : this.sort;
 
       this.expansionPanel.open();
       this.search();
@@ -115,6 +115,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   private search(page?: number, perPage?: number): void {
+    GenericUtil.scrollToTop();
     this.updateQueryParams();
 
     this.searching = true;

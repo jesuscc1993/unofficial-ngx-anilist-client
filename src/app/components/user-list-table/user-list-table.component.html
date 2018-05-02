@@ -1,98 +1,107 @@
-<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" matSort class="series-table">
+<h3 [id]="tableStatus.value" class="capitalize no-margin-bottom margin-top-xxs vertical-padding-xs">
+  {{ tableStatus.label }}
+</h3>
 
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>
+<mat-card class="no-padding">
 
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      <app-media-actions
-        [listEntry]="entry"
-        [media]="entry.media"
-        (onUpdate)="onUpdate($event)">
-      </app-media-actions>
-    </mat-cell>
-  </ng-container>
+  <mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" matSort class="series-table">
 
-  <ng-container matColumnDef="cover-image">
-    <mat-header-cell *matHeaderCellDef>
-      Cover
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      <img [src]="entry.media.coverImage.medium" class="cover">
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
 
-  <ng-container matColumnDef="title-romaji">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      Title
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      <span class="title">
-        {{ entry.media.title.romaji }}
-      </span>
-      <i *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0"
-         class="fa fa-heart favourite">
-      </i>
-    </mat-cell>
-  </ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <app-media-actions
+          [listEntry]="entry"
+          [media]="entry.media"
+          (onUpdate)="onUpdate($event)">
+        </app-media-actions>
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="format">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      Format
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      {{ entry.media.format }}
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="cover-image">
+      <mat-header-cell *matHeaderCellDef>
+        Cover
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <img [src]="entry.media.coverImage.medium" class="cover">
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="start-date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      Year
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      {{ entry.media.startDate.year }}
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="title-romaji">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Title
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="title">
+          {{ entry.media.title.romaji }}
+        </span>
+        <i *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0"
+           class="fa fa-heart favourite">
+        </i>
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="genres">
-    <mat-header-cell *matHeaderCellDef>
-      Genres
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      <mat-list>
-        <mat-list-item *ngFor="let genre of entry.media.genres">
-          <mat-chip class="rounded">{{ genre }}</mat-chip>
-        </mat-list-item>
-      </mat-list>
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="format">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Format
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        {{ entry.media.format }}
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="score">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      Score
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      {{ entry.scoreRaw / 10 }}/10
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="start-date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+        Year
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        {{ entry.media.startDate.year }}
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="episodes">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      Episodes
-    </mat-header-cell>
-    <mat-cell *matCellDef="let entry">
-      {{ entry.media.episodes }}
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="genres">
+      <mat-header-cell *matHeaderCellDef>
+        Genres
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <mat-list>
+          <mat-list-item *ngFor="let genre of entry.media.genres">
+            <mat-chip class="rounded">{{ genre }}</mat-chip>
+          </mat-list-item>
+        </mat-list>
+      </mat-cell>
+    </ng-container>
 
-  <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
-  <mat-row *matRowDef="let entry; columns: tableRows"></mat-row>
+    <ng-container matColumnDef="score">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+        Score
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        {{ entry.scoreRaw / 10 }}/10
+      </mat-cell>
+    </ng-container>
 
-</mat-table>
+    <ng-container matColumnDef="episodes">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+        Episodes
+      </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        {{ entry.media.episodes }}
+      </mat-cell>
+    </ng-container>
 
-<mat-paginator
-  #paginator
-  [pageSize]="10"
-  [pageSizeOptions]="[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]"
-  [showFirstLastButtons]="true">
-</mat-paginator>
+    <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
+    <mat-row *matRowDef="let entry; columns: tableRows"></mat-row>
+
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]"
+    [showFirstLastButtons]="true"
+    (page)="onPageChange()">
+  </mat-paginator>
+
+</mat-card>

@@ -41,19 +41,13 @@
       <div *ngFor="let status of statuses">
         <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
 
-          <h3 [id]="status.value" class="capitalize">
-            {{ status.label }}
-          </h3>
-
-          <mat-card class="no-padding">
-            <app-user-list-table
-              [tableStatus]="status.value"
-              [tableData]="statusObjects[status.value]"
-              [favouriteIDs]="favouriteIDs"
-              [filter]="filter"
-              (onEntryUpdate)="onEntryUpdate($event)">
-            </app-user-list-table>
-          </mat-card>
+          <app-user-list-table
+            [tableStatus]="status"
+            [tableData]="statusObjects[status.value]"
+            [favouriteIDs]="favouriteIDs"
+            [filter]="filter"
+            (onEntryUpdate)="onEntryUpdate($event)">
+          </app-user-list-table>
 
         </div>
       </div>
