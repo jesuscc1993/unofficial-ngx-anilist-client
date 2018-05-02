@@ -6,7 +6,9 @@ export class MediaQuery {
   genre_in?: string[];
   genre_not_in?: string[];
   format_in?: string[];
+  format_not_in?: string[];
   status_in?: string[];
+  status_not_in?: string[];
   id?: number;
   search?: string;
   sort?: string;

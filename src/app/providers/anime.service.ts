@@ -42,6 +42,21 @@ export class AnimeService {
 
   userChange: EventEmitter<any> = new EventEmitter<any>();
 
+  searchFilters: string[] = [
+    'id',
+    'search',
+    'startDate_greater',
+    'startDate_lesser',
+    'averageScore_greater',
+    'averageScore_lesser',
+    'genre_in',
+    'genre_not_in',
+    'format_in',
+    'format_not_in',
+    'status_in',
+    'status_not_in'
+  ];
+
   constructor (
     private httpClient: HttpClient
   ) {
@@ -153,36 +168,11 @@ export class AnimeService {
       perPage: pageInfo ? (pageInfo.perPage || 10) : 1
     };
 
-    if (query.id) {
-      options.id = query.id;
-    }
-    if (query.search) {
-      options.search = query.search;
-    }
-    if (query.startDate_greater) {
-      options.startDate_greater = query.startDate_greater;
-    }
-    if (query.startDate_lesser) {
-      options.startDate_lesser = query.startDate_lesser;
-    }
-    if (query.averageScore_greater) {
-      options.averageScore_greater = query.averageScore_greater;
-    }
-    if (query.averageScore_lesser) {
-      options.averageScore_lesser = query.averageScore_lesser;
-    }
-    if (query.genre_in && query.genre_in.length) {
-      options.genre_in = query.genre_in;
-    }
-    if (query.genre_not_in && query.genre_not_in.length) {
-      options.genre_not_in = query.genre_not_in;
-    }
-    if (query.format_in && query.format_in.length) {
-      options.format_in = query.format_in;
-    }
-    if (query.status_in && query.status_in.length) {
-      options.status_in = query.status_in;
-    }
+    this.searchFilters.forEach((filter: string) => {
+      if (query[filter] && query[filter].length) {
+        options[filter] = query[filter];
+      }
+    });
 
     return this.httpClient.post(this.apiUrl, {
       query: searchQuery,

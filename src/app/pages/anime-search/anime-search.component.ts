@@ -110,7 +110,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       genre_in: [[]],
       genre_not_in: [[]],
       format_in: [[]],
+      format_not_in: [[]],
       status_in: [[]],
+      status_not_in: [[]],
       onList: [undefined]
     });
   }
@@ -129,7 +131,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       genre_in: filters.genre_in,
       genre_not_in: filters.genre_not_in,
       format_in: filters.format_in,
+      format_not_in: filters.format_not_in,
       status_in: filters.status_in,
+      status_not_in: filters.status_not_in,
       onList: filters.onList,
       sort: this.sort
     };

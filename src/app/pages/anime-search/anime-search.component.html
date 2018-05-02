@@ -80,7 +80,7 @@
             </mat-form-field>
           </div>
 
-          <!-- genre in -->
+          <!-- genre -->
           <div class="form-group two-rows">
             <mat-form-field>
               <mat-select placeholder="Genre in..." formControlName="genre_in" multiple>
@@ -90,7 +90,6 @@
               </mat-select>
             </mat-form-field>
 
-            <!-- genre not in -->
             <mat-form-field>
               <mat-select placeholder="Genre not in..." formControlName="genre_not_in" multiple>
                 <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
@@ -100,8 +99,8 @@
             </mat-form-field>
           </div>
 
-          <!-- format_in -->
-          <div class="form-group">
+          <!-- format -->
+          <div class="form-group two-rows">
             <mat-form-field>
               <mat-select placeholder="Format in..." #formatInput formControlName="format_in" multiple>
                 <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
@@ -109,12 +108,28 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="Format not in..." #formatInput formControlName="format_not_in" multiple>
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
+                  {{ mediaFormat.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
-          <!-- status_in -->
-          <div class="form-group">
+          <!-- status -->
+          <div class="form-group two-rows">
             <mat-form-field>
               <mat-select placeholder="Status in..." #formatInput formControlName="status_in" multiple>
+                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus.value">
+                  {{ mediaStatus.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="Status not in..." #formatInput formControlName="status_not_in" multiple>
                 <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus.value">
                   {{ mediaStatus.label }}
                 </mat-option>
