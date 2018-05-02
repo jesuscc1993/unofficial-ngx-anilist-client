@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { OnListOptions } from '../../models/anilist/onListOptions';
 import { MediaSort } from '../../models/anilist/mediaSorts';
 import { animeSearchUrl } from '../../app.constants';
 import { GenericUtil } from '../../utils/generic.util';
+import { SearchResultsTableComponent } from '../../components/search-results-table/search-results-table.component';
 
 @Component({
   selector: 'app-anime-search',
@@ -22,6 +23,7 @@ import { GenericUtil } from '../../utils/generic.util';
 })
 export class AnimeSearchComponent implements OnInit, OnDestroy {
   @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
+  @ViewChild(SearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
   user: User;
   animeList: Anime[];
@@ -118,7 +120,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   private search(page?: number, perPage?: number): void {
-    GenericUtil.scrollToTop();
+    GenericUtil.scrollToRef(this.resultsTable);
     this.updateQueryParams();
 
     this.searching = true;

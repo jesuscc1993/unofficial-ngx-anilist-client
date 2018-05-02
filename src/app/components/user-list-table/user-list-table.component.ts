@@ -75,7 +75,7 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
   }
 
   private onPageChange(): void {
-    GenericUtil.scrollTo(this.elementRef.nativeElement);
+    GenericUtil.scrollToRed(this.elementRef);
   }
 
 }

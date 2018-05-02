@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 @Injectable()
 export class GenericUtil {
@@ -18,7 +18,15 @@ export class GenericUtil {
   }
 
   public static scrollTo(element: any): void {
-    element.scrollIntoView({ block: 'start',  behavior: 'smooth' });
+    if (element) {
+      element.scrollIntoView({ block: 'start',  behavior: 'smooth' });
+    }
+  }
+
+  public static scrollToRef(elementRef: ElementRef): void {
+    if (elementRef && elementRef.nativeElement) {
+      this.scrollTo(elementRef.nativeElement);
+    }
   }
 
 }
