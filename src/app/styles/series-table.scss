@@ -101,6 +101,8 @@ $horizontal-cell-padding: $spacing-xxs;
   }
 
   .mat-column-cover-image {
+    font-size: 0;
+
     img.cover {
       height: auto;
 
