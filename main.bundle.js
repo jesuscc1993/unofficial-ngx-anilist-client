@@ -126,6 +126,7 @@ var modalConfig = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_recently_updated_list_entries_recently_updated_list_entries_component__ = __webpack_require__("../../../../../src/app/components/recently-updated-list-entries/recently-updated-list-entries.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_list_related_media_list_related_media_component__ = __webpack_require__("../../../../../src/app/components/list-related-media/list-related-media.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_cover_media_cover_media_component__ = __webpack_require__("../../../../../src/app/components/cover-media/cover-media.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_recently_finished_media_by_format_recently_finished_media_by_format_component__ = __webpack_require__("../../../../../src/app/components/recently-finished-media-by-format/recently-finished-media-by-format.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -160,6 +161,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 /* components */
+
 
 
 
@@ -206,7 +208,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_26__components_recently_finished_media_recently_finished_media_component__["a" /* RecentlyFinishedMediaComponent */],
                 __WEBPACK_IMPORTED_MODULE_27__components_recently_updated_list_entries_recently_updated_list_entries_component__["a" /* RecentlyUpdatedListEntriesComponent */],
                 __WEBPACK_IMPORTED_MODULE_28__components_list_related_media_list_related_media_component__["a" /* ListRelatedMediaComponent */],
-                __WEBPACK_IMPORTED_MODULE_29__components_cover_media_cover_media_component__["a" /* CoverMediaComponent */]
+                __WEBPACK_IMPORTED_MODULE_29__components_cover_media_cover_media_component__["a" /* CoverMediaComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__components_recently_finished_media_by_format_recently_finished_media_by_format_component__["a" /* RecentlyFinishedMediaByFormatComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
@@ -944,10 +947,117 @@ var MediaActionsComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/recently-finished-media-by-format/recently-finished-media-by-format.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<mat-spinner *ngIf=\"!ready\" mode=\"indeterminate\" class=\"margin-auto\"></mat-spinner>\n\n<div *ngIf=\"mediaList && mediaList.length\" class=\"cover-media-grid\">\n  <app-cover-media *ngFor=\"let media of mediaList\" [media]=\"media\"></app-cover-media>\n</div>\n\n<mat-paginator\n  *ngIf=\"pagination\"\n  [length]=\"pagination.total\"\n  [pageSize]=\"pagination.perPage\"\n  (page)=\"changePage($event)\"\n  class=\"basic negative-bottom-margin\">\n</mat-paginator>\n\n<mat-card *ngIf=\"errorGotten\" class=\"error\">\n  <h4>\n    <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n    Error 500: Internal server error\n  </h4>\n</mat-card>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/recently-finished-media-by-format/recently-finished-media-by-format.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/recently-finished-media-by-format/recently-finished-media-by-format.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecentlyFinishedMediaByFormatComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var RecentlyFinishedMediaByFormatComponent = (function () {
+    function RecentlyFinishedMediaByFormatComponent(animeService) {
+        var _this = this;
+        this.animeService = animeService;
+        this.maxEntries = 16;
+        this.animeService.getListMediaIds(this.animeService.getUser()).subscribe(function (listMediaIds) {
+            _this.blacklistedIds = listMediaIds.completed.concat(listMediaIds.dropped);
+            _this.getRecentlyFinishedAiring();
+        }, function (error) {
+            _this.onError();
+        });
+    }
+    RecentlyFinishedMediaByFormatComponent.prototype.changePage = function (pageEvent) {
+        this.pagination.pageIndex = pageEvent.pageIndex + 1;
+        this.getRecentlyFinishedAiring();
+    };
+    RecentlyFinishedMediaByFormatComponent.prototype.getRecentlyFinishedAiring = function () {
+        var _this = this;
+        this.animeService.getRecentlyFinishedAiring({
+            idNotIn: this.blacklistedIds,
+            format_in: this.formatIn,
+            format_not_in: this.formatNotIn
+        }, {
+            perPage: this.maxEntries,
+            pageIndex: this.pagination ? this.pagination.pageIndex : undefined
+        }).subscribe(function (response) {
+            _this.mediaList = response.media;
+            _this.pagination = response.pageInfo;
+            _this.ready = true;
+        }, function (error) {
+            _this.onError();
+        });
+    };
+    RecentlyFinishedMediaByFormatComponent.prototype.onError = function () {
+        this.errorGotten = true;
+        this.ready = true;
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Array)
+    ], RecentlyFinishedMediaByFormatComponent.prototype, "formatIn", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Array)
+    ], RecentlyFinishedMediaByFormatComponent.prototype, "formatNotIn", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", String)
+    ], RecentlyFinishedMediaByFormatComponent.prototype, "title", void 0);
+    RecentlyFinishedMediaByFormatComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-recently-finished-media-by-format',
+            template: __webpack_require__("../../../../../src/app/components/recently-finished-media-by-format/recently-finished-media-by-format.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/recently-finished-media-by-format/recently-finished-media-by-format.component.scss")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_anime_service__["a" /* AnimeService */]])
+    ], RecentlyFinishedMediaByFormatComponent);
+    return RecentlyFinishedMediaByFormatComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/recently-finished-media/recently-finished-media.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"composite compact\">\n\n  <div class=\"header\">\n    <h4 class=\"no-margin\">\n      Recently finished airing\n    </h4>\n  </div>\n\n  <mat-divider></mat-divider>\n\n  <div class=\"content\">\n    <mat-spinner *ngIf=\"!ready\" mode=\"indeterminate\" class=\"margin-auto\"></mat-spinner>\n\n    <div *ngIf=\"mediaList && mediaList.length\" class=\"cover-media-grid\">\n      <app-cover-media *ngFor=\"let media of mediaList\" [media]=\"media\"></app-cover-media>\n    </div>\n\n    <mat-paginator\n      *ngIf=\"pagination\"\n      [length]=\"pagination.total\"\n      [pageSize]=\"pagination.perPage\"\n      (page)=\"changePage($event)\"\n      class=\"basic negative-bottom-margin\">\n    </mat-paginator>\n\n    <mat-card *ngIf=\"errorGotten\" class=\"error\">\n      <h4>\n        <i class=\"fa fa-exclamation-circle margin-right-xxs\"></i>\n        Error 500: Internal server error\n      </h4>\n    </mat-card>\n\n  </div>\n\n</mat-card>"
+module.exports = "<mat-card class=\"composite compact\">\n\n  <div class=\"tab-group\">\n\n    <div class=\"header\">\n      <h4 class=\"no-margin\">\n        Finished airing\n      </h4>\n    </div>\n\n    <div\n      *ngFor=\"let tab of tabs\"\n      class=\"header tab\"\n      [class.active]=\"tab === activeTab\"\n      [class.clickable]=\"tab !== activeTab\"\n      (click)=\"activateTab(tab)\">\n\n      <h4 class=\"no-margin\">\n        {{ tab.label }}\n      </h4>\n    </div>\n  </div>\n\n  <div *ngFor=\"let tab of tabs\" [hidden]=\"tab !== activeTab\" class=\"content\">\n    <app-recently-finished-media-by-format\n      [formatIn]=\"tab.formatIn\"\n      [formatNotIn]=\"tab.formatNotIn\">\n    </app-recently-finished-media-by-format>\n  </div>\n\n</mat-card>"
 
 /***/ }),
 
@@ -975,7 +1085,7 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecentlyFinishedMediaComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_anime_service__ = __webpack_require__("../../../../../src/app/providers/anime.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_anilist_mediaFormats__ = __webpack_require__("../../../../../src/app/models/anilist/mediaFormats.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -988,39 +1098,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var RecentlyFinishedMediaComponent = (function () {
-    function RecentlyFinishedMediaComponent(animeService) {
-        var _this = this;
-        this.animeService = animeService;
-        this.maxEntries = 16;
-        this.animeService.getListMediaIds(this.animeService.getUser()).subscribe(function (listMediaIds) {
-            _this.blacklistedIds = listMediaIds.completed.concat(listMediaIds.dropped);
-            _this.getRecentlyFinishedAiring();
-        }, function (error) {
-            _this.onError();
-        });
+    function RecentlyFinishedMediaComponent() {
+        this.tabs = [{
+                label: 'Series',
+                formatIn: [__WEBPACK_IMPORTED_MODULE_1__models_anilist_mediaFormats__["a" /* MediaFormat */].TV]
+            }, {
+                label: 'Movies',
+                formatIn: [__WEBPACK_IMPORTED_MODULE_1__models_anilist_mediaFormats__["a" /* MediaFormat */].MOVIE]
+            }, {
+                label: 'Other',
+                formatNotIn: [__WEBPACK_IMPORTED_MODULE_1__models_anilist_mediaFormats__["a" /* MediaFormat */].TV, __WEBPACK_IMPORTED_MODULE_1__models_anilist_mediaFormats__["a" /* MediaFormat */].MOVIE]
+            }];
+        this.activeTab = this.tabs[0];
     }
-    RecentlyFinishedMediaComponent.prototype.changePage = function (pageEvent) {
-        this.pagination.pageIndex = pageEvent.pageIndex + 1;
-        this.getRecentlyFinishedAiring();
-    };
-    RecentlyFinishedMediaComponent.prototype.getRecentlyFinishedAiring = function () {
-        var _this = this;
-        this.animeService.getRecentlyFinishedAiring({
-            idNotIn: this.blacklistedIds
-        }, {
-            perPage: this.maxEntries,
-            pageIndex: this.pagination ? this.pagination.pageIndex : undefined
-        }).subscribe(function (response) {
-            _this.mediaList = response.media;
-            _this.pagination = response.pageInfo;
-            _this.ready = true;
-        }, function (error) {
-            _this.onError();
-        });
-    };
-    RecentlyFinishedMediaComponent.prototype.onError = function () {
-        this.errorGotten = true;
-        this.ready = true;
+    RecentlyFinishedMediaComponent.prototype.activateTab = function (tab) {
+        this.activeTab = tab;
     };
     RecentlyFinishedMediaComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -1028,7 +1120,7 @@ var RecentlyFinishedMediaComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/recently-finished-media/recently-finished-media.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/recently-finished-media/recently-finished-media.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_anime_service__["a" /* AnimeService */]])
+        __metadata("design:paramtypes", [])
     ], RecentlyFinishedMediaComponent);
     return RecentlyFinishedMediaComponent;
 }());
@@ -2942,6 +3034,11 @@ var AnimeService = (function () {
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1
         };
+        this.searchFilters.forEach(function (filter) {
+            if (query[filter] && query[filter].length) {
+                options[filter] = query[filter];
+            }
+        });
         return this.httpClient.post(this.apiUrl, {
             query: __WEBPACK_IMPORTED_MODULE_9__anime_queries__["b" /* finishedAiringMediaQuery */],
             variables: options
