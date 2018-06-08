@@ -1,35 +1,31 @@
 <mat-card class="composite compact">
 
-  <div class="header">
-    <h4 class="no-margin">
-      Recently finished airing
-    </h4>
-  </div>
+  <div class="tab-group">
 
-  <mat-divider></mat-divider>
-
-  <div class="content">
-    <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
-
-    <div *ngIf="mediaList && mediaList.length" class="cover-media-grid">
-      <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
+    <div class="header">
+      <h4 class="no-margin">
+        Finished airing
+      </h4>
     </div>
 
-    <mat-paginator
-      *ngIf="pagination"
-      [length]="pagination.total"
-      [pageSize]="pagination.perPage"
-      (page)="changePage($event)"
-      class="basic negative-bottom-margin">
-    </mat-paginator>
+    <div
+      *ngFor="let tab of tabs"
+      class="header tab"
+      [class.active]="tab === activeTab"
+      [class.clickable]="tab !== activeTab"
+      (click)="activateTab(tab)">
 
-    <mat-card *ngIf="errorGotten" class="error">
-      <h4>
-        <i class="fa fa-exclamation-circle margin-right-xxs"></i>
-        Error 500: Internal server error
+      <h4 class="no-margin">
+        {{ tab.label }}
       </h4>
-    </mat-card>
+    </div>
+  </div>
 
+  <div *ngFor="let tab of tabs" [hidden]="tab !== activeTab" class="content">
+    <app-recently-finished-media-by-format
+      [formatIn]="tab.formatIn"
+      [formatNotIn]="tab.formatNotIn">
+    </app-recently-finished-media-by-format>
   </div>
 
 </mat-card>

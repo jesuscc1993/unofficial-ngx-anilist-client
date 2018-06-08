@@ -37,6 +37,7 @@ import { RecentlyFinishedMediaComponent } from './components/recently-finished-m
 import { RecentlyUpdatedListEntriesComponent } from './components/recently-updated-list-entries/recently-updated-list-entries.component';
 import { ListRelatedMediaComponent } from './components/list-related-media/list-related-media.component';
 import { CoverMediaComponent } from './components/cover-media/cover-media.component';
+import { RecentlyFinishedMediaByFormatComponent } from './components/recently-finished-media-by-format/recently-finished-media-by-format.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     RecentlyFinishedMediaComponent,
     RecentlyUpdatedListEntriesComponent,
     ListRelatedMediaComponent,
-    CoverMediaComponent
+    CoverMediaComponent,
+    RecentlyFinishedMediaByFormatComponent
   ],
   imports: [
     BrowserAnimationsModule,

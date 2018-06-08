@@ -327,6 +327,12 @@ export class AnimeService {
       perPage: pageInfo ? (pageInfo.perPage || 10) : 1
     };
 
+    this.searchFilters.forEach((filter: string) => {
+      if (query[filter] && query[filter].length) {
+        options[filter] = query[filter];
+      }
+    });
+
     return this.httpClient.post(this.apiUrl, {
       query: finishedAiringMediaQuery,
       variables: options

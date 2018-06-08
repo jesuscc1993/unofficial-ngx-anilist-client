@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'colors';
 
 @mixin setup-card-padding($regular-padding, $compact-padding) {
   mat-card {
@@ -31,6 +32,31 @@
 
         .negative-bottom-margin {
           margin-bottom: -$regular-padding;
+        }
+      }
+
+      .tab-group {
+        display: flex;
+
+        .header:not(.tab) {
+          border-bottom: 1px solid $card-border;
+          background-color: rgba(black, .06);
+        }
+
+        .tab {
+          flex: 1;
+          text-align: center;
+          border-bottom: 1px solid $card-border;
+          border-left: 1px solid #CCC;
+
+          &.active {
+            background-color: white;
+            border-bottom: 0;
+          }
+
+          &:not(.active) {
+            background-color: rgba(black, .12);
+          }
         }
       }
     }
