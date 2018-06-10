@@ -53,8 +53,11 @@ export class ListEntryFormModalComponent {
     this.animeService.saveListEntry(entryToSave).subscribe((response) => {
       const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
       if (success) {
-        this.listEntry.scoreRaw = entryToSave.scoreRaw;
-        this.listEntry.status = entryToSave.status;
+        if (this.listEntry) {
+          this.listEntry.scoreRaw = entryToSave.scoreRaw;
+          this.listEntry.status = entryToSave.status;
+        }
+
         this.dialogRef.close(this.listEntry);
       }
     });
