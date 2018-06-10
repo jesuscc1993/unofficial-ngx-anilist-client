@@ -2901,11 +2901,7 @@ var AnimeService = (function () {
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1
         };
-        this.searchFilters.forEach(function (filter) {
-            if (query[filter] && query[filter].length) {
-                options[filter] = query[filter];
-            }
-        });
+        this.mapQueryFilters(query, options);
         return this.httpClient.post(this.apiUrl, {
             query: __WEBPACK_IMPORTED_MODULE_9__anime_queries__["i" /* searchQuery */],
             variables: options
@@ -3034,11 +3030,7 @@ var AnimeService = (function () {
             page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
             perPage: pageInfo ? (pageInfo.perPage || 10) : 1
         };
-        this.searchFilters.forEach(function (filter) {
-            if (query[filter] && query[filter].length) {
-                options[filter] = query[filter];
-            }
-        });
+        this.mapQueryFilters(query, options);
         return this.httpClient.post(this.apiUrl, {
             query: __WEBPACK_IMPORTED_MODULE_9__anime_queries__["b" /* finishedAiringMediaQuery */],
             variables: options
@@ -3187,6 +3179,23 @@ var AnimeService = (function () {
     AnimeService.prototype.getFormattedMediaDuration = function (media) {
         return media.duration < 60 ? media.duration + "m" : Math.floor(media.duration / 60) + "h " + media.duration % 60 + "m";
     };
+    /**
+     * Maps the provided filters to the query
+     * @param {MediaQuery} query
+     * @param options
+     * @returns {void}
+     */
+    AnimeService.prototype.mapQueryFilters = function (query, options) {
+        this.searchFilters.forEach(function (filter) {
+            if (query[filter] && query[filter].length !== 0) {
+                options[filter] = query[filter];
+            }
+        });
+    };
+    /**
+     * Returns the request options, with the authentication header
+     * @returns {any}
+     */
     AnimeService.prototype.getRequestOptions = function () {
         var headers = {};
         if (this.getAccessToken()) {
