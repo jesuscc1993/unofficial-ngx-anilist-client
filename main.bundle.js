@@ -1522,8 +1522,10 @@ var ListEntryFormModalComponent = (function () {
         this.animeService.saveListEntry(entryToSave).subscribe(function (response) {
             var success = response.data.SaveMediaListEntry.id !== undefined;
             if (success) {
-                _this.listEntry.scoreRaw = entryToSave.scoreRaw;
-                _this.listEntry.status = entryToSave.status;
+                if (_this.listEntry) {
+                    _this.listEntry.scoreRaw = entryToSave.scoreRaw;
+                    _this.listEntry.status = entryToSave.status;
+                }
                 _this.dialogRef.close(_this.listEntry);
             }
         });
