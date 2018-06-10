@@ -168,11 +168,7 @@ export class AnimeService {
       perPage: pageInfo ? (pageInfo.perPage || 10) : 1
     };
 
-    this.searchFilters.forEach((filter: string) => {
-      if (query[filter] && query[filter].length) {
-        options[filter] = query[filter];
-      }
-    });
+    this.mapQueryFilters(query, options);
 
     return this.httpClient.post(this.apiUrl, {
       query: searchQuery,
@@ -327,11 +323,7 @@ export class AnimeService {
       perPage: pageInfo ? (pageInfo.perPage || 10) : 1
     };
 
-    this.searchFilters.forEach((filter: string) => {
-      if (query[filter] && query[filter].length) {
-        options[filter] = query[filter];
-      }
-    });
+    this.mapQueryFilters(query, options);
 
     return this.httpClient.post(this.apiUrl, {
       query: finishedAiringMediaQuery,
@@ -509,6 +501,24 @@ export class AnimeService {
     return media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
   }
 
+  /**
+   * Maps the provided filters to the query
+   * @param {MediaQuery} query
+   * @param options
+   * @returns {void}
+   */
+  private mapQueryFilters(query: MediaQuery, options: any): void {
+    this.searchFilters.forEach((filter: string) => {
+      if (query[filter] && query[filter].length !== 0) {
+        options[filter] = query[filter];
+      }
+    });
+  }
+
+  /**
+   * Returns the request options, with the authentication header
+   * @returns {any}
+   */
   private getRequestOptions(): any {
     let headers: any = {};
 
