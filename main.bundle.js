@@ -574,7 +574,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\nmat-toolbar {\n  height: 64px; }\n  mat-toolbar > *.centered-content {\n    z-index: 0; }\n  mat-toolbar > *:not(.centered-content) {\n    z-index: 1; }\n  mat-toolbar .filler {\n    -ms-flex: 1 1 auto;\n        flex: 1 1 auto; }\n  mat-toolbar .centered-content {\n    left: 0;\n    width: 100%;\n    position: absolute;\n    text-align: center; }\n  mat-toolbar .section-links a {\n    vertical-align: middle;\n    display: inline-block;\n    width: 96px; }\n    mat-toolbar .section-links a.active {\n      pointer-events: none;\n      color: #999; }\n    mat-toolbar .section-links a small {\n      display: block;\n      font-size: 12px;\n      line-height: 12px; }\n  mat-toolbar img.avatar {\n    max-width: 64px;\n    max-height: 100%;\n    width: auto;\n    height: auto; }\n", ""]);
+exports.push([module.i, "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* generic */\n/* specific */\nmat-toolbar {\n  position: relative;\n  height: 64px; }\n  mat-toolbar > *.centered-content {\n    z-index: 0; }\n  mat-toolbar > *:not(.centered-content) {\n    z-index: 1; }\n  mat-toolbar .filler {\n    -ms-flex: 1 1 auto;\n        flex: 1 1 auto; }\n  mat-toolbar .centered-content {\n    left: 0;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    text-align: center; }\n  mat-toolbar .section-links a {\n    width: 96px;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n    -ms-flex-direction: column;\n        flex-direction: column;\n    box-sizing: border-box;\n    border-top-width: 4px;\n    border-top-style: solid;\n    border-bottom-width: 0;\n    height: 100%;\n    transition: .2s; }\n    mat-toolbar .section-links a .fa {\n      margin: 4px 0;\n      font-size: 1.5em; }\n    mat-toolbar .section-links a.active {\n      border-bottom-width: 4px;\n      border-bottom-style: solid;\n      pointer-events: none; }\n    mat-toolbar .section-links a small {\n      display: block;\n      font-size: 12px;\n      line-height: 12px; }\n  mat-toolbar img.avatar {\n    max-width: 64px;\n    max-height: 100%;\n    width: auto;\n    height: auto; }\n", ""]);
 
 // exports
 
@@ -1322,7 +1322,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".fa.favourite {\n  padding: 3px 0 0;\n  color: #F50057; }\n", ""]);
+exports.push([module.i, "/**\n * Applies styles for users in high contrast mode. Note that this only applies\n * to Microsoft browsers. Chrome can be included by checking for the `html[hc]`\n * attribute, however Chrome handles high contrast differently.\n */\n/* Theme for the ripple elements.*/\n/* stylelint-disable material/no-prefixes */\n/* stylelint-enable */\n.fa.favourite {\n  padding: 3px 0 0;\n  color: #e91e63; }\n", ""]);
 
 // exports
 
@@ -3340,8 +3340,7 @@ var GenericUtil = (function () {
 // `ng build --env=prod` then `envi ronment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    // anilist_client_id: 329, // local
-    anilist_client_id: 331,
+    anilist_client_id: -1,
     production: false
 };
 
