@@ -24,7 +24,7 @@
 .cover-media-grid {
   $cell-width: 96px;
   $cell-height: 134px;
-  $cell-spacing: $spacing-xxxs;
+  $cell-spacing: 6px;
   display: grid;
   justify-content: space-around;
   grid-template-columns: repeat(auto-fill, $cell-width);
