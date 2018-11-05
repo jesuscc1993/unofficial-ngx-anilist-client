@@ -1,4 +1,6 @@
+@import '~@angular/material/theming';
+
 .fa.favourite {
   padding: 3px 0 0;
-  color: #F50057;
+  color: map-get($mat-pink, 500);
 }
