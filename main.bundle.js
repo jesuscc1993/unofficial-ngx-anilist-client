@@ -3340,7 +3340,7 @@ var GenericUtil = (function () {
 // `ng build --env=prod` then `envi ronment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    anilist_client_id: -1,
+    anilist_client_id: 1364,
     production: false
 };
 
