@@ -5,21 +5,21 @@ $horizontal-cell-padding: $spacing-xxs;
 .series-table {
 
   mat-row {
-    $bg-intensity: .5;
+    $bg-intensity: .1;
 
     &.completed,
     &.rewatching {
-      $color: map-get($mat-blue, 50);
+      $color: map-get($mat-blue, 500);
       background: rgba($color, $bg-intensity);
     }
     &.planned,
     &.watching,
     &.paused {
-      $color: map-get($mat-orange, 50);
+      $color: map-get($mat-orange, 500);
       background: rgba($color, $bg-intensity);
     }
     &.dropped {
-      $color: map-get($mat-red, 50);
+      $color: map-get($mat-red, 500);
       background: rgba($color, $bg-intensity);
     }
 
