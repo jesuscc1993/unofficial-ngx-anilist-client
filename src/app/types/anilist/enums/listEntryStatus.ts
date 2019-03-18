@@ -1,4 +1,4 @@
-import { EnumMap } from '../enumMap';
+import { EnumMap } from '../../enumMap.types';
 
 export class ListEntryStatus extends EnumMap {
   static COMPLETED: string = 'completed';
@@ -8,7 +8,7 @@ export class ListEntryStatus extends EnumMap {
   static PLANNING: string = 'planning';
   static REPEATING: string = 'repeating';
 
-  static LIST: any[] = [
+  static LIST = [
     { label: 'Completed', value: 'completed' },
     { label: 'Dropped', value: 'dropped' },
     { label: 'Paused', value: 'paused' },

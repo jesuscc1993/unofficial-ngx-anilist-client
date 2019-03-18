@@ -2,7 +2,7 @@
   Genres Overview
 </h3>
 
-<mat-grid-list *ngIf="genreStatsList && genreStatsList.length | sort: 'amount'" [cols]="getColumnCount()" rowHeight="32px">
+<mat-grid-list *ngIf="(genreStatsList && genreStatsList.length | sort: 'amount')" [cols]="getColumnCount()" rowHeight="32px">
   <mat-grid-tile *ngFor="let genreStats of genreStatsList" [matTooltip]="genreStats.amount + ' entries'" matTooltipPosition="above">
     {{ genreStats.genre }} ({{ genreStats.percentage }}%)
   </mat-grid-tile>

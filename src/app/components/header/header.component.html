@@ -1,5 +1,4 @@
 <mat-toolbar>
-
   <div>
     <span class="hide-below-s">
       Anime management client
@@ -34,7 +33,7 @@
     <span class="padding-right-xs clickable hide-below-s" [matMenuTriggerFor]="userMenu">
       {{ user.name }}
     </span>
-    <img class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu">
+    <img class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu" />
 
     <a class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
       <i class="fa fa-bars"></i>
@@ -54,12 +53,11 @@
 
   <!-- not logged in -->
   <div *ngIf="!user" class="flex-box center">
-    <a *ngIf="loginAvailable" [href]=apiLoginUrl>
-    <span class="hide-below-s">
-      Log in with AniList
-    </span>
+    <a *ngIf="loginAvailable" [href]="apiLoginUrl">
+      <span class="hide-below-s">
+        Log in with AniList
+      </span>
       <i class="fa fa-sign-in"></i>
     </a>
   </div>
-
 </mat-toolbar>

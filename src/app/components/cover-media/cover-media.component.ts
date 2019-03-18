@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { ListEntry } from '../../models/anilist/listEntry';
-import { Media } from '../../models/anilist/media';
+import { defaultModalOptions } from '../../app.constants';
 import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
-import { modalConfig } from '../../app.constants';
+import { ListEntry } from '../../types/anilist/listEntry.types';
+import { Media } from '../../types/anilist/media.types';
 
 @Component({
   selector: 'app-cover-media',
@@ -15,13 +15,9 @@ export class CoverMediaComponent implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
 
-  constructor(
-    private dialog: MatDialog
-  ) {
+  constructor(private dialog: MatDialog) {}
 
-  }
-
-  ngOnInit(): void {
+  ngOnInit() {
     if (!this.media && this.listEntry) {
       this.media = this.listEntry.media;
       delete this.listEntry.media;
@@ -29,14 +25,13 @@ export class CoverMediaComponent implements OnInit {
     }
   }
 
-  showDetail(): void {
-    let config: any = Object.assign({}, modalConfig);
-    config.maxWidth = '800px';
-    config.data = {
-      media: this.media
-    };
-
-    this.dialog.open(MediaDetailModalComponent, config);
+  showDetail() {
+    this.dialog.open(MediaDetailModalComponent, {
+      ...defaultModalOptions,
+      maxWidth: '800px',
+      data: {
+        media: this.media
+      }
+    });
   }
-
 }

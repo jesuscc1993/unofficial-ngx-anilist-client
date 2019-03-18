@@ -1,4 +1,4 @@
-import { EnumMap } from '../enumMap';
+import { EnumMap } from '../../enumMap.types';
 
 export class MediaFormat extends EnumMap {
   static MOVIE: string = 'MOVIE';
@@ -9,7 +9,7 @@ export class MediaFormat extends EnumMap {
   static TV: string = 'TV';
   static TV_SHORT: string = 'TV_SHORT';
 
-  static LIST: any[] = [
+  static LIST = [
     { label: 'Movie', value: 'MOVIE' },
     { label: 'Music', value: 'MUSIC' },
     { label: 'ONA', value: 'ONA' },
@@ -22,5 +22,4 @@ export class MediaFormat extends EnumMap {
   constructor(value: string) {
     super(value, MediaFormat.LIST, true);
   }
-
 }

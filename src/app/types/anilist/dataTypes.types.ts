@@ -1,20 +1,20 @@
-export class Title {
+export type Title = {
   romaji: string;
-}
+};
 
-export class FuzzyDate {
+export type FuzzyDate = {
   year: number;
   month: number;
   day: number;
-}
+};
 
-export class CoverImage {
+export type CoverImage = {
   medium: string;
   large: string;
-}
+};
 
-export class Tag {
+export type Tag = {
   description: string;
   isMediaSpoiler: boolean;
   name: string;
-}
+};

@@ -24,10 +24,10 @@ import {
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 
-const modules: any[] = [
+const modules = [
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -60,4 +60,4 @@ const modules: any[] = [
   imports: modules,
   exports: modules
 })
-export class MaterialModule { }
+export class MaterialModule {}

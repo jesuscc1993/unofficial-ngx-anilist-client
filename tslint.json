@@ -1,9 +1,6 @@
 {
   "rules": {
-    "max-line-length": [
-      true,
-      160
-    ],
+    "max-line-length": [true, 160],
     "new-parens": true,
     "no-arg": true,
     "no-bitwise": true,
@@ -13,14 +10,6 @@
     "no-duplicate-variable": true,
     "curly": true,
     "no-empty-interface": true,
-    "typedef": [
-      true,
-      "call-signature",
-      "parameter",
-      "member-variable-declaration",
-      "property-declaration",
-      "variable-declaration"
-    ],
     "no-invalid-this": true,
     "no-switch-case-fall-through": true,
     "triple-equals": true,
@@ -36,7 +25,6 @@
       "check-separator",
       "check-rest-spread",
       "check-type",
-      "check-typecast",
       "check-type-operator",
       "check-preblock"
     ]

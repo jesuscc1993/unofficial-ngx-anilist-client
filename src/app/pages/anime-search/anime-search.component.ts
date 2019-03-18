@@ -2,19 +2,22 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
-import { AnimeService } from '../../providers/anime.service';
-import { User } from '../../models/anilist/user';
-import { MediaQuery } from '../../models/anilist/query';
-import { PageQuery } from '../../models/anilist/pageInfo';
-import { Anime } from '../../models/anilist/anime';
-import { MediaFormat } from '../../models/anilist/mediaFormats';
-import { MediaStatus } from '../../models/anilist/mediaStatus';
-import { OnListOptions } from '../../models/anilist/onListOptions';
-import { MediaSort } from '../../models/anilist/mediaSorts';
 import { animeSearchUrl } from '../../app.constants';
-import { GenericUtil } from '../../utils/generic.util';
 import { SearchResultsTableComponent } from '../../components/search-results-table/search-results-table.component';
+import { AnimeService } from '../../services/anime.service';
+import { AuthService } from '../../services/auth.service';
+import { AuthStore } from '../../store/auth.store';
+import { Anime } from '../../types/anilist/anime.types';
+import { MediaFormat } from '../../types/anilist/enums/mediaFormats';
+import { MediaSort } from '../../types/anilist/enums/mediaSorts';
+import { MediaStatus } from '../../types/anilist/enums/mediaStatus';
+import { OnListOptions } from '../../types/anilist/enums/onListOptions';
+import { PageQuery } from '../../types/anilist/pageInfo.types';
+import { MediaQuery } from '../../types/anilist/query.types';
+import { User } from '../../types/anilist/user.types';
+import { GenericUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'app-anime-search',
@@ -33,41 +36,43 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   excludeOnList: boolean;
 
   mediaGenres: string[];
-  mediaFormats: any[] = MediaFormat.LIST;
-  mediaStatuses: any[] = MediaStatus.LIST;
-  onListOptions: any[] = OnListOptions.LIST;
-  minYear: number = 1900;
-  maxYear: number = new Date().getFullYear() + 1;
+  mediaFormats = MediaFormat.LIST;
+  mediaStatuses = MediaStatus.LIST;
+  onListOptions = OnListOptions.LIST;
+  minYear = 1900;
+  maxYear = new Date().getFullYear() + 1;
 
   searching: boolean;
   noResults: boolean;
-  errorGotten: boolean;
+  error: Error;
 
-  private userChangeSubscription: any;
+  private userChangeSubscription: Subscription;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private animeService: AnimeService,
+    private authService: AuthService,
+    private authStore: AuthStore,
     private formBuilder: FormBuilder
   ) {
-    this.user = this.animeService.getUser();
+    this.user = this.authStore.getUser();
     this.setupForm();
     this.getGenres();
 
-    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
+    this.userChangeSubscription = this.authService.userChange.subscribe((user: User) => {
       this.user = user;
     });
   }
 
-  ngOnInit(): void {
-    const queryParams: any = this.activatedRoute.snapshot.queryParams;
-    const fieldKeys: string[] = Object.keys(queryParams);
+  ngOnInit() {
+    const queryParams = this.activatedRoute.snapshot.queryParams;
+    const fieldKeys = Object.keys(queryParams);
 
     if (fieldKeys.length) {
-      Object.keys(queryParams).forEach((fieldKey) => {
-        const field: any = this.searchForm.controls[fieldKey];
-        const value: any = JSON.parse(queryParams[fieldKey]);
+      Object.keys(queryParams).forEach(fieldKey => {
+        const field = this.searchForm.controls[fieldKey];
+        const value = JSON.parse(queryParams[fieldKey]);
 
         if (field && GenericUtil.isSet(value)) {
           field.setValue(value);
@@ -81,28 +86,28 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.userChangeSubscription.unsubscribe();
   }
 
-  clearFilters(event?: Event): void {
+  clearFilters(event?: Event) {
     this.preventDefault(event);
     this.setupForm();
     this.updateQueryParams();
   }
 
-  sortBy(mediaSort: MediaSort): void {
+  sortBy(mediaSort: MediaSort) {
     this.sort = mediaSort ? mediaSort.value : undefined;
     this.search();
   }
 
-  private preventDefault(event: Event): void {
+  private preventDefault(event: Event) {
     if (event) {
       event.preventDefault();
     }
   }
 
-  private setupForm(): void {
+  private setupForm() {
     this.searchForm = this.formBuilder.group({
       search: [''],
       startDate_greater: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
@@ -119,14 +124,14 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  private search(page?: number, perPage?: number): void {
+  private search(page?: number, perPage?: number) {
     GenericUtil.scrollToRef(this.resultsTable);
     this.updateQueryParams();
 
     this.searching = true;
-    this.errorGotten = false;
+    this.error = undefined;
 
-    const filters: any = this.searchForm.value;
+    const filters = this.searchForm.value;
 
     let query: MediaQuery = {
       search: filters.search,
@@ -158,22 +163,24 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       perPage: perPage
     };
 
-    this.animeService.search(query, pageInfo).subscribe((response: any) => {
-      this.noResults = response.media.length < 1;
-      this.animeList = response.media;
-      this.pagination = response.pageInfo;
-      this.pagination.pageIndex = response.pageInfo.currentPage - 1;
-      this.searching = false;
-
-    }, () => {
-      this.errorGotten = true;
-      this.noResults = false;
-      this.searching = false;
-    });
+    this.animeService.searchAnime(query, pageInfo).subscribe(
+      response => {
+        this.noResults = response.media.length < 1;
+        this.animeList = response.media;
+        this.pagination = response.pageInfo;
+        this.pagination.pageIndex = response.pageInfo.currentPage - 1;
+        this.searching = false;
+      },
+      error => {
+        this.error = error;
+        this.noResults = false;
+        this.searching = false;
+      }
+    );
   }
 
-  private getGenres(): void {
-    this.animeService.getGenres().subscribe((mediaGenres) => {
+  private getGenres() {
+    this.animeService.getAnimeGenres().subscribe(mediaGenres => {
       this.mediaGenres = mediaGenres;
     });
   }
@@ -182,15 +189,15 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     return year * 10000;
   }
 
-  private updateQueryParams(): void {
-    const queryParams: any = {
+  private updateQueryParams() {
+    const queryParams = {
       sort: JSON.stringify(this.sort)
     };
 
-    const filters: any = this.searchForm.value;
+    const filters = this.searchForm.value;
 
-    Object.keys(filters).forEach((fieldKey) => {
-      const field: any = filters[fieldKey];
+    Object.keys(filters).forEach(fieldKey => {
+      const field = filters[fieldKey];
 
       if (GenericUtil.isSet(field) && field.length !== 0) {
         queryParams[fieldKey] = JSON.stringify(field);
@@ -200,8 +207,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     this.router.navigate([animeSearchUrl], { queryParams: queryParams });
   }
 
-  private changePage(pageEvent: PageEvent): void {
+  private changePage(pageEvent: PageEvent) {
     this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
   }
-
 }

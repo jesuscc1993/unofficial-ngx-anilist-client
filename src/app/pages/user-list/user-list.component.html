@@ -1,5 +1,4 @@
 <div class="narrow-page">
-
   <mat-card *ngIf="!user" class="alert warning">
     <h4>
       <i class="fa fa-exclamation-circle margin-right-xxs"></i>
@@ -10,11 +9,10 @@
   <mat-spinner *ngIf="user && !ready" mode="indeterminate" class="full-page"></mat-spinner>
 
   <div *ngIf="user && ready && !errorGotten">
-
     <div *ngIf="statuses && statuses.length">
       <mat-card class="table-filter">
         <mat-form-field class="full-width">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name" />
         </mat-form-field>
       </mat-card>
 
@@ -40,15 +38,14 @@
 
       <div *ngFor="let status of statuses">
         <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
-
           <app-user-list-table
             [tableStatus]="status"
             [tableData]="statusObjects[status.value]"
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"
-            (onEntryUpdate)="onEntryUpdate($event)">
+            (onEntryUpdate)="onEntryUpdate($event)"
+          >
           </app-user-list-table>
-
         </div>
       </div>
 
@@ -57,16 +54,12 @@
           Settings
         </h3>
 
-        <mat-slide-toggle
-          [checked]="reloadOnUpdate"
-          (change)="reloadOnUpdate = !reloadOnUpdate">
+        <mat-slide-toggle [checked]="reloadOnUpdate" (change)="reloadOnUpdate = !reloadOnUpdate">
           Reload on update
         </mat-slide-toggle>
       </div>
 
-      <app-genres-overview
-        [genreStatsList]="user.stats.favouredGenresOverview">
-      </app-genres-overview>
+      <app-genres-overview [genreStatsList]="user.stats.favouredGenresOverview"> </app-genres-overview>
     </div>
 
     <mat-card *ngIf="!statuses || !statuses.length">
@@ -75,14 +68,12 @@
         You haven't added any entries yet.
       </h4>
     </mat-card>
-
   </div>
 
-  <mat-card *ngIf="errorGotten" class="error">
+  <mat-card *ngIf="error" class="error">
     <h4>
       <i class="fa fa-exclamation-circle margin-right-xxs"></i>
-      Error 500: Internal server error
+      {{ error }}
     </h4>
   </mat-card>
-
 </div>

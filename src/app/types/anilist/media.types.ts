@@ -1,5 +1,5 @@
-import { CoverImage, FuzzyDate, Tag, Title } from './dataTypes';
-import { ListEntry } from './listEntry';
+import { CoverImage, FuzzyDate, Tag, Title } from './dataTypes.types';
+import { ListEntry } from './listEntry.types';
 
 export class Media {
   averageScore: number;
@@ -10,7 +10,7 @@ export class Media {
   id: number;
   mediaListEntry: ListEntry;
   status: string;
-  studios: any;
+  studios: NodeList;
   tags: Tag[];
   title: Title;
   endDate?: FuzzyDate;

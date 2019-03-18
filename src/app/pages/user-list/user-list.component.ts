@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AnimeService } from '../../providers/anime.service';
-import { User } from '../../models/anilist/user';
-import { ListEntry } from '../../models/anilist/listEntry';
-import { ListEntryStatus } from '../../models/anilist/listEntryStatus';
 import { rootUrl } from '../../app.constants';
+import { AnimeService } from '../../services/anime.service';
+import { AuthService } from '../../services/auth.service';
+import { AuthStore } from '../../store/auth.store';
+import { ListEntryStatus } from '../../types/anilist/enums/listEntryStatus';
+import { ListEntry } from '../../types/anilist/listEntry.types';
+import { User } from '../../types/anilist/user.types';
 
 @Component({
   selector: 'app-user-list',
@@ -14,22 +16,19 @@ import { rootUrl } from '../../app.constants';
 })
 export class UserListComponent {
   user: User;
-  statusObjects: any;
+  statusObjects: { [status: string]: ListEntry[] };
   statuses: ListEntryStatus[];
   favouriteIDs: number[];
 
   loggedIn: boolean;
   ready: boolean;
-  errorGotten: boolean;
+  error: Error;
 
   reloadOnUpdate: boolean = true;
   filter: string;
 
-  constructor(
-    private router: Router,
-    private animeService: AnimeService
-  ) {
-    this.user = this.animeService.getUser();
+  constructor(private router: Router, private animeService: AnimeService, private authService: AuthService, private authStore: AuthStore) {
+    this.user = this.authStore.getUser();
     this.loggedIn = this.user !== undefined;
 
     if (!this.loggedIn) {
@@ -39,40 +38,42 @@ export class UserListComponent {
     this.updateListData();
   }
 
-  private getUserList(): void {
+  private getUserList() {
     if (this.user) {
-      this.animeService.getList(this.user).subscribe((response) => {
-        const statuses: ListEntryStatus[] = [];
-        Object.keys(response).sort().forEach((statusValue) => {
-          statuses.push(new ListEntryStatus(statusValue));
-        });
+      this.animeService.getAnimeList(this.user).subscribe(
+        response => {
+          const statuses: ListEntryStatus[] = [];
+          Object.keys(response)
+            .sort()
+            .forEach(statusValue => {
+              statuses.push(new ListEntryStatus(statusValue));
+            });
 
-        this.statusObjects = response;
-        this.statuses = statuses;
-        this.ready = true;
-
-      }, (error) => {
-        this.errorGotten = true;
-        this.ready = true;
-      });
+          this.statusObjects = response;
+          this.statuses = statuses;
+          this.ready = true;
+        },
+        error => {
+          this.error = error;
+          this.ready = true;
+        }
+      );
     }
   }
 
-  private getListFavouriteIDs(): void {
+  private getListFavouriteIDs() {
     if (this.user) {
-      this.animeService.getListFavouriteIDs(this.user, (favouriteIDs) => {
+      this.animeService.getAnimeListFavouriteIDs(this.user, favouriteIDs => {
         this.favouriteIDs = favouriteIDs;
       });
     }
   }
 
   hasDataOfStatus(status: string): boolean {
-    return this.statusObjects &&
-           this.statusObjects[status] &&
-           this.statusObjects[status].length > 0;
+    return this.statusObjects && this.statusObjects[status] && this.statusObjects[status].length > 0;
   }
 
-  applyFilter(filterValue: string): void {
+  applyFilter(filterValue: string) {
     this.filter = filterValue.trim().toLowerCase();
   }
 
@@ -80,13 +81,13 @@ export class UserListComponent {
     return JSON.stringify(this.statusObjects, undefined, 2);
   }
 
-  onEntryUpdate(listEntry?: ListEntry): void {
+  onEntryUpdate(listEntry?: ListEntry) {
     if (this.reloadOnUpdate) {
       this.updateListData();
     }
   }
 
-  private updateListData(): void {
+  private updateListData() {
     this.statusObjects = undefined;
     this.statuses = undefined;
     this.favouriteIDs = undefined;

@@ -1,10 +1,12 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
-import { AnimeService } from '../../providers/anime.service';
-import { User } from '../../models/anilist/user';
 import { environment } from '../../../environments/environment';
 import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../app.constants';
+import { AuthService } from '../../services/auth.service';
+import { AuthStore } from '../../store/auth.store';
+import { User } from '../../types/anilist/user.types';
 
 @Component({
   selector: 'app-header',
@@ -24,52 +26,48 @@ export class HeaderComponent implements OnDestroy {
   onUserList: boolean;
   loginAvailable: boolean;
 
-  private userChangeSubscription: any;
+  private userChangeSubscription: Subscription;
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private animeService: AnimeService
-  ) {
+  constructor(private router: Router, private authService: AuthService, private authStore: AuthStore) {
     this.checkAndStoreAccessToken();
     this.subscribeToNavigation();
 
     this.loginAvailable = environment.anilist_client_id >= 0;
-    this.user = this.animeService.getUser();
+    this.user = this.authStore.getUser();
 
-    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
+    this.userChangeSubscription = this.authService.userChange.subscribe((user: User) => {
       this.user = user;
     });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.userChangeSubscription.unsubscribe();
   }
 
-  navigateToAnilistProfile(): void {
+  navigateToAnilistProfile() {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
-  navigateToUserList(replaceUrl?: boolean): void {
+  navigateToUserList(replaceUrl?: boolean) {
     this.router.navigate([userListUrl], {
       replaceUrl: replaceUrl
     });
   }
 
-  private navigateToHomePage(replaceUrl?: boolean): void {
+  private navigateToHomePage(replaceUrl?: boolean) {
     this.router.navigate([rootUrl], {
       replaceUrl: replaceUrl
     });
   }
 
-  private logOut(): void {
-    this.animeService.logOut();
+  protected logOut() {
+    this.authService.logOut();
     this.user = undefined;
     this.loginAvailable = environment.anilist_client_id >= 0;
     this.navigateToHomePage();
   }
 
-  private subscribeToNavigation(): void {
+  private subscribeToNavigation() {
     this.router.events.subscribe(() => {
       this.onRoot = location.href.indexOf(rootUrl) >= 0;
       this.onDashboard = location.href.indexOf(dashboardUrl) >= 0;
@@ -78,13 +76,12 @@ export class HeaderComponent implements OnDestroy {
     });
   }
 
-  private checkAndStoreAccessToken(): void {
+  private checkAndStoreAccessToken() {
     if (location.href.indexOf(apiTokenPrefix) >= 0) {
       const locationParts: string[] = location.href.split('&')[0].split(apiTokenPrefix);
       history.replaceState({}, 'Login success', locationParts[0]);
-      this.animeService.logIn(locationParts[1]);
+      this.authService.logIn(locationParts[1]);
       this.navigateToHomePage(true);
     }
   }
-
 }

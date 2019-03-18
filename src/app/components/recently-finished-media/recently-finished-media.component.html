@@ -1,20 +1,12 @@
 <mat-card class="composite compact">
-
   <div class="tab-group">
-
     <div class="header">
       <h4 class="no-margin">
         Finished airing
       </h4>
     </div>
 
-    <div
-      *ngFor="let tab of tabs"
-      class="header tab"
-      [class.active]="tab === activeTab"
-      [class.clickable]="tab !== activeTab"
-      (click)="activateTab(tab)">
-
+    <div *ngFor="let tab of tabs" class="header tab" [class.active]="tab === activeTab" [class.clickable]="tab !== activeTab" (click)="activateTab(tab)">
       <h4 class="no-margin">
         {{ tab.label }}
       </h4>
@@ -22,10 +14,6 @@
   </div>
 
   <div *ngFor="let tab of tabs" [hidden]="tab !== activeTab" class="content">
-    <app-recently-finished-media-by-format
-      [formatIn]="tab.formatIn"
-      [formatNotIn]="tab.formatNotIn">
-    </app-recently-finished-media-by-format>
+    <app-recently-finished-media-by-format [formatIn]="tab.formatIn" [formatNotIn]="tab.formatNotIn"> </app-recently-finished-media-by-format>
   </div>
-
 </mat-card>

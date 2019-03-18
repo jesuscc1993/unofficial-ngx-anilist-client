@@ -1,7 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
-import { Media } from '../../models/anilist/media';
+
+import { Media } from '../../types/anilist/media.types';
+
+type MediaDetailModalParameters = {
+  media: Media;
+};
 
 @Component({
   selector: 'app-media-detail-modal',
@@ -14,18 +19,17 @@ export class MediaDetailModalComponent {
   constructor(
     private dialogRef: MatDialogRef<MediaDetailModalComponent>,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) private data: any
+    @Inject(MAT_DIALOG_DATA) protected data: MediaDetailModalParameters
   ) {
     this.media = data.media;
   }
 
-  dismiss(event?: Event): void {
+  dismiss() {
     this.dialogRef.close();
   }
 
-  goToDetail(): void {
+  goToDetail() {
     this.router.navigate(['anime-detail/', this.media.id]);
     this.dismiss();
   }
-
 }

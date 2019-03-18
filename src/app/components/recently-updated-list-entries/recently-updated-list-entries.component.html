@@ -1,5 +1,4 @@
 <mat-card class="composite compact">
-
   <div class="header">
     <h4 class="no-margin">
       Your latest list updates
@@ -20,16 +19,15 @@
       [length]="pagination.total"
       [pageSize]="pagination.perPage"
       (page)="changePage($event)"
-      class="basic negative-bottom-margin">
+      class="basic negative-bottom-margin"
+    >
     </mat-paginator>
 
-    <mat-card *ngIf="errorGotten" class="error">
+    <mat-card *ngIf="error" class="error">
       <h4>
         <i class="fa fa-exclamation-circle margin-right-xxs"></i>
-        Error 500: Internal server error
+        {{ error }}
       </h4>
     </mat-card>
-
   </div>
-
 </mat-card>

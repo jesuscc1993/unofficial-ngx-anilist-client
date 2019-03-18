@@ -1,7 +1,6 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 .content {
-
   .form-group {
     //max-width: $max-input-size / 2;
     margin: auto;
@@ -13,7 +12,5 @@
     &.score-input {
       width: 72px;
     }
-
   }
-
 }

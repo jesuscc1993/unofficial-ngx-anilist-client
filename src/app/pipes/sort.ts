@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'sort',
+  name: 'sort'
 })
 export class SortPipe implements PipeTransform {
-  transform(array: any[], field: string, desc?: boolean): any[] {
+  transform(array: { [index: string]: any }[], field: string, desc?: boolean) {
     const direction: number = desc ? -1 : 1;
 
     if (array && array.length) {
-      array.sort((a: any, b: any) => {
+      array.sort((a, b) => {
         if (a[field] < b[field]) {
           return -1 * direction;
         } else if (a[field] > b[field]) {

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { AnimeService } from '../../providers/anime.service';
-import { Anime } from '../../models/anilist/anime';
-import { Media } from '../../models/anilist/media';
+import { getFormattedMediaDuration } from '../../domain/anime.domain';
+import { Anime } from '../../types/anilist/anime.types';
+import { Media } from '../../types/anilist/media.types';
 
 @Component({
   selector: 'app-anime-info',
@@ -14,14 +14,7 @@ export class AnimeInfoComponent {
   @Input() showAsColumns?: boolean;
   @Input() generalInfoOnly?: boolean;
 
-  constructor(
-    private animeService: AnimeService
-  ) {
-
+  getFormattedMediaDuration(media: Media) {
+    return getFormattedMediaDuration(media);
   }
-
-  getFormattedMediaDuration(media: Media): string {
-    return this.animeService.getFormattedMediaDuration(media);
-  }
-
 }

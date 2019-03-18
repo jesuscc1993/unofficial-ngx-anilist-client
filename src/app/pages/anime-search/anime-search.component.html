@@ -1,5 +1,4 @@
 <div class="narrow-page">
-
   <mat-card *ngIf="!user" class="warning margin-bottom-xs">
     <h4>
       <i class="fa fa-exclamation-circle margin-right-xxs"></i>
@@ -8,9 +7,7 @@
   </mat-card>
 
   <form [formGroup]="searchForm" (ngSubmit)="search()">
-
     <mat-card class="text-center">
-
       <h1>
         <label for="searchInput">
           Anime search
@@ -19,14 +16,14 @@
 
       <div class="form-group">
         <mat-form-field class="medium display-block margin-auto">
-          <input id="searchInput" matInput placeholder="Anime title" formControlName="search">
+          <input id="searchInput" matInput placeholder="Anime title" formControlName="search" />
         </mat-form-field>
       </div>
 
       <!--<mat-form-field id="yearInput">-->
-        <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
-        <!--<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>-->
-        <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
+      <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
+      <!--<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>-->
+      <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
       <!--</mat-form-field>-->
 
       <mat-expansion-panel class="mat-elevation-z padding-bottom-s search-filters">
@@ -37,46 +34,25 @@
         <mat-divider></mat-divider>
 
         <div class="vertical-padding-xs">
-
           <!-- air date -->
           <div class="form-group two-rows">
             <mat-form-field>
-              <input
-                  matInput type="number"
-                  placeholder="Aired after year"
-                  formControlName="startDate_greater"
-                  [min]="minYear" [max]="maxYear"
-              >
+              <input matInput type="number" placeholder="Aired after year" formControlName="startDate_greater" [min]="minYear" [max]="maxYear" />
             </mat-form-field>
 
             <mat-form-field>
-              <input
-                  matInput type="number"
-                  placeholder="Aired before year"
-                  formControlName="startDate_lesser"
-                  [min]="minYear" [max]="maxYear"
-              >
+              <input matInput type="number" placeholder="Aired before year" formControlName="startDate_lesser" [min]="minYear" [max]="maxYear" />
             </mat-form-field>
           </div>
 
           <!-- score -->
           <div class="form-group two-rows">
             <mat-form-field>
-              <input
-                  matInput type="number"
-                  placeholder="Scored above"
-                  formControlName="averageScore_greater"
-                  min="0" max="10" step=".1"
-              >
+              <input matInput type="number" placeholder="Scored above" formControlName="averageScore_greater" min="0" max="10" step=".1" />
             </mat-form-field>
 
             <mat-form-field>
-              <input
-                  matInput type="number"
-                  placeholder="Scored below"
-                  formControlName="averageScore_lesser"
-                  min="0" max="10" step=".1"
-              >
+              <input matInput type="number" placeholder="Scored below" formControlName="averageScore_lesser" min="0" max="10" step=".1" />
             </mat-form-field>
           </div>
 
@@ -147,39 +123,32 @@
               </mat-select>
             </mat-form-field>
           </div>
-
         </div>
 
         <div class="text-center padding-bottom-xs">
-
           <button mat-raised-button type="button" (click)="clearFilters($event)">
             Clear filters
           </button>
-
         </div>
 
         <mat-divider></mat-divider>
-
       </mat-expansion-panel>
 
       <div class="text-center">
-
         <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
           <i class="fa fa-search baseline margin-right-xxxs"></i>
           Search
         </button>
-
       </div>
-
     </mat-card>
 
     <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
     <div *ngIf="!searching" class="progress-placeholder"></div>
 
-    <mat-card *ngIf="errorGotten" class="error">
+    <mat-card *ngIf="error" class="error">
       <h4>
         <i class="fa fa-exclamation-circle margin-right-xxs"></i>
-        Error 500: Internal server error
+        {{ error }}
       </h4>
     </mat-card>
 
@@ -191,20 +160,16 @@
     </mat-card>
 
     <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
-      <app-search-results-table
-        [tableData]="animeList"
-        (onSortChange)="sortBy($event)">
-      </app-search-results-table>
+      <app-search-results-table [tableData]="animeList" (onSortChange)="sortBy($event)"> </app-search-results-table>
 
       <mat-paginator
         [length]="pagination.total"
         [pageSize]="pagination.perPage"
         [pageIndex]="pagination.pageIndex"
         [pageSizeOptions]="[5, 10, 25, 50]"
-        (page)="changePage($event)">
+        (page)="changePage($event)"
+      >
       </mat-paginator>
     </mat-card>
-
   </form>
-
 </div>

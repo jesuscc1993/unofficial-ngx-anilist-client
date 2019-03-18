@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, Sort } from '@angular/material';
 
-import { Anime } from '../../models/anilist/anime';
-import { MediaSort } from '../../models/anilist/mediaSorts';
+import { Anime } from '../../types/anilist/anime.types';
+import { MediaSort } from '../../types/anilist/enums/mediaSorts';
 
 @Component({
   selector: 'app-search-results-table',
@@ -17,29 +17,25 @@ export class SearchResultsTableComponent implements OnInit, OnChanges {
   tableRows: string[] = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
   dataSource: MatTableDataSource<Anime>;
 
-  constructor() {
+  constructor() {}
 
-  }
+  ngOnInit() {}
 
-  ngOnInit(): void {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.tableData.currentValue !== changes.tableData.previousValue) {
       this.initializeDataSource();
     }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-  sortBy(sort: any): void {
+  sortBy(sort: Sort) {
     this.onSortChange.emit(MediaSort.fromSort(sort));
   }
 
-  private initializeDataSource(): void {
+  private initializeDataSource() {
     this.dataSource = new MatTableDataSource<Anime>(this.tableData);
   }
 }

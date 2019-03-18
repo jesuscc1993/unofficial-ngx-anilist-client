@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 $cover-width: $screen-xxxs / 2;
 $max-cover-width: 33vw;
@@ -20,7 +20,6 @@ img.cover {
 }
 
 @media (min-width: $screen-m) {
-
   .row {
     display: flex;
     align-items: start;
@@ -48,5 +47,4 @@ img.cover {
       }
     }
   }
-
 }

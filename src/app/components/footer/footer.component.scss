@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 mat-toolbar {
   display: block;
@@ -12,10 +12,9 @@ mat-toolbar {
   .about-anilist {
     color: #444;
 
-    .mat-icon[svgIcon="anilist"] {
+    .mat-icon[svgIcon='anilist'] {
       height: 12px;
       width: 16px;
     }
   }
-
 }

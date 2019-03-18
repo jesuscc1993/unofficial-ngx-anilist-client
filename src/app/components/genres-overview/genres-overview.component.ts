@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GenreStats } from '../../models/anilist/genreStats';
+
+import { GenreStats } from '../../types/anilist/genreStats.types';
 
 @Component({
   selector: 'app-genres-overview',
@@ -12,17 +13,13 @@ export class GenresOverviewComponent implements OnInit {
   maxColumnCount: number = 5;
   minColumnWidth: number = 160;
 
-  constructor(
+  constructor() {}
 
-  ) {
-
-  }
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.calculateStatistics();
   }
 
-  private calculateStatistics(): void {
+  private calculateStatistics() {
     let totalCount: number = 0;
 
     this.genreStatsList.forEach((genreStats: GenreStats) => {
@@ -30,7 +27,7 @@ export class GenresOverviewComponent implements OnInit {
     });
 
     this.genreStatsList.forEach((genreStats: GenreStats) => {
-      genreStats.percentage = Math.round(genreStats.amount * 100 / totalCount);
+      genreStats.percentage = Math.round((genreStats.amount * 100) / totalCount);
     });
   }
 
@@ -38,5 +35,4 @@ export class GenresOverviewComponent implements OnInit {
     const columnCount: number = window.screen.width / this.minColumnWidth;
     return Math.floor(columnCount < this.maxColumnCount ? columnCount : this.maxColumnCount);
   }
-
 }

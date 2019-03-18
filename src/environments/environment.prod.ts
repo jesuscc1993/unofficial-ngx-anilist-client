@@ -1,4 +1,4 @@
-export const environment: any = {
-  anilist_client_id: -1,
+export const environment = {
+  anilist_client_id: 1363,
   production: true
 };

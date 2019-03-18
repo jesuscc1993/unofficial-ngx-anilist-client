@@ -1,10 +1,6 @@
-<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" class="series-table"
-           matSort (matSortChange)="sortBy($event)">
-
+<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" class="series-table" matSort (matSortChange)="sortBy($event)">
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>
-
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let anime">
       <app-media-actions [media]="anime"></app-media-actions>
     </mat-cell>
@@ -15,7 +11,7 @@
       Cover
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <img [src]="anime.coverImage.medium" class="cover">
+      <img [src]="anime.coverImage.medium" class="cover" />
     </mat-cell>
   </ng-container>
 
@@ -65,9 +61,7 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Score
     </mat-header-cell>
-    <mat-cell *matCellDef="let anime">
-      {{ anime.averageScore / 10 }}/10
-    </mat-cell>
+    <mat-cell *matCellDef="let anime"> {{ anime.averageScore / 10 }}/10 </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="episodes">
@@ -87,7 +81,7 @@
     [class.paused]="anime.mediaListEntry && anime.mediaListEntry.status === 'paused'"
     [class.planned]="anime.mediaListEntry && anime.mediaListEntry.status === 'planning'"
     [class.repeating]="anime.mediaListEntry && anime.mediaListEntry.status === 'repeating'"
-    [class.watching]="anime.mediaListEntry && anime.mediaListEntry.status === 'current'">
+    [class.watching]="anime.mediaListEntry && anime.mediaListEntry.status === 'current'"
+  >
   </mat-row>
-
 </mat-table>

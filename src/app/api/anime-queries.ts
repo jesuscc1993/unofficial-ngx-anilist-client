@@ -1,5 +1,5 @@
-const filterTypes: any = {};
-const filterMappings: any = {};
+const filterTypes: { [key: string]: string } = {};
+const filterMappings: { [key: string]: string } = {};
 
 /* filters */
 

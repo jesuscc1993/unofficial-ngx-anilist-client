@@ -1,32 +1,22 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 
 @Injectable()
 export class GenericUtil {
-
-  constructor(
-
-  ) {
-
-  }
+  constructor() {}
 
   public static isSet(variable: any): boolean {
     return variable !== undefined && variable !== null;
   }
 
-  public static scrollToTop(): void {
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-  }
-
-  public static scrollTo(element: any): void {
+  public static scrollTo(element: Element) {
     if (element) {
-      element.scrollIntoView({ block: 'start',  behavior: 'smooth' });
+      element.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
   }
 
-  public static scrollToRef(elementRef: ElementRef): void {
+  public static scrollToRef(elementRef: ElementRef) {
     if (elementRef && elementRef.nativeElement) {
       this.scrollTo(elementRef.nativeElement);
     }
   }
-
 }

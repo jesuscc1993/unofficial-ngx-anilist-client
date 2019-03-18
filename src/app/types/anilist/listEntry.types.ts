@@ -1,9 +1,9 @@
-import { Media } from './media';
+import { Media } from './media.types';
 
-export class ListEntry {
+export type ListEntry = {
   id?: number;
   scoreRaw?: number;
   status?: string;
   media?: Media;
   updatedAt?: number;
-}
+};

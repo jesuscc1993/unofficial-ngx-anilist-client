@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
 
-import { AnimeService } from '../../providers/anime.service';
-import { ListEntry } from '../../models/anilist/listEntry';
-import { Media } from '../../models/anilist/media';
+import { defaultModalOptions } from '../../app.constants';
 import { ListEntryFormModalComponent } from '../../modals/list-entry-form-modal/list-entry-form-modal.component';
-import { User } from '../../models/anilist/user';
 import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
-import { modalConfig } from '../../app.constants';
+import { AnimeService } from '../../services/anime.service';
+import { AuthService } from '../../services/auth.service';
+import { AuthStore } from '../../store/auth.store';
+import { ListEntry } from '../../types/anilist/listEntry.types';
+import { Media } from '../../types/anilist/media.types';
+import { User } from '../../types/anilist/user.types';
 
 @Component({
   selector: 'app-media-actions',
@@ -23,50 +25,53 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
 
   user: User;
 
-  private userChangeSubscription: any;
+  private userChangeSubscription: Subscription;
 
   constructor(
     private dialog: MatDialog,
-    private router: Router,
     private matSnackBar: MatSnackBar,
-    private animeService: AnimeService
+    private animeService: AnimeService,
+    private authService: AuthService,
+    private authStore: AuthStore
   ) {
-    this.user = this.animeService.getUser();
+    this.user = this.authStore.getUser();
 
-    this.userChangeSubscription = this.animeService.userChange.subscribe((user: User) => {
+    this.userChangeSubscription = this.authService.userChange.subscribe((user: User) => {
       this.user = user;
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if (this.media && this.media.mediaListEntry && !this.listEntry) {
       this.listEntry = this.media.mediaListEntry;
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.userChangeSubscription.unsubscribe();
   }
 
-  saveToList(): void {
-    this.showFormModal().afterClosed().subscribe((result) => {
-      if (result) {
-        if (result.savedEntry) {
-          this.showSavedEntryToast(result.savedEntry);
-        }
-        if (result.deletedEntry) {
-          this.showDeletedEntryToast(result.deletedEntry);
-        }
+  saveToList() {
+    this.showFormModal()
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          if (result.savedEntry) {
+            this.showSavedEntryToast(result.savedEntry);
+          }
+          if (result.deletedEntry) {
+            this.showDeletedEntryToast(result.deletedEntry);
+          }
 
-        this.onUpdate.emit(result.savedEntry || result.deletedEntry);
-      }
-    });
+          this.onUpdate.emit(result.savedEntry || result.deletedEntry);
+        }
+      });
   }
 
-  toggleFavourite(): void {
+  toggleFavourite() {
     const targetEntry: ListEntry = this.getListEntry();
 
-    this.animeService.toggleFavouriteEntry(targetEntry).subscribe((response) => {
+    this.animeService.toggleFavouriteAnimeListEntry(targetEntry).subscribe(response => {
       const success: boolean = response.data.ToggleFavourite !== undefined;
       if (success) {
         this.showToggledFavouriteToast(targetEntry);
@@ -75,10 +80,10 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteEntry(): void {
+  deleteEntry() {
     const targetEntry: ListEntry = this.getListEntry();
 
-    this.animeService.deleteListEntry(targetEntry).subscribe((response) => {
+    this.animeService.deleteAnimeListEntry(targetEntry).subscribe(response => {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
       if (success) {
         this.showDeletedEntryToast(targetEntry);
@@ -87,17 +92,17 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  showDetail(): void {
-    let config: any = Object.assign({}, modalConfig);
-    config.maxWidth = '800px';
-    config.data = {
-      media: this.media
-    };
-
-    this.dialog.open(MediaDetailModalComponent, config);
+  showDetail() {
+    this.dialog.open(MediaDetailModalComponent, {
+      ...defaultModalOptions,
+      maxWidth: '800px',
+      data: {
+        media: this.media
+      }
+    });
   }
 
-  viewOnAniList(): void {
+  viewOnAniList() {
     window.open(`https://anilist.co/anime/${this.media.id}`);
   }
 
@@ -106,41 +111,40 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
   }
 
   private getListEntry(): ListEntry {
-    const mediaCopy: Media = Object.assign({}, this.media);
+    const mediaCopy: Media = { ...this.media };
     mediaCopy.mediaListEntry = undefined;
 
-    const listEntryCopy: ListEntry = Object.assign({}, this.listEntry);
+    const listEntryCopy: ListEntry = { ...this.listEntry };
     listEntryCopy.media = mediaCopy;
 
     return listEntryCopy;
   }
 
   private showFormModal(): MatDialogRef<ListEntryFormModalComponent> {
-    let config: any = Object.assign({}, modalConfig);
-    config.data = {
-      listEntry: this.listEntry,
-      media: this.media
-    };
-
-    return this.dialog.open(ListEntryFormModalComponent, config);
-  }
-
-  private showSavedEntryToast(listEntry: ListEntry): void {
-    this.showToast(`Updated list entry for "${listEntry.media.title.romaji}"`);
-  }
-
-  private showToggledFavouriteToast(listEntry: ListEntry): void {
-    this.showToast(`Toggled entry "${listEntry.media.title.romaji}" as favourite`);
-  }
-
-  private showDeletedEntryToast(listEntry: ListEntry): void {
-    this.showToast(`Deleted list entry for "${listEntry.media.title.romaji}"`);
-  }
-
-  private showToast(message: string): void {
-    this.matSnackBar.open(message, undefined, {
-      duration: 10000,
+    return this.dialog.open(ListEntryFormModalComponent, {
+      ...defaultModalOptions,
+      data: {
+        listEntry: this.listEntry,
+        media: this.media
+      }
     });
   }
 
+  private showSavedEntryToast(listEntry: ListEntry) {
+    this.showToast(`Updated list entry for "${listEntry.media.title.romaji}"`);
+  }
+
+  private showToggledFavouriteToast(listEntry: ListEntry) {
+    this.showToast(`Toggled entry "${listEntry.media.title.romaji}" as favourite`);
+  }
+
+  private showDeletedEntryToast(listEntry: ListEntry) {
+    this.showToast(`Deleted list entry for "${listEntry.media.title.romaji}"`);
+  }
+
+  private showToast(message: string) {
+    this.matSnackBar.open(message, undefined, {
+      duration: 10000
+    });
+  }
 }

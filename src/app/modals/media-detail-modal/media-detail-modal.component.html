@@ -1,33 +1,22 @@
 <mat-card class="composite">
-
   <div class="header no-margin">
     <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
 
     <div class="title">
       <h3 class="no-margin">
-        <app-media-actions
-          *ngIf="media"
-          [media]="media"
-          [fromModal]="true"
-          class="inline-block margin-right-xxxs">
-        </app-media-actions>
+        <app-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs"> </app-media-actions>
 
         <span>
           {{ media.title.romaji }}
         </span>
       </h3>
     </div>
-
   </div>
 
   <mat-divider></mat-divider>
 
   <div class="content">
-    <app-anime-info
-      *ngIf="media"
-      [anime]="media"
-      [generalInfoOnly]="true">
-    </app-anime-info>
+    <app-anime-info *ngIf="media" [anime]="media" [generalInfoOnly]="true"> </app-anime-info>
   </div>
 
   <mat-divider></mat-divider>
@@ -39,5 +28,4 @@
       </button>
     </div>
   </div>
-
 </mat-card>

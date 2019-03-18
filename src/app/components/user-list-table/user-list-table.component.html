@@ -3,19 +3,11 @@
 </h3>
 
 <mat-card class="no-padding">
-
   <mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" matSort class="series-table">
-
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>
-
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <app-media-actions
-          [listEntry]="entry"
-          [media]="entry.media"
-          (onUpdate)="onUpdate($event)">
-        </app-media-actions>
+        <app-media-actions [listEntry]="entry" [media]="entry.media" (onUpdate)="onUpdate($event)"> </app-media-actions>
       </mat-cell>
     </ng-container>
 
@@ -24,7 +16,7 @@
         Cover
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <img [src]="entry.media.coverImage.medium" class="cover">
+        <img [src]="entry.media.coverImage.medium" class="cover" />
       </mat-cell>
     </ng-container>
 
@@ -36,9 +28,7 @@
         <span class="title">
           {{ entry.media.title.romaji }}
         </span>
-        <i *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0"
-           class="fa fa-heart favourite">
-        </i>
+        <i *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0" class="fa fa-heart favourite"> </i>
       </mat-cell>
     </ng-container>
 
@@ -77,9 +67,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
         Score
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry">
-        {{ entry.scoreRaw / 10 }}/10
-      </mat-cell>
+      <mat-cell *matCellDef="let entry"> {{ entry.scoreRaw / 10 }}/10 </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="episodes">
@@ -93,7 +81,6 @@
 
     <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
     <mat-row *matRowDef="let entry; columns: tableRows"></mat-row>
-
   </mat-table>
 
   <mat-paginator
@@ -101,7 +88,7 @@
     [pageSize]="10"
     [pageSizeOptions]="[5, 10, 25, 50, 75, 100, 250, 500, 750, 1000]"
     [showFirstLastButtons]="true"
-    (page)="onPageChange()">
+    (page)="onPageChange()"
+  >
   </mat-paginator>
-
 </mat-card>

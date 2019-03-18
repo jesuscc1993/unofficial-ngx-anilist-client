@@ -1,10 +1,8 @@
 <div *ngIf="anime" [class.general-info-only]="generalInfoOnly">
-
   <div [class.row]="showAsColumns">
-
     <!-- left column -->
     <div class="column left">
-      <img [src]="anime.coverImage && anime.coverImage.large" class="cover">
+      <img [src]="anime.coverImage && anime.coverImage.large" class="cover" />
 
       <div *ngIf="anime.description">
         <h4 class="no-margin-top margin-bottom-xxs">
@@ -17,7 +15,6 @@
 
     <!-- right column -->
     <div class="column right">
-
       <p *ngIf="!generalInfoOnly && anime.format" class="property-value-pair flex-box">
         <strong class="property">
           Format:
@@ -93,13 +90,9 @@
           Score:
         </strong>
 
-        <span class="value">
-          {{ anime.averageScore / 10 }}/10
-        </span>
+        <span class="value"> {{ anime.averageScore / 10 }}/10 </span>
       </p>
-
     </div>
-
   </div>
 
   <!-- below columns -->
@@ -131,5 +124,4 @@
 
   <!-- float fix -->
   <div></div>
-
 </div>

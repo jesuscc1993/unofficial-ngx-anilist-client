@@ -1,4 +1,6 @@
-import { EnumMap } from '../enumMap';
+import { Sort } from '@angular/material';
+
+import { EnumMap } from '../../enumMap.types';
 
 export class MediaSort extends EnumMap {
   static TITLE_ROMAJI: string = 'TITLE_ROMAJI';
@@ -16,7 +18,7 @@ export class MediaSort extends EnumMap {
   static END_DATE: string = 'END_DATE';
   static END_DATE_DESC: string = 'END_DATE_DESC';
 
-  static LIST: any[] = [
+  static LIST = [
     { label: 'Title (asc)', value: 'TITLE_ROMAJI' },
     { label: 'Title (desc)', value: 'TITLE_ROMAJI_DESC' },
     { label: 'Format (asc)', value: 'FORMAT' },
@@ -37,12 +39,11 @@ export class MediaSort extends EnumMap {
     super(value, MediaSort.LIST, true);
   }
 
-  static fromSort(sort: any): MediaSort {
+  static fromSort(sort: Sort): MediaSort {
     let sortKey: string = sort.active.replace(/-/g, '_');
     if (sort.direction === 'desc') {
       sortKey += `_${sort.direction}`;
     }
     return new MediaSort(sortKey);
   }
-
 }

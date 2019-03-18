@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { DateUtil } from '../../utils/date.util';
-import { AnimeService } from '../../providers/anime.service';
-import { Media } from '../../models/anilist/media';
+
+import { AnimeService } from '../../services/anime.service';
+import { AuthStore } from '../../store/auth.store';
+import { Media } from '../../types/anilist/media.types';
 
 @Component({
   selector: 'app-list-related-media',
@@ -9,24 +10,21 @@ import { Media } from '../../models/anilist/media';
   styleUrls: ['./list-related-media.component.scss']
 })
 export class ListRelatedMediaComponent {
-
   mediaList: Media[];
   maxEntries: number = 20;
 
   ready: boolean;
-  errorGotten: boolean;
+  error: Error;
 
-  constructor(
-    private animeService: AnimeService,
-    private dateUtil: DateUtil
-  ) {
-    this.animeService.getRelatedMedia(this.animeService.getUser()).subscribe((relatedMediaList) => {
-      this.mediaList = relatedMediaList;
-
-    }, (error) => {
-      this.errorGotten = true;
-      this.ready = true;
-    });
+  constructor(private animeService: AnimeService, private authStore: AuthStore) {
+    this.animeService.getRelatedAnimeMedia(this.authStore.getUser()).subscribe(
+      relatedMediaList => {
+        this.mediaList = relatedMediaList;
+      },
+      error => {
+        this.error = error;
+        this.ready = true;
+      }
+    );
   }
-
 }

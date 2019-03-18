@@ -2,10 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { AnimeService } from '../../providers/anime.service';
-import { ListEntry } from '../../models/anilist/listEntry';
-import { Media } from '../../models/anilist/media';
-import { ListEntryStatus } from '../../models/anilist/listEntryStatus';
+import { AnimeService } from '../../services/anime.service';
+import { ListEntryStatus } from '../../types/anilist/enums/listEntryStatus';
+import { ListEntry } from '../../types/anilist/listEntry.types';
+import { Media } from '../../types/anilist/media.types';
+
+type ListEntryFormModalParameters = {
+  listEntry: ListEntry;
+  media: Media;
+};
 
 @Component({
   selector: 'app-list-entry-form-modal',
@@ -17,40 +22,34 @@ export class ListEntryFormModalComponent {
   listEntry: ListEntry;
   media: Media;
   listEntryForm: FormGroup;
-  liestEntryStatusList: any[] = ListEntryStatus.LIST;
+  liestEntryStatusList = ListEntryStatus.LIST;
 
   constructor(
     private animeService: AnimeService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ListEntryFormModalComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any
+    @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
   ) {
     this.listEntry = data.listEntry;
     this.media = data.media;
     this.setupForm();
   }
 
-  private setupForm(): void {
+  private setupForm() {
     if (this.listEntry) {
-      this.originalEntry = Object.assign({}, this.listEntry);
+      this.originalEntry = { ...this.listEntry };
     }
 
     this.listEntryForm = this.formBuilder.group({
-      status: [
-        this.originalEntry && this.originalEntry.status ? this.originalEntry.status : ListEntryStatus.COMPLETED,
-        [Validators.required]
-      ],
-      score: [
-        this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined,
-        [Validators.max(10), Validators.min(0)]
-      ]
+      status: [this.originalEntry && this.originalEntry.status ? this.originalEntry.status : ListEntryStatus.COMPLETED, [Validators.required]],
+      score: [this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined, [Validators.max(10), Validators.min(0)]]
     });
   }
 
-  saveEntry(): void {
+  saveEntry() {
     const entryToSave: ListEntry = this.getFormEntry();
 
-    this.animeService.saveListEntry(entryToSave).subscribe((response) => {
+    this.animeService.saveAnimeListEntry(entryToSave).subscribe(response => {
       const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
       if (success) {
         if (this.listEntry) {
@@ -63,10 +62,10 @@ export class ListEntryFormModalComponent {
     });
   }
 
-  deleteEntry(event?: Event): void {
+  deleteEntry(event?: Event) {
     this.preventDefault(event);
 
-    this.animeService.deleteListEntry(this.listEntry).subscribe((response) => {
+    this.animeService.deleteAnimeListEntry(this.listEntry).subscribe(response => {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
       if (success) {
         this.dialogRef.close({
@@ -76,7 +75,7 @@ export class ListEntryFormModalComponent {
     });
   }
 
-  dismiss(event?: Event): void {
+  dismiss(event?: Event) {
     this.preventDefault(event);
 
     this.dialogRef.close();
@@ -94,10 +93,9 @@ export class ListEntryFormModalComponent {
     };
   }
 
-  private preventDefault(event: Event): void {
+  private preventDefault(event: Event) {
     if (event) {
       event.preventDefault();
     }
   }
-
 }

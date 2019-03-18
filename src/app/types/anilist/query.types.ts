@@ -1,4 +1,4 @@
-export class MediaQuery {
+export type MediaQuery = {
   adultContent?: boolean;
   onList?: boolean;
   averageScore_greater?: number;
@@ -15,4 +15,4 @@ export class MediaQuery {
   startDate_greater?: number;
   startDate_lesser?: number;
   type?: string;
-}
+};

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-
-import { AnimeService } from '../../providers/anime.service';
-import { ListEntry } from '../../models/anilist/listEntry';
-import { User } from '../../models/anilist/user';
-import { PageQuery } from '../../models/anilist/pageInfo';
 import { PageEvent } from '@angular/material';
+
+import { AnimeService } from '../../services/anime.service';
+import { AuthService } from '../../services/auth.service';
+import { AuthStore } from '../../store/auth.store';
+import { ListEntry } from '../../types/anilist/listEntry.types';
+import { PageQuery } from '../../types/anilist/pageInfo.types';
+import { User } from '../../types/anilist/user.types';
 
 @Component({
   selector: 'app-recently-updated-list-entries',
@@ -12,42 +14,42 @@ import { PageEvent } from '@angular/material';
   styleUrls: ['./recently-updated-list-entries.component.scss']
 })
 export class RecentlyUpdatedListEntriesComponent {
-
   user: User;
   listEntries: ListEntry[];
   pagination: PageQuery;
   maxEntries: number = 16;
 
   ready: boolean;
-  errorGotten: boolean;
+  error: Error;
 
-  constructor(
-    private animeService: AnimeService
-  ) {
-    this.user = this.animeService.getUser();
-    this.getRecentlyUpdated();
+  constructor(private animeService: AnimeService, private authService: AuthService, private authStore: AuthStore) {
+    this.user = this.authStore.getUser();
+    this.getRecentlyUpdatedAnime();
   }
 
-  changePage(pageEvent: PageEvent): void {
+  changePage(pageEvent: PageEvent) {
     this.pagination.pageIndex = pageEvent.pageIndex + 1;
-    this.getRecentlyUpdated();
+    this.getRecentlyUpdatedAnime();
   }
 
-  private getRecentlyUpdated(): void {
+  private getRecentlyUpdatedAnime() {
     if (this.user) {
-      this.animeService.getRecentlyUpdated(this.user, {
-        perPage: this.maxEntries,
-        pageIndex: this.pagination ? this.pagination.pageIndex : undefined
-
-      }).subscribe((response) => {
-        this.listEntries = response.mediaList;
-        this.pagination = response.pageInfo;
-        this.ready = true;
-
-      }, (error) => {
-        this.errorGotten = true;
-        this.ready = true;
-      });
+      this.animeService
+        .getRecentlyUpdatedAnime(this.user, {
+          perPage: this.maxEntries,
+          pageIndex: this.pagination ? this.pagination.pageIndex : undefined
+        })
+        .subscribe(
+          response => {
+            this.listEntries = response.mediaList;
+            this.pagination = response.pageInfo;
+            this.ready = true;
+          },
+          error => {
+            this.error = error;
+            this.ready = true;
+          }
+        );
     }
   }
 }

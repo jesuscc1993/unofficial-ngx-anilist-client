@@ -10,11 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class FooterComponent {
   gitHubProjectUrl: string = 'https://github.com/jesuscc1993/angular-material-demo';
 
-  constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
-  ) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('anilist', sanitizer.bypassSecurityTrustResourceUrl('assets/pictures/vectorial/icons/anilist.svg'));
   }
-
 }
