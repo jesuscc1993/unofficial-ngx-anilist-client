@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 
-import { MediaFormat } from '../../types/anilist/enums/mediaFormats';
 import { Tab } from '../../types/tab.types';
 
 @Component({
   selector: 'app-recently-finished-media',
   templateUrl: './recently-finished-media.component.html',
-  styleUrls: ['./recently-finished-media.component.scss']
+  styleUrls: ['./recently-finished-media.component.scss'],
 })
 export class RecentlyFinishedMediaComponent {
   tabs: Tab[];
@@ -16,16 +15,16 @@ export class RecentlyFinishedMediaComponent {
     this.tabs = [
       {
         label: 'Series',
-        formatIn: [MediaFormat.TV]
+        formatIn: ['TV'],
       },
       {
         label: 'Movies',
-        formatIn: [MediaFormat.MOVIE]
+        formatIn: ['MOVIE'],
       },
       {
         label: 'Other',
-        formatNotIn: [MediaFormat.TV, MediaFormat.MOVIE]
-      }
+        formatNotIn: ['TV', 'MOVIE'],
+      },
     ];
 
     this.activeTab = this.tabs[0];

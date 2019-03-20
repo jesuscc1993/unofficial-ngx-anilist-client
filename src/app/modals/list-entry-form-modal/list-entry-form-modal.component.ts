@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { AnimeService } from '../../services/anime.service';
-import { ListEntryStatus } from '../../types/anilist/enums/listEntryStatus';
+import { listEntryStatusValues } from '../../types/anilist/enums/listEntryStatus';
 import { ListEntry } from '../../types/anilist/listEntry.types';
 import { Media } from '../../types/anilist/media.types';
 
@@ -15,14 +15,14 @@ type ListEntryFormModalParameters = {
 @Component({
   selector: 'app-list-entry-form-modal',
   templateUrl: './list-entry-form-modal.component.html',
-  styleUrls: ['./list-entry-form-modal.component.scss']
+  styleUrls: ['./list-entry-form-modal.component.scss'],
 })
 export class ListEntryFormModalComponent {
   originalEntry: ListEntry;
   listEntry: ListEntry;
   media: Media;
   listEntryForm: FormGroup;
-  liestEntryStatusList = ListEntryStatus.LIST;
+  liestEntryStatusList = listEntryStatusValues;
 
   constructor(
     private animeService: AnimeService,
@@ -41,8 +41,14 @@ export class ListEntryFormModalComponent {
     }
 
     this.listEntryForm = this.formBuilder.group({
-      status: [this.originalEntry && this.originalEntry.status ? this.originalEntry.status : ListEntryStatus.COMPLETED, [Validators.required]],
-      score: [this.originalEntry && this.originalEntry.scoreRaw ? this.originalEntry.scoreRaw / 10 : undefined, [Validators.max(10), Validators.min(0)]]
+      status: [
+        this.originalEntry && this.originalEntry.status ? this.originalEntry.status : 'COMPLETED',
+        [Validators.required],
+      ],
+      score: [
+        this.originalEntry && this.originalEntry.scoreRaw && this.originalEntry.scoreRaw / 10,
+        [Validators.max(10), Validators.min(0)],
+      ],
     });
   }
 
@@ -69,7 +75,7 @@ export class ListEntryFormModalComponent {
       const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
       if (success) {
         this.dialogRef.close({
-          deletedEntry: this.listEntry
+          deletedEntry: this.listEntry,
         });
       }
     });
@@ -89,7 +95,7 @@ export class ListEntryFormModalComponent {
     return {
       media: this.media,
       scoreRaw: this.listEntryForm.value.score * 10,
-      status: this.listEntryForm.value.status
+      status: this.listEntryForm.value.status,
     };
   }
 

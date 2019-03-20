@@ -40,6 +40,7 @@ filterTypes.media = `
   $startDate_lesser: FuzzyDateInt,
   $status: MediaStatus,
   $id: Int,
+  $idIn: [Int],
   $idNotIn: [Int],
   $onList: Boolean,
 `;
@@ -60,6 +61,7 @@ filterMappings.media = `
   startDate_lesser: $startDate_lesser,
   status: $status,
   id: $id,
+  id_in: $idIn,
   id_not_in: $idNotIn,
   onList: $onList,
 `;
@@ -186,8 +188,11 @@ export const listQuery: string = `
     MediaListCollection (
       ${filterMappings.mediaCollection}
     ) {
-      statusLists {
-        ${listEntryFields}
+      lists {
+        entries {
+          status
+          ${listAnimeFields}
+        }
       }
     }
   }
@@ -200,17 +205,18 @@ export const relatedMediaQuery: string = `
     MediaListCollection (
       ${filterMappings.mediaCollection}
     ) {
-      statusLists {
-        media {
-          relations {
-            nodes {
-              ${listAnimeFields}
+      lists {
+        entries {
+          status
+          media {
+            relations {
+              nodes {
+                ${listAnimeFields}
+              }
             }
           }
         }
       }
-    }
-  }
 `;
 
 export const listMediaIdsQuery: string = `
@@ -220,9 +226,12 @@ export const listMediaIdsQuery: string = `
     MediaListCollection (
       ${filterMappings.mediaCollection}
     ) {
-      statusLists {
-        media {
-          id
+      lists {
+        entries {
+          status
+          media {
+            id
+          }
         }
       }
     }

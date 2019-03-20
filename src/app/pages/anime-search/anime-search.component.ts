@@ -2,27 +2,28 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
+import { SearchFilters } from '../../api/anime/anime-api.types';
 import { animeSearchUrl } from '../../app.constants';
 import { SearchResultsTableComponent } from '../../components/search-results-table/search-results-table.component';
 import { AnimeService } from '../../services/anime.service';
 import { AuthService } from '../../services/auth.service';
 import { AuthStore } from '../../store/auth.store';
 import { Anime } from '../../types/anilist/anime.types';
-import { MediaFormat } from '../../types/anilist/enums/mediaFormats';
+import { mediaFormatValues } from '../../types/anilist/enums/mediaFormats';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
-import { MediaStatus } from '../../types/anilist/enums/mediaStatus';
+import { mediaStatusValues } from '../../types/anilist/enums/mediaStatus';
 import { OnListOptions } from '../../types/anilist/enums/onListOptions';
-import { PageQuery } from '../../types/anilist/pageInfo.types';
-import { MediaQuery } from '../../types/anilist/query.types';
+import { PageInfo, PageQuery } from '../../types/anilist/pageInfo.types';
 import { User } from '../../types/anilist/user.types';
 import { GenericUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'app-anime-search',
   templateUrl: './anime-search.component.html',
-  styleUrls: ['./anime-search.component.scss']
+  styleUrls: ['./anime-search.component.scss'],
 })
 export class AnimeSearchComponent implements OnInit, OnDestroy {
   @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
@@ -31,13 +32,13 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   user: User;
   animeList: Anime[];
   searchForm: FormGroup;
-  pagination: PageQuery;
+  pagination: PageInfo;
   sort: string;
   excludeOnList: boolean;
 
   mediaGenres: string[];
-  mediaFormats = MediaFormat.LIST;
-  mediaStatuses = MediaStatus.LIST;
+  mediaFormats = mediaFormatValues;
+  mediaStatuses = mediaStatusValues;
   onListOptions = OnListOptions.LIST;
   minYear = 1900;
   maxYear = new Date().getFullYear() + 1;
@@ -97,7 +98,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   sortBy(mediaSort: MediaSort) {
-    this.sort = mediaSort ? mediaSort.value : undefined;
+    this.sort = mediaSort && mediaSort.value;
     this.search();
   }
 
@@ -120,7 +121,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       format_not_in: [[]],
       status_in: [[]],
       status_not_in: [[]],
-      onList: [undefined]
+      onList: [undefined],
     });
   }
 
@@ -133,7 +134,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
     const filters = this.searchForm.value;
 
-    let query: MediaQuery = {
+    let query: SearchFilters = {
       search: filters.search,
       genre_in: filters.genre_in,
       genre_not_in: filters.genre_not_in,
@@ -142,7 +143,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       status_in: filters.status_in,
       status_not_in: filters.status_not_in,
       onList: filters.onList,
-      sort: this.sort
+      sort: this.sort,
     };
 
     if (filters.startDate_lesser) {
@@ -160,7 +161,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
     const pageInfo: PageQuery = {
       pageIndex: page,
-      perPage: perPage
+      perPage: perPage,
     };
 
     this.animeService.searchAnime(query, pageInfo).subscribe(
@@ -180,9 +181,10 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   }
 
   private getGenres() {
-    this.animeService.getAnimeGenres().subscribe(mediaGenres => {
-      this.mediaGenres = mediaGenres;
-    });
+    this.animeService
+      .getAnimeGenres()
+      .pipe(tap(mediaGenres => (this.mediaGenres = mediaGenres)))
+      .subscribe();
   }
 
   private getDateScalarFromYear(year: number): number {
@@ -191,7 +193,7 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
 
   private updateQueryParams() {
     const queryParams = {
-      sort: JSON.stringify(this.sort)
+      sort: JSON.stringify(this.sort),
     };
 
     const filters = this.searchForm.value;

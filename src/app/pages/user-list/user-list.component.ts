@@ -3,20 +3,18 @@ import { Router } from '@angular/router';
 
 import { rootUrl } from '../../app.constants';
 import { AnimeService } from '../../services/anime.service';
-import { AuthService } from '../../services/auth.service';
 import { AuthStore } from '../../store/auth.store';
-import { ListEntryStatus } from '../../types/anilist/enums/listEntryStatus';
-import { ListEntry } from '../../types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
 import { User } from '../../types/anilist/user.types';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
   user: User;
-  statusObjects: { [status: string]: ListEntry[] };
+  statusObjects: { [Status in ListEntryStatus]?: ListEntry[] };
   statuses: ListEntryStatus[];
   favouriteIDs: number[];
 
@@ -27,7 +25,7 @@ export class UserListComponent {
   reloadOnUpdate: boolean = true;
   filter: string;
 
-  constructor(private router: Router, private animeService: AnimeService, private authService: AuthService, private authStore: AuthStore) {
+  constructor(private router: Router, private animeService: AnimeService, private authStore: AuthStore) {
     this.user = this.authStore.getUser();
     this.loggedIn = this.user !== undefined;
 
@@ -42,15 +40,10 @@ export class UserListComponent {
     if (this.user) {
       this.animeService.getAnimeList(this.user).subscribe(
         response => {
-          const statuses: ListEntryStatus[] = [];
-          Object.keys(response)
-            .sort()
-            .forEach(statusValue => {
-              statuses.push(new ListEntryStatus(statusValue));
-            });
-
           this.statusObjects = response;
-          this.statuses = statuses;
+          this.statuses = Object.keys(response)
+            .sort()
+            .map(status => status as ListEntryStatus);
           this.ready = true;
         },
         error => {

@@ -11,7 +11,7 @@ import { User } from '../../types/anilist/user.types';
 @Component({
   selector: 'app-recently-updated-list-entries',
   templateUrl: './recently-updated-list-entries.component.html',
-  styleUrls: ['./recently-updated-list-entries.component.scss']
+  styleUrls: ['./recently-updated-list-entries.component.scss'],
 })
 export class RecentlyUpdatedListEntriesComponent {
   user: User;
@@ -37,7 +37,7 @@ export class RecentlyUpdatedListEntriesComponent {
       this.animeService
         .getRecentlyUpdatedAnime(this.user, {
           perPage: this.maxEntries,
-          pageIndex: this.pagination ? this.pagination.pageIndex : undefined
+          pageIndex: this.pagination && this.pagination.pageIndex,
         })
         .subscribe(
           response => {

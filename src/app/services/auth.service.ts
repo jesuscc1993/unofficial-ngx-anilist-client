@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-import { AuthApi } from '../api/auth.api';
+import { AuthApi } from '../api/auth/auth.api';
 import { AuthStore } from '../store/auth.store';
 import { User } from '../types/anilist/user.types';
 

@@ -2,10 +2,10 @@ import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
 
-import { AnimeApi } from '../api/anime.api';
+import { SearchFilters } from '../api/anime/anime-api.types';
+import { AnimeApi } from '../api/anime/anime.api';
 import { ListEntry } from '../types/anilist/listEntry.types';
 import { PageQuery } from '../types/anilist/pageInfo.types';
-import { MediaQuery } from '../types/anilist/query.types';
 import { User } from '../types/anilist/user.types';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AnimeService {
     return this.animeApi.queryAnimeGenres();
   }
 
-  public searchAnime(query: MediaQuery, pageInfo?: PageQuery) {
+  public searchAnime(query: SearchFilters, pageInfo?: PageQuery) {
     return this.animeApi.queryAnimeSearch(query, pageInfo);
   }
 
@@ -24,8 +24,8 @@ export class AnimeService {
     return this.animeApi.queryAnimeList(user);
   }
 
-  public getAnimeListMediaIds(user: User) {
-    return this.animeApi.queryAnimeListMediaIds(user);
+  public getAnimeListMediaIdsByStatus(user: User) {
+    return this.animeApi.queryAnimeListMediaIdsByStatus(user);
   }
 
   public getRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
@@ -40,11 +40,11 @@ export class AnimeService {
     return this.animeApi.queryRelatedAnimeMedia(user);
   }
 
-  public getAnimeListFavourites(user: User, callback: Function) {
+  public getAnimeListFavourites(user: User, callback: (favouriteIDs: number[]) => void) {
     return this.animeApi.queryAnimeListFavourites(user, callback);
   }
 
-  public getAnimeListFavouriteIDs(user: User, callback: Function) {
+  public getAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
     return this.animeApi.queryAnimeListFavouriteIDs(user, callback);
   }
 

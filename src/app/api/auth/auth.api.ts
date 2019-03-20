@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { AuthStore } from '../store/auth.store';
-import { User } from '../types/anilist/user.types';
-import { userQuery } from './anime-queries';
-import { AniListApi } from './api';
+import { AuthStore } from '../../store/auth.store';
+import { User } from '../../types/anilist/user.types';
+import { userQuery } from '../anime/anime-api.queries';
+import { AniListApi } from '../api';
 
 @Injectable()
 export class AuthApi extends AniListApi {
@@ -16,8 +16,9 @@ export class AuthApi extends AniListApi {
   }
 
   public queryUser(): Observable<User> {
-    return this.postRequest({
-      query: userQuery
-    }).map(response => (this.isValidResponse(response) ? this.getResponseData(response).Viewer : undefined));
+    return this.postRequest<any>(userQuery).map(response => {
+      const listEntriesDto = this.getResponseData(response);
+      return listEntriesDto && listEntriesDto.Viewer;
+    });
   }
 }

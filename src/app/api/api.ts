@@ -1,10 +1,20 @@
 import 'rxjs/add/operator/map';
 
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 import { apiUrl } from '../app.constants';
 import { AuthStore } from '../store/auth.store';
 import { ServerResponse } from '../types/anilist/response.types';
+import {
+  DeleteListEntryDto,
+  MediaCollectionFilters,
+  MediaFilters,
+  PageQueryDto,
+  SaveListEntryDto,
+  SearchFilters,
+  ToggleFavouriteMediaDto,
+} from './anime/anime-api.types';
 
 export class AniListApi {
   protected apiUrl: string = apiUrl;
@@ -16,22 +26,34 @@ export class AniListApi {
     return { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} };
   }
 
-  protected postRequest({ query, variables }: { query: string; variables?: any }) {
+  protected postRequest<T>(
+    query: string,
+    options?: {
+      variables?: (
+        | MediaCollectionFilters
+        | MediaFilters
+        | SearchFilters
+        | SaveListEntryDto
+        | DeleteListEntryDto
+        | ToggleFavouriteMediaDto) &
+        Partial<PageQueryDto>;
+    }
+  ): Observable<ServerResponse<T>> {
     return this.httpClient.post(
       this.apiUrl,
       {
         query,
-        variables
+        variables: options && options.variables,
       },
       this.getRequestOptions()
     );
   }
 
-  protected isValidResponse(response: ServerResponse) {
-    return !!response && response.data;
+  protected isValidResponse<T>(response: ServerResponse<T>) {
+    return !!this.getResponseData(response);
   }
 
-  protected getResponseData(response: ServerResponse) {
-    return response.data;
+  protected getResponseData<T>(response: ServerResponse<T>) {
+    return !!response && response.data;
   }
 }

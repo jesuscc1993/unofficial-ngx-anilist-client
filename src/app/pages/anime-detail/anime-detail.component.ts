@@ -7,7 +7,7 @@ import { Anime } from '../../types/anilist/anime.types';
 @Component({
   selector: 'app-anime-detail',
   templateUrl: './anime-detail.component.html',
-  styleUrls: ['./anime-detail.component.scss']
+  styleUrls: ['./anime-detail.component.scss'],
 })
 export class AnimeDetailComponent {
   anime: Anime;
@@ -28,7 +28,7 @@ export class AnimeDetailComponent {
 
     this.animeService.searchAnime({ id: animeId }).subscribe(
       response => {
-        this.anime = response.media.length > 0 ? response.media[0] : undefined;
+        this.anime = response.media.length > 0 && response.media[0];
         this.searching = false;
       },
       () => {

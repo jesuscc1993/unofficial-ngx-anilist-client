@@ -37,6 +37,6 @@ export class AuthStore {
 
   private getJsonItem<T>(key: string) {
     const jsonString: string = localStorage.getItem(key);
-    return jsonString ? (JSON.parse(jsonString) as T) : undefined;
+    return jsonString && (JSON.parse(jsonString) as T);
   }
 }

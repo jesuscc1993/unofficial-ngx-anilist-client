@@ -62,7 +62,7 @@
       <app-genres-overview [genreStatsList]="user.stats.favouredGenresOverview"> </app-genres-overview>
     </div>
 
-    <mat-card *ngIf="!statuses || !statuses.length">
+    <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
       <h4>
         <i class="fa fa-exclamation-circle margin-right-xxs"></i>
         You haven't added any entries yet.

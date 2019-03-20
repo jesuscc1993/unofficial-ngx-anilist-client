@@ -5,8 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AnimeApi } from './api/anime.api';
-import { AuthApi } from './api/auth.api';
+import { AnimeApi } from './api/anime/anime.api';
+import { AuthApi } from './api/auth/auth.api';
 import { AppComponent } from './app.component';
 import { AnimeInfoComponent } from './components/anime-info/anime-info.component';
 import { CoverMediaComponent } from './components/cover-media/cover-media.component';
@@ -15,9 +15,13 @@ import { GenresOverviewComponent } from './components/genres-overview/genres-ove
 import { HeaderComponent } from './components/header/header.component';
 import { ListRelatedMediaComponent } from './components/list-related-media/list-related-media.component';
 import { MediaActionsComponent } from './components/media-actions/media-actions.component';
-import { RecentlyFinishedMediaByFormatComponent } from './components/recently-finished-media-by-format/recently-finished-media-by-format.component';
+import {
+  RecentlyFinishedMediaByFormatComponent,
+} from './components/recently-finished-media-by-format/recently-finished-media-by-format.component';
 import { RecentlyFinishedMediaComponent } from './components/recently-finished-media/recently-finished-media.component';
-import { RecentlyUpdatedListEntriesComponent } from './components/recently-updated-list-entries/recently-updated-list-entries.component';
+import {
+  RecentlyUpdatedListEntriesComponent,
+} from './components/recently-updated-list-entries/recently-updated-list-entries.component';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 import { ListEntryFormModalComponent } from './modals/list-entry-form-modal/list-entry-form-modal.component';
@@ -41,7 +45,7 @@ const appRoutes: Routes = [
   { path: 'anime-search', component: AnimeSearchComponent },
   { path: 'anime-detail/:id', component: AnimeDetailComponent },
   { path: 'user-list', component: UserListComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
@@ -67,11 +71,19 @@ const appRoutes: Routes = [
     RecentlyUpdatedListEntriesComponent,
     ListRelatedMediaComponent,
     CoverMediaComponent,
-    RecentlyFinishedMediaByFormatComponent
+    RecentlyFinishedMediaByFormatComponent,
   ],
-  imports: [BrowserAnimationsModule, BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MaterialModule,
+    RouterModule.forRoot(appRoutes),
+  ],
   providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore],
   bootstrap: [AppComponent],
-  entryComponents: [MediaDetailModalComponent, ListEntryFormModalComponent]
+  entryComponents: [MediaDetailModalComponent, ListEntryFormModalComponent],
 })
 export class AppModule {}

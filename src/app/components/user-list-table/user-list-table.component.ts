@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { Anime } from '../../types/anilist/anime.types';
@@ -8,7 +18,7 @@ import { GenericUtil } from '../../utils/generic.util';
 @Component({
   selector: 'app-user-list-table',
   templateUrl: './user-list-table.component.html',
-  styleUrls: ['./user-list-table.component.scss']
+  styleUrls: ['./user-list-table.component.scss'],
 })
 export class UserListTableComponent implements AfterViewInit, OnChanges {
   @Input() tableStatus: string;
@@ -19,7 +29,16 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  tableRows: string[] = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
+  tableRows: string[] = [
+    'actions',
+    'cover-image',
+    'title-romaji',
+    'format',
+    'start-date',
+    'genres',
+    'score',
+    'episodes',
+  ];
   dataSource: MatTableDataSource<ListEntry>;
 
   constructor(private elementRef: ElementRef) {}
@@ -57,7 +76,7 @@ export class UserListTableComponent implements AfterViewInit, OnChanges {
         'start-date': +anime.startDate.year,
         genres: anime.genres.length ? anime.genres[0] : '',
         score: +listEntry.scoreRaw,
-        episodes: +anime.episodes
+        episodes: +anime.episodes,
       }[property];
     };
 

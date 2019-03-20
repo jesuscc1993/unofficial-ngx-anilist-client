@@ -1,10 +1,7 @@
+import { SearchFilters } from '../api/anime/anime-api.types';
 import { Anime } from '../types/anilist/anime.types';
-import { ListEntryStatus } from '../types/anilist/enums/listEntryStatus';
-import { MediaFormat } from '../types/anilist/enums/mediaFormats';
-import { MediaStatus } from '../types/anilist/enums/mediaStatus';
 import { ListEntry } from '../types/anilist/listEntry.types';
 import { Media } from '../types/anilist/media.types';
-import { MediaQuery } from '../types/anilist/query.types';
 
 const fallbackCover = 'assets/pictures/non-vectorial/no-cover-available.png';
 
@@ -20,30 +17,29 @@ const searchFilters = [
   'format_in',
   'format_not_in',
   'status_in',
-  'status_not_in'
+  'status_not_in',
 ];
 
-export const mapQueryFilters = (query: MediaQuery, options: any) => {
+export const mapQueryFilters = (query: SearchFilters, options: any) => {
+  const mappedFilters: SearchFilters = { ...options };
+
   searchFilters.forEach((filter: string) => {
     if (query[filter] && query[filter].length !== 0) {
-      options[filter] = query[filter];
+      mappedFilters[filter] = query[filter];
     }
   });
+
+  return mappedFilters;
 };
 
-export const getParsedAnime = (anime: Anime) => {
+export const getParsedAnime = (anime: Partial<Anime>): Partial<Anime> => {
   const parsedAnime = { ...anime };
 
   if (parsedAnime) {
-    if (parsedAnime.format) {
-      parsedAnime.format = new MediaFormat(parsedAnime.format).label;
-    }
-
-    if (parsedAnime.status) {
-      parsedAnime.status = new MediaStatus(parsedAnime.status).label;
-    }
-
-    if (parsedAnime.coverImage && parsedAnime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg') {
+    if (
+      parsedAnime.coverImage &&
+      parsedAnime.coverImage.medium === 'https://cdn.anilist.co/img/dir/anime/med/noimg.jpg'
+    ) {
       parsedAnime.coverImage.medium = fallbackCover;
     }
 
@@ -55,14 +51,10 @@ export const getParsedAnime = (anime: Anime) => {
   return parsedAnime;
 };
 
-export const getParsedListEntry = (listEntry: ListEntry) => {
+export const getParsedListEntry = (listEntry: Partial<ListEntry>): Partial<ListEntry> => {
   const parsedListEntry = { ...listEntry };
 
   if (parsedListEntry) {
-    if (parsedListEntry.status) {
-      parsedListEntry.status = new ListEntryStatus(parsedListEntry.status).value;
-    }
-
     if (parsedListEntry.media) {
       getParsedAnime(<Anime>parsedListEntry.media);
     }
