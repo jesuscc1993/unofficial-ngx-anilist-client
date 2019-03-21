@@ -11,35 +11,35 @@ $themes: (
     body-background: #333,
     info: (
       background: map-get($mat-blue, 800),
-      foreground: map-get($mat-blue, 50)
+      foreground: map-get($mat-blue, 50),
     ),
     warning: (
       background: map-get($mat-orange, 800),
-      foreground: map-get($mat-orange, 50)
+      foreground: map-get($mat-orange, 50),
     ),
     error: (
       background: map-get($mat-red, 800),
-      foreground: map-get($mat-red, 50)
-    )
+      foreground: map-get($mat-red, 50),
+    ),
   ),
   light: (
     material-theme: mat-light-theme($primary-palette, $accent-palette),
     background: $mat-light-theme-background,
     foreground: $mat-light-theme-foreground,
-    body-background: #CCC,
+    body-background: #ccc,
     info: (
       background: map-get($mat-blue, 50),
-      foreground: map-get($mat-blue, 600)
+      foreground: map-get($mat-blue, 600),
     ),
     warning: (
       background: map-get($mat-orange, 50),
-      foreground: map-get($mat-orange, 600)
+      foreground: map-get($mat-orange, 600),
     ),
     error: (
       background: map-get($mat-red, 50),
-      foreground: map-get($mat-red, 600)
-    )
-  )
+      foreground: map-get($mat-red, 600),
+    ),
+  ),
 );
 
 $theme: map-get($themes, dark);
@@ -81,7 +81,7 @@ mat-toolbar {
       border-top-color: transparent;
 
       &.active {
-        border-bottom-color: mat-color($primary-palette, darker);
+        border-bottom-color: mat-color($primary-palette, default);
 
         &,
         &:hover {
@@ -96,7 +96,6 @@ mat-toolbar {
       }
     }
   }
-
 }
 
 .mat-raised-button.mat-accent,
@@ -113,10 +112,9 @@ mat-toolbar {
 mat-card {
   &.composite {
     .tab-group {
-
       .header:not(.tab) {
         border-color: map-get(map-get($theme, foreground), divider);
-        background-color: rgba(black, .06);
+        background-color: rgba(black, 0.06);
       }
 
       .tab {
@@ -126,7 +124,6 @@ mat-card {
           background-color: map-get(map-get($theme, background), card);
         }
       }
-
     }
   }
 }
