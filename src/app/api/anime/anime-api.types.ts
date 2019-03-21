@@ -37,6 +37,22 @@ export type IdFilters = SearchFilters & {
   idNotIn?: number[];
 };
 
+/* requests */
+
+export type SaveListEntryRequest = {
+  status: ListEntryStatus;
+  mediaId: number;
+  scoreRaw: number;
+};
+
+export type DeleteListEntryRequest = {
+  id: number;
+};
+
+export type ToggleFavouriteMediaRequest = {
+  animeId: number;
+};
+
 /* dtos */
 export type PageQueryDto = {
   page: number;
@@ -57,17 +73,19 @@ export type SearchMediaDto = {
 };
 
 export type SaveListEntryDto = {
-  status: ListEntryStatus;
-  mediaId: number;
-  scoreRaw: number;
+  SaveMediaListEntry: {
+    id: number;
+  };
 };
 
 export type DeleteListEntryDto = {
-  id: number;
+  DeleteMediaListEntry: {
+    deleted: boolean;
+  };
 };
 
-export type ToggleFavouriteMediaDto = {
-  animeId: number;
+export type ToggleFavouriteMediaResponseDto = {
+  ToggleFavourite: number;
 };
 
 export type ListEntriesPageDto = {

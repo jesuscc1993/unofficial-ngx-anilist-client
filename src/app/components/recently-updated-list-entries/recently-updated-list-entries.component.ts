@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material';
+import { tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../services/anime.service';
 import { AuthService } from '../../services/auth.service';
@@ -39,17 +40,20 @@ export class RecentlyUpdatedListEntriesComponent {
           perPage: this.maxEntries,
           pageIndex: this.pagination && this.pagination.pageIndex,
         })
-        .subscribe(
-          response => {
-            this.listEntries = response.mediaList;
-            this.pagination = response.pageInfo;
-            this.ready = true;
-          },
-          error => {
-            this.error = error;
-            this.ready = true;
-          }
-        );
+        .pipe(
+          tap(
+            response => {
+              this.listEntries = response.mediaList;
+              this.pagination = response.pageInfo;
+              this.ready = true;
+            },
+            error => {
+              this.error = error;
+              this.ready = true;
+            }
+          )
+        )
+        .subscribe();
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 
 import { AuthApi } from '../api/auth/auth.api';
@@ -16,10 +17,15 @@ export class AuthService {
   public logIn(accessToken: string) {
     this.authStore.setAccessToken(accessToken);
 
-    this.authApi.queryUser().subscribe(user => {
-      this.authStore.setUser(user);
-      this.userChange.next(user);
-    });
+    this.authApi
+      .queryUser()
+      .pipe(
+        tap(user => {
+          this.authStore.setUser(user);
+          this.userChange.next(user);
+        })
+      )
+      .subscribe();
   }
 
   public logOut() {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 import { defaultModalOptions } from '../../app.constants';
@@ -15,7 +16,7 @@ import { User } from '../../types/anilist/user.types';
 @Component({
   selector: 'app-media-actions',
   templateUrl: './media-actions.component.html',
-  styleUrls: ['./media-actions.component.scss']
+  styleUrls: ['./media-actions.component.scss'],
 })
 export class MediaActionsComponent implements OnInit, OnDestroy {
   @Input() listEntry?: ListEntry;
@@ -36,9 +37,13 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
   ) {
     this.user = this.authStore.getUser();
 
-    this.userChangeSubscription = this.authService.userChange.subscribe((user: User) => {
-      this.user = user;
-    });
+    this.userChangeSubscription = this.authService.userChange
+      .pipe(
+        tap((user: User) => {
+          this.user = user;
+        })
+      )
+      .subscribe();
   }
 
   ngOnInit() {
@@ -54,42 +59,55 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
   saveToList() {
     this.showFormModal()
       .afterClosed()
-      .subscribe(result => {
-        if (result) {
-          if (result.savedEntry) {
-            this.showSavedEntryToast(result.savedEntry);
-          }
-          if (result.deletedEntry) {
-            this.showDeletedEntryToast(result.deletedEntry);
-          }
+      .pipe(
+        tap(result => {
+          if (result) {
+            if (result.savedEntry) {
+              this.showSavedEntryToast(result.savedEntry);
+            }
+            if (result.deletedEntry) {
+              this.showDeletedEntryToast(result.deletedEntry);
+            }
 
-          this.onUpdate.emit(result.savedEntry || result.deletedEntry);
-        }
-      });
+            this.onUpdate.emit(result.savedEntry || result.deletedEntry);
+          }
+        })
+      )
+      .subscribe();
   }
 
   toggleFavourite() {
     const targetEntry: ListEntry = this.getListEntry();
 
-    this.animeService.toggleFavouriteAnimeListEntry(targetEntry).subscribe(response => {
-      const success: boolean = response.data.ToggleFavourite !== undefined;
-      if (success) {
-        this.showToggledFavouriteToast(targetEntry);
-        this.onUpdate.emit(targetEntry);
-      }
-    });
+    this.animeService
+      .toggleFavouriteAnimeListEntry(targetEntry)
+      .pipe(
+        tap(response => {
+          const success: boolean = response.data.ToggleFavourite !== undefined;
+          if (success) {
+            this.showToggledFavouriteToast(targetEntry);
+            this.onUpdate.emit(targetEntry);
+          }
+        })
+      )
+      .subscribe();
   }
 
   deleteEntry() {
     const targetEntry: ListEntry = this.getListEntry();
 
-    this.animeService.deleteAnimeListEntry(targetEntry).subscribe(response => {
-      const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
-      if (success) {
-        this.showDeletedEntryToast(targetEntry);
-        this.onUpdate.emit(targetEntry);
-      }
-    });
+    this.animeService
+      .deleteAnimeListEntry(targetEntry)
+      .pipe(
+        tap(response => {
+          const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
+          if (success) {
+            this.showDeletedEntryToast(targetEntry);
+            this.onUpdate.emit(targetEntry);
+          }
+        })
+      )
+      .subscribe();
   }
 
   showDetail() {
@@ -97,8 +115,8 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
       ...defaultModalOptions,
       maxWidth: '800px',
       data: {
-        media: this.media
-      }
+        media: this.media,
+      },
     });
   }
 
@@ -125,8 +143,8 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
       ...defaultModalOptions,
       data: {
         listEntry: this.listEntry,
-        media: this.media
-      }
+        media: this.media,
+      },
     });
   }
 
@@ -144,7 +162,7 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
 
   private showToast(message: string) {
     this.matSnackBar.open(message, undefined, {
-      duration: 10000
+      duration: 10000,
     });
   }
 }

@@ -2,18 +2,20 @@ import 'rxjs/add/operator/map';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+import { catchError } from 'rxjs/operators';
 
 import { apiUrl } from '../app.constants';
 import { AuthStore } from '../store/auth.store';
 import { ServerResponse } from '../types/anilist/response.types';
 import {
-  DeleteListEntryDto,
+  DeleteListEntryRequest,
   MediaCollectionFilters,
   MediaFilters,
   PageQueryDto,
-  SaveListEntryDto,
+  SaveListEntryRequest,
   SearchFilters,
-  ToggleFavouriteMediaDto,
+  ToggleFavouriteMediaRequest,
 } from './anime/anime-api.types';
 
 export class AniListApi {
@@ -33,20 +35,22 @@ export class AniListApi {
         | MediaCollectionFilters
         | MediaFilters
         | SearchFilters
-        | SaveListEntryDto
-        | DeleteListEntryDto
-        | ToggleFavouriteMediaDto) &
+        | SaveListEntryRequest
+        | DeleteListEntryRequest
+        | ToggleFavouriteMediaRequest) &
         Partial<PageQueryDto>;
     }
   ): Observable<ServerResponse<T>> {
-    return this.httpClient.post(
-      this.apiUrl,
-      {
-        query,
-        variables: options && options.variables,
-      },
-      this.getRequestOptions()
-    );
+    return this.httpClient
+      .post(
+        this.apiUrl,
+        {
+          query,
+          variables: options && options.variables,
+        },
+        this.getRequestOptions()
+      )
+      .pipe(this.mapObjectErrorToStringError());
   }
 
   protected isValidResponse<T>(response: ServerResponse<T>) {
@@ -55,5 +59,9 @@ export class AniListApi {
 
   protected getResponseData<T>(response: ServerResponse<T>) {
     return !!response && response.data;
+  }
+
+  protected mapObjectErrorToStringError() {
+    return catchError(error => _throw(JSON.stringify(error, undefined, 2)));
   }
 }

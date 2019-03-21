@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
 import { AnimeService } from '../../services/anime.service';
@@ -38,19 +39,24 @@ export class UserListComponent {
 
   private getUserList() {
     if (this.user) {
-      this.animeService.getAnimeList(this.user).subscribe(
-        response => {
-          this.statusObjects = response;
-          this.statuses = Object.keys(response)
-            .sort()
-            .map(status => status as ListEntryStatus);
-          this.ready = true;
-        },
-        error => {
-          this.error = error;
-          this.ready = true;
-        }
-      );
+      this.animeService
+        .getAnimeList(this.user)
+        .pipe(
+          tap(
+            response => {
+              this.statusObjects = response;
+              this.statuses = Object.keys(response)
+                .sort()
+                .map(status => status as ListEntryStatus);
+              this.ready = true;
+            },
+            error => {
+              this.error = error;
+              this.ready = true;
+            }
+          )
+        )
+        .subscribe();
     }
   }
 

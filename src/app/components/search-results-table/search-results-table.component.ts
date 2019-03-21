@@ -7,14 +7,23 @@ import { MediaSort } from '../../types/anilist/enums/mediaSorts';
 @Component({
   selector: 'app-search-results-table',
   templateUrl: './search-results-table.component.html',
-  styleUrls: ['./search-results-table.component.scss']
+  styleUrls: ['./search-results-table.component.scss'],
 })
 export class SearchResultsTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
   @Output() onSortChange: EventEmitter<MediaSort> = new EventEmitter<MediaSort>();
   @ViewChild(MatSort) sort: MatSort;
 
-  tableRows: string[] = ['actions', 'cover-image', 'title-romaji', 'format', 'start-date', 'genres', 'score', 'episodes'];
+  tableRows: string[] = [
+    'actions',
+    'cover-image',
+    'title-romaji',
+    'format',
+    'start-date',
+    'genres',
+    'score',
+    'episodes',
+  ];
   dataSource: MatTableDataSource<Anime>;
 
   constructor() {}

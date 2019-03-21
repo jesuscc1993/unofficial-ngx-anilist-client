@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../services/anime.service';
 import { listEntryStatusValues } from '../../types/anilist/enums/listEntryStatus';
@@ -32,10 +33,7 @@ export class ListEntryFormModalComponent {
   ) {
     this.listEntry = data.listEntry;
     this.media = data.media;
-    this.setupForm();
-  }
 
-  private setupForm() {
     if (this.listEntry) {
       this.originalEntry = { ...this.listEntry };
     }
@@ -55,30 +53,40 @@ export class ListEntryFormModalComponent {
   saveEntry() {
     const entryToSave: ListEntry = this.getFormEntry();
 
-    this.animeService.saveAnimeListEntry(entryToSave).subscribe(response => {
-      const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
-      if (success) {
-        if (this.listEntry) {
-          this.listEntry.scoreRaw = entryToSave.scoreRaw;
-          this.listEntry.status = entryToSave.status;
-        }
+    this.animeService
+      .saveAnimeListEntry(entryToSave)
+      .pipe(
+        tap(response => {
+          const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
+          if (success) {
+            if (this.listEntry) {
+              this.listEntry.scoreRaw = entryToSave.scoreRaw;
+              this.listEntry.status = entryToSave.status;
+            }
 
-        this.dialogRef.close(this.listEntry);
-      }
-    });
+            this.dialogRef.close(this.listEntry);
+          }
+        })
+      )
+      .subscribe();
   }
 
   deleteEntry(event?: Event) {
     this.preventDefault(event);
 
-    this.animeService.deleteAnimeListEntry(this.listEntry).subscribe(response => {
-      const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
-      if (success) {
-        this.dialogRef.close({
-          deletedEntry: this.listEntry,
-        });
-      }
-    });
+    this.animeService
+      .deleteAnimeListEntry(this.listEntry)
+      .pipe(
+        tap(response => {
+          const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
+          if (success) {
+            this.dialogRef.close({
+              deletedEntry: this.listEntry,
+            });
+          }
+        })
+      )
+      .subscribe();
   }
 
   dismiss(event?: Event) {

@@ -2,6 +2,7 @@ import 'rxjs/add/operator/map';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 import { getParsedAnime, getParsedListEntry, mapQueryFilters } from '../../domain/anime.domain';
 import { AuthStore } from '../../store/auth.store';
@@ -34,9 +35,11 @@ import {
   ListMediaIdsDto,
   MediaPageDto,
   SaveListEntryDto,
+  SaveListEntryRequest,
   SearchFilters,
   SearchMediaDto,
-  ToggleFavouriteMediaDto,
+  ToggleFavouriteMediaRequest,
+  ToggleFavouriteMediaResponseDto as ToggleFavouriteMediaDto,
 } from './anime-api.types';
 
 @Injectable()
@@ -198,23 +201,27 @@ export class AnimeApi extends AniListApi {
   private queryFavouritesResultsPage(options: any, favourites: any[], callback: Function) {
     return this.postRequest<FavouriteMediaDto>(listFavouritesQuery, {
       variables: options,
-    }).subscribe(response => {
-      let results = [];
+    })
+      .pipe(
+        tap(response => {
+          let results = [];
 
-      const responseData = this.getResponseData(response);
-      if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
-        const favouritesData = responseData.User.favourites.anime;
-        results = favouritesData.nodes;
-        favourites = [...favourites, ...results];
+          const responseData = this.getResponseData(response);
+          if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
+            const favouritesData = responseData.User.favourites.anime;
+            results = favouritesData.nodes;
+            favourites = [...favourites, ...results];
 
-        if (favouritesData.pageInfo.hasNextPage) {
-          options.page++;
-          this.queryFavouritesResultsPage(options, favourites, callback);
-        } else {
-          callback(favourites);
-        }
-      }
-    });
+            if (favouritesData.pageInfo.hasNextPage) {
+              options.page++;
+              this.queryFavouritesResultsPage(options, favourites, callback);
+            } else {
+              callback(favourites);
+            }
+          }
+        })
+      )
+      .subscribe();
   }
 
   public queryAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {

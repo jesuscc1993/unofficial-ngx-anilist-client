@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../services/anime.service';
 import { Anime } from '../../types/anilist/anime.types';
@@ -26,15 +27,20 @@ export class AnimeDetailComponent {
     this.searching = true;
     this.errorGotten = false;
 
-    this.animeService.searchAnime({ id: animeId }).subscribe(
-      response => {
-        this.anime = response.media.length > 0 && response.media[0];
-        this.searching = false;
-      },
-      () => {
-        this.errorGotten = true;
-        this.searching = false;
-      }
-    );
+    this.animeService
+      .searchAnime({ id: animeId })
+      .pipe(
+        tap(
+          response => {
+            this.anime = response.media.length > 0 && response.media[0];
+            this.searching = false;
+          },
+          () => {
+            this.errorGotten = true;
+            this.searching = false;
+          }
+        )
+      )
+      .subscribe();
   }
 }

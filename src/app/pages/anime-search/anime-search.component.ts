@@ -59,11 +59,19 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   ) {
     this.user = this.authStore.getUser();
     this.setupForm();
-    this.getGenres();
 
-    this.userChangeSubscription = this.authService.userChange.subscribe((user: User) => {
-      this.user = user;
-    });
+    this.animeService
+      .getAnimeGenres()
+      .pipe(tap(mediaGenres => (this.mediaGenres = mediaGenres)))
+      .subscribe();
+
+    this.userChangeSubscription = this.authService.userChange
+      .pipe(
+        tap((user: User) => {
+          this.user = user;
+        })
+      )
+      .subscribe();
   }
 
   ngOnInit() {
@@ -164,26 +172,24 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       perPage: perPage,
     };
 
-    this.animeService.searchAnime(query, pageInfo).subscribe(
-      response => {
-        this.noResults = response.media.length < 1;
-        this.animeList = response.media;
-        this.pagination = response.pageInfo;
-        this.pagination.pageIndex = response.pageInfo.currentPage - 1;
-        this.searching = false;
-      },
-      error => {
-        this.error = error;
-        this.noResults = false;
-        this.searching = false;
-      }
-    );
-  }
-
-  private getGenres() {
     this.animeService
-      .getAnimeGenres()
-      .pipe(tap(mediaGenres => (this.mediaGenres = mediaGenres)))
+      .searchAnime(query, pageInfo)
+      .pipe(
+        tap(
+          response => {
+            this.noResults = response.media.length < 1;
+            this.animeList = response.media;
+            this.pagination = response.pageInfo;
+            this.pagination.pageIndex = response.pageInfo.currentPage - 1;
+            this.searching = false;
+          },
+          error => {
+            this.error = error;
+            this.noResults = false;
+            this.searching = false;
+          }
+        )
+      )
       .subscribe();
   }
 

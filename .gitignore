@@ -3,6 +3,9 @@
 # explicit exclusions
 /excluded
 
+# logs
+yarn.error.log
+
 # compiled output
 /dist
 /tmp
