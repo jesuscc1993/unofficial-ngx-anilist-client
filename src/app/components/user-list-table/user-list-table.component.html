@@ -3,7 +3,13 @@
 </h3>
 
 <mat-card class="no-padding">
-  <mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" matSort class="series-table">
+  <mat-table
+    #table
+    [dataSource]="dataSource"
+    [hidden]="!dataSource || dataSource.data.length < 1"
+    matSort
+    class="series-table"
+  >
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let entry">
@@ -28,7 +34,9 @@
         <span class="title">
           {{ entry.media.title.romaji }}
         </span>
-        <i *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0" class="fa fa-heart favourite"> </i>
+        <span *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0">
+          <fa-icon name="heart" class="favourite"></fa-icon>
+        </span>
       </mat-cell>
     </ng-container>
 

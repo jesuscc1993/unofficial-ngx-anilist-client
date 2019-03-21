@@ -38,12 +38,11 @@ body {
     @media (max-width: $screen-xxs) {
       padding: $spacing-xxs !important;
     }
-
   }
 }
 
 a {
-  transition: color .2s;
+  transition: color 0.2s;
   text-decoration: none;
   cursor: pointer;
 }
@@ -80,8 +79,8 @@ a {
 }
 
 .float-left {
-   float: left;
- }
+  float: left;
+}
 .float-right {
   float: right;
 }
@@ -95,11 +94,15 @@ a {
 }
 
 .baseline {
-  vertical-align: baseline !important;
+  vertical-align: baseline;
+}
+
+.vertically-centered {
+  vertical-align: middle;
 }
 
 .transition {
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .capitalize {

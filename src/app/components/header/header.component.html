@@ -7,19 +7,19 @@
 
   <div class="centered-content section-links" *ngIf="user">
     <a [routerLink]="animeSearchUrl" [class.active]="onAnimeSearch">
-      <i class="fa fa-search fa-2x"></i>
+      <fa-icon name="search" class="section-icon"></fa-icon>
       <small>
         Anime search
       </small>
     </a>
     <a [routerLink]="dashboardUrl" [class.active]="onDashboard">
-      <i class="fa fa-feed fa-2x"></i>
+      <fa-icon name="columns" class="section-icon"></fa-icon>
       <small>
         Dashboard
       </small>
     </a>
     <a [routerLink]="userListUrl" [class.active]="onUserList">
-      <i class="fa fa-list-ul fa-2x"></i>
+      <fa-icon name="th-list" class="section-icon"></fa-icon>
       <small>
         User's list
       </small>
@@ -36,16 +36,16 @@
     <img class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu" />
 
     <a class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
-      <i class="fa fa-bars"></i>
+      <fa-icon name="bars"></fa-icon>
     </a>
 
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="navigateToAnilistProfile()">
-        <i class="fa fa-external-link margin-right-xxxs"></i>
+        <fa-icon name="external-link-alt" class="margin-right-xxxs"></fa-icon>
         View profile
       </button>
       <button mat-menu-item (click)="logOut()">
-        <i class="fa fa-sign-out margin-right-xxxs"></i>
+        <fa-icon name="door-open" class="margin-right-xxxs"></fa-icon>
         Log out
       </button>
     </mat-menu>
@@ -57,7 +57,7 @@
       <span class="hide-below-s">
         Log in with AniList
       </span>
-      <i class="fa fa-sign-in"></i>
+      <fa-icon name="sign-in-alt"></fa-icon>
     </a>
   </div>
 </mat-toolbar>

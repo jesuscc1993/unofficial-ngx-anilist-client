@@ -1,7 +1,7 @@
 <div class="narrow-page">
   <mat-card *ngIf="!user" class="alert warning">
     <h4>
-      <i class="fa fa-exclamation-circle margin-right-xxs"></i>
+      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
       You are not logged in.
     </h4>
   </mat-card>
@@ -29,7 +29,7 @@
               </mat-checkbox>
 
               <a href="{{ '/user-list#' + status.value }}" class="capitalize">
-                <i class="fa fa-arrow-down go-to-icon"></i>
+                <fa-icon name="arrow-down" class="go-to-icon"></fa-icon>
               </a>
             </div>
           </span>
@@ -64,7 +64,7 @@
 
     <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
       <h4>
-        <i class="fa fa-exclamation-circle margin-right-xxs"></i>
+        <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
         You haven't added any entries yet.
       </h4>
     </mat-card>
@@ -72,7 +72,7 @@
 
   <mat-card *ngIf="error" class="error">
     <h4>
-      <i class="fa fa-exclamation-circle margin-right-xxs"></i>
+      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
       {{ error }}
     </h4>
   </mat-card>

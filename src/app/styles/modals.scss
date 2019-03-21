@@ -10,14 +10,12 @@ mat-dialog-container {
   padding: 0 !important;
 
   .header {
-    .title {
-      padding-right: $spacing-xs;
-    }
+    display: flex;
+    align-items: center;
 
-    > i.fa {
-      &:before {
-        vertical-align: middle;
-      }
+    .title {
+      flex: 1;
+      padding-right: $spacing-xs;
     }
   }
 
@@ -26,5 +24,4 @@ mat-dialog-container {
     overflow-y: auto;
     box-sizing: border-box;
   }
-
 }

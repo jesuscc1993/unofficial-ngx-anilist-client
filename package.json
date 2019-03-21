@@ -23,8 +23,8 @@
     "@angular/platform-browser": "^5.2.6",
     "@angular/platform-browser-dynamic": "^5.2.6",
     "@angular/router": "^5.2.5",
+    "@fortawesome/fontawesome-free": "^5.8.0",
     "core-js": "^2.5.3",
-    "font-awesome": "^4.7.0",
     "rxjs": "5.5.10",
     "zone.js": "^0.8.20"
   },
@@ -33,7 +33,7 @@
     "@angular/cli": "1.5.5",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
-    "typescript": "~2.4.2",
-    "tslint": "^5.9.1"
+    "tslint": "^5.9.1",
+    "typescript": "~2.4.2"
   }
 }

@@ -7,18 +7,17 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "tsconfig": "tsconfig.app.json",
       "prefix": "app",
       "styles": [
-        "styles.scss",
-        "../node_modules/font-awesome/css/font-awesome.css"
+        "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+        "../node_modules/@fortawesome/fontawesome-free/css/brands.min.css",
+        "../node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
+        "styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

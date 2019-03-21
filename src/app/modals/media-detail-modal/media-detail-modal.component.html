@@ -1,16 +1,17 @@
 <mat-card class="composite">
   <div class="header no-margin">
-    <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
-
     <div class="title">
       <h3 class="no-margin">
-        <app-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs"> </app-media-actions>
+        <app-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs">
+        </app-media-actions>
 
         <span>
           {{ media.title.romaji }}
         </span>
       </h3>
     </div>
+
+    <fa-icon name="times" class="clickable" (click)="dismiss()"></fa-icon>
   </div>
 
   <mat-divider></mat-divider>
@@ -24,7 +25,8 @@
   <div class="content">
     <div class="float-left full-width text-center">
       <button mat-raised-button color="accent" (click)="goToDetail()">
-        Read more
+        <fa-icon name="newspaper" class="baseline margin-right-xxxs"></fa-icon>
+        Open full detail
       </button>
     </div>
   </div>

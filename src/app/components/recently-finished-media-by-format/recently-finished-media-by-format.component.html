@@ -4,12 +4,18 @@
   <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
 </div>
 
-<mat-paginator *ngIf="pagination" [length]="pagination.total" [pageSize]="pagination.perPage" (page)="changePage($event)" class="basic negative-bottom-margin">
+<mat-paginator
+  *ngIf="pagination"
+  [length]="pagination.total"
+  [pageSize]="pagination.perPage"
+  (page)="changePage($event)"
+  class="basic negative-bottom-margin"
+>
 </mat-paginator>
 
 <mat-card *ngIf="error" class="error">
   <h4>
-    <i class="fa fa-exclamation-circle margin-right-xxs"></i>
+    <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
     {{ error }}
   </h4>
 </mat-card>

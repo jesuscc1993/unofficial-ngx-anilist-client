@@ -26,7 +26,8 @@ import { SearchResultsTableComponent } from './components/search-results-table/s
 import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
 import { ListEntryFormModalComponent } from './modals/list-entry-form-modal/list-entry-form-modal.component';
 import { MediaDetailModalComponent } from './modals/media-detail-modal/media-detail-modal.component';
-import { MaterialModule } from './modules/material.module';
+import { MaterialModule } from './modules/material/material.module';
+import { SharedModule } from './modules/shared/shared.module';
 import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
 import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
+    SharedModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore],

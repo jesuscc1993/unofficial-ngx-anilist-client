@@ -1,12 +1,12 @@
 <mat-card class="composite">
   <div class="header no-margin">
-    <i class="fa fa-times float-right clickable" (click)="dismiss()"></i>
-
     <div class="title">
       <h3 class="no-margin">
         {{ media.title.romaji }}
       </h3>
     </div>
+
+    <fa-icon name="times" class="clickable" (click)="dismiss()"></fa-icon>
   </div>
 
   <mat-divider></mat-divider>
@@ -28,7 +28,15 @@
       <div class="form-group">
         <mat-form-field class="score-input">
           <mat-label>Score</mat-label>
-          <input matInput type="number" min="0" max="10" step=".1" [placeholder]="listEntry ? listEntry.scoreRaw / 10 : 5" formControlName="score" />
+          <input
+            matInput
+            type="number"
+            min="0"
+            max="10"
+            step=".1"
+            [placeholder]="listEntry ? listEntry.scoreRaw / 10 : 5"
+            formControlName="score"
+          />
         </mat-form-field>
         / 10
       </div>
@@ -37,7 +45,7 @@
 
       <!--<span *ngIf="listEntry !== undefined">-->
       <!--<button mat-raised-button color="warn" class="margin-right-s square-button" (click)="deleteEntry($event)">-->
-      <!--<i class="fa fa-trash baseline"></i>-->
+      <!--<fa-icon name="trash" class="baseline"></fa-icon>-->
       <!--</button>-->
       <!--</span>-->
     </div>
@@ -46,13 +54,18 @@
 
     <div class="content">
       <span class="float-right">
-        <button mat-raised-button color="accent" class="margin-right-xs" [disabled]="!listEntryForm.valid || !isSubmitEnabled()">
-          <i class="fa fa-send baseline margin-right-xxxs"></i>
+        <button
+          mat-raised-button
+          color="accent"
+          class="margin-right-xs"
+          [disabled]="!listEntryForm.valid || !isSubmitEnabled()"
+        >
+          <fa-icon name="save" class="baseline margin-right-xxxs"></fa-icon>
           Submit
         </button>
 
         <button mat-raised-button class="float-right" (click)="dismiss($event)">
-          <i class="fa fa-times baseline margin-right-xxxs"></i>
+          <fa-icon name="times" class="baseline margin-right-xxxs"></fa-icon>
           Cancel
         </button>
       </span>
