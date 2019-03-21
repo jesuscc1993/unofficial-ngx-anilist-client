@@ -8,25 +8,23 @@
   <div class="centered-content section-links" *ngIf="user">
     <a [routerLink]="animeSearchUrl" [class.active]="onAnimeSearch">
       <fa-icon name="search" class="section-icon"></fa-icon>
-      <small>
+      <span class="small">
         Anime search
-      </small>
+      </span>
     </a>
     <a [routerLink]="dashboardUrl" [class.active]="onDashboard">
       <fa-icon name="columns" class="section-icon"></fa-icon>
-      <small>
+      <span class="small">
         Dashboard
-      </small>
+      </span>
     </a>
     <a [routerLink]="userListUrl" [class.active]="onUserList">
       <fa-icon name="th-list" class="section-icon"></fa-icon>
-      <small>
+      <span class="small">
         User's list
-      </small>
+      </span>
     </a>
   </div>
-
-  <span class="filler"></span>
 
   <!-- logged in -->
   <div *ngIf="user" class="flex-box center">
@@ -41,11 +39,11 @@
 
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="navigateToAnilistProfile()">
-        <fa-icon name="external-link-alt" class="margin-right-xxxs"></fa-icon>
+        <fa-icon name="external-link-alt" class="action-icon"></fa-icon>
         View profile
       </button>
       <button mat-menu-item (click)="logOut()">
-        <fa-icon name="door-open" class="margin-right-xxxs"></fa-icon>
+        <fa-icon name="door-open" class="action-icon"></fa-icon>
         Log out
       </button>
     </mat-menu>

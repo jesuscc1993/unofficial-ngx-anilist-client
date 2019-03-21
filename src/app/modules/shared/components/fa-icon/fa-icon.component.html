@@ -1,1 +1,1 @@
-<i class="{{ type || 'fas' }} fa-{{ name }} {{ childClass }}"></i>
+<i [ngClass]="[type || 'fas', 'fa-' + name, class || '']"></i>

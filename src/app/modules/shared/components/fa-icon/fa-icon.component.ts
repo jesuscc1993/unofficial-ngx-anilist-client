@@ -8,5 +8,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FaIconComponent {
   @Input() type?: 'fas' | 'fab';
   @Input() name: string;
-  @Input() childClass?: string;
+  @Input() class?: string;
 }

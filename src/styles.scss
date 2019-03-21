@@ -15,8 +15,7 @@ body {
   margin: 0;
 
   .content-wrapper {
-    @extend .vertical-padding-s;
-    @extend .horizontal-padding-m;
+    @extend .padding-s;
     box-sizing: border-box;
     text-align: center;
 

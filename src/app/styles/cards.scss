@@ -2,13 +2,12 @@
 
 @mixin setup-card-padding($regular-padding, $compact-padding) {
   mat-card {
-
     &.composite {
-      $header-height: $spacing-s + $regular-padding * 2;
       padding: 0 !important;
 
       &.compact {
-        .header {
+        .header,
+        .footer {
           padding: $compact-padding;
         }
 
@@ -21,7 +20,8 @@
         }
       }
       &:not(.compact) {
-        .header {
+        .header,
+        .footer {
           padding: $regular-padding;
         }
 
@@ -34,7 +34,6 @@
         }
       }
     }
-
   }
 }
 
@@ -46,9 +45,7 @@
   @include setup-card-padding($spacing-xs, $spacing-xs);
 }
 
-
 mat-card {
-
   &.composite {
     .tab-group {
       display: flex;
@@ -71,10 +68,9 @@ mat-card {
         }
 
         &:not(.active) {
-          background-color: rgba(black, .12);
+          background-color: rgba(black, 0.12);
         }
       }
     }
   }
-
 }

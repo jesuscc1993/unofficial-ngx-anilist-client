@@ -1,27 +1,32 @@
 @import '../../styles/variables';
 
 mat-toolbar {
+  display: flex;
+  justify-content: space-between;
   position: relative;
   height: $mat-toolbar-height;
+  padding: 0 $spacing-s;
 
   > * {
-    &.centered-content {
-      z-index: 0;
-    }
-    &:not(.centered-content) {
-      z-index: 1;
-    }
-  }
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
 
-  .filler {
-    flex: 1 1 auto;
+    &:first-child {
+      justify-content: flex-start;
+    }
+
+    &:not(:first-child):not(:last-child) {
+      justify-content: center;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+    }
   }
 
   .centered-content {
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
     text-align: center;
   }
 
@@ -36,10 +41,16 @@ mat-toolbar {
       border-bottom-width: 0;
       height: 100%;
       transition: 0.2s;
+      font-size: 0;
+      padding: 4px 0;
+
+      > * {
+        font-size: initial;
+      }
 
       .section-icon {
-        margin: $spacing-xxxs 0;
-        font-size: 1.5em;
+        font-size: $font-size-xxl;
+        padding: 2px 0;
       }
 
       &.active {
@@ -48,10 +59,10 @@ mat-toolbar {
         pointer-events: none;
       }
 
-      small {
+      .small {
         display: block;
-        font-size: 12px;
-        line-height: 12px;
+        font-size: $font-size-xs;
+        line-height: $font-size-xs;
       }
     }
   }
@@ -63,4 +74,10 @@ mat-toolbar {
     width: auto;
     height: auto;
   }
+}
+
+.action-icon {
+  min-width: $spacing-s;
+  display: inline-block;
+  text-align: center;
 }

@@ -3,22 +3,22 @@
 <mat-menu #entryMenu="matMenu">
   <button mat-menu-item (click)="saveToList()" [disabled]="!user">
     <i class="fa action-icon" [class.fa-plus]="!isUpdateAvailable()" [class.fa-pen]="isUpdateAvailable()"></i>
-    {{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}
+    <span>{{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}</span>
   </button>
   <button *ngIf="isUpdateAvailable()" mat-menu-item (click)="toggleFavourite()">
     <fa-icon name="star" class="action-icon"></fa-icon>
-    Toggle favourite
+    <span>Toggle favourite</span>
   </button>
   <button *ngIf="isUpdateAvailable()" mat-menu-item (click)="deleteEntry()">
     <fa-icon name="trash" class="action-icon"></fa-icon>
-    Delete from list
+    <span>Delete from list</span>
   </button>
   <button *ngIf="media && !fromModal" mat-menu-item (click)="showDetail()">
     <fa-icon name="id-card" class="action-icon"></fa-icon>
-    Additional info
+    <span>Additional info</span>
   </button>
   <button mat-menu-item (click)="viewOnAniList()">
     <fa-icon name="external-link-alt" class="action-icon"></fa-icon>
-    View on AniList
+    <span>View on AniList</span>
   </button>
 </mat-menu>
