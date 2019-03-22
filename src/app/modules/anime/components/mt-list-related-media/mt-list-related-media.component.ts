@@ -29,7 +29,7 @@ export class MtListRelatedMediaComponent {
           this.error = error;
           this.ready = true;
 
-          return of([]);
+          return of();
         })
       )
       .subscribe();

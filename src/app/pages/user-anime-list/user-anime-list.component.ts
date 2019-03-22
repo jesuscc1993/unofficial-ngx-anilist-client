@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { catchError, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
 import { AnimeService } from '../../services/anime.service';
@@ -16,7 +17,7 @@ import { User } from '../../types/anilist/user.types';
 export class UserAnimeListPageComponent {
   user: User;
   statusObjects: { [Status in ListEntryStatus]?: ListEntry[] };
-  statuses: ListEntryStatus[];
+  statuses: { value: ListEntryStatus; shown: boolean }[];
   favouriteIDs: number[];
 
   loggedIn: boolean;
@@ -42,19 +43,22 @@ export class UserAnimeListPageComponent {
       this.animeService
         .getAnimeList(this.user)
         .pipe(
-          tap(
-            response => {
-              this.statusObjects = response;
-              this.statuses = Object.keys(response)
-                .sort()
-                .map(status => status as ListEntryStatus);
-              this.ready = true;
-            },
-            error => {
-              this.error = error;
-              this.ready = true;
-            }
-          )
+          tap(response => {
+            this.statusObjects = response;
+            this.statuses = Object.keys(response)
+              .sort()
+              .map(status => ({
+                value: status as ListEntryStatus,
+                shown: true,
+              }));
+            this.ready = true;
+          }),
+          catchError(error => {
+            this.error = error;
+            this.ready = true;
+
+            return of();
+          })
         )
         .subscribe();
     }

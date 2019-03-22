@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 .table-filter {
   padding-top: $spacing-xxs !important;
@@ -16,9 +16,10 @@
     display: inline-block;
     min-width: 104px;
 
-    .go-to-icon {
-      line-height: $spacing-s;
-      vertical-align: bottom;
+    .go-to-link {
+      height: $spacing-s;
+      display: inline-block;
+      vertical-align: top;
     }
   }
 }

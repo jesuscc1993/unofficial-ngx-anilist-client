@@ -25,11 +25,13 @@
           <span *ngFor="let status of statuses" class="status-wrapper">
             <div *ngIf="hasDataOfStatus(status.value)">
               <mat-checkbox [(ngModel)]="status.shown">
-                {{ status.label }}
+                <span class="capitalize">
+                  {{ status.value.toLowerCase() }}
+                </span>
               </mat-checkbox>
 
-              <a href="{{ '/user-anime-list#' + status.value }}" class="capitalize">
-                <fa-icon name="arrow-down" class="go-to-icon"></fa-icon>
+              <a href="{{ '/user-anime-list#' + status.value }}" class="go-to-link">
+                <fa-icon name="arrow-down" class="vertically-centered"></fa-icon>
               </a>
             </div>
           </span>

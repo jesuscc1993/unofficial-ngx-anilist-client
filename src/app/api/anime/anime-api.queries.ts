@@ -190,8 +190,7 @@ export const listQuery: string = `
     ) {
       lists {
         entries {
-          status
-          ${listAnimeFields}
+          ${listEntryFields}
         }
       }
     }
