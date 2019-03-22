@@ -11,16 +11,16 @@ import {
 } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
-import { Anime } from '../../types/anilist/anime.types';
-import { ListEntry } from '../../types/anilist/listEntry.types';
-import { GenericUtil } from '../../utils/generic.util';
+import { Anime } from '../../../../types/anilist/anime.types';
+import { ListEntry } from '../../../../types/anilist/listEntry.types';
+import { GenericUtil } from '../../../../utils/generic.util';
 
 @Component({
-  selector: 'mt-user-list-table',
-  templateUrl: './user-list-table.component.html',
-  styleUrls: ['./user-list-table.component.scss'],
+  selector: 'mt-user-anime-list-table',
+  templateUrl: './mt-user-anime-list-table.component.html',
+  styleUrls: ['./mt-user-anime-list-table.component.scss'],
 })
-export class UserListTableComponent implements AfterViewInit, OnChanges {
+export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   @Input() tableStatus: string;
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];

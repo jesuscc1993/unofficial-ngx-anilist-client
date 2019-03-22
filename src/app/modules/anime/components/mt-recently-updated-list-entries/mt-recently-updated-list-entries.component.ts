@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../services/anime.service';
-import { AuthService } from '../../services/auth.service';
-import { AuthStore } from '../../store/auth.store';
-import { ListEntry } from '../../types/anilist/listEntry.types';
-import { PageQuery } from '../../types/anilist/pageInfo.types';
-import { User } from '../../types/anilist/user.types';
+import { AnimeService } from '../../../../services/anime.service';
+import { AuthService } from '../../../../services/auth.service';
+import { AuthStore } from '../../../../store/auth.store';
+import { ListEntry } from '../../../../types/anilist/listEntry.types';
+import { PageQuery } from '../../../../types/anilist/pageInfo.types';
+import { User } from '../../../../types/anilist/user.types';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',
-  templateUrl: './recently-updated-list-entries.component.html',
-  styleUrls: ['./recently-updated-list-entries.component.scss'],
+  templateUrl: './mt-recently-updated-list-entries.component.html',
+  styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
 })
-export class RecentlyUpdatedListEntriesComponent {
+export class MtRecentlyUpdatedListEntriesComponent {
   user: User;
   listEntries: ListEntry[];
   pagination: PageQuery;

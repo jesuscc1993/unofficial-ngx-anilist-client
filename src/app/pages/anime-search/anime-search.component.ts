@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
 import { SearchFilters } from '../../api/anime/anime-api.types';
 import { animeSearchUrl } from '../../app.constants';
-import { SearchResultsTableComponent } from '../../components/search-results-table/search-results-table.component';
+import {
+  MtSearchResultsTableComponent,
+} from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
@@ -28,9 +29,9 @@ import { GenericUtil } from '../../utils/generic.util';
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss'],
 })
-export class AnimeSearchComponent extends WithObservableOnDestroy implements OnInit {
+export class AnimeSearchPageComponent extends WithObservableOnDestroy implements OnInit {
   @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
-  @ViewChild(SearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
+  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
   user: User;
   animeList: Anime[];

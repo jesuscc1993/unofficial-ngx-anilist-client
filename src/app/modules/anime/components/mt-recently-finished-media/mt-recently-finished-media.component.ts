@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Tab } from '../../types/tab.types';
+import { Tab } from '../../../../types/tab.types';
 
 @Component({
   selector: 'mt-recently-finished-media',
-  templateUrl: './recently-finished-media.component.html',
-  styleUrls: ['./recently-finished-media.component.scss'],
+  templateUrl: './mt-recently-finished-media.component.html',
+  styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
-export class RecentlyFinishedMediaComponent {
+export class MtRecentlyFinishedMediaComponent {
   tabs: Tab[];
   activeTab: Tab;
 

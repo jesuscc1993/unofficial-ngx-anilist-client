@@ -3,17 +3,17 @@ import { PageEvent } from '@angular/material';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../services/anime.service';
-import { AuthStore } from '../../store/auth.store';
-import { Media } from '../../types/anilist/media.types';
-import { PageQuery } from '../../types/anilist/pageInfo.types';
+import { AnimeService } from '../../../../services/anime.service';
+import { AuthStore } from '../../../../store/auth.store';
+import { Media } from '../../../../types/anilist/media.types';
+import { PageQuery } from '../../../../types/anilist/pageInfo.types';
 
 @Component({
   selector: 'mt-recently-finished-media-by-format',
-  templateUrl: './recently-finished-media-by-format.component.html',
-  styleUrls: ['./recently-finished-media-by-format.component.scss'],
+  templateUrl: './mt-recently-finished-media-by-format.component.html',
+  styleUrls: ['./mt-recently-finished-media-by-format.component.scss'],
 })
-export class RecentlyFinishedMediaByFormatComponent {
+export class MtRecentlyFinishedMediaByFormatComponent {
   @Input() formatIn?: string[];
   @Input() formatNotIn?: string[];
   @Input() title: string;

@@ -28,7 +28,7 @@
                 {{ status.label }}
               </mat-checkbox>
 
-              <a href="{{ '/user-list#' + status.value }}" class="capitalize">
+              <a href="{{ '/user-anime-list#' + status.value }}" class="capitalize">
                 <fa-icon name="arrow-down" class="go-to-icon"></fa-icon>
               </a>
             </div>
@@ -38,14 +38,14 @@
 
       <div *ngFor="let status of statuses">
         <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
-          <mt-user-list-table
+          <mt-user-anime-list-table
             [tableStatus]="status"
             [tableData]="statusObjects[status.value]"
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"
             (onEntryUpdate)="onEntryUpdate($event)"
           >
-          </mt-user-list-table>
+          </mt-user-anime-list-table>
         </div>
       </div>
 

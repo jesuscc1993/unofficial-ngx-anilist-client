@@ -9,30 +9,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnimeApi } from './api/anime/anime.api';
 import { AuthApi } from './api/auth/auth.api';
 import { AppComponent } from './app.component';
-import { AnimeInfoComponent } from './components/anime-info/anime-info.component';
-import { CoverMediaComponent } from './components/cover-media/cover-media.component';
-import { GenresOverviewComponent } from './components/genres-overview/genres-overview.component';
-import { ListRelatedMediaComponent } from './components/list-related-media/list-related-media.component';
-import { MediaActionsComponent } from './components/media-actions/media-actions.component';
-import {
-  RecentlyFinishedMediaByFormatComponent,
-} from './components/recently-finished-media-by-format/recently-finished-media-by-format.component';
-import { RecentlyFinishedMediaComponent } from './components/recently-finished-media/recently-finished-media.component';
-import {
-  RecentlyUpdatedListEntriesComponent,
-} from './components/recently-updated-list-entries/recently-updated-list-entries.component';
-import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
-import { UserListTableComponent } from './components/user-list-table/user-list-table.component';
-import { ListEntryFormModalComponent } from './modals/list-entry-form-modal/list-entry-form-modal.component';
-import { MediaDetailModalComponent } from './modals/media-detail-modal/media-detail-modal.component';
+import { AnimeModule } from './modules/anime/anime.module';
+import { CoreModule } from './modules/core.module';
 import { MaterialModule } from './modules/material/material.module';
 import { SharedModule } from './modules/shared/shared.module';
-import { AnimeDetailComponent } from './pages/anime-detail/anime-detail.component';
-import { AnimeSearchComponent } from './pages/anime-search/anime-search.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './pages/login/login.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { UserListComponent } from './pages/user-list/user-list.component';
+import { AnimeDetailPageComponent } from './pages/anime-detail/anime-detail.component';
+import { AnimeSearchPageComponent } from './pages/anime-search/anime-search.component';
+import { DashboardPageComponent } from './pages/dashboard/dashboard.component';
+import { LoginPageComponent } from './pages/login/login.component';
+import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found.component';
+import { UserAnimeListPageComponent } from './pages/user-anime-list/user-anime-list.component';
 import { SortPipe } from './pipes/sort';
 import { AnimeService } from './services/anime.service';
 import { AuthService } from './services/auth.service';
@@ -40,49 +26,26 @@ import { AuthStore } from './store/auth.store';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'anime-search', component: AnimeSearchComponent },
-  { path: 'anime-detail/:id', component: AnimeDetailComponent },
-  { path: 'user-list', component: UserListComponent },
-  { path: '**', component: PageNotFoundComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'dashboard', component: DashboardPageComponent },
+  { path: 'anime-search', component: AnimeSearchPageComponent },
+  { path: 'anime-detail/:id', component: AnimeDetailPageComponent },
+  { path: 'user-anime-list', component: UserAnimeListPageComponent },
+  { path: '**', component: PageNotFoundPageComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
-    LoginComponent,
-    DashboardComponent,
-    AnimeSearchComponent,
-    AnimeDetailComponent,
-    UserListComponent,
-    SearchResultsTableComponent,
-    UserListTableComponent,
-    MediaActionsComponent,
-    MediaDetailModalComponent,
-    ListEntryFormModalComponent,
-    GenresOverviewComponent,
-    SortPipe,
-    AnimeInfoComponent,
-    RecentlyFinishedMediaComponent,
-    RecentlyUpdatedListEntriesComponent,
-    ListRelatedMediaComponent,
-    CoverMediaComponent,
-    RecentlyFinishedMediaByFormatComponent,
+    PageNotFoundPageComponent,
+    LoginPageComponent,
+    DashboardPageComponent,
+    AnimeSearchPageComponent,
+    AnimeDetailPageComponent,
+    UserAnimeListPageComponent,
   ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MaterialModule,
-    SharedModule,
-    RouterModule.forRoot(appRoutes),
-  ],
+  imports: [CoreModule, SharedModule, AnimeModule, RouterModule.forRoot(appRoutes)],
   providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore],
   bootstrap: [AppComponent],
-  entryComponents: [MediaDetailModalComponent, ListEntryFormModalComponent],
 })
 export class AppModule {}

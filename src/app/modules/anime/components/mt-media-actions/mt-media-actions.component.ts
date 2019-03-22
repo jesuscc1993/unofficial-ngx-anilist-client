@@ -1,27 +1,26 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { takeUntil, tap } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
-import { defaultModalOptions } from '../../app.constants';
-import { ListEntryFormModalComponent } from '../../modals/list-entry-form-modal/list-entry-form-modal.component';
-import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
+import { defaultModalOptions } from '../../../../app.constants';
+import { AnimeService } from '../../../../services/anime.service';
+import { AuthService } from '../../../../services/auth.service';
+import { AuthStore } from '../../../../store/auth.store';
+import { ListEntry } from '../../../../types/anilist/listEntry.types';
+import { Media } from '../../../../types/anilist/media.types';
+import { User } from '../../../../types/anilist/user.types';
 import {
   WithObservableOnDestroy,
-} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { AnimeService } from '../../services/anime.service';
-import { AuthService } from '../../services/auth.service';
-import { AuthStore } from '../../store/auth.store';
-import { ListEntry } from '../../types/anilist/listEntry.types';
-import { Media } from '../../types/anilist/media.types';
-import { User } from '../../types/anilist/user.types';
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-actions',
-  templateUrl: './media-actions.component.html',
-  styleUrls: ['./media-actions.component.scss'],
+  templateUrl: './mt-media-actions.component.html',
+  styleUrls: ['./mt-media-actions.component.scss'],
 })
-export class MediaActionsComponent extends WithObservableOnDestroy implements OnInit {
+export class MtMediaActionsComponent extends WithObservableOnDestroy implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
   @Input() fromModal?: boolean;
@@ -111,7 +110,7 @@ export class MediaActionsComponent extends WithObservableOnDestroy implements On
   }
 
   showDetail() {
-    this.dialog.open(MediaDetailModalComponent, {
+    this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
       maxWidth: '800px',
       data: {
@@ -138,8 +137,8 @@ export class MediaActionsComponent extends WithObservableOnDestroy implements On
     return listEntryCopy;
   }
 
-  private showFormModal(): MatDialogRef<ListEntryFormModalComponent> {
-    return this.dialog.open(ListEntryFormModalComponent, {
+  private showFormModal() {
+    return this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,
       data: {
         listEntry: this.listEntry,

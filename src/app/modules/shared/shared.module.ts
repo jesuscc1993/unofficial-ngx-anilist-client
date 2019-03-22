@@ -1,8 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
-import { MaterialModule } from '../material/material.module';
+import { CoreModule } from '../core.module';
 import { FaIconComponent } from './components/fa-icon/fa-icon.component';
 import { MtModalContentComponent } from './components/modal/mt-modal-content/mt-modal-content.component';
 import { MtModalFooterComponent } from './components/modal/mt-modal-footer/mt-modal-footer.component';
@@ -25,7 +23,7 @@ const references = [
 
 @NgModule({
   declarations: references,
-  imports: [CommonModule, RouterModule, MaterialModule],
+  imports: [CoreModule],
   exports: references,
 })
 export class SharedModule {}

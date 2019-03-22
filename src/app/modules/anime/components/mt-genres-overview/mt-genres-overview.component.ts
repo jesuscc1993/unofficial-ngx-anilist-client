@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { GenreStats } from '../../types/anilist/genreStats.types';
+import { GenreStats } from '../../../../types/anilist/genreStats.types';
 
 @Component({
   selector: 'mt-genres-overview',
-  templateUrl: './genres-overview.component.html',
-  styleUrls: ['./genres-overview.component.scss']
+  templateUrl: './mt-genres-overview.component.html',
+  styleUrls: ['./mt-genres-overview.component.scss'],
 })
-export class GenresOverviewComponent implements OnInit {
+export class MtGenresOverviewComponent implements OnInit {
   @Input() genreStatsList: GenreStats[];
 
   maxColumnCount: number = 5;

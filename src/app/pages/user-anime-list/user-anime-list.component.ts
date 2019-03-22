@@ -9,11 +9,11 @@ import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types'
 import { User } from '../../types/anilist/user.types';
 
 @Component({
-  selector: 'mt-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'mt-user-anime-list',
+  templateUrl: './user-anime-list.component.html',
+  styleUrls: ['./user-anime-list.component.scss'],
 })
-export class UserListComponent {
+export class UserAnimeListPageComponent {
   user: User;
   statusObjects: { [Status in ListEntryStatus]?: ListEntry[] };
   statuses: ListEntryStatus[];

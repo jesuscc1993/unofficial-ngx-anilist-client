@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../services/anime.service';
-import { listEntryStatusValues } from '../../types/anilist/enums/listEntryStatus';
-import { ListEntry } from '../../types/anilist/listEntry.types';
-import { Media } from '../../types/anilist/media.types';
+import { AnimeService } from '../../../../../services/anime.service';
+import { listEntryStatusValues } from '../../../../../types/anilist/enums/listEntryStatus';
+import { ListEntry } from '../../../../../types/anilist/listEntry.types';
+import { Media } from '../../../../../types/anilist/media.types';
 
 type ListEntryFormModalParameters = {
   listEntry: ListEntry;
@@ -15,10 +15,10 @@ type ListEntryFormModalParameters = {
 
 @Component({
   selector: 'mt-list-entry-form-modal',
-  templateUrl: './list-entry-form-modal.component.html',
-  styleUrls: ['./list-entry-form-modal.component.scss'],
+  templateUrl: './mt-list-entry-form-modal.component.html',
+  styleUrls: ['./mt-list-entry-form-modal.component.scss'],
 })
-export class ListEntryFormModalComponent {
+export class MtListEntryFormModalComponent {
   originalEntry: ListEntry;
   listEntry: ListEntry;
   media: Media;
@@ -28,7 +28,7 @@ export class ListEntryFormModalComponent {
   constructor(
     private animeService: AnimeService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<ListEntryFormModalComponent>,
+    private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
   ) {
     this.listEntry = data.listEntry;

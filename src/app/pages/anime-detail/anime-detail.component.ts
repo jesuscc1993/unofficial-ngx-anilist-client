@@ -10,7 +10,7 @@ import { Anime } from '../../types/anilist/anime.types';
   templateUrl: './anime-detail.component.html',
   styleUrls: ['./anime-detail.component.scss'],
 })
-export class AnimeDetailComponent {
+export class AnimeDetailPageComponent {
   anime: Anime;
 
   searching: boolean;

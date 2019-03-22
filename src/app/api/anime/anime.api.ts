@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { getParsedAnime, getParsedListEntry, mapQueryFilters } from '../../domain/anime.domain';
+import { getParsedAnime, getParsedListEntry, mapQueryFilters } from '../../modules/anime/domain/anime.domain';
 import { AuthStore } from '../../store/auth.store';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
 import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';

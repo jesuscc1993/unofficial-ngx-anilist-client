@@ -3,7 +3,14 @@ import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
-import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../../../app.constants';
+import {
+  animeSearchUrl,
+  apiLoginUrl,
+  apiTokenPrefix,
+  dashboardUrl,
+  rootUrl,
+  userListUrl,
+} from '../../../../app.constants';
 import { AuthService } from '../../../../services/auth.service';
 import { AuthStore } from '../../../../store/auth.store';
 import { User } from '../../../../types/anilist/user.types';

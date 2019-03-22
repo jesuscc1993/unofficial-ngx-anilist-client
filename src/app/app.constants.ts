@@ -12,7 +12,7 @@ export const userCookieKey: string = 'user';
 
 export const dashboardUrl: string = '/dashboard';
 export const animeSearchUrl: string = '/anime-search';
-export const userListUrl: string = '/user-list';
+export const userListUrl: string = '/user-anime-list';
 export const rootUrl: string = animeSearchUrl;
 
 export const defaultModalOptions: ModalOptions = {

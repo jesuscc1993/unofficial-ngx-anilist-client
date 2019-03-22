@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../services/anime.service';
-import { AuthStore } from '../../store/auth.store';
-import { Media } from '../../types/anilist/media.types';
+import { AnimeService } from '../../../../services/anime.service';
+import { AuthStore } from '../../../../store/auth.store';
+import { Media } from '../../../../types/anilist/media.types';
 
 @Component({
   selector: 'mt-list-related-media',
-  templateUrl: './list-related-media.component.html',
-  styleUrls: ['./list-related-media.component.scss'],
+  templateUrl: './mt-list-related-media.component.html',
+  styleUrls: ['./mt-list-related-media.component.scss'],
 })
-export class ListRelatedMediaComponent {
+export class MtListRelatedMediaComponent {
   mediaList: Media[];
   maxEntries: number = 20;
 

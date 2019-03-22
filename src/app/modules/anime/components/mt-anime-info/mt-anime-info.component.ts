@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 
+import { Anime } from '../../../../types/anilist/anime.types';
+import { Media } from '../../../../types/anilist/media.types';
 import { getFormattedMediaDuration } from '../../domain/anime.domain';
-import { Anime } from '../../types/anilist/anime.types';
-import { Media } from '../../types/anilist/media.types';
 
 @Component({
   selector: 'mt-anime-info',
-  templateUrl: './anime-info.component.html',
-  styleUrls: ['./anime-info.component.scss']
+  templateUrl: './mt-anime-info.component.html',
+  styleUrls: ['./mt-anime-info.component.scss'],
 })
-export class AnimeInfoComponent {
+export class MtAnimeInfoComponent {
   @Input() anime: Anime;
   @Input() showAsColumns?: boolean;
   @Input() generalInfoOnly?: boolean;

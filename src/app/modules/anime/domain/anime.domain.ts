@@ -1,7 +1,7 @@
-import { SearchFilters } from '../api/anime/anime-api.types';
-import { Anime } from '../types/anilist/anime.types';
-import { ListEntry } from '../types/anilist/listEntry.types';
-import { Media } from '../types/anilist/media.types';
+import { SearchFilters } from '../../../api/anime/anime-api.types';
+import { Anime } from '../../../types/anilist/anime.types';
+import { ListEntry } from '../../../types/anilist/listEntry.types';
+import { Media } from '../../../types/anilist/media.types';
 
 const fallbackCover = 'assets/pictures/non-vectorial/no-cover-available.png';
 

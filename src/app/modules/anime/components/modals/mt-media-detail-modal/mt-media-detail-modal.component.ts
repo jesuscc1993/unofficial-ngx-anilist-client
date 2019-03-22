@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { Media } from '../../types/anilist/media.types';
+import { Media } from '../../../../../types/anilist/media.types';
 
 type MediaDetailModalParameters = {
   media: Media;
@@ -10,14 +10,14 @@ type MediaDetailModalParameters = {
 
 @Component({
   selector: 'mt-media-detail-modal',
-  templateUrl: './media-detail-modal.component.html',
-  styleUrls: ['./media-detail-modal.component.scss']
+  templateUrl: './mt-media-detail-modal.component.html',
+  styleUrls: ['./mt-media-detail-modal.component.scss'],
 })
-export class MediaDetailModalComponent {
+export class MtMediaDetailModalComponent {
   media: Media;
 
   constructor(
-    private dialogRef: MatDialogRef<MediaDetailModalComponent>,
+    private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) protected data: MediaDetailModalParameters
   ) {
