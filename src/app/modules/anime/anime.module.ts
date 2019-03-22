@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { CoreModule } from '../core.module';
 import { SharedModule } from '../shared/shared.module';
 import {
   MtListEntryFormModalComponent,
@@ -25,7 +24,7 @@ import {
   MtUserAnimeListTableComponent,
 } from './components/mt-user-anime-list-table/mt-user-anime-list-table.component';
 
-const references = [
+const declarations = [
   MtAnimeInfoComponent,
   MtCoverMediaComponent,
   MtGenresOverviewComponent,
@@ -41,9 +40,9 @@ const references = [
 ];
 
 @NgModule({
-  declarations: references,
-  imports: [CoreModule, SharedModule],
-  exports: references,
+  declarations,
+  imports: [SharedModule],
+  exports: declarations,
   entryComponents: [MtListEntryFormModalComponent, MtMediaDetailModalComponent],
 })
 export class AnimeModule {}
