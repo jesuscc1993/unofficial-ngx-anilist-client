@@ -1,0 +1,11 @@
+<div class="header no-vertical-padding no-margin">
+  <div class="title">
+    <h3 class="no-margin">
+      <ng-content></ng-content>
+    </h3>
+  </div>
+
+  <fa-icon name="times" class="clickable" (click)="onClosePressed.emit()"></fa-icon>
+</div>
+
+<mat-divider></mat-divider>

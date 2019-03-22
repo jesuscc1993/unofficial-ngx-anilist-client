@@ -1,0 +1,9 @@
+@import '../../../../../styles/variables.scss';
+
+:host {
+  > .footer {
+    height: $modal-footer-height;
+    display: flex;
+    align-items: center;
+  }
+}

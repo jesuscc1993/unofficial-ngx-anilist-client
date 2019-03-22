@@ -1,18 +1,10 @@
-<mat-card class="composite">
-  <div class="header no-margin">
-    <div class="title">
-      <h3 class="no-margin">
-        {{ media.title.romaji }}
-      </h3>
-    </div>
-
-    <fa-icon name="times" class="clickable" (click)="dismiss()"></fa-icon>
-  </div>
-
-  <mat-divider></mat-divider>
+<mt-modal>
+  <mt-modal-header (onClosePressed)="this.dismiss()">
+    {{ media.title.romaji }}
+  </mt-modal-header>
 
   <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
-    <div class="content padding-bottom-xs">
+    <mt-modal-content>
       <!-- status -->
       <div class="form-group">
         <mat-form-field>
@@ -48,11 +40,11 @@
       <!--<fa-icon name="trash" class="baseline"></fa-icon>-->
       <!--</button>-->
       <!--</span>-->
-    </div>
+    </mt-modal-content>
 
     <mat-divider></mat-divider>
 
-    <div class="footer">
+    <mt-modal-footer>
       <span class="float-right">
         <button
           mat-raised-button
@@ -69,6 +61,6 @@
           Cancel
         </button>
       </span>
-    </div>
+    </mt-modal-footer>
   </form>
-</mat-card>
+</mt-modal>

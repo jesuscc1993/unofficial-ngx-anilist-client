@@ -1,0 +1,10 @@
+@import '../../../../../styles/variables.scss';
+
+:host {
+  > .content {
+    flex: 1;
+    max-height: calc(100vh - #{$modal-header-height} - #{$modal-footer-height} - #{$separator-thickness} * 2);
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+}

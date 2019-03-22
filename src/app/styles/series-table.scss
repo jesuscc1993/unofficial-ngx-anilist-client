@@ -3,9 +3,8 @@
 $horizontal-cell-padding: $spacing-xxs;
 
 .series-table {
-
   mat-row {
-    $bg-intensity: .1;
+    $bg-intensity: 0.1;
 
     &.completed,
     &.rewatching {
@@ -44,12 +43,11 @@ $horizontal-cell-padding: $spacing-xxs;
     .menu-toggle {
       $size: $spacing-s;
       width: $size;
-      margin-left: -$size;
+      margin-left: -$size / 2;
       font-size: $font-size-m;
       text-align: center;
       vertical-align: bottom;
     }
-
   }
 
   .mat-column-episodes {
@@ -132,7 +130,6 @@ $horizontal-cell-padding: $spacing-xxs;
     }
   }
 
-
   /* columns */
 
   .mat-column-actions {
@@ -141,25 +138,25 @@ $horizontal-cell-padding: $spacing-xxs;
 
   @media (min-width: $screen-m + 1) {
     .mat-column-cover-image {
-      flex: .8;
+      flex: 0.8;
     }
     .mat-column-title-romaji {
       flex: 4;
     }
     .mat-column-format {
-      flex: .55;
+      flex: 0.55;
     }
     .mat-column-start-date {
-      flex: .4;
+      flex: 0.4;
     }
     .mat-column-genres {
-      flex: .95;
+      flex: 0.95;
     }
     .mat-column-score {
-      flex: .45;
+      flex: 0.45;
     }
     .mat-column-episodes {
-      flex: .6;
+      flex: 0.6;
     }
   }
 
@@ -171,16 +168,16 @@ $horizontal-cell-padding: $spacing-xxs;
       flex: 4;
     }
     .mat-column-format {
-      flex: .95;
+      flex: 0.95;
     }
     .mat-column-start-date {
-      flex: .7;
+      flex: 0.7;
     }
     .mat-column-genres {
       flex: 1.75;
     }
     .mat-column-score {
-      flex: .8;
+      flex: 0.8;
     }
     .mat-column-episodes {
       flex: 1.1;
@@ -208,7 +205,7 @@ $horizontal-cell-padding: $spacing-xxs;
       flex: 1.5;
     }
     .mat-column-format {
-      flex: .9;
+      flex: 0.9;
     }
   }
 
@@ -227,5 +224,4 @@ $horizontal-cell-padding: $spacing-xxs;
       display: none;
     }
   }
-
 }

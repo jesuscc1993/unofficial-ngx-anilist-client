@@ -1,33 +1,19 @@
-<mat-card class="composite">
-  <div class="header no-margin">
-    <div class="title">
-      <h3 class="no-margin">
-        <app-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs">
-        </app-media-actions>
+<mt-modal>
+  <mt-modal-header (onClosePressed)="this.dismiss()">
+    <app-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs">
+    </app-media-actions>
 
-        <span>
-          {{ media.title.romaji }}
-        </span>
-      </h3>
-    </div>
+    {{ media.title.romaji }}
+  </mt-modal-header>
 
-    <fa-icon name="times" class="clickable" (click)="dismiss()"></fa-icon>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div class="content">
+  <mt-modal-content>
     <app-anime-info *ngIf="media" [anime]="media" [generalInfoOnly]="true"> </app-anime-info>
-  </div>
+  </mt-modal-content>
 
-  <mat-divider></mat-divider>
-
-  <div class="footer">
-    <div class="float-left full-width text-center">
-      <button mat-raised-button color="accent" (click)="goToDetail()">
-        <fa-icon name="newspaper" class="baseline margin-right-xxxs"></fa-icon>
-        Open full detail
-      </button>
-    </div>
-  </div>
-</mat-card>
+  <mt-modal-footer>
+    <button mat-raised-button color="accent" (click)="goToDetail()">
+      <fa-icon name="newspaper" class="baseline margin-right-xxxs"></fa-icon>
+      Open full detail
+    </button>
+  </mt-modal-footer>
+</mt-modal>

@@ -1,0 +1,14 @@
+@import '../../../../../styles/variables.scss';
+
+:host {
+  > .header {
+    height: $modal-header-height;
+    display: flex;
+    align-items: center;
+
+    > .title {
+      flex: 1;
+      padding-right: $spacing-xs;
+    }
+  }
+}

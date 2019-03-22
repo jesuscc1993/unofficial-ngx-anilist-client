@@ -31,11 +31,16 @@ $screen-xl: 1920px;
 $mat-toolbar-height: 64px;
 $mat-spinner-size: 128px;
 
+/* modals */
+$modal-header-height: 70px;
+$modal-footer-height: 84px;
+
 /* generic */
 $page-padding: $spacing-m;
 $card-padding: $spacing-s;
 $expansion-panel-padding: $spacing-s;
 $max-input-size: 640px;
+$separator-thickness: 1px;
 
 /* specific */
 $footer-height: 103px;

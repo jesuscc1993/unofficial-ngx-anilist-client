@@ -1,5 +1,12 @@
 @import 'variables';
 
+mat-dialog-container {
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 0 !important;
+}
+
 mat-spinner {
   &.full-page {
     margin: calc((100vh - #{$mat-toolbar-height} - #{$mat-spinner-size}) / 2) auto;
@@ -67,7 +74,6 @@ mat-paginator {
     display: inline-block;
     white-space: nowrap;
   }
-
 }
 
 .cdk-global-scrollblock {
