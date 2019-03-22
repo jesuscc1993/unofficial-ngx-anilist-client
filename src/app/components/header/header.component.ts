@@ -1,10 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
 import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../app.constants';
+import {
+  WithObservableOnDestroy,
+} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthService } from '../../services/auth.service';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
@@ -14,7 +17,7 @@ import { User } from '../../types/anilist/user.types';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent extends WithObservableOnDestroy {
   apiLoginUrl: string = apiLoginUrl;
   dashboardUrl: string = dashboardUrl;
   animeSearchUrl: string = animeSearchUrl;
@@ -27,9 +30,9 @@ export class HeaderComponent implements OnDestroy {
   onUserList: boolean;
   loginAvailable: boolean;
 
-  private userChangeSubscription: Subscription;
-
   constructor(private router: Router, private authService: AuthService, private authStore: AuthStore) {
+    super();
+
     if (location.href.indexOf(apiTokenPrefix) >= 0) {
       const locationParts: string[] = location.href.split('&')[0].split(apiTokenPrefix);
       history.replaceState({}, 'Login success', locationParts[0]);
@@ -51,17 +54,14 @@ export class HeaderComponent implements OnDestroy {
       )
       .subscribe();
 
-    this.userChangeSubscription = this.authService.userChange
+    this.authService.userChange
       .pipe(
+        takeUntil(this.destroyed$),
         tap((user: User) => {
           this.user = user;
         })
       )
       .subscribe();
-  }
-
-  ngOnDestroy() {
-    this.userChangeSubscription.unsubscribe();
   }
 
   navigateToAnilistProfile() {

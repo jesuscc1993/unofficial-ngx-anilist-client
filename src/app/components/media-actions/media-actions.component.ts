@@ -1,11 +1,14 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 import { defaultModalOptions } from '../../app.constants';
 import { ListEntryFormModalComponent } from '../../modals/list-entry-form-modal/list-entry-form-modal.component';
 import { MediaDetailModalComponent } from '../../modals/media-detail-modal/media-detail-modal.component';
+import {
+  WithObservableOnDestroy,
+} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AnimeService } from '../../services/anime.service';
 import { AuthService } from '../../services/auth.service';
 import { AuthStore } from '../../store/auth.store';
@@ -18,15 +21,13 @@ import { User } from '../../types/anilist/user.types';
   templateUrl: './media-actions.component.html',
   styleUrls: ['./media-actions.component.scss'],
 })
-export class MediaActionsComponent implements OnInit, OnDestroy {
+export class MediaActionsComponent extends WithObservableOnDestroy implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
   @Input() fromModal?: boolean;
   @Output() onUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
 
   user: User;
-
-  private userChangeSubscription: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -35,10 +36,13 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private authStore: AuthStore
   ) {
+    super();
+
     this.user = this.authStore.getUser();
 
-    this.userChangeSubscription = this.authService.userChange
+    this.authService.userChange
       .pipe(
+        takeUntil(this.destroyed$),
         tap((user: User) => {
           this.user = user;
         })
@@ -50,10 +54,6 @@ export class MediaActionsComponent implements OnInit, OnDestroy {
     if (this.media && this.media.mediaListEntry && !this.listEntry) {
       this.listEntry = this.media.mediaListEntry;
     }
-  }
-
-  ngOnDestroy() {
-    this.userChangeSubscription.unsubscribe();
   }
 
   saveToList() {

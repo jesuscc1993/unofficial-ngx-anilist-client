@@ -2,12 +2,15 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SearchFilters } from '../../api/anime/anime-api.types';
 import { animeSearchUrl } from '../../app.constants';
 import { SearchResultsTableComponent } from '../../components/search-results-table/search-results-table.component';
+import {
+  WithObservableOnDestroy,
+} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AnimeService } from '../../services/anime.service';
 import { AuthService } from '../../services/auth.service';
 import { AuthStore } from '../../store/auth.store';
@@ -25,7 +28,7 @@ import { GenericUtil } from '../../utils/generic.util';
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss'],
 })
-export class AnimeSearchComponent implements OnInit, OnDestroy {
+export class AnimeSearchComponent extends WithObservableOnDestroy implements OnInit {
   @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
   @ViewChild(SearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
@@ -47,8 +50,6 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
   noResults: boolean;
   error: Error;
 
-  private userChangeSubscription: Subscription;
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -57,6 +58,8 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
     private authStore: AuthStore,
     private formBuilder: FormBuilder
   ) {
+    super();
+
     this.user = this.authStore.getUser();
     this.setupForm();
 
@@ -65,8 +68,9 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       .pipe(tap(mediaGenres => (this.mediaGenres = mediaGenres)))
       .subscribe();
 
-    this.userChangeSubscription = this.authService.userChange
+    this.authService.userChange
       .pipe(
+        takeUntil(this.destroyed$),
         tap((user: User) => {
           this.user = user;
         })
@@ -93,10 +97,6 @@ export class AnimeSearchComponent implements OnInit, OnDestroy {
       this.expansionPanel.open();
       this.search();
     }
-  }
-
-  ngOnDestroy() {
-    this.userChangeSubscription.unsubscribe();
   }
 
   clearFilters(event?: Event) {
