@@ -10,7 +10,7 @@
   <div class="content">
     <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
 
-    <div *ngIf="listEntries && listEntries.length" class="cover-media-grid">
+    <div *ngIf="listEntries?.length" class="cover-media-grid">
       <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
     </div>
 

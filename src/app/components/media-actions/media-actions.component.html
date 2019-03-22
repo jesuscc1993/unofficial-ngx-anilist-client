@@ -1,24 +1,29 @@
 <fa-icon name="bars" class="menu-toggle clickable" [matMenuTriggerFor]="entryMenu"></fa-icon>
 
 <mat-menu #entryMenu="matMenu">
-  <button mat-menu-item (click)="saveToList()" [disabled]="!user">
-    <i class="fa action-icon" [class.fa-plus]="!isUpdateAvailable()" [class.fa-pen]="isUpdateAvailable()"></i>
-    <span>{{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}</span>
-  </button>
-  <button *ngIf="isUpdateAvailable()" mat-menu-item (click)="toggleFavourite()">
-    <fa-icon name="star" class="action-icon"></fa-icon>
-    <span>Toggle favourite</span>
-  </button>
-  <button *ngIf="isUpdateAvailable()" mat-menu-item (click)="deleteEntry()">
-    <fa-icon name="trash" class="action-icon"></fa-icon>
-    <span>Delete from list</span>
-  </button>
-  <button *ngIf="media && !fromModal" mat-menu-item (click)="showDetail()">
-    <fa-icon name="id-card" class="action-icon"></fa-icon>
-    <span>Additional info</span>
-  </button>
-  <button mat-menu-item (click)="viewOnAniList()">
-    <fa-icon name="external-link-alt" class="action-icon"></fa-icon>
-    <span>View on AniList</span>
-  </button>
+  <mt-menu-action (onPress)="saveToList()" disabled="{{ !user }}" icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}">
+    {{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}
+  </mt-menu-action>
+
+  <div *ngIf="isUpdateAvailable()">
+    <mt-menu-action (onPress)="toggleFavourite()" icon="star">
+      Toggle favourite
+    </mt-menu-action>
+  </div>
+
+  <div *ngIf="isUpdateAvailable()">
+    <mt-menu-action (onPress)="deleteEntry()" icon="trash">
+      Delete from list
+    </mt-menu-action>
+  </div>
+
+  <div *ngIf="media && !fromModal">
+    <mt-menu-action (onPress)="showDetail()" icon="id-card">
+      Additional info
+    </mt-menu-action>
+  </div>
+
+  <mt-menu-action (onPress)="viewOnAniList()" icon="external-link-alt">
+    View on AniList
+  </mt-menu-action>
 </mat-menu>

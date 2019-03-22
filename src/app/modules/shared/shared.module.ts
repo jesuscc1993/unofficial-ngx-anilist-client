@@ -7,10 +7,13 @@ import { MtModalContent } from './components/modal/mt-modal-content/mt-modal-con
 import { MtModalFooter } from './components/modal/mt-modal-footer/mt-modal-footer.component';
 import { MtModalHeader } from './components/modal/mt-modal-header/mt-modal-header.component';
 import { MtModal } from './components/modal/mt-modal/mt-modal.component';
+import { MtMenuActionComponent } from './components/mt-menu-action/mt-menu-action.component';
+
+const references = [FaIconComponent, MtMenuActionComponent, MtModal, MtModalContent, MtModalFooter, MtModalHeader];
 
 @NgModule({
-  declarations: [FaIconComponent, MtModal, MtModalContent, MtModalFooter, MtModalHeader],
+  declarations: references,
   imports: [CommonModule, MaterialModule],
-  exports: [FaIconComponent, MtModal, MtModalContent, MtModalFooter, MtModalHeader],
+  exports: references,
 })
 export class SharedModule {}

@@ -1,8 +1,10 @@
-export const listEntryStatusValues = [
-  { label: 'Completed', value: 'completed' },
-  { label: 'Dropped', value: 'dropped' },
-  { label: 'Paused', value: 'paused' },
-  { label: 'Planned', value: 'planning' },
-  { label: 'Repeating', value: 'repeating' },
-  { label: 'Watching', value: 'current' },
+import { ListEntryStatus } from '../listEntry.types';
+
+export const listEntryStatusValues: { label: string; value: ListEntryStatus }[] = [
+  { label: 'Completed', value: 'COMPLETED' },
+  { label: 'Dropped', value: 'DROPPED' },
+  { label: 'Paused', value: 'PAUSED' },
+  { label: 'Planned', value: 'PLANNING' },
+  { label: 'Repeating', value: 'REPEATING' },
+  { label: 'Watching', value: 'CURRENT' },
 ];

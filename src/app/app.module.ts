@@ -39,6 +39,7 @@ import { SortPipe } from './pipes/sort';
 import { AnimeService } from './services/anime.service';
 import { AuthService } from './services/auth.service';
 import { AuthStore } from './store/auth.store';
+import { MtMenuActionComponent } from './mt-menu-action/mt-menu-action.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     ListRelatedMediaComponent,
     CoverMediaComponent,
     RecentlyFinishedMediaByFormatComponent,
+    MtMenuActionComponent,
   ],
   imports: [
     BrowserAnimationsModule,

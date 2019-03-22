@@ -34,7 +34,7 @@
         <span class="title">
           {{ entry.media.title.romaji }}
         </span>
-        <span *ngIf="favouriteIDs && favouriteIDs.indexOf(entry.media.id) >= 0">
+        <span *ngIf="favouriteIDs?.indexOf(entry.media.id) >= 0">
           <fa-icon name="heart" class="favourite"></fa-icon>
         </span>
       </mat-cell>

@@ -38,14 +38,13 @@
     </a>
 
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item (click)="navigateToAnilistProfile()">
-        <fa-icon name="external-link-alt" class="action-icon"></fa-icon>
+      <mt-menu-action (onPress)="navigateToAnilistProfile()" icon="external-link-alt">
         View profile
-      </button>
-      <button mat-menu-item (click)="logOut()">
-        <fa-icon name="door-open" class="action-icon"></fa-icon>
+      </mt-menu-action>
+
+      <mt-menu-action (onPress)="logOut()" icon="door-open">
         Log out
-      </button>
+      </mt-menu-action>
     </mat-menu>
   </div>
 

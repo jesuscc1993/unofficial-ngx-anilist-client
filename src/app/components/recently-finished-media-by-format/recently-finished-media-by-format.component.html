@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
 
-<div *ngIf="mediaList && mediaList.length" class="cover-media-grid">
+<div *ngIf="mediaList?.length" class="cover-media-grid">
   <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
 </div>
 

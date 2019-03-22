@@ -12,6 +12,13 @@
     typescript "~2.6.2"
     webpack-sources "^1.0.1"
 
+"@angular-devkit/core@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-0.0.22.tgz#e90f46bf7ff47d260a767959267bc65ffee39ef1"
+  integrity sha512-zxrNtTiv60liye/GGeRMnnGgLgAWoqlMTfPLMW0D1qJ4bbrPHtme010mpxS3QL4edcDtQseyXSFCnEkuo2MrRw==
+  dependencies:
+    source-map "^0.5.6"
+
 "@angular-devkit/core@0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-0.0.29.tgz#6fb319b45a62eff172318cbe256fdb24ef20af2b"
@@ -21,6 +28,17 @@
     chokidar "^1.7.0"
     rxjs "^5.5.6"
     source-map "^0.5.6"
+
+"@angular-devkit/schematics@0.0.42":
+  version "0.0.42"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-0.0.42.tgz#34eea7136455545c8abd21edf94a36870a073fea"
+  integrity sha512-elTiNL0Nx9oin2pfZTvMBU/d9sgutXaZe8n3xm2p7jfqQZry5MYYFES4hq+WIJjtV/X9gAniafncEpxuF7ikYw==
+  dependencies:
+    "@angular-devkit/core" "0.0.22"
+    "@ngtools/json-schema" "^1.1.0"
+    "@schematics/schematics" "0.0.11"
+    minimist "^1.2.0"
+    rxjs "^5.5.2"
 
 "@angular-devkit/schematics@~0.0.38":
   version "0.0.52"
@@ -216,6 +234,11 @@
   integrity sha512-PHE5gk/ogPY/aN94dbbtauHMCq+/7w4Kdcl7tGmSS8mPKEI0wa6XJi//Wq/tHi55lb2fP58oEZU6n6w/wQascw==
   dependencies:
     typescript "~2.6.2"
+
+"@schematics/schematics@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.0.11.tgz#c8f70f270ed38f29b2873248126fd59abd635862"
+  integrity sha512-HAXgAIuuAGjiIKohGlRUkmUTWYtNmclR12KHlQQxT9pHFdEb2OrpHjUp2YoV32jiU6jIZm4pf3ODwlPA0VbwnA==
 
 abbrev@1:
   version "1.1.1"

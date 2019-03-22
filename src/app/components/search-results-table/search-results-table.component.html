@@ -1,4 +1,11 @@
-<mat-table #table [dataSource]="dataSource" [hidden]="!dataSource || dataSource.data.length < 1" class="series-table" matSort (matSortChange)="sortBy($event)">
+<mat-table
+  #table
+  [dataSource]="dataSource"
+  [hidden]="!dataSource?.data?.length"
+  class="series-table"
+  matSort
+  (matSortChange)="sortBy($event)"
+>
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let anime">
@@ -76,12 +83,12 @@
   <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
   <mat-row
     *matRowDef="let anime; columns: tableRows"
-    [class.completed]="anime.mediaListEntry && anime.mediaListEntry.status === 'completed'"
-    [class.dropped]="anime.mediaListEntry && anime.mediaListEntry.status === 'dropped'"
-    [class.paused]="anime.mediaListEntry && anime.mediaListEntry.status === 'paused'"
-    [class.planned]="anime.mediaListEntry && anime.mediaListEntry.status === 'planning'"
-    [class.repeating]="anime.mediaListEntry && anime.mediaListEntry.status === 'repeating'"
-    [class.watching]="anime.mediaListEntry && anime.mediaListEntry.status === 'current'"
+    [class.completed]="anime?.mediaListEntry?.status === 'COMPLETED'"
+    [class.dropped]="anime?.mediaListEntry?.status === 'DROPPED'"
+    [class.paused]="anime?.mediaListEntry?.status === 'PAUSED'"
+    [class.planned]="anime?.mediaListEntry?.status === 'PLANNING'"
+    [class.repeating]="anime?.mediaListEntry?.status === 'REPEATING'"
+    [class.watching]="anime?.mediaListEntry?.status === 'CURRENT'"
   >
   </mat-row>
 </mat-table>

@@ -2,7 +2,7 @@
   <div [class.row]="showAsColumns">
     <!-- left column -->
     <div class="column left">
-      <img [src]="anime.coverImage && anime.coverImage.large" class="cover" />
+      <img [src]="anime.coverImage?.large" class="cover" />
 
       <div *ngIf="anime.description">
         <h4 class="no-margin-top margin-bottom-xxs">
@@ -55,7 +55,7 @@
         </span>
       </p>
 
-      <p *ngIf="!generalInfoOnly && anime.format && anime.format.length" class="property-value-pair flex-box">
+      <p *ngIf="!generalInfoOnly && anime.format?.length" class="property-value-pair flex-box">
         <strong class="property">
           Format:
         </strong>
@@ -65,7 +65,7 @@
         </span>
       </p>
 
-      <p *ngIf="anime.status && anime.status.length" class="property-value-pair flex-box">
+      <p *ngIf="anime.status?.length" class="property-value-pair flex-box">
         <strong class="property">
           Status:
         </strong>
@@ -75,7 +75,7 @@
         </span>
       </p>
 
-      <p *ngIf="anime.studios && anime.studios.nodes && anime.studios.nodes.length" class="property-value-pair flex-box">
+      <p *ngIf="anime.studios?.nodes?.length" class="property-value-pair flex-box">
         <strong class="property">
           Studio:
         </strong>
@@ -96,7 +96,7 @@
   </div>
 
   <!-- below columns -->
-  <p *ngIf="!generalInfoOnly && anime.genres && anime.genres.length" class="property-value-pair flex-box no-margin-bottom">
+  <p *ngIf="!generalInfoOnly && anime.genres?.length" class="property-value-pair flex-box no-margin-bottom">
     <strong class="property">
       Genres:
     </strong>
@@ -108,7 +108,7 @@
     </span>
   </p>
 
-  <p *ngIf="anime.tags && anime.tags.length" class="property-value-pair flex-box no-margin-bottom">
+  <p *ngIf="anime.tags?.length" class="property-value-pair flex-box no-margin-bottom">
     <strong class="property">
       Tags:
     </strong>
