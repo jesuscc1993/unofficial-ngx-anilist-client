@@ -1,42 +1,30 @@
-import 'rxjs/add/operator/map';
-
 import { Injectable } from '@angular/core';
 
-import { accessTokenCookieKey, userCookieKey } from '../app.constants';
 import { User } from '../types/anilist/user.types';
+
+export type AuthStoreStatus = { accessToken?: string; user?: User };
 
 @Injectable()
 export class AuthStore {
+  private state: AuthStoreStatus = {};
+
   public setAccessToken(accessToken: string) {
-    localStorage.setItem(accessTokenCookieKey, accessToken);
+    this.state = { ...this.state, accessToken };
   }
-
   public getAccessToken() {
-    return localStorage.getItem(accessTokenCookieKey);
+    return this.state.accessToken;
   }
-
   public removeAccessToken() {
-    localStorage.removeItem(accessTokenCookieKey);
+    this.state = { ...this.state, accessToken: undefined };
   }
 
   public setUser(user: User) {
-    this.setJsonItem(userCookieKey, user);
+    this.state = { ...this.state, user };
   }
-
   public getUser() {
-    return this.getJsonItem<User>(userCookieKey);
+    return this.state.user;
   }
-
   public removeUser() {
-    localStorage.removeItem(userCookieKey);
-  }
-
-  private setJsonItem(key: string, json: any) {
-    localStorage.setItem(key, JSON.stringify(json));
-  }
-
-  private getJsonItem<T>(key: string) {
-    const jsonString: string = localStorage.getItem(key);
-    return jsonString && (JSON.parse(jsonString) as T);
+    this.state = { ...this.state, user: undefined };
   }
 }

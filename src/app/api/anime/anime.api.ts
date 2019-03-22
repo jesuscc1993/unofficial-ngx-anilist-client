@@ -35,10 +35,8 @@ import {
   ListMediaIdsDto,
   MediaPageDto,
   SaveListEntryDto,
-  SaveListEntryRequest,
   SearchFilters,
   SearchMediaDto,
-  ToggleFavouriteMediaRequest,
   ToggleFavouriteMediaResponseDto as ToggleFavouriteMediaDto,
 } from './anime-api.types';
 
