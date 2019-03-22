@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../types/anilist/user.types';
 
-export type AuthStoreStatus = { accessToken?: string; user?: User };
+export type AuthStoreState = { accessToken?: string; user?: User };
 
 @Injectable()
 export class AuthStore {
-  private state: AuthStoreStatus = {};
+  private state: AuthStoreState = {};
 
   public setAccessToken(accessToken: string) {
     this.state = { ...this.state, accessToken };
