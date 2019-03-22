@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Tab } from '../../types/tab.types';
 
 @Component({
-  selector: 'app-recently-finished-media',
+  selector: 'mt-recently-finished-media',
   templateUrl: './recently-finished-media.component.html',
   styleUrls: ['./recently-finished-media.component.scss'],
 })

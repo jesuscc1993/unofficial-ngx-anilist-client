@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './mt-modal-content.component.html',
   styleUrls: ['./mt-modal-content.component.scss'],
 })
-export class MtModalContent {}
+export class MtModalContentComponent {}

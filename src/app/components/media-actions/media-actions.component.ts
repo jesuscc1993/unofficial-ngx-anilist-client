@@ -17,7 +17,7 @@ import { Media } from '../../types/anilist/media.types';
 import { User } from '../../types/anilist/user.types';
 
 @Component({
-  selector: 'app-media-actions',
+  selector: 'mt-media-actions',
   templateUrl: './media-actions.component.html',
   styleUrls: ['./media-actions.component.scss'],
 })

@@ -1,23 +1,20 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
-import { environment } from '../../../environments/environment';
-import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../app.constants';
-import {
-  WithObservableOnDestroy,
-} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { AuthService } from '../../services/auth.service';
-import { AuthStore } from '../../store/auth.store';
-import { User } from '../../types/anilist/user.types';
+import { environment } from '../../../../../environments/environment';
+import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../../../app.constants';
+import { AuthService } from '../../../../services/auth.service';
+import { AuthStore } from '../../../../store/auth.store';
+import { User } from '../../../../types/anilist/user.types';
+import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'mt-header',
+  templateUrl: './mt-header.component.html',
+  styleUrls: ['./mt-header.component.scss'],
 })
-export class HeaderComponent extends WithObservableOnDestroy {
+export class MtHeaderComponent extends WithObservableOnDestroy {
   apiLoginUrl: string = apiLoginUrl;
   dashboardUrl: string = dashboardUrl;
   animeSearchUrl: string = animeSearchUrl;

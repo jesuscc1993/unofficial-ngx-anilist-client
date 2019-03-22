@@ -38,14 +38,14 @@
 
       <div *ngFor="let status of statuses">
         <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
-          <app-user-list-table
+          <mt-user-list-table
             [tableStatus]="status"
             [tableData]="statusObjects[status.value]"
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"
             (onEntryUpdate)="onEntryUpdate($event)"
           >
-          </app-user-list-table>
+          </mt-user-list-table>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
         </mat-slide-toggle>
       </div>
 
-      <app-genres-overview [genreStatsList]="user.stats.favouredGenresOverview"> </app-genres-overview>
+      <mt-genres-overview [genreStatsList]="user.stats.favouredGenresOverview"> </mt-genres-overview>
     </div>
 
     <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">

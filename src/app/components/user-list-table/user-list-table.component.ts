@@ -16,7 +16,7 @@ import { ListEntry } from '../../types/anilist/listEntry.types';
 import { GenericUtil } from '../../utils/generic.util';
 
 @Component({
-  selector: 'app-user-list-table',
+  selector: 'mt-user-list-table',
   templateUrl: './user-list-table.component.html',
   styleUrls: ['./user-list-table.component.scss'],
 })

@@ -7,7 +7,7 @@ import { ListEntry } from '../../types/anilist/listEntry.types';
 import { Media } from '../../types/anilist/media.types';
 
 @Component({
-  selector: 'app-cover-media',
+  selector: 'mt-cover-media',
   templateUrl: './cover-media.component.html',
   styleUrls: ['./cover-media.component.scss']
 })

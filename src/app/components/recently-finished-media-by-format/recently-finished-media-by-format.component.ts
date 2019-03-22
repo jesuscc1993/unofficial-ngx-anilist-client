@@ -9,7 +9,7 @@ import { Media } from '../../types/anilist/media.types';
 import { PageQuery } from '../../types/anilist/pageInfo.types';
 
 @Component({
-  selector: 'app-recently-finished-media-by-format',
+  selector: 'mt-recently-finished-media-by-format',
   templateUrl: './recently-finished-media-by-format.component.html',
   styleUrls: ['./recently-finished-media-by-format.component.scss'],
 })

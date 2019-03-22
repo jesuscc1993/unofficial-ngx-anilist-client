@@ -6,7 +6,11 @@
       </h4>
     </div>
 
-    <div *ngFor="let tab of tabs" class="header tab" [class.active]="tab === activeTab" [class.clickable]="tab !== activeTab" (click)="activateTab(tab)">
+    <div
+      *ngFor="let tab of tabs"
+      class="header tab {{ tab === activeTab ? 'active' : 'clickable' }}"
+      (click)="activateTab(tab)"
+    >
       <h4 class="no-margin">
         {{ tab.label }}
       </h4>
@@ -14,6 +18,7 @@
   </div>
 
   <div *ngFor="let tab of tabs" [hidden]="tab !== activeTab" class="content">
-    <app-recently-finished-media-by-format [formatIn]="tab.formatIn" [formatNotIn]="tab.formatNotIn"> </app-recently-finished-media-by-format>
+    <mt-recently-finished-media-by-format [formatIn]="tab.formatIn" [formatNotIn]="tab.formatNotIn">
+    </mt-recently-finished-media-by-format>
   </div>
 </mat-card>

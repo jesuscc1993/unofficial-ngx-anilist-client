@@ -10,7 +10,7 @@ import { PageQuery } from '../../types/anilist/pageInfo.types';
 import { User } from '../../types/anilist/user.types';
 
 @Component({
-  selector: 'app-recently-updated-list-entries',
+  selector: 'mt-recently-updated-list-entries',
   templateUrl: './recently-updated-list-entries.component.html',
   styleUrls: ['./recently-updated-list-entries.component.scss'],
 })

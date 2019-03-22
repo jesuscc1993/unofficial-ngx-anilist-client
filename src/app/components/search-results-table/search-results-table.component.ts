@@ -5,7 +5,7 @@ import { Anime } from '../../types/anilist/anime.types';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
 
 @Component({
-  selector: 'app-search-results-table',
+  selector: 'mt-search-results-table',
   templateUrl: './search-results-table.component.html',
   styleUrls: ['./search-results-table.component.scss'],
 })

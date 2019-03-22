@@ -11,7 +11,7 @@
     <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
 
     <div *ngIf="mediaList?.length" class="cover-media-grid">
-      <app-cover-media *ngFor="let media of mediaList" [media]="media"></app-cover-media>
+      <mt-cover-media *ngFor="let media of mediaList" [media]="media"></mt-cover-media>
     </div>
 
     <mat-card *ngIf="error" class="error">

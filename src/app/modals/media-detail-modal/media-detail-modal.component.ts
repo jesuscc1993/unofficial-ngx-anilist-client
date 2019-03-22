@@ -9,7 +9,7 @@ type MediaDetailModalParameters = {
 };
 
 @Component({
-  selector: 'app-media-detail-modal',
+  selector: 'mt-media-detail-modal',
   templateUrl: './media-detail-modal.component.html',
   styleUrls: ['./media-detail-modal.component.scss']
 })

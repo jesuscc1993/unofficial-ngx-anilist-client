@@ -1,13 +1,13 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="this.dismiss()">
-    <app-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs">
-    </app-media-actions>
+    <mt-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxxs">
+    </mt-media-actions>
 
     {{ media.title.romaji }}
   </mt-modal-header>
 
   <mt-modal-content>
-    <app-anime-info *ngIf="media" [anime]="media" [generalInfoOnly]="true"> </app-anime-info>
+    <mt-anime-info *ngIf="media" [anime]="media" [generalInfoOnly]="true"> </mt-anime-info>
   </mt-modal-content>
 
   <mt-modal-footer>

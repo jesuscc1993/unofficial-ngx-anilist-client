@@ -11,9 +11,7 @@ import { AuthApi } from './api/auth/auth.api';
 import { AppComponent } from './app.component';
 import { AnimeInfoComponent } from './components/anime-info/anime-info.component';
 import { CoverMediaComponent } from './components/cover-media/cover-media.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { GenresOverviewComponent } from './components/genres-overview/genres-overview.component';
-import { HeaderComponent } from './components/header/header.component';
 import { ListRelatedMediaComponent } from './components/list-related-media/list-related-media.component';
 import { MediaActionsComponent } from './components/media-actions/media-actions.component';
 import {
@@ -59,8 +57,6 @@ const appRoutes: Routes = [
     AnimeSearchComponent,
     AnimeDetailComponent,
     UserListComponent,
-    HeaderComponent,
-    FooterComponent,
     SearchResultsTableComponent,
     UserListTableComponent,
     MediaActionsComponent,

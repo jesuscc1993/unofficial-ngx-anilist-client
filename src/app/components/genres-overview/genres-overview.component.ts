@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GenreStats } from '../../types/anilist/genreStats.types';
 
 @Component({
-  selector: 'app-genres-overview',
+  selector: 'mt-genres-overview',
   templateUrl: './genres-overview.component.html',
   styleUrls: ['./genres-overview.component.scss']
 })

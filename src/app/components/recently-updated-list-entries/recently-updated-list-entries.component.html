@@ -11,7 +11,7 @@
     <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
 
     <div *ngIf="listEntries?.length" class="cover-media-grid">
-      <app-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></app-cover-media>
+      <mt-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></mt-cover-media>
     </div>
 
     <mat-paginator

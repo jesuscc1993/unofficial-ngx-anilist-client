@@ -5,7 +5,7 @@ import { Anime } from '../../types/anilist/anime.types';
 import { Media } from '../../types/anilist/media.types';
 
 @Component({
-  selector: 'app-anime-info',
+  selector: 'mt-anime-info',
   templateUrl: './anime-info.component.html',
   styleUrls: ['./anime-info.component.scss']
 })

@@ -24,7 +24,7 @@ import { User } from '../../types/anilist/user.types';
 import { GenericUtil } from '../../utils/generic.util';
 
 @Component({
-  selector: 'app-anime-search',
+  selector: 'mt-anime-search',
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss'],
 })

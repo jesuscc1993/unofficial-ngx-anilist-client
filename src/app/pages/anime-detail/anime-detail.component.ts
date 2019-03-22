@@ -6,7 +6,7 @@ import { AnimeService } from '../../services/anime.service';
 import { Anime } from '../../types/anilist/anime.types';
 
 @Component({
-  selector: 'app-anime-detail',
+  selector: 'mt-anime-detail',
   templateUrl: './anime-detail.component.html',
   styleUrls: ['./anime-detail.component.scss'],
 })

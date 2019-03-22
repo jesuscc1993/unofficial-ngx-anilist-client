@@ -5,6 +5,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './mt-modal-header.component.html',
   styleUrls: ['./mt-modal-header.component.scss'],
 })
-export class MtModalHeader {
+export class MtModalHeaderComponent {
   @Output() onClosePressed: EventEmitter<void> = new EventEmitter<void>();
 }

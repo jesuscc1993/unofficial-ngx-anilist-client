@@ -7,7 +7,7 @@ import { AuthStore } from '../../store/auth.store';
 import { Media } from '../../types/anilist/media.types';
 
 @Component({
-  selector: 'app-list-related-media',
+  selector: 'mt-list-related-media',
   templateUrl: './list-related-media.component.html',
   styleUrls: ['./list-related-media.component.scss'],
 })

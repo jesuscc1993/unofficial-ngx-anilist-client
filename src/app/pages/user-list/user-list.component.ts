@@ -9,7 +9,7 @@ import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types'
 import { User } from '../../types/anilist/user.types';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'mt-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })

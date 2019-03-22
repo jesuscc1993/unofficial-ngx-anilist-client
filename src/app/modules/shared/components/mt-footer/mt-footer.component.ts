@@ -3,12 +3,12 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+  selector: 'mt-footer',
+  templateUrl: './mt-footer.component.html',
+  styleUrls: ['./mt-footer.component.scss'],
 })
-export class FooterComponent {
-  gitHubProjectUrl: string = 'https://github.com/jesuscc1993/angular-material-demo';
+export class MtFooterComponent {
+  gitHubProjectUrl: string = 'https://github.com/jesuscc1993/unofficial-ng5-anilist-client';
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(

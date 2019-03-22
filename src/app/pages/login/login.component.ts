@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { apiLoginUrl } from '../../app.constants';
 
 @Component({
-  selector: 'app-login',
+  selector: 'mt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

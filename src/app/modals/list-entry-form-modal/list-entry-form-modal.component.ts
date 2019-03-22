@@ -14,7 +14,7 @@ type ListEntryFormModalParameters = {
 };
 
 @Component({
-  selector: 'app-list-entry-form-modal',
+  selector: 'mt-list-entry-form-modal',
   templateUrl: './list-entry-form-modal.component.html',
   styleUrls: ['./list-entry-form-modal.component.scss'],
 })

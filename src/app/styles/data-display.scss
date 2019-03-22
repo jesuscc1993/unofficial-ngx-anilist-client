@@ -31,7 +31,7 @@
   grid-template-rows: repeat(auto-fill, $cell-height);
   grid-gap: $cell-spacing;
 
-  app-cover-media {
+  mt-cover-media {
     display: inline-block;
     vertical-align: middle;
 
@@ -41,5 +41,4 @@
       margin: auto;
     }
   }
-
 }

@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './mt-modal-footer.component.html',
   styleUrls: ['./mt-modal-footer.component.scss'],
 })
-export class MtModalFooter {}
+export class MtModalFooterComponent {}
