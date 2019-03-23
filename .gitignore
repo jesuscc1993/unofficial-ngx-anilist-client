@@ -2,9 +2,10 @@
 
 # explicit exclusions
 /excluded
+/src/environments/environment.ts
 
 # logs
-yarn.error.log
+yarn-error.log
 
 # compiled output
 /dist
