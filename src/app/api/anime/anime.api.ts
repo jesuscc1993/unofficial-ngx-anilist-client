@@ -185,8 +185,8 @@ export class AnimeApi extends AniListApi {
     });
   }
 
-  public queryAnimeListFavourites(user: User, callback: Function) {
-    this.queryFavouritesResultsPage(
+  public queryAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+    this.queryFavouriteIdsResultsPage(
       {
         userId: user.id,
         page: 0,
@@ -196,42 +196,31 @@ export class AnimeApi extends AniListApi {
     );
   }
 
-  private queryFavouritesResultsPage(options: any, favourites: any[], callback: Function) {
+  private queryFavouriteIdsResultsPage(
+    options: { userId: number; page: number },
+    favouriteIds: number[],
+    callback: (favouriteIds: number[]) => void
+  ) {
     return this.postRequest<FavouriteMediaDto>(listFavouritesQuery, {
       variables: options,
     })
       .pipe(
         tap(response => {
-          let results = [];
-
           const responseData = this.getResponseData(response);
           if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
             const favouritesData = responseData.User.favourites.anime;
-            results = favouritesData.nodes;
-            favourites = [...favourites, ...results];
+            favouriteIds = [...favouriteIds, ...favouritesData.nodes.map(node => node.id)];
 
             if (favouritesData.pageInfo.hasNextPage) {
               options.page++;
-              this.queryFavouritesResultsPage(options, favourites, callback);
+              this.queryFavouriteIdsResultsPage(options, favouriteIds, callback);
             } else {
-              callback(favourites);
+              callback(favouriteIds);
             }
           }
         })
       )
       .subscribe();
-  }
-
-  public queryAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
-    this.queryAnimeListFavourites(user, listFavourites => {
-      let favouriteIDs: number[] = [];
-
-      listFavourites.forEach((media: Media) => {
-        favouriteIDs.push(media.id);
-      });
-
-      callback(favouriteIDs);
-    });
   }
 
   public saveAnimeListEntry(listEntry: ListEntry) {
