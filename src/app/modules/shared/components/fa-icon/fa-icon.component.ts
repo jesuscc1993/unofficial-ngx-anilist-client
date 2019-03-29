@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'fa-icon',
@@ -8,5 +8,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FaIconComponent {
   @Input() type?: 'fas' | 'fab';
   @Input() name: string;
-  @Input() class?: string;
+  @Input() iconClass?: string;
 }

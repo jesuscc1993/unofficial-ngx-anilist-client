@@ -41,7 +41,7 @@
       <div *ngFor="let status of statuses">
         <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
           <mt-user-anime-list-table
-            [tableStatus]="status"
+            [tableStatus]="status.value"
             [tableData]="statusObjects[status.value]"
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"

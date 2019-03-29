@@ -43,7 +43,7 @@ $horizontal-cell-padding: $spacing-xxs;
     .menu-toggle {
       $size: $spacing-s;
       width: $size;
-      margin-left: -$size / 2;
+      margin-left: -$size;
       font-size: $font-size-m;
       text-align: center;
       vertical-align: bottom;

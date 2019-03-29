@@ -1,5 +1,5 @@
-<h3 [id]="tableStatus.value" class="capitalize no-margin-bottom margin-top-xxs vertical-padding-xs">
-  {{ tableStatus.label }}
+<h3 class="capitalize no-margin-bottom margin-top-xxs vertical-padding-xs">
+  {{ tableStatus.toLowerCase() }}
 </h3>
 
 <mat-card class="no-padding">
@@ -31,11 +31,11 @@
         Title
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <span class="title">
-          {{ entry.media.title.romaji }}
-        </span>
         <span *ngIf="favouriteIDs?.indexOf(entry.media.id) >= 0">
           <fa-icon name="heart" class="favourite"></fa-icon>
+        </span>
+        <span class="title">
+          {{ entry.media.title.romaji }}
         </span>
       </mat-cell>
     </ng-container>

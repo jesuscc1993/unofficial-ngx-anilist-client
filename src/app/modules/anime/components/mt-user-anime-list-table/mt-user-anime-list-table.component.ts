@@ -12,7 +12,7 @@ import {
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { Anime } from '../../../../types/anilist/anime.types';
-import { ListEntry } from '../../../../types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../../types/anilist/listEntry.types';
 import { GenericUtil } from '../../../../utils/generic.util';
 
 @Component({
@@ -21,7 +21,7 @@ import { GenericUtil } from '../../../../utils/generic.util';
   styleUrls: ['./mt-user-anime-list-table.component.scss'],
 })
 export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
-  @Input() tableStatus: string;
+  @Input() tableStatus: ListEntryStatus;
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];
   @Input() filter?: string;
