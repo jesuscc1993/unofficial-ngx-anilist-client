@@ -107,7 +107,8 @@ const listAnimeFields = `
   }
 `;
 
-const searchAnimeFields = `${listAnimeFields}
+const searchAnimeFields = `
+  id
   mediaListEntry {
     id
     scoreRaw: score (
@@ -195,7 +196,7 @@ export const searchQuery = `
       media (
         ${filterMappings.media}
       ) {
-        id
+        ${searchAnimeFields}
       }
     }
   }
