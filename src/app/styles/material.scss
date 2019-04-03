@@ -80,6 +80,10 @@ mat-paginator {
   overflow: hidden;
 }
 
+.mat-header-cell {
+  font-size: 14px;
+}
+
 .cdk-global-scrollblock {
   overflow-y: auto;
 }

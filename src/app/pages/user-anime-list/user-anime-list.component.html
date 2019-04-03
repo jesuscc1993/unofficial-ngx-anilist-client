@@ -39,7 +39,7 @@
       </mat-card>
 
       <div *ngFor="let status of statuses">
-        <div *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
+        <div id="{{ status.value }}" *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
           <mt-user-anime-list-table
             [tableStatus]="status.value"
             [tableData]="statusObjects[status.value]"
