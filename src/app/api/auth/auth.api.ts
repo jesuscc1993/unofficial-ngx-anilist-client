@@ -1,8 +1,7 @@
-import 'rxjs/add/operator/map';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
@@ -17,9 +16,6 @@ export class AuthApi extends AniListApi {
   }
 
   public queryUser(): Observable<User> {
-    return this.postGraphQlRequest<UserDto>(userQuery).map(response => {
-      const listEntriesDto = this.getResponseData(response);
-      return listEntriesDto && listEntriesDto.Viewer;
-    });
+    return this.postGraphQlRequest<UserDto>(userQuery).pipe(map(response => this.getResponseData(response).Viewer));
   }
 }

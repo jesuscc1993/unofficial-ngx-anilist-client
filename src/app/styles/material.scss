@@ -76,6 +76,10 @@ mat-paginator {
   }
 }
 
+.mat-card {
+  overflow: hidden;
+}
+
 .cdk-global-scrollblock {
   overflow-y: auto;
 }

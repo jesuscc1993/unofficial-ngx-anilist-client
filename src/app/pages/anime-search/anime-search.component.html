@@ -193,6 +193,7 @@
       <mt-search-results-table [tableData]="animeList" (onSortChange)="sortBy($event)"> </mt-search-results-table>
 
       <mat-paginator
+        [showFirstLastButtons]="true"
         [length]="pagination.total"
         [pageSize]="pagination.perPage"
         [pageIndex]="pagination.pageIndex"

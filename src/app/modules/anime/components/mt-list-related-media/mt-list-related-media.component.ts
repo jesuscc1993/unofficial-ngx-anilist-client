@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../../../services/anime.service';

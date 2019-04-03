@@ -1,8 +1,6 @@
-import 'rxjs/add/operator/map';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { AuthStore } from '../../store/auth.store';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
@@ -51,8 +49,8 @@ export class AnimeApi extends AniListApi {
   }
 
   public queryAnimeGenres() {
-    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).map(
-      response => this.getResponseData(response).GenreCollection
+    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).pipe(
+      map(response => this.getResponseData(response).GenreCollection)
     );
   }
 
@@ -67,7 +65,7 @@ export class AnimeApi extends AniListApi {
         page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
         perPage: pageInfo ? pageInfo.perPage || 10 : 1,
       },
-    }).map(response => this.getResponseData(response).Page);
+    }).pipe(map(response => this.getResponseData(response).Page));
   }
 
   public queryAnimeList(user: User) {
@@ -75,44 +73,48 @@ export class AnimeApi extends AniListApi {
       mediaType: 'ANIME',
       userId: user.id,
       sort: MediaSort.SCORE_DESC,
-    }).map(response => {
-      let listEntriesByStatus: { [Status in ListEntryStatus]?: ListEntry[] } = {};
+    }).pipe(
+      map(response => {
+        let listEntriesByStatus: { [Status in ListEntryStatus]?: ListEntry[] } = {};
 
-      const listMediaDto = this.getResponseData(response);
-      if (listMediaDto) {
-        listMediaDto.MediaListCollection.lists.forEach(list => {
-          const status = list.entries[0].status;
+        const listMediaDto = this.getResponseData(response);
+        if (listMediaDto) {
+          listMediaDto.MediaListCollection.lists.forEach(list => {
+            const status = list.entries[0].status;
 
-          list.entries.forEach(listEntry => {
-            listEntriesByStatus[status] = [...(listEntriesByStatus[status] || []), listEntry];
+            list.entries.forEach(listEntry => {
+              listEntriesByStatus[status] = [...(listEntriesByStatus[status] || []), listEntry];
+            });
           });
-        });
-      }
+        }
 
-      return listEntriesByStatus;
-    });
+        return listEntriesByStatus;
+      })
+    );
   }
 
   public queryAnimeListMediaIdsByStatus(user: User) {
     return this.postGraphQlRequest<ListMediaIdsDto, MediaFilters>(listMediaIdsQuery, {
       mediaType: 'ANIME',
       userId: user.id,
-    }).map(response => {
-      let listMediaIdsByStatus: { [Status in ListEntryStatus]?: number[] } = {};
+    }).pipe(
+      map(response => {
+        let listMediaIdsByStatus: { [Status in ListEntryStatus]?: number[] } = {};
 
-      const listMediaDto = this.getResponseData(response);
-      if (listMediaDto) {
-        listMediaDto.MediaListCollection.lists.forEach(list => {
-          const status = list.entries[0].status;
+        const listMediaDto = this.getResponseData(response);
+        if (listMediaDto) {
+          listMediaDto.MediaListCollection.lists.forEach(list => {
+            const status = list.entries[0].status;
 
-          list.entries.forEach(listEntry => {
-            listMediaIdsByStatus[status] = [...(listMediaIdsByStatus[status] || []), listEntry.media.id];
+            list.entries.forEach(listEntry => {
+              listMediaIdsByStatus[status] = [...(listMediaIdsByStatus[status] || []), listEntry.media.id];
+            });
           });
-        });
-      }
+        }
 
-      return listMediaIdsByStatus;
-    });
+        return listMediaIdsByStatus;
+      })
+    );
   }
 
   public queryRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
@@ -123,7 +125,7 @@ export class AnimeApi extends AniListApi {
 
       page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
       perPage: pageInfo ? pageInfo.perPage || 10 : 1,
-    }).map(response => this.getResponseData(response).Page);
+    }).pipe(map(response => this.getResponseData(response).Page));
   }
 
   public queryRecentlyFinishedAiringAnime(query: MediaFilters, pageInfo?: PageQuery) {
@@ -138,27 +140,29 @@ export class AnimeApi extends AniListApi {
         page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
         perPage: pageInfo ? pageInfo.perPage || 10 : 1,
       },
-    }).map(response => this.getResponseData(response).Page);
+    }).pipe(map(response => this.getResponseData(response).Page));
   }
 
   public queryRelatedAnimeMedia(user: User) {
     return this.postGraphQlRequest<ListMediaDto, MediaFilters>(relatedMediaQuery, {
       mediaType: 'ANIME',
       userId: user.id,
-    }).map(response => {
-      let mediaList: Media[] = [];
+    }).pipe(
+      map(response => {
+        let mediaList: Media[] = [];
 
-      const listMediaDto = this.getResponseData(response);
-      if (listMediaDto) {
-        listMediaDto.MediaListCollection.lists.forEach(list => {
-          list.entries.forEach(listEntry => {
-            mediaList = [...mediaList, listEntry.media];
+        const listMediaDto = this.getResponseData(response);
+        if (listMediaDto) {
+          listMediaDto.MediaListCollection.lists.forEach(list => {
+            list.entries.forEach(listEntry => {
+              mediaList = [...mediaList, listEntry.media];
+            });
           });
-        });
-      }
+        }
 
-      return mediaList;
-    });
+        return mediaList;
+      })
+    );
   }
 
   public queryAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {

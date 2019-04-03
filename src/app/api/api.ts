@@ -1,8 +1,5 @@
-import 'rxjs/add/operator/map';
-
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { _throw } from 'rxjs/observable/throw';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { apiUrl } from '../app.constants';
@@ -24,9 +21,7 @@ export class AniListApi {
     query: string,
     variables?: VariablesType
   ): Observable<ServerResponse<ResponseType>> {
-    // TODO use after upgrading TS
-    // const parsedVariables = { ...variables };
-    const parsedVariables = Object.assign({}, variables);
+    const parsedVariables = { ...variables };
     if (parsedVariables) {
       Object.keys(parsedVariables).forEach(key => {
         const value = parsedVariables[key];
@@ -67,6 +62,6 @@ export class AniListApi {
   }
 
   protected mapObjectErrorToStringError() {
-    return catchError(error => _throw(JSON.stringify(error, undefined, 2)));
+    return catchError(error => throwError(JSON.stringify(error, undefined, 2)));
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../../../services/anime.service';

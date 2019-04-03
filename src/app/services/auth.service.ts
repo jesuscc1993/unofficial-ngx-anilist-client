@@ -1,8 +1,6 @@
-import 'rxjs/add/operator/map';
-
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 
 import { AuthApi } from '../api/auth/auth.api';
 import { accessTokenCookieKey, userCookieKey } from '../app.constants';

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { SearchFilters } from '../../api/anime/anime-api.types';

@@ -22,7 +22,7 @@ img.cover {
 @media (min-width: $screen-m) {
   .row {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
 
     .column {
       $column-padding: $spacing-xs;

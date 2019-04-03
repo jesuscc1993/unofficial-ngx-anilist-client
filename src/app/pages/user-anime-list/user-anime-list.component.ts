@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';

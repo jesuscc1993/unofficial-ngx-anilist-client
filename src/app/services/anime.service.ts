@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/map';
-
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
