@@ -8,17 +8,9 @@ import { catchError } from 'rxjs/operators';
 import { apiUrl } from '../app.constants';
 import { AuthStore } from '../store/auth.store';
 import { ServerResponse } from '../types/anilist/response.types';
-import {
-  DeleteListEntryRequest,
-  MediaCollectionFilters,
-  MediaFilters,
-  PageQueryDto,
-  SaveListEntryRequest,
-  SearchFilters,
-  ToggleFavouriteMediaRequest,
-} from './anime/anime-api.types';
 
 export class AniListApi {
+  private loggingEnabled = false;
   protected apiUrl: string = apiUrl;
 
   constructor(protected httpClient: HttpClient, protected authStore: AuthStore) {}
@@ -28,25 +20,38 @@ export class AniListApi {
     return { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} };
   }
 
-  protected postRequest<T>(
+  protected postGraphQlRequest<ResponseType, VariablesType = undefined>(
     query: string,
-    options?: {
-      variables?: (
-        | MediaCollectionFilters
-        | MediaFilters
-        | SearchFilters
-        | SaveListEntryRequest
-        | DeleteListEntryRequest
-        | ToggleFavouriteMediaRequest) &
-        Partial<PageQueryDto>;
+    variables?: VariablesType
+  ): Observable<ServerResponse<ResponseType>> {
+    // TODO use after upgrading TS
+    // const parsedVariables = { ...variables };
+    const parsedVariables = Object.assign({}, variables);
+    if (parsedVariables) {
+      Object.keys(parsedVariables).forEach(key => {
+        const value = parsedVariables[key];
+
+        if (
+          value === undefined ||
+          value === null ||
+          (['string', 'object'].includes(typeof value) && value.length === 0)
+        ) {
+          delete parsedVariables[key];
+        }
+      });
     }
-  ): Observable<ServerResponse<T>> {
+
+    if (this.loggingEnabled) {
+      console.debug('query:', query.replace(/\n\s*/g, '\n'));
+      console.debug('variables:', parsedVariables);
+    }
+
     return this.httpClient
       .post(
         this.apiUrl,
         {
           query,
-          variables: options && options.variables,
+          variables: parsedVariables,
         },
         this.getRequestOptions()
       )

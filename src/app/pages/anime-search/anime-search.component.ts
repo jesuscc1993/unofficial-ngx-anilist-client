@@ -1,14 +1,16 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil, tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { SearchFilters } from '../../api/anime/anime-api.types';
 import { animeSearchUrl } from '../../app.constants';
 import {
   MtSearchResultsTableComponent,
 } from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
+import { getDateScalarFromYear } from '../../modules/anime/domain/anime.domain';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
@@ -20,7 +22,7 @@ import { mediaFormatValues } from '../../types/anilist/enums/mediaFormats';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
 import { mediaStatusValues } from '../../types/anilist/enums/mediaStatus';
 import { OnListOptions } from '../../types/anilist/enums/onListOptions';
-import { PageInfo, PageQuery } from '../../types/anilist/pageInfo.types';
+import { PageInfo } from '../../types/anilist/pageInfo.types';
 import { User } from '../../types/anilist/user.types';
 import { GenericUtil } from '../../utils/generic.util';
 
@@ -106,6 +108,52 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     this.updateQueryParams();
   }
 
+  search(pageIndex?: number, perPage?: number) {
+    GenericUtil.scrollToRef(this.resultsTable);
+    this.updateQueryParams();
+
+    this.searching = true;
+    this.error = undefined;
+
+    const filters = this.searchForm.value;
+
+    let query: SearchFilters = {
+      ...filters,
+      startDateSmallerThan: filters.startDateSmallerThan && getDateScalarFromYear(filters.startDateSmallerThan),
+      startDateGreaterThan: filters.startDateGreaterThan && getDateScalarFromYear(filters.startDateGreaterThan),
+      averageScoreGreaterThan: filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10,
+      averageScoreSmallerThan: filters.averageScoreSmallerThan && filters.averageScoreSmallerThan * 10,
+      sort: this.sort,
+    };
+
+    this.animeService
+      .searchAnime(query, {
+        pageIndex,
+        perPage,
+      })
+      .pipe(
+        tap(response => {
+          this.noResults = response.media.length < 1;
+          this.animeList = response.media;
+          this.pagination = response.pageInfo;
+          this.pagination.pageIndex = response.pageInfo.currentPage - 1;
+          this.searching = false;
+        }),
+        catchError(error => {
+          this.error = error;
+          this.noResults = false;
+          this.searching = false;
+
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  changePage(pageEvent: PageEvent) {
+    this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
+  }
+
   sortBy(mediaSort: MediaSort) {
     this.sort = mediaSort && mediaSort.value;
     this.search();
@@ -120,82 +168,18 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   private setupForm() {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      startDate_greater: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
-      startDate_lesser: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
-      averageScore_greater: [undefined, [Validators.min(0), Validators.max(10)]],
-      averageScore_lesser: [undefined, [Validators.min(0), Validators.max(10)]],
-      genre_in: [[]],
-      genre_not_in: [[]],
-      format_in: [[]],
-      format_not_in: [[]],
-      status_in: [[]],
-      status_not_in: [[]],
+      startDateGreaterThan: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
+      startDateSmallerThan: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
+      averageScoreGreaterThan: [undefined, [Validators.min(0), Validators.max(10)]],
+      averageScoreSmallerThan: [undefined, [Validators.min(0), Validators.max(10)]],
+      genreIn: [[]],
+      genreNotIn: [[]],
+      formatIn: [[]],
+      formatNotIn: [[]],
+      statusIn: [[]],
+      statusNotIn: [[]],
       onList: [undefined],
     });
-  }
-
-  private search(page?: number, perPage?: number) {
-    GenericUtil.scrollToRef(this.resultsTable);
-    this.updateQueryParams();
-
-    this.searching = true;
-    this.error = undefined;
-
-    const filters = this.searchForm.value;
-
-    let query: SearchFilters = {
-      search: filters.search,
-      genre_in: filters.genre_in,
-      genre_not_in: filters.genre_not_in,
-      format_in: filters.format_in,
-      format_not_in: filters.format_not_in,
-      status_in: filters.status_in,
-      status_not_in: filters.status_not_in,
-      onList: filters.onList,
-      sort: this.sort,
-    };
-
-    if (filters.startDate_lesser) {
-      query.startDate_lesser = this.getDateScalarFromYear(filters.startDate_lesser);
-    }
-    if (filters.startDate_greater) {
-      query.startDate_greater = this.getDateScalarFromYear(filters.startDate_greater - 1) + 1231;
-    }
-    if (filters.averageScore_greater) {
-      query.averageScore_greater = filters.averageScore_greater * 10;
-    }
-    if (filters.averageScore_lesser) {
-      query.averageScore_lesser = filters.averageScore_lesser * 10;
-    }
-
-    const pageInfo: PageQuery = {
-      pageIndex: page,
-      perPage: perPage,
-    };
-
-    this.animeService
-      .searchAnime(query, pageInfo)
-      .pipe(
-        tap(
-          response => {
-            this.noResults = response.media.length < 1;
-            this.animeList = response.media;
-            this.pagination = response.pageInfo;
-            this.pagination.pageIndex = response.pageInfo.currentPage - 1;
-            this.searching = false;
-          },
-          error => {
-            this.error = error;
-            this.noResults = false;
-            this.searching = false;
-          }
-        )
-      )
-      .subscribe();
-  }
-
-  private getDateScalarFromYear(year: number): number {
-    return year * 10000;
   }
 
   private updateQueryParams() {
@@ -214,9 +198,5 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     });
 
     this.router.navigate([animeSearchUrl], { queryParams: queryParams });
-  }
-
-  private changePage(pageEvent: PageEvent) {
-    this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
   }
 }

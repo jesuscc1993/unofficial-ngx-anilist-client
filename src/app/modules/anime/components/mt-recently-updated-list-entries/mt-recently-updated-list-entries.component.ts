@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material';
-import { tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { catchError, tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../../../services/anime.service';
 import { AuthService } from '../../../../services/auth.service';
@@ -41,17 +42,17 @@ export class MtRecentlyUpdatedListEntriesComponent {
           pageIndex: this.pagination && this.pagination.pageIndex,
         })
         .pipe(
-          tap(
-            response => {
-              this.listEntries = response.mediaList;
-              this.pagination = response.pageInfo;
-              this.ready = true;
-            },
-            error => {
-              this.error = error;
-              this.ready = true;
-            }
-          )
+          tap(response => {
+            this.listEntries = response.mediaList;
+            this.pagination = response.pageInfo;
+            this.ready = true;
+          }),
+          catchError(error => {
+            this.error = error;
+            this.ready = true;
+
+            return of();
+          })
         )
         .subscribe();
     }

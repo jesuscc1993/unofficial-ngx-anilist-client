@@ -22,7 +22,7 @@
         Cover
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <img [src]="entry.media.coverImage.medium" class="cover" />
+        <img [src]="entry.media.coverImage?.medium" class="cover" />
       </mat-cell>
     </ng-container>
 

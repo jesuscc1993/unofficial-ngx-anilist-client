@@ -1,5 +1,5 @@
 <mt-modal>
-  <mt-modal-header (onClosePressed)="this.dismiss()">
+  <mt-modal-header (onClosePressed)="dismiss()">
     {{ media.title.romaji }}
   </mt-modal-header>
 
@@ -36,7 +36,7 @@
       <!--<mat-slider min="0" max="10" value="5" step="0.5" tickInterval="2" class="full-width no-padding"></mat-slider>-->
 
       <!--<span *ngIf="listEntry !== undefined">-->
-      <!--<button mat-raised-button color="warn" class="margin-right-s square-button" (click)="deleteEntry($event)">-->
+      <!--<button mat-raised-button color="warn" class="margin-right-s square-button" (click)="doDeleteEntry($event)">-->
       <!--<fa-icon name="trash" class="baseline"></fa-icon>-->
       <!--</button>-->
       <!--</span>-->
@@ -56,7 +56,7 @@
           Submit
         </button>
 
-        <button mat-raised-button class="float-right" (click)="dismiss($event)">
+        <button mat-raised-button class="float-right" (click)="doDismiss($event)">
           <fa-icon name="times" class="baseline margin-right-xxxs"></fa-icon>
           Cancel
         </button>

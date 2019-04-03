@@ -25,7 +25,7 @@ export class MtCoverMediaComponent implements OnInit {
     }
   }
 
-  showDetail() {
+  doOpenDetailModal() {
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
       maxWidth: '800px',

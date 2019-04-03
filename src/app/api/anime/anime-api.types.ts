@@ -1,41 +1,51 @@
 import { Anime } from '../../types/anilist/anime.types';
 import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
-import { Media } from '../../types/anilist/media.types';
-import { PageInfo, PageQuery } from '../../types/anilist/pageInfo.types';
+import { Media, MediaStatus } from '../../types/anilist/media.types';
+import { PageInfo } from '../../types/anilist/pageInfo.types';
 
 /* filters */
-export type MediaCollectionFilters = {
-  mediaType?: string;
-  sort?: string;
-  userId: number;
+export type PageOptions = {
+  page: number;
+  perPage: number;
 };
 
-export type MediaFilters = Partial<PageQuery> & {
-  mediaType?: string;
+export type MediaFilters = {
   adultContent?: boolean;
-  onList?: boolean;
-  sort?: string;
-};
-
-export type SearchFilters = MediaFilters & {
   id?: number;
-  search?: string;
-  startDate_greater?: number;
-  startDate_lesser?: number;
-  averageScore_greater?: number;
-  averageScore_lesser?: number;
-  genre_in?: string[];
-  genre_not_in?: string[];
-  format_in?: string[];
-  format_not_in?: string[];
-  status_in?: string[];
-  status_not_in?: string[];
-};
-
-export type IdFilters = SearchFilters & {
   idIn?: number[];
   idNotIn?: number[];
+  mediaType?: string;
+  onList?: boolean;
+  sort?: string;
+  status?: ListEntryStatus | MediaStatus;
+  userId?: number;
 };
+
+export type PagedMediaFilters = MediaFilters &
+  Partial<{
+    page: number;
+    perPage: number;
+  }>;
+
+export type SearchFilters = MediaFilters & {
+  averageScoreGreaterThan?: number;
+  averageScoreSmallerThan?: number;
+  formatIn?: string[];
+  formatNotIn?: string[];
+  genreIn?: string[];
+  genreNotIn?: string[];
+  search?: string;
+  startDateGreaterThan?: number;
+  startDateSmallerThan?: number;
+  statusIn?: Array<ListEntryStatus | MediaStatus>;
+  statusNotIn?: Array<ListEntryStatus | MediaStatus>;
+};
+
+export type PagedSearchFilters = SearchFilters &
+  Partial<{
+    page: number;
+    perPage: number;
+  }>;
 
 /* requests */
 
@@ -54,11 +64,6 @@ export type ToggleFavouriteMediaRequest = {
 };
 
 /* dtos */
-export type PageQueryDto = {
-  page: number;
-  perPage: number;
-};
-
 export type SearchMediaDto = {
   Page: {
     pageInfo: PageInfo;

@@ -51,8 +51,8 @@ export class MtRecentlyFinishedMediaByFormatComponent {
       .getRecentlyFinishedAiringAnime(
         {
           idIn: this.whitelistedIds,
-          format_in: this.formatIn,
-          format_not_in: this.formatNotIn,
+          formatIn: this.formatIn,
+          formatNotIn: this.formatNotIn,
         },
         {
           perPage: this.maxEntries,

@@ -8,6 +8,7 @@ import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
 import { userQuery } from '../anime/anime-api.queries';
 import { AniListApi } from '../api';
+import { UserDto } from './auth-api.types';
 
 @Injectable()
 export class AuthApi extends AniListApi {
@@ -16,7 +17,7 @@ export class AuthApi extends AniListApi {
   }
 
   public queryUser(): Observable<User> {
-    return this.postRequest<any>(userQuery).map(response => {
+    return this.postGraphQlRequest<UserDto>(userQuery).map(response => {
       const listEntriesDto = this.getResponseData(response);
       return listEntriesDto && listEntriesDto.Viewer;
     });

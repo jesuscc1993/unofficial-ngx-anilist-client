@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { getParsedAnime, getParsedListEntry, mapQueryFilters } from '../../modules/anime/domain/anime.domain';
 import { AuthStore } from '../../store/auth.store';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
 import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
@@ -27,16 +26,21 @@ import {
 } from './anime-api.queries';
 import {
   DeleteListEntryDto,
+  DeleteListEntryRequest,
   FavouriteMediaDto,
   GenreCollectionDto,
-  IdFilters,
   ListEntriesPageDto,
   ListMediaDto,
   ListMediaIdsDto,
+  MediaFilters,
   MediaPageDto,
+  PagedMediaFilters,
+  PagedSearchFilters,
   SaveListEntryDto,
+  SaveListEntryRequest,
   SearchFilters,
   SearchMediaDto,
+  ToggleFavouriteMediaRequest,
   ToggleFavouriteMediaResponseDto as ToggleFavouriteMediaDto,
 } from './anime-api.types';
 
@@ -47,38 +51,30 @@ export class AnimeApi extends AniListApi {
   }
 
   public queryAnimeGenres() {
-    return this.postRequest<GenreCollectionDto>(genresQuery).map(
+    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).map(
       response => this.getResponseData(response).GenreCollection
     );
   }
 
   public queryAnimeSearch(query: SearchFilters, pageInfo?: PageQuery) {
-    return this.postRequest<SearchMediaDto>(searchQuery, {
-      variables: mapQueryFilters(query, {
+    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(searchQuery, {
+      ...query,
+      ...{
         mediaType: 'ANIME',
         adultContent: query.adultContent || false,
-        onList: query.onList,
         sort: query.sort || MediaSort.TITLE_ROMAJI,
 
         page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
         perPage: pageInfo ? pageInfo.perPage || 10 : 1,
-      }),
-    }).map(response => {
-      let responseData = this.getResponseData(response).Page;
-      if (responseData) {
-        responseData.media.map(anime => getParsedAnime(anime));
-      }
-      return responseData;
-    });
+      },
+    }).map(response => this.getResponseData(response).Page);
   }
 
   public queryAnimeList(user: User) {
-    return this.postRequest<ListMediaDto>(listQuery, {
-      variables: {
-        mediaType: 'ANIME',
-        userId: user.id,
-        sort: MediaSort.SCORE_DESC,
-      },
+    return this.postGraphQlRequest<ListMediaDto, MediaFilters>(listQuery, {
+      mediaType: 'ANIME',
+      userId: user.id,
+      sort: MediaSort.SCORE_DESC,
     }).map(response => {
       let listEntriesByStatus: { [Status in ListEntryStatus]?: ListEntry[] } = {};
 
@@ -88,7 +84,7 @@ export class AnimeApi extends AniListApi {
           const status = list.entries[0].status;
 
           list.entries.forEach(listEntry => {
-            listEntriesByStatus[status] = [...(listEntriesByStatus[status] || []), getParsedListEntry(listEntry)];
+            listEntriesByStatus[status] = [...(listEntriesByStatus[status] || []), listEntry];
           });
         });
       }
@@ -98,11 +94,9 @@ export class AnimeApi extends AniListApi {
   }
 
   public queryAnimeListMediaIdsByStatus(user: User) {
-    return this.postRequest<ListMediaIdsDto>(listMediaIdsQuery, {
-      variables: {
-        mediaType: 'ANIME',
-        userId: user.id,
-      },
+    return this.postGraphQlRequest<ListMediaIdsDto, MediaFilters>(listMediaIdsQuery, {
+      mediaType: 'ANIME',
+      userId: user.id,
     }).map(response => {
       let listMediaIdsByStatus: { [Status in ListEntryStatus]?: number[] } = {};
 
@@ -122,53 +116,35 @@ export class AnimeApi extends AniListApi {
   }
 
   public queryRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
-    return this.postRequest<ListEntriesPageDto>(updatedEntriesQuery, {
-      variables: {
-        mediaType: 'ANIME',
-        userId: user.id,
-        sort: MediaSort.UPDATED_TIME_DESC,
+    return this.postGraphQlRequest<ListEntriesPageDto, PagedMediaFilters>(updatedEntriesQuery, {
+      mediaType: 'ANIME',
+      userId: user.id,
+      sort: MediaSort.UPDATED_TIME_DESC,
 
-        page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
-        perPage: pageInfo ? pageInfo.perPage || 10 : 1,
-      },
-    }).map(response => {
-      const listEntriesDto = this.getResponseData(response);
-      if (listEntriesDto) {
-        listEntriesDto.Page.mediaList.map(listEntry => getParsedListEntry(listEntry));
-      }
-      return listEntriesDto && listEntriesDto.Page;
-    });
+      page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
+      perPage: pageInfo ? pageInfo.perPage || 10 : 1,
+    }).map(response => this.getResponseData(response).Page);
   }
 
-  public queryRecentlyFinishedAiringAnime(query: IdFilters, pageInfo?: PageQuery) {
-    return this.postRequest<MediaPageDto>(finishedAiringMediaQuery, {
-      variables: mapQueryFilters(query, {
+  public queryRecentlyFinishedAiringAnime(query: MediaFilters, pageInfo?: PageQuery) {
+    return this.postGraphQlRequest<MediaPageDto, PagedMediaFilters>(finishedAiringMediaQuery, {
+      ...query,
+      ...{
         mediaType: 'ANIME',
         status: 'FINISHED',
         sort: 'END_DATE_DESC',
         onList: true,
 
-        idIn: query && query.idIn,
-        idtIn: query && query.idNotIn,
-
         page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
         perPage: pageInfo ? pageInfo.perPage || 10 : 1,
-      }),
-    }).map(response => {
-      const listEntriesDto = this.getResponseData(response);
-      if (listEntriesDto) {
-        listEntriesDto.Page.media.map(media => getParsedAnime(media));
-      }
-      return listEntriesDto && listEntriesDto.Page;
-    });
+      },
+    }).map(response => this.getResponseData(response).Page);
   }
 
   public queryRelatedAnimeMedia(user: User) {
-    return this.postRequest<ListMediaDto>(relatedMediaQuery, {
-      variables: {
-        mediaType: 'ANIME',
-        userId: user.id,
-      },
+    return this.postGraphQlRequest<ListMediaDto, MediaFilters>(relatedMediaQuery, {
+      mediaType: 'ANIME',
+      userId: user.id,
     }).map(response => {
       let mediaList: Media[] = [];
 
@@ -196,10 +172,8 @@ export class AnimeApi extends AniListApi {
     );
   }
 
-  private queryFavouritesResultsPage(options: any, favourites: any[], callback: Function) {
-    return this.postRequest<FavouriteMediaDto>(listFavouritesQuery, {
-      variables: options,
-    })
+  private queryFavouritesResultsPage(options: PagedSearchFilters, favourites: any[], callback: Function) {
+    return this.postGraphQlRequest<FavouriteMediaDto, PagedSearchFilters>(listFavouritesQuery, options)
       .pipe(
         tap(response => {
           let results = [];
@@ -235,28 +209,22 @@ export class AnimeApi extends AniListApi {
   }
 
   public saveAnimeListEntry(listEntry: ListEntry) {
-    return this.postRequest<SaveListEntryDto>(saveListEntryQuery, {
-      variables: {
-        status: listEntry.status || 'COMPLETED',
-        mediaId: listEntry.media.id,
-        scoreRaw: listEntry.scoreRaw,
-      },
+    return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(saveListEntryQuery, {
+      status: listEntry.status || 'COMPLETED',
+      mediaId: listEntry.media.id,
+      scoreRaw: listEntry.scoreRaw,
     });
   }
 
   public deleteAnimeListEntry(listEntry: ListEntry) {
-    return this.postRequest<DeleteListEntryDto>(deleteListEntryQuery, {
-      variables: {
-        id: listEntry.id,
-      },
+    return this.postGraphQlRequest<DeleteListEntryDto, DeleteListEntryRequest>(deleteListEntryQuery, {
+      id: listEntry.id,
     });
   }
 
   public toggleAnimeFavouriteEntry(listEntry: ListEntry) {
-    return this.postRequest<ToggleFavouriteMediaDto>(toggleFavouriteEntryQuery, {
-      variables: {
-        animeId: listEntry.media.id,
-      },
+    return this.postGraphQlRequest<ToggleFavouriteMediaDto, ToggleFavouriteMediaRequest>(toggleFavouriteEntryQuery, {
+      animeId: listEntry.media.id,
     });
   }
 }

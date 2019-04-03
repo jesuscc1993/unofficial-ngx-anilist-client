@@ -18,7 +18,7 @@
       Cover
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <img [src]="anime.coverImage.medium" class="cover" />
+      <img [src]="anime.coverImage?.medium" class="cover" />
     </mat-cell>
   </ng-container>
 
