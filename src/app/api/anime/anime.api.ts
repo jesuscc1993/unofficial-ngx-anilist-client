@@ -16,10 +16,10 @@ import {
   listFavouritesQuery,
   listMediaIdsQuery,
   listQuery,
-  mediaQuery,
+  mediaIdSearchQuery,
+  mediaSearchQuery,
   relatedMediaQuery,
   saveListEntryQuery,
-  searchQuery,
   toggleFavouriteEntryQuery,
   updatedEntriesQuery,
 } from './anime-api.queries';
@@ -56,7 +56,7 @@ export class AnimeApi extends AniListApi {
   }
 
   public queryAnimeFromIds(mediaIds: number[]) {
-    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaQuery, {
+    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaSearchQuery, {
       mediaType: 'ANIME',
       idIn: mediaIds,
       sort: MediaSort.TITLE_ROMAJI,
@@ -66,7 +66,7 @@ export class AnimeApi extends AniListApi {
   }
 
   public queryAnimeSearch(query: SearchFilters, pageInfo?: PageQuery) {
-    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(searchQuery, {
+    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaIdSearchQuery, {
       ...this.getPageOptions(pageInfo),
       ...query,
       mediaType: 'ANIME',

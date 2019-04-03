@@ -50,9 +50,12 @@ export class AnimeService {
   }
 
   public getRecentlyFinishedAiringAnime(query: any, pageInfo?: PageQuery) {
-    return this.animeApi
-      .queryRecentlyFinishedAiringAnime(query, pageInfo)
-      .pipe(tap(pageData => this.mediaStore.storeAnime(pageData.media)));
+    return this.animeApi.queryRecentlyFinishedAiringAnime(query, pageInfo).pipe(
+      flatMap(response =>
+        this.getMediaFromIds(response.media.map(media => media.id)).pipe(map(media => ({ ...response, media })))
+      ),
+      tap(pageData => this.mediaStore.storeAnime(pageData.media))
+    );
   }
 
   public getRelatedAnimeMedia(user: User) {

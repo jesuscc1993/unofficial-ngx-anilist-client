@@ -161,27 +161,7 @@ export const userQuery = `
   }
 `;
 
-export const mediaQuery = `
-  query (
-    ${filterTypes.media}
-    ${filterTypes.page}
-  ) {
-    Page (
-      ${filterMappings.page}
-    ) {
-      pageInfo {
-        ${pageInfoFields}
-      }
-      media (
-        ${filterMappings.media}
-      ) {
-        ${animeFields}
-      }
-    }
-  }
-`;
-
-export const searchQuery = `
+export const mediaIdSearchQuery = `
   query (
     ${filterTypes.media}
     ${filterTypes.page}
@@ -196,6 +176,26 @@ export const searchQuery = `
         ${filterMappings.media}
       ) {
         ${mediaFields}
+      }
+    }
+  }
+`;
+
+export const mediaSearchQuery = `
+  query (
+    ${filterTypes.media}
+    ${filterTypes.page}
+  ) {
+    Page (
+      ${filterMappings.page}
+    ) {
+      pageInfo {
+        ${pageInfoFields}
+      }
+      media (
+        ${filterMappings.media}
+      ) {
+        ${animeFields}
       }
     }
   }
@@ -291,11 +291,7 @@ export const finishedAiringMediaQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${animeFields}
-
-        mediaListEntry {
-          ${animeListEntryFields}
-        }
+        ${mediaFields}
       }
     }
   }
