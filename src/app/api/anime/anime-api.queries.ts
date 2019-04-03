@@ -85,6 +85,12 @@ const listEntryFields = `
   updatedAt
 `;
 
+const listEntryFieldsWithMediaId = `${listEntryFields}
+  media {
+    id
+  }
+`;
+
 const mediaFields = `
   id
   mediaListEntry {
@@ -271,7 +277,7 @@ export const updatedEntriesQuery = `
       mediaList (
         ${filterMappings.mediaCollection}
       ) {
-        ${animeListEntryFields}
+        ${listEntryFieldsWithMediaId}
       }
     }
   }

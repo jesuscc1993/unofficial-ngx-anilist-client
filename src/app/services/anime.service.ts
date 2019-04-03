@@ -21,7 +21,9 @@ export class AnimeService {
   public searchAnime(query: SearchFilters, pageInfo?: PageQuery) {
     return this.animeApi.queryAnimeSearch(query, pageInfo).pipe(
       flatMap(response =>
-        this.getMediaFromIds(response.media.map(media => media.id)).pipe(map(media => ({ ...response, media })))
+        this.getAnimeFromIds(response.media.map(media => media.id)).pipe(
+          map(animeList => ({ ...response, media: animeList }))
+        )
       ),
       tap(pageData => this.mediaStore.storeAnime(pageData.media))
     );
@@ -44,15 +46,28 @@ export class AnimeService {
   }
 
   public getRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
-    return this.animeApi
-      .queryRecentlyUpdatedAnime(user, pageInfo)
-      .pipe(tap(pageData => this.mediaStore.storeAnime(pageData.mediaList.map(listEntry => listEntry.media))));
+    return this.animeApi.queryRecentlyUpdatedAnime(user, pageInfo).pipe(
+      flatMap(response =>
+        this.getAnimeFromIds(response.mediaList.map(listEntry => listEntry.media.id)).pipe(
+          map(animeList => ({
+            ...response,
+            mediaList: response.mediaList.map(listEntry => ({
+              ...listEntry,
+              media: animeList.find(anime => anime.id === listEntry.media.id),
+            })),
+          }))
+        )
+      ),
+      tap(pageData => this.mediaStore.storeAnime(pageData.mediaList.map(listEntry => listEntry.media)))
+    );
   }
 
   public getRecentlyFinishedAiringAnime(query: any, pageInfo?: PageQuery) {
     return this.animeApi.queryRecentlyFinishedAiringAnime(query, pageInfo).pipe(
       flatMap(response =>
-        this.getMediaFromIds(response.media.map(media => media.id)).pipe(map(media => ({ ...response, media })))
+        this.getAnimeFromIds(response.media.map(media => media.id)).pipe(
+          map(animeList => ({ ...response, media: animeList }))
+        )
       ),
       tap(pageData => this.mediaStore.storeAnime(pageData.media))
     );
@@ -78,7 +93,7 @@ export class AnimeService {
     return this.animeApi.toggleAnimeFavouriteEntry(listEntry);
   }
 
-  private getMediaFromIds(mediaIds: number[]): Observable<Anime[]> {
+  private getAnimeFromIds(mediaIds: number[]): Observable<Anime[]> {
     const animeDictionary = this.mediaStore.getAnimeDictionary();
     const storeIds = Object.keys(animeDictionary).map(key => parseInt(key));
     const missingIds = mediaIds.filter(id => storeIds.indexOf(id) < 0);
