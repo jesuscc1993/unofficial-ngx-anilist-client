@@ -68,7 +68,7 @@ filterMappings.media = `
 
 /* fields */
 
-const pageInfoFields: string = `
+const pageInfoFields = `
   currentPage
   hasNextPage
   lastPage
@@ -76,7 +76,7 @@ const pageInfoFields: string = `
   total
 `;
 
-const listAnimeFields: string = `
+const listAnimeFields = `
   averageScore
   coverImage {
     large
@@ -107,7 +107,7 @@ const listAnimeFields: string = `
   }
 `;
 
-const searchAnimeFields: string = `${listAnimeFields}
+const searchAnimeFields = `${listAnimeFields}
   mediaListEntry {
     id
     scoreRaw: score (
@@ -117,7 +117,7 @@ const searchAnimeFields: string = `${listAnimeFields}
   }
 `;
 
-const listEntryFields: string = `
+const listEntryFields = `
   id
   media {
     ${listAnimeFields}
@@ -131,13 +131,13 @@ const listEntryFields: string = `
 
 /* queries */
 
-export const genresQuery: string = `
+export const genresQuery = `
   {
     GenreCollection
   }
 `;
 
-export const userQuery: string = `
+export const userQuery = `
   {
     Viewer {
       avatar {
@@ -161,7 +161,7 @@ export const userQuery: string = `
   }
 `;
 
-export const searchQuery: string = `
+export const mediaQuery = `
   query (
     ${filterTypes.media}
     ${filterTypes.page}
@@ -175,13 +175,33 @@ export const searchQuery: string = `
       media (
         ${filterMappings.media}
       ) {
-        ${searchAnimeFields}
+        ${listAnimeFields}
       }
     }
   }
 `;
 
-export const listQuery: string = `
+export const searchQuery = `
+  query (
+    ${filterTypes.media}
+    ${filterTypes.page}
+  ) {
+    Page (
+      ${filterMappings.page}
+    ) {
+      pageInfo {
+        ${pageInfoFields}
+      }
+      media (
+        ${filterMappings.media}
+      ) {
+        id
+      }
+    }
+  }
+`;
+
+export const listQuery = `
   query (
     ${filterTypes.mediaCollection}
   ) {
@@ -197,7 +217,7 @@ export const listQuery: string = `
   }
 `;
 
-export const relatedMediaQuery: string = `
+export const relatedMediaQuery = `
   query (
     ${filterTypes.mediaCollection}
   ) {
@@ -218,7 +238,7 @@ export const relatedMediaQuery: string = `
       }
 `;
 
-export const listMediaIdsQuery: string = `
+export const listMediaIdsQuery = `
   query (
     ${filterTypes.mediaCollection}
   ) {
@@ -237,7 +257,7 @@ export const listMediaIdsQuery: string = `
   }
 `;
 
-export const updatedEntriesQuery: string = `
+export const updatedEntriesQuery = `
   query (
     ${filterTypes.mediaCollection}
     ${filterTypes.page}
@@ -257,7 +277,7 @@ export const updatedEntriesQuery: string = `
   }
 `;
 
-export const finishedAiringMediaQuery: string = `
+export const finishedAiringMediaQuery = `
   query (
     ${filterTypes.media}
     ${filterTypes.page}
@@ -281,7 +301,7 @@ export const finishedAiringMediaQuery: string = `
   }
 `;
 
-export const listFavouritesQuery: string = `
+export const listFavouritesQuery = `
   query (
     $userId: Int!,
     $page: Int
@@ -305,7 +325,7 @@ export const listFavouritesQuery: string = `
   }
 `;
 
-export const saveListEntryQuery: string = `
+export const saveListEntryQuery = `
   mutation (
     $mediaId: Int,
     $scoreRaw: Int,
@@ -322,7 +342,7 @@ export const saveListEntryQuery: string = `
   }
 `;
 
-export const deleteListEntryQuery: string = `
+export const deleteListEntryQuery = `
   mutation (
     $id: Int
   ) {
@@ -332,7 +352,7 @@ export const deleteListEntryQuery: string = `
   }
 `;
 
-export const toggleFavouriteEntryQuery: string = `
+export const toggleFavouriteEntryQuery = `
   mutation (
     $animeId: Int
   ) {

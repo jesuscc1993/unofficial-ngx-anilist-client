@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../services/anime.service';
-import { Anime } from '../../types/anilist/anime.types';
+import { Anime } from '../../types/anilist/media.types';
 
 @Component({
   selector: 'mt-anime-detail',

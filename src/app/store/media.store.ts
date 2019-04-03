@@ -1,36 +1,27 @@
 import { Injectable } from '@angular/core';
 
-import { Media } from '../types/anilist/media.types';
+import { Anime } from '../types/anilist/media.types';
 
-export type MediaDictionary = { [mediaId: number]: Media };
-export type MediaStoreState = { mediaDictionary: MediaDictionary };
+export type MediaDictionary<MediaType> = { [mediaId: number]: MediaType };
+export type MediaStoreState = { animeDictionary: MediaDictionary<Anime> };
 
 @Injectable()
 export class MediaStore {
-  private state: MediaStoreState = { mediaDictionary: {} };
+  private state: MediaStoreState = { animeDictionary: {} };
 
-  public getMediaDictionary() {
-    return this.state.mediaDictionary;
+  public getAnimeDictionary() {
+    return this.state.animeDictionary;
   }
 
-  public storeMedia(mediaList: Media[]) {
+  public storeAnime(animeList: Anime[]) {
     this.state = {
       ...this.state,
-      mediaDictionary: {
-        ...mediaList.reduce((mediaDictionary, media) => ({ ...mediaDictionary, [media.id]: media }), this.state
-          .mediaDictionary as MediaDictionary),
+      animeDictionary: {
+        ...animeList.reduce(
+          (animeDictionary, anime) => ({ ...animeDictionary, [anime.id]: anime }),
+          this.state.animeDictionary
+        ),
       },
     };
-    this.logAsNames();
-  }
-
-  private logAsNames() {
-    console.log(
-      JSON.stringify(
-        Object.keys(this.state.mediaDictionary).map(mediaId => this.state.mediaDictionary[mediaId].title.romaji),
-        null,
-        2
-      )
-    );
   }
 }

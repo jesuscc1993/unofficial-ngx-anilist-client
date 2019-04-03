@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 
 import { apiUrl } from '../app.constants';
 import { AuthStore } from '../store/auth.store';
+import { PageInfo, PageQuery } from '../types/anilist/pageInfo.types';
 import { ServerResponse } from '../types/anilist/response.types';
 
 export class AniListApi {
@@ -15,6 +16,13 @@ export class AniListApi {
   protected getRequestOptions() {
     const accessToken = this.authStore.getAccessToken();
     return { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} };
+  }
+
+  protected getPageOptions(pageOptions?: PageQuery | PageInfo) {
+    return {
+      page: pageOptions ? (pageOptions.pageIndex >= 1 ? pageOptions.pageIndex : 1) : 1,
+      perPage: pageOptions ? pageOptions.perPage || 10 : 1,
+    };
   }
 
   protected postGraphQlRequest<ResponseType, VariablesType = undefined>(

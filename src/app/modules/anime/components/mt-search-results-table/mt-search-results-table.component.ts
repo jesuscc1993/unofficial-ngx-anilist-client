@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource, Sort } from '@angular/material';
 
-import { Anime } from '../../../../types/anilist/anime.types';
 import { MediaSort } from '../../../../types/anilist/enums/mediaSorts';
+import { Anime } from '../../../../types/anilist/media.types';
 
 @Component({
   selector: 'mt-search-results-table',

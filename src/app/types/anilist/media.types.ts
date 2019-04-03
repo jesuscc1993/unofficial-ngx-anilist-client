@@ -3,7 +3,7 @@ import { ListEntry } from './listEntry.types';
 
 export type MediaStatus = 'FINISHED' | 'RELEASING' | 'NOT_YET_RELEASED' | 'CANCELLED';
 
-export class Media {
+export class MediaData {
   averageScore: number;
   coverImage: CoverImage;
   description: string;
@@ -17,3 +17,11 @@ export class Media {
   title: Title;
   endDate?: FuzzyDate;
 }
+
+export class Anime extends MediaData {
+  startDate: FuzzyDate;
+  episodes: number;
+  genres: string[];
+}
+
+export type Media = Anime;

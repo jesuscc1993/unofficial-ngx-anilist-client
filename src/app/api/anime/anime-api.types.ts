@@ -1,6 +1,5 @@
-import { Anime } from '../../types/anilist/anime.types';
 import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
-import { Media, MediaStatus } from '../../types/anilist/media.types';
+import { Anime, Media, MediaStatus } from '../../types/anilist/media.types';
 import { PageInfo } from '../../types/anilist/pageInfo.types';
 
 /* filters */

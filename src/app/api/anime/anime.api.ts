@@ -16,6 +16,7 @@ import {
   listFavouritesQuery,
   listMediaIdsQuery,
   listQuery,
+  mediaQuery,
   relatedMediaQuery,
   saveListEntryQuery,
   searchQuery,
@@ -54,17 +55,22 @@ export class AnimeApi extends AniListApi {
     );
   }
 
+  public queryAnimeFromIds(mediaIds: number[]) {
+    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaQuery, {
+      mediaType: 'ANIME',
+      idIn: mediaIds,
+
+      perPage: mediaIds.length,
+    }).pipe(map(response => this.getResponseData(response).Page.media));
+  }
+
   public queryAnimeSearch(query: SearchFilters, pageInfo?: PageQuery) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(searchQuery, {
+      ...this.getPageOptions(pageInfo),
       ...query,
-      ...{
-        mediaType: 'ANIME',
-        adultContent: query.adultContent || false,
-        sort: query.sort || MediaSort.TITLE_ROMAJI,
-
-        page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
-        perPage: pageInfo ? pageInfo.perPage || 10 : 1,
-      },
+      mediaType: 'ANIME',
+      adultContent: query.adultContent || false,
+      sort: query.sort || MediaSort.TITLE_ROMAJI,
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
@@ -119,27 +125,21 @@ export class AnimeApi extends AniListApi {
 
   public queryRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
     return this.postGraphQlRequest<ListEntriesPageDto, PagedMediaFilters>(updatedEntriesQuery, {
+      ...this.getPageOptions(pageInfo),
       mediaType: 'ANIME',
       userId: user.id,
       sort: MediaSort.UPDATED_TIME_DESC,
-
-      page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
-      perPage: pageInfo ? pageInfo.perPage || 10 : 1,
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
   public queryRecentlyFinishedAiringAnime(query: MediaFilters, pageInfo?: PageQuery) {
     return this.postGraphQlRequest<MediaPageDto, PagedMediaFilters>(finishedAiringMediaQuery, {
+      ...this.getPageOptions(pageInfo),
       ...query,
-      ...{
-        mediaType: 'ANIME',
-        status: 'FINISHED',
-        sort: 'END_DATE_DESC',
-        onList: true,
-
-        page: pageInfo ? (pageInfo.pageIndex >= 1 ? pageInfo.pageIndex : 1) : 1,
-        perPage: pageInfo ? pageInfo.perPage || 10 : 1,
-      },
+      mediaType: 'ANIME',
+      status: 'FINISHED',
+      sort: 'END_DATE_DESC',
+      onList: true,
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
