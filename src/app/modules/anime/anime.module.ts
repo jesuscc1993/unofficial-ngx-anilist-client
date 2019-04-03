@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { MediaStore } from '../../store/media.store';
 import { SharedModule } from '../shared/shared.module';
 import {
   MtListEntryFormModalComponent,
@@ -44,5 +45,6 @@ const declarations = [
   imports: [SharedModule],
   exports: declarations,
   entryComponents: [MtListEntryFormModalComponent, MtMediaDetailModalComponent],
+  providers: [MediaStore],
 })
 export class AnimeModule {}
