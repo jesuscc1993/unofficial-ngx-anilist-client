@@ -107,7 +107,7 @@ const listAnimeFields = `
   }
 `;
 
-const searchAnimeFields = `
+const mediaFields = `
   id
   mediaListEntry {
     id
@@ -117,6 +117,8 @@ const searchAnimeFields = `
     status
   }
 `;
+
+const mediaWithListEntry = `${mediaFields}${listAnimeFields}`;
 
 const listEntryFields = `
   id
@@ -176,7 +178,7 @@ export const mediaQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${listAnimeFields}
+        ${mediaWithListEntry}
       }
     }
   }
@@ -196,7 +198,7 @@ export const searchQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${searchAnimeFields}
+        ${mediaFields}
       }
     }
   }
