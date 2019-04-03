@@ -1,6 +1,6 @@
 @import 'variables';
 
-$horizontal-cell-padding: $spacing-xxs;
+$horizontal-cell-padding: 32px;
 
 .series-table {
   mat-row {
@@ -23,12 +23,24 @@ $horizontal-cell-padding: $spacing-xxs;
     }
   }
 
+  mat-cell:first-of-type,
+  mat-footer-cell:first-of-type,
+  mat-header-cell:first-of-type {
+    padding-left: $horizontal-cell-padding;
+  }
+
+  mat-cell:last-of-type,
+  mat-footer-cell:last-of-type,
+  mat-header-cell:last-of-type {
+    padding-right: $horizontal-cell-padding;
+  }
+
   .mat-column-actions {
     overflow: visible;
     font-size: 0;
 
     .menu-toggle {
-      $size: $spacing-s;
+      $size: $horizontal-cell-padding;
       width: $size;
       margin-left: -$size;
       font-size: $font-size-m;
