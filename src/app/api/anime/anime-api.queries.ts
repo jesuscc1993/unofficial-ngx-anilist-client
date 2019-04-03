@@ -76,7 +76,23 @@ const pageInfoFields = `
   total
 `;
 
-const listAnimeFields = `
+const listEntryFields = `
+  id
+  scoreRaw: score (
+    format: POINT_100
+  )
+  status
+  updatedAt
+`;
+
+const mediaFields = `
+  id
+  mediaListEntry {
+    ${listEntryFields}
+  }
+`;
+
+const animeFields = `${mediaFields}
   averageScore
   coverImage {
     large
@@ -107,29 +123,10 @@ const listAnimeFields = `
   }
 `;
 
-const mediaFields = `
-  id
-  mediaListEntry {
-    id
-    scoreRaw: score (
-      format: POINT_100
-    )
-    status
-  }
-`;
-
-const mediaWithListEntry = `${mediaFields}${listAnimeFields}`;
-
-const listEntryFields = `
-  id
+const animeListEntryFields = `${listEntryFields}
   media {
-    ${listAnimeFields}
+    ${animeFields}
   }
-  scoreRaw: score (
-    format: POINT_100
-  )
-  status
-  updatedAt
 `;
 
 /* queries */
@@ -178,7 +175,7 @@ export const mediaQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${mediaWithListEntry}
+        ${animeFields}
       }
     }
   }
@@ -213,7 +210,7 @@ export const listQuery = `
     ) {
       lists {
         entries {
-          ${listEntryFields}
+          ${animeListEntryFields}
         }
       }
     }
@@ -233,7 +230,7 @@ export const relatedMediaQuery = `
           media {
             relations {
               nodes {
-                ${listAnimeFields}
+                ${animeFields}
               }
             }
           }
@@ -274,7 +271,7 @@ export const updatedEntriesQuery = `
       mediaList (
         ${filterMappings.mediaCollection}
       ) {
-        ${listEntryFields}
+        ${animeListEntryFields}
       }
     }
   }
@@ -294,10 +291,10 @@ export const finishedAiringMediaQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${listAnimeFields}
+        ${animeFields}
 
         mediaListEntry {
-          ${listEntryFields}
+          ${animeListEntryFields}
         }
       }
     }

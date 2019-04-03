@@ -59,6 +59,7 @@ export class AnimeApi extends AniListApi {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaQuery, {
       mediaType: 'ANIME',
       idIn: mediaIds,
+      sort: MediaSort.TITLE_ROMAJI,
 
       perPage: mediaIds.length,
     }).pipe(map(response => this.getResponseData(response).Page.media));
