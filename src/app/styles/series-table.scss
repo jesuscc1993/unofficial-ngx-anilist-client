@@ -1,6 +1,7 @@
 @import 'variables';
 
-$horizontal-cell-padding: 32px;
+$desktop-horizontal-cell-padding: 32px;
+$mobile-horizontal-cell-padding: 40px;
 
 .series-table {
   mat-row {
@@ -26,13 +27,17 @@ $horizontal-cell-padding: 32px;
   mat-cell:first-of-type,
   mat-footer-cell:first-of-type,
   mat-header-cell:first-of-type {
-    padding-left: $horizontal-cell-padding;
+    padding-left: $desktop-horizontal-cell-padding;
   }
 
   mat-cell:last-of-type,
   mat-footer-cell:last-of-type,
   mat-header-cell:last-of-type {
-    padding-right: $horizontal-cell-padding;
+    padding-right: $desktop-horizontal-cell-padding;
+  }
+
+  .mat-header-row {
+    min-height: 50px;
   }
 
   .mat-column-actions {
@@ -40,7 +45,7 @@ $horizontal-cell-padding: 32px;
     font-size: 0;
 
     .menu-toggle {
-      $size: $horizontal-cell-padding;
+      $size: $desktop-horizontal-cell-padding;
       width: $size;
       margin-left: -$size;
       font-size: $font-size-m;
@@ -98,33 +103,50 @@ $horizontal-cell-padding: 32px;
   }
 
   .mat-column-cover-image {
+    flex: 0;
     font-size: 0;
 
     img.cover {
       height: auto;
+    }
 
-      @media (min-width: $screen-xxs + 1) {
-        max-width: 88px;
+    @media (min-width: $screen-xxs + 1) {
+      $cover-width: 88px;
+      padding-right: $cover-width + $spacing-xxs;
+
+      img.cover {
+        max-width: $cover-width;
       }
-      @media (max-width: $screen-xxs) {
-        max-width: 48px;
+    }
+    @media (max-width: $screen-xxs) {
+      $cover-width: 48px;
+      padding-right: $cover-width + $spacing-xxs;
+
+      img.cover {
+        max-width: $cover-width;
       }
     }
   }
 
   @media (max-width: $screen-xxs) {
-    $actions-column-width: 40px;
+    mat-cell:first-of-type,
+    mat-footer-cell:first-of-type,
+    mat-header-cell:first-of-type {
+      padding-left: $mobile-horizontal-cell-padding;
+    }
 
-    .mat-header-row,
-    .mat-row {
-      padding: 0 $spacing-s 0 $actions-column-width;
+    mat-cell:last-of-type,
+    mat-footer-cell:last-of-type,
+    mat-header-cell:last-of-type {
+      padding-right: $mobile-horizontal-cell-padding;
     }
 
     .mat-column-actions {
       .menu-toggle {
-        width: $actions-column-width;
-        margin-left: -$actions-column-width;
-        font-size: $spacing-s;
+        $size: $mobile-horizontal-cell-padding;
+        width: $size;
+        margin-left: -$size;
+        font-size: $font-size-l;
       }
     }
   }
@@ -136,9 +158,6 @@ $horizontal-cell-padding: 32px;
   }
 
   @media (min-width: $screen-m + 1) {
-    .mat-column-cover-image {
-      flex: 0.8;
-    }
     .mat-column-title-romaji {
       flex: 4;
     }
@@ -160,9 +179,6 @@ $horizontal-cell-padding: 32px;
   }
 
   @media (max-width: $screen-m) {
-    .mat-column-cover-image {
-      flex: 1.55;
-    }
     .mat-column-title-romaji {
       flex: 4;
     }
@@ -191,27 +207,18 @@ $horizontal-cell-padding: 32px;
       display: none;
     }
 
-    .mat-column-cover-image {
-      flex: 1.05;
-    }
     .mat-column-format {
       flex: 0.65;
     }
   }
 
   @media (max-width: $screen-xs) {
-    .mat-column-cover-image {
-      flex: 1.5;
-    }
     .mat-column-format {
       flex: 0.9;
     }
   }
 
   @media (max-width: $screen-xxs) {
-    .mat-column-cover-image {
-      flex: 1.5;
-    }
     .mat-column-format {
       flex: 1.6;
     }
