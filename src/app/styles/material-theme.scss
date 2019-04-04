@@ -91,7 +91,7 @@ mat-toolbar {
 
       &:not(.active) {
         &:not(:hover) {
-          color: invert(map-get(map-get($theme, background), app-bar), 20%);
+          color: invert(map-get(map-get($theme, background), app-bar), 33%);
         }
       }
     }
