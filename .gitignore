@@ -2,6 +2,10 @@
 
 # explicit exclusions
 /excluded
+/src/environments/environment.ts
+
+# logs
+yarn-error.log
 
 # compiled output
 /dist
@@ -13,9 +17,11 @@
 
 # IDEs and editors
 /.idea
+/.history
 .project
 .classpath
 .c9/
+*.iml
 *.launch
 .settings/
 *.sublime-workspace
