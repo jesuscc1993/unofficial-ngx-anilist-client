@@ -93,6 +93,8 @@ Provides multiple actions to be done with an anime
 
 - Translate mat-paginator
 - Add language selection
+- Fix ngx-translate on gh-pages (add translations root to environments file)
 - Fix toasts (no longer showing)
 - Implement store for listEntries
 - Get rid of EnumMaps
+- Group recent list updates by status
