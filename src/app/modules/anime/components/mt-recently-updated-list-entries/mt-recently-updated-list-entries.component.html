@@ -8,7 +8,9 @@
   <mat-divider></mat-divider>
 
   <div class="content">
-    <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
+    <div *ngIf="!ready" class="placeholder">
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
 
     <div *ngIf="listEntries?.length" class="cover-media-grid">
       <mt-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></mt-cover-media>
