@@ -56,7 +56,9 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   }
 
   onUpdate(listEntry?: ListEntry) {
-    this.onEntryUpdate.emit(listEntry);
+    if (listEntry) {
+      this.onEntryUpdate.emit(listEntry);
+    }
   }
 
   private initializeDataSource() {

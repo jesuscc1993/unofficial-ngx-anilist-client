@@ -96,6 +96,8 @@ $mobile-horizontal-cell-padding: 40px;
           padding: 0;
 
           .mat-chip {
+            margin: 0;
+
             &.rounded {
               $height: 19px;
               line-height: $height;

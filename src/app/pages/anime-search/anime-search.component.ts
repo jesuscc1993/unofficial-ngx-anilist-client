@@ -17,11 +17,8 @@ import {
 import { AnimeService } from '../../services/anime.service';
 import { AuthService } from '../../services/auth.service';
 import { AuthStore } from '../../store/auth.store';
-import { mediaFormatValues } from '../../types/anilist/enums/mediaFormats';
 import { MediaSort } from '../../types/anilist/enums/mediaSorts';
-import { mediaStatusValues } from '../../types/anilist/enums/mediaStatus';
-import { OnListOptions } from '../../types/anilist/enums/onListOptions';
-import { Anime } from '../../types/anilist/media.types';
+import { Anime, MediaFormat, MediaStatus } from '../../types/anilist/media.types';
 import { PageInfo } from '../../types/anilist/pageInfo.types';
 import { User } from '../../types/anilist/user.types';
 import { GenericUtil } from '../../utils/generic.util';
@@ -43,9 +40,9 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   excludeOnList: boolean;
 
   mediaGenres: string[];
-  mediaFormats = mediaFormatValues;
-  mediaStatuses = mediaStatusValues;
-  onListOptions = OnListOptions.LIST;
+  mediaFormats: MediaFormat[] = ['MOVIE', 'MUSIC', 'ONA', 'OVA', 'SPECIAL', 'TV_SHORT', 'TV'];
+  mediaStatuses: MediaStatus[] = ['FINISHED', 'RELEASING', 'NOT_YET_RELEASED', 'CANCELLED'];
+  onListOptions = [true, false, undefined];
   minYear = 1900;
   maxYear = new Date().getFullYear() + 1;
 

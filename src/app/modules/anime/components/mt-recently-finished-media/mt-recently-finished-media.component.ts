@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { tap } from 'rxjs/operators';
 
 import { Tab } from '../../../../types/tab.types';
 
@@ -11,23 +13,22 @@ export class MtRecentlyFinishedMediaComponent {
   tabs: Tab[];
   activeTab: Tab;
 
-  constructor() {
-    this.tabs = [
-      {
-        label: 'Series',
-        formatIn: ['TV'],
-      },
-      {
-        label: 'Movies',
-        formatIn: ['MOVIE'],
-      },
-      {
-        label: 'Other',
-        formatNotIn: ['TV', 'MOVIE'],
-      },
+  constructor(private translateService: TranslateService) {
+    const tabs = [
+      { label: 'anime.dashboard.finishedAiring.series', formatIn: ['TV'] },
+      { label: 'anime.dashboard.finishedAiring.movies', formatIn: ['MOVIE'] },
+      { label: 'anime.dashboard.finishedAiring.other', formatNotIn: ['TV', 'MOVIE'] },
     ];
 
-    this.activeTab = this.tabs[0];
+    this.translateService
+      .get(tabs.map(tab => tab.label))
+      .pipe(
+        tap(translations => {
+          this.tabs = tabs.map(tab => ({ ...tab, label: translations[tab.label] }));
+          this.activeTab = this.tabs[0];
+        })
+      )
+      .subscribe();
   }
 
   activateTab(tab: Tab) {

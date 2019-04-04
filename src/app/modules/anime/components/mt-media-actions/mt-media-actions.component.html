@@ -2,28 +2,28 @@
 
 <mat-menu #entryMenu="matMenu">
   <mt-menu-action (onPress)="saveToList()" disabled="{{ !user }}" icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}">
-    {{ isUpdateAvailable() ? 'Update entry' : 'Add to list' }}
+    {{ (isUpdateAvailable() ? 'anime.userList.updateEntry' : 'anime.userList.addToList') | translate }}
   </mt-menu-action>
 
   <div *ngIf="isUpdateAvailable()">
     <mt-menu-action (onPress)="toggleFavourite()" icon="star">
-      Toggle favourite
+      {{ 'anime.userList.toggleFavourite' | translate }}
     </mt-menu-action>
   </div>
 
   <div *ngIf="isUpdateAvailable()">
     <mt-menu-action (onPress)="deleteEntry()" icon="trash">
-      Delete from list
+      {{ 'anime.userList.deleteFromList' | translate }}
     </mt-menu-action>
   </div>
 
   <div *ngIf="media && !fromModal">
     <mt-menu-action (onPress)="showDetail()" icon="id-card">
-      Additional info
+      {{ 'media.additionalInfo' | translate }}
     </mt-menu-action>
   </div>
 
   <mt-menu-action (onPress)="viewOnAniList()" icon="external-link-alt">
-    View on AniList
+    {{ 'media.viewOnAniList' | translate }}
   </mt-menu-action>
 </mat-menu>

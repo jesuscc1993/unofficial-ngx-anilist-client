@@ -1,0 +1,117 @@
+{
+  "anime": {
+    "dashboard": {
+      "finishedAiring": {
+        "movies": "Movies",
+        "other": "Other",
+        "series": "Series",
+        "title": "Finished airing"
+      },
+      "recentlyUpdated": {
+        "title": "Your latest list updates"
+      },
+      "title": "Dashboard"
+    },
+    "search": {
+      "filters": {
+        "above": "above",
+        "advanced": "Advanced filters",
+        "after": "after",
+        "before": "before",
+        "below": "below",
+        "byTitle": "Filter by name",
+        "clear": "Clear filters",
+        "includedIn": "in",
+        "notIncludedIn": "not in",
+        "onList": "On list",
+        "onListValues": {
+          "true": "On list",
+          "false": "Not on list",
+          "undefined": "Both"
+        }
+      },
+      "limittedFeatures": "Search will be available but most other features will not.",
+      "submit": "Search",
+      "title": "Anime search"
+    },
+    "status": "Status",
+    "statusValues": {
+      "COMPLETED": "Completed",
+      "CURRENT": "Viewing",
+      "DROPPED": "Dropped",
+      "PAUSED": "Paused",
+      "PLANNING": "Planned",
+      "REPEATING": "Repeating"
+    },
+    "userList": {
+      "addToList": "Add to list",
+      "deleteFromList": "Delete from list",
+      "entries": "entries",
+      "genresOverview": "Genres Overview",
+      "goTo": "Go to",
+      "noEntries": "No entries added yet.",
+      "show": "Show",
+      "title": "User's list",
+      "toggleFavourite": "Toggle favourite",
+      "updateEntry": "Update list entry"
+    }
+  },
+  "app": {
+    "title": "Unofficial Anilist Client"
+  },
+  "footer": {
+    "about": "About",
+    "anilistPrefix": "Powered by the",
+    "anilistSuffix": "AniList API.",
+    "github": "GitHub repository"
+  },
+  "generic": {
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "workInProgress": "Work in progress."
+  },
+  "media": {
+    "additionalInfo": "Additional info",
+    "cover": "Cover",
+    "description": "Description",
+    "duration": "Duration",
+    "episodes": "Episodes",
+    "format": "Status",
+    "formatValues": {
+      "label": "Format",
+      "MOVIE": "Movie",
+      "MUSIC": "Music",
+      "ONA": "ONA",
+      "OVA": "OVA",
+      "SPECIAL": "Special",
+      "TV": "TV",
+      "TV_SHORT": "TV short"
+    },
+    "genre": "Genre",
+    "genres": "Genres",
+    "goToDetail": "Go to full detail",
+    "score": "Score",
+    "status": "Status",
+    "statusValues": {
+      "CANCELLED": "Cancelled",
+      "FINISHED": "Finished",
+      "NOT_YET_RELEASED": "Unstarted",
+      "RELEASING": "Ongoing"
+    },
+    "studio": "Studio",
+    "tags": "Tags",
+    "title": "Title",
+    "viewOnAniList": "View on AniList",
+    "year": "Year"
+  },
+  "settings": {
+    "reloadOnUpdate": "Reload on update",
+    "title": "Settings"
+  },
+  "user": {
+    "logIn": "Log in with AniList",
+    "logOut": "Log out",
+    "notLoggedIn": "You are not logged in.",
+    "viewProfile": "View profile"
+  }
+}

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MaterialModule } from '../material/material.module';
 import { FaIconComponent } from './components/fa-icon/fa-icon.component';
@@ -38,6 +39,7 @@ const imports = [
   MaterialModule,
   ReactiveFormsModule,
   RouterModule,
+  TranslateModule,
 ];
 
 @NgModule({

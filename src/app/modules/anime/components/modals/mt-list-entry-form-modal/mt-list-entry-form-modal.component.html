@@ -8,9 +8,9 @@
       <!-- status -->
       <div class="form-group">
         <mat-form-field>
-          <mat-select placeholder="Status" formControlName="status">
-            <mat-option *ngFor="let status of liestEntryStatusList" [value]="status.value">
-              {{ status.label }}
+          <mat-select placeholder="{{ 'media.status' | translate }}" formControlName="status">
+            <mat-option *ngFor="let status of listEntryStatusList" [value]="status">
+              {{ 'anime.statusValues.' + status | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -19,7 +19,7 @@
       <!-- score -->
       <div class="form-group">
         <mat-form-field class="score-input">
-          <mat-label>Score</mat-label>
+          <mat-label>{{ 'media.score' | translate }}</mat-label>
           <input
             matInput
             type="number"
@@ -53,12 +53,12 @@
           [disabled]="!listEntryForm.valid || !isSubmitEnabled()"
         >
           <fa-icon name="save" class="baseline margin-right-xxxs"></fa-icon>
-          Submit
+          {{ 'generic.submit' | translate }}
         </button>
 
-        <button mat-raised-button class="float-right" (click)="doDismiss($event)">
+        <button mat-raised-button class="float-right" (click)="dismiss($event)">
           <fa-icon name="times" class="baseline margin-right-xxxs"></fa-icon>
-          Cancel
+          {{ 'generic.cancel' | translate }}
         </button>
       </span>
     </mt-modal-footer>

@@ -3,20 +3,20 @@ import { Sort } from '@angular/material';
 import { EnumMap } from '../../enumMap.types';
 
 export class MediaSort extends EnumMap {
-  static TITLE_ROMAJI: string = 'TITLE_ROMAJI';
-  static TITLE_ROMAJI_DESC: string = 'TITLE_ROMAJI_DESC';
-  static FORMAT: string = 'FORMAT';
-  static FORMAT_DESC: string = 'FORMAT_DESC';
-  static START_DATE: string = 'START_DATE';
-  static START_DATE_DESC: string = 'START_DATE_DESC';
-  static SCORE: string = 'SCORE';
-  static SCORE_DESC: string = 'SCORE_DESC';
-  static EPISODES: string = 'EPISODES';
-  static EPISODES_DESC: string = 'EPISODES_DESC';
-  static UPDATED_TIME: string = 'UPDATED_TIME';
-  static UPDATED_TIME_DESC: string = 'UPDATED_TIME_DESC';
-  static END_DATE: string = 'END_DATE';
-  static END_DATE_DESC: string = 'END_DATE_DESC';
+  static TITLE_ROMAJI = 'TITLE_ROMAJI';
+  static TITLE_ROMAJI_DESC = 'TITLE_ROMAJI_DESC';
+  static FORMAT = 'FORMAT';
+  static FORMAT_DESC = 'FORMAT_DESC';
+  static START_DATE = 'START_DATE';
+  static START_DATE_DESC = 'START_DATE_DESC';
+  static SCORE = 'SCORE';
+  static SCORE_DESC = 'SCORE_DESC';
+  static EPISODES = 'EPISODES';
+  static EPISODES_DESC = 'EPISODES_DESC';
+  static UPDATED_TIME = 'UPDATED_TIME';
+  static UPDATED_TIME_DESC = 'UPDATED_TIME_DESC';
+  static END_DATE = 'END_DATE';
+  static END_DATE_DESC = 'END_DATE_DESC';
 
   static LIST = [
     { label: 'Title (asc)', value: 'TITLE_ROMAJI' },
@@ -32,7 +32,7 @@ export class MediaSort extends EnumMap {
     { label: 'Time updated (asc)', value: 'UPDATED_TIME' },
     { label: 'Time updated (desc)', value: 'UPDATED_TIME_DESC' },
     { label: 'Date ended (asc)', value: 'END_DATE' },
-    { label: 'Date ended (desc)', value: 'END_DATE_DESC' }
+    { label: 'Date ended (desc)', value: 'END_DATE_DESC' },
   ];
 
   constructor(value: string) {
@@ -40,7 +40,7 @@ export class MediaSort extends EnumMap {
   }
 
   static fromSort(sort: Sort): MediaSort {
-    let sortKey: string = sort.active.replace(/-/g, '_');
+    let sortKey = sort.active.replace(/-/g, '_');
     if (sort.direction === 'desc') {
       sortKey += `_${sort.direction}`;
     }

@@ -2,7 +2,7 @@
   <mat-card *ngIf="!user" class="alert warning">
     <h4>
       <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
-      You are not logged in.
+      {{ 'user.notLoggedIn' | translate }}
     </h4>
   </mat-card>
 
@@ -12,22 +12,22 @@
     <div *ngIf="statuses && statuses.length">
       <mat-card class="table-filter">
         <mat-form-field class="full-width">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by name" />
+          <input
+            matInput
+            placeholder="{{ 'anime.search.filters.byTitle' | translate }}"
+            (keyup)="applyFilter($event.target.value)"
+          />
         </mat-form-field>
       </mat-card>
 
       <mat-card class="margin-top-s">
-        <h3>
-          Show / Go to
-        </h3>
+        <h3>{{ 'anime.userList.show' | translate }} / {{ 'anime.userList.goTo' | translate }}</h3>
 
         <div class="statuses-wrapper">
           <span *ngFor="let status of statuses" class="status-wrapper">
             <div *ngIf="hasDataOfStatus(status.value)">
               <mat-checkbox [(ngModel)]="status.shown">
-                <span class="capitalize">
-                  {{ status.value.toLowerCase() }}
-                </span>
+                {{ 'anime.statusValues.' + status.value | translate }}
               </mat-checkbox>
 
               <a href="{{ '/user-anime-list#' + status.value }}" class="go-to-link">
@@ -53,11 +53,11 @@
 
       <div class="padding-top-xs padding-bottom-m">
         <h3>
-          Settings
+          {{ 'settings.title' | translate }}
         </h3>
 
         <mat-slide-toggle [checked]="reloadOnUpdate" (change)="reloadOnUpdate = !reloadOnUpdate">
-          Reload on update
+          {{ 'settings.reloadOnUpdate' | translate }}
         </mat-slide-toggle>
       </div>
 
@@ -67,7 +67,7 @@
     <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
       <h4>
         <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
-        You haven't added any entries yet.
+        {{ 'anime.userList.noEntries' | translate }}
       </h4>
     </mat-card>
   </div>

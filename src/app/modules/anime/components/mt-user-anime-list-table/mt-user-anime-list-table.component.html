@@ -1,5 +1,5 @@
-<h3 class="capitalize no-margin-bottom margin-top-xxs vertical-padding-xs">
-  {{ tableStatus.toLowerCase() }}
+<h3 class="no-margin-bottom margin-top-xxs vertical-padding-xs">
+  {{ 'anime.statusValues.' + tableStatus | translate }}
 </h3>
 
 <mat-card class="no-padding">
@@ -19,7 +19,7 @@
 
     <ng-container matColumnDef="cover-image">
       <mat-header-cell *matHeaderCellDef>
-        Cover
+        {{ 'media.cover' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <img [src]="entry.media.coverImage?.medium" class="cover" />
@@ -28,7 +28,7 @@
 
     <ng-container matColumnDef="title-romaji">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Title
+        {{ 'media.title' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <span *ngIf="favouriteIDs?.indexOf(entry.media.id) >= 0">
@@ -42,18 +42,18 @@
 
     <ng-container matColumnDef="format">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Format
+        {{ 'media.format' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <span class="text">
-          {{ entry.media.format }}
+          {{ 'media.formatValues.' + entry.media.format | translate }}
         </span>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="start-date">
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-        Year
+        {{ 'media.year' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <span class="text">
@@ -64,7 +64,7 @@
 
     <ng-container matColumnDef="genres">
       <mat-header-cell *matHeaderCellDef>
-        Genres
+        {{ 'media.genres' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <mat-list>
@@ -77,7 +77,7 @@
 
     <ng-container matColumnDef="score">
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-        Score
+        {{ 'media.score' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <span class="text"> {{ entry.scoreRaw / 10 }}/10 </span>
@@ -86,7 +86,7 @@
 
     <ng-container matColumnDef="episodes">
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-        Episodes
+        {{ 'media.episodes' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <span class="text">

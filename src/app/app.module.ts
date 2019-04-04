@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AnimeApi } from './api/anime/anime.api';
 import { AuthApi } from './api/auth/auth.api';
@@ -36,7 +39,18 @@ const appRoutes: Routes = [
     AnimeDetailPageComponent,
     UserAnimeListPageComponent,
   ],
-  imports: [SharedModule, AnimeModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    SharedModule,
+    AnimeModule,
+    RouterModule.forRoot(appRoutes),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
+        deps: [HttpClient],
+      },
+    }),
+  ],
   providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore],
   bootstrap: [AppComponent],
 })

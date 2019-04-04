@@ -88,3 +88,11 @@ Provides multiple actions to be done with an anime
 ## Links
 
 - [Live demo](https://jesuscc1993.github.io/unofficial-ng5-anilist-client/anime-search)
+
+## TODO
+
+- Translate mat-paginator
+- Add language selection
+- Fix toasts (no longer showing)
+- Implement store for listEntries
+- Get rid of EnumMaps

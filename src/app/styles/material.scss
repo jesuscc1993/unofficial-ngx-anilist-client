@@ -58,6 +58,7 @@ mat-paginator {
 
 .mat-chip {
   outline: none;
+  margin: 0 $spacing-xxxxs $spacing-xxxxs * 2;
 
   &.rounded {
     $height: 22px;
@@ -68,7 +69,6 @@ mat-paginator {
 
   &:not(.rounded) {
     $vertical-padding: $spacing-xxxs;
-    margin: $spacing-xxxxs 0;
     padding: $spacing-xxxxs $vertical-padding;
     border-radius: $vertical-padding * 3/4;
     display: inline-block;

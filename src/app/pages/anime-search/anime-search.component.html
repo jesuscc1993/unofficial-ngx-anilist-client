@@ -2,7 +2,7 @@
   <mat-card *ngIf="!user" class="warning margin-bottom-xs">
     <h4>
       <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
-      You are not logged in. Search will be available but most other features will not.
+      {{ 'user.notLoggedIn' | translate }} {{ 'anime.search.limittedFeatures' | translate }}
     </h4>
   </mat-card>
 
@@ -10,13 +10,18 @@
     <mat-card class="text-center">
       <h1>
         <label for="searchInput">
-          Anime search
+          {{ 'anime.search.title' | translate }}
         </label>
       </h1>
 
       <div class="form-group">
         <mat-form-field class="medium display-block margin-auto">
-          <input id="searchInput" matInput placeholder="Anime title" formControlName="search" />
+          <input
+            id="searchInput"
+            matInput
+            placeholder="{{ 'anime.search.filters.byTitle' | translate }}"
+            formControlName="search"
+          />
         </mat-form-field>
       </div>
 
@@ -28,7 +33,7 @@
 
       <mat-expansion-panel class="mat-elevation-z padding-bottom-s search-filters">
         <mat-expansion-panel-header>
-          Advanced filters
+          {{ 'anime.search.filters.advanced' | translate }}
         </mat-expansion-panel-header>
 
         <mat-divider></mat-divider>
@@ -40,7 +45,7 @@
               <input
                 matInput
                 type="number"
-                placeholder="Aired after year"
+                placeholder="{{ 'media.year' | translate }} {{ 'anime.search.filters.after' | translate }}..."
                 formControlName="startDateGreaterThan"
                 [min]="minYear"
                 [max]="maxYear"
@@ -51,7 +56,7 @@
               <input
                 matInput
                 type="number"
-                placeholder="Aired before year"
+                placeholder="{{ 'media.year' | translate }} {{ 'anime.search.filters.before' | translate }}..."
                 formControlName="startDateSmallerThan"
                 [min]="minYear"
                 [max]="maxYear"
@@ -65,7 +70,7 @@
               <input
                 matInput
                 type="number"
-                placeholder="Scored above"
+                placeholder="{{ 'media.score' | translate }} {{ 'anime.search.filters.above' | translate }}..."
                 formControlName="averageScoreGreaterThan"
                 min="0"
                 max="10"
@@ -77,7 +82,7 @@
               <input
                 matInput
                 type="number"
-                placeholder="Scored below"
+                placeholder="{{ 'media.score' | translate }} {{ 'anime.search.filters.below' | translate }}..."
                 formControlName="averageScoreSmallerThan"
                 min="0"
                 max="10"
@@ -89,7 +94,11 @@
           <!-- genre -->
           <div class="form-group two-rows">
             <mat-form-field>
-              <mat-select placeholder="Genre in..." formControlName="genreIn" multiple>
+              <mat-select
+                placeholder="{{ 'media.genre' | translate }} {{ 'anime.search.filters.includedIn' | translate }}..."
+                formControlName="genreIn"
+                multiple
+              >
                 <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
                   {{ genre }}
                 </mat-option>
@@ -97,7 +106,11 @@
             </mat-form-field>
 
             <mat-form-field>
-              <mat-select placeholder="Genre not in..." formControlName="genreNotIn" multiple>
+              <mat-select
+                placeholder="{{ 'media.genre' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}..."
+                formControlName="genreNotIn"
+                multiple
+              >
                 <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
                   {{ genre }}
                 </mat-option>
@@ -108,17 +121,27 @@
           <!-- format -->
           <div class="form-group two-rows">
             <mat-form-field>
-              <mat-select placeholder="Format in..." #formatInput formControlName="formatIn" multiple>
-                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-                  {{ mediaFormat.label }}
+              <mat-select
+                placeholder="{{ 'media.format' | translate }} {{ 'anime.search.filters.includedIn' | translate }}..."
+                #formatInput
+                formControlName="formatIn"
+                multiple
+              >
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat">
+                  {{ 'media.formatValues.' + mediaFormat | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field>
-              <mat-select placeholder="Format not in..." #formatInput formControlName="formatNotIn" multiple>
-                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat.value">
-                  {{ mediaFormat.label }}
+              <mat-select
+                placeholder="{{ 'media.format' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}..."
+                #formatInput
+                formControlName="formatNotIn"
+                multiple
+              >
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat">
+                  {{ 'media.formatValues.' + mediaFormat | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -127,17 +150,27 @@
           <!-- status -->
           <div class="form-group two-rows">
             <mat-form-field>
-              <mat-select placeholder="Status in..." #formatInput formControlName="statusIn" multiple>
-                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus.value">
-                  {{ mediaStatus.label }}
+              <mat-select
+                placeholder="{{ 'media.status' | translate }} {{ 'anime.search.filters.includedIn' | translate }}..."
+                #formatInput
+                formControlName="statusIn"
+                multiple
+              >
+                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus">
+                  {{ 'media.statusValues.' + mediaStatus | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field>
-              <mat-select placeholder="Status not in..." #formatInput formControlName="statusNotIn" multiple>
-                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus.value">
-                  {{ mediaStatus.label }}
+              <mat-select
+                placeholder="{{ 'media.status' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}..."
+                #formatInput
+                formControlName="statusNotIn"
+                multiple
+              >
+                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus">
+                  {{ 'media.statusValues.' + mediaStatus | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -146,9 +179,9 @@
           <!-- on list -->
           <div class="form-group">
             <mat-form-field>
-              <mat-select placeholder="On list?" formControlName="onList">
-                <mat-option *ngFor="let option of onListOptions" [value]="option.value">
-                  {{ option.label }}
+              <mat-select placeholder="{{ 'anime.search.filters.onList' | translate }}..." formControlName="onList">
+                <mat-option *ngFor="let option of onListOptions" [value]="option">
+                  {{ 'anime.search.filters.onListValues.' + option | translate }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -157,7 +190,7 @@
 
         <div class="text-center padding-bottom-xs">
           <button mat-raised-button type="button" (click)="clearFilters($event)">
-            Clear filters
+            {{ 'anime.search.filters.clear' | translate }}
           </button>
         </div>
 
@@ -167,7 +200,7 @@
       <div class="text-center">
         <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
           <fa-icon name="search baseline" class="margin-right-xxxs"></fa-icon>
-          Search
+          {{ 'anime.search.submit' | translate }}
         </button>
       </div>
     </mat-card>

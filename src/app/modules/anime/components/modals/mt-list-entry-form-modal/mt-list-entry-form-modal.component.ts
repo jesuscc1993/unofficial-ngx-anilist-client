@@ -4,8 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../../../../services/anime.service';
-import { listEntryStatusValues } from '../../../../../types/anilist/enums/listEntryStatus';
-import { ListEntry } from '../../../../../types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../../../types/anilist/listEntry.types';
 import { Media } from '../../../../../types/anilist/media.types';
 
 type ListEntryFormModalParameters = {
@@ -23,7 +22,7 @@ export class MtListEntryFormModalComponent {
   listEntry: ListEntry;
   media: Media;
   listEntryForm: FormGroup;
-  liestEntryStatusList = listEntryStatusValues;
+  listEntryStatusList: ListEntryStatus[] = ['COMPLETED', 'DROPPED', 'PAUSED', 'PLANNING', 'REPEATING', 'CURRENT'];
 
   constructor(
     private animeService: AnimeService,

@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div>
     <span class="hide-below-s" title="Unofficial Angular Material Anilist Client">
-      Unofficial Anilist Client
+      {{ 'app.title' | translate }}
     </span>
   </div>
 
@@ -9,19 +9,19 @@
     <a [routerLink]="animeSearchUrl" [class.active]="onAnimeSearch">
       <fa-icon name="search" class="section-icon"></fa-icon>
       <span class="small">
-        Anime search
+        {{ 'anime.search.title' | translate }}
       </span>
     </a>
     <a [routerLink]="dashboardUrl" [class.active]="onDashboard">
       <fa-icon name="columns" class="section-icon"></fa-icon>
       <span class="small">
-        Dashboard
+        {{ 'anime.dashboard.title' | translate }}
       </span>
     </a>
     <a [routerLink]="userListUrl" [class.active]="onUserList">
       <fa-icon name="th-list" class="section-icon"></fa-icon>
       <span class="small">
-        User's list
+        {{ 'anime.userList.title' | translate }}
       </span>
     </a>
   </div>
@@ -39,11 +39,11 @@
 
     <mat-menu #userMenu="matMenu">
       <mt-menu-action (onPress)="navigateToAnilistProfile()" icon="external-link-alt">
-        View profile
+        {{ 'user.viewProfile' | translate }}
       </mt-menu-action>
 
       <mt-menu-action (onPress)="logOut()" icon="door-open">
-        Log out
+        {{ 'user.logOut' | translate }}
       </mt-menu-action>
     </mat-menu>
   </div>
@@ -52,7 +52,7 @@
   <div *ngIf="!user" class="flex-box center">
     <a *ngIf="loginAvailable" [href]="apiLoginUrl">
       <span class="hide-below-s">
-        Log in with AniList
+        {{ 'user.logIn' | translate }}
       </span>
       <fa-icon name="sign-in-alt"></fa-icon>
     </a>

@@ -1,13 +1,16 @@
 <mat-toolbar>
   <div class="text-center">
     <div>
-      About
+      {{ 'footer.about' | translate }}
     </div>
 
     <div class="links-wrapper">
-      <a [href]="gitHubProjectUrl"><fa-icon type="fab" name="github"></fa-icon> GitHub repository </a>
+      <a [href]="gitHubProjectUrl"><fa-icon type="fab" name="github"></fa-icon> {{ 'footer.github' | translate }} </a>
     </div>
 
-    <div class="about-anilist margin-top-xxs">Powered by the <mat-icon svgIcon="anilist"></mat-icon> AniList API</div>
+    <div class="about-anilist margin-top-xxs">
+      {{ 'footer.anilistPrefix' | translate }} <mat-icon svgIcon="anilist"></mat-icon>
+      {{ 'footer.anilistSuffix' | translate }}
+    </div>
   </div>
 </mat-toolbar>
