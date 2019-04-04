@@ -27,7 +27,7 @@
       Title
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <span class="title">
+      <span class="text">
         {{ anime.title.romaji }}
       </span>
     </mat-cell>
@@ -38,7 +38,9 @@
       Format
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      {{ anime.format }}
+      <span class="text">
+        {{ anime.format }}
+      </span>
     </mat-cell>
   </ng-container>
 
@@ -47,7 +49,9 @@
       Year
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      {{ anime.startDate.year }}
+      <span class="text">
+        {{ anime.startDate.year }}
+      </span>
     </mat-cell>
   </ng-container>
 
@@ -68,7 +72,9 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
       Score
     </mat-header-cell>
-    <mat-cell *matCellDef="let anime"> {{ anime.averageScore / 10 }}/10 </mat-cell>
+    <mat-cell *matCellDef="let anime">
+      <span class="text"> {{ anime.averageScore / 10 }}/10 </span>
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="episodes">
@@ -76,7 +82,9 @@
       Episodes
     </mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      {{ anime.episodes }}
+      <span class="text">
+        {{ anime.episodes }}
+      </span>
     </mat-cell>
   </ng-container>
 

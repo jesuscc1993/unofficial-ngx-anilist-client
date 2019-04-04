@@ -34,7 +34,7 @@
         <span *ngIf="favouriteIDs?.indexOf(entry.media.id) >= 0">
           <fa-icon name="heart" class="favourite"></fa-icon>
         </span>
-        <span class="title">
+        <span class="text">
           {{ entry.media.title.romaji }}
         </span>
       </mat-cell>
@@ -45,7 +45,9 @@
         Format
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        {{ entry.media.format }}
+        <span class="text">
+          {{ entry.media.format }}
+        </span>
       </mat-cell>
     </ng-container>
 
@@ -54,7 +56,9 @@
         Year
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        {{ entry.media.startDate.year }}
+        <span class="text">
+          {{ entry.media.startDate.year }}
+        </span>
       </mat-cell>
     </ng-container>
 
@@ -75,7 +79,9 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
         Score
       </mat-header-cell>
-      <mat-cell *matCellDef="let entry"> {{ entry.scoreRaw / 10 }}/10 </mat-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="text"> {{ entry.scoreRaw / 10 }}/10 </span>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="episodes">
@@ -83,7 +89,9 @@
         Episodes
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        {{ entry.media.episodes }}
+        <span class="text">
+          {{ entry.media.episodes }}
+        </span>
       </mat-cell>
     </ng-container>
 
