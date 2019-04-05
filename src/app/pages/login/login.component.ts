@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { apiLoginUrl } from '../../app.constants';
+import { TitleService } from '../../modules/shared/services/title.service';
 
 @Component({
   selector: 'mt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
   apiLoginUrl: string = apiLoginUrl;
 
-  constructor() {}
-
-  ngOnInit() {}
+  constructor(private titleService: TitleService) {
+    this.titleService.setTitle();
+  }
 }

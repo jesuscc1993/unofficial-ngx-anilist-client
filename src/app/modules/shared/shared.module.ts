@@ -19,6 +19,7 @@ import { MtHeaderComponent } from './components/mt-header/mt-header.component';
 import { MtMenuActionComponent } from './components/mt-menu-action/mt-menu-action.component';
 import { SortPipe } from './pipes/sort';
 import { AuthService } from './services/auth.service';
+import { TitleService } from './services/title.service';
 import { ToastService } from './services/toast.service';
 import { AuthStore } from './store/auth.store';
 import { MediaStore } from './store/media.store';
@@ -51,6 +52,6 @@ const imports = [
   declarations,
   imports,
   exports: [...declarations, ...imports],
-  providers: [AuthApi, AuthService, AuthStore, MediaStore, ToastService],
+  providers: [AuthApi, AuthService, AuthStore, MediaStore, TitleService, ToastService],
 })
 export class SharedModule {}

@@ -57,7 +57,9 @@
     }
   },
   "app": {
-    "title": "Cliente No Oficial de AniList"
+    "title": "Cliente No Oficial de AniList",
+    "titleShort": "CNOA",
+    "pageNotFound": "Página no encontrada"
   },
   "footer": {
     "about": "Acerca",

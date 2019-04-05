@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
 import { AnimeService } from '../../modules/anime/services/anime.service';
+import { TitleService } from '../../modules/shared/services/title.service';
 import { Anime } from '../../modules/shared/types/anilist/media.types';
 
 @Component({
@@ -16,7 +17,13 @@ export class AnimeDetailPageComponent {
   searching: boolean;
   errorGotten: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private animeService: AnimeService) {
+  constructor(
+    private titleService: TitleService,
+    private activatedRoute: ActivatedRoute,
+    private animeService: AnimeService
+  ) {
+    this.titleService.setTitle();
+
     const animeId: number = this.activatedRoute.snapshot.params.id;
     if (animeId && animeId > 0) {
       this.getEntry(animeId);
@@ -33,6 +40,7 @@ export class AnimeDetailPageComponent {
         tap(
           response => {
             this.anime = response.media.length > 0 && response.media[0];
+            this.titleService.setTitle(this.anime.title.romaji);
             this.searching = false;
           },
           () => {

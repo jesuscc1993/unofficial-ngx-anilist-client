@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel, PageEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
@@ -16,6 +17,7 @@ import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthService } from '../../modules/shared/services/auth.service';
+import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { MediaSort } from '../../modules/shared/types/anilist/enums/mediaSorts';
 import { Anime, MediaFormat, MediaStatus } from '../../modules/shared/types/anilist/media.types';
@@ -53,12 +55,16 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private titleService: TitleService,
+    private translateService: TranslateService,
     private animeService: AnimeService,
     private authService: AuthService,
     private authStore: AuthStore,
     private formBuilder: FormBuilder
   ) {
     super();
+
+    this.titleService.setTitle(this.translateService.instant('anime.search.title'));
 
     this.user = this.authStore.getUser();
     this.setupForm();

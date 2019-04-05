@@ -57,7 +57,9 @@
     }
   },
   "app": {
-    "title": "Unofficial Anilist Client"
+    "title": "Unofficial AniList Client",
+    "titleShort": "UAC",
+    "pageNotFound": "Page not found"
   },
   "footer": {
     "about": "About",

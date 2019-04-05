@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
 import { AnimeService } from '../../modules/anime/services/anime.service';
+import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { ListEntry, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
@@ -27,7 +29,15 @@ export class UserAnimeListPageComponent {
   reloadOnUpdate: boolean = true;
   filter: string;
 
-  constructor(private router: Router, private animeService: AnimeService, private authStore: AuthStore) {
+  constructor(
+    private router: Router,
+    private titleService: TitleService,
+    private translateService: TranslateService,
+    private animeService: AnimeService,
+    private authStore: AuthStore
+  ) {
+    this.titleService.setTitle(this.translateService.instant('anime.userList.title'));
+
     this.user = this.authStore.getUser();
     this.loggedIn = this.user !== undefined;
 

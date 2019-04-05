@@ -1,7 +1,8 @@
+import { LOCATION_INITIALIZED } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
@@ -24,6 +25,18 @@ const appRoutes: Routes = [
   { path: '**', component: PageNotFoundPageComponent },
 ];
 
+const translationFactory = (translateService: TranslateService, injector: Injector) => {
+  return () =>
+    new Promise<any>((resolve: any) => {
+      const availableLanguages = ['en-US', 'es-ES'];
+
+      injector.get(LOCATION_INITIALIZED, Promise.resolve(null)).then(() => {
+        translateService.setDefaultLang(availableLanguages[0]);
+        translateService.use(navigator.language).subscribe(() => resolve(null));
+      });
+    });
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +58,14 @@ const appRoutes: Routes = [
         deps: [HttpClient],
       },
     }),
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: translationFactory,
+      deps: [TranslateService, Injector],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
