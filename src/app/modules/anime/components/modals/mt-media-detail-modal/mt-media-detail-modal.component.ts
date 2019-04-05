@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { Media } from '../../../../../types/anilist/media.types';
+import { Media } from '../../../../shared/types/anilist/media.types';
 
 type MediaDetailModalParameters = {
   media: Media;

@@ -1,4 +1,4 @@
-import { Media } from '../../../types/anilist/media.types';
+import { Media } from '../../shared/types/anilist/media.types';
 
 export const getFormattedMediaDuration = (media: Media): string => {
   return media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;

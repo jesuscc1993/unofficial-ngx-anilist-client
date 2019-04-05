@@ -11,9 +11,9 @@ import {
   rootUrl,
   userListUrl,
 } from '../../../../app.constants';
-import { AuthService } from '../../../../services/auth.service';
-import { AuthStore } from '../../../../store/auth.store';
-import { User } from '../../../../types/anilist/user.types';
+import { AuthService } from '../../../../modules/shared/services/auth.service';
+import { User } from '../../types/anilist/user.types';
+import { AuthStore } from '../../store/auth.store';
 import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({

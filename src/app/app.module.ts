@@ -4,8 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { AnimeApi } from './api/anime/anime.api';
-import { AuthApi } from './api/auth/auth.api';
 import { AppComponent } from './app.component';
 import { AnimeModule } from './modules/anime/anime.module';
 import { SharedModule } from './modules/shared/shared.module';
@@ -15,10 +13,6 @@ import { DashboardPageComponent } from './pages/dashboard/dashboard.component';
 import { LoginPageComponent } from './pages/login/login.component';
 import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found.component';
 import { UserAnimeListPageComponent } from './pages/user-anime-list/user-anime-list.component';
-import { AnimeService } from './services/anime.service';
-import { AuthService } from './services/auth.service';
-import { ToastService } from './services/toast.service';
-import { AuthStore } from './store/auth.store';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -52,7 +46,6 @@ const appRoutes: Routes = [
       },
     }),
   ],
-  providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore, ToastService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

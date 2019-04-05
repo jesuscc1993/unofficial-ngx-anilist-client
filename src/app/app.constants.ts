@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { ModalOptions } from './types/modal.types';
+import { ModalOptions } from './modules/shared/types/modal.types';
 
 export const apiUrl: string = 'https://graphql.anilist.co';
 export const apiLoginUrl: string = `https://anilist.co/api/v2/oauth/authorize?client_id=${

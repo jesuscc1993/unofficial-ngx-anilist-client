@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AuthApi } from '../api/auth/auth.api';
-import { accessTokenCookieKey, userCookieKey } from '../app.constants';
-import { AuthStore } from '../store/auth.store';
+import { accessTokenCookieKey, userCookieKey } from '../../../app.constants';
 import { User } from '../types/anilist/user.types';
-import { LocalStorage } from '../utils/local-storage.util';
+import { LocalStorage } from '../../../utils/local-storage.util';
+import { AuthApi } from '../api/auth/auth.api';
+import { AuthStore } from '../store/auth.store';
 
 @Injectable()
 export class AuthService {

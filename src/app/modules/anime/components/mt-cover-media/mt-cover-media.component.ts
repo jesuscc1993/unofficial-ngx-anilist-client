@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { defaultModalOptions } from '../../../../app.constants';
-import { ListEntry } from '../../../../types/anilist/listEntry.types';
-import { Media } from '../../../../types/anilist/media.types';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { Media } from '../../../shared/types/anilist/media.types';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({

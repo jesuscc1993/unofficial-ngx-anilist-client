@@ -5,22 +5,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { SearchFilters } from '../../api/anime/anime-api.types';
 import { animeSearchUrl } from '../../app.constants';
+import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import {
   MtSearchResultsTableComponent,
 } from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../modules/anime/domain/anime.domain';
+import { AnimeService } from '../../modules/anime/services/anime.service';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { AnimeService } from '../../services/anime.service';
-import { AuthService } from '../../services/auth.service';
-import { AuthStore } from '../../store/auth.store';
-import { MediaSort } from '../../types/anilist/enums/mediaSorts';
-import { Anime, MediaFormat, MediaStatus } from '../../types/anilist/media.types';
-import { PageInfo } from '../../types/anilist/pageInfo.types';
-import { User } from '../../types/anilist/user.types';
+import { AuthService } from '../../modules/shared/services/auth.service';
+import { AuthStore } from '../../modules/shared/store/auth.store';
+import { MediaSort } from '../../modules/shared/types/anilist/enums/mediaSorts';
+import { Anime, MediaFormat, MediaStatus } from '../../modules/shared/types/anilist/media.types';
+import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
+import { User } from '../../modules/shared/types/anilist/user.types';
 import { GenericUtil } from '../../utils/generic.util';
 
 @Component({

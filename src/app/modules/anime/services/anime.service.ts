@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
+import { ListEntry } from '../../shared/types/anilist/listEntry.types';
+import { Anime } from '../../shared/types/anilist/media.types';
+import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
+import { User } from '../../shared/types/anilist/user.types';
+import { MediaStore } from '../../shared/store/media.store';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
-import { MediaStore } from '../store/media.store';
-import { ListEntry } from '../types/anilist/listEntry.types';
-import { Anime } from '../types/anilist/media.types';
-import { PageQuery } from '../types/anilist/pageInfo.types';
-import { User } from '../types/anilist/user.types';
 
 @Injectable()
 export class AnimeService {

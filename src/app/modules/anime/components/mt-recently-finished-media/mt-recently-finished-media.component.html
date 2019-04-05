@@ -18,7 +18,7 @@
   </div>
 
   <div *ngFor="let tab of tabs" [hidden]="tab !== activeTab" class="content">
-    <mt-recently-finished-media-by-format [formatIn]="tab.formatIn" [formatNotIn]="tab.formatNotIn">
+    <mt-recently-finished-media-by-format [formatIn]="tab.data.formatIn" [formatNotIn]="tab.data.formatNotIn">
     </mt-recently-finished-media-by-format>
   </div>
 </mat-card>

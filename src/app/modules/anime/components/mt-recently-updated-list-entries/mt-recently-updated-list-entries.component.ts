@@ -3,12 +3,12 @@ import { PageEvent } from '@angular/material';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../../../services/anime.service';
-import { AuthService } from '../../../../services/auth.service';
-import { AuthStore } from '../../../../store/auth.store';
-import { ListEntry } from '../../../../types/anilist/listEntry.types';
-import { PageQuery } from '../../../../types/anilist/pageInfo.types';
-import { User } from '../../../../types/anilist/user.types';
+import { AnimeService } from '../../../../modules/anime/services/anime.service';
+import { AuthService } from '../../../../modules/shared/services/auth.service';
+import { AuthStore } from '../../../../modules/shared/store/auth.store';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
+import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',

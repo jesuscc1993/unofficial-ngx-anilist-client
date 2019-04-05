@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 
-import { AuthStore } from '../../store/auth.store';
-import { MediaSort } from '../../types/anilist/enums/mediaSorts';
-import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
-import { Media } from '../../types/anilist/media.types';
-import { PageQuery } from '../../types/anilist/pageInfo.types';
-import { User } from '../../types/anilist/user.types';
-import { AniListApi } from '../api';
+import { MediaSort } from '../../../shared/types/anilist/enums/mediaSorts';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { Media } from '../../../shared/types/anilist/media.types';
+import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
+import { User } from '../../../shared/types/anilist/user.types';
+import { AniListApi } from '../../../shared/api/api';
+import { AuthStore } from '../../../shared/store/auth.store';
 import {
   deleteListEntryQuery,
   finishedAiringMediaQuery,

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../../../services/anime.service';
-import { AuthStore } from '../../../../store/auth.store';
-import { Media } from '../../../../types/anilist/media.types';
+import { Media } from '../../../shared/types/anilist/media.types';
+import { AuthStore } from '../../../shared/store/auth.store';
+import { AnimeService } from '../../services/anime.service';
 
 @Component({
   selector: 'mt-list-related-media',

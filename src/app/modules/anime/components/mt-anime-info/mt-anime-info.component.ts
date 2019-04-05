@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Anime, Media } from '../../../../types/anilist/media.types';
+import { Anime, Media } from '../../../shared/types/anilist/media.types';
 import { getFormattedMediaDuration } from '../../domain/anime.domain';
 
 @Component({

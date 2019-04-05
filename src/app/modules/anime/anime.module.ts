@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { MediaStore } from '../../store/media.store';
 import { SharedModule } from '../shared/shared.module';
+import { AnimeApi } from './api/anime/anime.api';
 import {
   MtListEntryFormModalComponent,
 } from './components/modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
@@ -24,6 +24,7 @@ import { MtSearchResultsTableComponent } from './components/mt-search-results-ta
 import {
   MtUserAnimeListTableComponent,
 } from './components/mt-user-anime-list-table/mt-user-anime-list-table.component';
+import { AnimeService } from './services/anime.service';
 
 const declarations = [
   MtAnimeInfoComponent,
@@ -45,6 +46,6 @@ const declarations = [
   imports: [SharedModule],
   exports: declarations,
   entryComponents: [MtListEntryFormModalComponent, MtMediaDetailModalComponent],
-  providers: [MediaStore],
+  providers: [AnimeApi, AnimeService],
 })
 export class AnimeModule {}

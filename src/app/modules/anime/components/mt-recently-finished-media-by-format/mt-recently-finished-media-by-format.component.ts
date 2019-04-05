@@ -3,10 +3,10 @@ import { PageEvent } from '@angular/material';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../../../services/anime.service';
-import { AuthStore } from '../../../../store/auth.store';
-import { Media } from '../../../../types/anilist/media.types';
-import { PageQuery } from '../../../../types/anilist/pageInfo.types';
+import { Media } from '../../../shared/types/anilist/media.types';
+import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
+import { AuthStore } from '../../../shared/store/auth.store';
+import { AnimeService } from '../../services/anime.service';
 
 @Component({
   selector: 'mt-recently-finished-media-by-format',

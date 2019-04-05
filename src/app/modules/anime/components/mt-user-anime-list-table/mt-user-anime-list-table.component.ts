@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
-import { ListEntry, ListEntryStatus } from '../../../../types/anilist/listEntry.types';
-import { Anime } from '../../../../types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { Anime } from '../../../shared/types/anilist/media.types';
 import { GenericUtil } from '../../../../utils/generic.util';
 
 @Component({

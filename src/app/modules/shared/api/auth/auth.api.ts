@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import { userQuery } from '../anime/anime-api.queries';
+import { userQuery } from '../../../anime/api/anime/anime-api.queries';
+import { AuthStore } from '../../store/auth.store';
 import { AniListApi } from '../api';
 import { UserDto } from './auth-api.types';
 

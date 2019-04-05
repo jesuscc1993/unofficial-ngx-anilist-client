@@ -1,6 +1,6 @@
-import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
-import { Anime, Media, MediaStatus } from '../../types/anilist/media.types';
-import { PageInfo } from '../../types/anilist/pageInfo.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { Anime, Media, MediaStatus } from '../../../shared/types/anilist/media.types';
+import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
 /* filters */
 export type PageOptions = {

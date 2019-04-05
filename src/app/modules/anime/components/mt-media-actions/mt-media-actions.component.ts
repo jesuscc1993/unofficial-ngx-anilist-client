@@ -4,13 +4,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../../app.constants';
-import { AnimeService } from '../../../../services/anime.service';
-import { AuthService } from '../../../../services/auth.service';
-import { ToastService } from '../../../../services/toast.service';
-import { AuthStore } from '../../../../store/auth.store';
-import { ListEntry } from '../../../../types/anilist/listEntry.types';
-import { Media } from '../../../../types/anilist/media.types';
-import { User } from '../../../../types/anilist/user.types';
+import { AnimeService } from '../../services/anime.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { ToastService } from '../../../shared/services/toast.service';
+import { AuthStore } from '../../../shared/store/auth.store';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { Media } from '../../../shared/types/anilist/media.types';
+import { User } from '../../../shared/types/anilist/user.types';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';

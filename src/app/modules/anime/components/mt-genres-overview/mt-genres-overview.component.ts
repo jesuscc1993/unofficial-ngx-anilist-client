@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { GenreStats } from '../../../../types/anilist/genreStats.types';
+import { GenreStats } from '../../../shared/types/anilist/genreStats.types';
 
 @Component({
   selector: 'mt-genres-overview',

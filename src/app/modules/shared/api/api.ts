@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { apiUrl } from '../app.constants';
+import { apiUrl } from '../../../app.constants';
 import { AuthStore } from '../store/auth.store';
 import { PageInfo, PageQuery } from '../types/anilist/pageInfo.types';
-import { ServerResponse } from '../types/anilist/response.types';
+import { AnilistResponse } from '../types/anilist/response.types';
 
 export class AniListApi {
   private loggingEnabled = false;
@@ -28,7 +28,7 @@ export class AniListApi {
   protected postGraphQlRequest<ResponseType, VariablesType = undefined>(
     query: string,
     variables?: VariablesType
-  ): Observable<ServerResponse<ResponseType>> {
+  ): Observable<AnilistResponse<ResponseType>> {
     const parsedVariables = { ...variables };
     if (parsedVariables) {
       Object.keys(parsedVariables).forEach(key => {
@@ -61,11 +61,11 @@ export class AniListApi {
       .pipe(this.mapObjectErrorToStringError());
   }
 
-  protected isValidResponse<T>(response: ServerResponse<T>) {
+  protected isValidResponse<T>(response: AnilistResponse<T>) {
     return !!this.getResponseData(response);
   }
 
-  protected getResponseData<T>(response: ServerResponse<T>) {
+  protected getResponseData<T>(response: AnilistResponse<T>) {
     return !!response && response.data;
   }
 

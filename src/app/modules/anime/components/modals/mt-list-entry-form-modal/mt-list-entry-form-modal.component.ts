@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../../../../services/anime.service';
-import { ListEntry, ListEntryStatus } from '../../../../../types/anilist/listEntry.types';
-import { Media } from '../../../../../types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../../../shared/types/anilist/listEntry.types';
+import { Media } from '../../../../shared/types/anilist/media.types';
+import { AnimeService } from '../../../services/anime.service';
 
 type ListEntryFormModalParameters = {
   listEntry: ListEntry;

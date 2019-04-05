@@ -4,10 +4,10 @@ import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
-import { AnimeService } from '../../services/anime.service';
-import { AuthStore } from '../../store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../types/anilist/listEntry.types';
-import { User } from '../../types/anilist/user.types';
+import { AnimeService } from '../../modules/anime/services/anime.service';
+import { AuthStore } from '../../modules/shared/store/auth.store';
+import { ListEntry, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
+import { User } from '../../modules/shared/types/anilist/user.types';
 
 @Component({
   selector: 'mt-user-anime-list',

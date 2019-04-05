@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../services/anime.service';
-import { Anime } from '../../types/anilist/media.types';
+import { AnimeService } from '../../modules/anime/services/anime.service';
+import { Anime } from '../../modules/shared/types/anilist/media.types';
 
 @Component({
   selector: 'mt-anime-detail',
