@@ -81,6 +81,14 @@
       "success": "Alternada entrada en la lista para {{ mediaTitle }} como favorita."
     }
   },
+  "matPaginator": {
+    "firstPageLabel": "Primera página",
+    "itemsPerPageLabel": "Resultados por página",
+    "lastPageLabel": "Última página",
+    "nextPageLabel": "Página siguiente",
+    "previousPageLabel": "Página anterior",
+    "rangeLabel": "{{ firstResult }} - {{ lastResult }} of {{ totalCount }}"
+  },
   "media": {
     "additionalInfo": "Más información",
     "cover": "Imagen",

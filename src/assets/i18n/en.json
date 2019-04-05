@@ -81,6 +81,14 @@
       "success": "Toggled list entry {{ mediaTitle }} as favourite."
     }
   },
+  "matPaginator": {
+    "firstPageLabel": "First page",
+    "itemsPerPageLabel": "Results per page",
+    "lastPageLabel": "Last page",
+    "nextPageLabel": "Next page",
+    "previousPageLabel": "Previous page",
+    "rangeLabel": "{{ firstResult }} - {{ lastResult }} of {{ totalCount }}"
+  },
   "media": {
     "additionalInfo": "Additional info",
     "cover": "Cover",

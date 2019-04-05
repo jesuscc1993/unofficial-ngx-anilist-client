@@ -13,6 +13,7 @@ import {
   MatListModule,
   MatMenuModule,
   MatNativeDateModule,
+  MatPaginatorIntl,
   MatPaginatorModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
@@ -26,6 +27,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
+
+import { MatPaginatorI18n } from './providers/mat-paginator-i18n.provider';
 
 const modules = [
   MatButtonModule,
@@ -53,11 +56,12 @@ const modules = [
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 ];
 
 @NgModule({
   imports: modules,
-  exports: modules
+  exports: modules,
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorI18n }],
 })
 export class MaterialModule {}

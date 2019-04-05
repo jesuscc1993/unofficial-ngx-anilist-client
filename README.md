@@ -91,7 +91,6 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
-- Translate mat-paginator
 - Add language selection
 - Fix ngx-translate on gh-pages (add translations root to environments file)
 - Implement store for listEntries
