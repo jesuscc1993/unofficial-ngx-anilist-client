@@ -57,7 +57,9 @@
     }
   },
   "app": {
-    "title": "Unofficial Anilist Client"
+    "title": "Unofficial AniList Client",
+    "titleShort": "UAC",
+    "pageNotFound": "Page not found"
   },
   "footer": {
     "about": "About",
@@ -69,6 +71,25 @@
     "cancel": "Cancel",
     "submit": "Submit",
     "workInProgress": "Work in progress."
+  },
+  "listEntry": {
+    "update": {
+      "success": "Updated list entry for {{ mediaTitle }}."
+    },
+    "deletion": {
+      "success": "Deleted list entry for {{ mediaTitle }}."
+    },
+    "favouriteToggle": {
+      "success": "Toggled list entry {{ mediaTitle }} as favourite."
+    }
+  },
+  "matPaginator": {
+    "firstPageLabel": "First page",
+    "itemsPerPageLabel": "Results per page",
+    "lastPageLabel": "Last page",
+    "nextPageLabel": "Next page",
+    "previousPageLabel": "Previous page",
+    "rangeLabel": "{{ firstResult }} - {{ lastResult }} of {{ totalCount }}"
   },
   "media": {
     "additionalInfo": "Additional info",

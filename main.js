@@ -23,412 +23,6 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
-/***/ "./src/app/api/anime/anime-api.queries.ts":
-/*!************************************************!*\
-  !*** ./src/app/api/anime/anime-api.queries.ts ***!
-  \************************************************/
-/*! exports provided: genresQuery, userQuery, mediaIdSearchQuery, mediaSearchQuery, listQuery, relatedMediaQuery, listMediaIdsQuery, updatedEntriesQuery, finishedAiringMediaQuery, listFavouritesQuery, saveListEntryQuery, deleteListEntryQuery, toggleFavouriteEntryQuery */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "genresQuery", function() { return genresQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userQuery", function() { return userQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mediaIdSearchQuery", function() { return mediaIdSearchQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mediaSearchQuery", function() { return mediaSearchQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listQuery", function() { return listQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedMediaQuery", function() { return relatedMediaQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listMediaIdsQuery", function() { return listMediaIdsQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatedEntriesQuery", function() { return updatedEntriesQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "finishedAiringMediaQuery", function() { return finishedAiringMediaQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listFavouritesQuery", function() { return listFavouritesQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListEntryQuery", function() { return saveListEntryQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteListEntryQuery", function() { return deleteListEntryQuery; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleFavouriteEntryQuery", function() { return toggleFavouriteEntryQuery; });
-var filterTypes = {};
-var filterMappings = {};
-/* filters */
-filterTypes.page = "\n  $page: Int,\n  $perPage: Int,\n";
-filterMappings.page = "\n  page: $page,\n  perPage: $perPage,\n";
-filterTypes.mediaCollection = "\n  $mediaType: MediaType,\n  $sort: [MediaListSort],\n  $userId: Int!,\n";
-filterMappings.mediaCollection = "\n  sort: $sort,\n  type: $mediaType,\n  userId: $userId,\n";
-filterTypes.media = "\n  $mediaType: MediaType,\n  $sort: [MediaSort],\n  $adultContent: Boolean,\n  $averageScoreGreaterThan: Int,\n  $averageScoreSmallerThan: Int,\n  $genreIn: [String],\n  $genreNotIn: [String],\n  $formatIn: [MediaFormat],\n  $formatNotIn: [MediaFormat],\n  $statusIn: [MediaStatus],\n  $statusNotIn: [MediaStatus],\n  $search: String,\n  $startDateGreaterThan: FuzzyDateInt,\n  $startDateSmallerThan: FuzzyDateInt,\n  $status: MediaStatus,\n  $id: Int,\n  $idIn: [Int],\n  $idNotIn: [Int],\n  $onList: Boolean,\n";
-filterMappings.media = "\n  sort: $sort,\n  type: $mediaType,\n  isAdult: $adultContent,\n  averageScore_greater: $averageScoreGreaterThan,\n  averageScore_lesser: $averageScoreSmallerThan,\n  genre_in: $genreIn,\n  genre_not_in: $genreNotIn,\n  format_in: $formatIn,\n  format_not_in: $formatNotIn,\n  status_in: $statusIn,\n  status_not_in: $statusNotIn,\n  search: $search,\n  startDate_greater: $startDateGreaterThan,\n  startDate_lesser: $startDateSmallerThan,\n  status: $status,\n  id: $id,\n  id_in: $idIn,\n  id_not_in: $idNotIn,\n  onList: $onList,\n";
-/* fields */
-var pageInfoFields = "\n  currentPage\n  hasNextPage\n  lastPage\n  perPage\n  total\n";
-var listEntryFields = "\n  id\n  scoreRaw: score (\n    format: POINT_100\n  )\n  status\n  updatedAt\n";
-var listEntryFieldsWithMediaId = listEntryFields + "\n  media {\n    id\n  }\n";
-var mediaFields = "\n  id\n  mediaListEntry {\n    " + listEntryFields + "\n  }\n";
-var animeFields = mediaFields + "\n  averageScore\n  coverImage {\n    large\n    medium\n  }\n  description\n  duration\n  episodes\n  format\n  genres\n  id\n  startDate {\n    year\n  }\n  status\n  studios(isMain: true) {\n    nodes {\n      name\n    }\n  }\n  tags {\n    description\n    isMediaSpoiler\n    name\n  }\n  title {\n    romaji\n  }\n";
-var animeListEntryFields = listEntryFields + "\n  media {\n    " + animeFields + "\n  }\n";
-/* queries */
-var genresQuery = "\n  {\n    GenreCollection\n  }\n";
-var userQuery = "\n  {\n    Viewer {\n      avatar {\n        large\n      }\n      id\n      name\n      options {\n        displayAdultContent\n      }\n      stats {\n        favouredGenresOverview {\n          amount\n          genre\n          meanScore\n          timeWatched\n        }\n        watchedTime\n      }\n    }\n  }\n";
-var mediaIdSearchQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + mediaFields + "\n      }\n    }\n  }\n";
-var mediaSearchQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + animeFields + "\n      }\n    }\n  }\n";
-var listQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      lists {\n        entries {\n          " + animeListEntryFields + "\n        }\n      }\n    }\n  }\n";
-var relatedMediaQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      lists {\n        entries {\n          status\n          media {\n            relations {\n              nodes {\n                " + animeFields + "\n              }\n            }\n          }\n        }\n      }\n";
-var listMediaIdsQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      lists {\n        entries {\n          status\n          media {\n            id\n          }\n        }\n      }\n    }\n  }\n";
-var updatedEntriesQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      mediaList (\n        " + filterMappings.mediaCollection + "\n      ) {\n        " + listEntryFieldsWithMediaId + "\n      }\n    }\n  }\n";
-var finishedAiringMediaQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + mediaFields + "\n      }\n    }\n  }\n";
-var listFavouritesQuery = "\n  query (\n    $userId: Int!,\n    $page: Int\n  ) {\n    User (\n      id: $userId\n    ) {\n      favourites {\n        anime (\n          page: $page\n        ) {\n          nodes {\n            id\n          }\n          pageInfo {\n            " + pageInfoFields + "\n          }\n        }\n      }\n    }\n  }\n";
-var saveListEntryQuery = "\n  mutation (\n    $mediaId: Int,\n    $scoreRaw: Int,\n    $status: MediaListStatus\n  ) {\n    SaveMediaListEntry (\n      mediaId: $mediaId,\n      scoreRaw: $scoreRaw,\n      status: $status\n    ) {\n      id\n      status\n    }\n  }\n";
-var deleteListEntryQuery = "\n  mutation (\n    $id: Int\n  ) {\n    DeleteMediaListEntry (id: $id) {\n      deleted\n    }\n  }\n";
-var toggleFavouriteEntryQuery = "\n  mutation (\n    $animeId: Int\n  ) {\n    ToggleFavourite (\n      animeId: $animeId\n    ) {\n      anime {\n        nodes {\n          id\n          title {\n            romaji\n          }\n        }\n      }\n    }\n  }\n";
-
-
-/***/ }),
-
-/***/ "./src/app/api/anime/anime.api.ts":
-/*!****************************************!*\
-  !*** ./src/app/api/anime/anime.api.ts ***!
-  \****************************************/
-/*! exports provided: AnimeApi */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeApi", function() { return AnimeApi; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/auth.store */ "./src/app/store/auth.store.ts");
-/* harmony import */ var _types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../types/anilist/enums/mediaSorts */ "./src/app/types/anilist/enums/mediaSorts.ts");
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api */ "./src/app/api/api.ts");
-/* harmony import */ var _anime_api_queries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./anime-api.queries */ "./src/app/api/anime/anime-api.queries.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var AnimeApi = /** @class */ (function (_super) {
-    __extends(AnimeApi, _super);
-    function AnimeApi(httpClient, authStore) {
-        var _this = _super.call(this, httpClient, authStore) || this;
-        _this.httpClient = httpClient;
-        _this.authStore = authStore;
-        return _this;
-    }
-    AnimeApi.prototype.queryAnimeGenres = function () {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["genresQuery"]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).GenreCollection; }));
-    };
-    AnimeApi.prototype.queryAnimeFromIds = function (mediaIds) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["mediaSearchQuery"], {
-            mediaType: 'ANIME',
-            idIn: mediaIds,
-            sort: _types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_4__["MediaSort"].TITLE_ROMAJI,
-            perPage: mediaIds.length,
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page.media; }));
-    };
-    AnimeApi.prototype.queryAnimeSearch = function (query, pageInfo) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["mediaIdSearchQuery"], __assign({}, this.getPageOptions(pageInfo), query, { mediaType: 'ANIME', adultContent: query.adultContent || false, sort: query.sort || _types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_4__["MediaSort"].TITLE_ROMAJI })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page; }));
-    };
-    AnimeApi.prototype.queryAnimeList = function (user) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["listQuery"], {
-            mediaType: 'ANIME',
-            userId: user.id,
-            sort: _types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_4__["MediaSort"].SCORE_DESC,
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-            var listEntriesByStatus = {};
-            var listMediaDto = _this.getResponseData(response);
-            if (listMediaDto) {
-                listMediaDto.MediaListCollection.lists.forEach(function (list) {
-                    var status = list.entries[0].status;
-                    list.entries.forEach(function (listEntry) {
-                        listEntriesByStatus[status] = (listEntriesByStatus[status] || []).concat([listEntry]);
-                    });
-                });
-            }
-            return listEntriesByStatus;
-        }));
-    };
-    AnimeApi.prototype.queryAnimeListMediaIdsByStatus = function (user) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["listMediaIdsQuery"], {
-            mediaType: 'ANIME',
-            userId: user.id,
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-            var listMediaIdsByStatus = {};
-            var listMediaDto = _this.getResponseData(response);
-            if (listMediaDto) {
-                listMediaDto.MediaListCollection.lists.forEach(function (list) {
-                    var status = list.entries[0].status;
-                    list.entries.forEach(function (listEntry) {
-                        listMediaIdsByStatus[status] = (listMediaIdsByStatus[status] || []).concat([listEntry.media.id]);
-                    });
-                });
-            }
-            return listMediaIdsByStatus;
-        }));
-    };
-    AnimeApi.prototype.queryRecentlyUpdatedAnime = function (user, pageInfo) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["updatedEntriesQuery"], __assign({}, this.getPageOptions(pageInfo), { mediaType: 'ANIME', userId: user.id, sort: _types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_4__["MediaSort"].UPDATED_TIME_DESC })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page; }));
-    };
-    AnimeApi.prototype.queryRecentlyFinishedAiringAnime = function (query, pageInfo) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["finishedAiringMediaQuery"], __assign({}, this.getPageOptions(pageInfo), query, { mediaType: 'ANIME', status: 'FINISHED', sort: 'END_DATE_DESC', onList: true })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page; }));
-    };
-    AnimeApi.prototype.queryRelatedAnimeMedia = function (user) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["relatedMediaQuery"], {
-            mediaType: 'ANIME',
-            userId: user.id,
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-            var mediaList = [];
-            var listMediaDto = _this.getResponseData(response);
-            if (listMediaDto) {
-                listMediaDto.MediaListCollection.lists.forEach(function (list) {
-                    list.entries.forEach(function (listEntry) {
-                        mediaList = mediaList.concat([listEntry.media]);
-                    });
-                });
-            }
-            return mediaList;
-        }));
-    };
-    AnimeApi.prototype.queryAnimeListFavouriteIDs = function (user, callback) {
-        this.queryFavouriteIdsResultsPage({
-            userId: user.id,
-            page: 0,
-        }, [], callback);
-    };
-    AnimeApi.prototype.queryFavouriteIdsResultsPage = function (options, favouriteIds, callback) {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["listFavouritesQuery"], options)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
-            var responseData = _this.getResponseData(response);
-            if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
-                var favouritesData = responseData.User.favourites.anime;
-                favouriteIds = favouriteIds.concat(favouritesData.nodes.map(function (node) { return node.id; }));
-                if (favouritesData.pageInfo.hasNextPage) {
-                    options.page++;
-                    _this.queryFavouriteIdsResultsPage(options, favouriteIds, callback);
-                }
-                else {
-                    callback(favouriteIds);
-                }
-            }
-        }))
-            .subscribe();
-    };
-    AnimeApi.prototype.saveAnimeListEntry = function (listEntry) {
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["saveListEntryQuery"], {
-            status: listEntry.status || 'COMPLETED',
-            mediaId: listEntry.media.id,
-            scoreRaw: listEntry.scoreRaw,
-        });
-    };
-    AnimeApi.prototype.deleteAnimeListEntry = function (listEntry) {
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["deleteListEntryQuery"], {
-            id: listEntry.id,
-        });
-    };
-    AnimeApi.prototype.toggleAnimeFavouriteEntry = function (listEntry) {
-        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["toggleFavouriteEntryQuery"], {
-            animeId: listEntry.media.id,
-        });
-    };
-    AnimeApi = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"], _store_auth_store__WEBPACK_IMPORTED_MODULE_3__["AuthStore"]])
-    ], AnimeApi);
-    return AnimeApi;
-}(_api__WEBPACK_IMPORTED_MODULE_5__["AniListApi"]));
-
-
-
-/***/ }),
-
-/***/ "./src/app/api/api.ts":
-/*!****************************!*\
-  !*** ./src/app/api/api.ts ***!
-  \****************************/
-/*! exports provided: AniListApi */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AniListApi", function() { return AniListApi; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app.constants */ "./src/app/app.constants.ts");
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-
-
-var AniListApi = /** @class */ (function () {
-    function AniListApi(httpClient, authStore) {
-        this.httpClient = httpClient;
-        this.authStore = authStore;
-        this.loggingEnabled = false;
-        this.apiUrl = _app_constants__WEBPACK_IMPORTED_MODULE_2__["apiUrl"];
-    }
-    AniListApi.prototype.getRequestOptions = function () {
-        var accessToken = this.authStore.getAccessToken();
-        return { headers: accessToken ? { Authorization: "Bearer " + accessToken } : {} };
-    };
-    AniListApi.prototype.getPageOptions = function (pageOptions) {
-        return {
-            page: pageOptions ? (pageOptions.pageIndex >= 1 ? pageOptions.pageIndex : 1) : 1,
-            perPage: pageOptions ? pageOptions.perPage || 10 : 1,
-        };
-    };
-    AniListApi.prototype.postGraphQlRequest = function (query, variables) {
-        var parsedVariables = __assign({}, variables);
-        if (parsedVariables) {
-            Object.keys(parsedVariables).forEach(function (key) {
-                var value = parsedVariables[key];
-                if (value === undefined ||
-                    value === null ||
-                    (['string', 'object'].includes(typeof value) && value.length === 0)) {
-                    delete parsedVariables[key];
-                }
-            });
-        }
-        if (this.loggingEnabled) {
-            console.debug('query:', query.replace(/\n\s*/g, '\n'));
-            console.debug('variables:', parsedVariables);
-        }
-        return this.httpClient
-            .post(this.apiUrl, {
-            query: query,
-            variables: parsedVariables,
-        }, this.getRequestOptions())
-            .pipe(this.mapObjectErrorToStringError());
-    };
-    AniListApi.prototype.isValidResponse = function (response) {
-        return !!this.getResponseData(response);
-    };
-    AniListApi.prototype.getResponseData = function (response) {
-        return !!response && response.data;
-    };
-    AniListApi.prototype.mapObjectErrorToStringError = function () {
-        return Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (error) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["throwError"])(JSON.stringify(error, undefined, 2)); });
-    };
-    return AniListApi;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/api/auth/auth.api.ts":
-/*!**************************************!*\
-  !*** ./src/app/api/auth/auth.api.ts ***!
-  \**************************************/
-/*! exports provided: AuthApi */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthApi", function() { return AuthApi; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/auth.store */ "./src/app/store/auth.store.ts");
-/* harmony import */ var _anime_anime_api_queries__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../anime/anime-api.queries */ "./src/app/api/anime/anime-api.queries.ts");
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api */ "./src/app/api/api.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var AuthApi = /** @class */ (function (_super) {
-    __extends(AuthApi, _super);
-    function AuthApi(httpClient, authStore) {
-        var _this = _super.call(this, httpClient, authStore) || this;
-        _this.httpClient = httpClient;
-        _this.authStore = authStore;
-        return _this;
-    }
-    AuthApi.prototype.queryUser = function () {
-        var _this = this;
-        return this.postGraphQlRequest(_anime_anime_api_queries__WEBPACK_IMPORTED_MODULE_4__["userQuery"]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Viewer; }));
-    };
-    AuthApi = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"], _store_auth_store__WEBPACK_IMPORTED_MODULE_3__["AuthStore"]])
-    ], AuthApi);
-    return AuthApi;
-}(_api__WEBPACK_IMPORTED_MODULE_5__["AniListApi"]));
-
-
-
-/***/ }),
-
 /***/ "./src/app/app.component.html":
 /*!************************************!*\
   !*** ./src/app/app.component.html ***!
@@ -451,7 +45,6 @@ module.exports = "<mt-header></mt-header>\n\n<div class=\"content-wrapper\">\n  
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -462,20 +55,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
 var AppComponent = /** @class */ (function () {
-    function AppComponent(translateService) {
-        this.translateService = translateService;
-        var availableLanguages = ['en', 'es'];
-        var browserLanguage = navigator.language.split('-')[0];
-        this.translateService.setDefaultLang(availableLanguages.includes(browserLanguage) ? browserLanguage : availableLanguages[0]);
+    function AppComponent() {
     }
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'mt-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
         }),
-        __metadata("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]])
+        __metadata("design:paramtypes", [])
     ], AppComponent);
     return AppComponent;
 }());
@@ -533,25 +121,21 @@ var defaultModalOptions = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/fesm5/ngx-translate-http-loader.js");
-/* harmony import */ var _api_anime_anime_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./api/anime/anime.api */ "./src/app/api/anime/anime.api.ts");
-/* harmony import */ var _api_auth_auth_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./api/auth/auth.api */ "./src/app/api/auth/auth.api.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _modules_anime_anime_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/anime/anime.module */ "./src/app/modules/anime/anime.module.ts");
-/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./src/app/modules/shared/shared.module.ts");
-/* harmony import */ var _pages_anime_detail_anime_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/anime-detail/anime-detail.component */ "./src/app/pages/anime-detail/anime-detail.component.ts");
-/* harmony import */ var _pages_anime_search_anime_search_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/anime-search/anime-search.component */ "./src/app/pages/anime-search/anime-search.component.ts");
-/* harmony import */ var _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/dashboard/dashboard.component */ "./src/app/pages/dashboard/dashboard.component.ts");
-/* harmony import */ var _pages_login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/login/login.component */ "./src/app/pages/login/login.component.ts");
-/* harmony import */ var _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/page-not-found/page-not-found.component */ "./src/app/pages/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _pages_user_anime_list_user_anime_list_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pages/user-anime-list/user-anime-list.component */ "./src/app/pages/user-anime-list/user-anime-list.component.ts");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./store/auth.store */ "./src/app/store/auth.store.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/fesm5/ngx-translate-http-loader.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _modules_anime_anime_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/anime/anime.module */ "./src/app/modules/anime/anime.module.ts");
+/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./src/app/modules/shared/shared.module.ts");
+/* harmony import */ var _pages_anime_detail_anime_detail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/anime-detail/anime-detail.component */ "./src/app/pages/anime-detail/anime-detail.component.ts");
+/* harmony import */ var _pages_anime_search_anime_search_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/anime-search/anime-search.component */ "./src/app/pages/anime-search/anime-search.component.ts");
+/* harmony import */ var _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/dashboard/dashboard.component */ "./src/app/pages/dashboard/dashboard.component.ts");
+/* harmony import */ var _pages_login_login_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/login/login.component */ "./src/app/pages/login/login.component.ts");
+/* harmony import */ var _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/page-not-found/page-not-found.component */ "./src/app/pages/page-not-found/page-not-found.component.ts");
+/* harmony import */ var _pages_user_anime_list_user_anime_list_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/user-anime-list/user-anime-list.component */ "./src/app/pages/user-anime-list/user-anime-list.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -573,47 +157,61 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-
-
-
-
 var appRoutes = [
     { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
-    { path: 'login', component: _pages_login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginPageComponent"] },
-    { path: 'dashboard', component: _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_12__["DashboardPageComponent"] },
-    { path: 'anime-search', component: _pages_anime_search_anime_search_component__WEBPACK_IMPORTED_MODULE_11__["AnimeSearchPageComponent"] },
-    { path: 'anime-detail/:id', component: _pages_anime_detail_anime_detail_component__WEBPACK_IMPORTED_MODULE_10__["AnimeDetailPageComponent"] },
-    { path: 'user-anime-list', component: _pages_user_anime_list_user_anime_list_component__WEBPACK_IMPORTED_MODULE_15__["UserAnimeListPageComponent"] },
-    { path: '**', component: _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_14__["PageNotFoundPageComponent"] },
+    { path: 'login', component: _pages_login_login_component__WEBPACK_IMPORTED_MODULE_12__["LoginPageComponent"] },
+    { path: 'dashboard', component: _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_11__["DashboardPageComponent"] },
+    { path: 'anime-search', component: _pages_anime_search_anime_search_component__WEBPACK_IMPORTED_MODULE_10__["AnimeSearchPageComponent"] },
+    { path: 'anime-detail/:id', component: _pages_anime_detail_anime_detail_component__WEBPACK_IMPORTED_MODULE_9__["AnimeDetailPageComponent"] },
+    { path: 'user-anime-list', component: _pages_user_anime_list_user_anime_list_component__WEBPACK_IMPORTED_MODULE_14__["UserAnimeListPageComponent"] },
+    { path: '**', component: _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_13__["PageNotFoundPageComponent"] },
 ];
+var translationFactory = function (translateService, injector) {
+    return function () {
+        return new Promise(function (resolve) {
+            var availableLanguages = ['en-US', 'es-ES'];
+            injector.get(_angular_common__WEBPACK_IMPORTED_MODULE_0__["LOCATION_INITIALIZED"], Promise.resolve(null)).then(function () {
+                translateService.setDefaultLang(availableLanguages[0]);
+                translateService.use(navigator.language).subscribe(function () { return resolve(null); });
+            });
+        });
+    };
+};
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-                _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_14__["PageNotFoundPageComponent"],
-                _pages_login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginPageComponent"],
-                _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_12__["DashboardPageComponent"],
-                _pages_anime_search_anime_search_component__WEBPACK_IMPORTED_MODULE_11__["AnimeSearchPageComponent"],
-                _pages_anime_detail_anime_detail_component__WEBPACK_IMPORTED_MODULE_10__["AnimeDetailPageComponent"],
-                _pages_user_anime_list_user_anime_list_component__WEBPACK_IMPORTED_MODULE_15__["UserAnimeListPageComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
+                _pages_page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_13__["PageNotFoundPageComponent"],
+                _pages_login_login_component__WEBPACK_IMPORTED_MODULE_12__["LoginPageComponent"],
+                _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_11__["DashboardPageComponent"],
+                _pages_anime_search_anime_search_component__WEBPACK_IMPORTED_MODULE_10__["AnimeSearchPageComponent"],
+                _pages_anime_detail_anime_detail_component__WEBPACK_IMPORTED_MODULE_9__["AnimeDetailPageComponent"],
+                _pages_user_anime_list_user_anime_list_component__WEBPACK_IMPORTED_MODULE_14__["UserAnimeListPageComponent"],
             ],
             imports: [
-                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
-                _modules_anime_anime_module__WEBPACK_IMPORTED_MODULE_8__["AnimeModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(appRoutes),
-                _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateModule"].forRoot({
+                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"],
+                _modules_anime_anime_module__WEBPACK_IMPORTED_MODULE_7__["AnimeModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(appRoutes),
+                _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"].forRoot({
                     loader: {
-                        provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateLoader"],
-                        useFactory: function (http) { return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_4__["TranslateHttpLoader"](http); },
-                        deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]],
+                        provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateLoader"],
+                        useFactory: function (http) { return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http); },
+                        deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]],
                     },
                 }),
             ],
-            providers: [_services_anime_service__WEBPACK_IMPORTED_MODULE_16__["AnimeService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_17__["AuthService"], _api_anime_anime_api__WEBPACK_IMPORTED_MODULE_5__["AnimeApi"], _api_auth_auth_api__WEBPACK_IMPORTED_MODULE_6__["AuthApi"], _store_auth_store__WEBPACK_IMPORTED_MODULE_18__["AuthStore"]],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
+            providers: [
+                {
+                    provide: _angular_core__WEBPACK_IMPORTED_MODULE_2__["APP_INITIALIZER"],
+                    useFactory: translationFactory,
+                    deps: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"], _angular_core__WEBPACK_IMPORTED_MODULE_2__["Injector"]],
+                    multi: true,
+                },
+            ],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
         })
     ], AppModule);
     return AppModule;
@@ -634,8 +232,8 @@ var AppModule = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeModule", function() { return AnimeModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _store_media_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/media.store */ "./src/app/store/media.store.ts");
-/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/modules/shared/shared.module.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/modules/shared/shared.module.ts");
+/* harmony import */ var _api_anime_anime_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./api/anime/anime.api */ "./src/app/modules/anime/api/anime/anime.api.ts");
 /* harmony import */ var _components_modals_mt_list_entry_form_modal_mt_list_entry_form_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component */ "./src/app/modules/anime/components/modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component.ts");
 /* harmony import */ var _components_modals_mt_media_detail_modal_mt_media_detail_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/modals/mt-media-detail-modal/mt-media-detail-modal.component */ "./src/app/modules/anime/components/modals/mt-media-detail-modal/mt-media-detail-modal.component.ts");
 /* harmony import */ var _components_mt_anime_info_mt_anime_info_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/mt-anime-info/mt-anime-info.component */ "./src/app/modules/anime/components/mt-anime-info/mt-anime-info.component.ts");
@@ -648,12 +246,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mt_recently_updated_list_entries_mt_recently_updated_list_entries_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/mt-recently-updated-list-entries/mt-recently-updated-list-entries.component */ "./src/app/modules/anime/components/mt-recently-updated-list-entries/mt-recently-updated-list-entries.component.ts");
 /* harmony import */ var _components_mt_search_results_table_mt_search_results_table_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/mt-search-results-table/mt-search-results-table.component */ "./src/app/modules/anime/components/mt-search-results-table/mt-search-results-table.component.ts");
 /* harmony import */ var _components_mt_user_anime_list_table_mt_user_anime_list_table_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/mt-user-anime-list-table/mt-user-anime-list-table.component */ "./src/app/modules/anime/components/mt-user-anime-list-table/mt-user-anime-list-table.component.ts");
+/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -689,14 +289,273 @@ var AnimeModule = /** @class */ (function () {
     AnimeModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             declarations: declarations,
-            imports: [_shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]],
+            imports: [_shared_shared_module__WEBPACK_IMPORTED_MODULE_1__["SharedModule"]],
             exports: declarations,
             entryComponents: [_components_modals_mt_list_entry_form_modal_mt_list_entry_form_modal_component__WEBPACK_IMPORTED_MODULE_3__["MtListEntryFormModalComponent"], _components_modals_mt_media_detail_modal_mt_media_detail_modal_component__WEBPACK_IMPORTED_MODULE_4__["MtMediaDetailModalComponent"]],
-            providers: [_store_media_store__WEBPACK_IMPORTED_MODULE_1__["MediaStore"]],
+            providers: [_api_anime_anime_api__WEBPACK_IMPORTED_MODULE_2__["AnimeApi"], _services_anime_service__WEBPACK_IMPORTED_MODULE_15__["AnimeService"]],
         })
     ], AnimeModule);
     return AnimeModule;
 }());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/anime/api/anime/anime-api.queries.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/modules/anime/api/anime/anime-api.queries.ts ***!
+  \**************************************************************/
+/*! exports provided: genresQuery, userQuery, mediaIdSearchQuery, mediaSearchQuery, listQuery, relatedMediaQuery, listMediaIdsQuery, updatedEntriesQuery, finishedAiringMediaQuery, listFavouritesQuery, saveListEntryQuery, deleteListEntryQuery, toggleFavouriteEntryQuery */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "genresQuery", function() { return genresQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userQuery", function() { return userQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mediaIdSearchQuery", function() { return mediaIdSearchQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mediaSearchQuery", function() { return mediaSearchQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listQuery", function() { return listQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relatedMediaQuery", function() { return relatedMediaQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listMediaIdsQuery", function() { return listMediaIdsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatedEntriesQuery", function() { return updatedEntriesQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "finishedAiringMediaQuery", function() { return finishedAiringMediaQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listFavouritesQuery", function() { return listFavouritesQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListEntryQuery", function() { return saveListEntryQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteListEntryQuery", function() { return deleteListEntryQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleFavouriteEntryQuery", function() { return toggleFavouriteEntryQuery; });
+var filterTypes = {};
+var filterMappings = {};
+/* filters */
+filterTypes.page = "\n  $page: Int,\n  $perPage: Int,\n";
+filterMappings.page = "\n  page: $page,\n  perPage: $perPage,\n";
+filterTypes.mediaCollection = "\n  $mediaType: MediaType,\n  $sort: [MediaListSort],\n  $userId: Int!,\n";
+filterMappings.mediaCollection = "\n  sort: $sort,\n  type: $mediaType,\n  userId: $userId,\n";
+filterTypes.media = "\n  $mediaType: MediaType,\n  $sort: [MediaSort],\n  $adultContent: Boolean,\n  $averageScoreGreaterThan: Int,\n  $averageScoreSmallerThan: Int,\n  $genreIn: [String],\n  $genreNotIn: [String],\n  $formatIn: [MediaFormat],\n  $formatNotIn: [MediaFormat],\n  $statusIn: [MediaStatus],\n  $statusNotIn: [MediaStatus],\n  $search: String,\n  $startDateGreaterThan: FuzzyDateInt,\n  $startDateSmallerThan: FuzzyDateInt,\n  $status: MediaStatus,\n  $id: Int,\n  $idIn: [Int],\n  $idNotIn: [Int],\n  $onList: Boolean,\n";
+filterMappings.media = "\n  sort: $sort,\n  type: $mediaType,\n  isAdult: $adultContent,\n  averageScore_greater: $averageScoreGreaterThan,\n  averageScore_lesser: $averageScoreSmallerThan,\n  genre_in: $genreIn,\n  genre_not_in: $genreNotIn,\n  format_in: $formatIn,\n  format_not_in: $formatNotIn,\n  status_in: $statusIn,\n  status_not_in: $statusNotIn,\n  search: $search,\n  startDate_greater: $startDateGreaterThan,\n  startDate_lesser: $startDateSmallerThan,\n  status: $status,\n  id: $id,\n  id_in: $idIn,\n  id_not_in: $idNotIn,\n  onList: $onList,\n";
+/* fields */
+var pageInfoFields = "\n  currentPage\n  hasNextPage\n  lastPage\n  perPage\n  total\n";
+var listEntryFields = "\n  id\n  scoreRaw: score (\n    format: POINT_100\n  )\n  status\n  updatedAt\n";
+var listEntryFieldsWithMediaId = listEntryFields + "\n  media {\n    id\n  }\n";
+var mediaFields = "\n  id\n  mediaListEntry {\n    " + listEntryFields + "\n  }\n";
+var animeFields = mediaFields + "\n  averageScore\n  coverImage {\n    large\n    medium\n  }\n  description\n  duration\n  episodes\n  format\n  genres\n  id\n  startDate {\n    year\n  }\n  status\n  studios(isMain: true) {\n    nodes {\n      name\n    }\n  }\n  tags {\n    description\n    isMediaSpoiler\n    name\n  }\n  title {\n    romaji\n  }\n";
+var animeListEntryFields = listEntryFields + "\n  media {\n    " + animeFields + "\n  }\n";
+/* queries */
+var genresQuery = "\n  {\n    GenreCollection\n  }\n";
+var userQuery = "\n  {\n    Viewer {\n      avatar {\n        large\n      }\n      id\n      name\n      options {\n        displayAdultContent\n      }\n      stats {\n        favouredGenresOverview {\n          amount\n          genre\n          meanScore\n          timeWatched\n        }\n        watchedTime\n      }\n    }\n  }\n";
+var mediaIdSearchQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + mediaFields + "\n      }\n    }\n  }\n";
+var mediaSearchQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + animeFields + "\n      }\n    }\n  }\n";
+var listQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      lists {\n        entries {\n          " + animeListEntryFields + "\n        }\n      }\n    }\n  }\n";
+var relatedMediaQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      lists {\n        entries {\n          status\n          media {\n            relations {\n              nodes {\n                " + animeFields + "\n              }\n            }\n          }\n        }\n      }\n";
+var listMediaIdsQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n  ) {\n    MediaListCollection (\n      " + filterMappings.mediaCollection + "\n    ) {\n      lists {\n        entries {\n          status\n          media {\n            id\n          }\n        }\n      }\n    }\n  }\n";
+var updatedEntriesQuery = "\n  query (\n    " + filterTypes.mediaCollection + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      mediaList (\n        " + filterMappings.mediaCollection + "\n      ) {\n        " + listEntryFieldsWithMediaId + "\n      }\n    }\n  }\n";
+var finishedAiringMediaQuery = "\n  query (\n    " + filterTypes.media + "\n    " + filterTypes.page + "\n  ) {\n    Page (\n      " + filterMappings.page + "\n    ) {\n      pageInfo {\n        " + pageInfoFields + "\n      }\n      media (\n        " + filterMappings.media + "\n      ) {\n        " + mediaFields + "\n      }\n    }\n  }\n";
+var listFavouritesQuery = "\n  query (\n    $userId: Int!,\n    $page: Int\n  ) {\n    User (\n      id: $userId\n    ) {\n      favourites {\n        anime (\n          page: $page\n        ) {\n          nodes {\n            id\n          }\n          pageInfo {\n            " + pageInfoFields + "\n          }\n        }\n      }\n    }\n  }\n";
+var saveListEntryQuery = "\n  mutation (\n    $mediaId: Int,\n    $scoreRaw: Int,\n    $status: MediaListStatus\n  ) {\n    SaveMediaListEntry (\n      mediaId: $mediaId,\n      scoreRaw: $scoreRaw,\n      status: $status\n      ) {\n        id\n        score\n        status\n        media {\n          title {\n            romaji\n          }\n        }\n      }\n    }\n  ";
+var deleteListEntryQuery = "\n  mutation (\n    $id: Int\n  ) {\n    DeleteMediaListEntry (id: $id) {\n      deleted\n    }\n  }\n";
+var toggleFavouriteEntryQuery = "\n  mutation (\n    $animeId: Int\n  ) {\n    ToggleFavourite (\n      animeId: $animeId\n    ) {\n      anime {\n        nodes {\n          id\n          title {\n            romaji\n          }\n        }\n      }\n    }\n  }\n";
+
+
+/***/ }),
+
+/***/ "./src/app/modules/anime/api/anime/anime.api.ts":
+/*!******************************************************!*\
+  !*** ./src/app/modules/anime/api/anime/anime.api.ts ***!
+  \******************************************************/
+/*! exports provided: AnimeApi */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeApi", function() { return AnimeApi; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/types/anilist/enums/mediaSorts */ "./src/app/modules/shared/types/anilist/enums/mediaSorts.ts");
+/* harmony import */ var _shared_api_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/api/api */ "./src/app/modules/shared/api/api.ts");
+/* harmony import */ var _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _anime_api_queries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./anime-api.queries */ "./src/app/modules/anime/api/anime/anime-api.queries.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var AnimeApi = /** @class */ (function (_super) {
+    __extends(AnimeApi, _super);
+    function AnimeApi(httpClient, authStore) {
+        var _this = _super.call(this, httpClient, authStore) || this;
+        _this.httpClient = httpClient;
+        _this.authStore = authStore;
+        return _this;
+    }
+    AnimeApi.prototype.queryAnimeGenres = function () {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["genresQuery"]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).GenreCollection; }));
+    };
+    AnimeApi.prototype.queryAnimeFromIds = function (mediaIds) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["mediaSearchQuery"], {
+            mediaType: 'ANIME',
+            idIn: mediaIds,
+            sort: _shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_3__["MediaSort"].TITLE_ROMAJI,
+            perPage: mediaIds.length,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page.media; }));
+    };
+    AnimeApi.prototype.queryAnimeSearch = function (query, pageInfo) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["mediaIdSearchQuery"], __assign({}, this.getPageOptions(pageInfo), query, { mediaType: 'ANIME', adultContent: query.adultContent || false, sort: query.sort || _shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_3__["MediaSort"].TITLE_ROMAJI })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page; }));
+    };
+    AnimeApi.prototype.queryAnimeList = function (user) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["listQuery"], {
+            mediaType: 'ANIME',
+            userId: user.id,
+            sort: _shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_3__["MediaSort"].SCORE_DESC,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            var listEntriesByStatus = {};
+            var listMediaDto = _this.getResponseData(response);
+            if (listMediaDto) {
+                listMediaDto.MediaListCollection.lists.forEach(function (list) {
+                    var status = list.entries[0].status;
+                    list.entries.forEach(function (listEntry) {
+                        listEntriesByStatus[status] = (listEntriesByStatus[status] || []).concat([listEntry]);
+                    });
+                });
+            }
+            return listEntriesByStatus;
+        }));
+    };
+    AnimeApi.prototype.queryAnimeListMediaIdsByStatus = function (user) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["listMediaIdsQuery"], {
+            mediaType: 'ANIME',
+            userId: user.id,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            var listMediaIdsByStatus = {};
+            var listMediaDto = _this.getResponseData(response);
+            if (listMediaDto) {
+                listMediaDto.MediaListCollection.lists.forEach(function (list) {
+                    var status = list.entries[0].status;
+                    list.entries.forEach(function (listEntry) {
+                        listMediaIdsByStatus[status] = (listMediaIdsByStatus[status] || []).concat([listEntry.media.id]);
+                    });
+                });
+            }
+            return listMediaIdsByStatus;
+        }));
+    };
+    AnimeApi.prototype.queryRecentlyUpdatedAnime = function (user, pageInfo) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["updatedEntriesQuery"], __assign({}, this.getPageOptions(pageInfo), { mediaType: 'ANIME', userId: user.id, sort: _shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_3__["MediaSort"].UPDATED_TIME_DESC })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page; }));
+    };
+    AnimeApi.prototype.queryRecentlyFinishedAiringAnime = function (query, pageInfo) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["finishedAiringMediaQuery"], __assign({}, this.getPageOptions(pageInfo), query, { mediaType: 'ANIME', status: 'FINISHED', sort: 'END_DATE_DESC', onList: true })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Page; }));
+    };
+    AnimeApi.prototype.queryRelatedAnimeMedia = function (user) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["relatedMediaQuery"], {
+            mediaType: 'ANIME',
+            userId: user.id,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            var mediaList = [];
+            var listMediaDto = _this.getResponseData(response);
+            if (listMediaDto) {
+                listMediaDto.MediaListCollection.lists.forEach(function (list) {
+                    list.entries.forEach(function (listEntry) {
+                        mediaList = mediaList.concat([listEntry.media]);
+                    });
+                });
+            }
+            return mediaList;
+        }));
+    };
+    AnimeApi.prototype.queryAnimeListFavouriteIDs = function (user, callback) {
+        this.queryFavouriteIdsResultsPage({
+            userId: user.id,
+            page: 0,
+        }, [], callback);
+    };
+    AnimeApi.prototype.queryFavouriteIdsResultsPage = function (options, favouriteIds, callback) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["listFavouritesQuery"], options)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
+            var responseData = _this.getResponseData(response);
+            if (responseData && responseData.User && responseData.User.favourites && responseData.User.favourites.anime) {
+                var favouritesData = responseData.User.favourites.anime;
+                favouriteIds = favouriteIds.concat(favouritesData.nodes.map(function (node) { return node.id; }));
+                if (favouritesData.pageInfo.hasNextPage) {
+                    options.page++;
+                    _this.queryFavouriteIdsResultsPage(options, favouriteIds, callback);
+                }
+                else {
+                    callback(favouriteIds);
+                }
+            }
+        }))
+            .subscribe();
+    };
+    AnimeApi.prototype.saveAnimeListEntry = function (listEntry) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["saveListEntryQuery"], {
+            status: listEntry.status || 'COMPLETED',
+            mediaId: listEntry.media.id,
+            scoreRaw: listEntry.scoreRaw,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).SaveMediaListEntry; }));
+    };
+    AnimeApi.prototype.deleteAnimeListEntry = function (listEntry) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["deleteListEntryQuery"], {
+            id: listEntry.id,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).DeleteMediaListEntry; }));
+    };
+    AnimeApi.prototype.toggleAnimeFavouriteEntry = function (listEntry) {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_queries__WEBPACK_IMPORTED_MODULE_6__["toggleFavouriteEntryQuery"], {
+            animeId: listEntry.media.id,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).ToggleFavourite; }));
+    };
+    AnimeApi = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"], _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_5__["AuthStore"]])
+    ], AnimeApi);
+    return AnimeApi;
+}(_shared_api_api__WEBPACK_IMPORTED_MODULE_4__["AniListApi"]));
 
 
 
@@ -738,7 +597,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services/anime.service */ "./src/app/services/anime.service.ts");
+/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -795,14 +654,13 @@ var MtListEntryFormModalComponent = /** @class */ (function () {
         var entryToSave = this.getFormEntry();
         this.animeService
             .saveAnimeListEntry(entryToSave)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (response) {
-            var success = response.data.SaveMediaListEntry.id !== undefined;
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (savedListEntry) {
+            var success = savedListEntry.id !== undefined;
             if (success) {
                 if (_this.listEntry) {
-                    _this.listEntry.scoreRaw = entryToSave.scoreRaw;
-                    _this.listEntry.status = entryToSave.status;
+                    _this.listEntry = __assign({}, _this.listEntry, savedListEntry);
                 }
-                _this.dialogRef.close(_this.listEntry);
+                _this.dialogRef.close({ savedListEntry: savedListEntry });
             }
         }))
             .subscribe();
@@ -812,12 +670,10 @@ var MtListEntryFormModalComponent = /** @class */ (function () {
         this.preventDefault(event);
         this.animeService
             .deleteAnimeListEntry(this.listEntry)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (response) {
-            var success = response.data.DeleteMediaListEntry.deleted === true;
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (deletedListEntry) {
+            var success = deletedListEntry.deleted === true;
             if (success) {
-                _this.dialogRef.close({
-                    deletedEntry: _this.listEntry,
-                });
+                _this.dialogRef.close({ deletedListEntry: deletedListEntry });
             }
         }))
             .subscribe();
@@ -832,7 +688,7 @@ var MtListEntryFormModalComponent = /** @class */ (function () {
     MtListEntryFormModalComponent.prototype.getFormEntry = function () {
         return {
             media: this.media,
-            scoreRaw: this.listEntryForm.value.score * 10,
+            scoreRaw: Math.trunc(this.listEntryForm.value.score * 10),
             status: this.listEntryForm.value.status,
         };
     };
@@ -973,7 +829,7 @@ module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* materi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MtAnimeInfoComponent", function() { return MtAnimeInfoComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _types_anilist_media_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../types/anilist/media.types */ "./src/app/types/anilist/media.types.ts");
+/* harmony import */ var _shared_types_anilist_media_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/types/anilist/media.types */ "./src/app/modules/shared/types/anilist/media.types.ts");
 /* harmony import */ var _domain_anime_domain__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../domain/anime.domain */ "./src/app/modules/anime/domain/anime.domain.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -995,7 +851,7 @@ var MtAnimeInfoComponent = /** @class */ (function () {
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", _types_anilist_media_types__WEBPACK_IMPORTED_MODULE_1__["Anime"])
+        __metadata("design:type", _shared_types_anilist_media_types__WEBPACK_IMPORTED_MODULE_1__["Anime"])
     ], MtAnimeInfoComponent.prototype, "anime", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -1236,8 +1092,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../store/auth.store */ "./src/app/store/auth.store.ts");
+/* harmony import */ var _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1275,7 +1131,7 @@ var MtListRelatedMediaComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./mt-list-related-media.component.html */ "./src/app/modules/anime/components/mt-list-related-media/mt-list-related-media.component.html"),
             styles: [__webpack_require__(/*! ./mt-list-related-media.component.scss */ "./src/app/modules/anime/components/mt-list-related-media/mt-list-related-media.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_anime_service__WEBPACK_IMPORTED_MODULE_3__["AnimeService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_4__["AuthStore"]])
+        __metadata("design:paramtypes", [_services_anime_service__WEBPACK_IMPORTED_MODULE_4__["AnimeService"], _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_3__["AuthStore"]])
     ], MtListRelatedMediaComponent);
     return MtListRelatedMediaComponent;
 }());
@@ -1318,14 +1174,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MtMediaActionsComponent", function() { return MtMediaActionsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../app.constants */ "./src/app/app.constants.ts");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../store/auth.store */ "./src/app/store/auth.store.ts");
-/* harmony import */ var _shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component */ "./src/app/modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component.ts");
-/* harmony import */ var _modals_mt_list_entry_form_modal_mt_list_entry_form_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component */ "./src/app/modules/anime/components/modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component.ts");
-/* harmony import */ var _modals_mt_media_detail_modal_mt_media_detail_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../modals/mt-media-detail-modal/mt-media-detail-modal.component */ "./src/app/modules/anime/components/modals/mt-media-detail-modal/mt-media-detail-modal.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../app.constants */ "./src/app/app.constants.ts");
+/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
+/* harmony import */ var _shared_services_auth_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../shared/services/auth.service */ "./src/app/modules/shared/services/auth.service.ts");
+/* harmony import */ var _shared_services_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/services/toast.service */ "./src/app/modules/shared/services/toast.service.ts");
+/* harmony import */ var _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component */ "./src/app/modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component.ts");
+/* harmony import */ var _modals_mt_list_entry_form_modal_mt_list_entry_form_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component */ "./src/app/modules/anime/components/modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component.ts");
+/* harmony import */ var _modals_mt_media_detail_modal_mt_media_detail_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../modals/mt-media-detail-modal/mt-media-detail-modal.component */ "./src/app/modules/anime/components/modals/mt-media-detail-modal/mt-media-detail-modal.component.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -1369,19 +1227,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var MtMediaActionsComponent = /** @class */ (function (_super) {
     __extends(MtMediaActionsComponent, _super);
-    function MtMediaActionsComponent(dialog, matSnackBar, animeService, authService, authStore) {
+    function MtMediaActionsComponent(dialog, translateService, animeService, authService, authStore, toastService) {
         var _this = _super.call(this) || this;
         _this.dialog = dialog;
-        _this.matSnackBar = matSnackBar;
+        _this.translateService = translateService;
         _this.animeService = animeService;
         _this.authService = authService;
         _this.authStore = authStore;
+        _this.toastService = toastService;
         _this.onUpdate = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         _this.user = _this.authStore.getUser();
         _this.authService.userChange
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this.destroyed$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (user) {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(_this.destroyed$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (user) {
             _this.user = user;
         }))
             .subscribe();
@@ -1396,49 +1257,49 @@ var MtMediaActionsComponent = /** @class */ (function (_super) {
         var _this = this;
         this.showFormModal()
             .afterClosed()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (result) {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (result) {
             if (result) {
-                if (result.savedEntry) {
-                    _this.showSavedEntryToast(result.savedEntry);
+                if (result.savedListEntry) {
+                    _this.showSavedListEntryToast(result.savedListEntry);
                 }
-                if (result.deletedEntry) {
-                    _this.showDeletedEntryToast(result.deletedEntry);
+                if (result.deletedListEntry) {
+                    _this.showDeletedListEntryToast(result.deletedListEntry);
                 }
-                _this.onUpdate.emit(result.savedEntry || result.deletedEntry);
+                _this.onUpdate.emit(result.savedListEntry || result.deletedListEntry);
             }
         }))
             .subscribe();
     };
     MtMediaActionsComponent.prototype.toggleFavourite = function () {
         var _this = this;
-        var targetEntry = this.getListEntry();
+        var targetlistEntry = this.getListEntry();
         this.animeService
-            .toggleFavouriteAnimeListEntry(targetEntry)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
-            var success = response.data.ToggleFavourite !== undefined;
+            .toggleFavouriteAnimeListEntry(targetlistEntry)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (listEntryId) {
+            var success = listEntryId !== undefined;
             if (success) {
-                _this.showToggledFavouriteToast(targetEntry);
-                _this.onUpdate.emit(targetEntry);
+                _this.showToggledFavouriteToast(targetlistEntry);
+                _this.onUpdate.emit(targetlistEntry);
             }
         }))
             .subscribe();
     };
     MtMediaActionsComponent.prototype.deleteEntry = function () {
         var _this = this;
-        var targetEntry = this.getListEntry();
+        var targetlistEntry = this.getListEntry();
         this.animeService
-            .deleteAnimeListEntry(targetEntry)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
-            var success = response.data.DeleteMediaListEntry.deleted === true;
+            .deleteAnimeListEntry(targetlistEntry)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (deletedListEntry) {
+            var success = deletedListEntry.deleted === true;
             if (success) {
-                _this.showDeletedEntryToast(targetEntry);
-                _this.onUpdate.emit(targetEntry);
+                _this.showDeletedListEntryToast(targetlistEntry);
+                _this.onUpdate.emit(targetlistEntry);
             }
         }))
             .subscribe();
     };
     MtMediaActionsComponent.prototype.showDetail = function () {
-        this.dialog.open(_modals_mt_media_detail_modal_mt_media_detail_modal_component__WEBPACK_IMPORTED_MODULE_9__["MtMediaDetailModalComponent"], __assign({}, _app_constants__WEBPACK_IMPORTED_MODULE_3__["defaultModalOptions"], { maxWidth: '800px', data: {
+        this.dialog.open(_modals_mt_media_detail_modal_mt_media_detail_modal_component__WEBPACK_IMPORTED_MODULE_11__["MtMediaDetailModalComponent"], __assign({}, _app_constants__WEBPACK_IMPORTED_MODULE_4__["defaultModalOptions"], { maxWidth: '800px', data: {
                 media: this.media,
             } }));
     };
@@ -1456,24 +1317,19 @@ var MtMediaActionsComponent = /** @class */ (function (_super) {
         return listEntryCopy;
     };
     MtMediaActionsComponent.prototype.showFormModal = function () {
-        return this.dialog.open(_modals_mt_list_entry_form_modal_mt_list_entry_form_modal_component__WEBPACK_IMPORTED_MODULE_8__["MtListEntryFormModalComponent"], __assign({}, _app_constants__WEBPACK_IMPORTED_MODULE_3__["defaultModalOptions"], { data: {
+        return this.dialog.open(_modals_mt_list_entry_form_modal_mt_list_entry_form_modal_component__WEBPACK_IMPORTED_MODULE_10__["MtListEntryFormModalComponent"], __assign({}, _app_constants__WEBPACK_IMPORTED_MODULE_4__["defaultModalOptions"], { data: {
                 listEntry: this.listEntry,
                 media: this.media,
             } }));
     };
-    MtMediaActionsComponent.prototype.showSavedEntryToast = function (listEntry) {
-        this.showToast("Updated list entry for \"" + listEntry.media.title.romaji + "\"");
+    MtMediaActionsComponent.prototype.showSavedListEntryToast = function (listEntry) {
+        this.toastService.showToast(this.translateService.instant('listEntry.update.success', { mediaTitle: listEntry.media.title.romaji }));
     };
     MtMediaActionsComponent.prototype.showToggledFavouriteToast = function (listEntry) {
-        this.showToast("Toggled entry \"" + listEntry.media.title.romaji + "\" as favourite");
+        this.toastService.showToast(this.translateService.instant('listEntry.favouriteToggle.success', { mediaTitle: listEntry.media.title.romaji }));
     };
-    MtMediaActionsComponent.prototype.showDeletedEntryToast = function (listEntry) {
-        this.showToast("Deleted list entry for \"" + listEntry.media.title.romaji + "\"");
-    };
-    MtMediaActionsComponent.prototype.showToast = function (message) {
-        this.matSnackBar.open(message, undefined, {
-            duration: 10000,
-        });
+    MtMediaActionsComponent.prototype.showDeletedListEntryToast = function (listEntry) {
+        this.toastService.showToast(this.translateService.instant('listEntry.deletion.success', { mediaTitle: listEntry.media.title.romaji }));
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -1498,13 +1354,14 @@ var MtMediaActionsComponent = /** @class */ (function (_super) {
             styles: [__webpack_require__(/*! ./mt-media-actions.component.scss */ "./src/app/modules/anime/components/mt-media-actions/mt-media-actions.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"],
-            _services_anime_service__WEBPACK_IMPORTED_MODULE_4__["AnimeService"],
-            _services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"],
-            _store_auth_store__WEBPACK_IMPORTED_MODULE_6__["AuthStore"]])
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
+            _services_anime_service__WEBPACK_IMPORTED_MODULE_5__["AnimeService"],
+            _shared_services_auth_service__WEBPACK_IMPORTED_MODULE_6__["AuthService"],
+            _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_8__["AuthStore"],
+            _shared_services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"]])
     ], MtMediaActionsComponent);
     return MtMediaActionsComponent;
-}(_shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_7__["WithObservableOnDestroy"]));
+}(_shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_9__["WithObservableOnDestroy"]));
 
 
 
@@ -1545,8 +1402,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../store/auth.store */ "./src/app/store/auth.store.ts");
+/* harmony import */ var _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1620,7 +1477,7 @@ var MtRecentlyFinishedMediaByFormatComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./mt-recently-finished-media-by-format.component.html */ "./src/app/modules/anime/components/mt-recently-finished-media-by-format/mt-recently-finished-media-by-format.component.html"),
             styles: [__webpack_require__(/*! ./mt-recently-finished-media-by-format.component.scss */ "./src/app/modules/anime/components/mt-recently-finished-media-by-format/mt-recently-finished-media-by-format.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_anime_service__WEBPACK_IMPORTED_MODULE_3__["AnimeService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_4__["AuthStore"]])
+        __metadata("design:paramtypes", [_services_anime_service__WEBPACK_IMPORTED_MODULE_4__["AnimeService"], _shared_store_auth_store__WEBPACK_IMPORTED_MODULE_3__["AuthStore"]])
     ], MtRecentlyFinishedMediaByFormatComponent);
     return MtRecentlyFinishedMediaByFormatComponent;
 }());
@@ -1636,7 +1493,7 @@ var MtRecentlyFinishedMediaByFormatComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"composite compact\">\n  <div class=\"tab-group\">\n    <div class=\"header\">\n      <h4 class=\"no-margin\">\n        {{ 'anime.dashboard.finishedAiring.title' | translate }}\n      </h4>\n    </div>\n\n    <div\n      *ngFor=\"let tab of tabs\"\n      class=\"header tab {{ tab === activeTab ? 'active' : 'clickable' }}\"\n      (click)=\"activateTab(tab)\"\n    >\n      <h4 class=\"no-margin\">\n        {{ tab.label }}\n      </h4>\n    </div>\n  </div>\n\n  <div *ngFor=\"let tab of tabs\" [hidden]=\"tab !== activeTab\" class=\"content\">\n    <mt-recently-finished-media-by-format [formatIn]=\"tab.formatIn\" [formatNotIn]=\"tab.formatNotIn\">\n    </mt-recently-finished-media-by-format>\n  </div>\n</mat-card>\n"
+module.exports = "<mat-card class=\"composite compact\">\n  <div class=\"tab-group\">\n    <div class=\"header\">\n      <h4 class=\"no-margin\">\n        {{ 'anime.dashboard.finishedAiring.title' | translate }}\n      </h4>\n    </div>\n\n    <div\n      *ngFor=\"let tab of tabs\"\n      class=\"header tab {{ tab === activeTab ? 'active' : 'clickable' }}\"\n      (click)=\"activateTab(tab)\"\n    >\n      <h4 class=\"no-margin\">\n        {{ tab.label }}\n      </h4>\n    </div>\n  </div>\n\n  <div *ngFor=\"let tab of tabs\" [hidden]=\"tab !== activeTab\" class=\"content\">\n    <mt-recently-finished-media-by-format [formatIn]=\"tab.data.formatIn\" [formatNotIn]=\"tab.data.formatNotIn\">\n    </mt-recently-finished-media-by-format>\n  </div>\n</mat-card>\n"
 
 /***/ }),
 
@@ -1692,9 +1549,24 @@ var MtRecentlyFinishedMediaComponent = /** @class */ (function () {
         var _this = this;
         this.translateService = translateService;
         var tabs = [
-            { label: 'anime.dashboard.finishedAiring.series', formatIn: ['TV'] },
-            { label: 'anime.dashboard.finishedAiring.movies', formatIn: ['MOVIE'] },
-            { label: 'anime.dashboard.finishedAiring.other', formatNotIn: ['TV', 'MOVIE'] },
+            {
+                label: 'anime.dashboard.finishedAiring.series',
+                data: {
+                    formatIn: ['TV'],
+                },
+            },
+            {
+                label: 'anime.dashboard.finishedAiring.movies',
+                data: {
+                    formatIn: ['MOVIE'],
+                },
+            },
+            {
+                label: 'anime.dashboard.finishedAiring.other',
+                data: {
+                    formatNotIn: ['TV', 'MOVIE'],
+                },
+            },
         ];
         this.translateService
             .get(tabs.map(function (tab) { return tab.label; }))
@@ -1757,9 +1629,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/auth.store */ "./src/app/store/auth.store.ts");
+/* harmony import */ var _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../modules/anime/services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
+/* harmony import */ var _modules_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../modules/shared/services/auth.service */ "./src/app/modules/shared/services/auth.service.ts");
+/* harmony import */ var _modules_shared_store_auth_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../modules/shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1814,7 +1686,7 @@ var MtRecentlyUpdatedListEntriesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./mt-recently-updated-list-entries.component.html */ "./src/app/modules/anime/components/mt-recently-updated-list-entries/mt-recently-updated-list-entries.component.html"),
             styles: [__webpack_require__(/*! ./mt-recently-updated-list-entries.component.scss */ "./src/app/modules/anime/components/mt-recently-updated-list-entries/mt-recently-updated-list-entries.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_anime_service__WEBPACK_IMPORTED_MODULE_3__["AnimeService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_5__["AuthStore"]])
+        __metadata("design:paramtypes", [_modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_3__["AnimeService"], _modules_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _modules_shared_store_auth_store__WEBPACK_IMPORTED_MODULE_5__["AuthStore"]])
     ], MtRecentlyUpdatedListEntriesComponent);
     return MtRecentlyUpdatedListEntriesComponent;
 }());
@@ -1857,7 +1729,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MtSearchResultsTableComponent", function() { return MtSearchResultsTableComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../types/anilist/enums/mediaSorts */ "./src/app/types/anilist/enums/mediaSorts.ts");
+/* harmony import */ var _shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/types/anilist/enums/mediaSorts */ "./src/app/modules/shared/types/anilist/enums/mediaSorts.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1894,7 +1766,7 @@ var MtSearchResultsTableComponent = /** @class */ (function () {
         this.dataSource.sort = this.sort;
     };
     MtSearchResultsTableComponent.prototype.sortBy = function (sort) {
-        this.onSortChange.emit(_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_2__["MediaSort"].fromSort(sort));
+        this.onSortChange.emit(_shared_types_anilist_enums_mediaSorts__WEBPACK_IMPORTED_MODULE_2__["MediaSort"].fromSort(sort));
     };
     MtSearchResultsTableComponent.prototype.initializeDataSource = function () {
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](this.tableData);
@@ -2094,6 +1966,116 @@ var getDateScalarFromYear = function (year) {
 
 /***/ }),
 
+/***/ "./src/app/modules/anime/services/anime.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/modules/anime/services/anime.service.ts ***!
+  \*********************************************************/
+/*! exports provided: AnimeService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeService", function() { return AnimeService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_store_media_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/store/media.store */ "./src/app/modules/shared/store/media.store.ts");
+/* harmony import */ var _api_anime_anime_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api/anime/anime.api */ "./src/app/modules/anime/api/anime/anime.api.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AnimeService = /** @class */ (function () {
+    function AnimeService(animeApi, mediaStore) {
+        this.animeApi = animeApi;
+        this.mediaStore = mediaStore;
+    }
+    AnimeService.prototype.getAnimeGenres = function () {
+        return this.animeApi.queryAnimeGenres();
+    };
+    AnimeService.prototype.searchAnime = function (query, pageInfo) {
+        var _this = this;
+        return this.animeApi.queryAnimeSearch(query, pageInfo).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (response) {
+            return _this.getAnimeFromIds(response.media.map(function (media) { return media.id; })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (animeList) { return (__assign({}, response, { media: animeList })); }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (pageData) { return _this.mediaStore.storeAnime(pageData.media); }));
+    };
+    AnimeService.prototype.getAnimeList = function (user) {
+        var _this = this;
+        return this.animeApi.queryAnimeList(user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (listEntriesDictionary) {
+            return _this.mediaStore.storeAnime(Object.keys(listEntriesDictionary)
+                .map(function (status) { return listEntriesDictionary[status].map(function (listEntry) { return listEntry.media; }); })
+                .reduce(function (mediaList, media) { return mediaList.concat(media); }));
+        }));
+    };
+    AnimeService.prototype.getAnimeListMediaIdsByStatus = function (user) {
+        return this.animeApi.queryAnimeListMediaIdsByStatus(user);
+    };
+    AnimeService.prototype.getRecentlyUpdatedAnime = function (user, pageInfo) {
+        var _this = this;
+        return this.animeApi.queryRecentlyUpdatedAnime(user, pageInfo).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (response) {
+            return _this.getAnimeFromIds(response.mediaList.map(function (listEntry) { return listEntry.media.id; })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (animeList) { return (__assign({}, response, { mediaList: response.mediaList.map(function (listEntry) { return (__assign({}, listEntry, { media: animeList.find(function (anime) { return anime.id === listEntry.media.id; }) })); }) })); }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (pageData) { return _this.mediaStore.storeAnime(pageData.mediaList.map(function (listEntry) { return listEntry.media; })); }));
+    };
+    AnimeService.prototype.getRecentlyFinishedAiringAnime = function (query, pageInfo) {
+        var _this = this;
+        return this.animeApi.queryRecentlyFinishedAiringAnime(query, pageInfo).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (response) {
+            return _this.getAnimeFromIds(response.media.map(function (media) { return media.id; })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (animeList) { return (__assign({}, response, { media: animeList })); }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (pageData) { return _this.mediaStore.storeAnime(pageData.media); }));
+    };
+    AnimeService.prototype.getRelatedAnimeMedia = function (user) {
+        var _this = this;
+        return this.animeApi.queryRelatedAnimeMedia(user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (mediaList) { return _this.mediaStore.storeAnime(mediaList); }));
+    };
+    AnimeService.prototype.getAnimeListFavouriteIDs = function (user, callback) {
+        return this.animeApi.queryAnimeListFavouriteIDs(user, callback);
+    };
+    AnimeService.prototype.saveAnimeListEntry = function (listEntry) {
+        return this.animeApi.saveAnimeListEntry(listEntry);
+    };
+    AnimeService.prototype.deleteAnimeListEntry = function (listEntry) {
+        return this.animeApi.deleteAnimeListEntry(listEntry);
+    };
+    AnimeService.prototype.toggleFavouriteAnimeListEntry = function (listEntry) {
+        return this.animeApi.toggleAnimeFavouriteEntry(listEntry);
+    };
+    AnimeService.prototype.getAnimeFromIds = function (mediaIds) {
+        var animeDictionary = this.mediaStore.getAnimeDictionary();
+        var storeIds = Object.keys(animeDictionary).map(function (key) { return parseInt(key); });
+        var missingIds = mediaIds.filter(function (id) { return storeIds.indexOf(id) < 0; });
+        return missingIds.length ? this.animeApi.queryAnimeFromIds(mediaIds) : Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(mediaIds.map(function (id) { return animeDictionary[id]; }));
+    };
+    AnimeService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_api_anime_anime_api__WEBPACK_IMPORTED_MODULE_4__["AnimeApi"], _shared_store_media_store__WEBPACK_IMPORTED_MODULE_3__["MediaStore"]])
+    ], AnimeService);
+    return AnimeService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/material/material.module.ts":
 /*!*****************************************************!*\
   !*** ./src/app/modules/material/material.module.ts ***!
@@ -2106,12 +2088,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MaterialModule", function() { return MaterialModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _providers_mat_paginator_i18n_provider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./providers/mat-paginator-i18n.provider */ "./src/app/modules/material/providers/mat-paginator-i18n.provider.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 var modules = [
@@ -2140,7 +2124,7 @@ var modules = [
     _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSortModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableModule"],
     _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatToolbarModule"],
-    _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTooltipModule"]
+    _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTooltipModule"],
 ];
 var MaterialModule = /** @class */ (function () {
     function MaterialModule() {
@@ -2148,11 +2132,231 @@ var MaterialModule = /** @class */ (function () {
     MaterialModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: modules,
-            exports: modules
+            exports: modules,
+            providers: [{ provide: _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginatorIntl"], useClass: _providers_mat_paginator_i18n_provider__WEBPACK_IMPORTED_MODULE_2__["MatPaginatorI18n"] }],
         })
     ], MaterialModule);
     return MaterialModule;
 }());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/material/providers/mat-paginator-i18n.provider.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/modules/material/providers/mat-paginator-i18n.provider.ts ***!
+  \***************************************************************************/
+/*! exports provided: MatPaginatorI18n */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatPaginatorI18n", function() { return MatPaginatorI18n; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var MatPaginatorI18n = /** @class */ (function (_super) {
+    __extends(MatPaginatorI18n, _super);
+    function MatPaginatorI18n(translateService) {
+        var _this = _super.call(this) || this;
+        _this.translateService = translateService;
+        _this.itemsPerPageLabel = _this.translateService.instant('matPaginator.itemsPerPageLabel');
+        _this.nextPageLabel = _this.translateService.instant('matPaginator.nextPageLabel');
+        _this.previousPageLabel = _this.translateService.instant('matPaginator.previousPageLabel');
+        _this.firstPageLabel = _this.translateService.instant('matPaginator.firstPageLabel');
+        _this.lastPageLabel = _this.translateService.instant('matPaginator.lastPageLabel');
+        _this.getRangeLabel = function (page, pageSize, length) {
+            var firstResultIndex = page * pageSize;
+            return _this.translateService.instant('matPaginator.rangeLabel', {
+                firstResult: firstResultIndex + 1,
+                lastResult: Math.min(firstResultIndex + pageSize, length),
+                totalCount: length,
+            });
+        };
+        return _this;
+    }
+    MatPaginatorI18n = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]])
+    ], MatPaginatorI18n);
+    return MatPaginatorI18n;
+}(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginatorIntl"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/shared/api/api.ts":
+/*!*******************************************!*\
+  !*** ./src/app/modules/shared/api/api.ts ***!
+  \*******************************************/
+/*! exports provided: AniListApi */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AniListApi", function() { return AniListApi; });
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../app.constants */ "./src/app/app.constants.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+var AniListApi = /** @class */ (function () {
+    function AniListApi(httpClient, authStore) {
+        this.httpClient = httpClient;
+        this.authStore = authStore;
+        this.loggingEnabled = false;
+        this.apiUrl = _app_constants__WEBPACK_IMPORTED_MODULE_2__["apiUrl"];
+    }
+    AniListApi.prototype.getRequestOptions = function () {
+        var accessToken = this.authStore.getAccessToken();
+        return { headers: accessToken ? { Authorization: "Bearer " + accessToken } : {} };
+    };
+    AniListApi.prototype.getPageOptions = function (pageOptions) {
+        return {
+            page: pageOptions ? (pageOptions.pageIndex >= 1 ? pageOptions.pageIndex : 1) : 1,
+            perPage: pageOptions ? pageOptions.perPage || 10 : 1,
+        };
+    };
+    AniListApi.prototype.postGraphQlRequest = function (query, variables) {
+        var parsedVariables = __assign({}, variables);
+        if (parsedVariables) {
+            Object.keys(parsedVariables).forEach(function (key) {
+                var value = parsedVariables[key];
+                if (value === undefined ||
+                    value === null ||
+                    (['string', 'object'].includes(typeof value) && value.length === 0)) {
+                    delete parsedVariables[key];
+                }
+            });
+        }
+        if (this.loggingEnabled) {
+            console.debug('query:', query.replace(/\n\s*/g, '\n'));
+            console.debug('variables:', parsedVariables);
+        }
+        return this.httpClient
+            .post(this.apiUrl, {
+            query: query,
+            variables: parsedVariables,
+        }, this.getRequestOptions())
+            .pipe(this.mapObjectErrorToStringError());
+    };
+    AniListApi.prototype.isValidResponse = function (response) {
+        return !!this.getResponseData(response);
+    };
+    AniListApi.prototype.getResponseData = function (response) {
+        return !!response && response.data;
+    };
+    AniListApi.prototype.mapObjectErrorToStringError = function () {
+        return Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (error) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["throwError"])(JSON.stringify(error, undefined, 2)); });
+    };
+    return AniListApi;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/shared/api/auth/auth.api.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/modules/shared/api/auth/auth.api.ts ***!
+  \*****************************************************/
+/*! exports provided: AuthApi */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthApi", function() { return AuthApi; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _anime_api_anime_anime_api_queries__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../anime/api/anime/anime-api.queries */ "./src/app/modules/anime/api/anime/anime-api.queries.ts");
+/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api */ "./src/app/modules/shared/api/api.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var AuthApi = /** @class */ (function (_super) {
+    __extends(AuthApi, _super);
+    function AuthApi(httpClient, authStore) {
+        var _this = _super.call(this, httpClient, authStore) || this;
+        _this.httpClient = httpClient;
+        _this.authStore = authStore;
+        return _this;
+    }
+    AuthApi.prototype.queryUser = function () {
+        var _this = this;
+        return this.postGraphQlRequest(_anime_api_anime_anime_api_queries__WEBPACK_IMPORTED_MODULE_3__["userQuery"]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.getResponseData(response).Viewer; }));
+    };
+    AuthApi = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"], _store_auth_store__WEBPACK_IMPORTED_MODULE_4__["AuthStore"]])
+    ], AuthApi);
+    return AuthApi;
+}(_api__WEBPACK_IMPORTED_MODULE_5__["AniListApi"]));
 
 
 
@@ -2570,8 +2774,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../app.constants */ "./src/app/app.constants.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../store/auth.store */ "./src/app/store/auth.store.ts");
+/* harmony import */ var _modules_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../modules/shared/services/auth.service */ "./src/app/modules/shared/services/auth.service.ts");
+/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
 /* harmony import */ var _with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../with-observable-on-destroy/with-observable-on-destroy.component */ "./src/app/modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -2662,7 +2866,7 @@ var MtHeaderComponent = /** @class */ (function (_super) {
             template: __webpack_require__(/*! ./mt-header.component.html */ "./src/app/modules/shared/components/mt-header/mt-header.component.html"),
             styles: [__webpack_require__(/*! ./mt-header.component.scss */ "./src/app/modules/shared/components/mt-header/mt-header.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_6__["AuthStore"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _modules_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_6__["AuthStore"]])
     ], MtHeaderComponent);
     return MtHeaderComponent;
 }(_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_7__["WithObservableOnDestroy"]));
@@ -2821,861 +3025,10 @@ var SortPipe = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/shared/shared.module.ts":
-/*!*************************************************!*\
-  !*** ./src/app/modules/shared/shared.module.ts ***!
-  \*************************************************/
-/*! exports provided: SharedModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var _material_material_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../material/material.module */ "./src/app/modules/material/material.module.ts");
-/* harmony import */ var _components_fa_icon_fa_icon_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/fa-icon/fa-icon.component */ "./src/app/modules/shared/components/fa-icon/fa-icon.component.ts");
-/* harmony import */ var _components_modal_mt_modal_content_mt_modal_content_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/modal/mt-modal-content/mt-modal-content.component */ "./src/app/modules/shared/components/modal/mt-modal-content/mt-modal-content.component.ts");
-/* harmony import */ var _components_modal_mt_modal_footer_mt_modal_footer_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/modal/mt-modal-footer/mt-modal-footer.component */ "./src/app/modules/shared/components/modal/mt-modal-footer/mt-modal-footer.component.ts");
-/* harmony import */ var _components_modal_mt_modal_header_mt_modal_header_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/modal/mt-modal-header/mt-modal-header.component */ "./src/app/modules/shared/components/modal/mt-modal-header/mt-modal-header.component.ts");
-/* harmony import */ var _components_modal_mt_modal_mt_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/modal/mt-modal/mt-modal.component */ "./src/app/modules/shared/components/modal/mt-modal/mt-modal.component.ts");
-/* harmony import */ var _components_mt_footer_mt_footer_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/mt-footer/mt-footer.component */ "./src/app/modules/shared/components/mt-footer/mt-footer.component.ts");
-/* harmony import */ var _components_mt_header_mt_header_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/mt-header/mt-header.component */ "./src/app/modules/shared/components/mt-header/mt-header.component.ts");
-/* harmony import */ var _components_mt_menu_action_mt_menu_action_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/mt-menu-action/mt-menu-action.component */ "./src/app/modules/shared/components/mt-menu-action/mt-menu-action.component.ts");
-/* harmony import */ var _pipes_sort__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pipes/sort */ "./src/app/modules/shared/pipes/sort.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var declarations = [
-    _components_fa_icon_fa_icon_component__WEBPACK_IMPORTED_MODULE_9__["FaIconComponent"],
-    _components_mt_footer_mt_footer_component__WEBPACK_IMPORTED_MODULE_14__["MtFooterComponent"],
-    _components_mt_header_mt_header_component__WEBPACK_IMPORTED_MODULE_15__["MtHeaderComponent"],
-    _components_mt_menu_action_mt_menu_action_component__WEBPACK_IMPORTED_MODULE_16__["MtMenuActionComponent"],
-    _components_modal_mt_modal_mt_modal_component__WEBPACK_IMPORTED_MODULE_13__["MtModalComponent"],
-    _components_modal_mt_modal_content_mt_modal_content_component__WEBPACK_IMPORTED_MODULE_10__["MtModalContentComponent"],
-    _components_modal_mt_modal_footer_mt_modal_footer_component__WEBPACK_IMPORTED_MODULE_11__["MtModalFooterComponent"],
-    _components_modal_mt_modal_header_mt_modal_header_component__WEBPACK_IMPORTED_MODULE_12__["MtModalHeaderComponent"],
-    _pipes_sort__WEBPACK_IMPORTED_MODULE_17__["SortPipe"],
-];
-var imports = [
-    _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
-    _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"],
-    _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-    _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
-    _material_material_module__WEBPACK_IMPORTED_MODULE_8__["MaterialModule"],
-    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
-    _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"],
-    _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateModule"],
-];
-var SharedModule = /** @class */ (function () {
-    function SharedModule() {
-    }
-    SharedModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-            declarations: declarations,
-            imports: imports,
-            exports: declarations.concat(imports),
-        })
-    ], SharedModule);
-    return SharedModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/anime-detail/anime-detail.component.html":
-/*!****************************************************************!*\
-  !*** ./src/app/pages/anime-detail/anime-detail.component.html ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"narrow-page\">\n  <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n\n  <mat-card class=\"composite\">\n    <div *ngIf=\"anime\">\n      <div class=\"header\">\n        <h3 class=\"no-margin\">\n          {{ anime.title.romaji }}\n        </h3>\n      </div>\n\n      <mat-divider></mat-divider>\n\n      <div class=\"content\">\n        <mt-anime-info *ngIf=\"anime\" [anime]=\"anime\" [showAsColumns]=\"true\"> </mt-anime-info>\n      </div>\n    </div>\n  </mat-card>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/pages/anime-detail/anime-detail.component.scss":
-/*!****************************************************************!*\
-  !*** ./src/app/pages/anime-detail/anime-detail.component.scss ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2FuaW1lLWRldGFpbC9hbmltZS1kZXRhaWwuY29tcG9uZW50LnNjc3MifQ== */"
-
-/***/ }),
-
-/***/ "./src/app/pages/anime-detail/anime-detail.component.ts":
-/*!**************************************************************!*\
-  !*** ./src/app/pages/anime-detail/anime-detail.component.ts ***!
-  \**************************************************************/
-/*! exports provided: AnimeDetailPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeDetailPageComponent", function() { return AnimeDetailPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/anime.service */ "./src/app/services/anime.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var AnimeDetailPageComponent = /** @class */ (function () {
-    function AnimeDetailPageComponent(activatedRoute, animeService) {
-        this.activatedRoute = activatedRoute;
-        this.animeService = animeService;
-        var animeId = this.activatedRoute.snapshot.params.id;
-        if (animeId && animeId > 0) {
-            this.getEntry(animeId);
-        }
-    }
-    AnimeDetailPageComponent.prototype.getEntry = function (animeId) {
-        var _this = this;
-        this.searching = true;
-        this.errorGotten = false;
-        this.animeService
-            .searchAnime({ id: animeId })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
-            _this.anime = response.media.length > 0 && response.media[0];
-            _this.searching = false;
-        }, function () {
-            _this.errorGotten = true;
-            _this.searching = false;
-        }))
-            .subscribe();
-    };
-    AnimeDetailPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'mt-anime-detail',
-            template: __webpack_require__(/*! ./anime-detail.component.html */ "./src/app/pages/anime-detail/anime-detail.component.html"),
-            styles: [__webpack_require__(/*! ./anime-detail.component.scss */ "./src/app/pages/anime-detail/anime-detail.component.scss")]
-        }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _services_anime_service__WEBPACK_IMPORTED_MODULE_3__["AnimeService"]])
-    ], AnimeDetailPageComponent);
-    return AnimeDetailPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/anime-search/anime-search.component.html":
-/*!****************************************************************!*\
-  !*** ./src/app/pages/anime-search/anime-search.component.html ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"narrow-page\">\n  <mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n    <h4>\n      <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n      {{ 'user.notLoggedIn' | translate }} {{ 'anime.search.limittedFeatures' | translate }}\n    </h4>\n  </mat-card>\n\n  <form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n    <mat-card class=\"text-center\">\n      <h1>\n        <label for=\"searchInput\">\n          {{ 'anime.search.title' | translate }}\n        </label>\n      </h1>\n\n      <div class=\"form-group\">\n        <mat-form-field class=\"medium display-block margin-auto\">\n          <input\n            id=\"searchInput\"\n            matInput\n            placeholder=\"{{ 'anime.search.filters.byTitle' | translate }}\"\n            formControlName=\"search\"\n          />\n        </mat-form-field>\n      </div>\n\n      <!--<mat-form-field id=\"yearInput\">-->\n      <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n      <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n      <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n      <!--</mat-form-field>-->\n\n      <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n        <mat-expansion-panel-header>\n          {{ 'anime.search.filters.advanced' | translate }}\n        </mat-expansion-panel-header>\n\n        <mat-divider></mat-divider>\n\n        <div class=\"vertical-padding-xs\">\n          <!-- air date -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.year' | translate }} {{ 'anime.search.filters.after' | translate }}...\"\n                formControlName=\"startDateGreaterThan\"\n                [min]=\"minYear\"\n                [max]=\"maxYear\"\n              />\n            </mat-form-field>\n\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.year' | translate }} {{ 'anime.search.filters.before' | translate }}...\"\n                formControlName=\"startDateSmallerThan\"\n                [min]=\"minYear\"\n                [max]=\"maxYear\"\n              />\n            </mat-form-field>\n          </div>\n\n          <!-- score -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.score' | translate }} {{ 'anime.search.filters.above' | translate }}...\"\n                formControlName=\"averageScoreGreaterThan\"\n                min=\"0\"\n                max=\"10\"\n                step=\".1\"\n              />\n            </mat-form-field>\n\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.score' | translate }} {{ 'anime.search.filters.below' | translate }}...\"\n                formControlName=\"averageScoreSmallerThan\"\n                min=\"0\"\n                max=\"10\"\n                step=\".1\"\n              />\n            </mat-form-field>\n          </div>\n\n          <!-- genre -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.genre' | translate }} {{ 'anime.search.filters.includedIn' | translate }}...\"\n                formControlName=\"genreIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.genre' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}...\"\n                formControlName=\"genreNotIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- format -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.format' | translate }} {{ 'anime.search.filters.includedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"formatIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat\">\n                  {{ 'media.formatValues.' + mediaFormat | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.format' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"formatNotIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat\">\n                  {{ 'media.formatValues.' + mediaFormat | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- status -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.status' | translate }} {{ 'anime.search.filters.includedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"statusIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus\">\n                  {{ 'media.statusValues.' + mediaStatus | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.status' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"statusNotIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus\">\n                  {{ 'media.statusValues.' + mediaStatus | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- on list -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"{{ 'anime.search.filters.onList' | translate }}...\" formControlName=\"onList\">\n                <mat-option *ngFor=\"let option of onListOptions\" [value]=\"option\">\n                  {{ 'anime.search.filters.onListValues.' + option | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <div class=\"text-center padding-bottom-xs\">\n          <button mat-raised-button type=\"button\" (click)=\"clearFilters($event)\">\n            {{ 'anime.search.filters.clear' | translate }}\n          </button>\n        </div>\n\n        <mat-divider></mat-divider>\n      </mat-expansion-panel>\n\n      <div class=\"text-center\">\n        <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n          <fa-icon name=\"search baseline\" class=\"margin-right-xxxs\"></fa-icon>\n          {{ 'anime.search.submit' | translate }}\n        </button>\n      </div>\n    </mat-card>\n\n    <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n    <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n    <mat-card *ngIf=\"error\" class=\"error\">\n      <h4>\n        <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n        {{ error }}\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"noResults\" class=\"info\">\n      <h4>\n        <fa-icon name=\"info-circle\" class=\"margin-right-xxs\"></fa-icon>\n        No results found\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n      <mt-search-results-table [tableData]=\"animeList\" (onSortChange)=\"sortBy($event)\"> </mt-search-results-table>\n\n      <mat-paginator\n        [showFirstLastButtons]=\"true\"\n        [length]=\"pagination.total\"\n        [pageSize]=\"pagination.perPage\"\n        [pageIndex]=\"pagination.pageIndex\"\n        [pageSizeOptions]=\"[5, 10, 25, 50]\"\n        (page)=\"changePage($event)\"\n      >\n      </mat-paginator>\n    </mat-card>\n  </form>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/pages/anime-search/anime-search.component.scss":
-/*!****************************************************************!*\
-  !*** ./src/app/pages/anime-search/anime-search.component.scss ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* modals */\n/* generic */\n/* specific */\nmat-form-field {\n  width: 100%; }\n#searchInput {\n  font-size: 16px;\n  line-height: 24px; }\n.form-group {\n  max-width: 640px;\n  margin: auto; }\n@media (min-width: 481px) {\n    .form-group.two-rows > * {\n      max-width: calc(50% - 16px); }\n      .form-group.two-rows > *:first-child {\n        float: left; }\n      .form-group.two-rows > *:last-child {\n        float: right; } }\n.progress-placeholder {\n  height: 5px; }\nmat-card:not(:first-of-type) {\n  margin-top: 24px; }\nmat-expansion-panel-header {\n  padding: 0 8px; }\n@media (max-width: 480px) {\n  button {\n    width: 100%; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMuc2NzcyIsIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3BhZ2VzL2FuaW1lLXNlYXJjaC9hbmltZS1zZWFyY2guY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsWUFBQTtBQVlBLGVBQUE7QUFRQSxpQkFBQTtBQVNBLGFBQUE7QUFJQSxXQUFBO0FBSUEsWUFBQTtBQU9BLGFBQUE7QUMxQ0E7RUFDRSxXQUFXLEVBQUE7QUFHYjtFQUVFLGVET2dCO0VDTmhCLGlCQUE2QixFQUFBO0FBRy9CO0VBQ0UsZ0JENEJvQjtFQzNCcEIsWUFBWSxFQUFBO0FBSVI7SUFOTjtNQU9RLDJCQUFxQyxFQUFBO01BUDdDO1FBVVUsV0FBVyxFQUFBO01BVnJCO1FBYVUsWUFBWSxFQUFBLEVBQ2I7QUFNVDtFQUNFLFdBQVcsRUFBQTtBQUdiO0VBRUksZ0JEakNZLEVBQUE7QUNxQ2hCO0VBQ0UsY0R4Q2UsRUFBQTtBQzJDakI7RUFDRTtJQUNFLFdBQVcsRUFBQSxFQUNaIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvYW5pbWUtc2VhcmNoL2FuaW1lLXNlYXJjaC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIHNwYWNpbmcgKi9cbiRzcGFjaW5nLXh4eHhzOiAycHg7XG4kc3BhY2luZy14eHhzOiA0cHg7XG4kc3BhY2luZy14eHM6IDhweDtcbiRzcGFjaW5nLXhzOiAxNnB4O1xuJHNwYWNpbmctczogMjRweDtcbiRzcGFjaW5nLW06IDMycHg7XG4kc3BhY2luZy1sOiA0OHB4O1xuJHNwYWNpbmcteGw6IDY0cHg7XG4kc3BhY2luZy14eGw6IDk2cHg7XG4kc3BhY2luZy14eHhsOiAxMjhweDtcblxuLyogZm9udCBzaXplcyAqL1xuJGZvbnQtc2l6ZS14czogMTJweDtcbiRmb250LXNpemUtczogMTRweDtcbiRmb250LXNpemUtbTogMTZweDtcbiRmb250LXNpemUtbDogMjBweDtcbiRmb250LXNpemUteGw6IDI0cHg7XG4kZm9udC1zaXplLXh4bDogMjhweDtcblxuLyogZGV2aWNlIHNpemVzICovXG4kc2NyZWVuLXh4eHM6IDMyMHB4O1xuJHNjcmVlbi14eHM6IDQ4MHB4O1xuJHNjcmVlbi14czogNTc2cHg7XG4kc2NyZWVuLXM6IDc2OHB4O1xuJHNjcmVlbi1tOiAxMDI0cHg7XG4kc2NyZWVuLWw6IDEzNjBweDtcbiRzY3JlZW4teGw6IDE5MjBweDtcblxuLyogbWF0ZXJpYWwgKi9cbiRtYXQtdG9vbGJhci1oZWlnaHQ6IDY0cHg7XG4kbWF0LXNwaW5uZXItc2l6ZTogMTI4cHg7XG5cbi8qIG1vZGFscyAqL1xuJG1vZGFsLWhlYWRlci1oZWlnaHQ6IDcwcHg7XG4kbW9kYWwtZm9vdGVyLWhlaWdodDogODRweDtcblxuLyogZ2VuZXJpYyAqL1xuJHBhZ2UtcGFkZGluZzogJHNwYWNpbmctbTtcbiRjYXJkLXBhZGRpbmc6ICRzcGFjaW5nLXM7XG4kZXhwYW5zaW9uLXBhbmVsLXBhZGRpbmc6ICRzcGFjaW5nLXM7XG4kbWF4LWlucHV0LXNpemU6IDY0MHB4O1xuJHNlcGFyYXRvci10aGlja25lc3M6IDFweDtcblxuLyogc3BlY2lmaWMgKi9cbiRmb290ZXItaGVpZ2h0OiAxMDNweDtcbiIsIkBpbXBvcnQgXCIuLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbiNzZWFyY2hJbnB1dCB7XG4gICRmb250LXNpemU6ICRmb250LXNpemUtbTtcbiAgZm9udC1zaXplOiAkZm9udC1zaXplO1xuICBsaW5lLWhlaWdodDogJGZvbnQtc2l6ZSAqIDEuNTtcbn1cblxuLmZvcm0tZ3JvdXAge1xuICBtYXgtd2lkdGg6ICRtYXgtaW5wdXQtc2l6ZTtcbiAgbWFyZ2luOiBhdXRvO1xuXG4gICYudHdvLXJvd3Mge1xuICAgID4gKiB7XG4gICAgICBAbWVkaWEgKG1pbi13aWR0aDogI3skc2NyZWVuLXh4cyArIDF9KSB7XG4gICAgICAgIG1heC13aWR0aDogY2FsYyg1MCUgLSAjeyRzcGFjaW5nLXhzfSk7XG5cbiAgICAgICAgJjpmaXJzdC1jaGlsZCB7XG4gICAgICAgICAgZmxvYXQ6IGxlZnQ7XG4gICAgICAgIH1cbiAgICAgICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgICBmbG9hdDogcmlnaHQ7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cblxuLnByb2dyZXNzLXBsYWNlaG9sZGVyIHtcbiAgaGVpZ2h0OiA1cHg7XG59XG5cbm1hdC1jYXJkIHtcbiAgJjpub3QoOmZpcnN0LW9mLXR5cGUpIHtcbiAgICBtYXJnaW4tdG9wOiAkc3BhY2luZy1zO1xuICB9XG59XG5cbm1hdC1leHBhbnNpb24tcGFuZWwtaGVhZGVyIHtcbiAgcGFkZGluZzogMCAkc3BhY2luZy14eHM7XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiAkc2NyZWVuLXh4cykge1xuICBidXR0b24ge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG59XG5cbi8vQG1lZGlhIChtYXgtd2lkdGg6ICN7MiAqICgkcGFnZS1wYWRkaW5nICsgJGNhcmQtcGFkZGluZyArICRleHBhbnNpb24tcGFuZWwtcGFkZGluZykgKyAkbWF4LWlucHV0LXNpemV9KSB7XG4vLyAgbWF0LWV4cGFuc2lvbi1wYW5lbC1oZWFkZXIge1xuLy8gICAgbWF4LXdpZHRoOiAkbWF4LWlucHV0LXNpemU7XG4vLyAgICB3aWR0aDogMTAwJTtcbi8vICAgIG1hcmdpbjogYXV0bztcbi8vICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4vL1xuLy8gICAgcGFkZGluZy1sZWZ0OiAwO1xuLy8gICAgcGFkZGluZy1yaWdodDogMDtcbi8vICB9XG4vL31cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/pages/anime-search/anime-search.component.ts":
-/*!**************************************************************!*\
-  !*** ./src/app/pages/anime-search/anime-search.component.ts ***!
-  \**************************************************************/
-/*! exports provided: AnimeSearchPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeSearchPageComponent", function() { return AnimeSearchPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../app.constants */ "./src/app/app.constants.ts");
-/* harmony import */ var _modules_anime_components_mt_search_results_table_mt_search_results_table_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../modules/anime/components/mt-search-results-table/mt-search-results-table.component */ "./src/app/modules/anime/components/mt-search-results-table/mt-search-results-table.component.ts");
-/* harmony import */ var _modules_anime_domain_anime_domain__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../modules/anime/domain/anime.domain */ "./src/app/modules/anime/domain/anime.domain.ts");
-/* harmony import */ var _modules_shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component */ "./src/app/modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component.ts");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../store/auth.store */ "./src/app/store/auth.store.ts");
-/* harmony import */ var _utils_generic_util__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../utils/generic.util */ "./src/app/utils/generic.util.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var AnimeSearchPageComponent = /** @class */ (function (_super) {
-    __extends(AnimeSearchPageComponent, _super);
-    function AnimeSearchPageComponent(router, activatedRoute, animeService, authService, authStore, formBuilder) {
-        var _this = _super.call(this) || this;
-        _this.router = router;
-        _this.activatedRoute = activatedRoute;
-        _this.animeService = animeService;
-        _this.authService = authService;
-        _this.authStore = authStore;
-        _this.formBuilder = formBuilder;
-        _this.mediaFormats = ['MOVIE', 'MUSIC', 'ONA', 'OVA', 'SPECIAL', 'TV_SHORT', 'TV'];
-        _this.mediaStatuses = ['FINISHED', 'RELEASING', 'NOT_YET_RELEASED', 'CANCELLED'];
-        _this.onListOptions = [true, false, undefined];
-        _this.minYear = 1900;
-        _this.maxYear = new Date().getFullYear() + 1;
-        _this.user = _this.authStore.getUser();
-        _this.setupForm();
-        _this.animeService
-            .getAnimeGenres()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function (mediaGenres) { return (_this.mediaGenres = mediaGenres); }))
-            .subscribe();
-        _this.authService.userChange
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(_this.destroyed$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function (user) {
-            _this.user = user;
-        }))
-            .subscribe();
-        return _this;
-    }
-    AnimeSearchPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        var queryParams = this.activatedRoute.snapshot.queryParams;
-        var fieldKeys = Object.keys(queryParams);
-        if (fieldKeys.length) {
-            Object.keys(queryParams).forEach(function (fieldKey) {
-                var field = _this.searchForm.controls[fieldKey];
-                var value = JSON.parse(queryParams[fieldKey]);
-                if (field && _utils_generic_util__WEBPACK_IMPORTED_MODULE_13__["GenericUtil"].isSet(value)) {
-                    field.setValue(value);
-                }
-            });
-            this.sort = queryParams.sort ? JSON.parse(queryParams.sort) : this.sort;
-            this.expansionPanel.open();
-            this.search();
-        }
-    };
-    AnimeSearchPageComponent.prototype.clearFilters = function (event) {
-        this.preventDefault(event);
-        this.setupForm();
-        this.updateQueryParams();
-    };
-    AnimeSearchPageComponent.prototype.search = function (pageIndex, perPage) {
-        var _this = this;
-        _utils_generic_util__WEBPACK_IMPORTED_MODULE_13__["GenericUtil"].scrollToRef(this.resultsTable);
-        this.updateQueryParams();
-        this.searching = true;
-        this.error = undefined;
-        var filters = this.searchForm.value;
-        var query = __assign({}, filters, { startDateSmallerThan: filters.startDateSmallerThan && Object(_modules_anime_domain_anime_domain__WEBPACK_IMPORTED_MODULE_8__["getDateScalarFromYear"])(filters.startDateSmallerThan), startDateGreaterThan: filters.startDateGreaterThan && Object(_modules_anime_domain_anime_domain__WEBPACK_IMPORTED_MODULE_8__["getDateScalarFromYear"])(filters.startDateGreaterThan), averageScoreGreaterThan: filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10, averageScoreSmallerThan: filters.averageScoreSmallerThan && filters.averageScoreSmallerThan * 10, sort: this.sort });
-        this.animeService
-            .searchAnime(query, {
-            pageIndex: pageIndex,
-            perPage: perPage,
-        })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function (response) {
-            _this.noResults = response.media.length < 1;
-            _this.animeList = response.media;
-            _this.pagination = response.pageInfo;
-            _this.pagination.pageIndex = response.pageInfo.currentPage - 1;
-            _this.searching = false;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(function (error) {
-            _this.error = error;
-            _this.noResults = false;
-            _this.searching = false;
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])();
-        }))
-            .subscribe();
-    };
-    AnimeSearchPageComponent.prototype.changePage = function (pageEvent) {
-        this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
-    };
-    AnimeSearchPageComponent.prototype.sortBy = function (mediaSort) {
-        this.sort = mediaSort && mediaSort.value;
-        this.search();
-    };
-    AnimeSearchPageComponent.prototype.preventDefault = function (event) {
-        if (event) {
-            event.preventDefault();
-        }
-    };
-    AnimeSearchPageComponent.prototype.setupForm = function () {
-        this.searchForm = this.formBuilder.group({
-            search: [''],
-            startDateGreaterThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(this.minYear), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(this.maxYear)]],
-            startDateSmallerThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(this.minYear), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(this.maxYear)]],
-            averageScoreGreaterThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(0), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(10)]],
-            averageScoreSmallerThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(0), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(10)]],
-            genreIn: [[]],
-            genreNotIn: [[]],
-            formatIn: [[]],
-            formatNotIn: [[]],
-            statusIn: [[]],
-            statusNotIn: [[]],
-            onList: [undefined],
-        });
-    };
-    AnimeSearchPageComponent.prototype.updateQueryParams = function () {
-        var queryParams = {
-            sort: JSON.stringify(this.sort),
-        };
-        var filters = this.searchForm.value;
-        Object.keys(filters).forEach(function (fieldKey) {
-            var field = filters[fieldKey];
-            if (_utils_generic_util__WEBPACK_IMPORTED_MODULE_13__["GenericUtil"].isSet(field) && field.length !== 0) {
-                queryParams[fieldKey] = JSON.stringify(field);
-            }
-        });
-        this.router.navigate([_app_constants__WEBPACK_IMPORTED_MODULE_6__["animeSearchUrl"]], { queryParams: queryParams });
-    };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatExpansionPanel"]),
-        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatExpansionPanel"])
-    ], AnimeSearchPageComponent.prototype, "expansionPanel", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_modules_anime_components_mt_search_results_table_mt_search_results_table_component__WEBPACK_IMPORTED_MODULE_7__["MtSearchResultsTableComponent"], { read: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }),
-        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
-    ], AnimeSearchPageComponent.prototype, "resultsTable", void 0);
-    AnimeSearchPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'mt-anime-search',
-            template: __webpack_require__(/*! ./anime-search.component.html */ "./src/app/pages/anime-search/anime-search.component.html"),
-            styles: [__webpack_require__(/*! ./anime-search.component.scss */ "./src/app/pages/anime-search/anime-search.component.scss")]
-        }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            _services_anime_service__WEBPACK_IMPORTED_MODULE_10__["AnimeService"],
-            _services_auth_service__WEBPACK_IMPORTED_MODULE_11__["AuthService"],
-            _store_auth_store__WEBPACK_IMPORTED_MODULE_12__["AuthStore"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
-    ], AnimeSearchPageComponent);
-    return AnimeSearchPageComponent;
-}(_modules_shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_9__["WithObservableOnDestroy"]));
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/dashboard/dashboard.component.html":
-/*!**********************************************************!*\
-  !*** ./src/app/pages/dashboard/dashboard.component.html ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"columns-wrapper\">\n  <div class=\"column left-sidebar\">\n    <mt-recently-updated-list-entries></mt-recently-updated-list-entries>\n  </div>\n  <div class=\"column main-content\">\n    <mat-card class=\"warning\">\n      <h4>\n        <fa-icon name=\"exclamation-triangle\" class=\"margin-right-xxs\"></fa-icon>\n        {{ 'generic.workInProgress' | translate }}\n      </h4>\n    </mat-card>\n    <!--<mt-list-related-media></mt-list-related-media>-->\n  </div>\n  <div class=\"column right-sidebar\">\n    <mt-recently-finished-media></mt-recently-finished-media>\n  </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/pages/dashboard/dashboard.component.scss":
-/*!**********************************************************!*\
-  !*** ./src/app/pages/dashboard/dashboard.component.scss ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* modals */\n/* generic */\n/* specific */\n.columns-wrapper {\n  font-size: 0; }\n.columns-wrapper > * {\n    font-size: initial; }\n.columns-wrapper .column {\n    padding: 0 6px;\n    vertical-align: top;\n    display: inline-block;\n    box-sizing: border-box; }\n.columns-wrapper .column.left-sidebar {\n      width: 440px;\n      padding-left: 0; }\n.columns-wrapper .column.main-content {\n      width: calc(100% - 880px); }\n.columns-wrapper .column.right-sidebar {\n      width: 440px;\n      padding-right: 0; }\n@media (max-width: 1360px) {\n      .columns-wrapper .column {\n        padding: 6px 0;\n        width: 100% !important; }\n        .columns-wrapper .column.left-sidebar, .columns-wrapper .column.right-sidebar {\n          float: none; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMuc2NzcyIsIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsWUFBQTtBQVlBLGVBQUE7QUFRQSxpQkFBQTtBQVNBLGFBQUE7QUFJQSxXQUFBO0FBSUEsWUFBQTtBQU9BLGFBQUE7QUMxQ0E7RUFDRSxZQUFZLEVBQUE7QUFEZDtJQUlJLGtCQUFrQixFQUFBO0FBSnRCO0lBVUksY0FENkI7SUFFN0IsbUJBQW1CO0lBQ25CLHFCQUFxQjtJQUNyQixzQkFBc0IsRUFBQTtBQWIxQjtNQWdCTSxZQVJtQjtNQVNuQixlQUFlLEVBQUE7QUFqQnJCO01BcUJNLHlCQUF5QyxFQUFBO0FBckIvQztNQXlCTSxZQWpCbUI7TUFrQm5CLGdCQUFnQixFQUFBO0FBR2xCO01BN0JKO1FBOEJNLGNBQW1CO1FBQ25CLHNCQUFzQixFQUFBO1FBL0I1QjtVQW1DUSxXQUFXLEVBQUEsRUFDWiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBzcGFjaW5nICovXG4kc3BhY2luZy14eHh4czogMnB4O1xuJHNwYWNpbmcteHh4czogNHB4O1xuJHNwYWNpbmcteHhzOiA4cHg7XG4kc3BhY2luZy14czogMTZweDtcbiRzcGFjaW5nLXM6IDI0cHg7XG4kc3BhY2luZy1tOiAzMnB4O1xuJHNwYWNpbmctbDogNDhweDtcbiRzcGFjaW5nLXhsOiA2NHB4O1xuJHNwYWNpbmcteHhsOiA5NnB4O1xuJHNwYWNpbmcteHh4bDogMTI4cHg7XG5cbi8qIGZvbnQgc2l6ZXMgKi9cbiRmb250LXNpemUteHM6IDEycHg7XG4kZm9udC1zaXplLXM6IDE0cHg7XG4kZm9udC1zaXplLW06IDE2cHg7XG4kZm9udC1zaXplLWw6IDIwcHg7XG4kZm9udC1zaXplLXhsOiAyNHB4O1xuJGZvbnQtc2l6ZS14eGw6IDI4cHg7XG5cbi8qIGRldmljZSBzaXplcyAqL1xuJHNjcmVlbi14eHhzOiAzMjBweDtcbiRzY3JlZW4teHhzOiA0ODBweDtcbiRzY3JlZW4teHM6IDU3NnB4O1xuJHNjcmVlbi1zOiA3NjhweDtcbiRzY3JlZW4tbTogMTAyNHB4O1xuJHNjcmVlbi1sOiAxMzYwcHg7XG4kc2NyZWVuLXhsOiAxOTIwcHg7XG5cbi8qIG1hdGVyaWFsICovXG4kbWF0LXRvb2xiYXItaGVpZ2h0OiA2NHB4O1xuJG1hdC1zcGlubmVyLXNpemU6IDEyOHB4O1xuXG4vKiBtb2RhbHMgKi9cbiRtb2RhbC1oZWFkZXItaGVpZ2h0OiA3MHB4O1xuJG1vZGFsLWZvb3Rlci1oZWlnaHQ6IDg0cHg7XG5cbi8qIGdlbmVyaWMgKi9cbiRwYWdlLXBhZGRpbmc6ICRzcGFjaW5nLW07XG4kY2FyZC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJGV4cGFuc2lvbi1wYW5lbC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJG1heC1pbnB1dC1zaXplOiA2NDBweDtcbiRzZXBhcmF0b3ItdGhpY2tuZXNzOiAxcHg7XG5cbi8qIHNwZWNpZmljICovXG4kZm9vdGVyLWhlaWdodDogMTAzcHg7XG4iLCJAaW1wb3J0ICdzcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMnO1xuXG4uY29sdW1ucy13cmFwcGVyIHtcbiAgZm9udC1zaXplOiAwO1xuXG4gID4gKiB7XG4gICAgZm9udC1zaXplOiBpbml0aWFsO1xuICB9XG5cbiAgLmNvbHVtbiB7XG4gICAgJHNpZGViYXItd2lkdGg6IDQ0MHB4O1xuICAgICRwYWRkaW5nOiAkc3BhY2luZy14eHhzICogMS41O1xuICAgIHBhZGRpbmc6IDAgJHBhZGRpbmc7XG4gICAgdmVydGljYWwtYWxpZ246IHRvcDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcblxuICAgICYubGVmdC1zaWRlYmFyIHtcbiAgICAgIHdpZHRoOiAkc2lkZWJhci13aWR0aDtcbiAgICAgIHBhZGRpbmctbGVmdDogMDtcbiAgICB9XG5cbiAgICAmLm1haW4tY29udGVudCB7XG4gICAgICB3aWR0aDogY2FsYygxMDAlIC0gI3skc2lkZWJhci13aWR0aCAqIDJ9KTtcbiAgICB9XG5cbiAgICAmLnJpZ2h0LXNpZGViYXIge1xuICAgICAgd2lkdGg6ICRzaWRlYmFyLXdpZHRoO1xuICAgICAgcGFkZGluZy1yaWdodDogMDtcbiAgICB9XG5cbiAgICBAbWVkaWEgKG1heC13aWR0aDogJHNjcmVlbi1sKSB7XG4gICAgICBwYWRkaW5nOiAkcGFkZGluZyAwO1xuICAgICAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcblxuICAgICAgJi5sZWZ0LXNpZGViYXIsXG4gICAgICAmLnJpZ2h0LXNpZGViYXIge1xuICAgICAgICBmbG9hdDogbm9uZTtcbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/pages/dashboard/dashboard.component.ts":
-/*!********************************************************!*\
-  !*** ./src/app/pages/dashboard/dashboard.component.ts ***!
-  \********************************************************/
-/*! exports provided: DashboardPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardPageComponent", function() { return DashboardPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var DashboardPageComponent = /** @class */ (function () {
-    function DashboardPageComponent() {
-    }
-    DashboardPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'mt-dashboard',
-            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/pages/dashboard/dashboard.component.html"),
-            styles: [__webpack_require__(/*! ./dashboard.component.scss */ "./src/app/pages/dashboard/dashboard.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], DashboardPageComponent);
-    return DashboardPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/login/login.component.html":
-/*!**************************************************!*\
-  !*** ./src/app/pages/login/login.component.html ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"narrow-page\">\n\n  <mat-card>\n    <div class=\"text-center vertical-padding-m\">\n      <h2>\n        <a [href]=apiLoginUrl>Log in with AniList</a>\n      </h2>\n    </div>\n  </mat-card>\n\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/pages/login/login.component.scss":
-/*!**************************************************!*\
-  !*** ./src/app/pages/login/login.component.scss ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/pages/login/login.component.ts":
-/*!************************************************!*\
-  !*** ./src/app/pages/login/login.component.ts ***!
-  \************************************************/
-/*! exports provided: LoginPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageComponent", function() { return LoginPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../app.constants */ "./src/app/app.constants.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var LoginPageComponent = /** @class */ (function () {
-    function LoginPageComponent() {
-        this.apiLoginUrl = _app_constants__WEBPACK_IMPORTED_MODULE_1__["apiLoginUrl"];
-    }
-    LoginPageComponent.prototype.ngOnInit = function () { };
-    LoginPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'mt-login',
-            template: __webpack_require__(/*! ./login.component.html */ "./src/app/pages/login/login.component.html"),
-            styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/pages/login/login.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], LoginPageComponent);
-    return LoginPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/page-not-found/page-not-found.component.html":
-/*!********************************************************************!*\
-  !*** ./src/app/pages/page-not-found/page-not-found.component.html ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<mat-card class=\"inline-block text-center\">\n  <fa-icon name=\"exclamation-circle\" class=\"fa-5x\"></fa-icon>\n  <h1>\n    Error 404\n  </h1>\n  <h2>\n    Page not found\n  </h2>\n</mat-card>\n"
-
-/***/ }),
-
-/***/ "./src/app/pages/page-not-found/page-not-found.component.scss":
-/*!********************************************************************!*\
-  !*** ./src/app/pages/page-not-found/page-not-found.component.scss ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3BhZ2Utbm90LWZvdW5kL3BhZ2Utbm90LWZvdW5kLmNvbXBvbmVudC5zY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/pages/page-not-found/page-not-found.component.ts":
-/*!******************************************************************!*\
-  !*** ./src/app/pages/page-not-found/page-not-found.component.ts ***!
-  \******************************************************************/
-/*! exports provided: PageNotFoundPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageNotFoundPageComponent", function() { return PageNotFoundPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var PageNotFoundPageComponent = /** @class */ (function () {
-    function PageNotFoundPageComponent() {
-    }
-    PageNotFoundPageComponent.prototype.ngOnInit = function () { };
-    PageNotFoundPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'mt-page-not-found',
-            template: __webpack_require__(/*! ./page-not-found.component.html */ "./src/app/pages/page-not-found/page-not-found.component.html"),
-            styles: [__webpack_require__(/*! ./page-not-found.component.scss */ "./src/app/pages/page-not-found/page-not-found.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], PageNotFoundPageComponent);
-    return PageNotFoundPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/user-anime-list/user-anime-list.component.html":
-/*!**********************************************************************!*\
-  !*** ./src/app/pages/user-anime-list/user-anime-list.component.html ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"narrow-page\">\n  <mat-card *ngIf=\"!user\" class=\"alert warning\">\n    <h4>\n      <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n      {{ 'user.notLoggedIn' | translate }}\n    </h4>\n  </mat-card>\n\n  <mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n  <div *ngIf=\"user && ready && !errorGotten\">\n    <div *ngIf=\"statuses && statuses.length\">\n      <mat-card class=\"table-filter\">\n        <mat-form-field class=\"full-width\">\n          <input\n            matInput\n            placeholder=\"{{ 'anime.search.filters.byTitle' | translate }}\"\n            (keyup)=\"applyFilter($event.target.value)\"\n          />\n        </mat-form-field>\n      </mat-card>\n\n      <mat-card class=\"margin-top-s\">\n        <h3>{{ 'anime.userList.show' | translate }} / {{ 'anime.userList.goTo' | translate }}</h3>\n\n        <div class=\"statuses-wrapper\">\n          <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n            <div *ngIf=\"hasDataOfStatus(status.value)\">\n              <mat-checkbox [(ngModel)]=\"status.shown\">\n                {{ 'anime.statusValues.' + status.value | translate }}\n              </mat-checkbox>\n\n              <a href=\"{{ '/user-anime-list#' + status.value }}\" class=\"go-to-link\">\n                <fa-icon name=\"arrow-down\" class=\"vertically-centered margin-left-xxxs\"></fa-icon>\n              </a>\n            </div>\n          </span>\n        </div>\n      </mat-card>\n\n      <div *ngFor=\"let status of statuses\">\n        <div id=\"{{ status.value }}\" *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n          <mt-user-anime-list-table\n            [tableStatus]=\"status.value\"\n            [tableData]=\"statusObjects[status.value]\"\n            [favouriteIDs]=\"favouriteIDs\"\n            [filter]=\"filter\"\n            (onEntryUpdate)=\"onEntryUpdate($event)\"\n          >\n          </mt-user-anime-list-table>\n        </div>\n      </div>\n\n      <div class=\"padding-top-xs padding-bottom-m\">\n        <h3>\n          {{ 'settings.title' | translate }}\n        </h3>\n\n        <mat-slide-toggle [checked]=\"reloadOnUpdate\" (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n          {{ 'settings.reloadOnUpdate' | translate }}\n        </mat-slide-toggle>\n      </div>\n\n      <mt-genres-overview [genreStatsList]=\"user.stats.favouredGenresOverview\"> </mt-genres-overview>\n    </div>\n\n    <mat-card *ngIf=\"ready && !error && (!statuses || !statuses.length)\">\n      <h4>\n        <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n        {{ 'anime.userList.noEntries' | translate }}\n      </h4>\n    </mat-card>\n  </div>\n\n  <mat-card *ngIf=\"error\" class=\"error\">\n    <h4>\n      <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n      {{ error }}\n    </h4>\n  </mat-card>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/pages/user-anime-list/user-anime-list.component.scss":
-/*!**********************************************************************!*\
-  !*** ./src/app/pages/user-anime-list/user-anime-list.component.scss ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* modals */\n/* generic */\n/* specific */\n.table-filter {\n  padding-top: 8px !important;\n  padding-bottom: 0 !important; }\n.statuses-wrapper mat-checkbox {\n  display: inline-block;\n  vertical-align: text-bottom; }\n.statuses-wrapper .status-wrapper {\n  margin-right: 16px;\n  display: inline-block;\n  min-width: 104px; }\n.statuses-wrapper .status-wrapper .go-to-link {\n    height: 24px;\n    display: inline-block;\n    vertical-align: top; }\n.status-table-wrapper:not(:last-of-type) {\n  margin-bottom: 40px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMuc2NzcyIsIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3BhZ2VzL3VzZXItYW5pbWUtbGlzdC91c2VyLWFuaW1lLWxpc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsWUFBQTtBQVlBLGVBQUE7QUFRQSxpQkFBQTtBQVNBLGFBQUE7QUFJQSxXQUFBO0FBSUEsWUFBQTtBQU9BLGFBQUE7QUMxQ0E7RUFDRSwyQkFBb0M7RUFDcEMsNEJBQTRCLEVBQUE7QUFHOUI7RUFFSSxxQkFBcUI7RUFDckIsMkJBQTJCLEVBQUE7QUFIL0I7RUFPSSxrQkRWYTtFQ1diLHFCQUFxQjtFQUNyQixnQkFBZ0IsRUFBQTtBQVRwQjtJQVlNLFlEZFU7SUNlVixxQkFBcUI7SUFDckIsbUJBQW1CLEVBQUE7QUFLekI7RUFFSSxtQkFBd0MsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3VzZXItYW5pbWUtbGlzdC91c2VyLWFuaW1lLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBzcGFjaW5nICovXG4kc3BhY2luZy14eHh4czogMnB4O1xuJHNwYWNpbmcteHh4czogNHB4O1xuJHNwYWNpbmcteHhzOiA4cHg7XG4kc3BhY2luZy14czogMTZweDtcbiRzcGFjaW5nLXM6IDI0cHg7XG4kc3BhY2luZy1tOiAzMnB4O1xuJHNwYWNpbmctbDogNDhweDtcbiRzcGFjaW5nLXhsOiA2NHB4O1xuJHNwYWNpbmcteHhsOiA5NnB4O1xuJHNwYWNpbmcteHh4bDogMTI4cHg7XG5cbi8qIGZvbnQgc2l6ZXMgKi9cbiRmb250LXNpemUteHM6IDEycHg7XG4kZm9udC1zaXplLXM6IDE0cHg7XG4kZm9udC1zaXplLW06IDE2cHg7XG4kZm9udC1zaXplLWw6IDIwcHg7XG4kZm9udC1zaXplLXhsOiAyNHB4O1xuJGZvbnQtc2l6ZS14eGw6IDI4cHg7XG5cbi8qIGRldmljZSBzaXplcyAqL1xuJHNjcmVlbi14eHhzOiAzMjBweDtcbiRzY3JlZW4teHhzOiA0ODBweDtcbiRzY3JlZW4teHM6IDU3NnB4O1xuJHNjcmVlbi1zOiA3NjhweDtcbiRzY3JlZW4tbTogMTAyNHB4O1xuJHNjcmVlbi1sOiAxMzYwcHg7XG4kc2NyZWVuLXhsOiAxOTIwcHg7XG5cbi8qIG1hdGVyaWFsICovXG4kbWF0LXRvb2xiYXItaGVpZ2h0OiA2NHB4O1xuJG1hdC1zcGlubmVyLXNpemU6IDEyOHB4O1xuXG4vKiBtb2RhbHMgKi9cbiRtb2RhbC1oZWFkZXItaGVpZ2h0OiA3MHB4O1xuJG1vZGFsLWZvb3Rlci1oZWlnaHQ6IDg0cHg7XG5cbi8qIGdlbmVyaWMgKi9cbiRwYWdlLXBhZGRpbmc6ICRzcGFjaW5nLW07XG4kY2FyZC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJGV4cGFuc2lvbi1wYW5lbC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJG1heC1pbnB1dC1zaXplOiA2NDBweDtcbiRzZXBhcmF0b3ItdGhpY2tuZXNzOiAxcHg7XG5cbi8qIHNwZWNpZmljICovXG4kZm9vdGVyLWhlaWdodDogMTAzcHg7XG4iLCJAaW1wb3J0ICcuLi8uLi9zdHlsZXMvdmFyaWFibGVzJztcblxuLnRhYmxlLWZpbHRlciB7XG4gIHBhZGRpbmctdG9wOiAkc3BhY2luZy14eHMgIWltcG9ydGFudDtcbiAgcGFkZGluZy1ib3R0b206IDAgIWltcG9ydGFudDtcbn1cblxuLnN0YXR1c2VzLXdyYXBwZXIge1xuICBtYXQtY2hlY2tib3gge1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICB2ZXJ0aWNhbC1hbGlnbjogdGV4dC1ib3R0b207XG4gIH1cblxuICAuc3RhdHVzLXdyYXBwZXIge1xuICAgIG1hcmdpbi1yaWdodDogJHNwYWNpbmcteHM7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIG1pbi13aWR0aDogMTA0cHg7XG5cbiAgICAuZ28tdG8tbGluayB7XG4gICAgICBoZWlnaHQ6ICRzcGFjaW5nLXM7XG4gICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuICAgIH1cbiAgfVxufVxuXG4uc3RhdHVzLXRhYmxlLXdyYXBwZXIge1xuICAmOm5vdCg6bGFzdC1vZi10eXBlKSB7XG4gICAgbWFyZ2luLWJvdHRvbTogJHNwYWNpbmctbCAtICRzcGFjaW5nLXh4cztcbiAgfVxufVxuIl19 */"
-
-/***/ }),
-
-/***/ "./src/app/pages/user-anime-list/user-anime-list.component.ts":
-/*!********************************************************************!*\
-  !*** ./src/app/pages/user-anime-list/user-anime-list.component.ts ***!
-  \********************************************************************/
-/*! exports provided: UserAnimeListPageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserAnimeListPageComponent", function() { return UserAnimeListPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../app.constants */ "./src/app/app.constants.ts");
-/* harmony import */ var _services_anime_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/anime.service */ "./src/app/services/anime.service.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/auth.store */ "./src/app/store/auth.store.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var UserAnimeListPageComponent = /** @class */ (function () {
-    function UserAnimeListPageComponent(router, animeService, authStore) {
-        this.router = router;
-        this.animeService = animeService;
-        this.authStore = authStore;
-        this.reloadOnUpdate = true;
-        this.user = this.authStore.getUser();
-        this.loggedIn = this.user !== undefined;
-        if (!this.loggedIn) {
-            this.router.navigate([_app_constants__WEBPACK_IMPORTED_MODULE_4__["rootUrl"]]);
-        }
-        this.updateListData();
-    }
-    UserAnimeListPageComponent.prototype.getUserList = function () {
-        var _this = this;
-        if (this.user) {
-            this.animeService
-                .getAnimeList(this.user)
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (response) {
-                _this.statusObjects = response;
-                _this.statuses = Object.keys(response)
-                    .sort()
-                    .map(function (status) { return ({
-                    value: status,
-                    shown: true,
-                }); });
-                _this.ready = true;
-            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
-                _this.error = error;
-                _this.ready = true;
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])();
-            }))
-                .subscribe();
-        }
-    };
-    UserAnimeListPageComponent.prototype.getListFavouriteIDs = function () {
-        var _this = this;
-        if (this.user) {
-            this.animeService.getAnimeListFavouriteIDs(this.user, function (favouriteIDs) {
-                _this.favouriteIDs = favouriteIDs;
-            });
-        }
-    };
-    UserAnimeListPageComponent.prototype.hasDataOfStatus = function (status) {
-        return this.statusObjects && this.statusObjects[status] && this.statusObjects[status].length > 0;
-    };
-    UserAnimeListPageComponent.prototype.applyFilter = function (filterValue) {
-        this.filter = filterValue.trim().toLowerCase();
-    };
-    UserAnimeListPageComponent.prototype.getListAsString = function () {
-        return JSON.stringify(this.statusObjects, undefined, 2);
-    };
-    UserAnimeListPageComponent.prototype.onEntryUpdate = function (listEntry) {
-        if (this.reloadOnUpdate) {
-            this.updateListData();
-        }
-    };
-    UserAnimeListPageComponent.prototype.updateListData = function () {
-        this.statusObjects = undefined;
-        this.statuses = undefined;
-        this.favouriteIDs = undefined;
-        this.ready = false;
-        this.getUserList();
-        this.getListFavouriteIDs();
-    };
-    UserAnimeListPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'mt-user-anime-list',
-            template: __webpack_require__(/*! ./user-anime-list.component.html */ "./src/app/pages/user-anime-list/user-anime-list.component.html"),
-            styles: [__webpack_require__(/*! ./user-anime-list.component.scss */ "./src/app/pages/user-anime-list/user-anime-list.component.scss")]
-        }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services_anime_service__WEBPACK_IMPORTED_MODULE_5__["AnimeService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_6__["AuthStore"]])
-    ], UserAnimeListPageComponent);
-    return UserAnimeListPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/anime.service.ts":
-/*!*******************************************!*\
-  !*** ./src/app/services/anime.service.ts ***!
-  \*******************************************/
-/*! exports provided: AnimeService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeService", function() { return AnimeService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _api_anime_anime_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/anime/anime.api */ "./src/app/api/anime/anime.api.ts");
-/* harmony import */ var _store_media_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/media.store */ "./src/app/store/media.store.ts");
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var AnimeService = /** @class */ (function () {
-    function AnimeService(animeApi, mediaStore) {
-        this.animeApi = animeApi;
-        this.mediaStore = mediaStore;
-    }
-    AnimeService.prototype.getAnimeGenres = function () {
-        return this.animeApi.queryAnimeGenres();
-    };
-    AnimeService.prototype.searchAnime = function (query, pageInfo) {
-        var _this = this;
-        return this.animeApi.queryAnimeSearch(query, pageInfo).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (response) {
-            return _this.getAnimeFromIds(response.media.map(function (media) { return media.id; })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (animeList) { return (__assign({}, response, { media: animeList })); }));
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (pageData) { return _this.mediaStore.storeAnime(pageData.media); }));
-    };
-    AnimeService.prototype.getAnimeList = function (user) {
-        var _this = this;
-        return this.animeApi.queryAnimeList(user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (listEntriesDictionary) {
-            return _this.mediaStore.storeAnime(Object.keys(listEntriesDictionary)
-                .map(function (status) { return listEntriesDictionary[status].map(function (listEntry) { return listEntry.media; }); })
-                .reduce(function (mediaList, media) { return mediaList.concat(media); }));
-        }));
-    };
-    AnimeService.prototype.getAnimeListMediaIdsByStatus = function (user) {
-        return this.animeApi.queryAnimeListMediaIdsByStatus(user);
-    };
-    AnimeService.prototype.getRecentlyUpdatedAnime = function (user, pageInfo) {
-        var _this = this;
-        return this.animeApi.queryRecentlyUpdatedAnime(user, pageInfo).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (response) {
-            return _this.getAnimeFromIds(response.mediaList.map(function (listEntry) { return listEntry.media.id; })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (animeList) { return (__assign({}, response, { mediaList: response.mediaList.map(function (listEntry) { return (__assign({}, listEntry, { media: animeList.find(function (anime) { return anime.id === listEntry.media.id; }) })); }) })); }));
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (pageData) { return _this.mediaStore.storeAnime(pageData.mediaList.map(function (listEntry) { return listEntry.media; })); }));
-    };
-    AnimeService.prototype.getRecentlyFinishedAiringAnime = function (query, pageInfo) {
-        var _this = this;
-        return this.animeApi.queryRecentlyFinishedAiringAnime(query, pageInfo).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (response) {
-            return _this.getAnimeFromIds(response.media.map(function (media) { return media.id; })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (animeList) { return (__assign({}, response, { media: animeList })); }));
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (pageData) { return _this.mediaStore.storeAnime(pageData.media); }));
-    };
-    AnimeService.prototype.getRelatedAnimeMedia = function (user) {
-        var _this = this;
-        return this.animeApi.queryRelatedAnimeMedia(user).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (mediaList) { return _this.mediaStore.storeAnime(mediaList); }));
-    };
-    AnimeService.prototype.getAnimeListFavouriteIDs = function (user, callback) {
-        return this.animeApi.queryAnimeListFavouriteIDs(user, callback);
-    };
-    AnimeService.prototype.saveAnimeListEntry = function (listEntry) {
-        return this.animeApi.saveAnimeListEntry(listEntry);
-    };
-    AnimeService.prototype.deleteAnimeListEntry = function (listEntry) {
-        return this.animeApi.deleteAnimeListEntry(listEntry);
-    };
-    AnimeService.prototype.toggleFavouriteAnimeListEntry = function (listEntry) {
-        return this.animeApi.toggleAnimeFavouriteEntry(listEntry);
-    };
-    AnimeService.prototype.getAnimeFromIds = function (mediaIds) {
-        var animeDictionary = this.mediaStore.getAnimeDictionary();
-        var storeIds = Object.keys(animeDictionary).map(function (key) { return parseInt(key); });
-        var missingIds = mediaIds.filter(function (id) { return storeIds.indexOf(id) < 0; });
-        return missingIds.length ? this.animeApi.queryAnimeFromIds(mediaIds) : Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(mediaIds.map(function (id) { return animeDictionary[id]; }));
-    };
-    AnimeService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_api_anime_anime_api__WEBPACK_IMPORTED_MODULE_3__["AnimeApi"], _store_media_store__WEBPACK_IMPORTED_MODULE_4__["MediaStore"]])
-    ], AnimeService);
-    return AnimeService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/auth.service.ts":
-/*!******************************************!*\
-  !*** ./src/app/services/auth.service.ts ***!
-  \******************************************/
+/***/ "./src/app/modules/shared/services/auth.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/modules/shared/services/auth.service.ts ***!
+  \*********************************************************/
 /*! exports provided: AuthService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3685,10 +3038,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _api_auth_auth_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/auth/auth.api */ "./src/app/api/auth/auth.api.ts");
-/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../app.constants */ "./src/app/app.constants.ts");
-/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/auth.store */ "./src/app/store/auth.store.ts");
-/* harmony import */ var _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/local-storage.util */ "./src/app/utils/local-storage.util.ts");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../app.constants */ "./src/app/app.constants.ts");
+/* harmony import */ var _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/local-storage.util */ "./src/app/utils/local-storage.util.ts");
+/* harmony import */ var _api_auth_auth_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api/auth/auth.api */ "./src/app/modules/shared/api/auth/auth.api.ts");
+/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3731,31 +3084,31 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.setAccessToken = function (accessToken) {
         this.authStore.setAccessToken(accessToken);
-        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__["LocalStorage"].setString(_app_constants__WEBPACK_IMPORTED_MODULE_4__["accessTokenCookieKey"], accessToken);
+        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__["LocalStorage"].setString(_app_constants__WEBPACK_IMPORTED_MODULE_3__["accessTokenCookieKey"], accessToken);
     };
     AuthService.prototype.getAccessToken = function () {
-        var accessToken = _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__["LocalStorage"].getString(_app_constants__WEBPACK_IMPORTED_MODULE_4__["accessTokenCookieKey"]);
+        var accessToken = _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__["LocalStorage"].getString(_app_constants__WEBPACK_IMPORTED_MODULE_3__["accessTokenCookieKey"]);
         this.authStore.setAccessToken(accessToken);
     };
     AuthService.prototype.removeAccessToken = function () {
         this.authStore.removeAccessToken();
-        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__["LocalStorage"].remove(_app_constants__WEBPACK_IMPORTED_MODULE_4__["accessTokenCookieKey"]);
+        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__["LocalStorage"].remove(_app_constants__WEBPACK_IMPORTED_MODULE_3__["accessTokenCookieKey"]);
     };
     AuthService.prototype.setUser = function (user) {
         this.authStore.setUser(user);
-        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__["LocalStorage"].setObject(_app_constants__WEBPACK_IMPORTED_MODULE_4__["userCookieKey"], user);
+        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__["LocalStorage"].setObject(_app_constants__WEBPACK_IMPORTED_MODULE_3__["userCookieKey"], user);
     };
     AuthService.prototype.getUser = function () {
-        var user = _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__["LocalStorage"].getObject(_app_constants__WEBPACK_IMPORTED_MODULE_4__["userCookieKey"]);
+        var user = _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__["LocalStorage"].getObject(_app_constants__WEBPACK_IMPORTED_MODULE_3__["userCookieKey"]);
         this.authStore.setUser(user);
     };
     AuthService.prototype.removeUser = function () {
         this.authStore.removeUser();
-        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_6__["LocalStorage"].remove(_app_constants__WEBPACK_IMPORTED_MODULE_4__["userCookieKey"]);
+        _utils_local_storage_util__WEBPACK_IMPORTED_MODULE_4__["LocalStorage"].remove(_app_constants__WEBPACK_IMPORTED_MODULE_3__["userCookieKey"]);
     };
     AuthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_api_auth_auth_api__WEBPACK_IMPORTED_MODULE_3__["AuthApi"], _store_auth_store__WEBPACK_IMPORTED_MODULE_5__["AuthStore"]])
+        __metadata("design:paramtypes", [_api_auth_auth_api__WEBPACK_IMPORTED_MODULE_5__["AuthApi"], _store_auth_store__WEBPACK_IMPORTED_MODULE_6__["AuthStore"]])
     ], AuthService);
     return AuthService;
 }());
@@ -3764,10 +3117,207 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/store/auth.store.ts":
-/*!*************************************!*\
-  !*** ./src/app/store/auth.store.ts ***!
-  \*************************************/
+/***/ "./src/app/modules/shared/services/title.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/modules/shared/services/title.service.ts ***!
+  \**********************************************************/
+/*! exports provided: TitleService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TitleService", function() { return TitleService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var TitleService = /** @class */ (function () {
+    function TitleService(title, translateService) {
+        this.title = title;
+        this.translateService = translateService;
+    }
+    TitleService.prototype.setTitle = function (title) {
+        this.title.setTitle(title
+            ? this.translateService.instant('app.titleShort') + " - " + title
+            : this.translateService.instant('app.title'));
+    };
+    TitleService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["Title"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]])
+    ], TitleService);
+    return TitleService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/shared/services/toast.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/modules/shared/services/toast.service.ts ***!
+  \**********************************************************/
+/*! exports provided: defaultToastOptions, ToastService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultToastOptions", function() { return defaultToastOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var defaultToastOptions = {
+    duration: 3000,
+    panelClass: 'success',
+};
+var ToastService = /** @class */ (function () {
+    function ToastService(matSnackBar) {
+        this.matSnackBar = matSnackBar;
+    }
+    ToastService.prototype.showToast = function (message, action, config) {
+        if (config === void 0) { config = defaultToastOptions; }
+        this.matSnackBar.open(message, action, config);
+    };
+    ToastService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
+    ], ToastService);
+    return ToastService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/shared/shared.module.ts":
+/*!*************************************************!*\
+  !*** ./src/app/modules/shared/shared.module.ts ***!
+  \*************************************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _material_material_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../material/material.module */ "./src/app/modules/material/material.module.ts");
+/* harmony import */ var _api_auth_auth_api__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./api/auth/auth.api */ "./src/app/modules/shared/api/auth/auth.api.ts");
+/* harmony import */ var _components_fa_icon_fa_icon_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/fa-icon/fa-icon.component */ "./src/app/modules/shared/components/fa-icon/fa-icon.component.ts");
+/* harmony import */ var _components_modal_mt_modal_content_mt_modal_content_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/modal/mt-modal-content/mt-modal-content.component */ "./src/app/modules/shared/components/modal/mt-modal-content/mt-modal-content.component.ts");
+/* harmony import */ var _components_modal_mt_modal_footer_mt_modal_footer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/modal/mt-modal-footer/mt-modal-footer.component */ "./src/app/modules/shared/components/modal/mt-modal-footer/mt-modal-footer.component.ts");
+/* harmony import */ var _components_modal_mt_modal_header_mt_modal_header_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/modal/mt-modal-header/mt-modal-header.component */ "./src/app/modules/shared/components/modal/mt-modal-header/mt-modal-header.component.ts");
+/* harmony import */ var _components_modal_mt_modal_mt_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/modal/mt-modal/mt-modal.component */ "./src/app/modules/shared/components/modal/mt-modal/mt-modal.component.ts");
+/* harmony import */ var _components_mt_footer_mt_footer_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/mt-footer/mt-footer.component */ "./src/app/modules/shared/components/mt-footer/mt-footer.component.ts");
+/* harmony import */ var _components_mt_header_mt_header_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/mt-header/mt-header.component */ "./src/app/modules/shared/components/mt-header/mt-header.component.ts");
+/* harmony import */ var _components_mt_menu_action_mt_menu_action_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/mt-menu-action/mt-menu-action.component */ "./src/app/modules/shared/components/mt-menu-action/mt-menu-action.component.ts");
+/* harmony import */ var _pipes_sort__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pipes/sort */ "./src/app/modules/shared/pipes/sort.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/modules/shared/services/auth.service.ts");
+/* harmony import */ var _services_title_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/toast.service */ "./src/app/modules/shared/services/toast.service.ts");
+/* harmony import */ var _store_auth_store__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _store_media_store__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./store/media.store */ "./src/app/modules/shared/store/media.store.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var declarations = [
+    _components_fa_icon_fa_icon_component__WEBPACK_IMPORTED_MODULE_10__["FaIconComponent"],
+    _components_mt_footer_mt_footer_component__WEBPACK_IMPORTED_MODULE_15__["MtFooterComponent"],
+    _components_mt_header_mt_header_component__WEBPACK_IMPORTED_MODULE_16__["MtHeaderComponent"],
+    _components_mt_menu_action_mt_menu_action_component__WEBPACK_IMPORTED_MODULE_17__["MtMenuActionComponent"],
+    _components_modal_mt_modal_mt_modal_component__WEBPACK_IMPORTED_MODULE_14__["MtModalComponent"],
+    _components_modal_mt_modal_content_mt_modal_content_component__WEBPACK_IMPORTED_MODULE_11__["MtModalContentComponent"],
+    _components_modal_mt_modal_footer_mt_modal_footer_component__WEBPACK_IMPORTED_MODULE_12__["MtModalFooterComponent"],
+    _components_modal_mt_modal_header_mt_modal_header_component__WEBPACK_IMPORTED_MODULE_13__["MtModalHeaderComponent"],
+    _pipes_sort__WEBPACK_IMPORTED_MODULE_18__["SortPipe"],
+];
+var imports = [
+    _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
+    _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"],
+    _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
+    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+    _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
+    _material_material_module__WEBPACK_IMPORTED_MODULE_8__["MaterialModule"],
+    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+    _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"],
+    _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateModule"],
+];
+var SharedModule = /** @class */ (function () {
+    function SharedModule() {
+    }
+    SharedModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+            declarations: declarations,
+            imports: imports,
+            exports: declarations.concat(imports),
+            providers: [_api_auth_auth_api__WEBPACK_IMPORTED_MODULE_9__["AuthApi"], _services_auth_service__WEBPACK_IMPORTED_MODULE_19__["AuthService"], _store_auth_store__WEBPACK_IMPORTED_MODULE_22__["AuthStore"], _store_media_store__WEBPACK_IMPORTED_MODULE_23__["MediaStore"], _services_title_service__WEBPACK_IMPORTED_MODULE_20__["TitleService"], _services_toast_service__WEBPACK_IMPORTED_MODULE_21__["ToastService"]],
+        })
+    ], SharedModule);
+    return SharedModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/shared/store/auth.store.ts":
+/*!****************************************************!*\
+  !*** ./src/app/modules/shared/store/auth.store.ts ***!
+  \****************************************************/
 /*! exports provided: AuthStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3825,10 +3375,10 @@ var AuthStore = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/store/media.store.ts":
-/*!**************************************!*\
-  !*** ./src/app/store/media.store.ts ***!
-  \**************************************/
+/***/ "./src/app/modules/shared/store/media.store.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/modules/shared/store/media.store.ts ***!
+  \*****************************************************/
 /*! exports provided: MediaStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3877,17 +3427,17 @@ var MediaStore = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/types/anilist/enums/mediaSorts.ts":
-/*!***************************************************!*\
-  !*** ./src/app/types/anilist/enums/mediaSorts.ts ***!
-  \***************************************************/
+/***/ "./src/app/modules/shared/types/anilist/enums/mediaSorts.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/modules/shared/types/anilist/enums/mediaSorts.ts ***!
+  \******************************************************************/
 /*! exports provided: MediaSort */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediaSort", function() { return MediaSort; });
-/* harmony import */ var _enumMap_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../enumMap.types */ "./src/app/types/enumMap.types.ts");
+/* harmony import */ var _enumMap_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../enumMap.types */ "./src/app/modules/shared/types/enumMap.types.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -3951,10 +3501,10 @@ var MediaSort = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./src/app/types/anilist/media.types.ts":
-/*!**********************************************!*\
-  !*** ./src/app/types/anilist/media.types.ts ***!
-  \**********************************************/
+/***/ "./src/app/modules/shared/types/anilist/media.types.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/modules/shared/types/anilist/media.types.ts ***!
+  \*************************************************************/
 /*! exports provided: MediaData, Anime */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3993,10 +3543,10 @@ var Anime = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./src/app/types/enumMap.types.ts":
-/*!****************************************!*\
-  !*** ./src/app/types/enumMap.types.ts ***!
-  \****************************************/
+/***/ "./src/app/modules/shared/types/enumMap.types.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/modules/shared/types/enumMap.types.ts ***!
+  \*******************************************************/
 /*! exports provided: EnumMap */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4010,6 +3560,699 @@ var EnumMap = /** @class */ (function () {
         });
     }
     return EnumMap;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/anime-detail/anime-detail.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/pages/anime-detail/anime-detail.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"narrow-page\">\n  <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n\n  <mat-card class=\"composite\">\n    <div *ngIf=\"anime\">\n      <div class=\"header\">\n        <h3 class=\"no-margin\">\n          {{ anime.title.romaji }}\n        </h3>\n      </div>\n\n      <mat-divider></mat-divider>\n\n      <div class=\"content\">\n        <mt-anime-info *ngIf=\"anime\" [anime]=\"anime\" [showAsColumns]=\"true\"> </mt-anime-info>\n      </div>\n    </div>\n  </mat-card>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/pages/anime-detail/anime-detail.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/pages/anime-detail/anime-detail.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2FuaW1lLWRldGFpbC9hbmltZS1kZXRhaWwuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/anime-detail/anime-detail.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/pages/anime-detail/anime-detail.component.ts ***!
+  \**************************************************************/
+/*! exports provided: AnimeDetailPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeDetailPageComponent", function() { return AnimeDetailPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../modules/anime/services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
+/* harmony import */ var _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../modules/shared/services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AnimeDetailPageComponent = /** @class */ (function () {
+    function AnimeDetailPageComponent(titleService, activatedRoute, animeService) {
+        this.titleService = titleService;
+        this.activatedRoute = activatedRoute;
+        this.animeService = animeService;
+        this.titleService.setTitle();
+        var animeId = this.activatedRoute.snapshot.params.id;
+        if (animeId && animeId > 0) {
+            this.getEntry(animeId);
+        }
+    }
+    AnimeDetailPageComponent.prototype.getEntry = function (animeId) {
+        var _this = this;
+        this.searching = true;
+        this.errorGotten = false;
+        this.animeService
+            .searchAnime({ id: animeId })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
+            _this.anime = response.media.length > 0 && response.media[0];
+            _this.titleService.setTitle(_this.anime.title.romaji);
+            _this.searching = false;
+        }, function () {
+            _this.errorGotten = true;
+            _this.searching = false;
+        }))
+            .subscribe();
+    };
+    AnimeDetailPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'mt-anime-detail',
+            template: __webpack_require__(/*! ./anime-detail.component.html */ "./src/app/pages/anime-detail/anime-detail.component.html"),
+            styles: [__webpack_require__(/*! ./anime-detail.component.scss */ "./src/app/pages/anime-detail/anime-detail.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_4__["TitleService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_3__["AnimeService"]])
+    ], AnimeDetailPageComponent);
+    return AnimeDetailPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/anime-search/anime-search.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/pages/anime-search/anime-search.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"narrow-page\">\n  <mat-card *ngIf=\"!user\" class=\"warning margin-bottom-xs\">\n    <h4>\n      <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n      {{ 'user.notLoggedIn' | translate }} {{ 'anime.search.limittedFeatures' | translate }}\n    </h4>\n  </mat-card>\n\n  <form [formGroup]=\"searchForm\" (ngSubmit)=\"search()\">\n    <mat-card class=\"text-center\">\n      <h1>\n        <label for=\"searchInput\">\n          {{ 'anime.search.title' | translate }}\n        </label>\n      </h1>\n\n      <div class=\"form-group\">\n        <mat-form-field class=\"medium display-block margin-auto\">\n          <input\n            id=\"searchInput\"\n            matInput\n            placeholder=\"{{ 'anime.search.filters.byTitle' | translate }}\"\n            formControlName=\"search\"\n          />\n        </mat-form-field>\n      </div>\n\n      <!--<mat-form-field id=\"yearInput\">-->\n      <!--<input matInput [matDatepicker]=\"startDatePicker\" placeholder=\"Year\" disabled>-->\n      <!--<mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>-->\n      <!--<mat-datepicker #startDatePicker disabled=\"false\" startView=\"year\"></mat-datepicker>-->\n      <!--</mat-form-field>-->\n\n      <mat-expansion-panel class=\"mat-elevation-z padding-bottom-s search-filters\">\n        <mat-expansion-panel-header>\n          {{ 'anime.search.filters.advanced' | translate }}\n        </mat-expansion-panel-header>\n\n        <mat-divider></mat-divider>\n\n        <div class=\"vertical-padding-xs\">\n          <!-- air date -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.year' | translate }} {{ 'anime.search.filters.after' | translate }}...\"\n                formControlName=\"startDateGreaterThan\"\n                [min]=\"minYear\"\n                [max]=\"maxYear\"\n              />\n            </mat-form-field>\n\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.year' | translate }} {{ 'anime.search.filters.before' | translate }}...\"\n                formControlName=\"startDateSmallerThan\"\n                [min]=\"minYear\"\n                [max]=\"maxYear\"\n              />\n            </mat-form-field>\n          </div>\n\n          <!-- score -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.score' | translate }} {{ 'anime.search.filters.above' | translate }}...\"\n                formControlName=\"averageScoreGreaterThan\"\n                min=\"0\"\n                max=\"10\"\n                step=\".1\"\n              />\n            </mat-form-field>\n\n            <mat-form-field>\n              <input\n                matInput\n                type=\"number\"\n                placeholder=\"{{ 'media.score' | translate }} {{ 'anime.search.filters.below' | translate }}...\"\n                formControlName=\"averageScoreSmallerThan\"\n                min=\"0\"\n                max=\"10\"\n                step=\".1\"\n              />\n            </mat-form-field>\n          </div>\n\n          <!-- genre -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.genre' | translate }} {{ 'anime.search.filters.includedIn' | translate }}...\"\n                formControlName=\"genreIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.genre' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}...\"\n                formControlName=\"genreNotIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let genre of mediaGenres\" [value]=\"genre\">\n                  {{ genre }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- format -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.format' | translate }} {{ 'anime.search.filters.includedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"formatIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat\">\n                  {{ 'media.formatValues.' + mediaFormat | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.format' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"formatNotIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaFormat of mediaFormats\" [value]=\"mediaFormat\">\n                  {{ 'media.formatValues.' + mediaFormat | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- status -->\n          <div class=\"form-group two-rows\">\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.status' | translate }} {{ 'anime.search.filters.includedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"statusIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus\">\n                  {{ 'media.statusValues.' + mediaStatus | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n\n            <mat-form-field>\n              <mat-select\n                placeholder=\"{{ 'media.status' | translate }} {{ 'anime.search.filters.notIncludedIn' | translate }}...\"\n                #formatInput\n                formControlName=\"statusNotIn\"\n                multiple\n              >\n                <mat-option *ngFor=\"let mediaStatus of mediaStatuses\" [value]=\"mediaStatus\">\n                  {{ 'media.statusValues.' + mediaStatus | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n\n          <!-- on list -->\n          <div class=\"form-group\">\n            <mat-form-field>\n              <mat-select placeholder=\"{{ 'anime.search.filters.onList' | translate }}...\" formControlName=\"onList\">\n                <mat-option *ngFor=\"let option of onListOptions\" [value]=\"option\">\n                  {{ 'anime.search.filters.onListValues.' + option | translate }}\n                </mat-option>\n              </mat-select>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <div class=\"text-center padding-bottom-xs\">\n          <button mat-raised-button type=\"button\" (click)=\"clearFilters($event)\">\n            {{ 'anime.search.filters.clear' | translate }}\n          </button>\n        </div>\n\n        <mat-divider></mat-divider>\n      </mat-expansion-panel>\n\n      <div class=\"text-center\">\n        <button mat-raised-button color=\"accent\" [disabled]=\"!searchForm.valid\">\n          <fa-icon name=\"search baseline\" class=\"margin-right-xxxs\"></fa-icon>\n          {{ 'anime.search.submit' | translate }}\n        </button>\n      </div>\n    </mat-card>\n\n    <mat-progress-bar *ngIf=\"searching\" mode=\"indeterminate\"></mat-progress-bar>\n    <div *ngIf=\"!searching\" class=\"progress-placeholder\"></div>\n\n    <mat-card *ngIf=\"error\" class=\"error\">\n      <h4>\n        <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n        {{ error }}\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"noResults\" class=\"info\">\n      <h4>\n        <fa-icon name=\"info-circle\" class=\"margin-right-xxs\"></fa-icon>\n        No results found\n      </h4>\n    </mat-card>\n\n    <mat-card *ngIf=\"animeList && animeList.length > 0\" class=\"no-padding\">\n      <mt-search-results-table [tableData]=\"animeList\" (onSortChange)=\"sortBy($event)\"> </mt-search-results-table>\n\n      <mat-paginator\n        [showFirstLastButtons]=\"true\"\n        [length]=\"pagination.total\"\n        [pageSize]=\"pagination.perPage\"\n        [pageIndex]=\"pagination.pageIndex\"\n        [pageSizeOptions]=\"[5, 10, 25, 50]\"\n        (page)=\"changePage($event)\"\n      >\n      </mat-paginator>\n    </mat-card>\n  </form>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/pages/anime-search/anime-search.component.scss":
+/*!****************************************************************!*\
+  !*** ./src/app/pages/anime-search/anime-search.component.scss ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* modals */\n/* generic */\n/* specific */\nmat-form-field {\n  width: 100%; }\n#searchInput {\n  font-size: 16px;\n  line-height: 24px; }\n.form-group {\n  max-width: 640px;\n  margin: auto; }\n@media (min-width: 481px) {\n    .form-group.two-rows > * {\n      max-width: calc(50% - 16px); }\n      .form-group.two-rows > *:first-child {\n        float: left; }\n      .form-group.two-rows > *:last-child {\n        float: right; } }\n.progress-placeholder {\n  height: 5px; }\nmat-card:not(:first-of-type) {\n  margin-top: 24px; }\nmat-expansion-panel-header {\n  padding: 0 8px; }\n@media (max-width: 480px) {\n  button {\n    width: 100%; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMuc2NzcyIsIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3BhZ2VzL2FuaW1lLXNlYXJjaC9hbmltZS1zZWFyY2guY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsWUFBQTtBQVlBLGVBQUE7QUFRQSxpQkFBQTtBQVNBLGFBQUE7QUFJQSxXQUFBO0FBSUEsWUFBQTtBQU9BLGFBQUE7QUMxQ0E7RUFDRSxXQUFXLEVBQUE7QUFHYjtFQUVFLGVET2dCO0VDTmhCLGlCQUE2QixFQUFBO0FBRy9CO0VBQ0UsZ0JENEJvQjtFQzNCcEIsWUFBWSxFQUFBO0FBSVI7SUFOTjtNQU9RLDJCQUFxQyxFQUFBO01BUDdDO1FBVVUsV0FBVyxFQUFBO01BVnJCO1FBYVUsWUFBWSxFQUFBLEVBQ2I7QUFNVDtFQUNFLFdBQVcsRUFBQTtBQUdiO0VBRUksZ0JEakNZLEVBQUE7QUNxQ2hCO0VBQ0UsY0R4Q2UsRUFBQTtBQzJDakI7RUFDRTtJQUNFLFdBQVcsRUFBQSxFQUNaIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvYW5pbWUtc2VhcmNoL2FuaW1lLXNlYXJjaC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIHNwYWNpbmcgKi9cbiRzcGFjaW5nLXh4eHhzOiAycHg7XG4kc3BhY2luZy14eHhzOiA0cHg7XG4kc3BhY2luZy14eHM6IDhweDtcbiRzcGFjaW5nLXhzOiAxNnB4O1xuJHNwYWNpbmctczogMjRweDtcbiRzcGFjaW5nLW06IDMycHg7XG4kc3BhY2luZy1sOiA0OHB4O1xuJHNwYWNpbmcteGw6IDY0cHg7XG4kc3BhY2luZy14eGw6IDk2cHg7XG4kc3BhY2luZy14eHhsOiAxMjhweDtcblxuLyogZm9udCBzaXplcyAqL1xuJGZvbnQtc2l6ZS14czogMTJweDtcbiRmb250LXNpemUtczogMTRweDtcbiRmb250LXNpemUtbTogMTZweDtcbiRmb250LXNpemUtbDogMjBweDtcbiRmb250LXNpemUteGw6IDI0cHg7XG4kZm9udC1zaXplLXh4bDogMjhweDtcblxuLyogZGV2aWNlIHNpemVzICovXG4kc2NyZWVuLXh4eHM6IDMyMHB4O1xuJHNjcmVlbi14eHM6IDQ4MHB4O1xuJHNjcmVlbi14czogNTc2cHg7XG4kc2NyZWVuLXM6IDc2OHB4O1xuJHNjcmVlbi1tOiAxMDI0cHg7XG4kc2NyZWVuLWw6IDEzNjBweDtcbiRzY3JlZW4teGw6IDE5MjBweDtcblxuLyogbWF0ZXJpYWwgKi9cbiRtYXQtdG9vbGJhci1oZWlnaHQ6IDY0cHg7XG4kbWF0LXNwaW5uZXItc2l6ZTogMTI4cHg7XG5cbi8qIG1vZGFscyAqL1xuJG1vZGFsLWhlYWRlci1oZWlnaHQ6IDcwcHg7XG4kbW9kYWwtZm9vdGVyLWhlaWdodDogODRweDtcblxuLyogZ2VuZXJpYyAqL1xuJHBhZ2UtcGFkZGluZzogJHNwYWNpbmctbTtcbiRjYXJkLXBhZGRpbmc6ICRzcGFjaW5nLXM7XG4kZXhwYW5zaW9uLXBhbmVsLXBhZGRpbmc6ICRzcGFjaW5nLXM7XG4kbWF4LWlucHV0LXNpemU6IDY0MHB4O1xuJHNlcGFyYXRvci10aGlja25lc3M6IDFweDtcblxuLyogc3BlY2lmaWMgKi9cbiRmb290ZXItaGVpZ2h0OiAxMDNweDtcbiIsIkBpbXBvcnQgXCIuLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbiNzZWFyY2hJbnB1dCB7XG4gICRmb250LXNpemU6ICRmb250LXNpemUtbTtcbiAgZm9udC1zaXplOiAkZm9udC1zaXplO1xuICBsaW5lLWhlaWdodDogJGZvbnQtc2l6ZSAqIDEuNTtcbn1cblxuLmZvcm0tZ3JvdXAge1xuICBtYXgtd2lkdGg6ICRtYXgtaW5wdXQtc2l6ZTtcbiAgbWFyZ2luOiBhdXRvO1xuXG4gICYudHdvLXJvd3Mge1xuICAgID4gKiB7XG4gICAgICBAbWVkaWEgKG1pbi13aWR0aDogI3skc2NyZWVuLXh4cyArIDF9KSB7XG4gICAgICAgIG1heC13aWR0aDogY2FsYyg1MCUgLSAjeyRzcGFjaW5nLXhzfSk7XG5cbiAgICAgICAgJjpmaXJzdC1jaGlsZCB7XG4gICAgICAgICAgZmxvYXQ6IGxlZnQ7XG4gICAgICAgIH1cbiAgICAgICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgICBmbG9hdDogcmlnaHQ7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cblxuLnByb2dyZXNzLXBsYWNlaG9sZGVyIHtcbiAgaGVpZ2h0OiA1cHg7XG59XG5cbm1hdC1jYXJkIHtcbiAgJjpub3QoOmZpcnN0LW9mLXR5cGUpIHtcbiAgICBtYXJnaW4tdG9wOiAkc3BhY2luZy1zO1xuICB9XG59XG5cbm1hdC1leHBhbnNpb24tcGFuZWwtaGVhZGVyIHtcbiAgcGFkZGluZzogMCAkc3BhY2luZy14eHM7XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiAkc2NyZWVuLXh4cykge1xuICBidXR0b24ge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG59XG5cbi8vQG1lZGlhIChtYXgtd2lkdGg6ICN7MiAqICgkcGFnZS1wYWRkaW5nICsgJGNhcmQtcGFkZGluZyArICRleHBhbnNpb24tcGFuZWwtcGFkZGluZykgKyAkbWF4LWlucHV0LXNpemV9KSB7XG4vLyAgbWF0LWV4cGFuc2lvbi1wYW5lbC1oZWFkZXIge1xuLy8gICAgbWF4LXdpZHRoOiAkbWF4LWlucHV0LXNpemU7XG4vLyAgICB3aWR0aDogMTAwJTtcbi8vICAgIG1hcmdpbjogYXV0bztcbi8vICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4vL1xuLy8gICAgcGFkZGluZy1sZWZ0OiAwO1xuLy8gICAgcGFkZGluZy1yaWdodDogMDtcbi8vICB9XG4vL31cbiJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/anime-search/anime-search.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/pages/anime-search/anime-search.component.ts ***!
+  \**************************************************************/
+/*! exports provided: AnimeSearchPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimeSearchPageComponent", function() { return AnimeSearchPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../app.constants */ "./src/app/app.constants.ts");
+/* harmony import */ var _modules_anime_components_mt_search_results_table_mt_search_results_table_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../modules/anime/components/mt-search-results-table/mt-search-results-table.component */ "./src/app/modules/anime/components/mt-search-results-table/mt-search-results-table.component.ts");
+/* harmony import */ var _modules_anime_domain_anime_domain__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modules/anime/domain/anime.domain */ "./src/app/modules/anime/domain/anime.domain.ts");
+/* harmony import */ var _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../modules/anime/services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
+/* harmony import */ var _modules_shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component */ "./src/app/modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component.ts");
+/* harmony import */ var _modules_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../modules/shared/services/auth.service */ "./src/app/modules/shared/services/auth.service.ts");
+/* harmony import */ var _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../modules/shared/services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+/* harmony import */ var _modules_shared_store_auth_store__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../modules/shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+/* harmony import */ var _utils_generic_util__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../utils/generic.util */ "./src/app/utils/generic.util.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AnimeSearchPageComponent = /** @class */ (function (_super) {
+    __extends(AnimeSearchPageComponent, _super);
+    function AnimeSearchPageComponent(router, activatedRoute, titleService, translateService, animeService, authService, authStore, formBuilder) {
+        var _this = _super.call(this) || this;
+        _this.router = router;
+        _this.activatedRoute = activatedRoute;
+        _this.titleService = titleService;
+        _this.translateService = translateService;
+        _this.animeService = animeService;
+        _this.authService = authService;
+        _this.authStore = authStore;
+        _this.formBuilder = formBuilder;
+        _this.mediaFormats = ['MOVIE', 'MUSIC', 'ONA', 'OVA', 'SPECIAL', 'TV_SHORT', 'TV'];
+        _this.mediaStatuses = ['FINISHED', 'RELEASING', 'NOT_YET_RELEASED', 'CANCELLED'];
+        _this.onListOptions = [true, false, undefined];
+        _this.minYear = 1900;
+        _this.maxYear = new Date().getFullYear() + 1;
+        _this.titleService.setTitle(_this.translateService.instant('anime.search.title'));
+        _this.user = _this.authStore.getUser();
+        _this.setupForm();
+        _this.animeService
+            .getAnimeGenres()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function (mediaGenres) { return (_this.mediaGenres = mediaGenres); }))
+            .subscribe();
+        _this.authService.userChange
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(_this.destroyed$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function (user) {
+            _this.user = user;
+        }))
+            .subscribe();
+        return _this;
+    }
+    AnimeSearchPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var queryParams = this.activatedRoute.snapshot.queryParams;
+        var fieldKeys = Object.keys(queryParams);
+        if (fieldKeys.length) {
+            Object.keys(queryParams).forEach(function (fieldKey) {
+                var field = _this.searchForm.controls[fieldKey];
+                var value = JSON.parse(queryParams[fieldKey]);
+                if (field && _utils_generic_util__WEBPACK_IMPORTED_MODULE_15__["GenericUtil"].isSet(value)) {
+                    field.setValue(value);
+                }
+            });
+            this.sort = queryParams.sort ? JSON.parse(queryParams.sort) : this.sort;
+            this.expansionPanel.open();
+            this.search();
+        }
+    };
+    AnimeSearchPageComponent.prototype.clearFilters = function (event) {
+        this.preventDefault(event);
+        this.setupForm();
+        this.updateQueryParams();
+    };
+    AnimeSearchPageComponent.prototype.search = function (pageIndex, perPage) {
+        var _this = this;
+        _utils_generic_util__WEBPACK_IMPORTED_MODULE_15__["GenericUtil"].scrollToRef(this.resultsTable);
+        this.updateQueryParams();
+        this.searching = true;
+        this.error = undefined;
+        var filters = this.searchForm.value;
+        var query = __assign({}, filters, { startDateSmallerThan: filters.startDateSmallerThan && Object(_modules_anime_domain_anime_domain__WEBPACK_IMPORTED_MODULE_9__["getDateScalarFromYear"])(filters.startDateSmallerThan), startDateGreaterThan: filters.startDateGreaterThan && Object(_modules_anime_domain_anime_domain__WEBPACK_IMPORTED_MODULE_9__["getDateScalarFromYear"])(filters.startDateGreaterThan), averageScoreGreaterThan: filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10, averageScoreSmallerThan: filters.averageScoreSmallerThan && filters.averageScoreSmallerThan * 10, sort: this.sort });
+        this.animeService
+            .searchAnime(query, {
+            pageIndex: pageIndex,
+            perPage: perPage,
+        })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function (response) {
+            _this.noResults = response.media.length < 1;
+            _this.animeList = response.media;
+            _this.pagination = response.pageInfo;
+            _this.pagination.pageIndex = response.pageInfo.currentPage - 1;
+            _this.searching = false;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(function (error) {
+            _this.error = error;
+            _this.noResults = false;
+            _this.searching = false;
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])();
+        }))
+            .subscribe();
+    };
+    AnimeSearchPageComponent.prototype.changePage = function (pageEvent) {
+        this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
+    };
+    AnimeSearchPageComponent.prototype.sortBy = function (mediaSort) {
+        this.sort = mediaSort && mediaSort.value;
+        this.search();
+    };
+    AnimeSearchPageComponent.prototype.preventDefault = function (event) {
+        if (event) {
+            event.preventDefault();
+        }
+    };
+    AnimeSearchPageComponent.prototype.setupForm = function () {
+        this.searchForm = this.formBuilder.group({
+            search: [''],
+            startDateGreaterThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(this.minYear), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(this.maxYear)]],
+            startDateSmallerThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(this.minYear), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(this.maxYear)]],
+            averageScoreGreaterThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(0), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(10)]],
+            averageScoreSmallerThan: [undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].min(0), _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].max(10)]],
+            genreIn: [[]],
+            genreNotIn: [[]],
+            formatIn: [[]],
+            formatNotIn: [[]],
+            statusIn: [[]],
+            statusNotIn: [[]],
+            onList: [undefined],
+        });
+    };
+    AnimeSearchPageComponent.prototype.updateQueryParams = function () {
+        var queryParams = {
+            sort: JSON.stringify(this.sort),
+        };
+        var filters = this.searchForm.value;
+        Object.keys(filters).forEach(function (fieldKey) {
+            var field = filters[fieldKey];
+            if (_utils_generic_util__WEBPACK_IMPORTED_MODULE_15__["GenericUtil"].isSet(field) && field.length !== 0) {
+                queryParams[fieldKey] = JSON.stringify(field);
+            }
+        });
+        this.router.navigate([_app_constants__WEBPACK_IMPORTED_MODULE_7__["animeSearchUrl"]], { queryParams: queryParams });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatExpansionPanel"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatExpansionPanel"])
+    ], AnimeSearchPageComponent.prototype, "expansionPanel", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_modules_anime_components_mt_search_results_table_mt_search_results_table_component__WEBPACK_IMPORTED_MODULE_8__["MtSearchResultsTableComponent"], { read: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AnimeSearchPageComponent.prototype, "resultsTable", void 0);
+    AnimeSearchPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'mt-anime-search',
+            template: __webpack_require__(/*! ./anime-search.component.html */ "./src/app/pages/anime-search/anime-search.component.html"),
+            styles: [__webpack_require__(/*! ./anime-search.component.scss */ "./src/app/pages/anime-search/anime-search.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_13__["TitleService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"],
+            _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_10__["AnimeService"],
+            _modules_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_12__["AuthService"],
+            _modules_shared_store_auth_store__WEBPACK_IMPORTED_MODULE_14__["AuthStore"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
+    ], AnimeSearchPageComponent);
+    return AnimeSearchPageComponent;
+}(_modules_shared_components_with_observable_on_destroy_with_observable_on_destroy_component__WEBPACK_IMPORTED_MODULE_11__["WithObservableOnDestroy"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/dashboard.component.html":
+/*!**********************************************************!*\
+  !*** ./src/app/pages/dashboard/dashboard.component.html ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"columns-wrapper\">\n  <div class=\"column left-sidebar\">\n    <mt-recently-updated-list-entries></mt-recently-updated-list-entries>\n  </div>\n  <div class=\"column main-content\">\n    <mat-card class=\"warning\">\n      <h4>\n        <fa-icon name=\"exclamation-triangle\" class=\"margin-right-xxs\"></fa-icon>\n        {{ 'generic.workInProgress' | translate }}\n      </h4>\n    </mat-card>\n    <!--<mt-list-related-media></mt-list-related-media>-->\n  </div>\n  <div class=\"column right-sidebar\">\n    <mt-recently-finished-media></mt-recently-finished-media>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/dashboard.component.scss":
+/*!**********************************************************!*\
+  !*** ./src/app/pages/dashboard/dashboard.component.scss ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* modals */\n/* generic */\n/* specific */\n.columns-wrapper {\n  font-size: 0; }\n.columns-wrapper > * {\n    font-size: initial; }\n.columns-wrapper .column {\n    padding: 0 6px;\n    vertical-align: top;\n    display: inline-block;\n    box-sizing: border-box; }\n.columns-wrapper .column.left-sidebar {\n      width: 440px;\n      padding-left: 0; }\n.columns-wrapper .column.main-content {\n      width: calc(100% - 880px); }\n.columns-wrapper .column.right-sidebar {\n      width: 440px;\n      padding-right: 0; }\n@media (max-width: 1360px) {\n      .columns-wrapper .column {\n        padding: 6px 0;\n        width: 100% !important; }\n        .columns-wrapper .column.left-sidebar, .columns-wrapper .column.right-sidebar {\n          float: none; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMuc2NzcyIsIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsWUFBQTtBQVlBLGVBQUE7QUFRQSxpQkFBQTtBQVNBLGFBQUE7QUFJQSxXQUFBO0FBSUEsWUFBQTtBQU9BLGFBQUE7QUMxQ0E7RUFDRSxZQUFZLEVBQUE7QUFEZDtJQUlJLGtCQUFrQixFQUFBO0FBSnRCO0lBVUksY0FENkI7SUFFN0IsbUJBQW1CO0lBQ25CLHFCQUFxQjtJQUNyQixzQkFBc0IsRUFBQTtBQWIxQjtNQWdCTSxZQVJtQjtNQVNuQixlQUFlLEVBQUE7QUFqQnJCO01BcUJNLHlCQUF5QyxFQUFBO0FBckIvQztNQXlCTSxZQWpCbUI7TUFrQm5CLGdCQUFnQixFQUFBO0FBR2xCO01BN0JKO1FBOEJNLGNBQW1CO1FBQ25CLHNCQUFzQixFQUFBO1FBL0I1QjtVQW1DUSxXQUFXLEVBQUEsRUFDWiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBzcGFjaW5nICovXG4kc3BhY2luZy14eHh4czogMnB4O1xuJHNwYWNpbmcteHh4czogNHB4O1xuJHNwYWNpbmcteHhzOiA4cHg7XG4kc3BhY2luZy14czogMTZweDtcbiRzcGFjaW5nLXM6IDI0cHg7XG4kc3BhY2luZy1tOiAzMnB4O1xuJHNwYWNpbmctbDogNDhweDtcbiRzcGFjaW5nLXhsOiA2NHB4O1xuJHNwYWNpbmcteHhsOiA5NnB4O1xuJHNwYWNpbmcteHh4bDogMTI4cHg7XG5cbi8qIGZvbnQgc2l6ZXMgKi9cbiRmb250LXNpemUteHM6IDEycHg7XG4kZm9udC1zaXplLXM6IDE0cHg7XG4kZm9udC1zaXplLW06IDE2cHg7XG4kZm9udC1zaXplLWw6IDIwcHg7XG4kZm9udC1zaXplLXhsOiAyNHB4O1xuJGZvbnQtc2l6ZS14eGw6IDI4cHg7XG5cbi8qIGRldmljZSBzaXplcyAqL1xuJHNjcmVlbi14eHhzOiAzMjBweDtcbiRzY3JlZW4teHhzOiA0ODBweDtcbiRzY3JlZW4teHM6IDU3NnB4O1xuJHNjcmVlbi1zOiA3NjhweDtcbiRzY3JlZW4tbTogMTAyNHB4O1xuJHNjcmVlbi1sOiAxMzYwcHg7XG4kc2NyZWVuLXhsOiAxOTIwcHg7XG5cbi8qIG1hdGVyaWFsICovXG4kbWF0LXRvb2xiYXItaGVpZ2h0OiA2NHB4O1xuJG1hdC1zcGlubmVyLXNpemU6IDEyOHB4O1xuXG4vKiBtb2RhbHMgKi9cbiRtb2RhbC1oZWFkZXItaGVpZ2h0OiA3MHB4O1xuJG1vZGFsLWZvb3Rlci1oZWlnaHQ6IDg0cHg7XG5cbi8qIGdlbmVyaWMgKi9cbiRwYWdlLXBhZGRpbmc6ICRzcGFjaW5nLW07XG4kY2FyZC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJGV4cGFuc2lvbi1wYW5lbC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJG1heC1pbnB1dC1zaXplOiA2NDBweDtcbiRzZXBhcmF0b3ItdGhpY2tuZXNzOiAxcHg7XG5cbi8qIHNwZWNpZmljICovXG4kZm9vdGVyLWhlaWdodDogMTAzcHg7XG4iLCJAaW1wb3J0ICdzcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMnO1xuXG4uY29sdW1ucy13cmFwcGVyIHtcbiAgZm9udC1zaXplOiAwO1xuXG4gID4gKiB7XG4gICAgZm9udC1zaXplOiBpbml0aWFsO1xuICB9XG5cbiAgLmNvbHVtbiB7XG4gICAgJHNpZGViYXItd2lkdGg6IDQ0MHB4O1xuICAgICRwYWRkaW5nOiAkc3BhY2luZy14eHhzICogMS41O1xuICAgIHBhZGRpbmc6IDAgJHBhZGRpbmc7XG4gICAgdmVydGljYWwtYWxpZ246IHRvcDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcblxuICAgICYubGVmdC1zaWRlYmFyIHtcbiAgICAgIHdpZHRoOiAkc2lkZWJhci13aWR0aDtcbiAgICAgIHBhZGRpbmctbGVmdDogMDtcbiAgICB9XG5cbiAgICAmLm1haW4tY29udGVudCB7XG4gICAgICB3aWR0aDogY2FsYygxMDAlIC0gI3skc2lkZWJhci13aWR0aCAqIDJ9KTtcbiAgICB9XG5cbiAgICAmLnJpZ2h0LXNpZGViYXIge1xuICAgICAgd2lkdGg6ICRzaWRlYmFyLXdpZHRoO1xuICAgICAgcGFkZGluZy1yaWdodDogMDtcbiAgICB9XG5cbiAgICBAbWVkaWEgKG1heC13aWR0aDogJHNjcmVlbi1sKSB7XG4gICAgICBwYWRkaW5nOiAkcGFkZGluZyAwO1xuICAgICAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcblxuICAgICAgJi5sZWZ0LXNpZGViYXIsXG4gICAgICAmLnJpZ2h0LXNpZGViYXIge1xuICAgICAgICBmbG9hdDogbm9uZTtcbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/dashboard/dashboard.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/pages/dashboard/dashboard.component.ts ***!
+  \********************************************************/
+/*! exports provided: DashboardPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardPageComponent", function() { return DashboardPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modules/shared/services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var DashboardPageComponent = /** @class */ (function () {
+    function DashboardPageComponent(titleService, translateService) {
+        this.titleService = titleService;
+        this.translateService = translateService;
+        this.titleService.setTitle(this.translateService.instant('anime.dashboard.title'));
+    }
+    DashboardPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'mt-dashboard',
+            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/pages/dashboard/dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./dashboard.component.scss */ "./src/app/pages/dashboard/dashboard.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_2__["TitleService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]])
+    ], DashboardPageComponent);
+    return DashboardPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/login/login.component.html":
+/*!**************************************************!*\
+  !*** ./src/app/pages/login/login.component.html ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"narrow-page\">\n\n  <mat-card>\n    <div class=\"text-center vertical-padding-m\">\n      <h2>\n        <a [href]=apiLoginUrl>Log in with AniList</a>\n      </h2>\n    </div>\n  </mat-card>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/pages/login/login.component.scss":
+/*!**************************************************!*\
+  !*** ./src/app/pages/login/login.component.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/pages/login/login.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/pages/login/login.component.ts ***!
+  \************************************************/
+/*! exports provided: LoginPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageComponent", function() { return LoginPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../app.constants */ "./src/app/app.constants.ts");
+/* harmony import */ var _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modules/shared/services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var LoginPageComponent = /** @class */ (function () {
+    function LoginPageComponent(titleService) {
+        this.titleService = titleService;
+        this.apiLoginUrl = _app_constants__WEBPACK_IMPORTED_MODULE_1__["apiLoginUrl"];
+        this.titleService.setTitle();
+    }
+    LoginPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'mt-login',
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/pages/login/login.component.html"),
+            styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/pages/login/login.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_2__["TitleService"]])
+    ], LoginPageComponent);
+    return LoginPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/page-not-found/page-not-found.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/pages/page-not-found/page-not-found.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card class=\"inline-block text-center\">\n  <fa-icon name=\"exclamation-circle\" class=\"fa-10x\"></fa-icon>\n  <h1>\n    {{ 'app.pageNotFound' | translate }}\n  </h1>\n</mat-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/pages/page-not-found/page-not-found.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/pages/page-not-found/page-not-found.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3BhZ2Utbm90LWZvdW5kL3BhZ2Utbm90LWZvdW5kLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/pages/page-not-found/page-not-found.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/pages/page-not-found/page-not-found.component.ts ***!
+  \******************************************************************/
+/*! exports provided: PageNotFoundPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageNotFoundPageComponent", function() { return PageNotFoundPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modules/shared/services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var PageNotFoundPageComponent = /** @class */ (function () {
+    function PageNotFoundPageComponent(titleService, translateService) {
+        this.titleService = titleService;
+        this.translateService = translateService;
+        this.titleService.setTitle(this.translateService.instant('app.pageNotFound'));
+    }
+    PageNotFoundPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'mt-page-not-found',
+            template: __webpack_require__(/*! ./page-not-found.component.html */ "./src/app/pages/page-not-found/page-not-found.component.html"),
+            styles: [__webpack_require__(/*! ./page-not-found.component.scss */ "./src/app/pages/page-not-found/page-not-found.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_2__["TitleService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]])
+    ], PageNotFoundPageComponent);
+    return PageNotFoundPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/user-anime-list/user-anime-list.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/pages/user-anime-list/user-anime-list.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"narrow-page\">\n  <mat-card *ngIf=\"!user\" class=\"alert warning\">\n    <h4>\n      <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n      {{ 'user.notLoggedIn' | translate }}\n    </h4>\n  </mat-card>\n\n  <mat-spinner *ngIf=\"user && !ready\" mode=\"indeterminate\" class=\"full-page\"></mat-spinner>\n\n  <div *ngIf=\"user && ready && !errorGotten\">\n    <div *ngIf=\"statuses && statuses.length\">\n      <mat-card class=\"table-filter\">\n        <mat-form-field class=\"full-width\">\n          <input\n            matInput\n            placeholder=\"{{ 'anime.search.filters.byTitle' | translate }}\"\n            (keyup)=\"applyFilter($event.target.value)\"\n          />\n        </mat-form-field>\n      </mat-card>\n\n      <mat-card class=\"margin-top-s\">\n        <h3>{{ 'anime.userList.show' | translate }} / {{ 'anime.userList.goTo' | translate }}</h3>\n\n        <div class=\"statuses-wrapper\">\n          <span *ngFor=\"let status of statuses\" class=\"status-wrapper\">\n            <div *ngIf=\"hasDataOfStatus(status.value)\">\n              <mat-checkbox [(ngModel)]=\"status.shown\">\n                {{ 'anime.statusValues.' + status.value | translate }}\n              </mat-checkbox>\n\n              <a href=\"{{ '/user-anime-list#' + status.value }}\" class=\"go-to-link\">\n                <fa-icon name=\"arrow-down\" class=\"vertically-centered margin-left-xxxs\"></fa-icon>\n              </a>\n            </div>\n          </span>\n        </div>\n      </mat-card>\n\n      <div *ngFor=\"let status of statuses\">\n        <div id=\"{{ status.value }}\" *ngIf=\"status.shown && hasDataOfStatus(status.value)\" class=\"status-table-wrapper\">\n          <mt-user-anime-list-table\n            [tableStatus]=\"status.value\"\n            [tableData]=\"statusObjects[status.value]\"\n            [favouriteIDs]=\"favouriteIDs\"\n            [filter]=\"filter\"\n            (onEntryUpdate)=\"onEntryUpdate($event)\"\n          >\n          </mt-user-anime-list-table>\n        </div>\n      </div>\n\n      <div class=\"padding-top-xs padding-bottom-m\">\n        <h3>\n          {{ 'settings.title' | translate }}\n        </h3>\n\n        <mat-slide-toggle [checked]=\"reloadOnUpdate\" (change)=\"reloadOnUpdate = !reloadOnUpdate\">\n          {{ 'settings.reloadOnUpdate' | translate }}\n        </mat-slide-toggle>\n      </div>\n\n      <mt-genres-overview [genreStatsList]=\"user.stats.favouredGenresOverview\"> </mt-genres-overview>\n    </div>\n\n    <mat-card *ngIf=\"ready && !error && (!statuses || !statuses.length)\">\n      <h4>\n        <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n        {{ 'anime.userList.noEntries' | translate }}\n      </h4>\n    </mat-card>\n  </div>\n\n  <mat-card *ngIf=\"error\" class=\"error\">\n    <h4>\n      <fa-icon name=\"exclamation-circle\" class=\"margin-right-xxs\"></fa-icon>\n      {{ error }}\n    </h4>\n  </mat-card>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/pages/user-anime-list/user-anime-list.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/pages/user-anime-list/user-anime-list.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/* spacing */\n/* font sizes */\n/* device sizes */\n/* material */\n/* modals */\n/* generic */\n/* specific */\n.table-filter {\n  padding-top: 8px !important;\n  padding-bottom: 0 !important; }\n.statuses-wrapper mat-checkbox {\n  display: inline-block;\n  vertical-align: text-bottom; }\n.statuses-wrapper .status-wrapper {\n  margin-right: 16px;\n  display: inline-block;\n  min-width: 104px; }\n.statuses-wrapper .status-wrapper .go-to-link {\n    height: 24px;\n    display: inline-block;\n    vertical-align: top; }\n.status-table-wrapper:not(:last-of-type) {\n  margin-bottom: 40px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3N0eWxlcy92YXJpYWJsZXMuc2NzcyIsIi9Vc2Vycy9qZXN1c21pZ3VlbGNydXpjYW5hL1R4dXMvZGV2ZWxvcG1lbnQvX3BlcnNvbmFsL3Vub2ZmaWNpYWwtYW5ndWxhci1tYXRlcmlhbC1hbmlsaXN0LWNsaWVudC9zcmMvYXBwL3BhZ2VzL3VzZXItYW5pbWUtbGlzdC91c2VyLWFuaW1lLWxpc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsWUFBQTtBQVlBLGVBQUE7QUFRQSxpQkFBQTtBQVNBLGFBQUE7QUFJQSxXQUFBO0FBSUEsWUFBQTtBQU9BLGFBQUE7QUMxQ0E7RUFDRSwyQkFBb0M7RUFDcEMsNEJBQTRCLEVBQUE7QUFHOUI7RUFFSSxxQkFBcUI7RUFDckIsMkJBQTJCLEVBQUE7QUFIL0I7RUFPSSxrQkRWYTtFQ1diLHFCQUFxQjtFQUNyQixnQkFBZ0IsRUFBQTtBQVRwQjtJQVlNLFlEZFU7SUNlVixxQkFBcUI7SUFDckIsbUJBQW1CLEVBQUE7QUFLekI7RUFFSSxtQkFBd0MsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3VzZXItYW5pbWUtbGlzdC91c2VyLWFuaW1lLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBzcGFjaW5nICovXG4kc3BhY2luZy14eHh4czogMnB4O1xuJHNwYWNpbmcteHh4czogNHB4O1xuJHNwYWNpbmcteHhzOiA4cHg7XG4kc3BhY2luZy14czogMTZweDtcbiRzcGFjaW5nLXM6IDI0cHg7XG4kc3BhY2luZy1tOiAzMnB4O1xuJHNwYWNpbmctbDogNDhweDtcbiRzcGFjaW5nLXhsOiA2NHB4O1xuJHNwYWNpbmcteHhsOiA5NnB4O1xuJHNwYWNpbmcteHh4bDogMTI4cHg7XG5cbi8qIGZvbnQgc2l6ZXMgKi9cbiRmb250LXNpemUteHM6IDEycHg7XG4kZm9udC1zaXplLXM6IDE0cHg7XG4kZm9udC1zaXplLW06IDE2cHg7XG4kZm9udC1zaXplLWw6IDIwcHg7XG4kZm9udC1zaXplLXhsOiAyNHB4O1xuJGZvbnQtc2l6ZS14eGw6IDI4cHg7XG5cbi8qIGRldmljZSBzaXplcyAqL1xuJHNjcmVlbi14eHhzOiAzMjBweDtcbiRzY3JlZW4teHhzOiA0ODBweDtcbiRzY3JlZW4teHM6IDU3NnB4O1xuJHNjcmVlbi1zOiA3NjhweDtcbiRzY3JlZW4tbTogMTAyNHB4O1xuJHNjcmVlbi1sOiAxMzYwcHg7XG4kc2NyZWVuLXhsOiAxOTIwcHg7XG5cbi8qIG1hdGVyaWFsICovXG4kbWF0LXRvb2xiYXItaGVpZ2h0OiA2NHB4O1xuJG1hdC1zcGlubmVyLXNpemU6IDEyOHB4O1xuXG4vKiBtb2RhbHMgKi9cbiRtb2RhbC1oZWFkZXItaGVpZ2h0OiA3MHB4O1xuJG1vZGFsLWZvb3Rlci1oZWlnaHQ6IDg0cHg7XG5cbi8qIGdlbmVyaWMgKi9cbiRwYWdlLXBhZGRpbmc6ICRzcGFjaW5nLW07XG4kY2FyZC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJGV4cGFuc2lvbi1wYW5lbC1wYWRkaW5nOiAkc3BhY2luZy1zO1xuJG1heC1pbnB1dC1zaXplOiA2NDBweDtcbiRzZXBhcmF0b3ItdGhpY2tuZXNzOiAxcHg7XG5cbi8qIHNwZWNpZmljICovXG4kZm9vdGVyLWhlaWdodDogMTAzcHg7XG4iLCJAaW1wb3J0ICcuLi8uLi9zdHlsZXMvdmFyaWFibGVzJztcblxuLnRhYmxlLWZpbHRlciB7XG4gIHBhZGRpbmctdG9wOiAkc3BhY2luZy14eHMgIWltcG9ydGFudDtcbiAgcGFkZGluZy1ib3R0b206IDAgIWltcG9ydGFudDtcbn1cblxuLnN0YXR1c2VzLXdyYXBwZXIge1xuICBtYXQtY2hlY2tib3gge1xuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICB2ZXJ0aWNhbC1hbGlnbjogdGV4dC1ib3R0b207XG4gIH1cblxuICAuc3RhdHVzLXdyYXBwZXIge1xuICAgIG1hcmdpbi1yaWdodDogJHNwYWNpbmcteHM7XG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgIG1pbi13aWR0aDogMTA0cHg7XG5cbiAgICAuZ28tdG8tbGluayB7XG4gICAgICBoZWlnaHQ6ICRzcGFjaW5nLXM7XG4gICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuICAgIH1cbiAgfVxufVxuXG4uc3RhdHVzLXRhYmxlLXdyYXBwZXIge1xuICAmOm5vdCg6bGFzdC1vZi10eXBlKSB7XG4gICAgbWFyZ2luLWJvdHRvbTogJHNwYWNpbmctbCAtICRzcGFjaW5nLXh4cztcbiAgfVxufVxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/pages/user-anime-list/user-anime-list.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/pages/user-anime-list/user-anime-list.component.ts ***!
+  \********************************************************************/
+/*! exports provided: UserAnimeListPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserAnimeListPageComponent", function() { return UserAnimeListPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../app.constants */ "./src/app/app.constants.ts");
+/* harmony import */ var _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modules/anime/services/anime.service */ "./src/app/modules/anime/services/anime.service.ts");
+/* harmony import */ var _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../modules/shared/services/title.service */ "./src/app/modules/shared/services/title.service.ts");
+/* harmony import */ var _modules_shared_store_auth_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../modules/shared/store/auth.store */ "./src/app/modules/shared/store/auth.store.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+var UserAnimeListPageComponent = /** @class */ (function () {
+    function UserAnimeListPageComponent(router, titleService, translateService, animeService, authStore) {
+        this.router = router;
+        this.titleService = titleService;
+        this.translateService = translateService;
+        this.animeService = animeService;
+        this.authStore = authStore;
+        this.reloadOnUpdate = true;
+        this.titleService.setTitle(this.translateService.instant('anime.userList.title'));
+        this.user = this.authStore.getUser();
+        this.loggedIn = this.user !== undefined;
+        if (!this.loggedIn) {
+            this.router.navigate([_app_constants__WEBPACK_IMPORTED_MODULE_5__["rootUrl"]]);
+        }
+        this.updateListData();
+    }
+    UserAnimeListPageComponent.prototype.getUserList = function () {
+        var _this = this;
+        if (this.user) {
+            this.animeService
+                .getAnimeList(this.user)
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (response) {
+                _this.statusObjects = response;
+                _this.statuses = Object.keys(response)
+                    .sort()
+                    .map(function (status) { return ({
+                    value: status,
+                    shown: true,
+                }); });
+                _this.ready = true;
+            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) {
+                _this.error = error;
+                _this.ready = true;
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])();
+            }))
+                .subscribe();
+        }
+    };
+    UserAnimeListPageComponent.prototype.getListFavouriteIDs = function () {
+        var _this = this;
+        if (this.user) {
+            this.animeService.getAnimeListFavouriteIDs(this.user, function (favouriteIDs) {
+                _this.favouriteIDs = favouriteIDs;
+            });
+        }
+    };
+    UserAnimeListPageComponent.prototype.hasDataOfStatus = function (status) {
+        return this.statusObjects && this.statusObjects[status] && this.statusObjects[status].length > 0;
+    };
+    UserAnimeListPageComponent.prototype.applyFilter = function (filterValue) {
+        this.filter = filterValue.trim().toLowerCase();
+    };
+    UserAnimeListPageComponent.prototype.getListAsString = function () {
+        return JSON.stringify(this.statusObjects, undefined, 2);
+    };
+    UserAnimeListPageComponent.prototype.onEntryUpdate = function (listEntry) {
+        if (this.reloadOnUpdate) {
+            this.updateListData();
+        }
+    };
+    UserAnimeListPageComponent.prototype.updateListData = function () {
+        this.statusObjects = undefined;
+        this.statuses = undefined;
+        this.favouriteIDs = undefined;
+        this.ready = false;
+        this.getUserList();
+        this.getListFavouriteIDs();
+    };
+    UserAnimeListPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'mt-user-anime-list',
+            template: __webpack_require__(/*! ./user-anime-list.component.html */ "./src/app/pages/user-anime-list/user-anime-list.component.html"),
+            styles: [__webpack_require__(/*! ./user-anime-list.component.scss */ "./src/app/pages/user-anime-list/user-anime-list.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _modules_shared_services_title_service__WEBPACK_IMPORTED_MODULE_7__["TitleService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
+            _modules_anime_services_anime_service__WEBPACK_IMPORTED_MODULE_6__["AnimeService"],
+            _modules_shared_store_auth_store__WEBPACK_IMPORTED_MODULE_8__["AuthStore"]])
+    ], UserAnimeListPageComponent);
+    return UserAnimeListPageComponent;
 }());
 
 

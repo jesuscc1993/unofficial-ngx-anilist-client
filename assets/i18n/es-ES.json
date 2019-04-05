@@ -57,7 +57,9 @@
     }
   },
   "app": {
-    "title": "Cliente No Oficial de AniList"
+    "title": "Cliente No Oficial de AniList",
+    "titleShort": "CNOA",
+    "pageNotFound": "Página no encontrada"
   },
   "footer": {
     "about": "Acerca",
@@ -69,6 +71,25 @@
     "cancel": "Cancelar",
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso."
+  },
+  "listEntry": {
+    "update": {
+      "success": "Actualizada entrada en la lista para {{ mediaTitle }}."
+    },
+    "deletion": {
+      "success": "Eliminada entrada en la lista para {{ mediaTitle }}."
+    },
+    "favouriteToggle": {
+      "success": "Alternada entrada en la lista para {{ mediaTitle }} como favorita."
+    }
+  },
+  "matPaginator": {
+    "firstPageLabel": "Primera página",
+    "itemsPerPageLabel": "Resultados por página",
+    "lastPageLabel": "Última página",
+    "nextPageLabel": "Página siguiente",
+    "previousPageLabel": "Página anterior",
+    "rangeLabel": "{{ firstResult }} - {{ lastResult }} of {{ totalCount }}"
   },
   "media": {
     "additionalInfo": "Más información",
