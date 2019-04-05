@@ -8,7 +8,7 @@ $mobile-horizontal-cell-padding: 40px;
     $bg-intensity: 0.1;
 
     &.completed,
-    &.rewatching {
+    &.repeating {
       $color: map-get($mat-blue, 500);
       background: rgba($color, $bg-intensity);
     }

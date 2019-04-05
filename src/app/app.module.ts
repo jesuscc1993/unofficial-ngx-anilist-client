@@ -17,6 +17,7 @@ import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found
 import { UserAnimeListPageComponent } from './pages/user-anime-list/user-anime-list.component';
 import { AnimeService } from './services/anime.service';
 import { AuthService } from './services/auth.service';
+import { ToastService } from './services/toast.service';
 import { AuthStore } from './store/auth.store';
 
 const appRoutes: Routes = [
@@ -51,7 +52,7 @@ const appRoutes: Routes = [
       },
     }),
   ],
-  providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore],
+  providers: [AnimeService, AuthService, AnimeApi, AuthApi, AuthStore, ToastService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

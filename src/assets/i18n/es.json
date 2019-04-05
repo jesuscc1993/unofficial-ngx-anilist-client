@@ -70,6 +70,17 @@
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso."
   },
+  "listEntry": {
+    "update": {
+      "success": "Actualizada entrada en la lista para {{ mediaTitle }}."
+    },
+    "deletion": {
+      "success": "Eliminada entrada en la lista para {{ mediaTitle }}."
+    },
+    "favouriteToggle": {
+      "success": "Alternada entrada en la lista para {{ mediaTitle }} como favorita."
+    }
+  },
   "media": {
     "additionalInfo": "Más información",
     "cover": "Imagen",

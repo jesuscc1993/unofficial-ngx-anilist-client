@@ -55,15 +55,14 @@ export class MtListEntryFormModalComponent {
     this.animeService
       .saveAnimeListEntry(entryToSave)
       .pipe(
-        tap(response => {
-          const success: boolean = response.data.SaveMediaListEntry.id !== undefined;
+        tap(savedListEntry => {
+          const success: boolean = savedListEntry.id !== undefined;
           if (success) {
             if (this.listEntry) {
-              this.listEntry.scoreRaw = entryToSave.scoreRaw;
-              this.listEntry.status = entryToSave.status;
+              this.listEntry = { ...this.listEntry, ...savedListEntry };
             }
 
-            this.dialogRef.close(this.listEntry);
+            this.dialogRef.close({ savedListEntry });
           }
         })
       )
@@ -76,12 +75,10 @@ export class MtListEntryFormModalComponent {
     this.animeService
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
-        tap(response => {
-          const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
+        tap(deletedListEntry => {
+          const success: boolean = deletedListEntry.deleted === true;
           if (success) {
-            this.dialogRef.close({
-              deletedEntry: this.listEntry,
-            });
+            this.dialogRef.close({ deletedListEntry });
           }
         })
       )
@@ -101,7 +98,7 @@ export class MtListEntryFormModalComponent {
   private getFormEntry(): ListEntry {
     return {
       media: this.media,
-      scoreRaw: this.listEntryForm.value.score * 10,
+      scoreRaw: Math.trunc(this.listEntryForm.value.score * 10),
       status: this.listEntryForm.value.status,
     };
   }

@@ -207,18 +207,18 @@ export class AnimeApi extends AniListApi {
       status: listEntry.status || 'COMPLETED',
       mediaId: listEntry.media.id,
       scoreRaw: listEntry.scoreRaw,
-    });
+    }).pipe(map(response => this.getResponseData(response).SaveMediaListEntry));
   }
 
   public deleteAnimeListEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<DeleteListEntryDto, DeleteListEntryRequest>(deleteListEntryQuery, {
       id: listEntry.id,
-    });
+    }).pipe(map(response => this.getResponseData(response).DeleteMediaListEntry));
   }
 
   public toggleAnimeFavouriteEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<ToggleFavouriteMediaDto, ToggleFavouriteMediaRequest>(toggleFavouriteEntryQuery, {
       animeId: listEntry.media.id,
-    });
+    }).pipe(map(response => this.getResponseData(response).ToggleFavourite));
   }
 }

@@ -70,6 +70,17 @@
     "submit": "Submit",
     "workInProgress": "Work in progress."
   },
+  "listEntry": {
+    "update": {
+      "success": "Updated list entry for {{ mediaTitle }}."
+    },
+    "deletion": {
+      "success": "Deleted list entry for {{ mediaTitle }}."
+    },
+    "favouriteToggle": {
+      "success": "Toggled list entry {{ mediaTitle }} as favourite."
+    }
+  },
   "media": {
     "additionalInfo": "Additional info",
     "cover": "Cover",

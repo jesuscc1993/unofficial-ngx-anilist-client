@@ -337,12 +337,18 @@ export const saveListEntryQuery = `
       mediaId: $mediaId,
       scoreRaw: $scoreRaw,
       status: $status
-    ) {
-      id
-      status
+      ) {
+        id
+        score
+        status
+        media {
+          title {
+            romaji
+          }
+        }
+      }
     }
-  }
-`;
+  `;
 
 export const deleteListEntryQuery = `
   mutation (

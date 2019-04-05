@@ -9,6 +9,10 @@ $themes: (
     background: $mat-dark-theme-background,
     foreground: $mat-dark-theme-foreground,
     body-background: #333,
+    success: (
+      background: map-get($mat-green, 800),
+      foreground: map-get($mat-green, 50),
+    ),
     info: (
       background: map-get($mat-blue, 800),
       foreground: map-get($mat-blue, 50),
@@ -60,7 +64,12 @@ a {
   }
 }
 
-mat-card {
+mat-card,
+.mat-snack-bar-container {
+  &.success {
+    background: map-get(map-get($theme, success), background);
+    color: map-get(map-get($theme, success), foreground);
+  }
   &.info {
     background: map-get(map-get($theme, info), background);
     color: map-get(map-get($theme, info), foreground);

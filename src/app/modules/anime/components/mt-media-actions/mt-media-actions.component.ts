@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../../app.constants';
 import { AnimeService } from '../../../../services/anime.service';
 import { AuthService } from '../../../../services/auth.service';
+import { ToastService } from '../../../../services/toast.service';
 import { AuthStore } from '../../../../store/auth.store';
 import { ListEntry } from '../../../../types/anilist/listEntry.types';
 import { Media } from '../../../../types/anilist/media.types';
@@ -30,10 +32,11 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
 
   constructor(
     private dialog: MatDialog,
-    private matSnackBar: MatSnackBar,
+    private translateService: TranslateService,
     private animeService: AnimeService,
     private authService: AuthService,
-    private authStore: AuthStore
+    private authStore: AuthStore,
+    private toastService: ToastService
   ) {
     super();
 
@@ -61,14 +64,14 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .pipe(
         tap(result => {
           if (result) {
-            if (result.savedEntry) {
-              this.showSavedEntryToast(result.savedEntry);
+            if (result.savedListEntry) {
+              this.showSavedListEntryToast(result.savedListEntry);
             }
-            if (result.deletedEntry) {
-              this.showDeletedEntryToast(result.deletedEntry);
+            if (result.deletedListEntry) {
+              this.showDeletedListEntryToast(result.deletedListEntry);
             }
 
-            this.onUpdate.emit(result.savedEntry || result.deletedEntry);
+            this.onUpdate.emit(result.savedListEntry || result.deletedListEntry);
           }
         })
       )
@@ -76,16 +79,16 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
   }
 
   toggleFavourite() {
-    const targetEntry: ListEntry = this.getListEntry();
+    const targetlistEntry: ListEntry = this.getListEntry();
 
     this.animeService
-      .toggleFavouriteAnimeListEntry(targetEntry)
+      .toggleFavouriteAnimeListEntry(targetlistEntry)
       .pipe(
-        tap(response => {
-          const success: boolean = response.data.ToggleFavourite !== undefined;
+        tap(listEntryId => {
+          const success: boolean = listEntryId !== undefined;
           if (success) {
-            this.showToggledFavouriteToast(targetEntry);
-            this.onUpdate.emit(targetEntry);
+            this.showToggledFavouriteToast(targetlistEntry);
+            this.onUpdate.emit(targetlistEntry);
           }
         })
       )
@@ -93,16 +96,16 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
   }
 
   deleteEntry() {
-    const targetEntry: ListEntry = this.getListEntry();
+    const targetlistEntry: ListEntry = this.getListEntry();
 
     this.animeService
-      .deleteAnimeListEntry(targetEntry)
+      .deleteAnimeListEntry(targetlistEntry)
       .pipe(
-        tap(response => {
-          const success: boolean = response.data.DeleteMediaListEntry.deleted === true;
+        tap(deletedListEntry => {
+          const success: boolean = deletedListEntry.deleted === true;
           if (success) {
-            this.showDeletedEntryToast(targetEntry);
-            this.onUpdate.emit(targetEntry);
+            this.showDeletedListEntryToast(targetlistEntry);
+            this.onUpdate.emit(targetlistEntry);
           }
         })
       )
@@ -147,21 +150,21 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     });
   }
 
-  private showSavedEntryToast(listEntry: ListEntry) {
-    this.showToast(`Updated list entry for "${listEntry.media.title.romaji}"`);
+  private showSavedListEntryToast(listEntry: ListEntry) {
+    this.toastService.showToast(
+      this.translateService.instant('listEntry.update.success', { mediaTitle: listEntry.media.title.romaji })
+    );
   }
 
   private showToggledFavouriteToast(listEntry: ListEntry) {
-    this.showToast(`Toggled entry "${listEntry.media.title.romaji}" as favourite`);
+    this.toastService.showToast(
+      this.translateService.instant('listEntry.favouriteToggle.success', { mediaTitle: listEntry.media.title.romaji })
+    );
   }
 
-  private showDeletedEntryToast(listEntry: ListEntry) {
-    this.showToast(`Deleted list entry for "${listEntry.media.title.romaji}"`);
-  }
-
-  private showToast(message: string) {
-    this.matSnackBar.open(message, undefined, {
-      duration: 10000,
-    });
+  private showDeletedListEntryToast(listEntry: ListEntry) {
+    this.toastService.showToast(
+      this.translateService.instant('listEntry.deletion.success', { mediaTitle: listEntry.media.title.romaji })
+    );
   }
 }
