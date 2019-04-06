@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 
-import { MediaSort } from '../../../shared/types/anilist/enums/mediaSorts';
+import { AniListApi } from '../../../shared/api/api';
+import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
-import { AniListApi } from '../../../shared/api/api';
-import { AuthStore } from '../../../shared/store/auth.store';
 import {
   deleteListEntryQuery,
   finishedAiringMediaQuery,
@@ -59,7 +58,7 @@ export class AnimeApi extends AniListApi {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaSearchQuery, {
       mediaType: 'ANIME',
       idIn: mediaIds,
-      sort: MediaSort.TITLE_ROMAJI,
+      sort: 'TITLE_ROMAJI',
 
       perPage: mediaIds.length,
     }).pipe(map(response => this.getResponseData(response).Page.media));
@@ -71,7 +70,7 @@ export class AnimeApi extends AniListApi {
       ...query,
       mediaType: 'ANIME',
       adultContent: query.adultContent || false,
-      sort: query.sort || MediaSort.TITLE_ROMAJI,
+      sort: query.sort || 'TITLE_ROMAJI',
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
@@ -79,7 +78,7 @@ export class AnimeApi extends AniListApi {
     return this.postGraphQlRequest<ListMediaDto, MediaFilters>(listQuery, {
       mediaType: 'ANIME',
       userId: user.id,
-      sort: MediaSort.SCORE_DESC,
+      sort: 'UPDATED_TIME_DESC',
     }).pipe(
       map(response => {
         let listEntriesByStatus: { [Status in ListEntryStatus]?: ListEntry[] } = {};
@@ -129,7 +128,7 @@ export class AnimeApi extends AniListApi {
       ...this.getPageOptions(pageInfo),
       mediaType: 'ANIME',
       userId: user.id,
-      sort: MediaSort.UPDATED_TIME_DESC,
+      sort: 'UPDATED_TIME_DESC',
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 

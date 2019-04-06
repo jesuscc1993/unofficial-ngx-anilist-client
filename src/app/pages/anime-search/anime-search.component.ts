@@ -11,7 +11,7 @@ import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import {
   MtSearchResultsTableComponent,
 } from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
-import { getDateScalarFromYear } from '../../modules/anime/domain/anime.domain';
+import { getDateScalarFromYear } from '../../modules/anime/domain/media.domain';
 import { AnimeService } from '../../modules/anime/services/anime.service';
 import {
   WithObservableOnDestroy,
@@ -19,8 +19,8 @@ import {
 import { AuthService } from '../../modules/shared/services/auth.service';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
-import { MediaSort } from '../../modules/shared/types/anilist/enums/mediaSorts';
-import { Anime, MediaFormat, MediaStatus } from '../../modules/shared/types/anilist/media.types';
+import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/anilist/media.types';
+import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 import { GenericUtil } from '../../utils/generic.util';
@@ -38,12 +38,12 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   animeList: Anime[];
   searchForm: FormGroup;
   pagination: PageInfo;
-  sort: string;
+  sort: MediaSort;
   excludeOnList: boolean;
 
   mediaGenres: string[];
-  mediaFormats: MediaFormat[] = ['MOVIE', 'MUSIC', 'ONA', 'OVA', 'SPECIAL', 'TV_SHORT', 'TV'];
-  mediaStatuses: MediaStatus[] = ['FINISHED', 'RELEASING', 'NOT_YET_RELEASED', 'CANCELLED'];
+  mediaFormats = mediaFormats;
+  mediaStatuses = mediaStatuses;
   onListOptions = [true, false, undefined];
   minYear = 1900;
   maxYear = new Date().getFullYear() + 1;
@@ -158,7 +158,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   }
 
   sortBy(mediaSort: MediaSort) {
-    this.sort = mediaSort && mediaSort.value;
+    this.sort = mediaSort;
     this.search();
   }
 

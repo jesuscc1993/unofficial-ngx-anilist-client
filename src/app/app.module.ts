@@ -29,10 +29,13 @@ const translationFactory = (translateService: TranslateService, injector: Inject
   return () =>
     new Promise<any>((resolve: any) => {
       const availableLanguages = ['en-US', 'es-ES'];
+      const defaultLanguage = availableLanguages[0];
 
       injector.get(LOCATION_INITIALIZED, Promise.resolve(null)).then(() => {
-        translateService.setDefaultLang(availableLanguages[0]);
-        translateService.use(navigator.language).subscribe(() => resolve(null));
+        translateService.setDefaultLang(defaultLanguage);
+        translateService
+          .use(availableLanguages.includes(navigator.language) ? navigator.language : defaultLanguage)
+          .subscribe(() => resolve(null));
       });
     });
 };

@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
+import { GenericUtil } from '../../../../utils/generic.util';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Anime } from '../../../shared/types/anilist/media.types';
-import { GenericUtil } from '../../../../utils/generic.util';
 
 @Component({
   selector: 'mt-user-anime-list-table',
@@ -61,6 +61,10 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
     }
   }
 
+  onPageChange() {
+    GenericUtil.scrollToRef(this.elementRef);
+  }
+
   private initializeDataSource() {
     this.dataSource = new MatTableDataSource<ListEntry>(this.tableData);
   }
@@ -83,16 +87,10 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
     };
 
     this.dataSource.filterPredicate = (listEntry: ListEntry, filter: string) => {
-      return (
-        listEntry.media.title.romaji
-          .trim()
-          .toLowerCase()
-          .indexOf(filter.trim().toLowerCase()) >= 0
-      );
+      return listEntry.media.title.romaji
+        .trim()
+        .toLowerCase()
+        .includes(filter.trim().toLowerCase());
     };
-  }
-
-  private onPageChange() {
-    GenericUtil.scrollToRef(this.elementRef);
   }
 }

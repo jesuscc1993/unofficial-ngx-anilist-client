@@ -31,11 +31,13 @@
         {{ 'media.title' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <span *ngIf="favouriteIDs?.indexOf(entry.media.id) >= 0">
-          <fa-icon name="heart" class="favourite"></fa-icon>
-        </span>
         <span class="text">
-          {{ entry.media.title.romaji }}
+          <span>
+            {{ entry.media.title.romaji }}
+          </span>
+          <span *ngIf="favouriteIDs?.includes(entry.media.id)">
+            <fa-icon name="heart" class="favourite"></fa-icon>
+          </span>
         </span>
       </mat-cell>
     </ng-container>

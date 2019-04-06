@@ -12,8 +12,8 @@ import {
   userListUrl,
 } from '../../../../app.constants';
 import { AuthService } from '../../../../modules/shared/services/auth.service';
-import { User } from '../../types/anilist/user.types';
 import { AuthStore } from '../../store/auth.store';
+import { User } from '../../types/anilist/user.types';
 import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
@@ -37,7 +37,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   constructor(private router: Router, private authService: AuthService, private authStore: AuthStore) {
     super();
 
-    if (location.href.indexOf(apiTokenPrefix) >= 0) {
+    if (location.href.includes(apiTokenPrefix)) {
       const locationParts: string[] = location.href.split('&')[0].split(apiTokenPrefix);
       history.replaceState({}, 'Login success', locationParts[0]);
       this.authService.logIn(locationParts[1]);
@@ -50,10 +50,10 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     this.router.events
       .pipe(
         tap(() => {
-          this.onRoot = location.href.indexOf(rootUrl) >= 0;
-          this.onDashboard = location.href.indexOf(dashboardUrl) >= 0;
-          this.onAnimeSearch = location.href.indexOf(animeSearchUrl) >= 0;
-          this.onUserList = location.href.indexOf(userListUrl) >= 0;
+          this.onRoot = location.href.includes(rootUrl);
+          this.onDashboard = location.href.includes(dashboardUrl);
+          this.onAnimeSearch = location.href.includes(animeSearchUrl);
+          this.onUserList = location.href.includes(userListUrl);
         })
       )
       .subscribe();

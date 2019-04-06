@@ -1,5 +1,6 @@
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Anime, Media, MediaStatus } from '../../../shared/types/anilist/media.types';
+import { MediaListSort, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
 /* filters */
@@ -15,7 +16,7 @@ export type MediaFilters = {
   idNotIn?: number[];
   mediaType?: string;
   onList?: boolean;
-  sort?: string;
+  sort?: MediaSort | MediaListSort;
   status?: ListEntryStatus | MediaStatus;
   userId?: number;
 };

@@ -94,5 +94,4 @@ Provides multiple actions to be done with an anime
 - Add language selection
 - Fix ngx-translate on gh-pages (add translations root to environments file)
 - Implement store for listEntries
-- Get rid of EnumMaps
 - Group recent list updates by status

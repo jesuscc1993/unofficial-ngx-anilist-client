@@ -1,5 +1,3 @@
-export type NodeList = {
-  nodes: {
-    name: string;
-  }[];
+export type NodeList<ChildrenType> = {
+  nodes: ChildrenType[];
 };
