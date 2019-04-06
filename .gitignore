@@ -11,6 +11,7 @@ yarn-error.log
 /dist
 /tmp
 /out-tsc
+*.js.map
 
 # dependencies
 /node_modules
