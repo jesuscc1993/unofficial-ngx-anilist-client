@@ -14,6 +14,13 @@ Filters<sup>1</sup> can be used to refine the search. They also are stored on th
 
 <sup>1</sup> title, aired before, aired after, scored above, scored below, genres, formats, statuses and on list
 
+### Dashboard
+
+Currently shows two sidebars:
+
+- Recently updated list entries
+- Media in the user's list that recently finished airing
+
 ### User list
 
 Allows for paginated searching of the anime series on the logged user's list.
