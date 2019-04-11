@@ -18,7 +18,7 @@ export class Store<StoreState> {
     return this.state;
   }
 
-  getObservable() {
+  asObservable() {
     return this.subject.asObservable();
   }
 }

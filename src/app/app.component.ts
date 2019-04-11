@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authStore
-      .getObservable()
+      .asObservable()
       .pipe(
         tap(({ user }) => {
           if (user) {
