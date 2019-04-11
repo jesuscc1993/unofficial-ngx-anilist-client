@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
+import { MediaStore } from '../../shared/store/media.store';
 import { ListEntry } from '../../shared/types/anilist/listEntry.types';
 import { Anime } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
-import { MediaStore } from '../../shared/store/media.store';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
 
@@ -25,14 +25,14 @@ export class AnimeService {
           map(animeList => ({ ...response, media: animeList }))
         )
       ),
-      tap(pageData => this.mediaStore.storeAnime(pageData.media))
+      tap(pageData => this.mediaStore.setAnime(pageData.media))
     );
   }
 
   public getAnimeList(user: User) {
     return this.animeApi.queryAnimeList(user).pipe(
       tap(listEntriesDictionary =>
-        this.mediaStore.storeAnime(
+        this.mediaStore.setAnime(
           Object.keys(listEntriesDictionary)
             .map(status => listEntriesDictionary[status].map((listEntry: ListEntry) => listEntry.media))
             .reduce((mediaList, media) => [...mediaList, ...media])
@@ -58,7 +58,7 @@ export class AnimeService {
           }))
         )
       ),
-      tap(pageData => this.mediaStore.storeAnime(pageData.mediaList.map(listEntry => listEntry.media)))
+      tap(pageData => this.mediaStore.setAnime(pageData.mediaList.map(listEntry => listEntry.media)))
     );
   }
 
@@ -69,12 +69,12 @@ export class AnimeService {
           map(animeList => ({ ...response, media: animeList }))
         )
       ),
-      tap(pageData => this.mediaStore.storeAnime(pageData.media))
+      tap(pageData => this.mediaStore.setAnime(pageData.media))
     );
   }
 
   public getRelatedAnimeMedia(user: User) {
-    return this.animeApi.queryRelatedAnimeMedia(user).pipe(tap(mediaList => this.mediaStore.storeAnime(mediaList)));
+    return this.animeApi.queryRelatedAnimeMedia(user).pipe(tap(mediaList => this.mediaStore.setAnime(mediaList)));
   }
 
   public getAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {

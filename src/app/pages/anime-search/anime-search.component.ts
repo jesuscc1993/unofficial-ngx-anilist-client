@@ -190,7 +190,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
 
   private updateQueryParams() {
     const queryParams = {
-      sort: this.sort,
+      sort: JSON.stringify(this.sort),
     };
 
     const filters = this.searchForm.value;
@@ -199,11 +199,11 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       const field = filters[fieldKey];
 
       if (this.isSet(field)) {
-        queryParams[fieldKey] = field;
+        queryParams[fieldKey] = JSON.stringify(field);
       }
     });
 
-    this.router.navigate([animeSearchUrl], { queryParams: queryParams });
+    this.router.navigate([animeSearchUrl], { queryParams });
   }
 
   private isSet(variable: any): boolean {

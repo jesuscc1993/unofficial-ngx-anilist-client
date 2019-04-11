@@ -3,10 +3,10 @@ import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { accessTokenCookieKey, userCookieKey } from '../../../app.constants';
-import { User } from '../types/anilist/user.types';
 import { LocalStorage } from '../../../utils/local-storage.util';
 import { AuthApi } from '../api/auth/auth.api';
 import { AuthStore } from '../store/auth.store';
+import { User } from '../types/anilist/user.types';
 
 @Injectable()
 export class AuthService {

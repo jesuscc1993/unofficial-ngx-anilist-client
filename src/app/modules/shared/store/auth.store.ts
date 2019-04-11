@@ -1,30 +1,33 @@
 import { Injectable } from '@angular/core';
 
 import { User } from '../types/anilist/user.types';
+import { Store } from './store';
 
 export type AuthStoreState = { accessToken?: string; user?: User };
 
 @Injectable()
-export class AuthStore {
-  private state: AuthStoreState = {};
+export class AuthStore extends Store<AuthStoreState> {
+  constructor() {
+    super({});
+  }
 
   public setAccessToken(accessToken: string) {
-    this.state = { ...this.state, accessToken };
+    this.setState({ accessToken });
   }
   public getAccessToken() {
-    return this.state.accessToken;
+    return this.getState().accessToken;
   }
   public removeAccessToken() {
-    this.state = { ...this.state, accessToken: undefined };
+    this.setState({ accessToken: undefined });
   }
 
   public setUser(user: User) {
-    this.state = { ...this.state, user };
+    this.setState({ user });
   }
   public getUser() {
-    return this.state.user;
+    return this.getState().user;
   }
   public removeUser() {
-    this.state = { ...this.state, user: undefined };
+    this.setState({ user: undefined });
   }
 }
