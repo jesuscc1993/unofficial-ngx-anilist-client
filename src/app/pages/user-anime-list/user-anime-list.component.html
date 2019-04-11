@@ -30,7 +30,7 @@
                 {{ 'anime.statusValues.' + status.value | translate }}
               </mat-checkbox>
 
-              <a href="{{ '/user-anime-list#' + status.value }}" class="go-to-link">
+              <a class="go-to-link" (click)="scrollToStatus(status.value)">
                 <fa-icon name="arrow-down" class="vertically-centered margin-left-xxxs"></fa-icon>
               </a>
             </div>

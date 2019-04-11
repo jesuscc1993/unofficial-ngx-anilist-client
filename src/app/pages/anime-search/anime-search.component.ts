@@ -23,7 +23,7 @@ import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/a
 import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
-import { GenericUtil } from '../../utils/generic.util';
+import { ScrollUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'mt-anime-search',
@@ -93,7 +93,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
         const field = this.searchForm.controls[fieldKey];
         const value = JSON.parse(queryParams[fieldKey]);
 
-        if (field && GenericUtil.isSet(value)) {
+        if (field && this.isSet(value)) {
           field.setValue(value);
         }
       });
@@ -112,8 +112,11 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   }
 
   search(pageIndex?: number, perPage?: number) {
-    GenericUtil.scrollToRef(this.resultsTable);
     this.updateQueryParams();
+
+    if (this.resultsTable) {
+      ScrollUtil.scrollToRef(this.resultsTable);
+    }
 
     this.searching = true;
     this.error = undefined;
@@ -187,7 +190,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
 
   private updateQueryParams() {
     const queryParams = {
-      sort: JSON.stringify(this.sort),
+      sort: this.sort,
     };
 
     const filters = this.searchForm.value;
@@ -195,11 +198,15 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     Object.keys(filters).forEach(fieldKey => {
       const field = filters[fieldKey];
 
-      if (GenericUtil.isSet(field) && field.length !== 0) {
-        queryParams[fieldKey] = JSON.stringify(field);
+      if (this.isSet(field)) {
+        queryParams[fieldKey] = field;
       }
     });
 
     this.router.navigate([animeSearchUrl], { queryParams: queryParams });
+  }
+
+  private isSet(variable: any): boolean {
+    return variable !== undefined && variable !== null && variable.length !== 0;
   }
 }

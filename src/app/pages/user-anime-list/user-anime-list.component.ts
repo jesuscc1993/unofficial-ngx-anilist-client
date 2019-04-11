@@ -10,6 +10,7 @@ import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { ListEntry, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
+import { ScrollUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'mt-user-anime-list',
@@ -84,6 +85,10 @@ export class UserAnimeListPageComponent {
 
   hasDataOfStatus(status: string): boolean {
     return this.statusObjects && this.statusObjects[status] && this.statusObjects[status].length > 0;
+  }
+
+  scrollToStatus(status: string) {
+    ScrollUtil.scrollIntoView(document.getElementById(status));
   }
 
   applyFilter(filterValue: string) {

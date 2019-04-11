@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
-import { GenericUtil } from '../../../../utils/generic.util';
+import { ScrollUtil } from '../../../../utils/generic.util';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Anime } from '../../../shared/types/anilist/media.types';
 
@@ -62,7 +62,7 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   }
 
   onPageChange() {
-    GenericUtil.scrollToRef(this.elementRef);
+    ScrollUtil.scrollToRef(this.elementRef);
   }
 
   private initializeDataSource() {
