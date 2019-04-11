@@ -87,7 +87,7 @@ Provides multiple actions to be done with an anime
 
 ## Links
 
-- [Live demo](https://jesuscc1993.github.io/unofficial-ng5-anilist-client/anime-search)
+- [Live demo](https://jesuscc1993.github.io/unofficial-ngx-anilist-client/anime-search)
 
 ## TODO
 
