@@ -1,24 +1,21 @@
 import { BehaviorSubject } from 'rxjs';
 
 export class Store<StoreState> {
-  private state: StoreState;
-  private subject: BehaviorSubject<StoreState>;
+  private stateSubject: BehaviorSubject<StoreState>;
 
   constructor(initialState: StoreState) {
-    this.state = initialState;
-    this.subject = new BehaviorSubject(initialState);
+    this.stateSubject = new BehaviorSubject(initialState);
+  }
+
+  public asObservable() {
+    return this.stateSubject.asObservable();
   }
 
   protected setState(state: Partial<StoreState>) {
-    this.state = { ...this.state, ...state };
-    this.subject.next(this.state);
+    this.stateSubject.next({ ...this.stateSubject.getValue(), ...state });
   }
 
   protected getState(): StoreState {
-    return this.state;
-  }
-
-  asObservable() {
-    return this.subject.asObservable();
+    return this.stateSubject.getValue();
   }
 }

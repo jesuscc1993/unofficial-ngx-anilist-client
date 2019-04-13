@@ -100,5 +100,5 @@ Provides multiple actions to be done with an anime
 
 - Add language selection
 - Fix ngx-translate on gh-pages (add translations root to environments file)
-- Implement store for listEntries
+- Replace particular list entry queries with filtered store data
 - Group recent list updates by status

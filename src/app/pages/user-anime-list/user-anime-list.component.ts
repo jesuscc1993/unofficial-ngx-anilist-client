@@ -8,7 +8,7 @@ import { rootUrl } from '../../app.constants';
 import { AnimeService } from '../../modules/anime/services/anime.service';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
+import { ListEntriesByStatus, ListEntry, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 import { ScrollUtil } from '../../utils/generic.util';
 
@@ -19,7 +19,7 @@ import { ScrollUtil } from '../../utils/generic.util';
 })
 export class UserAnimeListPageComponent {
   user: User;
-  statusObjects: { [Status in ListEntryStatus]?: ListEntry[] };
+  listEntryListByStatus: ListEntriesByStatus;
   statuses: { value: ListEntryStatus; shown: boolean }[];
   favouriteIDs: number[];
 
@@ -52,11 +52,11 @@ export class UserAnimeListPageComponent {
   private getUserList() {
     if (this.user) {
       this.animeService
-        .getAnimeList(this.user)
+        .getAnimeListEntriesByStatus(this.user)
         .pipe(
-          tap(response => {
-            this.statusObjects = response;
-            this.statuses = Object.keys(response)
+          tap(listEntryListByStatus => {
+            this.listEntryListByStatus = listEntryListByStatus;
+            this.statuses = Object.keys(this.listEntryListByStatus)
               .sort()
               .map(status => ({
                 value: status as ListEntryStatus,
@@ -84,7 +84,9 @@ export class UserAnimeListPageComponent {
   }
 
   hasDataOfStatus(status: string): boolean {
-    return this.statusObjects && this.statusObjects[status] && this.statusObjects[status].length > 0;
+    return (
+      this.listEntryListByStatus && this.listEntryListByStatus[status] && this.listEntryListByStatus[status].length > 0
+    );
   }
 
   scrollToStatus(status: string) {
@@ -96,7 +98,7 @@ export class UserAnimeListPageComponent {
   }
 
   getListAsString(): string {
-    return JSON.stringify(this.statusObjects, undefined, 2);
+    return JSON.stringify(this.listEntryListByStatus, undefined, 2);
   }
 
   onEntryUpdate(listEntry?: ListEntry) {
@@ -106,7 +108,7 @@ export class UserAnimeListPageComponent {
   }
 
   private updateListData() {
-    this.statusObjects = undefined;
+    this.listEntryListByStatus = undefined;
     this.statuses = undefined;
     this.favouriteIDs = undefined;
     this.ready = false;

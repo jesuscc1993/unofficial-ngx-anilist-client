@@ -6,6 +6,8 @@ export type ListEntry = {
   id?: number;
   scoreRaw?: number;
   status?: ListEntryStatus;
-  media?: Media;
+  media: Media;
   updatedAt?: number;
 };
+
+export type ListEntriesByStatus = { [Status in ListEntryStatus]?: ListEntry[] };

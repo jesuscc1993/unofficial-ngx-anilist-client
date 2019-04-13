@@ -80,22 +80,12 @@ export class AnimeApi extends AniListApi {
       userId: user.id,
       sort: 'UPDATED_TIME_DESC',
     }).pipe(
-      map(response => {
-        let listEntriesByStatus: { [Status in ListEntryStatus]?: ListEntry[] } = {};
-
-        const listMediaDto = this.getResponseData(response);
-        if (listMediaDto) {
-          listMediaDto.MediaListCollection.lists.forEach(list => {
-            const status = list.entries[0].status;
-
-            list.entries.forEach(listEntry => {
-              listEntriesByStatus[status] = [...(listEntriesByStatus[status] || []), listEntry];
-            });
-          });
-        }
-
-        return listEntriesByStatus;
-      })
+      map(response =>
+        this.getResponseData(response).MediaListCollection.lists.reduce(
+          (listEntries, list) => [...listEntries, ...list.entries],
+          [] as ListEntry[]
+        )
+      )
     );
   }
 
