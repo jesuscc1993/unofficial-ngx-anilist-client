@@ -98,6 +98,7 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
+- Add spinner while waiting for server responses
 - Add language selection
 - Fix ngx-translate on gh-pages (add translations root to environments file)
 - Replace particular list entry queries with filtered store data

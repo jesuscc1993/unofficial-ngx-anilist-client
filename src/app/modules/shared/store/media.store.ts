@@ -27,15 +27,17 @@ export class MediaStore extends Store<MediaStoreState> {
     return this.getState().animeDictionary;
   }
 
-  public storeAnimeListEntries(listEntries: ListEntry[]) {
+  public setAnimeListEntries(listEntries: ListEntry[]) {
     this.setState({ animeListEntries: listEntries });
     this.storeAnime(listEntries.map(listEntry => listEntry.media));
   }
-  public updateAnimeListEntry(listEntry: ListEntry) {
-    this.storeAnimeListEntries([...this.getAnimeListEntries(), listEntry]);
+  public updateAnimeListEntry(updatedEntry: ListEntry) {
+    this.setAnimeListEntries(
+      this.getAnimeListEntries().map(listEntry => (listEntry.id === updatedEntry.id ? updatedEntry : listEntry))
+    );
   }
   public deleteAnimeListEntry(entryId: number) {
-    this.storeAnimeListEntries(this.getAnimeListEntries().filter(listEntry => listEntry.id !== entryId));
+    this.setAnimeListEntries(this.getAnimeListEntries().filter(listEntry => listEntry.id !== entryId));
   }
   public getAnimeListEntries() {
     return this.getState().animeListEntries;

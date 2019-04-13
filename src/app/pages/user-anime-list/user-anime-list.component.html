@@ -45,20 +45,9 @@
             [tableData]="listEntryListByStatus[status.value]"
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"
-            (onEntryUpdate)="onEntryUpdate($event)"
           >
           </mt-user-anime-list-table>
         </div>
-      </div>
-
-      <div class="padding-top-xs padding-bottom-m">
-        <h3>
-          {{ 'settings.title' | translate }}
-        </h3>
-
-        <mat-slide-toggle [checked]="reloadOnUpdate" (change)="reloadOnUpdate = !reloadOnUpdate">
-          {{ 'settings.reloadOnUpdate' | translate }}
-        </mat-slide-toggle>
       </div>
 
       <mt-genres-overview [genreStatsList]="user.stats.favouredGenresOverview"> </mt-genres-overview>

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../shared/store/media.store';
-import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
+import { ListEntry } from '../../shared/types/anilist/listEntry.types';
 import { Anime } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
@@ -33,21 +33,7 @@ export class AnimeService {
     const storeEntries = this.mediaStore.getAnimeListEntries();
     return storeEntries
       ? of(storeEntries)
-      : this.animeApi.queryAnimeList(user).pipe(tap(listEntries => this.mediaStore.storeAnimeListEntries(listEntries)));
-  }
-
-  public getAnimeListEntriesByStatus(user: User) {
-    return this.getAnimeListEntries(user).pipe(
-      map(listEntries =>
-        listEntries.reduce(
-          (listEntryListByStatus, listEntry) => ({
-            ...listEntryListByStatus,
-            [listEntry.status]: [...(listEntryListByStatus[listEntry.status] || []), listEntry],
-          }),
-          {} as ListEntriesByStatus
-        )
-      )
-    );
+      : this.animeApi.queryAnimeList(user).pipe(tap(listEntries => this.mediaStore.setAnimeListEntries(listEntries)));
   }
 
   public getAnimeListMediaIdsByStatus(user: User) {
@@ -91,11 +77,19 @@ export class AnimeService {
   }
 
   public saveAnimeListEntry(listEntry: ListEntry) {
-    return this.animeApi.saveAnimeListEntry(listEntry);
+    return this.animeApi.saveAnimeListEntry(listEntry).pipe(
+      tap(() => {
+        this.mediaStore.updateAnimeListEntry(listEntry);
+      })
+    );
   }
 
   public deleteAnimeListEntry(listEntry: ListEntry) {
-    return this.animeApi.deleteAnimeListEntry(listEntry);
+    return this.animeApi.deleteAnimeListEntry(listEntry).pipe(
+      tap(() => {
+        this.mediaStore.deleteAnimeListEntry(listEntry.id);
+      })
+    );
   }
 
   public toggleFavouriteAnimeListEntry(listEntry: ListEntry) {

@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
+import { getListEntriesByStatus } from '../../modules/anime/domain/media.domain';
 import { AnimeService } from '../../modules/anime/services/anime.service';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
-import { ListEntriesByStatus, ListEntry, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
+import { MediaStore } from '../../modules/shared/store/media.store';
+import { ListEntriesByStatus, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 import { ScrollUtil } from '../../utils/generic.util';
 
@@ -27,7 +29,6 @@ export class UserAnimeListPageComponent {
   ready: boolean;
   error: Error;
 
-  reloadOnUpdate: boolean = true;
   filter: string;
 
   constructor(
@@ -35,7 +36,8 @@ export class UserAnimeListPageComponent {
     private titleService: TitleService,
     private translateService: TranslateService,
     private animeService: AnimeService,
-    private authStore: AuthStore
+    private authStore: AuthStore,
+    private mediaStore: MediaStore
   ) {
     this.titleService.setTitle(this.translateService.instant('anime.userList.title'));
 
@@ -51,9 +53,11 @@ export class UserAnimeListPageComponent {
 
   private getUserList() {
     if (this.user) {
-      this.animeService
-        .getAnimeListEntriesByStatus(this.user)
+      this.mediaStore
+        .asObservable()
         .pipe(
+          filter(({ animeListEntries }) => !!animeListEntries),
+          map(({ animeListEntries }) => getListEntriesByStatus(animeListEntries)),
           tap(listEntryListByStatus => {
             this.listEntryListByStatus = listEntryListByStatus;
             this.statuses = Object.keys(this.listEntryListByStatus)
@@ -99,12 +103,6 @@ export class UserAnimeListPageComponent {
 
   getListAsString(): string {
     return JSON.stringify(this.listEntryListByStatus, undefined, 2);
-  }
-
-  onEntryUpdate(listEntry?: ListEntry) {
-    if (this.reloadOnUpdate) {
-      this.updateListData();
-    }
   }
 
   private updateListData() {

@@ -1,14 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 import { ScrollUtil } from '../../../../utils/generic.util';
@@ -25,7 +15,6 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];
   @Input() filter?: string;
-  @Output() onEntryUpdate?: EventEmitter<ListEntry> = new EventEmitter<ListEntry>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -52,12 +41,6 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.dataSource && changes.filter) {
       this.dataSource.filter = changes.filter.currentValue;
-    }
-  }
-
-  onUpdate(listEntry?: ListEntry) {
-    if (listEntry) {
-      this.onEntryUpdate.emit(listEntry);
     }
   }
 

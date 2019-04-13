@@ -50,7 +50,7 @@ export class MtListEntryFormModalComponent {
   }
 
   saveEntry() {
-    const entryToSave: ListEntry = this.getFormEntry();
+    const entryToSave: ListEntry = { ...this.listEntry, ...this.getFormEntry() };
 
     this.animeService
       .saveAnimeListEntry(entryToSave)
