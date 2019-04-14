@@ -77,9 +77,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     this.authService.userChange
       .pipe(
         takeUntil(this.destroyed$),
-        tap((user: User) => {
-          this.user = user;
-        })
+        tap(user => (this.user = user))
       )
       .subscribe();
   }

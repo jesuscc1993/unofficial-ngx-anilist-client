@@ -21,7 +21,7 @@
   }
 }
 
-.cover-media-grid {
+.media-cover-grid {
   $cell-width: 96px;
   $cell-height: 134px;
   $cell-spacing: 6px;
@@ -31,7 +31,7 @@
   grid-template-rows: repeat(auto-fill, $cell-height);
   grid-gap: $cell-spacing;
 
-  mt-cover-media {
+  mt-media-cover {
     display: inline-block;
     vertical-align: middle;
 

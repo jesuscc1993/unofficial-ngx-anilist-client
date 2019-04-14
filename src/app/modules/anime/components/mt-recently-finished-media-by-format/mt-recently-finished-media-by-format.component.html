@@ -2,8 +2,8 @@
   <mat-spinner mode="indeterminate"></mat-spinner>
 </div>
 
-<div *ngIf="mediaList?.length" class="cover-media-grid">
-  <mt-cover-media *ngFor="let media of mediaList" [media]="media"></mt-cover-media>
+<div *ngIf="mediaList?.length" class="media-cover-grid">
+  <mt-media-cover *ngFor="let media of mediaList" [media]="media"></mt-media-cover>
 </div>
 
 <mat-paginator

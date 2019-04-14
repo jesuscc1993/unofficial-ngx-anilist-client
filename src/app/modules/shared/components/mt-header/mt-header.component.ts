@@ -61,9 +61,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     this.authService.userChange
       .pipe(
         takeUntil(this.destroyed$),
-        tap((user: User) => {
-          this.user = user;
-        })
+        tap(user => (this.user = user))
       )
       .subscribe();
   }

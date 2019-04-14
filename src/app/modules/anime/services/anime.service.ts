@@ -40,23 +40,6 @@ export class AnimeService {
     return this.animeApi.queryAnimeListMediaIdsByStatus(user);
   }
 
-  public getRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
-    return this.animeApi.queryRecentlyUpdatedAnime(user, pageInfo).pipe(
-      flatMap(response =>
-        this.getAnimeFromIds(response.mediaList.map(listEntry => listEntry.media.id)).pipe(
-          map(animeList => ({
-            ...response,
-            mediaList: response.mediaList.map(listEntry => ({
-              ...listEntry,
-              media: animeList.find(anime => anime.id === listEntry.media.id),
-            })),
-          }))
-        )
-      ),
-      tap(pageData => this.mediaStore.storeAnime(pageData.mediaList.map(listEntry => listEntry.media)))
-    );
-  }
-
   public getRecentlyFinishedAiringAnime(query: any, pageInfo?: PageQuery) {
     return this.animeApi.queryRecentlyFinishedAiringAnime(query, pageInfo).pipe(
       flatMap(response =>
@@ -78,8 +61,9 @@ export class AnimeService {
 
   public saveAnimeListEntry(listEntry: ListEntry) {
     return this.animeApi.saveAnimeListEntry(listEntry).pipe(
-      tap(() => {
-        this.mediaStore.updateAnimeListEntry(listEntry);
+      map(updatedListEntry => ({ ...listEntry, ...updatedListEntry })),
+      tap(updatedListEntry => {
+        this.mediaStore.updateAnimeListEntry(updatedListEntry);
       })
     );
   }

@@ -263,26 +263,6 @@ export const listMediaIdsQuery = `
   }
 `;
 
-export const updatedEntriesQuery = `
-  query (
-    ${filterTypes.mediaCollection}
-    ${filterTypes.page}
-  ) {
-    Page (
-      ${filterMappings.page}
-    ) {
-      pageInfo {
-        ${pageInfoFields}
-      }
-      mediaList (
-        ${filterMappings.mediaCollection}
-      ) {
-        ${listEntryFieldsWithMediaId}
-      }
-    }
-  }
-`;
-
 export const finishedAiringMediaQuery = `
   query (
     ${filterTypes.media}
@@ -338,14 +318,7 @@ export const saveListEntryQuery = `
       scoreRaw: $scoreRaw,
       status: $status
       ) {
-        id
-        score
-        status
-        media {
-          title {
-            romaji
-          }
-        }
+        ${listEntryFields}
       }
     }
   `;

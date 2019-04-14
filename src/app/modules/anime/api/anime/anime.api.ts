@@ -20,14 +20,12 @@ import {
   relatedMediaQuery,
   saveListEntryQuery,
   toggleFavouriteEntryQuery,
-  updatedEntriesQuery,
 } from './anime-api.queries';
 import {
   DeleteListEntryDto,
   DeleteListEntryRequest,
   FavouriteMediaDto,
   GenreCollectionDto,
-  ListEntriesPageDto,
   ListMediaDto,
   ListMediaIdsDto,
   MediaFilters,
@@ -111,15 +109,6 @@ export class AnimeApi extends AniListApi {
         return listMediaIdsByStatus;
       })
     );
-  }
-
-  public queryRecentlyUpdatedAnime(user: User, pageInfo?: PageQuery) {
-    return this.postGraphQlRequest<ListEntriesPageDto, PagedMediaFilters>(updatedEntriesQuery, {
-      ...this.getPageOptions(pageInfo),
-      mediaType: 'ANIME',
-      userId: user.id,
-      sort: 'UPDATED_TIME_DESC',
-    }).pipe(map(response => this.getResponseData(response).Page));
   }
 
   public queryRecentlyFinishedAiringAnime(query: MediaFilters, pageInfo?: PageQuery) {

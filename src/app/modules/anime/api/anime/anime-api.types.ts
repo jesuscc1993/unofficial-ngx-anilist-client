@@ -78,9 +78,7 @@ export type SearchMediaDto = {
 };
 
 export type SaveListEntryDto = {
-  SaveMediaListEntry: {
-    id: number;
-  };
+  SaveMediaListEntry: ListEntry;
 };
 
 export type DeleteListEntryDto = {

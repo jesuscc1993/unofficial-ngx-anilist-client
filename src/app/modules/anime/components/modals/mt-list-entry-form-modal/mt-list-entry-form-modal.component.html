@@ -1,6 +1,6 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()">
-    {{ media.title.romaji }}
+    {{ listEntry.media.title.romaji }}
   </mt-modal-header>
 
   <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
@@ -50,7 +50,7 @@
           mat-raised-button
           color="accent"
           class="margin-right-xs"
-          [disabled]="!listEntryForm.valid || !isSubmitEnabled()"
+          [disabled]="!listEntryForm.valid || !isSubmitAvailable()"
         >
           <fa-icon name="save" class="baseline margin-right-xxxs"></fa-icon>
           {{ 'generic.submit' | translate }}

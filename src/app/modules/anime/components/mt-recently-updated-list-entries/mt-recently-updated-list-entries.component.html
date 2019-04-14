@@ -12,19 +12,7 @@
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
-    <div *ngIf="listEntries?.length" class="cover-media-grid">
-      <mt-cover-media *ngFor="let entry of listEntries" [listEntry]="entry"></mt-cover-media>
-    </div>
-
-    <mat-paginator
-      *ngIf="pagination"
-      [showFirstLastButtons]="true"
-      [length]="pagination.total"
-      [pageSize]="pagination.perPage"
-      (page)="changePage($event)"
-      class="basic negative-bottom-margin"
-    >
-    </mat-paginator>
+    <mt-list-entries-grid [listEntries]="listEntries" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
 
     <mat-card *ngIf="error" class="error">
       <h4>

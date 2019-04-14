@@ -7,11 +7,11 @@ import { Media } from '../../../shared/types/anilist/media.types';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-  selector: 'mt-cover-media',
-  templateUrl: './mt-cover-media.component.html',
-  styleUrls: ['./mt-cover-media.component.scss'],
+  selector: 'mt-media-cover',
+  templateUrl: './mt-media-cover.component.html',
+  styleUrls: ['./mt-media-cover.component.scss'],
 })
-export class MtCoverMediaComponent implements OnInit {
+export class MtMediaCoverComponent implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
 
@@ -19,9 +19,11 @@ export class MtCoverMediaComponent implements OnInit {
 
   ngOnInit() {
     if (!this.media && this.listEntry) {
-      this.media = this.listEntry.media;
-      delete this.listEntry.media;
-      this.media.mediaListEntry = this.listEntry;
+      const { media, ...mediaListEntry } = this.listEntry;
+      this.media = {
+        ...media,
+        mediaListEntry,
+      } as Media;
     }
   }
 
