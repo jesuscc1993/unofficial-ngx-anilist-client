@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMultiLineEllipsisModule } from 'ngx-multi-line-ellipsis';
 
 import { MaterialModule } from '../material/material.module';
 import { AuthApi } from './api/auth/auth.api';
@@ -46,6 +47,7 @@ const imports = [
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
+  NgxMultiLineEllipsisModule,
 ];
 
 @NgModule({

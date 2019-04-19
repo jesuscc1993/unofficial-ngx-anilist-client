@@ -26,6 +26,7 @@
     "@fortawesome/fontawesome-free": "^5.8.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "ngx-multi-line-ellipsis": "^1.0.4",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
