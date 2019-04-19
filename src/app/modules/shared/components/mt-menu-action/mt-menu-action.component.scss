@@ -1,7 +1,8 @@
 @import '../../../../styles/variables.scss';
 
 fa-icon {
-  min-width: $spacing-s;
+  min-width: 20px;
+  margin-right: $spacing-xxs;
   display: inline-block;
   text-align: center;
 }

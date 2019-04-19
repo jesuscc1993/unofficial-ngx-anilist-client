@@ -76,16 +76,16 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     });
   }
 
-  private navigateToHomePage(replaceUrl?: boolean) {
-    this.router.navigate([rootUrl], {
-      replaceUrl: replaceUrl,
-    });
-  }
-
-  protected logOut() {
+  logOut() {
     this.authService.logOut();
     this.user = undefined;
     this.loginAvailable = environment.anilist_client_id >= 0;
     this.navigateToHomePage();
+  }
+
+  private navigateToHomePage(replaceUrl?: boolean) {
+    this.router.navigate([rootUrl], {
+      replaceUrl: replaceUrl,
+    });
   }
 }

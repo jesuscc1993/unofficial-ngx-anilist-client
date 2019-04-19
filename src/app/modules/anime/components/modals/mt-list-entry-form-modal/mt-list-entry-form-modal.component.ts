@@ -20,16 +20,9 @@ type ListEntryFormModalParameters = {
   styleUrls: ['./mt-list-entry-form-modal.component.scss'],
 })
 export class MtListEntryFormModalComponent {
-  protected listEntry: ListEntry;
-  protected listEntryForm: FormGroup;
-  protected listEntryStatusList: ListEntryStatus[] = [
-    'COMPLETED',
-    'DROPPED',
-    'PAUSED',
-    'PLANNING',
-    'REPEATING',
-    'CURRENT',
-  ];
+  listEntry: ListEntry;
+  listEntryForm: FormGroup;
+  listEntryStatusList: ListEntryStatus[] = ['COMPLETED', 'DROPPED', 'PAUSED', 'PLANNING', 'REPEATING', 'CURRENT'];
 
   constructor(
     private translateService: TranslateService,

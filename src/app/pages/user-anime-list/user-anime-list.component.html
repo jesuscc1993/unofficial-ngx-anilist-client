@@ -8,7 +8,7 @@
 
   <mat-spinner *ngIf="user && !ready" mode="indeterminate" class="full-page"></mat-spinner>
 
-  <div *ngIf="user && ready && !errorGotten">
+  <div *ngIf="ready">
     <div *ngIf="statuses && statuses.length">
       <mat-card class="table-filter">
         <mat-form-field class="full-width">

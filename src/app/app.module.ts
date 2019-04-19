@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AnimeModule } from './modules/anime/anime.module';
 import { SharedModule } from './modules/shared/shared.module';
@@ -57,7 +58,7 @@ const translationFactory = (translateService: TranslateService, injector: Inject
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, environment.i18nPath),
         deps: [HttpClient],
       },
     }),

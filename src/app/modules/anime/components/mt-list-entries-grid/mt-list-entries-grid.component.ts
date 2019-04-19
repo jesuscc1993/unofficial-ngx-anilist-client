@@ -12,7 +12,7 @@ export class MtListEntryGridComponent implements OnChanges {
   @Input() listEntries: ListEntry[];
   @Input() wrapperClass?: string;
 
-  protected pagination: PageEvent;
+  pagination: PageEvent;
 
   constructor() {
     this.pagination = {
