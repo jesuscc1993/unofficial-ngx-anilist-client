@@ -36,21 +36,6 @@ export class AnimeService {
       : this.animeApi.queryAnimeList(user).pipe(tap(listEntries => this.mediaStore.setAnimeListEntries(listEntries)));
   }
 
-  public getAnimeListMediaIdsByStatus(user: User) {
-    return this.animeApi.queryAnimeListMediaIdsByStatus(user);
-  }
-
-  public getRecentlyFinishedAiringAnime(query: any, pageInfo?: PageQuery) {
-    return this.animeApi.queryRecentlyFinishedAiringAnime(query, pageInfo).pipe(
-      flatMap(response =>
-        this.getAnimeFromIds(response.media.map(media => media.id)).pipe(
-          map(animeList => ({ ...response, media: animeList }))
-        )
-      ),
-      tap(pageData => this.mediaStore.storeAnime(pageData.media))
-    );
-  }
-
   public getRelatedAnimeMedia(user: User) {
     return this.animeApi.queryRelatedAnimeMedia(user).pipe(tap(mediaList => this.mediaStore.storeAnime(mediaList)));
   }

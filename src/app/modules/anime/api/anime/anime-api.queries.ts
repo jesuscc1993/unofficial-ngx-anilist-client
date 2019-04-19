@@ -112,6 +112,13 @@ const animeFields = `${mediaFields}
   id
   startDate {
     year
+    month
+    day
+  }
+  endDate {
+    year
+    month
+    day
   }
   status
   studios(isMain: true) {

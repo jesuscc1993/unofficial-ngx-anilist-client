@@ -4,16 +4,14 @@ import { map, tap } from 'rxjs/operators';
 
 import { AniListApi } from '../../../shared/api/api';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import {
   deleteListEntryQuery,
-  finishedAiringMediaQuery,
   genresQuery,
   listFavouritesQuery,
-  listMediaIdsQuery,
   listQuery,
   mediaIdSearchQuery,
   mediaSearchQuery,
@@ -27,10 +25,7 @@ import {
   FavouriteMediaDto,
   GenreCollectionDto,
   ListMediaDto,
-  ListMediaIdsDto,
   MediaFilters,
-  MediaPageDto,
-  PagedMediaFilters,
   PagedSearchFilters,
   SaveListEntryDto,
   SaveListEntryRequest,
@@ -85,41 +80,6 @@ export class AnimeApi extends AniListApi {
         )
       )
     );
-  }
-
-  public queryAnimeListMediaIdsByStatus(user: User) {
-    return this.postGraphQlRequest<ListMediaIdsDto, MediaFilters>(listMediaIdsQuery, {
-      mediaType: 'ANIME',
-      userId: user.id,
-    }).pipe(
-      map(response => {
-        let listMediaIdsByStatus: { [Status in ListEntryStatus]?: number[] } = {};
-
-        const listMediaDto = this.getResponseData(response);
-        if (listMediaDto) {
-          listMediaDto.MediaListCollection.lists.forEach(list => {
-            const status = list.entries[0].status;
-
-            list.entries.forEach(listEntry => {
-              listMediaIdsByStatus[status] = [...(listMediaIdsByStatus[status] || []), listEntry.media.id];
-            });
-          });
-        }
-
-        return listMediaIdsByStatus;
-      })
-    );
-  }
-
-  public queryRecentlyFinishedAiringAnime(query: MediaFilters, pageInfo?: PageQuery) {
-    return this.postGraphQlRequest<MediaPageDto, PagedMediaFilters>(finishedAiringMediaQuery, {
-      ...this.getPageOptions(pageInfo),
-      ...query,
-      mediaType: 'ANIME',
-      status: 'FINISHED',
-      sort: 'END_DATE_DESC',
-      onList: true,
-    }).pipe(map(response => this.getResponseData(response).Page));
   }
 
   public queryRelatedAnimeMedia(user: User) {

@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
+import { MediaStore } from '../../../shared/store/media.store';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Tab } from '../../../shared/types/tab.types';
+import { fuzzyDateToDate } from '../../domain/media.domain';
 
-type TabDataType = {
-  formatIn?: string[];
-  formatNotIn?: string[];
-};
+type TabDataType = ListEntry[];
 
 @Component({
   selector: 'mt-recently-finished-media',
@@ -17,35 +16,40 @@ type TabDataType = {
 export class MtRecentlyFinishedMediaComponent {
   tabs: Tab<TabDataType>[];
   activeTab: Tab<TabDataType>;
+  ready: boolean;
 
-  constructor(private translateService: TranslateService) {
-    const tabs: Tab<TabDataType>[] = [
+  constructor(private mediaStore: MediaStore) {
+    this.tabs = [
       {
         label: 'anime.dashboard.finishedAiring.series',
-        data: {
-          formatIn: ['TV'],
-        },
+        data: [],
       },
       {
         label: 'anime.dashboard.finishedAiring.movies',
-        data: {
-          formatIn: ['MOVIE'],
-        },
+        data: [],
       },
       {
         label: 'anime.dashboard.finishedAiring.other',
-        data: {
-          formatNotIn: ['TV', 'MOVIE'],
-        },
+        data: [],
       },
     ];
+    this.activeTab = this.tabs[0];
 
-    this.translateService
-      .get(tabs.map(tab => tab.label))
+    this.mediaStore
+      .asObservable()
       .pipe(
-        tap(translations => {
-          this.tabs = tabs.map(tab => ({ ...tab, label: translations[tab.label] }));
-          this.activeTab = this.tabs[0];
+        filter(({ animeListEntries }) => !!animeListEntries),
+        map(({ animeListEntries }) =>
+          animeListEntries
+            .filter(listEntry => ['PLANNING', 'CURRENT'].includes(listEntry.status))
+            .filter(({ media }) => media.status === 'FINISHED')
+            .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
+        ),
+        tap(animeListEntries => {
+          this.tabs[0].data = animeListEntries.filter(listEntry => listEntry.media.format === 'TV');
+          this.tabs[1].data = animeListEntries.filter(listEntry => listEntry.media.format === 'MOVIE');
+          this.tabs[2].data = animeListEntries.filter(listEntry => !['TV', 'MOVIE'].includes(listEntry.media.format));
+          this.ready = true;
         })
       )
       .subscribe();

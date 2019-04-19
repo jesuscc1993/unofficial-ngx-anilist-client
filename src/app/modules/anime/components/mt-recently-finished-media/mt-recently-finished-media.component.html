@@ -12,13 +12,23 @@
       (click)="activateTab(tab)"
     >
       <h4 class="no-margin">
-        {{ tab.label }}
+        {{ tab.label | translate }}
       </h4>
     </div>
   </div>
 
   <div *ngFor="let tab of tabs" [hidden]="tab !== activeTab" class="content">
-    <mt-recently-finished-media-by-format [formatIn]="tab.data.formatIn" [formatNotIn]="tab.data.formatNotIn">
-    </mt-recently-finished-media-by-format>
+    <div *ngIf="!ready" class="placeholder">
+      <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+
+    <mt-list-entries-grid [listEntries]="tab.data" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
+
+    <mat-card *ngIf="error" class="error">
+      <h4>
+        <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+        {{ error }}
+      </h4>
+    </mat-card>
   </div>
 </mat-card>

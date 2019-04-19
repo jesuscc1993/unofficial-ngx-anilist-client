@@ -13,9 +13,6 @@ import { MtListRelatedMediaComponent } from './components/mt-list-related-media/
 import { MtMediaActionsComponent } from './components/mt-media-actions/mt-media-actions.component';
 import { MtMediaCoverComponent } from './components/mt-media-cover/mt-media-cover.component';
 import {
-  MtRecentlyFinishedMediaByFormatComponent,
-} from './components/mt-recently-finished-media-by-format/mt-recently-finished-media-by-format.component';
-import {
   MtRecentlyFinishedMediaComponent,
 } from './components/mt-recently-finished-media/mt-recently-finished-media.component';
 import {
@@ -36,7 +33,6 @@ const declarations = [
   MtListRelatedMediaComponent,
   MtMediaActionsComponent,
   MtMediaDetailModalComponent,
-  MtRecentlyFinishedMediaByFormatComponent,
   MtRecentlyFinishedMediaComponent,
   MtRecentlyUpdatedListEntriesComponent,
   MtSearchResultsTableComponent,
