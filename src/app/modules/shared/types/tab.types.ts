@@ -1,4 +1,6 @@
 export type Tab<DataType> = {
-  label: string;
+  tooltip?: string;
+  label?: string;
+  icon?: string;
   data: DataType;
 };

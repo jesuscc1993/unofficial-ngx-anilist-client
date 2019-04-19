@@ -1,9 +1,7 @@
 <mat-card class="composite compact">
   <div class="tab-group">
     <div class="header">
-      <h4 class="no-margin">
-        {{ 'anime.dashboard.finishedAiring.title' | translate }}
-      </h4>
+      <h4 class="no-margin">{{ 'anime.dashboard.finishedAiring.title' | translate }}</h4>
     </div>
 
     <div
@@ -11,9 +9,8 @@
       class="header tab {{ tab === activeTab ? 'active' : 'clickable' }}"
       (click)="activateTab(tab)"
     >
-      <h4 class="no-margin">
-        {{ tab.label | translate }}
-      </h4>
+      <h4 class="no-margin">{{ tab.label }}</h4>
+      <!-- <fa-icon [name]="tab.icon" iconClass="fa-lg"></fa-icon> -->
     </div>
   </div>
 

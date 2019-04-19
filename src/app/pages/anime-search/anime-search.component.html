@@ -9,9 +9,7 @@
   <form [formGroup]="searchForm" (ngSubmit)="search()">
     <mat-card class="text-center">
       <h1>
-        <label for="searchInput">
-          {{ 'anime.search.title' | translate }}
-        </label>
+        <label for="searchInput">{{ 'anime.search.title' | translate }}</label>
       </h1>
 
       <div class="form-group">
@@ -32,9 +30,7 @@
       <!--</mat-form-field>-->
 
       <mat-expansion-panel class="mat-elevation-z padding-bottom-s search-filters">
-        <mat-expansion-panel-header>
-          {{ 'anime.search.filters.advanced' | translate }}
-        </mat-expansion-panel-header>
+        <mat-expansion-panel-header>{{ 'anime.search.filters.advanced' | translate }}</mat-expansion-panel-header>
 
         <mat-divider></mat-divider>
 
@@ -99,9 +95,7 @@
                 formControlName="genreIn"
                 multiple
               >
-                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
-                  {{ genre }}
-                </mat-option>
+                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">{{ genre }}</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -111,9 +105,7 @@
                 formControlName="genreNotIn"
                 multiple
               >
-                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
-                  {{ genre }}
-                </mat-option>
+                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">{{ genre }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -127,9 +119,9 @@
                 formControlName="formatIn"
                 multiple
               >
-                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat">
-                  {{ 'media.formatValues.' + mediaFormat | translate }}
-                </mat-option>
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat">{{
+                  'media.formatValues.' + mediaFormat | translate
+                }}</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -140,9 +132,9 @@
                 formControlName="formatNotIn"
                 multiple
               >
-                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat">
-                  {{ 'media.formatValues.' + mediaFormat | translate }}
-                </mat-option>
+                <mat-option *ngFor="let mediaFormat of mediaFormats" [value]="mediaFormat">{{
+                  'media.formatValues.' + mediaFormat | translate
+                }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -156,9 +148,9 @@
                 formControlName="statusIn"
                 multiple
               >
-                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus">
-                  {{ 'media.statusValues.' + mediaStatus | translate }}
-                </mat-option>
+                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus">{{
+                  'media.statusValues.' + mediaStatus | translate
+                }}</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -169,9 +161,9 @@
                 formControlName="statusNotIn"
                 multiple
               >
-                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus">
-                  {{ 'media.statusValues.' + mediaStatus | translate }}
-                </mat-option>
+                <mat-option *ngFor="let mediaStatus of mediaStatuses" [value]="mediaStatus">{{
+                  'media.statusValues.' + mediaStatus | translate
+                }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -180,9 +172,9 @@
           <div class="form-group">
             <mat-form-field>
               <mat-select placeholder="{{ 'anime.search.filters.onList' | translate }}..." formControlName="onList">
-                <mat-option *ngFor="let option of onListOptions" [value]="option">
-                  {{ 'anime.search.filters.onListValues.' + option | translate }}
-                </mat-option>
+                <mat-option *ngFor="let option of onListOptions" [value]="option">{{
+                  'anime.search.filters.onListValues.' + option | translate
+                }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -218,7 +210,7 @@
     <mat-card *ngIf="noResults" class="info">
       <h4>
         <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
-        No results found
+        {{ 'generic.noResults' | translate }}
       </h4>
     </mat-card>
 

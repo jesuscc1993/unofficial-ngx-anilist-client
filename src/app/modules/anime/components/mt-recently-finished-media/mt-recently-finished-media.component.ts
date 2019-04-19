@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { filter, map, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../../shared/store/media.store';
@@ -18,18 +19,21 @@ export class MtRecentlyFinishedMediaComponent {
   activeTab: Tab<TabDataType>;
   ready: boolean;
 
-  constructor(private mediaStore: MediaStore) {
+  constructor(private translateService: TranslateService, private mediaStore: MediaStore) {
     this.tabs = [
       {
-        label: 'anime.dashboard.finishedAiring.series',
+        label: this.translateService.instant('anime.dashboard.finishedAiring.television'),
+        icon: 'tv',
         data: [],
       },
       {
-        label: 'anime.dashboard.finishedAiring.movies',
+        label: this.translateService.instant('anime.dashboard.finishedAiring.movies'),
+        icon: 'film',
         data: [],
       },
       {
-        label: 'anime.dashboard.finishedAiring.other',
+        label: this.translateService.instant('anime.dashboard.finishedAiring.other'),
+        icon: 'compact-disc',
         data: [],
       },
     ];
@@ -46,9 +50,11 @@ export class MtRecentlyFinishedMediaComponent {
             .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
         ),
         tap(animeListEntries => {
-          this.tabs[0].data = animeListEntries.filter(listEntry => listEntry.media.format === 'TV');
+          this.tabs[0].data = animeListEntries.filter(listEntry => ['TV', 'TV_SHORT'].includes(listEntry.media.format));
           this.tabs[1].data = animeListEntries.filter(listEntry => listEntry.media.format === 'MOVIE');
-          this.tabs[2].data = animeListEntries.filter(listEntry => !['TV', 'MOVIE'].includes(listEntry.media.format));
+          this.tabs[2].data = animeListEntries.filter(
+            listEntry => !['TV', 'TV_SHORT', 'MOVIE'].includes(listEntry.media.format)
+          );
           this.ready = true;
         })
       )

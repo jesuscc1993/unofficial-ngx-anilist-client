@@ -4,11 +4,11 @@
       "finishedAiring": {
         "movies": "Movies",
         "other": "Other",
-        "series": "Series",
+        "television": "TV",
         "title": "Finished airing"
       },
       "recentlyUpdated": {
-        "title": "Your latest list updates"
+        "title": "Latest list updates"
       },
       "title": "Dashboard"
     },
@@ -40,7 +40,7 @@
       "CURRENT": "Viewing",
       "DROPPED": "Dropped",
       "PAUSED": "Paused",
-      "PLANNING": "Planned",
+      "PLANNING": "Planning",
       "REPEATING": "Repeating"
     },
     "userList": {
@@ -69,6 +69,7 @@
   },
   "generic": {
     "cancel": "Cancel",
+    "noResults": "No results.",
     "submit": "Submit",
     "workInProgress": "Work in progress."
   },

@@ -2,9 +2,10 @@
 
 :host {
   > .header {
-    height: $modal-header-height;
+    min-height: $modal-header-height;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 
     > .title {
       flex: 1;

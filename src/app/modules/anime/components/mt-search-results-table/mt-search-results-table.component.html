@@ -14,51 +14,35 @@
   </ng-container>
 
   <ng-container matColumnDef="cover-image">
-    <mat-header-cell *matHeaderCellDef>
-      Cover
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'media.cover' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
       <img [src]="anime.coverImage?.medium" class="cover" />
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="title-romaji">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      Title
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'media.title' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <span class="text">
-        {{ anime.title.romaji }}
-      </span>
+      <span class="text">{{ anime.title.romaji }}</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="format">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      Format
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'media.format' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <span class="text">
-        {{ 'media.formatValues.' + anime.format | translate }}
-      </span>
+      <span class="text">{{ 'media.formatValues.' + anime.format | translate }}</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="start-date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      Year
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{ 'media.year' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <span class="text">
-        {{ anime.startDate.year }}
-      </span>
+      <span class="text">{{ anime.startDate.year }}</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="genres">
-    <mat-header-cell *matHeaderCellDef>
-      Genres
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>{{ 'media.genres' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
       <mat-list>
         <mat-list-item *ngFor="let genre of anime.genres">
@@ -69,22 +53,16 @@
   </ng-container>
 
   <ng-container matColumnDef="score">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      Score
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{ 'media.score' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <span class="text"> {{ anime.averageScore / 10 }}/10 </span>
+      <span class="text">{{ anime.averageScore / 10 }}/10</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="episodes">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      Episodes
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{ 'media.episodes' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <span class="text">
-        {{ anime.episodes }}
-      </span>
+      <span class="text">{{ anime.episodes }}</span>
     </mat-cell>
   </ng-container>
 

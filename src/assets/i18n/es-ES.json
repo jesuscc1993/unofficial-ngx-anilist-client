@@ -4,11 +4,11 @@
       "finishedAiring": {
         "movies": "Películas",
         "other": "Otros",
-        "series": "Series",
+        "television": "TV",
         "title": "Emisiones finalizadas"
       },
       "recentlyUpdated": {
-        "title": "Últimas entradas actualizadas en su lista"
+        "title": "Últimas actualizaciones en su lista"
       },
       "title": "Dashboard"
     },
@@ -69,6 +69,7 @@
   },
   "generic": {
     "cancel": "Cancelar",
+    "noResults": "Sin resultados.",
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso."
   },

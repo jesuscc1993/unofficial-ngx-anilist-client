@@ -1,7 +1,5 @@
 <mt-modal>
-  <mt-modal-header (onClosePressed)="dismiss()">
-    {{ listEntry.media.title.romaji }}
-  </mt-modal-header>
+  <mt-modal-header (onClosePressed)="dismiss()">{{ listEntry.media.title.romaji }}</mt-modal-header>
 
   <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
     <mt-modal-content>
@@ -9,9 +7,9 @@
       <div class="form-group">
         <mat-form-field>
           <mat-select placeholder="{{ 'media.status' | translate }}" formControlName="status">
-            <mat-option *ngFor="let status of listEntryStatusList" [value]="status">
-              {{ 'anime.statusValues.' + status | translate }}
-            </mat-option>
+            <mat-option *ngFor="let status of listEntryStatusList" [value]="status">{{
+              'anime.statusValues.' + status | translate
+            }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

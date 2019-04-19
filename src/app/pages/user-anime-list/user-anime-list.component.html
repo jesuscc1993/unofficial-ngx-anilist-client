@@ -26,9 +26,9 @@
         <div class="statuses-wrapper">
           <span *ngFor="let status of statuses" class="status-wrapper">
             <div *ngIf="hasDataOfStatus(status.value)">
-              <mat-checkbox [(ngModel)]="status.shown">
-                {{ 'anime.statusValues.' + status.value | translate }}
-              </mat-checkbox>
+              <mat-checkbox [(ngModel)]="status.shown">{{
+                'anime.statusValues.' + status.value | translate
+              }}</mat-checkbox>
 
               <a class="go-to-link" (click)="scrollToStatus(status.value)">
                 <fa-icon name="arrow-down" class="vertically-centered margin-left-xxxs"></fa-icon>
