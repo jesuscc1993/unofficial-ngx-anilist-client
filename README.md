@@ -100,5 +100,4 @@ Provides multiple actions to be done with an anime
 
 - Add spinner while waiting for server responses
 - Add language selection
-- Fix ngx-translate on gh-pages (add translations root to environments file)
 - Group recent list updates by status
