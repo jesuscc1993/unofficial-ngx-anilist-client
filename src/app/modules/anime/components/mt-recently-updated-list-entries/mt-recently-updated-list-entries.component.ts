@@ -10,11 +10,11 @@ import { ListEntry, ListEntryStatus, listEntryStatusList } from '../../../shared
   styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
 })
 export class MtRecentlyUpdatedListEntriesComponent {
-  listEntryStatusList: ListEntryStatus[] = [undefined, ...listEntryStatusList];
+  listEntryStatusList = listEntryStatusList;
 
   listEntries: ListEntry[];
   ready: boolean;
-  selectedStatus?: ListEntryStatus;
+  selectedStatusList: ListEntryStatus[] = [];
 
   constructor(private mediaStore: MediaStore) {
     this.mediaStore
@@ -26,14 +26,14 @@ export class MtRecentlyUpdatedListEntriesComponent {
       .subscribe();
   }
 
-  selectedStatusChanged(selectedStatus?: ListEntryStatus) {
-    this.selectedStatus = selectedStatus;
+  selectedStatusChanged(selectedStatusList: ListEntryStatus[]) {
+    this.selectedStatusList = selectedStatusList;
     this.setEntries(this.mediaStore.getAnimeListEntries());
   }
 
   private setEntries(animeListEntries?: ListEntry[]) {
-    const filteredEntries = this.selectedStatus
-      ? animeListEntries.filter(entry => entry.status === this.selectedStatus)
+    const filteredEntries = this.selectedStatusList.length
+      ? animeListEntries.filter(entry => this.selectedStatusList.includes(entry.status))
       : animeListEntries;
     this.listEntries = filteredEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
     this.ready = true;

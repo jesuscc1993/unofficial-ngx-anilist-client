@@ -4,3 +4,7 @@
   justify-content: center;
   min-height: 594px;
 }
+
+::ng-deep .mat-select-value {
+  max-width: 128px !important;
+}

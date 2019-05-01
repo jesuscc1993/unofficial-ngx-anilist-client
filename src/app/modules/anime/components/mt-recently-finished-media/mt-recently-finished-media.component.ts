@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { filter, map, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../../shared/store/media.store';
@@ -7,21 +6,19 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
 import { fuzzyDateToDate } from '../../domain/media.domain';
 
-type TabDataType = ListEntry[];
-
 @Component({
   selector: 'mt-recently-finished-media',
   templateUrl: './mt-recently-finished-media.component.html',
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
 export class MtRecentlyFinishedMediaComponent {
-  mediaFormats: MediaFormat[] = [undefined, ...mediaFormats];
+  mediaFormats = mediaFormats;
 
   listEntries: ListEntry[];
   ready: boolean;
-  selectedFormat?: MediaFormat;
+  selectedFormats: MediaFormat[] = [];
 
-  constructor(private translateService: TranslateService, private mediaStore: MediaStore) {
+  constructor(private mediaStore: MediaStore) {
     this.mediaStore
       .asObservable()
       .pipe(
@@ -37,14 +34,14 @@ export class MtRecentlyFinishedMediaComponent {
       .subscribe();
   }
 
-  selectedFormatChanged(selectedFormat?: MediaFormat) {
-    this.selectedFormat = selectedFormat;
+  selectedFormatChanged(selectedFormats: MediaFormat[]) {
+    this.selectedFormats = selectedFormats;
     this.setEntries(this.mediaStore.getAnimeListEntries());
   }
 
   private setEntries(animeListEntries?: ListEntry[]) {
-    const filteredEntries = this.selectedFormat
-      ? animeListEntries.filter(entry => entry.media.format === this.selectedFormat)
+    const filteredEntries = this.selectedFormats.length
+      ? animeListEntries.filter(entry => this.selectedFormats.includes(entry.media.format))
       : animeListEntries;
     this.listEntries = filteredEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
     this.ready = true;
