@@ -12,6 +12,20 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field class="times-repeated-input float-right">
+          <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            pattern="\d*"
+            min="0"
+            max="10"
+            step=".1"
+            [placeholder]="!listEntry && 0"
+            formControlName="repeat"
+          />
+        </mat-form-field>
       </div>
 
       <!-- score -->
@@ -20,11 +34,12 @@
           <mat-label>{{ 'media.score' | translate }}</mat-label>
           <input
             matInput
-            type="number"
+            type="text"
+            pattern="\d*"
             min="0"
             max="10"
             step=".1"
-            [placeholder]="listEntry ? listEntry.scoreRaw / 10 : 5"
+            [placeholder]="!listEntry && 5"
             formControlName="score"
           />
         </mat-form-field>

@@ -7,6 +7,7 @@ export type ListEntry = {
   scoreRaw?: number;
   status?: ListEntryStatus;
   media: Media;
+  repeat?: number;
   updatedAt?: number;
 };
 

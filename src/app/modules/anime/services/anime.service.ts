@@ -20,11 +20,12 @@ export class AnimeService {
 
   public searchAnime(query: SearchFilters, pageInfo?: PageQuery) {
     return this.animeApi.queryAnimeSearch(query, pageInfo).pipe(
-      flatMap(response =>
-        this.getAnimeFromIds(response.media.map(media => media.id)).pipe(
-          map(animeList => ({ ...response, media: animeList }))
-        )
-      ),
+      flatMap(pageData => {
+        const animeIds = pageData.media.map(media => media.id);
+        return this.getAnimeFromIds(animeIds).pipe(
+          map(animeList => ({ ...pageData, media: animeIds.map(id => animeList.find(anime => anime.id === id)) }))
+        );
+      }),
       tap(pageData => this.mediaStore.storeAnime(pageData.media))
     );
   }

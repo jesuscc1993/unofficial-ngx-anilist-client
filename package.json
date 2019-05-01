@@ -4,7 +4,7 @@
   "license": "CC BY-NC 4.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0",
+    "start": "ng serve",
     "build": "ng build --configuration production --base-href https://jesuscc1993.github.io/unofficial-ngx-anilist-client/",
     "deploy": "npx ngh --dir=dist/unofficial-angular-material-anilist-client/",
     "test": "ng test",

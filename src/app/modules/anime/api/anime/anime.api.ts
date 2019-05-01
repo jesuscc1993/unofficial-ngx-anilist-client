@@ -63,7 +63,7 @@ export class AnimeApi extends AniListApi {
       ...query,
       mediaType: 'ANIME',
       adultContent: query.adultContent || false,
-      sort: query.sort || 'TITLE_ROMAJI',
+      sort: query.sort || 'SEARCH_MATCH',
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
@@ -140,11 +140,12 @@ export class AnimeApi extends AniListApi {
       .subscribe();
   }
 
-  public saveAnimeListEntry(listEntry: ListEntry) {
+  public saveAnimeListEntry({ status, repeat, scoreRaw, media }: ListEntry) {
     return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(saveListEntryQuery, {
-      status: listEntry.status || 'COMPLETED',
-      mediaId: listEntry.media.id,
-      scoreRaw: listEntry.scoreRaw,
+      repeat,
+      scoreRaw,
+      mediaId: media.id,
+      status: status || 'COMPLETED',
     }).pipe(map(response => this.getResponseData(response).SaveMediaListEntry));
   }
 

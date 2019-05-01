@@ -44,9 +44,9 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   mediaGenres: string[];
   mediaFormats = mediaFormats;
   mediaStatuses = mediaStatuses;
-  onListOptions = [true, false, undefined];
+  onListOptions = [undefined, true, false];
   minYear = 1900;
-  maxYear = new Date().getFullYear() + 1;
+  maxYear = new Date().getFullYear() + 11;
 
   searching: boolean;
   noResults: boolean;

@@ -40,7 +40,8 @@
             <mat-form-field>
               <input
                 matInput
-                type="number"
+                type="text"
+                pattern="\d*"
                 placeholder="{{ 'media.year' | translate }} {{ 'anime.search.filters.after' | translate }}..."
                 formControlName="startDateGreaterThan"
                 [min]="minYear"
@@ -51,7 +52,8 @@
             <mat-form-field>
               <input
                 matInput
-                type="number"
+                type="text"
+                pattern="\d*"
                 placeholder="{{ 'media.year' | translate }} {{ 'anime.search.filters.before' | translate }}..."
                 formControlName="startDateSmallerThan"
                 [min]="minYear"
@@ -65,7 +67,8 @@
             <mat-form-field>
               <input
                 matInput
-                type="number"
+                type="text"
+                pattern="\d*"
                 placeholder="{{ 'media.score' | translate }} {{ 'anime.search.filters.above' | translate }}..."
                 formControlName="averageScoreGreaterThan"
                 min="0"
@@ -77,7 +80,8 @@
             <mat-form-field>
               <input
                 matInput
-                type="number"
+                type="text"
+                pattern="\d*"
                 placeholder="{{ 'media.score' | translate }} {{ 'anime.search.filters.below' | translate }}..."
                 formControlName="averageScoreSmallerThan"
                 min="0"

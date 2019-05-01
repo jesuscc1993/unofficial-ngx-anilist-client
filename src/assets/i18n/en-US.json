@@ -98,7 +98,7 @@
     "description": "Description",
     "duration": "Duration",
     "episodes": "Episodes",
-    "format": "Status",
+    "format": "Format",
     "formatValues": {
       "label": "Format",
       "MOVIE": "Movie",
@@ -122,6 +122,7 @@
     },
     "studio": "Studio",
     "tags": "Tags",
+    "timesRepeated": "Times Repeated",
     "title": "Title",
     "viewOnAniList": "View on AniList",
     "year": "Year"

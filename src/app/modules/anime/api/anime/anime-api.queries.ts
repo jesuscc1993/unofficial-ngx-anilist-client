@@ -81,14 +81,9 @@ const listEntryFields = `
   scoreRaw: score (
     format: POINT_100
   )
+  repeat
   status
   updatedAt
-`;
-
-const listEntryFieldsWithMediaId = `${listEntryFields}
-  media {
-    id
-  }
 `;
 
 const mediaFields = `
@@ -317,11 +312,13 @@ export const listFavouritesQuery = `
 export const saveListEntryQuery = `
   mutation (
     $mediaId: Int,
+    $repeat: Int,
     $scoreRaw: Int,
     $status: MediaListStatus
   ) {
     SaveMediaListEntry (
       mediaId: $mediaId,
+      repeat: $repeat,
       scoreRaw: $scoreRaw,
       status: $status
       ) {

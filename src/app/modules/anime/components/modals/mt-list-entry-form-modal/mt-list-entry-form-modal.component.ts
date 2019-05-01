@@ -36,6 +36,7 @@ export class MtListEntryFormModalComponent {
 
     this.listEntryForm = this.formBuilder.group({
       status: [(this.listEntry && this.listEntry.status) || 'COMPLETED', [Validators.required]],
+      repeat: [(this.listEntry && this.listEntry.repeat) || 0],
       score: [
         this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10,
         [Validators.max(10), Validators.min(0)],
@@ -75,10 +76,12 @@ export class MtListEntryFormModalComponent {
   }
 
   private getFormEntry(): ListEntry {
+    const { repeat, score, status } = this.listEntryForm.value;
     return {
       ...this.listEntry,
-      scoreRaw: Math.trunc(this.listEntryForm.value.score * 10),
-      status: this.listEntryForm.value.status,
+      status,
+      repeat: parseInt(repeat),
+      scoreRaw: Math.trunc(score * 10),
     };
   }
 

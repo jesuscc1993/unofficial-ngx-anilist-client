@@ -11,6 +11,7 @@ export type MediaSort =
   | 'TYPE_DESC'
   | 'FORMAT'
   | 'FORMAT_DESC'
+  | 'SEARCH_MATCH'
   | 'START_DATE'
   | 'START_DATE_DESC'
   | 'END_DATE'
