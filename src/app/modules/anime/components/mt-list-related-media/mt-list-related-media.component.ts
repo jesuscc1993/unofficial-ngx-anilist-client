@@ -69,6 +69,7 @@ export class MtListRelatedMediaComponent {
         {
           idIn: this.relatedMediaIds,
           formatIn: this.selectedFormats.length ? this.selectedFormats : undefined,
+          sort: 'END_DATE_DESC',
         },
         {
           pageIndex,

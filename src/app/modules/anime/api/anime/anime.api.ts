@@ -86,7 +86,6 @@ export class AnimeApi extends AniListApi {
     return this.postGraphQlRequest<RelatedMediaIdsDto, MediaFilters>(relatedMediaIdsQuery, {
       mediaType: 'ANIME',
       userId: user.id,
-      sort: 'MEDIA_ID',
     }).pipe(
       map(response => {
         let mediaIds: number[] = [];

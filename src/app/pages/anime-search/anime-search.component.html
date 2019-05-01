@@ -222,7 +222,7 @@
       <mt-search-results-table [tableData]="animeList" (onSortChange)="sortBy($event)"> </mt-search-results-table>
 
       <mat-paginator
-        *ngIf="pagination?.hasNextPage"
+        *ngIf="pagination?.total"
         [showFirstLastButtons]="true"
         [length]="pagination.total"
         [pageSize]="pagination.perPage"
