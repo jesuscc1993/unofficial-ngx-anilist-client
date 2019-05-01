@@ -1,9 +1,23 @@
 <mat-card class="composite compact">
-  <div class="header">
-    <h4 class="no-margin">{{ 'anime.dashboard.recentlyUpdated.title' | translate }}</h4>
-  </div>
+  <div class="composite-header">
+    <div class="header flex-1">
+      <h4 class="no-margin">{{ 'anime.dashboard.recentlyUpdated.title' | translate }}</h4>
+    </div>
 
-  <mat-divider></mat-divider>
+    <div class="header header-dropdown">
+      <span>{{ 'media.status' | translate }}:</span>
+      <mat-select
+        class="width-auto"
+        placeholder="{{ 'anime.statusValues.undefined' | translate }}"
+        [ngModel]="status"
+        (ngModelChange)="selectedStatusChanged($event)"
+      >
+        <mat-option *ngFor="let status of listEntryStatusList" [value]="status">{{
+          'anime.statusValues.' + status | translate
+        }}</mat-option>
+      </mat-select>
+    </div>
+  </div>
 
   <div class="content">
     <div *ngIf="!ready" class="placeholder">

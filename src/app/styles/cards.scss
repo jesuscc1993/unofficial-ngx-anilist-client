@@ -47,7 +47,7 @@
 
 mat-card {
   &.composite {
-    .tab-group {
+    .composite-header {
       display: flex;
 
       .header:not(.tab) {
@@ -69,6 +69,17 @@ mat-card {
 
         &:not(.active) {
           background-color: rgba(black, 0.12);
+        }
+      }
+
+      .header-dropdown {
+        .mat-select-value {
+          max-width: 100%;
+        }
+
+        .mat-select-placeholder,
+        .mat-select-value-text {
+          padding: 0 $spacing-xxxs;
         }
       }
     }

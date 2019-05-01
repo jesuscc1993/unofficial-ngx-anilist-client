@@ -36,6 +36,7 @@
     },
     "status": "Status",
     "statusValues": {
+      "undefined": "Any",
       "COMPLETED": "Completed",
       "CURRENT": "Viewing",
       "DROPPED": "Dropped",

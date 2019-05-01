@@ -36,6 +36,7 @@
     },
     "status": "Estado",
     "statusValues": {
+      "undefined": "Cualquiera",
       "COMPLETED": "Completado",
       "CURRENT": "Viendo",
       "DROPPED": "Abandonado",

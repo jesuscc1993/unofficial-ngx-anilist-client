@@ -120,7 +120,7 @@ mat-toolbar {
 
 mat-card {
   &.composite {
-    .tab-group {
+    .composite-header {
       .header:not(.tab) {
         border-color: map-get(map-get($theme, foreground), divider);
         background-color: rgba(black, 0.06);
