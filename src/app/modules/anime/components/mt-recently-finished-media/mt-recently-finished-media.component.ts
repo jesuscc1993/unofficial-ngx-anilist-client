@@ -4,7 +4,7 @@ import { filter, map, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../../shared/store/media.store';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { Tab } from '../../../shared/types/tab.types';
+import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
 import { fuzzyDateToDate } from '../../domain/media.domain';
 
 type TabDataType = ListEntry[];
@@ -15,30 +15,13 @@ type TabDataType = ListEntry[];
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
 export class MtRecentlyFinishedMediaComponent {
-  tabs: Tab<TabDataType>[];
-  activeTab: Tab<TabDataType>;
+  mediaFormats: MediaFormat[] = [undefined, ...mediaFormats];
+
+  listEntries: ListEntry[];
   ready: boolean;
+  selectedFormat?: MediaFormat;
 
   constructor(private translateService: TranslateService, private mediaStore: MediaStore) {
-    this.tabs = [
-      {
-        label: this.translateService.instant('anime.dashboard.finishedAiring.television'),
-        icon: 'tv',
-        data: [],
-      },
-      {
-        label: this.translateService.instant('anime.dashboard.finishedAiring.movies'),
-        icon: 'film',
-        data: [],
-      },
-      {
-        label: this.translateService.instant('anime.dashboard.finishedAiring.other'),
-        icon: 'compact-disc',
-        data: [],
-      },
-    ];
-    this.activeTab = this.tabs[0];
-
     this.mediaStore
       .asObservable()
       .pipe(
@@ -49,19 +32,21 @@ export class MtRecentlyFinishedMediaComponent {
             .filter(({ media }) => media.status === 'FINISHED')
             .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
         ),
-        tap(animeListEntries => {
-          this.tabs[0].data = animeListEntries.filter(listEntry => ['TV', 'TV_SHORT'].includes(listEntry.media.format));
-          this.tabs[1].data = animeListEntries.filter(listEntry => listEntry.media.format === 'MOVIE');
-          this.tabs[2].data = animeListEntries.filter(
-            listEntry => !['TV', 'TV_SHORT', 'MOVIE'].includes(listEntry.media.format)
-          );
-          this.ready = true;
-        })
+        tap(animeListEntries => this.setEntries(animeListEntries))
       )
       .subscribe();
   }
 
-  activateTab(tab: Tab<TabDataType>) {
-    this.activeTab = tab;
+  selectedFormatChanged(selectedFormat?: MediaFormat) {
+    this.selectedFormat = selectedFormat;
+    this.setEntries(this.mediaStore.getAnimeListEntries());
+  }
+
+  private setEntries(animeListEntries?: ListEntry[]) {
+    const filteredEntries = this.selectedFormat
+      ? animeListEntries.filter(entry => entry.media.format === this.selectedFormat)
+      : animeListEntries;
+    this.listEntries = filteredEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
+    this.ready = true;
   }
 }

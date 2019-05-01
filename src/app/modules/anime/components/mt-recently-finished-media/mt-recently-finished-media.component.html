@@ -1,24 +1,29 @@
 <mat-card class="composite compact">
   <div class="composite-header">
-    <div class="header">
+    <div class="header flex-1">
       <h4 class="no-margin">{{ 'anime.dashboard.finishedAiring.title' | translate }}</h4>
     </div>
 
-    <div
-      *ngFor="let tab of tabs"
-      class="header tab {{ tab === activeTab ? 'active' : 'clickable' }}"
-      (click)="activateTab(tab)"
-    >
-      <h4 class="no-margin">{{ tab.label }}</h4>
-      <!-- <fa-icon [name]="tab.icon" iconClass="fa-lg"></fa-icon> -->
+    <div class="header header-dropdown">
+      <span>{{ 'media.format' | translate }}:</span>
+      <mat-select
+        class="width-auto"
+        placeholder="{{ 'media.formatValues.undefined' | translate }}"
+        [ngModel]="format"
+        (ngModelChange)="selectedFormatChanged($event)"
+      >
+        <mat-option *ngFor="let format of mediaFormats" [value]="format">{{
+          'media.formatValues.' + format | translate
+        }}</mat-option>
+      </mat-select>
     </div>
   </div>
 
-  <div *ngFor="let tab of tabs" [hidden]="tab !== activeTab" class="content">
+  <div class="content">
     <div *ngIf="!ready" class="placeholder">
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
-    <mt-list-entries-grid [listEntries]="tab.data" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
+    <mt-list-entries-grid [listEntries]="listEntries" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
   </div>
 </mat-card>
