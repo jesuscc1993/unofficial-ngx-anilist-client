@@ -1,12 +1,9 @@
 {
   "anime": {
     "dashboard": {
-      "finishedAiring": {
-        "title": "Finished airing"
-      },
-      "recentlyUpdated": {
-        "title": "Latest list updates"
-      },
+      "finishedAiring": "Finished airing",
+      "recentlyUpdated": "Latest list updates",
+      "relatedMedia": "Related media to added entries",
       "title": "Dashboard"
     },
     "search": {
