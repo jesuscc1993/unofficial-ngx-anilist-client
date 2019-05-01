@@ -1,24 +1,51 @@
 <mat-card class="composite compact">
-  <div class="header">
-    <h4 class="no-margin">
-      Media related to what you have watched
-    </h4>
+  <div class="composite-header">
+    <div class="header flex-1">
+      <h4 class="no-margin">{{ 'anime.dashboard.relatedMedia' | translate }}</h4>
+    </div>
   </div>
 
-  <mat-divider></mat-divider>
-
   <div class="content">
-    <mat-spinner *ngIf="!ready" mode="indeterminate" class="margin-auto"></mat-spinner>
+    <div #content>
+      <div
+        *ngIf="searching"
+        class="placeholder"
+        [ngClass]="{ 'with-pagination': pagination && pagination.hasNextPage }"
+      >
+        <mat-spinner mode="indeterminate"></mat-spinner>
+      </div>
 
-    <div *ngIf="mediaList?.length" class="media-cover-grid">
-      <mt-media-cover *ngFor="let media of mediaList" [media]="media"></mt-media-cover>
+      <div *ngIf="!searching && animeList?.length">
+        <div class="media-cover-grid">
+          <mt-media-cover *ngFor="let media of animeList" [media]="media"></mt-media-cover>
+        </div>
+      </div>
+
+      <mat-paginator
+        *ngIf="pagination?.hasNextPage"
+        class="negative-bottom-margin"
+        [showFirstLastButtons]="true"
+        [length]="pagination.total"
+        [pageSize]="pagination.perPage"
+        [pageIndex]="pagination.pageIndex"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="changePage($event)"
+      >
+      </mat-paginator>
+
+      <mat-card *ngIf="pagination && !pagination.hasNextPage" class="info">
+        <h4>
+          <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
+          {{ 'generic.noResults' | translate }}
+        </h4>
+      </mat-card>
+
+      <mat-card *ngIf="error" class="error">
+        <h4>
+          <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+          {{ error }}
+        </h4>
+      </mat-card>
     </div>
-
-    <mat-card *ngIf="error" class="error">
-      <h4>
-        <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
-        {{ error }}
-      </h4>
-    </mat-card>
   </div>
 </mat-card>

@@ -211,17 +211,18 @@
       </h4>
     </mat-card>
 
-    <mat-card *ngIf="noResults" class="info">
+    <mat-card *ngIf="pagination && !pagination.hasNextPage" class="info">
       <h4>
         <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
         {{ 'generic.noResults' | translate }}
       </h4>
     </mat-card>
 
-    <mat-card *ngIf="animeList && animeList.length > 0" class="no-padding">
+    <mat-card *ngIf="animeList?.length > 0" class="no-padding">
       <mt-search-results-table [tableData]="animeList" (onSortChange)="sortBy($event)"> </mt-search-results-table>
 
       <mat-paginator
+        *ngIf="pagination?.hasNextPage"
         [showFirstLastButtons]="true"
         [length]="pagination.total"
         [pageSize]="pagination.perPage"

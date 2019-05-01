@@ -49,7 +49,6 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   maxYear = new Date().getFullYear() + 11;
 
   searching: boolean;
-  noResults: boolean;
   error: Error;
 
   constructor(
@@ -137,7 +136,6 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       })
       .pipe(
         tap(response => {
-          this.noResults = response.media.length < 1;
           this.animeList = response.media;
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
@@ -145,7 +143,6 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
         }),
         catchError(error => {
           this.error = error;
-          this.noResults = false;
           this.searching = false;
 
           return of();

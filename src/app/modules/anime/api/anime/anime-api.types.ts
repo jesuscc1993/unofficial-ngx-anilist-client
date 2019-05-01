@@ -131,6 +131,27 @@ export type ListMediaIdsDto = {
   };
 };
 
+export type RelatedMediaIdsDto = {
+  MediaListCollection: {
+    lists: {
+      entries: {
+        status: ListEntryStatus;
+        media: {
+          relations: {
+            nodes: {
+              id: number;
+              mediaListEntry: {
+                id: number;
+                status: ListEntryStatus;
+              };
+            }[];
+          };
+        };
+      }[];
+    }[];
+  };
+};
+
 export type FavouriteMediaDto = {
   User: {
     favourites: {

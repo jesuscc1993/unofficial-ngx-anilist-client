@@ -123,14 +123,19 @@ mat-card {
     .composite-header {
       .header:not(.tab) {
         border-color: map-get(map-get($theme, foreground), divider);
-        background-color: rgba(black, 0.06);
       }
 
-      .tab {
-        border-color: map-get(map-get($theme, foreground), divider);
+      .tab-group {
+        .header:not(.tab) {
+          background-color: rgba(black, 0.06);
+        }
 
-        &.active {
-          background-color: map-get(map-get($theme, background), card);
+        .tab {
+          border-color: map-get(map-get($theme, foreground), divider);
+
+          &.active {
+            background-color: map-get(map-get($theme, background), card);
+          }
         }
       }
     }

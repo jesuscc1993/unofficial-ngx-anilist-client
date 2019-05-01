@@ -225,7 +225,7 @@ export const listQuery = `
   }
 `;
 
-export const relatedMediaQuery = `
+export const relatedMediaIdsQuery = `
   query (
     ${filterTypes.mediaCollection}
   ) {
@@ -238,12 +238,18 @@ export const relatedMediaQuery = `
           media {
             relations {
               nodes {
-                ${animeFields}
+                id
+                mediaListEntry {
+                  id
+                  status
+                }
               }
             }
           }
         }
       }
+    }
+  }
 `;
 
 export const listMediaIdsQuery = `

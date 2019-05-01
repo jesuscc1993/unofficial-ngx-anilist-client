@@ -37,8 +37,17 @@ export class AnimeService {
       : this.animeApi.queryAnimeList(user).pipe(tap(listEntries => this.mediaStore.setAnimeListEntries(listEntries)));
   }
 
-  public getRelatedAnimeMedia(user: User) {
-    return this.animeApi.queryRelatedAnimeMedia(user).pipe(tap(mediaList => this.mediaStore.storeAnime(mediaList)));
+  public getRelatedAnimeMediaIds(user: User) {
+    return this.animeApi.queryRelatedAnimeMediaIds(user).pipe(
+      flatMap(animeMediaIds =>
+        this.getAnimeListEntries(user).pipe(
+          map(entries => {
+            const userMediaIds = entries.map(entry => entry.media.id);
+            return animeMediaIds.filter(mediaId => !userMediaIds.includes(mediaId));
+          })
+        )
+      )
+    );
   }
 
   public getAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {

@@ -25,8 +25,9 @@ export class MtRecentlyFinishedMediaComponent {
         filter(({ animeListEntries }) => !!animeListEntries),
         map(({ animeListEntries }) =>
           animeListEntries
-            .filter(listEntry => ['PLANNING', 'CURRENT'].includes(listEntry.status))
-            .filter(({ media }) => media.status === 'FINISHED')
+            .filter(
+              listEntry => ['PLANNING', 'CURRENT'].includes(listEntry.status) && listEntry.media.status === 'FINISHED'
+            )
             .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
         ),
         tap(animeListEntries => this.setEntries(animeListEntries))

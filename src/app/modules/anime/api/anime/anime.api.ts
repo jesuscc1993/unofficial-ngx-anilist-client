@@ -5,7 +5,6 @@ import { map, tap } from 'rxjs/operators';
 import { AniListApi } from '../../../shared/api/api';
 import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { Media } from '../../../shared/types/anilist/media.types';
 import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import {
@@ -15,7 +14,7 @@ import {
   listQuery,
   mediaIdSearchQuery,
   mediaSearchQuery,
-  relatedMediaQuery,
+  relatedMediaIdsQuery,
   saveListEntryQuery,
   toggleFavouriteEntryQuery,
 } from './anime-api.queries';
@@ -27,6 +26,7 @@ import {
   ListMediaDto,
   MediaFilters,
   PagedSearchFilters,
+  RelatedMediaIdsDto,
   SaveListEntryDto,
   SaveListEntryRequest,
   SearchFilters,
@@ -82,24 +82,31 @@ export class AnimeApi extends AniListApi {
     );
   }
 
-  public queryRelatedAnimeMedia(user: User) {
-    return this.postGraphQlRequest<ListMediaDto, MediaFilters>(relatedMediaQuery, {
+  public queryRelatedAnimeMediaIds(user: User) {
+    return this.postGraphQlRequest<RelatedMediaIdsDto, MediaFilters>(relatedMediaIdsQuery, {
       mediaType: 'ANIME',
       userId: user.id,
+      sort: 'MEDIA_ID',
     }).pipe(
       map(response => {
-        let mediaList: Media[] = [];
+        let mediaIds: number[] = [];
 
         const listMediaDto = this.getResponseData(response);
         if (listMediaDto) {
           listMediaDto.MediaListCollection.lists.forEach(list => {
-            list.entries.forEach(listEntry => {
-              mediaList = [...mediaList, listEntry.media];
-            });
+            if (['COMPLETED', 'PAUSED', 'PLANNING', 'REPEATING', 'CURRENT'].includes(list.entries[0].status)) {
+              list.entries.forEach(listEntry => {
+                listEntry.media.relations.nodes.forEach(anime => {
+                  if (!anime.mediaListEntry && !mediaIds.includes(anime.id)) {
+                    mediaIds.push(anime.id);
+                  }
+                });
+              });
+            }
           });
         }
 
-        return mediaList;
+        return mediaIds;
       })
     );
   }

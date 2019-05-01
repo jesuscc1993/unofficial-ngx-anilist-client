@@ -1,0 +1,14 @@
+.placeholder {
+  $min-height: 594px;
+  $pagination-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.with-pagination {
+    min-height: $min-height - $pagination-height;
+  }
+  &:not(.with-pagination) {
+    min-height: $min-height;
+  }
+}
