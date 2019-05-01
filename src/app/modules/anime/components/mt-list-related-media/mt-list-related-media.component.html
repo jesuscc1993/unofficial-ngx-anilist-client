@@ -3,6 +3,21 @@
     <div class="header flex-1">
       <h4 class="no-margin">{{ 'anime.dashboard.relatedMedia' | translate }}</h4>
     </div>
+
+    <div class="header header-dropdown">
+      <span>{{ 'media.format' | translate }} {{ 'anime.search.filters.includedIn' | translate }}:</span>
+      <mat-select
+        class="width-auto"
+        placeholder="{{ 'media.formatValues.undefined' | translate }}"
+        multiple
+        [ngModel]="selectedFormats"
+        (ngModelChange)="selectedFormatChanged($event)"
+      >
+        <mat-option *ngFor="let format of mediaFormats" [value]="format">{{
+          'media.formatValues.' + format | translate
+        }}</mat-option>
+      </mat-select>
+    </div>
   </div>
 
   <div class="content">
@@ -33,7 +48,7 @@
       >
       </mat-paginator>
 
-      <mat-card *ngIf="pagination && !pagination.hasNextPage" class="info">
+      <mat-card *ngIf="pagination && !pagination.total" class="info">
         <h4>
           <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
           {{ 'generic.noResults' | translate }}

@@ -211,7 +211,7 @@
       </h4>
     </mat-card>
 
-    <mat-card *ngIf="pagination && !pagination.hasNextPage" class="info">
+    <mat-card *ngIf="pagination && !pagination.total" class="info">
       <h4>
         <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
         {{ 'generic.noResults' | translate }}

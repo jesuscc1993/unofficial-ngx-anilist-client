@@ -5,8 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { Anime } from '../../../shared/types/anilist/media.types';
-import { MediaSort } from '../../../shared/types/anilist/mediaSort.types';
+import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeService } from '../../services/anime.service';
 import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
@@ -23,10 +22,12 @@ export class MtListRelatedMediaComponent {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
   @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
+  mediaFormats = mediaFormats;
+
   relatedMediaIds: number[];
   animeList: Anime[];
   pagination: PageInfo;
-  sort: MediaSort;
+  selectedFormats: MediaFormat[] = [];
 
   searching = true;
   error: Error;
@@ -50,6 +51,11 @@ export class MtListRelatedMediaComponent {
       .subscribe();
   }
 
+  selectedFormatChanged(selectedFormats: MediaFormat[]) {
+    this.selectedFormats = selectedFormats;
+    this.search(0, this.pagination.perPage);
+  }
+
   search(pageIndex?: number, perPage?: number) {
     if (this.resultsTable) {
       ScrollUtil.scrollToRef(this.resultsTable);
@@ -61,8 +67,8 @@ export class MtListRelatedMediaComponent {
     this.animeService
       .searchAnime(
         {
-          sort: this.sort,
           idIn: this.relatedMediaIds,
+          formatIn: this.selectedFormats.length ? this.selectedFormats : undefined,
         },
         {
           pageIndex,
@@ -88,10 +94,5 @@ export class MtListRelatedMediaComponent {
 
   changePage(pageEvent: PageEvent) {
     this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
-  }
-
-  sortBy(mediaSort: MediaSort) {
-    this.sort = mediaSort;
-    this.search();
   }
 }
