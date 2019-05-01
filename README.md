@@ -99,6 +99,7 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
+- Add "set as planning" to media dropdown for series not on list
 - Add spinner while waiting for server responses
 - Add language selection
 - Update anime search and related media components when updating entries on their results
