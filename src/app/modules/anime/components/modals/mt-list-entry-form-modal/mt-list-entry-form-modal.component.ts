@@ -35,7 +35,7 @@ export class MtListEntryFormModalComponent {
     this.listEntry = data.listEntry;
 
     this.listEntryForm = this.formBuilder.group({
-      status: [(this.listEntry && this.listEntry.status) || 'COMPLETED', [Validators.required]],
+      status: [(this.listEntry && this.listEntry.status) || 'PLANNING', [Validators.required]],
       repeat: [(this.listEntry && this.listEntry.repeat) || 0],
       score: [
         this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10,
