@@ -140,10 +140,6 @@ export type RelatedMediaIdsDto = {
           relations: {
             nodes: {
               id: number;
-              mediaListEntry: {
-                id: number;
-                status: ListEntryStatus;
-              };
             }[];
           };
         };

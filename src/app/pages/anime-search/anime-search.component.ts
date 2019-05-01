@@ -151,8 +151,8 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       .subscribe();
   }
 
-  changePage(pageEvent: PageEvent) {
-    this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
+  changePage({ pageIndex, pageSize }: PageEvent) {
+    this.search(pageIndex + 1, pageSize);
   }
 
   sortBy(mediaSort: MediaSort) {

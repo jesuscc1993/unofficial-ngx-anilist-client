@@ -38,9 +38,10 @@ export class AnimeService {
   }
 
   public getRelatedAnimeMediaIds(user: User) {
+    const storeEntries = this.mediaStore.getAnimeListEntries();
     return this.animeApi.queryRelatedAnimeMediaIds(user).pipe(
       flatMap(animeMediaIds =>
-        this.getAnimeListEntries(user).pipe(
+        (storeEntries ? of(storeEntries) : this.animeApi.queryAnimeList(user)).pipe(
           map(entries => {
             const userMediaIds = entries.map(entry => entry.media.id);
             return animeMediaIds.filter(mediaId => !userMediaIds.includes(mediaId));

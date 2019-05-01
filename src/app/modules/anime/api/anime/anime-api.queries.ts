@@ -239,10 +239,6 @@ export const relatedMediaIdsQuery = `
             relations {
               nodes {
                 id
-                mediaListEntry {
-                  id
-                  status
-                }
               }
             }
           }

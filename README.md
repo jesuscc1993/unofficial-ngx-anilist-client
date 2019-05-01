@@ -101,3 +101,4 @@ Provides multiple actions to be done with an anime
 
 - Add spinner while waiting for server responses
 - Add language selection
+- Update anime search and related media components when updating entries on their results

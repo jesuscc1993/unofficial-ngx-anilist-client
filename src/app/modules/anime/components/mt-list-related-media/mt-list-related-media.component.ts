@@ -1,14 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { ScrollUtil } from '../../../../utils/generic.util';
 import { AuthStore } from '../../../shared/store/auth.store';
+import { MediaStore } from '../../../shared/store/media.store';
 import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeService } from '../../services/anime.service';
-import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
 
 const gridCard = 96;
 const gridSpacing = 6;
@@ -18,11 +17,13 @@ const gridSpacing = 6;
   templateUrl: './mt-list-related-media.component.html',
   styleUrls: ['./mt-list-related-media.component.scss'],
 })
-export class MtListRelatedMediaComponent {
+export class MtListRelatedMediaComponent implements OnInit {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
-  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
   mediaFormats = mediaFormats;
+
+  rowCount = 4;
+  colCount?: number;
 
   relatedMediaIds: number[];
   animeList: Anime[];
@@ -32,14 +33,17 @@ export class MtListRelatedMediaComponent {
   searching = true;
   error: Error;
 
-  constructor(private animeService: AnimeService, private authStore: AuthStore) {
+  constructor(private mediaStore: MediaStore, private animeService: AnimeService, private authStore: AuthStore) {}
+
+  ngOnInit() {
+    this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+
     this.animeService
       .getRelatedAnimeMediaIds(this.authStore.getUser())
       .pipe(
         tap(relatedMediaIds => {
           this.relatedMediaIds = relatedMediaIds;
-          const rows = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
-          this.search(0, rows * 4);
+          this.search(0, this.colCount * this.rowCount);
         }),
         catchError(error => {
           this.error = error;
@@ -49,6 +53,27 @@ export class MtListRelatedMediaComponent {
         })
       )
       .subscribe();
+
+    // this.mediaStore
+    //   .asObservable()
+    //   .pipe(
+    //     filter(({ animeListEntries }) => !!animeListEntries),
+    //     flatMap(() =>
+    //       this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(
+    //         tap(relatedMediaIds => {
+    //           this.relatedMediaIds = relatedMediaIds;
+    //           this.search(0, this.colCount * this.rowCount);
+    //         })
+    //       )
+    //     ),
+    //     catchError(error => {
+    //       this.error = error;
+    //       this.searching = false;
+
+    //       return of();
+    //     })
+    //   )
+    //   .subscribe();
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
@@ -57,10 +82,6 @@ export class MtListRelatedMediaComponent {
   }
 
   search(pageIndex?: number, perPage?: number) {
-    if (this.resultsTable) {
-      ScrollUtil.scrollToRef(this.resultsTable);
-    }
-
     this.searching = true;
     this.error = undefined;
 
@@ -93,7 +114,7 @@ export class MtListRelatedMediaComponent {
       .subscribe();
   }
 
-  changePage(pageEvent: PageEvent) {
-    this.search(pageEvent.pageIndex + 1, pageEvent.pageSize);
+  changePage({ pageIndex, pageSize }: PageEvent) {
+    this.search(pageIndex + 1, pageSize);
   }
 }
