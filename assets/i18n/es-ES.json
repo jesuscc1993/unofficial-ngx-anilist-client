@@ -2,9 +2,6 @@
   "anime": {
     "dashboard": {
       "finishedAiring": {
-        "movies": "Películas",
-        "other": "Otros",
-        "television": "TV",
         "title": "Emisiones finalizadas"
       },
       "recentlyUpdated": {
@@ -36,6 +33,7 @@
     },
     "status": "Estado",
     "statusValues": {
+      "undefined": "Cualquiera",
       "COMPLETED": "Completado",
       "CURRENT": "Viendo",
       "DROPPED": "Abandonado",
@@ -100,6 +98,7 @@
     "episodes": "Episodios",
     "format": "Formato",
     "formatValues": {
+      "undefined": "Cualquiera",
       "MOVIE": "Película",
       "MUSIC": "Música",
       "ONA": "ONA",
