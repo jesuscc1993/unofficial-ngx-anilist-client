@@ -2,7 +2,7 @@
   <div [style.background-image]="'url(' + media.coverImage.medium + ')'" class="cover">
     <div class="backdrop">
       <div class="full-width">
-        <div *ngIf="media.title" title="{{ media.title.romaji }}" ngxEllipsis lines="7">{{ media.title.romaji }}</div>
+        <div *ngIf="media.title" title="{{ media.title.romaji }}" ngxEllipsis lines="6">{{ media.title.romaji }}</div>
         <div *ngIf="media.averageScore">({{ media.averageScore / 10 }})</div>
       </div>
     </div>
