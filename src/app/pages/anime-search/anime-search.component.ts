@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { animeSearchUrl, numberPattern, scorePattern } from '../../app.constants';
+import { animeSearchUrl, integerPattern, scorePattern } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import {
   MtSearchResultsTableComponent,
@@ -168,8 +168,8 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   private setupForm() {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      startDateGreaterThan: [undefined, [Validators.pattern(numberPattern), Validators.min(this.minYear)]],
-      startDateSmallerThan: [undefined, [Validators.pattern(numberPattern), Validators.min(this.minYear)]],
+      startDateGreaterThan: [undefined, [Validators.pattern(integerPattern), Validators.min(this.minYear)]],
+      startDateSmallerThan: [undefined, [Validators.pattern(integerPattern), Validators.min(this.minYear)]],
       averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
       averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
       genreIn: [[]],

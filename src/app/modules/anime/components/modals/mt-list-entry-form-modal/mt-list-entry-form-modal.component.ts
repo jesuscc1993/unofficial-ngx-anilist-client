@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
 
-import { numberPattern, scorePattern } from '../../../../../app.constants';
+import { integerPattern, scorePattern } from '../../../../../app.constants';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
@@ -44,7 +44,7 @@ export class MtListEntryFormModalComponent {
       status: [(this.listEntry && this.listEntry.status) || 'PLANNING', [Validators.required]],
       repeat: [
         (this.listEntry && this.listEntry.repeat) || 0,
-        [Validators.required, Validators.pattern(numberPattern)],
+        [Validators.required, Validators.pattern(integerPattern)],
       ],
       score: [
         (this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10) || 0,
