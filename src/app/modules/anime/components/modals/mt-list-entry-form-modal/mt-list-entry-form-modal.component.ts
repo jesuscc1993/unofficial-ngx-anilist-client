@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
 
-import { scorePattern } from '../../../../../app.constants';
+import { numberPattern, scorePattern } from '../../../../../app.constants';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
@@ -24,7 +24,6 @@ type ListEntryFormModalParameters = {
 })
 export class MtListEntryFormModalComponent {
   readonly listEntryStatuses = listEntryStatuses;
-  readonly scorePattern = scorePattern;
 
   readonly origin: ModalOrigin;
   readonly listEntry: ListEntry;
@@ -43,7 +42,10 @@ export class MtListEntryFormModalComponent {
 
     this.listEntryForm = this.formBuilder.group({
       status: [(this.listEntry && this.listEntry.status) || 'PLANNING', [Validators.required]],
-      repeat: [(this.listEntry && this.listEntry.repeat) || 0, [Validators.required]],
+      repeat: [
+        (this.listEntry && this.listEntry.repeat) || 0,
+        [Validators.required, Validators.pattern(numberPattern)],
+      ],
       score: [
         (this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10) || 0,
         [Validators.required, Validators.pattern(scorePattern)],

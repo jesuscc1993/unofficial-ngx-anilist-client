@@ -15,7 +15,8 @@ export const animeSearchUrl = '/anime-search';
 export const userListUrl = '/user-anime-list';
 export const rootUrl = animeSearchUrl;
 
-export const scorePattern = /^([0-9]|10)$/;
+export const numberPattern = /^\d+$/;
+export const scorePattern = /^([0-9]|10)(\.[0-9]{1})?$/;
 
 export const defaultModalOptions: ModalOptions = {
   minWidth: '480px',

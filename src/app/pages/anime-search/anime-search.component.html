@@ -41,11 +41,8 @@
               <input
                 matInput
                 type="text"
-                [pattern]="scorePattern"
                 placeholder="{{ 'media.year' | translate }} {{ 'anime.search.filters.after' | translate }}..."
                 formControlName="startDateGreaterThan"
-                [min]="minYear"
-                [max]="maxYear"
               />
             </mat-form-field>
 
@@ -53,11 +50,8 @@
               <input
                 matInput
                 type="text"
-                [pattern]="scorePattern"
                 placeholder="{{ 'media.year' | translate }} {{ 'anime.search.filters.before' | translate }}..."
                 formControlName="startDateSmallerThan"
-                [min]="minYear"
-                [max]="maxYear"
               />
             </mat-form-field>
           </div>
@@ -68,7 +62,6 @@
               <input
                 matInput
                 type="text"
-                [pattern]="scorePattern"
                 placeholder="{{ 'media.score' | translate }} {{ 'anime.search.filters.above' | translate }}..."
                 formControlName="averageScoreGreaterThan"
               />
@@ -78,7 +71,6 @@
               <input
                 matInput
                 type="text"
-                [pattern]="scorePattern"
                 placeholder="{{ 'media.score' | translate }} {{ 'anime.search.filters.below' | translate }}..."
                 formControlName="averageScoreSmallerThan"
               />

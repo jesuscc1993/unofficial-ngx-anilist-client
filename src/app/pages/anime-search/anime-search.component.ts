@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { animeSearchUrl, scorePattern } from '../../app.constants';
+import { animeSearchUrl, numberPattern, scorePattern } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import {
   MtSearchResultsTableComponent,
@@ -34,8 +34,6 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
   @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
-  readonly scorePattern = scorePattern;
-
   user: User;
   animeList: Anime[];
   searchForm: FormGroup;
@@ -48,7 +46,6 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   mediaStatuses = mediaStatuses;
   onListOptions = [undefined, true, false];
   minYear = 1900;
-  maxYear = new Date().getFullYear() + 11;
 
   searching: boolean;
   error: Error;
@@ -171,10 +168,10 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   private setupForm() {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      startDateGreaterThan: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
-      startDateSmallerThan: [undefined, [Validators.min(this.minYear), Validators.max(this.maxYear)]],
-      averageScoreGreaterThan: [undefined, [Validators.min(0), Validators.max(10)]],
-      averageScoreSmallerThan: [undefined, [Validators.min(0), Validators.max(10)]],
+      startDateGreaterThan: [undefined, [Validators.pattern(numberPattern), Validators.min(this.minYear)]],
+      startDateSmallerThan: [undefined, [Validators.pattern(numberPattern), Validators.min(this.minYear)]],
+      averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
+      averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
       genreIn: [[]],
       genreNotIn: [[]],
       formatIn: [[]],
