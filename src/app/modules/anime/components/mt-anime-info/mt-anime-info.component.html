@@ -37,6 +37,11 @@
         <span class="value">{{ 'media.formatValues.' + anime.format | translate }}</span>
       </p>
 
+      <p *ngIf="anime.format?.length" class="property-value-pair flex-box">
+        <strong class="property">{{ 'media.format' | translate }}:</strong>
+        <span class="value">{{ 'media.formatValues.' + anime.format | translate }}</span>
+      </p>
+
       <p *ngIf="anime.status?.length" class="property-value-pair flex-box">
         <strong class="property">{{ 'media.status' | translate }}:</strong>
         <span class="value">{{ 'media.statusValues.' + anime.status | translate }}</span>
