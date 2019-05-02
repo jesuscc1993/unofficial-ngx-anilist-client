@@ -1,7 +1,7 @@
 import { Media } from './media.types';
 
 export type ListEntryStatus = 'COMPLETED' | 'CURRENT' | 'DROPPED' | 'PAUSED' | 'PLANNING' | 'REPEATING';
-export const listEntryStatusList: ListEntryStatus[] = [
+export const listEntryStatuses: ListEntryStatus[] = [
   'COMPLETED',
   'DROPPED',
   'PAUSED',

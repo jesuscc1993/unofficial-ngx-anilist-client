@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
 
 import { ToastService } from '../../../../shared/services/toast.service';
-import { ListEntry, listEntryStatusList } from '../../../../shared/types/anilist/listEntry.types';
+import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { AnimeService } from '../../../services/anime.service';
 
@@ -22,7 +22,7 @@ type ListEntryFormModalParameters = {
 export class MtListEntryFormModalComponent {
   listEntry: ListEntry;
   listEntryForm: FormGroup;
-  listEntryStatusList = listEntryStatusList;
+  listEntryStatuses = listEntryStatuses;
 
   constructor(
     private translateService: TranslateService,

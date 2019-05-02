@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { filter, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../../shared/store/media.store';
-import { ListEntry, ListEntryStatus, listEntryStatusList } from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus, listEntryStatuses } from '../../../shared/types/anilist/listEntry.types';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',
@@ -10,32 +10,39 @@ import { ListEntry, ListEntryStatus, listEntryStatusList } from '../../../shared
   styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
 })
 export class MtRecentlyUpdatedListEntriesComponent {
-  listEntryStatusList = listEntryStatusList;
+  private listEntries: ListEntry[];
+  filteredEntries: ListEntry[];
 
-  listEntries: ListEntry[];
+  listEntryStatuses: ListEntryStatus[];
+  selectedStatuses: ListEntryStatus[] = [];
+
   ready: boolean;
-  selectedStatusList: ListEntryStatus[] = [];
 
   constructor(private mediaStore: MediaStore) {
     this.mediaStore
       .asObservable()
       .pipe(
         filter(({ animeListEntries }) => !!animeListEntries),
-        tap(({ animeListEntries }) => this.setEntries(animeListEntries))
+        tap(({ animeListEntries }) => {
+          this.listEntries = animeListEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
+          this.listEntryStatuses = listEntryStatuses.filter(
+            status => !!animeListEntries.find(entry => entry.status === status)
+          );
+          this.filterEntries();
+          this.ready = true;
+        })
       )
       .subscribe();
   }
 
-  selectedStatusChanged(selectedStatusList: ListEntryStatus[]) {
-    this.selectedStatusList = selectedStatusList;
-    this.setEntries(this.mediaStore.getAnimeListEntries());
+  selectedStatusChanged(selectedStatuses: ListEntryStatus[]) {
+    this.selectedStatuses = selectedStatuses;
+    this.filterEntries();
   }
 
-  private setEntries(animeListEntries?: ListEntry[]) {
-    const filteredEntries = this.selectedStatusList.length
-      ? animeListEntries.filter(entry => this.selectedStatusList.includes(entry.status))
-      : animeListEntries;
-    this.listEntries = filteredEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
-    this.ready = true;
+  private filterEntries() {
+    this.filteredEntries = this.selectedStatuses.length
+      ? this.listEntries.filter(entry => this.selectedStatuses.includes(entry.status))
+      : this.listEntries;
   }
 }

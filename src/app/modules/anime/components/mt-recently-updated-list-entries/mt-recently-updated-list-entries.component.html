@@ -10,10 +10,10 @@
         class="width-auto"
         placeholder="{{ 'anime.statusValues.undefined' | translate }}"
         multiple
-        [ngModel]="selectedStatusList"
+        [ngModel]="selectedStatuses"
         (ngModelChange)="selectedStatusChanged($event)"
       >
-        <mat-option *ngFor="let status of listEntryStatusList" [value]="status">{{
+        <mat-option *ngFor="let status of listEntryStatuses" [value]="status">{{
           'anime.statusValues.' + status | translate
         }}</mat-option>
       </mat-select>
@@ -25,6 +25,6 @@
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
-    <mt-list-entries-grid [listEntries]="listEntries" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
+    <mt-list-entries-grid [listEntries]="filteredEntries" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
   </div>
 </mat-card>

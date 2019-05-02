@@ -6,5 +6,6 @@
         <div *ngIf="media.averageScore">({{ media.averageScore / 10 }})</div>
       </div>
     </div>
+    <div *ngIf="listEntry" class="status-badge {{ listEntry.status.toLowerCase() }}"></div>
   </div>
 </div>

@@ -7,7 +7,7 @@
       <div class="form-group">
         <mat-form-field>
           <mat-select placeholder="{{ 'media.status' | translate }}" formControlName="status">
-            <mat-option *ngFor="let status of listEntryStatusList" [value]="status">{{
+            <mat-option *ngFor="let status of listEntryStatuses" [value]="status">{{
               'anime.statusValues.' + status | translate
             }}</mat-option>
           </mat-select>

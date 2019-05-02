@@ -12,11 +12,13 @@ import { fuzzyDateToDate } from '../../domain/media.domain';
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
 export class MtRecentlyFinishedMediaComponent {
-  mediaFormats = mediaFormats;
+  private listEntries: ListEntry[];
+  filteredEntries: ListEntry[];
 
-  listEntries: ListEntry[];
-  ready: boolean;
+  mediaFormats: MediaFormat[];
   selectedFormats: MediaFormat[] = [];
+
+  ready: boolean;
 
   constructor(private mediaStore: MediaStore) {
     this.mediaStore
@@ -30,21 +32,26 @@ export class MtRecentlyFinishedMediaComponent {
             )
             .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
         ),
-        tap(animeListEntries => this.setEntries(animeListEntries))
+        tap(animeListEntries => {
+          this.listEntries = animeListEntries;
+          this.mediaFormats = mediaFormats.filter(
+            format => !!animeListEntries.find(entry => entry.media.format === format)
+          );
+          this.filterEntries();
+          this.ready = true;
+        })
       )
       .subscribe();
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
-    this.setEntries(this.mediaStore.getAnimeListEntries());
+    this.filterEntries();
   }
 
-  private setEntries(animeListEntries?: ListEntry[]) {
-    const filteredEntries = this.selectedFormats.length
-      ? animeListEntries.filter(entry => this.selectedFormats.includes(entry.media.format))
-      : animeListEntries;
-    this.listEntries = filteredEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
-    this.ready = true;
+  private filterEntries() {
+    this.filteredEntries = this.selectedFormats.length
+      ? this.listEntries.filter(entry => this.selectedFormats.includes(entry.media.format))
+      : this.listEntries;
   }
 }

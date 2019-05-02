@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 @import 'src/app/styles/variables';
 
 .cover {
@@ -7,6 +8,7 @@
   height: $height;
   background-position: center center;
   background-size: cover;
+  position: relative;
 
   &:hover {
     .backdrop {
@@ -34,5 +36,34 @@
 
     background: rgba(black, 0.5);
     color: white;
+  }
+
+  .status-badge {
+    $size: 6px;
+    position: absolute;
+    top: 0;
+    display: block;
+    width: $size;
+    height: $size;
+    margin: 3px;
+    box-shadow: 0 0 2px black;
+    border-radius: 1px;
+
+    &.completed {
+      background: map-get($mat-green, 500);
+    }
+    &.repeating {
+      background: map-get($mat-blue, 500);
+    }
+    &.planning,
+    &.watching {
+      background: map-get($mat-orange, 500);
+    }
+    &.paused {
+      background: map-get($mat-pink, 500);
+    }
+    &.dropped {
+      background: map-get($mat-red, 500);
+    }
   }
 }

@@ -48,7 +48,13 @@ Different background colors<sup>2</sup> are used based for entries already on th
 
 <sup>1</sup> cover, title, format, year, genres, average score and episode count
 
-<sup>2</sup> blue for planned, orange for unfinished and red for dropped.
+<sup>2</sup>
+<span style="color: #4caf50">completed</span>,
+<span style="color: #f44336">dropped</span>,
+<span style="color: #e91e63">paused</span>,
+<span style="color: #ff9800">planning</span>,
+<span style="color: #2196f3">repeating</span> and
+<span style="color: #ff9800">watching</span>.
 
 \* Used on the search and user's list pages' tables.
 
@@ -99,6 +105,7 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
+- Add status badge to media images
 - Add "set as planning" to media dropdown for series not on list
 - Add spinner while waiting for server responses
 - Add language selection

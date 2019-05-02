@@ -1,4 +1,5 @@
-@import 'variables';
+@import '~@angular/material/theming';
+@import 'src/app/styles/variables';
 
 $desktop-horizontal-cell-padding: 32px;
 $mobile-horizontal-cell-padding: 40px;
@@ -7,15 +8,21 @@ $mobile-horizontal-cell-padding: 40px;
   mat-row {
     $bg-intensity: 0.1;
 
-    &.completed,
+    &.completed {
+      $color: map-get($mat-green, 500);
+      background: rgba($color, $bg-intensity);
+    }
     &.repeating {
       $color: map-get($mat-blue, 500);
       background: rgba($color, $bg-intensity);
     }
-    &.planned,
-    &.watching,
-    &.paused {
+    &.planning,
+    &.watching {
       $color: map-get($mat-orange, 500);
+      background: rgba($color, $bg-intensity);
+    }
+    &.paused {
+      $color: map-get($mat-pink, 500);
       background: rgba($color, $bg-intensity);
     }
     &.dropped {
