@@ -3,3 +3,5 @@ export type ModalOptions = {
   width: string;
   maxWidth: string;
 };
+
+export type ModalOrigin = 'view' | 'edit';

@@ -4,14 +4,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
 
+import { scorePattern } from '../../../../../app.constants';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
+import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { AnimeService } from '../../../services/anime.service';
 
 type ListEntryFormModalParameters = {
   listEntry: ListEntry;
   media: Media;
+  origin: ModalOrigin;
 };
 
 @Component({
@@ -20,9 +23,12 @@ type ListEntryFormModalParameters = {
   styleUrls: ['./mt-list-entry-form-modal.component.scss'],
 })
 export class MtListEntryFormModalComponent {
-  listEntry: ListEntry;
-  listEntryForm: FormGroup;
-  listEntryStatuses = listEntryStatuses;
+  readonly listEntryStatuses = listEntryStatuses;
+  readonly scorePattern = scorePattern;
+
+  readonly origin: ModalOrigin;
+  readonly listEntry: ListEntry;
+  readonly listEntryForm: FormGroup;
 
   constructor(
     private translateService: TranslateService,
@@ -32,6 +38,7 @@ export class MtListEntryFormModalComponent {
     private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
   ) {
+    this.origin = data.origin;
     this.listEntry = data.listEntry;
 
     this.listEntryForm = this.formBuilder.group({

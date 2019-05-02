@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { animeSearchUrl } from '../../app.constants';
+import { animeSearchUrl, scorePattern } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import {
   MtSearchResultsTableComponent,
@@ -33,6 +33,8 @@ import { ScrollUtil } from '../../utils/generic.util';
 export class AnimeSearchPageComponent extends WithObservableOnDestroy implements OnInit {
   @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
   @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
+
+  readonly scorePattern = scorePattern;
 
   user: User;
   animeList: Anime[];

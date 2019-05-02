@@ -13,6 +13,7 @@ import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
+import { ModalOrigin } from '../../../shared/types/modal.types';
 import { AnimeService } from '../../services/anime.service';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
@@ -25,7 +26,9 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
 export class MtMediaActionsComponent extends WithObservableOnDestroy implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
-  @Input() source: 'list' | 'view' | 'edit';
+  @Input() origin?: ModalOrigin;
+  @Input() viewEnabled: boolean = true;
+  @Input() editEnabled: boolean = true;
 
   user: User;
 
@@ -58,10 +61,22 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     }
   }
 
+  doOpenDetailModal() {
+    this.dialog.open(MtMediaDetailModalComponent, {
+      ...defaultModalOptions,
+      maxWidth: '800px',
+      data: {
+        origin: this.origin || 'view',
+        media: this.media,
+      },
+    });
+  }
+
   doOpenEditionModal() {
     this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,
       data: {
+        origin: this.origin || 'edit',
         listEntry: { ...this.listEntry, media: this.media },
         media: this.media,
       },
@@ -104,16 +119,6 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
         })
       )
       .subscribe();
-  }
-
-  doOpenDetailModal() {
-    this.dialog.open(MtMediaDetailModalComponent, {
-      ...defaultModalOptions,
-      maxWidth: '800px',
-      data: {
-        media: this.media,
-      },
-    });
   }
 
   doOpenOnAniList() {

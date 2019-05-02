@@ -3,9 +3,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { Media } from '../../../../shared/types/anilist/media.types';
+import { ModalOrigin } from '../../../../shared/types/modal.types';
 
 type MediaDetailModalParameters = {
   media: Media;
+  origin: ModalOrigin;
 };
 
 @Component({
@@ -14,13 +16,15 @@ type MediaDetailModalParameters = {
   styleUrls: ['./mt-media-detail-modal.component.scss'],
 })
 export class MtMediaDetailModalComponent {
-  media: Media;
+  readonly origin: ModalOrigin;
+  readonly media: Media;
 
   constructor(
     private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) protected data: MediaDetailModalParameters
   ) {
+    this.origin = data.origin;
     this.media = data.media;
   }
 

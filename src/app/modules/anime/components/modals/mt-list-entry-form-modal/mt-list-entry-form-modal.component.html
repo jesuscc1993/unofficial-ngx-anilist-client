@@ -1,7 +1,13 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
     <div title="{{ listEntry.media.title.romaji }}" class="text-ellipsis">
-      <mt-media-actions [source]="edit" [media]="listEntry.media" class="inline-block margin-right-xxs">
+      <mt-media-actions
+        [origin]="origin"
+        [media]="listEntry.media"
+        [viewEnabled]="origin !== 'view'"
+        [editEnabled]="false"
+        class="inline-block margin-right-xxs"
+      >
       </mt-media-actions
       >{{ listEntry.media.title.romaji }}
     </div>
@@ -26,10 +32,7 @@
           <input
             matInput
             type="text"
-            pattern="\d*"
-            min="0"
-            max="10"
-            step=".1"
+            [pattern]="scorePattern"
             [placeholder]="!listEntry && 5"
             formControlName="score"
           />
@@ -42,10 +45,7 @@
           <input
             matInput
             type="text"
-            pattern="\d*"
-            min="0"
-            max="10"
-            step=".1"
+            [pattern]="scorePattern"
             [placeholder]="!listEntry && 0"
             formControlName="repeat"
           />

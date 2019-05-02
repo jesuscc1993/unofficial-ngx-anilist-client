@@ -106,6 +106,8 @@ Provides multiple actions to be done with an anime
 ## TODO
 
 - Add "set as planning" to media dropdown for series not on list
+- Add "delete" to entry form
+- Add favourites to store and mark favorited entries
 - Add episodes watched to entry form
 - Add language selection
 - Update anime search and related media components when updating entries on their results

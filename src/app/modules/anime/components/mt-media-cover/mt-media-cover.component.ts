@@ -33,6 +33,7 @@ export class MtMediaCoverComponent implements OnInit {
       ...defaultModalOptions,
       maxWidth: '800px',
       data: {
+        origin: 'view',
         media: this.media,
       },
     });
@@ -42,6 +43,7 @@ export class MtMediaCoverComponent implements OnInit {
     this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,
       data: {
+        origin: 'edit',
         listEntry: { ...this.listEntry, media: this.media },
         media: this.media,
       },
