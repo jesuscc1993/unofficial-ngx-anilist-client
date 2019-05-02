@@ -81,6 +81,7 @@ const listEntryFields = `
   scoreRaw: score (
     format: POINT_100
   )
+  progress
   repeat
   status
   updatedAt
@@ -314,12 +315,14 @@ export const listFavouritesQuery = `
 export const saveListEntryQuery = `
   mutation (
     $mediaId: Int,
+    $progress: Int,
     $repeat: Int,
     $scoreRaw: Int,
     $status: MediaListStatus
   ) {
     SaveMediaListEntry (
       mediaId: $mediaId,
+      progress: $progress,
       repeat: $repeat,
       scoreRaw: $scoreRaw,
       status: $status

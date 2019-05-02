@@ -52,7 +52,8 @@ export type PagedSearchFilters = SearchFilters &
 export type SaveListEntryRequest = {
   status: ListEntryStatus;
   mediaId: number;
-  repeat?: number;
+  progress: number;
+  repeat: number;
   scoreRaw: number;
 };
 

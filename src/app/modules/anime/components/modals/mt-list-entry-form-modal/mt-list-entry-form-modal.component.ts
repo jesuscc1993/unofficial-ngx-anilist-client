@@ -12,7 +12,7 @@ import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { AnimeService } from '../../../services/anime.service';
 
 type ListEntryFormModalParameters = {
-  listEntry: ListEntry;
+  listEntry?: ListEntry;
   media: Media;
   origin: ModalOrigin;
 };
@@ -26,6 +26,7 @@ export class MtListEntryFormModalComponent {
   readonly listEntryStatuses = listEntryStatuses;
 
   readonly origin: ModalOrigin;
+  readonly media: Media;
   readonly listEntry: ListEntry;
   readonly listEntryForm: FormGroup;
 
@@ -37,18 +38,18 @@ export class MtListEntryFormModalComponent {
     private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
   ) {
+    const { progress, repeat, scoreRaw, status } = data.listEntry || ({} as ListEntry);
     this.origin = data.origin;
+    this.media = data.media;
     this.listEntry = data.listEntry;
 
     this.listEntryForm = this.formBuilder.group({
-      status: [(this.listEntry && this.listEntry.status) || 'PLANNING', [Validators.required]],
-      repeat: [
-        (this.listEntry && this.listEntry.repeat) || 0,
-        [Validators.required, Validators.pattern(integerPattern)],
-      ],
-      score: [
-        (this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10) || 0,
-        [Validators.required, Validators.pattern(scorePattern)],
+      status: [status || 'PLANNING', [Validators.required]],
+      repeat: [repeat || 0, [Validators.required, Validators.pattern(integerPattern)]],
+      score: [(scoreRaw && scoreRaw / 10) || 0, [Validators.required, Validators.pattern(scorePattern)]],
+      progress: [
+        progress || 0,
+        [Validators.required, Validators.pattern(integerPattern), Validators.max(this.media.episodes)],
       ],
     });
   }
@@ -85,12 +86,13 @@ export class MtListEntryFormModalComponent {
   }
 
   private getFormEntry(): ListEntry {
-    const { repeat, score, status } = this.listEntryForm.value;
+    const { progress, repeat, score, status } = this.listEntryForm.value;
     return {
       ...this.listEntry,
       status,
       repeat: parseInt(repeat),
       scoreRaw: Math.trunc(parseInt(score) * 10),
+      progress: parseInt(progress),
     };
   }
 

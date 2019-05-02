@@ -146,8 +146,9 @@ export class AnimeApi extends AniListApi {
       .subscribe();
   }
 
-  public saveAnimeListEntry({ status, repeat, scoreRaw, media }: ListEntry) {
+  public saveAnimeListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
     return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(saveListEntryQuery, {
+      progress,
       repeat,
       scoreRaw,
       mediaId: media.id,
