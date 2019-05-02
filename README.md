@@ -105,6 +105,7 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
+- Close modal on entry save
 - Add "set as planning" to media dropdown for series not on list
 - Add "delete" to entry form
 - Add favourites to store and mark favorited entries

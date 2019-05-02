@@ -29,26 +29,14 @@
       <div class="form-group">
         <mat-form-field class="score-input">
           <mat-label>{{ 'media.score' | translate }}</mat-label>
-          <input
-            matInput
-            type="text"
-            [pattern]="scorePattern"
-            [placeholder]="!listEntry && 5"
-            formControlName="score"
-          />
+          <input matInput type="text" placeholder="0" formControlName="score" />
         </mat-form-field>
       </div>
 
       <div class="form-group">
         <mat-form-field class="times-repeated-input">
           <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
-          <input
-            matInput
-            type="text"
-            [pattern]="scorePattern"
-            [placeholder]="!listEntry && 0"
-            formControlName="repeat"
-          />
+          <input matInput type="text" placeholder="0" pattern="\d*" formControlName="repeat" />
         </mat-form-field>
       </div>
 

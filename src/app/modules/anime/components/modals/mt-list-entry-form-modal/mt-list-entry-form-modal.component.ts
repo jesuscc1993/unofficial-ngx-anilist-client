@@ -43,10 +43,10 @@ export class MtListEntryFormModalComponent {
 
     this.listEntryForm = this.formBuilder.group({
       status: [(this.listEntry && this.listEntry.status) || 'PLANNING', [Validators.required]],
-      repeat: [(this.listEntry && this.listEntry.repeat) || 0],
+      repeat: [(this.listEntry && this.listEntry.repeat) || 0, [Validators.required]],
       score: [
-        this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10,
-        [Validators.max(10), Validators.min(0)],
+        (this.listEntry && this.listEntry.scoreRaw && this.listEntry.scoreRaw / 10) || 0,
+        [Validators.required, Validators.pattern(scorePattern)],
       ],
     });
   }
@@ -88,7 +88,7 @@ export class MtListEntryFormModalComponent {
       ...this.listEntry,
       status,
       repeat: parseInt(repeat),
-      scoreRaw: Math.trunc(score * 10),
+      scoreRaw: Math.trunc(parseInt(score) * 10),
     };
   }
 
