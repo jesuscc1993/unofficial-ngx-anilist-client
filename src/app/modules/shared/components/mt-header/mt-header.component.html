@@ -28,11 +28,11 @@
     </a>
 
     <mat-menu #userMenu="matMenu">
-      <mt-menu-action (onPress)="navigateToAnilistProfile()" icon="external-link-alt">{{
+      <mt-menu-action (onPress)="doOpenAnilistProfile()" icon="external-link-alt">{{
         'user.viewProfile' | translate
       }}</mt-menu-action>
 
-      <mt-menu-action (onPress)="logOut()" icon="door-open">{{ 'user.logOut' | translate }}</mt-menu-action>
+      <mt-menu-action (onPress)="doLogOut()" icon="door-open">{{ 'user.logOut' | translate }}</mt-menu-action>
     </mat-menu>
   </div>
 

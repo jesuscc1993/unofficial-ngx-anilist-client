@@ -1,7 +1,7 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
     <div title="{{ media.title.romaji }}" class="text-ellipsis">
-      <mt-media-actions *ngIf="media" [media]="media" [fromModal]="true" class="inline-block margin-right-xxs">
+      <mt-media-actions [source]="view" *ngIf="media" [media]="media" class="inline-block margin-right-xxs">
       </mt-media-actions
       >{{ media.title.romaji }}
     </div>

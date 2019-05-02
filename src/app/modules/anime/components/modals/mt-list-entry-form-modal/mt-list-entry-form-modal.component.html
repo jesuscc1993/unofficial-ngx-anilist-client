@@ -1,5 +1,11 @@
 <mt-modal>
-  <mt-modal-header (onClosePressed)="dismiss()">{{ listEntry.media.title.romaji }}</mt-modal-header>
+  <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
+    <div title="{{ listEntry.media.title.romaji }}" class="text-ellipsis">
+      <mt-media-actions [source]="edit" [media]="listEntry.media" class="inline-block margin-right-xxs">
+      </mt-media-actions
+      >{{ listEntry.media.title.romaji }}
+    </div>
+  </mt-modal-header>
 
   <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
     <mt-modal-content>
@@ -12,23 +18,8 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <mat-form-field class="times-repeated-input float-right">
-          <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
-          <input
-            matInput
-            type="text"
-            pattern="\d*"
-            min="0"
-            max="10"
-            step=".1"
-            [placeholder]="!listEntry && 0"
-            formControlName="repeat"
-          />
-        </mat-form-field>
       </div>
 
-      <!-- score -->
       <div class="form-group">
         <mat-form-field class="score-input">
           <mat-label>{{ 'media.score' | translate }}</mat-label>
@@ -43,7 +34,22 @@
             formControlName="score"
           />
         </mat-form-field>
-        / 10
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="times-repeated-input">
+          <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            pattern="\d*"
+            min="0"
+            max="10"
+            step=".1"
+            [placeholder]="!listEntry && 0"
+            formControlName="repeat"
+          />
+        </mat-form-field>
       </div>
 
       <!--<mat-slider min="0" max="10" value="5" step="0.5" tickInterval="2" class="full-width no-padding"></mat-slider>-->

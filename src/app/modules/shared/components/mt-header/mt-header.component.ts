@@ -66,17 +66,11 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       .subscribe();
   }
 
-  navigateToAnilistProfile() {
+  doOpenAnilistProfile() {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
-  navigateToUserList(replaceUrl?: boolean) {
-    this.router.navigate([userListUrl], {
-      replaceUrl: replaceUrl,
-    });
-  }
-
-  logOut() {
+  doLogOut() {
     this.authService.logOut();
     this.user = undefined;
     this.loginAvailable = environment.anilist_client_id >= 0;

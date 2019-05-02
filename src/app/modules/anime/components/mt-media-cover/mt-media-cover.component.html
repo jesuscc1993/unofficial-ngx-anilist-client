@@ -1,4 +1,4 @@
-<div *ngIf="media" (click)="doOpenDetailModal()" class="clickable">
+<div *ngIf="media" (click)="listEntry ? doOpenEditionModal() : doOpenDetailModal()" class="clickable">
   <div [style.background-image]="'url(' + media.coverImage.medium + ')'" class="cover">
     <div class="backdrop">
       <div class="full-width">

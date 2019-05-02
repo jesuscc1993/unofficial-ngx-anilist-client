@@ -25,7 +25,7 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
 export class MtMediaActionsComponent extends WithObservableOnDestroy implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
-  @Input() fromModal?: boolean;
+  @Input() source: 'list' | 'view' | 'edit';
 
   user: User;
 
@@ -58,8 +58,8 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     }
   }
 
-  saveToList() {
-    return this.dialog.open(MtListEntryFormModalComponent, {
+  doOpenEditionModal() {
+    this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,
       data: {
         listEntry: { ...this.listEntry, media: this.media },
@@ -68,7 +68,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     });
   }
 
-  toggleFavourite() {
+  doToggleFavourite() {
     this.animeService
       .toggleFavouriteAnimeListEntry(this.listEntry)
       .pipe(
@@ -86,7 +86,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .subscribe();
   }
 
-  deleteEntry() {
+  doDeleteEntry() {
     this.animeService
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
@@ -106,7 +106,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .subscribe();
   }
 
-  showDetail() {
+  doOpenDetailModal() {
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
       maxWidth: '800px',
@@ -116,7 +116,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     });
   }
 
-  viewOnAniList() {
+  doOpenOnAniList() {
     window.open(`https://anilist.co/anime/${this.media.id}`);
   }
 

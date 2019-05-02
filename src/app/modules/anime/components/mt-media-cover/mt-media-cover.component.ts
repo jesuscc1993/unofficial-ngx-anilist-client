@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { defaultModalOptions } from '../../../../app.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
+import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
@@ -32,6 +33,16 @@ export class MtMediaCoverComponent implements OnInit {
       ...defaultModalOptions,
       maxWidth: '800px',
       data: {
+        media: this.media,
+      },
+    });
+  }
+
+  doOpenEditionModal() {
+    this.dialog.open(MtListEntryFormModalComponent, {
+      ...defaultModalOptions,
+      data: {
+        listEntry: { ...this.listEntry, media: this.media },
         media: this.media,
       },
     });

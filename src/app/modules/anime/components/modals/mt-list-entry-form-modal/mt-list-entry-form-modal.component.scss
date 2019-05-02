@@ -1,16 +1,20 @@
 @import 'src/app/styles/variables';
 
-.content {
-  .form-group {
-    //max-width: $max-input-size / 2;
-    margin: auto;
+.form-group {
+  $cols: 3;
+  $col-spacing: $spacing-xs;
+  display: inline-block;
+  width: calc(100% / $cols) - $col-spacing / 2;
+  margin: 0 $col-spacing / 2;
+
+  &:nth-child(#{$cols}n + 0) {
+    margin-right: 0;
+  }
+  &:nth-child(#{$cols}n + 1) {
+    margin-left: 0;
   }
 
   mat-form-field {
     width: 100%;
-
-    &.score-input {
-      width: 72px;
-    }
   }
 }

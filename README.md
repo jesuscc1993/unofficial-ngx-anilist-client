@@ -51,7 +51,7 @@ Different background colors<sup>2</sup> are used based for entries already on th
 <sup>2</sup>
 <span style="color: #4caf50">completed</span>,
 <span style="color: #f44336">dropped</span>,
-<span style="color: #e91e63">paused</span>,
+<span style="color: #f06292">paused</span>,
 <span style="color: #ff9800">planning</span>,
 <span style="color: #2196f3">repeating</span> and
 <span style="color: #ff9800">watching</span>.
@@ -106,5 +106,6 @@ Provides multiple actions to be done with an anime
 ## TODO
 
 - Add "set as planning" to media dropdown for series not on list
+- Add episodes watched to entry form
 - Add language selection
 - Update anime search and related media components when updating entries on their results
