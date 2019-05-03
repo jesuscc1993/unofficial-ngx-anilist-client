@@ -109,5 +109,6 @@ Provides multiple actions to be done with an anime
 - Add favourites to store and mark favorited entries
 - Add language selection
 - Add "add as planning" to media actions
-- Do NOT reset pagination on list changes (reset only on filter changes)
 - Add start / end dates to media detail
+- Do NOT reset pagination on list changes (reset only on filter changes)
+- Close modal when updated entry from media actions
