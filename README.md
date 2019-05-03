@@ -110,5 +110,6 @@ Provides multiple actions to be done with an anime
 - Add language selection
 - Add "add as planning" to media actions
 - Add start / end dates to media detail
+- Do NOT show media related to unfinished / dropped media
 - Do NOT reset pagination on list changes (reset only on filter changes)
 - Close modal when updated entry from media actions
