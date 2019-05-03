@@ -4,25 +4,33 @@
   <div *ngIf="editEnabled">
     <mt-menu-action
       (onPress)="doOpenEditionModal()"
-      disabled="{{ !user }}"
       icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
+      disabled="{{ !user }}"
       >{{
         (isUpdateAvailable() ? 'anime.userList.updateEntry' : 'anime.userList.addToList') | translate
       }}</mt-menu-action
     >
+
+    <mt-menu-action (onPress)="doSetAsPlanning()" icon="clock" disabled="{{ !user }}">{{
+      'anime.userList.setAsPlanning' | translate
+    }}</mt-menu-action>
+
+    <mat-divider></mat-divider>
   </div>
 
-  <div *ngIf="isUpdateAvailable()">
-    <mt-menu-action (onPress)="doToggleFavourite()" icon="star">{{
+  <div>
+    <mt-menu-action (onPress)="doToggleFavourite()" icon="star" disabled="{{ !user }}">{{
       'anime.userList.toggleFavourite' | translate
     }}</mt-menu-action>
   </div>
 
-  <div *ngIf="isUpdateAvailable()">
-    <mt-menu-action (onPress)="doDeleteEntry()" icon="trash">{{
+  <div *ngIf="listEntry">
+    <mt-menu-action (onPress)="doDeleteEntry()" icon="trash" disabled="{{ !user }}">{{
       'anime.userList.deleteFromList' | translate
     }}</mt-menu-action>
   </div>
+
+  <mat-divider></mat-divider>
 
   <div *ngIf="viewEnabled">
     <mt-menu-action (onPress)="doOpenDetailModal()" icon="id-card">{{

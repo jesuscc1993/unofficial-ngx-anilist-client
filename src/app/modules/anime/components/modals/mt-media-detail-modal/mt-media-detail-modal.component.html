@@ -26,9 +26,9 @@
       </button>
 
       <div *ngIf="!media.mediaListEntry">
-        <button (click)="doAddAsPlanning()" mat-raised-button>
-          <fa-icon name="plus"></fa-icon>
-          <span>{{ 'media.addAsPlanning' | translate }}</span>
+        <button (click)="doSetAsPlanning()" mat-raised-button>
+          <fa-icon name="clock"></fa-icon>
+          <span>{{ 'anime.userList.setAsPlanning' | translate }}</span>
         </button>
       </div>
     </div>

@@ -3,7 +3,8 @@ import { Observable, of } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../shared/store/media.store';
-import { ListEntry } from '../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import { Media } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
@@ -79,9 +80,20 @@ export class AnimeService {
     return this.animeApi.saveAnimeListEntry(listEntry).pipe(
       map(updatedListEntry => ({ ...listEntry, ...updatedListEntry })),
       tap(updatedListEntry => {
-        this.mediaStore.updateAnimeListEntry(updatedListEntry);
+        this.mediaStore.updateAnimeListEntry({
+          ...updatedListEntry,
+          media: { ...updatedListEntry.media, mediaListEntry: updatedListEntry },
+        });
       })
     );
+  }
+
+  public saveWithStatus(media: Media, status: ListEntryStatus): Observable<ListEntry> {
+    return this.saveAnimeListEntry({
+      ...(media.mediaListEntry || ({} as ListEntry)),
+      media,
+      status,
+    });
   }
 
   public deleteAnimeListEntry(listEntry: ListEntry) {

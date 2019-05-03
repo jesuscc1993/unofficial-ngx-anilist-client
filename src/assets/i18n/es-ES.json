@@ -45,6 +45,7 @@
       "genresOverview": "Overview de Géneros",
       "goTo": "Ir a",
       "noEntries": "Sin entradas añadidas aún.",
+      "setAsPlanning": "Guardar como planeado",
       "show": "Mostrar",
       "title": "Lista del usuario",
       "toggleFavourite": "Alternar favorito",
@@ -108,7 +109,6 @@
     "genre": "Género",
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
-    "addAsPlanning": "Añadir como planeado",
     "score": "Nota",
     "status": "Estado",
     "statusValues": {

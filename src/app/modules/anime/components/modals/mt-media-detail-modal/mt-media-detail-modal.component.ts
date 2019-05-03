@@ -44,15 +44,9 @@ export class MtMediaDetailModalComponent {
     this.dismiss();
   }
 
-  doAddAsPlanning() {
+  doSetAsPlanning() {
     this.animeService
-      .saveAnimeListEntry({
-        media: this.media,
-        status: 'PLANNING',
-        repeat: 0,
-        scoreRaw: 0,
-        progress: 0,
-      })
+      .saveWithStatus(this.media, 'PLANNING')
       .pipe(
         tap(savedListEntry => {
           const success: boolean = savedListEntry.id !== undefined;
@@ -63,7 +57,6 @@ export class MtMediaDetailModalComponent {
               })
             );
           }
-
           this.dismiss();
         })
       )

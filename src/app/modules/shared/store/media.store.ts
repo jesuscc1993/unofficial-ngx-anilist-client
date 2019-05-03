@@ -39,9 +39,6 @@ export class MediaStore extends Store<MediaStoreState> {
           )
         : [...this.getAnimeListEntries(), updatedListEntry]
     );
-    if (updatedListEntry.media) {
-      this.storeAnime([{ ...updatedListEntry.media, mediaListEntry: updatedListEntry }]);
-    }
   }
   public deleteAnimeListEntry(listEntryToDelete: ListEntry) {
     this.setAnimeListEntries(this.getAnimeListEntries().filter(listEntry => listEntry.id !== listEntryToDelete.id));

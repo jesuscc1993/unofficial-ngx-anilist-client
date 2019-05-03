@@ -72,6 +72,24 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     });
   }
 
+  doSetAsPlanning() {
+    this.animeService
+      .saveWithStatus(this.media, 'PLANNING')
+      .pipe(
+        tap(savedListEntry => {
+          const success: boolean = savedListEntry.id !== undefined;
+          if (success) {
+            this.toastService.showToast(
+              this.translateService.instant('listEntry.update.success', {
+                mediaTitle: savedListEntry.media.title.romaji,
+              })
+            );
+          }
+        })
+      )
+      .subscribe();
+  }
+
   doOpenEditionModal() {
     this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,

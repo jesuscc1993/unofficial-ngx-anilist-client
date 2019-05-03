@@ -45,6 +45,7 @@
       "genresOverview": "Genres Overview",
       "goTo": "Go to",
       "noEntries": "No entries added yet.",
+      "setAsPlanning": "Set as planning",
       "show": "Show",
       "title": "User's list",
       "toggleFavourite": "Toggle favourite",
@@ -108,7 +109,6 @@
     "genre": "Genre",
     "genres": "Genres",
     "goToDetail": "Go to full detail",
-    "addAsPlanning": "Add as planning",
     "score": "Score",
     "status": "Status",
     "statusValues": {

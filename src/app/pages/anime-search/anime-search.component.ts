@@ -24,7 +24,6 @@ import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/a
 import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
-import { ScrollUtil } from '../../utils/generic.util';
 
 @Component({
   selector: 'mt-anime-search',
@@ -85,7 +84,11 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       .changes('animeListEntries')
       .pipe(
         takeUntil(this.destroyed$),
-        tap(() => this.search())
+        tap(() => {
+          if (this.animeList) {
+            this.search();
+          }
+        })
       )
       .subscribe();
   }
@@ -121,7 +124,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     this.updateQueryParams();
 
     if (this.resultsTable) {
-      ScrollUtil.scrollToRef(this.resultsTable);
+      // ScrollUtil.scrollToRef(this.resultsTable);
     }
 
     this.searching = true;
