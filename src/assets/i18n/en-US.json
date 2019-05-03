@@ -64,6 +64,7 @@
   },
   "generic": {
     "cancel": "Cancel",
+    "delete": "Delete",
     "noResults": "No results.",
     "submit": "Submit",
     "workInProgress": "Work in progress."
@@ -107,6 +108,7 @@
     "genre": "Genre",
     "genres": "Genres",
     "goToDetail": "Go to full detail",
+    "addAsPlanning": "Add as planning",
     "score": "Score",
     "status": "Status",
     "statusValues": {

@@ -9,6 +9,7 @@ $themes: (
     background: $mat-dark-theme-background,
     foreground: $mat-dark-theme-foreground,
     body-background: #333,
+    button-background: map-get($mat-gray, 700),
     success: (
       background: map-get($mat-green, 800),
       foreground: map-get($mat-green, 50),
@@ -31,6 +32,7 @@ $themes: (
     background: $mat-light-theme-background,
     foreground: $mat-light-theme-foreground,
     body-background: #ccc,
+    button-background: map-get($mat-gray, 300),
     info: (
       background: map-get($mat-blue, 50),
       foreground: map-get($mat-blue, 600),
@@ -105,6 +107,10 @@ mat-toolbar {
       }
     }
   }
+}
+
+.mat-raised-button {
+  background: map-get($theme, button-background);
 }
 
 .mat-raised-button.mat-accent,

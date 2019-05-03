@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
 
@@ -35,6 +35,7 @@ export class MtListEntryFormModalComponent {
     private toastService: ToastService,
     private animeService: AnimeService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
   ) {
@@ -54,7 +55,7 @@ export class MtListEntryFormModalComponent {
     });
   }
 
-  saveEntry() {
+  doSaveEntry() {
     const formListEntry: ListEntry = this.getFormEntry();
 
     this.animeService
@@ -70,7 +71,29 @@ export class MtListEntryFormModalComponent {
             );
           }
 
-          this.dialogRef.close();
+          this.dialog.closeAll();
+        })
+      )
+      .subscribe();
+  }
+
+  doDeleteEntry(event?: Event) {
+    this.preventDefault(event);
+
+    this.animeService
+      .deleteAnimeListEntry(this.listEntry)
+      .pipe(
+        tap(deletedListEntry => {
+          const success: boolean = deletedListEntry.deleted === true;
+          if (success) {
+            this.toastService.showToast(
+              this.translateService.instant('listEntry.deletion.success', {
+                mediaTitle: this.listEntry.media.title.romaji,
+              })
+            );
+
+            this.dialog.closeAll();
+          }
         })
       )
       .subscribe();
@@ -91,7 +114,7 @@ export class MtListEntryFormModalComponent {
       ...this.listEntry,
       status,
       repeat: parseInt(repeat),
-      scoreRaw: Math.trunc(parseInt(score) * 10),
+      scoreRaw: Math.trunc(parseFloat(score) * 10),
       progress: parseInt(progress),
     };
   }

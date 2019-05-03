@@ -19,9 +19,18 @@
   </mt-modal-content>
 
   <mt-modal-footer>
-    <button mat-raised-button color="accent" (click)="goToDetail()">
-      <fa-icon name="newspaper" class="baseline margin-right-xxxs"></fa-icon>
-      {{ 'media.goToDetail' | translate }}
-    </button>
+    <div class="buttons-container">
+      <button (click)="doNavigateToDetail()" mat-raised-button>
+        <fa-icon name="newspaper"></fa-icon>
+        <span>{{ 'media.goToDetail' | translate }}</span>
+      </button>
+
+      <div *ngIf="!media.mediaListEntry">
+        <button (click)="doAddAsPlanning()" mat-raised-button>
+          <fa-icon name="plus"></fa-icon>
+          <span>{{ 'media.addAsPlanning' | translate }}</span>
+        </button>
+      </div>
+    </div>
   </mt-modal-footer>
 </mt-modal>

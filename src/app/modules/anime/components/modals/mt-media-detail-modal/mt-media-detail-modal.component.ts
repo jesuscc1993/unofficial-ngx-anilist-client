@@ -1,9 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { tap } from 'rxjs/operators';
 
+import { ToastService } from '../../../../shared/services/toast.service';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
+import { AnimeService } from '../../../services/anime.service';
 
 type MediaDetailModalParameters = {
   media: Media;
@@ -22,6 +26,9 @@ export class MtMediaDetailModalComponent {
   constructor(
     private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
     private router: Router,
+    private translateService: TranslateService,
+    private toastService: ToastService,
+    private animeService: AnimeService,
     @Inject(MAT_DIALOG_DATA) protected data: MediaDetailModalParameters
   ) {
     this.origin = data.origin;
@@ -32,8 +39,34 @@ export class MtMediaDetailModalComponent {
     this.dialogRef.close();
   }
 
-  goToDetail() {
+  doNavigateToDetail() {
     this.router.navigate(['anime-detail/', this.media.id]);
     this.dismiss();
+  }
+
+  doAddAsPlanning() {
+    this.animeService
+      .saveAnimeListEntry({
+        media: this.media,
+        status: 'PLANNING',
+        repeat: 0,
+        scoreRaw: 0,
+        progress: 0,
+      })
+      .pipe(
+        tap(savedListEntry => {
+          const success: boolean = savedListEntry.id !== undefined;
+          if (success) {
+            this.toastService.showToast(
+              this.translateService.instant('listEntry.update.success', {
+                mediaTitle: savedListEntry.media.title.romaji,
+              })
+            );
+          }
+
+          this.dismiss();
+        })
+      )
+      .subscribe();
   }
 }

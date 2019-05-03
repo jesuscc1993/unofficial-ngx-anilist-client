@@ -84,4 +84,15 @@ mat-card {
       }
     }
   }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+
+    button {
+      $margin: $spacing-xxs;
+      margin-left: $margin;
+      margin-right: $margin;
+    }
+  }
 }

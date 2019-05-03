@@ -33,7 +33,9 @@ export class MtListRelatedMediaComponent implements OnInit {
   searching = true;
   error: Error;
 
-  constructor(private mediaStore: MediaStore, private animeService: AnimeService, private authStore: AuthStore) {}
+  constructor(private mediaStore: MediaStore, private animeService: AnimeService, private authStore: AuthStore) {
+    this.onError = this.onError.bind(this);
+  }
 
   ngOnInit() {
     this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
@@ -45,12 +47,7 @@ export class MtListRelatedMediaComponent implements OnInit {
           this.relatedMediaIds = relatedMediaIds;
           this.search(0, this.colCount * this.rowCount);
         }),
-        catchError(error => {
-          this.error = error;
-          this.searching = false;
-
-          return of();
-        })
+        catchError(this.onError)
       )
       .subscribe();
 
@@ -66,12 +63,7 @@ export class MtListRelatedMediaComponent implements OnInit {
     //         })
     //       )
     //     ),
-    //     catchError(error => {
-    //       this.error = error;
-    //       this.searching = false;
-
-    //       return of();
-    //     })
+    //     catchError(this.onError)
     //   )
     //   .subscribe();
   }
@@ -81,7 +73,11 @@ export class MtListRelatedMediaComponent implements OnInit {
     this.search(0, this.pagination.perPage);
   }
 
-  search(pageIndex?: number, perPage?: number) {
+  changePage({ pageIndex, pageSize }: PageEvent) {
+    this.search(pageIndex + 1, pageSize);
+  }
+
+  private search(pageIndex?: number, perPage?: number) {
     this.searching = true;
     this.error = undefined;
 
@@ -104,17 +100,15 @@ export class MtListRelatedMediaComponent implements OnInit {
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
         }),
-        catchError(error => {
-          this.error = error;
-          this.searching = false;
-
-          return of();
-        })
+        catchError(this.onError)
       )
       .subscribe();
   }
 
-  changePage({ pageIndex, pageSize }: PageEvent) {
-    this.search(pageIndex + 1, pageSize);
+  private onError(error: Error) {
+    this.error = error;
+    this.searching = false;
+
+    return of();
   }
 }

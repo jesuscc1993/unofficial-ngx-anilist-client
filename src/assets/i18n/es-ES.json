@@ -64,6 +64,7 @@
   },
   "generic": {
     "cancel": "Cancelar",
+    "delete": "Eliminar",
     "noResults": "Sin resultados.",
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso."
@@ -107,6 +108,7 @@
     "genre": "Género",
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
+    "addAsPlanning": "Añadir como planeado",
     "score": "Nota",
     "status": "Estado",
     "statusValues": {

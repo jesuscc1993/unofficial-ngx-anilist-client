@@ -105,10 +105,7 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
-- Close modal on entry save
-- Sort related media by score
-- Add "set as planning" to media dropdown for series not on list
-- Add "delete" to entry form
+- Add sort to dashboard lists
 - Add favourites to store and mark favorited entries
 - Add language selection
 - Update anime search and related media components when updating entries on their results

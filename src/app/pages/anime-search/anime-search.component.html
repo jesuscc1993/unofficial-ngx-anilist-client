@@ -172,7 +172,7 @@
 
         <div class="text-center padding-bottom-xs">
           <button mat-raised-button type="button" (click)="clearFilters($event)">
-            {{ 'anime.search.filters.clear' | translate }}
+            <span>{{ 'anime.search.filters.clear' | translate }}</span>
           </button>
         </div>
 
@@ -181,8 +181,8 @@
 
       <div class="text-center">
         <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
-          <fa-icon name="search baseline" class="margin-right-xxxs"></fa-icon>
-          {{ 'anime.search.submit' | translate }}
+          <fa-icon name="search baseline"></fa-icon>
+          <span>{{ 'anime.search.submit' | translate }}</span>
         </button>
       </div>
     </mat-card>

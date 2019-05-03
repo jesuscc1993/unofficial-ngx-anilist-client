@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { PageEvent } from '@angular/material';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 
@@ -11,6 +11,7 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 export class MtListEntryGridComponent implements OnChanges {
   @Input() listEntries: ListEntry[];
   @Input() wrapperClass?: string;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   pagination: PageEvent;
 
@@ -22,12 +23,16 @@ export class MtListEntryGridComponent implements OnChanges {
     };
   }
 
-  ngOnChanges() {
-    if (this.listEntries) {
+  ngOnChanges({ listEntries }: SimpleChanges) {
+    if (listEntries.currentValue !== listEntries.previousValue) {
       this.pagination = {
         ...this.pagination,
-        length: this.listEntries.length,
+        pageIndex: 0,
+        length: listEntries.currentValue.length,
       };
+      if (this.paginator) {
+        this.paginator.pageIndex = this.pagination.pageIndex;
+      }
     }
   }
 
