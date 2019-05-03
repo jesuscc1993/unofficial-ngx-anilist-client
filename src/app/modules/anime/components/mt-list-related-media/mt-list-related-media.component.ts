@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, filter, flatMap, tap } from 'rxjs/operators';
 
 import { AuthStore } from '../../../shared/store/auth.store';
 import { MediaStore } from '../../../shared/store/media.store';
@@ -19,10 +19,9 @@ const gridSpacing = 6;
 })
 export class MtListRelatedMediaComponent implements OnInit {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
+  readonly mediaFormats = mediaFormats;
+  readonly rowCount = 4;
 
-  mediaFormats = mediaFormats;
-
-  rowCount = 4;
   colCount?: number;
 
   relatedMediaIds: number[];
@@ -30,42 +29,34 @@ export class MtListRelatedMediaComponent implements OnInit {
   pagination: PageInfo;
   selectedFormats: MediaFormat[] = [];
 
-  searching = true;
+  searching: boolean;
   error: Error;
 
   constructor(private mediaStore: MediaStore, private animeService: AnimeService, private authStore: AuthStore) {
+    this.initialize();
+
     this.onError = this.onError.bind(this);
   }
 
   ngOnInit() {
     this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
 
-    this.animeService
-      .getRelatedAnimeMediaIds(this.authStore.getUser())
+    this.mediaStore
+      .asObservable()
       .pipe(
-        tap(relatedMediaIds => {
-          this.relatedMediaIds = relatedMediaIds;
-          this.search(0, this.colCount * this.rowCount);
-        }),
+        filter(({ animeListEntries }) => !!animeListEntries),
+        tap(() => this.initialize()),
+        flatMap(() =>
+          this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(
+            tap(relatedMediaIds => {
+              this.relatedMediaIds = relatedMediaIds;
+              this.search(0, this.colCount * this.rowCount);
+            })
+          )
+        ),
         catchError(this.onError)
       )
       .subscribe();
-
-    // this.mediaStore
-    //   .asObservable()
-    //   .pipe(
-    //     filter(({ animeListEntries }) => !!animeListEntries),
-    //     flatMap(() =>
-    //       this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(
-    //         tap(relatedMediaIds => {
-    //           this.relatedMediaIds = relatedMediaIds;
-    //           this.search(0, this.colCount * this.rowCount);
-    //         })
-    //       )
-    //     ),
-    //     catchError(this.onError)
-    //   )
-    //   .subscribe();
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
@@ -75,6 +66,13 @@ export class MtListRelatedMediaComponent implements OnInit {
 
   changePage({ pageIndex, pageSize }: PageEvent) {
     this.search(pageIndex + 1, pageSize);
+  }
+
+  private initialize() {
+    this.searching = true;
+    this.relatedMediaIds = undefined;
+    this.pagination = undefined;
+    this.error = undefined;
   }
 
   private search(pageIndex?: number, perPage?: number) {

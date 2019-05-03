@@ -4,7 +4,6 @@ import { flatMap, map, tap } from 'rxjs/operators';
 
 import { MediaStore } from '../../shared/store/media.store';
 import { ListEntry } from '../../shared/types/anilist/listEntry.types';
-import { Anime } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
@@ -39,26 +38,17 @@ export class AnimeService {
   public getAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery): Observable<MediaPage> {
     const animeDictionary = this.mediaStore.getAnimeDictionary();
     let missingIds: number[];
-    let foundAnime: Anime[];
 
     if (animeDictionary) {
       const storeIds = Object.keys(animeDictionary).map(key => parseInt(key));
       missingIds = mediaIds.filter(id => storeIds.indexOf(id) < 0);
-      foundAnime = mediaIds.map(id => animeDictionary[id]).filter(anime => !!anime);
-    } else {
-      missingIds = [...mediaIds];
-      foundAnime = [];
     }
 
+    // NOTE: all media has to be retrieved even if some exist due to search pagination
     return missingIds.length
-      ? this.animeApi.queryAnimeFromIds(missingIds, query, pageQuery).pipe(
-          map(mediaPage => ({
-            ...mediaPage,
-            media: [...foundAnime, ...mediaPage.media],
-          }))
-        )
+      ? this.animeApi.queryAnimeFromIds(mediaIds, query, pageQuery)
       : of({
-          media: foundAnime,
+          media: mediaIds.map(id => animeDictionary[id]).filter(anime => !!anime),
           pageInfo: pageQuery as PageInfo,
         });
   }
