@@ -5,6 +5,6 @@
 
 export const environment = {
   anilist_client_id: 42,
-  i18nPath: '/assets/i18n/',
-  production: false,
+  i18nPath: '/unofficial-ngx-anilist-client/assets/i18n/',
+  production: true,
 };
