@@ -108,4 +108,4 @@ Provides multiple actions to be done with an anime
 - Add sort to dashboard lists
 - Add favourites to store and mark favorited entries
 - Add language selection
-- Update anime search and related media components when updating entries on their results
+- Add "add as planning" to media actions
