@@ -45,6 +45,7 @@
       "genresOverview": "Genres Overview",
       "goTo": "Go to",
       "noEntries": "No entries added yet.",
+      "setAsPlanning": "Set as planning",
       "show": "Show",
       "title": "User's list",
       "toggleFavourite": "Toggle favourite",
@@ -64,6 +65,7 @@
   },
   "generic": {
     "cancel": "Cancel",
+    "delete": "Delete",
     "noResults": "No results.",
     "submit": "Submit",
     "workInProgress": "Work in progress."

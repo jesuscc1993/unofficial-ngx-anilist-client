@@ -45,6 +45,7 @@
       "genresOverview": "Overview de Géneros",
       "goTo": "Ir a",
       "noEntries": "Sin entradas añadidas aún.",
+      "setAsPlanning": "Guardar como planeado",
       "show": "Mostrar",
       "title": "Lista del usuario",
       "toggleFavourite": "Alternar favorito",
@@ -64,6 +65,7 @@
   },
   "generic": {
     "cancel": "Cancelar",
+    "delete": "Eliminar",
     "noResults": "Sin resultados.",
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso."
