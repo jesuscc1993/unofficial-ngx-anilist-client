@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, filter, takeUntil, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
-import { getListEntriesByStatus } from '../../modules/anime/domain/media.domain';
 import { AnimeService } from '../../modules/anime/services/anime.service';
+import {
+  WithObservableOnDestroy,
+} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
-import { MediaStore } from '../../modules/shared/store/media.store';
 import { ListEntriesByStatus, ListEntryStatus } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 import { ScrollUtil } from '../../utils/generic.util';
@@ -19,9 +20,9 @@ import { ScrollUtil } from '../../utils/generic.util';
   templateUrl: './user-anime-list.component.html',
   styleUrls: ['./user-anime-list.component.scss'],
 })
-export class UserAnimeListPageComponent {
+export class UserAnimeListPageComponent extends WithObservableOnDestroy {
   user: User;
-  listEntryListByStatus: ListEntriesByStatus;
+  listEntriesByStatus: ListEntriesByStatus;
   statuses: { value: ListEntryStatus; shown: boolean }[];
   favouriteIDs: number[];
 
@@ -36,9 +37,10 @@ export class UserAnimeListPageComponent {
     private titleService: TitleService,
     private translateService: TranslateService,
     private animeService: AnimeService,
-    private authStore: AuthStore,
-    private mediaStore: MediaStore
+    private authStore: AuthStore
   ) {
+    super();
+
     this.titleService.setTitle(this.translateService.instant('anime.userList.title'));
 
     this.user = this.authStore.getUser();
@@ -53,14 +55,13 @@ export class UserAnimeListPageComponent {
 
   private getUserList() {
     if (this.user) {
-      this.mediaStore
-        .asObservable()
+      this.animeService
+        .getlistEntriesGroupedByStatus()
         .pipe(
-          filter(({ animeListEntries }) => !!animeListEntries),
-          map(({ animeListEntries }) => getListEntriesByStatus(animeListEntries)),
-          tap(listEntryListByStatus => {
-            this.listEntryListByStatus = listEntryListByStatus;
-            this.statuses = Object.keys(this.listEntryListByStatus)
+          takeUntil(this.destroyed$),
+          tap(listEntriesByStatus => {
+            this.listEntriesByStatus = listEntriesByStatus;
+            this.statuses = Object.keys(this.listEntriesByStatus)
               .sort()
               .map(status => ({
                 value: status as ListEntryStatus,
@@ -88,9 +89,7 @@ export class UserAnimeListPageComponent {
   }
 
   hasDataOfStatus(status: string): boolean {
-    return (
-      this.listEntryListByStatus && this.listEntryListByStatus[status] && this.listEntryListByStatus[status].length > 0
-    );
+    return this.listEntriesByStatus && this.listEntriesByStatus[status] && this.listEntriesByStatus[status].length > 0;
   }
 
   scrollToStatus(status: string) {
@@ -102,11 +101,11 @@ export class UserAnimeListPageComponent {
   }
 
   getListAsString(): string {
-    return JSON.stringify(this.listEntryListByStatus, undefined, 2);
+    return JSON.stringify(this.listEntriesByStatus, undefined, 2);
   }
 
   private updateListData() {
-    this.listEntryListByStatus = undefined;
+    this.listEntriesByStatus = undefined;
     this.statuses = undefined;
     this.favouriteIDs = undefined;
     this.ready = false;

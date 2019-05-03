@@ -9,6 +9,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
+import { fuzzyDateToDate, getListEntriesByStatus } from '../domain/media.domain';
 
 @Injectable()
 export class AnimeService {
@@ -24,14 +25,8 @@ export class AnimeService {
         const animeIds = pageData.media.map(media => media.id);
         return this.getAnimeFromIds(animeIds, {
           sort: query.sort || query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI',
-        }).pipe(
-          // tap(mediaPage => {
-          //   alert(JSON.stringify(mediaPage, undefined, 2));
-          // }),
-          map(({ media }) => ({ ...pageData, media: animeIds.map(id => media.find(anime => anime.id === id)) }))
-        );
-      }),
-      tap(pageData => this.mediaStore.storeAnime(pageData.media))
+        }).pipe(map(({ media }) => ({ ...pageData, media: animeIds.map(id => media.find(anime => anime.id === id)) })));
+      })
     );
   }
 
@@ -46,7 +41,9 @@ export class AnimeService {
 
     // NOTE: all media has to be retrieved even if some exist due to search pagination
     return missingIds.length
-      ? this.animeApi.queryAnimeFromIds(mediaIds, query, pageQuery)
+      ? this.animeApi
+          .queryAnimeFromIds(mediaIds, query, pageQuery)
+          .pipe(tap(pageData => this.mediaStore.storeAnime(pageData.media)))
       : of({
           media: mediaIds.map(id => animeDictionary[id]).filter(anime => !!anime),
           pageInfo: pageQuery as PageInfo,
@@ -90,12 +87,36 @@ export class AnimeService {
   public deleteAnimeListEntry(listEntry: ListEntry) {
     return this.animeApi.deleteAnimeListEntry(listEntry).pipe(
       tap(() => {
-        this.mediaStore.deleteAnimeListEntry(listEntry.id);
+        this.mediaStore.deleteAnimeListEntry(listEntry);
       })
     );
   }
 
   public toggleFavouriteAnimeListEntry(listEntry: ListEntry) {
     return this.animeApi.toggleAnimeFavouriteEntry(listEntry);
+  }
+
+  public getlistEntriesGroupedByStatus() {
+    return this.mediaStore
+      .changes('animeListEntries')
+      .pipe(map(animeListEntries => getListEntriesByStatus(animeListEntries)));
+  }
+
+  public getListEntriesByDateUpdated() {
+    return this.mediaStore.changes('animeListEntries');
+  }
+
+  public getPendingMediaByEndDate() {
+    return this.mediaStore
+      .changes('animeListEntries')
+      .pipe(
+        map(animeListEntries =>
+          animeListEntries
+            .filter(
+              listEntry => ['PLANNING', 'CURRENT'].includes(listEntry.status) && listEntry.media.status === 'FINISHED'
+            )
+            .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
+        )
+      );
   }
 }

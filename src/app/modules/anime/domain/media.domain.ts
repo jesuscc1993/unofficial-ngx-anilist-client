@@ -24,9 +24,9 @@ export const getMediaSortFromSort = (sort: Sort): MediaSort => {
 
 export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
   return listEntries.reduce(
-    (listEntryListByStatus, listEntry) => ({
-      ...listEntryListByStatus,
-      [listEntry.status]: [...(listEntryListByStatus[listEntry.status] || []), listEntry],
+    (listEntriesByStatus, listEntry) => ({
+      ...listEntriesByStatus,
+      [listEntry.status]: [...(listEntriesByStatus[listEntry.status] || []), listEntry],
     }),
     {} as ListEntriesByStatus
   );

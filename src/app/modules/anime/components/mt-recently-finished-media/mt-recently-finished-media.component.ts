@@ -1,44 +1,41 @@
 import { Component } from '@angular/core';
-import { filter, map, tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
-import { MediaStore } from '../../../shared/store/media.store';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
-import { fuzzyDateToDate } from '../../domain/media.domain';
+import { AnimeService } from '../../services/anime.service';
 
 @Component({
   selector: 'mt-recently-finished-media',
   templateUrl: './mt-recently-finished-media.component.html',
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
-export class MtRecentlyFinishedMediaComponent {
+export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
   private listEntries: ListEntry[];
   filteredEntries: ListEntry[];
 
   mediaFormats: MediaFormat[];
   selectedFormats: MediaFormat[] = [];
 
-  ready: boolean;
+  loading: boolean = true;
 
-  constructor(private mediaStore: MediaStore) {
-    this.mediaStore
-      .asObservable()
+  constructor(private animeService: AnimeService) {
+    super();
+
+    this.animeService
+      .getPendingMediaByEndDate()
       .pipe(
-        filter(({ animeListEntries }) => !!animeListEntries),
-        map(({ animeListEntries }) =>
-          animeListEntries
-            .filter(
-              listEntry => ['PLANNING', 'CURRENT'].includes(listEntry.status) && listEntry.media.status === 'FINISHED'
-            )
-            .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
-        ),
+        takeUntil(this.destroyed$),
         tap(animeListEntries => {
           this.listEntries = animeListEntries;
           this.mediaFormats = mediaFormats.filter(
             format => !!animeListEntries.find(entry => entry.media.format === format)
           );
           this.filterEntries();
-          this.ready = true;
+          this.loading = false;
         })
       )
       .subscribe();

@@ -42,7 +42,7 @@
         <div id="{{ status.value }}" *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
           <mt-user-anime-list-table
             [tableStatus]="status.value"
-            [tableData]="listEntryListByStatus[status.value]"
+            [tableData]="listEntriesByStatus[status.value]"
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"
           >

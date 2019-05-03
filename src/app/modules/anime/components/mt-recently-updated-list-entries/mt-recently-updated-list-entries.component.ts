@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
-import { filter, tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
-import { MediaStore } from '../../../shared/store/media.store';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry, ListEntryStatus, listEntryStatuses } from '../../../shared/types/anilist/listEntry.types';
+import { AnimeService } from '../../services/anime.service';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',
   templateUrl: './mt-recently-updated-list-entries.component.html',
   styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
 })
-export class MtRecentlyUpdatedListEntriesComponent {
+export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestroy {
   private listEntries: ListEntry[];
   filteredEntries: ListEntry[];
 
@@ -18,12 +21,14 @@ export class MtRecentlyUpdatedListEntriesComponent {
 
   ready: boolean;
 
-  constructor(private mediaStore: MediaStore) {
-    this.mediaStore
-      .asObservable()
+  constructor(private animeService: AnimeService) {
+    super();
+
+    this.animeService
+      .getListEntriesByDateUpdated()
       .pipe(
-        filter(({ animeListEntries }) => !!animeListEntries),
-        tap(({ animeListEntries }) => {
+        takeUntil(this.destroyed$),
+        tap(animeListEntries => {
           this.listEntries = animeListEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
           this.listEntryStatuses = listEntryStatuses.filter(
             status => !!animeListEntries.find(entry => entry.status === status)

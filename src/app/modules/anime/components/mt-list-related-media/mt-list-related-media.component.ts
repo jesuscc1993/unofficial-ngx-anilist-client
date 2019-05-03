@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { of } from 'rxjs';
-import { catchError, filter, flatMap, tap } from 'rxjs/operators';
+import { catchError, flatMap, takeUntil, tap } from 'rxjs/operators';
 
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import { MediaStore } from '../../../shared/store/media.store';
 import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
@@ -17,7 +20,7 @@ const gridSpacing = 6;
   templateUrl: './mt-list-related-media.component.html',
   styleUrls: ['./mt-list-related-media.component.scss'],
 })
-export class MtListRelatedMediaComponent implements OnInit {
+export class MtListRelatedMediaComponent extends WithObservableOnDestroy implements OnInit {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
   readonly mediaFormats = mediaFormats;
   readonly rowCount = 4;
@@ -33,8 +36,8 @@ export class MtListRelatedMediaComponent implements OnInit {
   error: Error;
 
   constructor(private mediaStore: MediaStore, private animeService: AnimeService, private authStore: AuthStore) {
+    super();
     this.initialize();
-
     this.onError = this.onError.bind(this);
   }
 
@@ -42,9 +45,9 @@ export class MtListRelatedMediaComponent implements OnInit {
     this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
 
     this.mediaStore
-      .asObservable()
+      .changes('animeListEntries')
       .pipe(
-        filter(({ animeListEntries }) => !!animeListEntries),
+        takeUntil(this.destroyed$),
         tap(() => this.initialize()),
         flatMap(() =>
           this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(

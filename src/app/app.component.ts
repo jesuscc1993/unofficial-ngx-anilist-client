@@ -13,9 +13,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authStore
-      .asObservable()
+      .changes('user')
       .pipe(
-        tap(({ user }) => {
+        tap(user => {
           if (user) {
             this.animeService.getAnimeListEntries(this.authStore.getUser()).subscribe();
           }

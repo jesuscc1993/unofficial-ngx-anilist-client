@@ -1,12 +1,6 @@
 <fa-icon name="bars" class="menu-toggle clickable" [matMenuTriggerFor]="entryMenu"></fa-icon>
 
 <mat-menu #entryMenu="matMenu">
-  <div *ngIf="viewEnabled">
-    <mt-menu-action (onPress)="doOpenDetailModal()" icon="id-card">{{
-      'media.additionalInfo' | translate
-    }}</mt-menu-action>
-  </div>
-
   <div *ngIf="editEnabled">
     <mt-menu-action
       (onPress)="doOpenEditionModal()"
@@ -27,6 +21,12 @@
   <div *ngIf="isUpdateAvailable()">
     <mt-menu-action (onPress)="doDeleteEntry()" icon="trash">{{
       'anime.userList.deleteFromList' | translate
+    }}</mt-menu-action>
+  </div>
+
+  <div *ngIf="viewEnabled">
+    <mt-menu-action (onPress)="doOpenDetailModal()" icon="id-card">{{
+      'media.additionalInfo' | translate
     }}</mt-menu-action>
   </div>
 

@@ -86,13 +86,20 @@ mat-card {
   }
 
   .buttons-container {
+    $horizontalButtonMargin: $spacing-xxs;
     display: flex;
     justify-content: center;
 
+    &.float-left {
+      margin-left: -$horizontalButtonMargin;
+    }
+    &.float-right {
+      margin-right: -$horizontalButtonMargin;
+    }
+
     button {
-      $margin: $spacing-xxs;
-      margin-left: $margin;
-      margin-right: $margin;
+      margin-left: $horizontalButtonMargin;
+      margin-right: $horizontalButtonMargin;
     }
   }
 }

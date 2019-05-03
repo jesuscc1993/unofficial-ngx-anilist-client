@@ -19,6 +19,7 @@ import {
 import { AuthService } from '../../modules/shared/services/auth.service';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
+import { MediaStore } from '../../modules/shared/store/media.store';
 import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/anilist/media.types';
 import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
@@ -58,6 +59,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     private animeService: AnimeService,
     private authService: AuthService,
     private authStore: AuthStore,
+    private mediaStore: MediaStore,
     private formBuilder: FormBuilder
   ) {
     super();
@@ -76,6 +78,14 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       .pipe(
         takeUntil(this.destroyed$),
         tap(user => (this.user = user))
+      )
+      .subscribe();
+
+    this.mediaStore
+      .changes('animeListEntries')
+      .pipe(
+        takeUntil(this.destroyed$),
+        tap(() => this.search())
       )
       .subscribe();
   }

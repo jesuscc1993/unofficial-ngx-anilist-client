@@ -205,7 +205,7 @@
     </mat-card>
 
     <mat-card *ngIf="animeList?.length > 0" class="no-padding">
-      <mt-search-results-table [tableData]="animeList" (onSortChange)="sortBy($event)"> </mt-search-results-table>
+      <mt-search-results-table [tableData]="animeList" (onSortChange)="sortBy($event)"></mt-search-results-table>
 
       <mat-paginator
         *ngIf="pagination?.total"
