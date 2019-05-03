@@ -5,8 +5,9 @@ import { flatMap, map, tap } from 'rxjs/operators';
 import { MediaStore } from '../../shared/store/media.store';
 import { ListEntry } from '../../shared/types/anilist/listEntry.types';
 import { Anime } from '../../shared/types/anilist/media.types';
-import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
+import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
+import { MediaPage } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
 
@@ -18,26 +19,58 @@ export class AnimeService {
     return this.animeApi.queryAnimeGenres();
   }
 
-  public searchAnime(query: SearchFilters, pageInfo?: PageQuery) {
-    return this.animeApi.queryAnimeSearch(query, pageInfo).pipe(
+  public searchAnime(query: SearchFilters, pageQuery?: PageQuery): Observable<MediaPage> {
+    return this.animeApi.queryAnimeSearch(query, pageQuery).pipe(
       flatMap(pageData => {
         const animeIds = pageData.media.map(media => media.id);
-        return this.getAnimeFromIds(animeIds).pipe(
-          map(animeList => ({ ...pageData, media: animeIds.map(id => animeList.find(anime => anime.id === id)) }))
+        return this.getAnimeFromIds(animeIds, {
+          sort: query.sort || query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI',
+        }).pipe(
+          // tap(mediaPage => {
+          //   alert(JSON.stringify(mediaPage, undefined, 2));
+          // }),
+          map(({ media }) => ({ ...pageData, media: animeIds.map(id => media.find(anime => anime.id === id)) }))
         );
       }),
       tap(pageData => this.mediaStore.storeAnime(pageData.media))
     );
   }
 
-  public getAnimeListEntries(user: User) {
+  public getAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery): Observable<MediaPage> {
+    const animeDictionary = this.mediaStore.getAnimeDictionary();
+    let missingIds: number[];
+    let foundAnime: Anime[];
+
+    if (animeDictionary) {
+      const storeIds = Object.keys(animeDictionary).map(key => parseInt(key));
+      missingIds = mediaIds.filter(id => storeIds.indexOf(id) < 0);
+      foundAnime = mediaIds.map(id => animeDictionary[id]).filter(anime => !!anime);
+    } else {
+      missingIds = [...mediaIds];
+      foundAnime = [];
+    }
+
+    return missingIds.length
+      ? this.animeApi.queryAnimeFromIds(missingIds, query, pageQuery).pipe(
+          map(mediaPage => ({
+            ...mediaPage,
+            media: [...foundAnime, ...mediaPage.media],
+          }))
+        )
+      : of({
+          media: foundAnime,
+          pageInfo: pageQuery as PageInfo,
+        });
+  }
+
+  public getAnimeListEntries(user: User): Observable<ListEntry[]> {
     const storeEntries = this.mediaStore.getAnimeListEntries();
     return storeEntries
       ? of(storeEntries)
       : this.animeApi.queryAnimeList(user).pipe(tap(listEntries => this.mediaStore.setAnimeListEntries(listEntries)));
   }
 
-  public getRelatedAnimeMediaIds(user: User) {
+  public getRelatedAnimeMediaIds(user: User): Observable<number[]> {
     const storeEntries = this.mediaStore.getAnimeListEntries();
     return this.animeApi.queryRelatedAnimeMediaIds(user).pipe(
       flatMap(animeMediaIds =>
@@ -55,7 +88,7 @@ export class AnimeService {
     return this.animeApi.queryAnimeListFavouriteIDs(user, callback);
   }
 
-  public saveAnimeListEntry(listEntry: ListEntry) {
+  public saveAnimeListEntry(listEntry: ListEntry): Observable<ListEntry> {
     return this.animeApi.saveAnimeListEntry(listEntry).pipe(
       map(updatedListEntry => ({ ...listEntry, ...updatedListEntry })),
       tap(updatedListEntry => {
@@ -74,13 +107,5 @@ export class AnimeService {
 
   public toggleFavouriteAnimeListEntry(listEntry: ListEntry) {
     return this.animeApi.toggleAnimeFavouriteEntry(listEntry);
-  }
-
-  private getAnimeFromIds(mediaIds: number[]): Observable<Anime[]> {
-    const animeDictionary = this.mediaStore.getAnimeDictionary();
-    const storeIds = Object.keys(animeDictionary).map(key => parseInt(key));
-    const missingIds = mediaIds.filter(id => storeIds.indexOf(id) < 0);
-
-    return missingIds.length ? this.animeApi.queryAnimeFromIds(mediaIds) : of(mediaIds.map(id => animeDictionary[id]));
   }
 }

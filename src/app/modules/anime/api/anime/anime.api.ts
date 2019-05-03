@@ -47,19 +47,18 @@ export class AnimeApi extends AniListApi {
     );
   }
 
-  public queryAnimeFromIds(mediaIds: number[]) {
+  public queryAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaSearchQuery, {
+      ...(pageQuery ? this.getPageOptions(pageQuery) : { perPage: mediaIds.length }),
+      ...query,
       mediaType: 'ANIME',
       idIn: mediaIds,
-      sort: 'TITLE_ROMAJI',
-
-      perPage: mediaIds.length,
-    }).pipe(map(response => this.getResponseData(response).Page.media));
+    }).pipe(map(response => this.getResponseData(response).Page));
   }
 
-  public queryAnimeSearch(query: SearchFilters, pageInfo?: PageQuery) {
+  public queryAnimeSearch(query: SearchFilters, pageQuery?: PageQuery) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaIdSearchQuery, {
-      ...this.getPageOptions(pageInfo),
+      ...this.getPageOptions(pageQuery),
       ...query,
       mediaType: 'ANIME',
       adultContent: query.adultContent || false,

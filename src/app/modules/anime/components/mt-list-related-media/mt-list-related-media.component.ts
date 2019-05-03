@@ -82,9 +82,9 @@ export class MtListRelatedMediaComponent implements OnInit {
     this.error = undefined;
 
     this.animeService
-      .searchAnime(
+      .getAnimeFromIds(
+        this.relatedMediaIds,
         {
-          idIn: this.relatedMediaIds,
           formatIn: this.selectedFormats.length ? this.selectedFormats : undefined,
           sort: 'END_DATE_DESC',
         },
