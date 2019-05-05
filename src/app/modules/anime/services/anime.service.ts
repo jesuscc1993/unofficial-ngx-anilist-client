@@ -58,6 +58,26 @@ export class AnimeService {
       : this.animeApi.queryAnimeList(user).pipe(tap(listEntries => this.mediaStore.setAnimeListEntries(listEntries)));
   }
 
+  public getAnimeListEntriesExport(user: User) {
+    return this.getAnimeListEntries(user).pipe(
+      map(entries =>
+        entries.map(({ scoreRaw, progress, repeat, status, media }) => {
+          const entryExport = {
+            media: {
+              title: media.title,
+            },
+            status,
+            progress: status !== 'COMPLETED' ? progress : undefined,
+            repeat,
+            scoreRaw,
+          };
+          return entryExport;
+        })
+      ),
+      tap(entries => console.log(JSON.stringify(entries, (key, value) => (!!value ? value : undefined), 2)))
+    );
+  }
+
   public getRelatedAnimeMediaIds(user: User): Observable<number[]> {
     const storeEntries = this.mediaStore.getAnimeListEntries();
     return this.animeApi.queryRelatedAnimeMediaIds(user).pipe(

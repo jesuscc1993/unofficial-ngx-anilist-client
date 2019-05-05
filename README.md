@@ -109,4 +109,5 @@ Provides multiple actions to be done with an anime
 - Add favourites to store and mark favorited entries
 - Add language selection
 - Add "export as JSON" feature to the user's list
+- Move tags to the store
 - Do NOT reset pagination on list changes (reset only on filter changes)
