@@ -108,7 +108,6 @@ Provides multiple actions to be done with an anime
 - Add sort to dashboard lists
 - Add favourites to store and mark favorited entries
 - Add language selection
-- Add start / end dates to media detail
 - Add "export as JSON" feature to the user's list
 - Do NOT show media related to unfinished / dropped media
 - Do NOT reset pagination on list changes (reset only on filter changes)

@@ -1,6 +1,7 @@
 @import 'variables';
 
 .property-value-pair {
+  $property-width: 80px;
   align-items: flex-start;
 
   &:last-child {
@@ -10,14 +11,19 @@
   .property,
   .value {
     display: inline-block;
+    box-sizing: border-box;
   }
 
   .property {
-    min-width: $spacing-xl + $spacing-xs;
+    min-width: $property-width;
   }
 
   .value {
-    width: calc(100% - #{$spacing-xxl - $spacing-s});
+    max-width: calc(100% - #{$property-width});
+  }
+
+  .property + .value {
+    padding-left: $spacing-xs;
   }
 }
 

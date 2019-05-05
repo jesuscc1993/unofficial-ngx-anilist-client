@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { FuzzyDate } from '../../../shared/types/anilist/dataTypes.types';
 import { Anime, Media } from '../../../shared/types/anilist/media.types';
-import { getFormattedMediaDuration } from '../../domain/media.domain';
+import { getFormattedFuzzyDate, getFormattedMediaDuration } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-anime-info',
@@ -15,5 +16,9 @@ export class MtAnimeInfoComponent {
 
   getFormattedMediaDuration(media: Media) {
     return getFormattedMediaDuration(media);
+  }
+
+  getFormattedFuzzyDate(fuzzyDatemedia: FuzzyDate) {
+    return getFormattedFuzzyDate(fuzzyDatemedia);
   }
 }

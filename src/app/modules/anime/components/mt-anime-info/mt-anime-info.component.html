@@ -28,8 +28,13 @@
       </p>
 
       <p *ngIf="!generalInfoOnly && anime.startDate.year" class="property-value-pair flex-box">
-        <strong class="property">{{ 'media.year' | translate }}:</strong>
-        <span class="value">{{ anime.startDate.year }}</span>
+        <strong class="property">{{ 'media.startDate' | translate }}:</strong>
+        <span class="value">{{ getFormattedFuzzyDate(anime.startDate) }}</span>
+      </p>
+
+      <p *ngIf="!generalInfoOnly && anime.startDate.year" class="property-value-pair flex-box">
+        <strong class="property">{{ 'media.endDate' | translate }}:</strong>
+        <span class="value">{{ getFormattedFuzzyDate(anime.endDate) }}</span>
       </p>
 
       <p *ngIf="generalInfoOnly && anime.format?.length" class="property-value-pair flex-box">
