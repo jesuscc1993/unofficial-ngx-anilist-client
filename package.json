@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production --base-href https://jesuscc1993.github.io/unofficial-ngx-anilist-client/",
-    "deploy": "npx ngh --dir=dist/unofficial-angular-material-anilist-client/",
+    "deploy": "git checkout master && git merge develop && git push && yarn build && npx ngh --dir=dist/unofficial-angular-material-anilist-client/ && git checkout develop",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

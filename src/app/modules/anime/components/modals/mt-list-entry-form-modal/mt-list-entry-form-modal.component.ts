@@ -108,7 +108,7 @@ export class MtListEntryFormModalComponent {
     return !this.listEntry || JSON.stringify(this.getFormEntry()) !== JSON.stringify(this.listEntry);
   }
 
-  onListEntryChanges() {
+  onListEntryChanges(listEntry: ListEntry) {
     this.dismiss();
   }
 
