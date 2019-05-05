@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
 
 import { ToastService } from '../../../../shared/services/toast.service';
+import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { AnimeService } from '../../../services/anime.service';
@@ -21,7 +22,7 @@ type MediaDetailModalParameters = {
 })
 export class MtMediaDetailModalComponent {
   readonly origin: ModalOrigin;
-  readonly media: Media;
+  media: Media;
 
   constructor(
     private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
@@ -61,5 +62,9 @@ export class MtMediaDetailModalComponent {
         })
       )
       .subscribe();
+  }
+
+  onListEntryChanges(listEntry: ListEntry) {
+    this.media = listEntry.media;
   }
 }

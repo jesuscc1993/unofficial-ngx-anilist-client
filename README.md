@@ -110,4 +110,3 @@ Provides multiple actions to be done with an anime
 - Add language selection
 - Add "export as JSON" feature to the user's list
 - Do NOT reset pagination on list changes (reset only on filter changes)
-- Close modal when updated entry from media actions

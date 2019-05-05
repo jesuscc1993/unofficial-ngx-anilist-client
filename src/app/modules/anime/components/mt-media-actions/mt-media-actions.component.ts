@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -29,6 +29,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
   @Input() origin?: ModalOrigin;
   @Input() viewEnabled: boolean = true;
   @Input() editEnabled: boolean = true;
+  @Output() onListEntryChanges: EventEmitter<ListEntry>;
 
   user: User;
 
@@ -50,6 +51,8 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
         tap(user => (this.user = user))
       )
       .subscribe();
+
+    this.onListEntryChanges = new EventEmitter();
   }
 
   ngOnInit() {
@@ -84,6 +87,8 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
                 mediaTitle: savedListEntry.media.title.romaji,
               })
             );
+
+            this.setListEntry(savedListEntry);
           }
         })
       )
@@ -132,7 +137,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
               })
             );
 
-            this.listEntry = undefined;
+            this.setListEntry(undefined);
           }
         })
       )
@@ -145,5 +150,11 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
 
   isUpdateAvailable(): boolean {
     return !!this.listEntry && !!this.user;
+  }
+
+  private setListEntry(listEntry: ListEntry) {
+    this.media = { ...this.media, mediaListEntry: listEntry };
+    this.listEntry = { ...listEntry, media: this.media };
+    this.onListEntryChanges.emit(this.listEntry);
   }
 }

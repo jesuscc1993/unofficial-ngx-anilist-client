@@ -108,6 +108,10 @@ export class MtListEntryFormModalComponent {
     return !this.listEntry || JSON.stringify(this.getFormEntry()) !== JSON.stringify(this.listEntry);
   }
 
+  onListEntryChanges() {
+    this.dismiss();
+  }
+
   private getFormEntry(): ListEntry {
     const { progress, repeat, score, status } = this.listEntryForm.value;
     return {

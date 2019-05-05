@@ -6,6 +6,7 @@
         [media]="listEntry.media"
         [viewEnabled]="origin !== 'view'"
         [editEnabled]="false"
+        (onListEntryChanges)="onListEntryChanges($event)"
         class="inline-block margin-right-xxs"
       >
       </mt-media-actions
