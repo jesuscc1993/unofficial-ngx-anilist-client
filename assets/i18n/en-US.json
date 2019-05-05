@@ -94,6 +94,7 @@
     "cover": "Cover",
     "description": "Description",
     "duration": "Duration",
+    "endDate": "End Date",
     "episodes": "Episodes",
     "format": "Format",
     "formatValues": {
@@ -110,6 +111,7 @@
     "genres": "Genres",
     "goToDetail": "Go to full detail",
     "score": "Score",
+    "startDate": "Start Date",
     "status": "Status",
     "statusValues": {
       "CANCELLED": "Cancelled",

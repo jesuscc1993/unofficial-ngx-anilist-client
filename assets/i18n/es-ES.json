@@ -94,6 +94,7 @@
     "cover": "Imagen",
     "description": "Descripción",
     "duration": "Duración",
+    "endDate": "Fecha Fin",
     "episodes": "Episodios",
     "format": "Formato",
     "formatValues": {
@@ -110,6 +111,7 @@
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
     "score": "Nota",
+    "startDate": "Fecha Inicio",
     "status": "Estado",
     "statusValues": {
       "CANCELLED": "Cancelado",
