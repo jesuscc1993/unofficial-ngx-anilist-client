@@ -9,6 +9,7 @@ import {
 import { AuthStore } from '../../../shared/store/auth.store';
 import { MediaStore } from '../../../shared/store/media.store';
 import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
+import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeService } from '../../services/anime.service';
 
@@ -22,6 +23,7 @@ const gridSpacing = 6;
 })
 export class MtListRelatedMediaComponent extends WithObservableOnDestroy implements OnInit {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
+  readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
   readonly rowCount = 4;
 
@@ -30,6 +32,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
   relatedMediaIds: number[];
   animeList: Anime[];
   pagination: PageInfo;
+  selectedSort: MediaSort = 'END_DATE_DESC';
   selectedFormats: MediaFormat[] = [];
 
   searching: boolean;
@@ -62,6 +65,11 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
       .subscribe();
   }
 
+  sortBy(mediaSort: MediaSort) {
+    this.selectedSort = mediaSort;
+    this.search(0, this.pagination.perPage);
+  }
+
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.search(0, this.pagination.perPage);
@@ -87,7 +95,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
         this.relatedMediaIds,
         {
           formatIn: this.selectedFormats.length ? this.selectedFormats : undefined,
-          sort: 'END_DATE_DESC',
+          sort: this.selectedSort,
         },
         {
           pageIndex,

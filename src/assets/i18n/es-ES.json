@@ -67,6 +67,7 @@
     "cancel": "Cancelar",
     "delete": "Eliminar",
     "noResults": "Sin resultados.",
+    "sort": "Orden",
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso."
   },
@@ -111,6 +112,11 @@
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
     "score": "Nota",
+    "sortValues": {
+      "TITLE_ROMAJI": "Título",
+      "END_DATE_DESC": "Fecha fin",
+      "SCORE_DESC": "Nota"
+    },
     "startDate": "Fecha Inicio",
     "status": "Estado",
     "statusValues": {

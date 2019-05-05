@@ -5,6 +5,15 @@
     </div>
 
     <div class="header header-dropdown">
+      <span>{{ 'generic.sort' | translate }}:</span>
+      <mat-select class="width-auto" [ngModel]="selectedSort" (ngModelChange)="sortBy($event)">
+        <mat-option *ngFor="let sort of mediaSorts" [value]="sort">{{
+          'media.sortValues.' + sort | translate
+        }}</mat-option>
+      </mat-select>
+    </div>
+
+    <div class="header header-dropdown">
       <span>{{ 'media.format' | translate }} {{ 'anime.search.filters.includedIn' | translate }}:</span>
       <mat-select
         class="width-auto"
