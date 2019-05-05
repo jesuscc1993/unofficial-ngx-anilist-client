@@ -56,7 +56,7 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
   private getUserList() {
     if (this.user) {
       this.animeService
-        .getlistEntriesGroupedByStatus()
+        .getListEntriesGroupedByStatus()
         .pipe(
           takeUntil(this.destroyed$),
           tap(listEntriesByStatus => {

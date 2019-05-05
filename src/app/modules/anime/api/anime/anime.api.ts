@@ -92,7 +92,7 @@ export class AnimeApi extends AniListApi {
         const listMediaDto = this.getResponseData(response);
         if (listMediaDto) {
           listMediaDto.MediaListCollection.lists.forEach(list => {
-            if (list.entries[0].status !== 'DROPPED') {
+            if (['COMPLETED', 'REPEATING'].includes(list.entries[0].status)) {
               list.entries.forEach(listEntry => {
                 listEntry.media.relations.nodes.forEach(anime => {
                   if (!mediaIds.includes(anime.id)) {

@@ -108,7 +108,7 @@ export class AnimeService {
     return this.animeApi.toggleAnimeFavouriteEntry(listEntry);
   }
 
-  public getlistEntriesGroupedByStatus() {
+  public getListEntriesGroupedByStatus() {
     return this.mediaStore
       .changes('animeListEntries')
       .pipe(map(animeListEntries => getListEntriesByStatus(animeListEntries)));
