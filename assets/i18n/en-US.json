@@ -99,6 +99,7 @@
     "episodes": "Episodes",
     "format": "Format",
     "formatValues": {
+      "null": "-",
       "undefined": "Any",
       "MOVIE": "Movie",
       "MUSIC": "Music",
