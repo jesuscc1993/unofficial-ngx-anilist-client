@@ -25,7 +25,7 @@ export class AnimeService {
       flatMap(pageData => {
         const animeIds = pageData.media.map(media => media.id);
         return this.getAnimeFromIds(animeIds, {
-          sort: query.sort || query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI',
+          sort: query.sort || (query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI'),
         }).pipe(map(({ media }) => ({ ...pageData, media: animeIds.map(id => media.find(anime => anime.id === id)) })));
       })
     );

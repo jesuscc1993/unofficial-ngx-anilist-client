@@ -62,7 +62,7 @@ export class AnimeApi extends AniListApi {
       ...query,
       mediaType: 'ANIME',
       adultContent: query.adultContent || false,
-      sort: query.sort || query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI',
+      sort: query.sort || (query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI'),
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
