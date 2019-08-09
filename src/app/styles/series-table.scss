@@ -4,30 +4,36 @@
 $desktop-horizontal-cell-padding: 32px;
 $mobile-horizontal-cell-padding: 40px;
 
+@mixin setup-row-status($color) {
+  border-left-color: $color;
+
+  // .menu-toggle {
+  //   color: $color;
+  // }
+}
+
 .series-table {
   mat-row {
-    $bg-intensity: 0.1;
-
     &.completed {
       $color: map-get($mat-green, 500);
-      background: rgba($color, $bg-intensity);
+      @include setup-row-status($color);
     }
     &.repeating {
       $color: map-get($mat-blue, 500);
-      background: rgba($color, $bg-intensity);
+      @include setup-row-status($color);
     }
     &.planning,
     &.watching {
       $color: map-get($mat-orange, 500);
-      background: rgba($color, $bg-intensity);
+      @include setup-row-status($color);
     }
     &.paused {
       $color: map-get($mat-pink, 500);
-      background: rgba($color, $bg-intensity);
+      @include setup-row-status($color);
     }
     &.dropped {
       $color: map-get($mat-red, 500);
-      background: rgba($color, $bg-intensity);
+      @include setup-row-status($color);
     }
   }
 
