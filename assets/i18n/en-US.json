@@ -1,5 +1,9 @@
 {
   "anime": {
+    "actions": {
+      "delete": "Delete list entry",
+      "deleteDescription": "Delete list entry for \"{{ mediaTitle }}\"?"
+    },
     "dashboard": {
       "finishedAiring": "Finished airing",
       "recentlyUpdated": "Latest list updates",
@@ -66,20 +70,22 @@
   "generic": {
     "cancel": "Cancel",
     "delete": "Delete",
+    "no": "No",
     "noResults": "No results.",
     "sort": "Sort",
     "submit": "Submit",
-    "workInProgress": "Work in progress."
+    "workInProgress": "Work in progress.",
+    "yes": "Yes"
   },
   "listEntry": {
     "update": {
-      "success": "Updated list entry for {{ mediaTitle }}."
+      "success": "Updated list entry for \"{{ mediaTitle }}\"."
     },
     "deletion": {
-      "success": "Deleted list entry for {{ mediaTitle }}."
+      "success": "Deleted list entry for \"{{ mediaTitle }}\"."
     },
     "favouriteToggle": {
-      "success": "Toggled list entry {{ mediaTitle }} as favourite."
+      "success": "Toggled list entry \"{{ mediaTitle }}\" as favourite."
     }
   },
   "matPaginator": {
