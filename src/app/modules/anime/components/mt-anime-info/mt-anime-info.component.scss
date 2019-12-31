@@ -7,7 +7,7 @@ $content-padding: $spacing-xs - $spacing-xxxs;
 img.cover {
   width: $cover-width;
   max-width: $max-cover-width;
-  margin-right: 0 $content-padding $content-padding 0;
+  margin: 0 $content-padding $content-padding 0;
   float: left;
 }
 
