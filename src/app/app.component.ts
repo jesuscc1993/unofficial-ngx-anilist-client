@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { AnimeService } from './modules/anime/services/anime.service';
+import { AnimeCommands } from './modules/anime/commands/anime.commands';
 import { AuthStore } from './modules/shared/store/auth.store';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthStore } from './modules/shared/store/auth.store';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  constructor(private authStore: AuthStore, private animeService: AnimeService) {}
+  constructor(private authStore: AuthStore, private animeCommands: AnimeCommands) {}
 
   ngOnInit() {
     this.authStore
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
       .pipe(
         tap(user => {
           if (user) {
-            this.animeService.getAnimeListEntries(this.authStore.getUser()).subscribe();
+            this.animeCommands.getAnimeListEntries().subscribe();
           }
         })
       )

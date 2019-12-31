@@ -1,14 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
-import { ToastService } from '../../../../shared/services/toast.service';
+import {
+  WithObservableOnDestroy,
+} from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
-import { AnimeService } from '../../../services/anime.service';
+import { AnimeCommands } from '../../../commands/anime.commands';
 
 type MediaDetailModalParameters = {
   media: Media;
@@ -20,18 +21,18 @@ type MediaDetailModalParameters = {
   templateUrl: './mt-media-detail-modal.component.html',
   styleUrls: ['./mt-media-detail-modal.component.scss'],
 })
-export class MtMediaDetailModalComponent {
+export class MtMediaDetailModalComponent extends WithObservableOnDestroy {
   readonly origin: ModalOrigin;
   media: Media;
 
   constructor(
     private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
     private router: Router,
-    private translateService: TranslateService,
-    private toastService: ToastService,
-    private animeService: AnimeService,
+    private animeCommands: AnimeCommands,
     @Inject(MAT_DIALOG_DATA) protected data: MediaDetailModalParameters
   ) {
+    super();
+
     this.origin = data.origin;
     this.media = data.media;
   }
@@ -40,25 +41,21 @@ export class MtMediaDetailModalComponent {
     this.dialogRef.close();
   }
 
-  doNavigateToDetail() {
+  navigateToDetail() {
     this.router.navigate(['anime-detail/', this.media.id]);
     this.dismiss();
   }
 
-  doSetAsPlanning() {
-    this.animeService
-      .saveWithStatus(this.media, 'PLANNING')
+  setAsPlanning() {
+    this.animeCommands
+      .saveMediaWithStatus(this.media, 'PLANNING')
       .pipe(
+        takeUntil(this.destroyed$),
         tap(savedListEntry => {
           const success: boolean = savedListEntry.id !== undefined;
           if (success) {
-            this.toastService.showToast(
-              this.translateService.instant('listEntry.update.success', {
-                mediaTitle: savedListEntry.media.title.romaji,
-              })
-            );
+            this.dismiss();
           }
-          this.dismiss();
         })
       )
       .subscribe();

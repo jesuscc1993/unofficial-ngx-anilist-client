@@ -40,7 +40,7 @@ body {
 }
 
 a {
-  transition: color 0.2s;
+  transition: color $transition-duration;
   text-decoration: none;
   cursor: pointer;
 }
@@ -121,7 +121,7 @@ a {
 }
 
 .transition {
-  transition: 0.2s;
+  transition: $transition-duration;
 }
 
 label[for],

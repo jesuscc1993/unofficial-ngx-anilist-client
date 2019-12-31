@@ -1,20 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { TranslateService } from '@ngx-translate/core';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../../app.constants';
+import { AuthCommands } from '../../../shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { AuthService } from '../../../shared/services/auth.service';
-import { ToastService } from '../../../shared/services/toast.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
-import { AnimeService } from '../../services/anime.service';
+import { AnimeCommands } from '../../commands/anime.commands';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
@@ -35,17 +33,16 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
 
   constructor(
     private dialog: MatDialog,
-    private translateService: TranslateService,
-    private animeService: AnimeService,
-    private authService: AuthService,
-    private authStore: AuthStore,
-    private toastService: ToastService
+    private animeCommands: AnimeCommands,
+    private authCommands: AuthCommands,
+    private authStore: AuthStore
   ) {
     super();
 
     this.user = this.authStore.getUser();
 
-    this.authService.userChange
+    this.authCommands
+      .onUserChange()
       .pipe(
         takeUntil(this.destroyed$),
         tap(user => (this.user = user))
@@ -64,7 +61,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     }
   }
 
-  doOpenDetailModal() {
+  openDetailModal() {
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
       maxWidth: '800px',
@@ -75,19 +72,14 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     });
   }
 
-  doSetAsPlanning() {
-    this.animeService
-      .saveWithStatus(this.media, 'PLANNING')
+  setAsPlanning() {
+    this.animeCommands
+      .saveMediaWithStatus(this.media, 'PLANNING')
       .pipe(
+        takeUntil(this.destroyed$),
         tap(savedListEntry => {
           const success: boolean = savedListEntry.id !== undefined;
           if (success) {
-            this.toastService.showToast(
-              this.translateService.instant('listEntry.update.success', {
-                mediaTitle: savedListEntry.media.title.romaji,
-              })
-            );
-
             this.setListEntry(savedListEntry);
           }
         })
@@ -95,7 +87,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .subscribe();
   }
 
-  doOpenEditionModal() {
+  openEditionModal() {
     this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,
       data: {
@@ -106,37 +98,16 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     });
   }
 
-  doToggleFavourite() {
-    this.animeService
-      .toggleFavouriteAnimeListEntry(this.listEntry)
-      .pipe(
-        tap(listEntryId => {
-          const success: boolean = listEntryId !== undefined;
-          if (success) {
-            this.toastService.showToast(
-              this.translateService.instant('listEntry.favouriteToggle.success', {
-                mediaTitle: this.listEntry.media.title.romaji,
-              })
-            );
-          }
-        })
-      )
-      .subscribe();
+  toggleFavourite() {
+    this.animeCommands.toggleFavouriteAnimeListEntry(this.listEntry).subscribe();
   }
 
-  doDeleteEntry() {
-    this.animeService
+  deleteEntry() {
+    this.animeCommands
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
-        tap(deletedListEntry => {
-          const success: boolean = deletedListEntry.deleted === true;
+        tap(success => {
           if (success) {
-            this.toastService.showToast(
-              this.translateService.instant('listEntry.deletion.success', {
-                mediaTitle: this.listEntry.media.title.romaji,
-              })
-            );
-
             this.setListEntry(undefined);
           }
         })
@@ -144,7 +115,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .subscribe();
   }
 
-  doOpenOnAniList() {
+  openOnAniList() {
     window.open(`https://anilist.co/anime/${this.media.id}`);
   }
 

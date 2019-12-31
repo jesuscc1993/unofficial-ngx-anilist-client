@@ -5,7 +5,7 @@ import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry, ListEntryStatus, listEntryStatuses } from '../../../shared/types/anilist/listEntry.types';
-import { AnimeService } from '../../services/anime.service';
+import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',
@@ -21,10 +21,10 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
 
   ready: boolean;
 
-  constructor(private animeService: AnimeService) {
+  constructor(private animeCommands: AnimeCommands) {
     super();
 
-    this.animeService
+    this.animeCommands
       .getListEntriesByDateUpdated()
       .pipe(
         takeUntil(this.destroyed$),

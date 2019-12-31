@@ -8,15 +8,15 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { animeSearchUrl, integerPattern, scorePattern } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
+import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
   MtSearchResultsTableComponent,
 } from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../modules/anime/domain/media.domain';
-import { AnimeService } from '../../modules/anime/services/anime.service';
+import { AuthCommands } from '../../modules/shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { AuthService } from '../../modules/shared/services/auth.service';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { MediaStore } from '../../modules/shared/store/media.store';
@@ -55,8 +55,8 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     private activatedRoute: ActivatedRoute,
     private titleService: TitleService,
     private translateService: TranslateService,
-    private animeService: AnimeService,
-    private authService: AuthService,
+    private animeCommands: AnimeCommands,
+    private authCommands: AuthCommands,
     private authStore: AuthStore,
     private mediaStore: MediaStore,
     private formBuilder: FormBuilder
@@ -68,12 +68,16 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     this.user = this.authStore.getUser();
     this.setupForm();
 
-    this.animeService
+    this.animeCommands
       .getAnimeGenres()
-      .pipe(tap(mediaGenres => (this.mediaGenres = mediaGenres)))
+      .pipe(
+        takeUntil(this.destroyed$),
+        tap(mediaGenres => (this.mediaGenres = mediaGenres))
+      )
       .subscribe();
 
-    this.authService.userChange
+    this.authCommands
+      .onUserChange()
       .pipe(
         takeUntil(this.destroyed$),
         tap(user => (this.user = user))
@@ -141,12 +145,13 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       sort: this.sort,
     };
 
-    this.animeService
+    this.animeCommands
       .searchAnime(query, {
         pageIndex,
         perPage,
       })
       .pipe(
+        takeUntil(this.destroyed$),
         tap(response => {
           this.animeList = response.media;
           this.pagination = response.pageInfo;

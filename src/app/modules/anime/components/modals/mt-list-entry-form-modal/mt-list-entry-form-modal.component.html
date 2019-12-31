@@ -14,7 +14,7 @@
     </div>
   </mt-modal-header>
 
-  <form [formGroup]="listEntryForm" (ngSubmit)="doSaveEntry()">
+  <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
     <mt-modal-content>
       <!-- status -->
       <div class="form-group">
@@ -58,7 +58,7 @@
           <span>{{ 'generic.cancel' | translate }}</span>
         </button>
 
-        <button (click)="doDeleteEntry($event)" mat-raised-button color="warn">
+        <button (click)="deleteEntry($event)" mat-raised-button color="warn">
           <fa-icon name="trash"></fa-icon>
           <span>{{ 'generic.delete' | translate }}</span>
         </button>

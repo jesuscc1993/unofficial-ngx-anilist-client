@@ -3,7 +3,7 @@
 <mat-menu #entryMenu="matMenu">
   <div *ngIf="editEnabled">
     <mt-menu-action
-      (onPress)="doOpenEditionModal()"
+      (onPress)="openEditionModal()"
       icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
       disabled="{{ !user }}"
       >{{
@@ -11,7 +11,7 @@
       }}</mt-menu-action
     >
 
-    <mt-menu-action (onPress)="doSetAsPlanning()" icon="clock" disabled="{{ !user }}">{{
+    <mt-menu-action (onPress)="setAsPlanning()" icon="clock" disabled="{{ !user }}">{{
       'anime.userList.setAsPlanning' | translate
     }}</mt-menu-action>
 
@@ -19,13 +19,13 @@
   </div>
 
   <div>
-    <mt-menu-action (onPress)="doToggleFavourite()" icon="star" disabled="{{ !user }}">{{
+    <mt-menu-action (onPress)="toggleFavourite()" icon="star" disabled="{{ !user }}">{{
       'anime.userList.toggleFavourite' | translate
     }}</mt-menu-action>
   </div>
 
   <div *ngIf="listEntry">
-    <mt-menu-action (onPress)="doDeleteEntry()" icon="trash" disabled="{{ !user }}">{{
+    <mt-menu-action (onPress)="deleteEntry()" icon="trash" disabled="{{ !user }}">{{
       'anime.userList.deleteFromList' | translate
     }}</mt-menu-action>
   </div>
@@ -33,12 +33,12 @@
   <mat-divider></mat-divider>
 
   <div *ngIf="viewEnabled">
-    <mt-menu-action (onPress)="doOpenDetailModal()" icon="id-card">{{
+    <mt-menu-action (onPress)="openDetailModal()" icon="id-card">{{
       'media.additionalInfo' | translate
     }}</mt-menu-action>
   </div>
 
-  <mt-menu-action (onPress)="doOpenOnAniList()" icon="external-link-alt">{{
+  <mt-menu-action (onPress)="openOnAniList()" icon="external-link-alt">{{
     'media.viewOnAniList' | translate
   }}</mt-menu-action>
 </mat-menu>

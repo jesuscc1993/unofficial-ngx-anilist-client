@@ -11,23 +11,23 @@ export class AuthStore extends Store<AuthStoreState> {
     super({});
   }
 
-  public setAccessToken(accessToken: string) {
+  setAccessToken(accessToken: string) {
     this.setState({ accessToken });
   }
-  public getAccessToken() {
+  getAccessToken() {
     return this.getState().accessToken;
   }
-  public removeAccessToken() {
+  removeAccessToken() {
     this.setState({ accessToken: undefined });
   }
 
-  public setUser(user: User) {
+  setUser(user: User) {
     this.setState({ user });
   }
-  public getUser() {
+  getUser() {
     return this.getState().user;
   }
-  public removeUser() {
+  removeUser() {
     this.setState({ user: undefined });
   }
 }

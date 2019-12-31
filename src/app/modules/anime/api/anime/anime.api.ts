@@ -41,13 +41,13 @@ export class AnimeApi extends AniListApi {
     super(httpClient, authStore);
   }
 
-  public queryAnimeGenres() {
+  queryAnimeGenres() {
     return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).pipe(
       map(response => this.getResponseData(response).GenreCollection)
     );
   }
 
-  public queryAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery) {
+  queryAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaSearchQuery, {
       ...(pageQuery ? this.getPageOptions(pageQuery) : { perPage: mediaIds.length }),
       ...query,
@@ -56,7 +56,7 @@ export class AnimeApi extends AniListApi {
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
-  public queryAnimeSearch(query: SearchFilters, pageQuery?: PageQuery) {
+  queryAnimeSearch(query: SearchFilters, pageQuery?: PageQuery) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(mediaIdSearchQuery, {
       ...this.getPageOptions(pageQuery),
       ...query,
@@ -66,7 +66,7 @@ export class AnimeApi extends AniListApi {
     }).pipe(map(response => this.getResponseData(response).Page));
   }
 
-  public queryAnimeList(user: User) {
+  queryAnimeList(user: User) {
     return this.postGraphQlRequest<ListMediaDto, MediaFilters>(listQuery, {
       mediaType: 'ANIME',
       userId: user.id,
@@ -81,7 +81,7 @@ export class AnimeApi extends AniListApi {
     );
   }
 
-  public queryRelatedAnimeMediaIds(user: User) {
+  queryRelatedAnimeMediaIds(user: User) {
     return this.postGraphQlRequest<RelatedMediaIdsDto, MediaFilters>(relatedMediaIdsQuery, {
       mediaType: 'ANIME',
       userId: user.id,
@@ -109,7 +109,7 @@ export class AnimeApi extends AniListApi {
     );
   }
 
-  public queryAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+  queryAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
     this.queryFavouriteIdsResultsPage(
       {
         userId: user.id,
@@ -145,7 +145,7 @@ export class AnimeApi extends AniListApi {
       .subscribe();
   }
 
-  public saveAnimeListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
+  saveAnimeListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
     return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(saveListEntryQuery, {
       progress,
       repeat,
@@ -155,13 +155,13 @@ export class AnimeApi extends AniListApi {
     }).pipe(map(response => this.getResponseData(response).SaveMediaListEntry));
   }
 
-  public deleteAnimeListEntry(listEntry: ListEntry) {
+  deleteAnimeListEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<DeleteListEntryDto, DeleteListEntryRequest>(deleteListEntryQuery, {
       id: listEntry.id,
     }).pipe(map(response => this.getResponseData(response).DeleteMediaListEntry));
   }
 
-  public toggleAnimeFavouriteEntry(listEntry: ListEntry) {
+  toggleAnimeFavouriteEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<ToggleFavouriteMediaDto, ToggleFavouriteMediaRequest>(toggleFavouriteEntryQuery, {
       animeId: listEntry.media.id,
     }).pipe(map(response => this.getResponseData(response).ToggleFavourite));

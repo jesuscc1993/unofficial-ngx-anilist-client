@@ -8,8 +8,10 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMultiLineEllipsisModule } from 'ngx-multi-line-ellipsis';
 
+import { MtPromptComponent } from '../anime/components/modals/mt-prompt/mt-prompt.component';
 import { MaterialModule } from '../material/material.module';
 import { AuthApi } from './api/auth/auth.api';
+import { AuthCommands } from './commands/auth.commands';
 import { FaIconComponent } from './components/fa-icon/fa-icon.component';
 import { MtModalContentComponent } from './components/modal/mt-modal-content/mt-modal-content.component';
 import { MtModalFooterComponent } from './components/modal/mt-modal-footer/mt-modal-footer.component';
@@ -53,7 +55,8 @@ const imports = [
 @NgModule({
   declarations,
   imports,
+  entryComponents: [MtPromptComponent],
   exports: [...declarations, ...imports],
-  providers: [AuthApi, AuthService, AuthStore, MediaStore, TitleService, ToastService],
+  providers: [AuthApi, AuthCommands, AuthService, AuthStore, MediaStore, TitleService, ToastService],
 })
 export class SharedModule {}

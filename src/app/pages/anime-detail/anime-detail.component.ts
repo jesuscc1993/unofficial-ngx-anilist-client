@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
-import { AnimeService } from '../../modules/anime/services/anime.service';
+import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
+import {
+  WithObservableOnDestroy,
+} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { Anime } from '../../modules/shared/types/anilist/media.types';
 
@@ -11,7 +14,7 @@ import { Anime } from '../../modules/shared/types/anilist/media.types';
   templateUrl: './anime-detail.component.html',
   styleUrls: ['./anime-detail.component.scss'],
 })
-export class AnimeDetailPageComponent {
+export class AnimeDetailPageComponent extends WithObservableOnDestroy {
   anime: Anime;
 
   searching: boolean;
@@ -20,8 +23,10 @@ export class AnimeDetailPageComponent {
   constructor(
     private titleService: TitleService,
     private activatedRoute: ActivatedRoute,
-    private animeService: AnimeService
+    private animeCommands: AnimeCommands
   ) {
+    super();
+
     this.titleService.setTitle();
 
     const animeId: number = this.activatedRoute.snapshot.params.id;
@@ -34,9 +39,10 @@ export class AnimeDetailPageComponent {
     this.searching = true;
     this.errorGotten = false;
 
-    this.animeService
+    this.animeCommands
       .searchAnime({ id: animeId })
       .pipe(
+        takeUntil(this.destroyed$),
         tap(
           response => {
             this.anime = response.media.length > 0 && response.media[0];

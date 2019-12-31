@@ -1,9 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../../app.constants';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
+import { AnimeCommands } from '../../commands/anime.commands';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
@@ -12,11 +17,16 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   templateUrl: './mt-media-cover.component.html',
   styleUrls: ['./mt-media-cover.component.scss'],
 })
-export class MtMediaCoverComponent implements OnInit {
+export class MtMediaCoverComponent extends WithObservableOnDestroy implements OnInit {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private animeCommands: AnimeCommands) {
+    super();
+
+    this.openDetailModal = this.openDetailModal.bind(this);
+    this.openEditionModal = this.openEditionModal.bind(this);
+  }
 
   ngOnInit() {
     if (!this.media && this.listEntry) {
@@ -28,7 +38,9 @@ export class MtMediaCoverComponent implements OnInit {
     }
   }
 
-  doOpenDetailModal() {
+  openDetailModal(event: Event) {
+    event.stopPropagation();
+
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
       maxWidth: '800px',
@@ -39,7 +51,9 @@ export class MtMediaCoverComponent implements OnInit {
     });
   }
 
-  doOpenEditionModal() {
+  openEditionModal(event: Event) {
+    event.stopPropagation();
+
     this.dialog.open(MtListEntryFormModalComponent, {
       ...defaultModalOptions,
       data: {
@@ -48,5 +62,21 @@ export class MtMediaCoverComponent implements OnInit {
         media: this.media,
       },
     });
+  }
+
+  deleteEntry(event: Event) {
+    event.stopPropagation();
+
+    this.animeCommands
+      .deleteAnimeListEntry(this.listEntry)
+      .pipe(
+        takeUntil(this.destroyed$),
+        tap(success => {
+          if (success) {
+            this.dialog.closeAll();
+          }
+        })
+      )
+      .subscribe();
   }
 }

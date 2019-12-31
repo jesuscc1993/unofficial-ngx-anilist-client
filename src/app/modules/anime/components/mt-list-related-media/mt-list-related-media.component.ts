@@ -6,12 +6,11 @@ import { catchError, flatMap, takeUntil, tap } from 'rxjs/operators';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { AuthStore } from '../../../shared/store/auth.store';
 import { MediaStore } from '../../../shared/store/media.store';
 import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
 import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
-import { AnimeService } from '../../services/anime.service';
+import { AnimeCommands } from '../../commands/anime.commands';
 
 const gridCard = 96;
 const gridSpacing = 6;
@@ -38,7 +37,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
   searching: boolean;
   error: Error;
 
-  constructor(private mediaStore: MediaStore, private animeService: AnimeService, private authStore: AuthStore) {
+  constructor(private animeCommands: AnimeCommands, private mediaStore: MediaStore) {
     super();
     this.initialize();
     this.onError = this.onError.bind(this);
@@ -73,7 +72,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
   }
 
   queryData() {
-    return this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(
+    return this.animeCommands.getRelatedAnimeMediaIds().pipe(
       tap(relatedMediaIds => {
         this.relatedMediaIds = relatedMediaIds;
         this.search(0, this.colCount * this.rowCount);
@@ -106,7 +105,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
     this.searching = true;
     this.error = undefined;
 
-    this.animeService
+    this.animeCommands
       .getAnimeFromIds(
         this.relatedMediaIds,
         {
@@ -119,6 +118,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
         }
       )
       .pipe(
+        takeUntil(this.destroyed$),
         tap(response => {
           this.animeList = response.media;
           this.pagination = response.pageInfo;

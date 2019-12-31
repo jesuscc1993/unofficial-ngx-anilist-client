@@ -16,16 +16,16 @@ export class Store<StoreState> {
     });
   }
 
-  public asObservable() {
+  asObservable() {
     return this.stateSubject.asObservable();
   }
 
-  public changes<K extends keyof StoreState>(field: K) {
+  changes<K extends keyof StoreState>(field: K) {
     return this.stateSubject.asObservable().pipe(
       filter(({ currentState }) => !!currentState[field]),
       filter(
         ({ currentState, previousState }, index) =>
-          index === 0 || (!previousState || currentState[field] !== previousState[field])
+          index === 0 || !previousState || currentState[field] !== previousState[field]
       ),
       map(({ currentState }) => currentState[field])
     );

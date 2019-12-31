@@ -13,7 +13,7 @@ export class MediaStore extends Store<MediaStoreState> {
     super({ animeDictionary: {} });
   }
 
-  public storeAnime(animeList: Anime[]) {
+  storeAnime(animeList: Anime[]) {
     this.setState({
       animeDictionary: {
         ...animeList.reduce(
@@ -23,15 +23,17 @@ export class MediaStore extends Store<MediaStoreState> {
       },
     });
   }
-  public getAnimeDictionary() {
+
+  getAnimeDictionary() {
     return this.getState().animeDictionary;
   }
 
-  public setAnimeListEntries(listEntries: ListEntry[]) {
+  setAnimeListEntries(listEntries: ListEntry[]) {
     this.setState({ animeListEntries: listEntries });
     this.storeAnime(listEntries.map(listEntry => listEntry.media));
   }
-  public updateAnimeListEntry(updatedListEntry: ListEntry) {
+
+  updateAnimeListEntry(updatedListEntry: ListEntry) {
     this.setAnimeListEntries(
       this.getAnimeListEntries().find(listEntry => listEntry.id === updatedListEntry.id)
         ? this.getAnimeListEntries().map(listEntry =>
@@ -40,13 +42,15 @@ export class MediaStore extends Store<MediaStoreState> {
         : [...this.getAnimeListEntries(), updatedListEntry]
     );
   }
-  public deleteAnimeListEntry(listEntryToDelete: ListEntry) {
+
+  deleteAnimeListEntry(listEntryToDelete: ListEntry) {
     this.setAnimeListEntries(this.getAnimeListEntries().filter(listEntry => listEntry.id !== listEntryToDelete.id));
     const animeDictionary = this.getAnimeDictionary();
     delete animeDictionary[listEntryToDelete.media.id].mediaListEntry;
     this.setState({ animeDictionary });
   }
-  public getAnimeListEntries() {
+
+  getAnimeListEntries() {
     return this.getState().animeListEntries;
   }
 }

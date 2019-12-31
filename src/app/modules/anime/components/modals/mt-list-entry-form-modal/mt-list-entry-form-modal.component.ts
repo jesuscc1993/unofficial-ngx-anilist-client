@@ -1,15 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { TranslateService } from '@ngx-translate/core';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { integerPattern, scorePattern } from '../../../../../app.constants';
-import { ToastService } from '../../../../shared/services/toast.service';
+import {
+  WithObservableOnDestroy,
+} from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
-import { AnimeService } from '../../../services/anime.service';
+import { AnimeCommands } from '../../../commands/anime.commands';
 
 type ListEntryFormModalParameters = {
   listEntry?: ListEntry;
@@ -22,7 +23,7 @@ type ListEntryFormModalParameters = {
   templateUrl: './mt-list-entry-form-modal.component.html',
   styleUrls: ['./mt-list-entry-form-modal.component.scss'],
 })
-export class MtListEntryFormModalComponent {
+export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   readonly listEntryStatuses = listEntryStatuses;
 
   readonly origin: ModalOrigin;
@@ -31,14 +32,14 @@ export class MtListEntryFormModalComponent {
   readonly listEntryForm: FormGroup;
 
   constructor(
-    private translateService: TranslateService,
-    private toastService: ToastService,
-    private animeService: AnimeService,
+    private animeCommands: AnimeCommands,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
   ) {
+    super();
+
     const { progress, repeat, scoreRaw, status } = data.listEntry || ({} as ListEntry);
     this.origin = data.origin;
     this.media = data.media;
@@ -55,43 +56,32 @@ export class MtListEntryFormModalComponent {
     });
   }
 
-  doSaveEntry() {
+  saveEntry() {
     const formListEntry: ListEntry = this.getFormEntry();
 
-    this.animeService
+    this.animeCommands
       .saveAnimeListEntry(formListEntry)
       .pipe(
+        takeUntil(this.destroyed$),
         tap(savedListEntry => {
           const success: boolean = savedListEntry.id !== undefined;
           if (success) {
-            this.toastService.showToast(
-              this.translateService.instant('listEntry.update.success', {
-                mediaTitle: savedListEntry.media.title.romaji,
-              })
-            );
+            this.dialog.closeAll();
           }
-
-          this.dialog.closeAll();
         })
       )
       .subscribe();
   }
 
-  doDeleteEntry(event?: Event) {
+  deleteEntry(event?: Event) {
     this.preventDefault(event);
 
-    this.animeService
+    this.animeCommands
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
-        tap(deletedListEntry => {
-          const success: boolean = deletedListEntry.deleted === true;
+        takeUntil(this.destroyed$),
+        tap(success => {
           if (success) {
-            this.toastService.showToast(
-              this.translateService.instant('listEntry.deletion.success', {
-                mediaTitle: this.listEntry.media.title.romaji,
-              })
-            );
-
             this.dialog.closeAll();
           }
         })

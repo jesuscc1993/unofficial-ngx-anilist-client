@@ -1,0 +1,25 @@
+<mt-modal>
+  <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
+    <div *ngIf="data.title" title="{{ title }}" class="text-ellipsis">{{ data.title }}</div>
+  </mt-modal-header>
+
+  <mt-modal-content *ngIf="data.content">
+    <div>{{ data.content }}</div>
+  </mt-modal-content>
+
+  <mt-modal-footer>
+    <div class="buttons-container">
+      <div *ngIf="data.hasConfirm">
+        <button (click)="confirm()" mat-raised-button color="{{ data.hasCancel ? '' : 'primary' }}">
+          <span>{{ data.confirmLiteral || 'generic.yes' | translate }}</span>
+        </button>
+      </div>
+
+      <div *ngIf="data.hasCancel">
+        <button (click)="cancel()" mat-raised-button color="primary">
+          <span>{{ data.cancelLiteral || 'generic.no' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </mt-modal-footer>
+</mt-modal>

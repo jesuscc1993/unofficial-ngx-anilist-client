@@ -3,15 +3,8 @@ import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
-import {
-  animeSearchUrl,
-  apiLoginUrl,
-  apiTokenPrefix,
-  dashboardUrl,
-  rootUrl,
-  userListUrl,
-} from '../../../../app.constants';
-import { AuthService } from '../../../../modules/shared/services/auth.service';
+import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../../../app.constants';
+import { AuthCommands } from '../../commands/auth.commands';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
 import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
@@ -34,13 +27,16 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   onUserList: boolean;
   loginAvailable: boolean;
 
-  constructor(private router: Router, private authService: AuthService, private authStore: AuthStore) {
+  constructor(private router: Router, private authCommands: AuthCommands, private authStore: AuthStore) {
     super();
 
     if (location.href.includes(apiTokenPrefix)) {
       const locationParts: string[] = location.href.split('&')[0].split(apiTokenPrefix);
       history.replaceState({}, 'Login success', locationParts[0]);
-      this.authService.logIn(locationParts[1]);
+      this.authCommands
+        .logIn(locationParts[1])
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe();
       this.navigateToHomePage(true);
     }
 
@@ -49,6 +45,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 
     this.router.events
       .pipe(
+        takeUntil(this.destroyed$),
         tap(() => {
           this.onRoot = location.href.includes(rootUrl);
           this.onDashboard = location.href.includes(dashboardUrl);
@@ -58,7 +55,8 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       )
       .subscribe();
 
-    this.authService.userChange
+    this.authCommands
+      .onUserChange()
       .pipe(
         takeUntil(this.destroyed$),
         tap(user => (this.user = user))
@@ -66,12 +64,15 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       .subscribe();
   }
 
-  doOpenAnilistProfile() {
+  openAnilistProfile() {
     window.open(`https://anilist.co/user/${this.user.name}`);
   }
 
-  doLogOut() {
-    this.authService.logOut();
+  logOut() {
+    this.authCommands
+      .logOut()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe();
     this.user = undefined;
     this.loginAvailable = environment.anilist_client_id >= 0;
     this.navigateToHomePage();

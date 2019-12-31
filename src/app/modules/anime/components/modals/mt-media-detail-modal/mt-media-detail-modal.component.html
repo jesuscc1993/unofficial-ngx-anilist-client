@@ -21,13 +21,13 @@
 
   <mt-modal-footer>
     <div class="buttons-container">
-      <button (click)="doNavigateToDetail()" mat-raised-button>
+      <button (click)="navigateToDetail()" mat-raised-button>
         <fa-icon name="newspaper"></fa-icon>
         <span>{{ 'media.goToDetail' | translate }}</span>
       </button>
 
       <div *ngIf="!media.mediaListEntry">
-        <button (click)="doSetAsPlanning()" mat-raised-button>
+        <button (click)="setAsPlanning()" mat-raised-button>
           <fa-icon name="clock"></fa-icon>
           <span>{{ 'anime.userList.setAsPlanning' | translate }}</span>
         </button>

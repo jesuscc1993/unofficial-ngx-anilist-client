@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { accessTokenCookieKey, userCookieKey } from '../../../app.constants';
@@ -10,31 +10,31 @@ import { User } from '../types/anilist/user.types';
 
 @Injectable()
 export class AuthService {
-  public userChange: Subject<User> = new Subject<User>();
+  private userChangeSubject: Subject<User> = new Subject<User>();
+  userChange$: Observable<User>;
 
   constructor(private authApi: AuthApi, private authStore: AuthStore) {
+    this.userChangeSubject = new Subject<User>();
+    this.userChange$ = this.userChangeSubject.asObservable();
     this.getAccessToken();
     this.getUser();
   }
 
-  public logIn(accessToken: string) {
+  logIn(accessToken: string) {
     this.setAccessToken(accessToken);
-
-    this.authApi
-      .queryUser()
-      .pipe(
-        tap(user => {
-          this.setUser(user);
-          this.userChange.next(user);
-        })
-      )
-      .subscribe();
+    return this.authApi.queryUser().pipe(
+      tap(user => {
+        this.setUser(user);
+        this.userChangeSubject.next(user);
+      })
+    );
   }
 
-  public logOut() {
+  logOut() {
     this.removeAccessToken();
     this.removeUser();
-    this.userChange.next();
+    this.userChangeSubject.next();
+    return of();
   }
 
   private setAccessToken(accessToken: string) {

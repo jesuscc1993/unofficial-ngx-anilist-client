@@ -6,7 +6,7 @@ import {
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
-import { AnimeService } from '../../services/anime.service';
+import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({
   selector: 'mt-recently-finished-media',
@@ -22,10 +22,10 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
 
   loading: boolean = true;
 
-  constructor(private animeService: AnimeService) {
+  constructor(private animeCommands: AnimeCommands) {
     super();
 
-    this.animeService
+    this.animeCommands
       .getPendingMediaByEndDate()
       .pipe(
         takeUntil(this.destroyed$),

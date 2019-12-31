@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, filter, takeUntil, tap } from 'rxjs/operators';
 
 import { rootUrl } from '../../app.constants';
-import { AnimeService } from '../../modules/anime/services/anime.service';
+import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
@@ -36,7 +36,7 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
     private router: Router,
     private titleService: TitleService,
     private translateService: TranslateService,
-    private animeService: AnimeService,
+    private animeCommands: AnimeCommands,
     private authStore: AuthStore
   ) {
     super();
@@ -55,7 +55,7 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
 
   private getUserList() {
     if (this.user) {
-      this.animeService
+      this.animeCommands
         .getListEntriesGroupedByStatus()
         .pipe(
           takeUntil(this.destroyed$),
@@ -82,7 +82,7 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
 
   private getListFavouriteIDs() {
     if (this.user) {
-      this.animeService.getAnimeListFavouriteIDs(this.user, favouriteIDs => {
+      this.animeCommands.getAnimeListFavouriteIDs(this.user, favouriteIDs => {
         this.favouriteIDs = favouriteIDs;
       });
     }
