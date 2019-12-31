@@ -32,12 +32,12 @@ img.cover {
       &.left {
         width: calc(100% - #{$right-column-width});
         padding-right: $column-padding;
-        border-right: 1px solid lightgray;
       }
 
       &.right {
         width: $right-column-width;
         padding-left: $column-padding;
+        border-left: 1px solid lightgray;
 
         .property-value-pair {
           &:first-child {
