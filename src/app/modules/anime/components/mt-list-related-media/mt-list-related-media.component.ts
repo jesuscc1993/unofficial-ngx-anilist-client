@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { of } from 'rxjs';
 import { catchError, flatMap, takeUntil, tap } from 'rxjs/operators';
@@ -45,24 +45,40 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
   }
 
   ngOnInit() {
-    this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+    this.onResize();
 
     this.mediaStore
       .changes('animeListEntries')
       .pipe(
         takeUntil(this.destroyed$),
         tap(() => this.initialize()),
-        flatMap(() =>
-          this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(
-            tap(relatedMediaIds => {
-              this.relatedMediaIds = relatedMediaIds;
-              this.search(0, this.colCount * this.rowCount);
-            })
-          )
-        ),
+        flatMap(() => this.queryData()),
         catchError(this.onError)
       )
       .subscribe();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    const newColCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+
+    if (newColCount !== this.colCount) {
+      this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+
+      this.initialize();
+      this.queryData()
+        .pipe(takeUntil(this.destroyed$), catchError(this.onError))
+        .subscribe();
+    }
+  }
+
+  queryData() {
+    return this.animeService.getRelatedAnimeMediaIds(this.authStore.getUser()).pipe(
+      tap(relatedMediaIds => {
+        this.relatedMediaIds = relatedMediaIds;
+        this.search(0, this.colCount * this.rowCount);
+      })
+    );
   }
 
   sortBy(mediaSort: MediaSort) {
