@@ -1,4 +1,4 @@
-import { Sort } from '@angular/material';
+import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
 import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';

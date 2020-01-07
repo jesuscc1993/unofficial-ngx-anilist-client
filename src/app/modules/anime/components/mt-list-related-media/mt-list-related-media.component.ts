@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 import { of } from 'rxjs';
 import { catchError, flatMap, takeUntil, tap } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ const gridSpacing = 6;
   styleUrls: ['./mt-list-related-media.component.scss'],
 })
 export class MtListRelatedMediaComponent extends WithObservableOnDestroy implements OnInit {
-  @ViewChild('content', { read: ElementRef }) content: ElementRef;
+  @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
   readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
   readonly rowCount = 4;

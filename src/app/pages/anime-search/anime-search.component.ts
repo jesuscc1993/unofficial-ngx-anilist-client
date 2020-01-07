@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatExpansionPanel, PageEvent } from '@angular/material';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -31,8 +32,8 @@ import { User } from '../../modules/shared/types/anilist/user.types';
   styleUrls: ['./anime-search.component.scss'],
 })
 export class AnimeSearchPageComponent extends WithObservableOnDestroy implements OnInit {
-  @ViewChild(MatExpansionPanel) expansionPanel: MatExpansionPanel;
-  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
+  @ViewChild(MatExpansionPanel, { static: true }) expansionPanel: MatExpansionPanel;
+  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef, static: false }) resultsTable: ElementRef;
 
   user: User;
   animeList: Anime[];

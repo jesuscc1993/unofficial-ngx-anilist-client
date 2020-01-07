@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
@@ -15,8 +17,8 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   @Input() tableData: ListEntry[];
   @Input() favouriteIDs: number[];
   @Input() filter?: string;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   tableRows: string[] = [
     'actions',

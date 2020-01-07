@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, Sort } from '@angular/material';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { Anime } from '../../../shared/types/anilist/media.types';
 import { MediaSort } from '../../../shared/types/anilist/mediaSort.types';
@@ -13,7 +14,7 @@ import { getMediaSortFromSort } from '../../domain/media.domain';
 export class MtSearchResultsTableComponent implements OnInit, OnChanges {
   @Input() tableData: Anime[];
   @Output() onSortChange: EventEmitter<MediaSort> = new EventEmitter<MediaSort>();
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   tableRows: string[] = [
     'actions',

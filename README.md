@@ -1,6 +1,6 @@
 # Unofficial AniList Client
 
-Anime management client demo built in [Angular](https://angular.io/) 7 and [Angular Material](https://material.angular.io/).
+Anime management client demo built in [Angular](https://angular.io/) 8 and [Angular Material](https://material.angular.io/).
 
 <br/>
 
