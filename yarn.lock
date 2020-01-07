@@ -215,6 +215,11 @@
   dependencies:
     tslib "^1.9.0"
 
+"@davidperis92/ngx-multi-line-ellipsis@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@davidperis92/ngx-multi-line-ellipsis/-/ngx-multi-line-ellipsis-1.0.9.tgz#55521c830c455c139a8dfc68c69558c41a6e9555"
+  integrity sha512-7nYmtKmFzdwvGNldDcvAHqtdVY5Y5xGFNXsZu1C/o8vY3GC3NlkSeWuxxhHc8PXFzLmNAKBdqr8aUWxIewnszQ==
+
 "@fortawesome/fontawesome-free@^5.8.0":
   version "5.8.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.8.1.tgz#cbafbfe8894c4e3e3c3a9da6774e249ac1f2da8b"
@@ -3802,11 +3807,6 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
-ngx-multi-line-ellipsis@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/ngx-multi-line-ellipsis/-/ngx-multi-line-ellipsis-1.0.4.tgz#1354237469d757d8d2e4c320d3cfd516b4b3a271"
-  integrity sha1-E1QjdGnXV9jS5MMg08/VFrSzonE=
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -5133,6 +5133,16 @@ set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
   integrity sha1-BF+XgtARrppoA93TgrJDkrPYkPc=
+
+set-value@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/set-value/-/set-value-2.0.1.tgz#a18d40530e6f07de4228c7defe4227af8cad005b"
+  integrity sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==
+  dependencies:
+    extend-shallow "^2.0.1"
+    is-extendable "^0.1.1"
+    is-plain-object "^2.0.3"
+    split-string "^3.0.1"
 
 set-value@^0.4.3:
   version "0.4.3"

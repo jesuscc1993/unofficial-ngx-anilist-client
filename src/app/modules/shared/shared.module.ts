@@ -5,8 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { NgxMultiLineEllipsisModule } from '@davidperis92/ngx-multi-line-ellipsis';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxMultiLineEllipsisModule } from 'ngx-multi-line-ellipsis';
 
 import { MtPromptComponent } from '../anime/components/modals/mt-prompt/mt-prompt.component';
 import { MaterialModule } from '../material/material.module';
