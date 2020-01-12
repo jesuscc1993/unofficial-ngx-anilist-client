@@ -18,6 +18,10 @@ export const getFormattedFuzzyDate = (fuzzyDatemedia: FuzzyDate) => {
   return `${date.getFullYear()}.${pad(date.getMonth() + 1, 2)}.${pad(date.getDate(), 2)}`;
 };
 
+export const getSanitizedMediaDescription = (media: Media) => {
+  return media.description.replace(/h\d+>/g, 'strong>');
+};
+
 export const pad = (value: number | string, length: number = 2, character: string = '0') => {
   return String(value).padStart(length, character);
 };

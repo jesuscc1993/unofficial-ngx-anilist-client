@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { FuzzyDate } from '../../../shared/types/anilist/dataTypes.types';
 import { Anime, Media } from '../../../shared/types/anilist/media.types';
-import { getFormattedFuzzyDate, getFormattedMediaDuration } from '../../domain/media.domain';
+import { getFormattedFuzzyDate, getFormattedMediaDuration, getSanitizedMediaDescription } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-anime-info',
@@ -20,5 +20,9 @@ export class MtAnimeInfoComponent {
 
   getFormattedFuzzyDate(fuzzyDatemedia: FuzzyDate) {
     return getFormattedFuzzyDate(fuzzyDatemedia);
+  }
+
+  sanitizeDescription() {
+    return getSanitizedMediaDescription(this.anime);
   }
 }

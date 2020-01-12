@@ -6,7 +6,7 @@
 
       <div *ngIf="anime.description">
         <h4 class="no-margin-top margin-bottom-xxs">{{ 'media.description' | translate }}:</h4>
-        <div [innerHTML]="anime.description"></div>
+        <div [innerHTML]="sanitizeDescription()"></div>
       </div>
     </div>
 
