@@ -4438,7 +4438,7 @@ minimist@0.0.8:
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
 minimist@^1.2.0:
-  version "1.2.1"
+  version "1.2.3"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.1.tgz#f41818114b8d4be3c0a4febdf3c432b956680ece"
   integrity sha512-MxgrjJPBtptee4aL2EExBK3tS4KUc1RtuRluaHZCmxKII8SBkvUP6z7XDmxEaUxdvpp++waKrqvSzuFXTRntVg==
 
