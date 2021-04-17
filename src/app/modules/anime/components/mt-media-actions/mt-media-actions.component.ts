@@ -1,11 +1,12 @@
+import { takeUntil, tap } from 'rxjs/operators';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { takeUntil, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../../app.constants';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
 import {
-  WithObservableOnDestroy,
+  WithObservableOnDestroy
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
@@ -13,8 +14,12 @@ import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { AnimeCommands } from '../../commands/anime.commands';
-import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtListEntryFormModalComponent
+} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import {
+  MtMediaDetailModalComponent
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-actions',
@@ -22,11 +27,11 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   styleUrls: ['./mt-media-actions.component.scss'],
 })
 export class MtMediaActionsComponent extends WithObservableOnDestroy implements OnInit {
+  @Input() editEnabled = true;
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
   @Input() origin?: ModalOrigin;
-  @Input() viewEnabled: boolean = true;
-  @Input() editEnabled: boolean = true;
+  @Input() viewEnabled = true;
   @Output() onListEntryChanges: EventEmitter<ListEntry>;
 
   user: User;
@@ -45,7 +50,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .onUserChange()
       .pipe(
         takeUntil(this.destroyed$),
-        tap(user => (this.user = user))
+        tap((user) => (this.user = user))
       )
       .subscribe();
 
@@ -77,8 +82,8 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
       .saveMediaWithStatus(this.media, 'PLANNING')
       .pipe(
         takeUntil(this.destroyed$),
-        tap(savedListEntry => {
-          const success: boolean = savedListEntry.id !== undefined;
+        tap((savedListEntry) => {
+          const success = savedListEntry.id !== undefined;
           if (success) {
             this.setListEntry(savedListEntry);
           }
@@ -106,7 +111,7 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
     this.animeCommands
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
-        tap(success => {
+        tap((success) => {
           if (success) {
             this.setListEntry(undefined);
           }

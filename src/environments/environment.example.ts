@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  anilist_client_id: 42,
+  anilistClientId: 42,
   i18nPath: '/assets/i18n/',
   production: false,
 };

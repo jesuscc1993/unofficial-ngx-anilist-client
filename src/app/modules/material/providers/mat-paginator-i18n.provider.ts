@@ -17,7 +17,7 @@ export class MatPaginatorI18n extends MatPaginatorIntl {
 
     this.lastPageLabel = this.translateService.instant('matPaginator.lastPageLabel');
 
-    this.getRangeLabel = (page: number, pageSize: number, length: number): string => {
+    this.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const firstResultIndex = page * pageSize;
       return this.translateService.instant('matPaginator.rangeLabel', {
         firstResult: firstResultIndex + 1,

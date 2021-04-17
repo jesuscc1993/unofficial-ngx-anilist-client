@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./mt-footer.component.scss'],
 })
 export class MtFooterComponent {
-  gitHubProjectUrl: string = 'https://github.com/jesuscc1993/unofficial-ngx-anilist-client';
+  gitHubProjectUrl = 'https://github.com/jesuscc1993/unofficial-ngx-anilist-client';
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(

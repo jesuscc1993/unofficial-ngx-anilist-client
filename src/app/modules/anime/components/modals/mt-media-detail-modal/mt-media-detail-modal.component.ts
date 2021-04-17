@@ -1,10 +1,11 @@
+import { takeUntil, tap } from 'rxjs/operators';
+
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { takeUntil, tap } from 'rxjs/operators';
 
 import {
-  WithObservableOnDestroy,
+  WithObservableOnDestroy
 } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
@@ -51,8 +52,8 @@ export class MtMediaDetailModalComponent extends WithObservableOnDestroy {
       .saveMediaWithStatus(this.media, 'PLANNING')
       .pipe(
         takeUntil(this.destroyed$),
-        tap(savedListEntry => {
-          const success: boolean = savedListEntry.id !== undefined;
+        tap((savedListEntry) => {
+          const success = savedListEntry.id !== undefined;
           if (success) {
             this.dismiss();
           }

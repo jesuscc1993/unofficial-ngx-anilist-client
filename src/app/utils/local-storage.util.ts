@@ -16,7 +16,7 @@ export class LocalStorage {
   }
 
   static getObject<T>(key: string) {
-    const jsonString: string = localStorage.getItem(key);
+    const jsonString = localStorage.getItem(key);
     return jsonString && (JSON.parse(jsonString) as T);
   }
 }

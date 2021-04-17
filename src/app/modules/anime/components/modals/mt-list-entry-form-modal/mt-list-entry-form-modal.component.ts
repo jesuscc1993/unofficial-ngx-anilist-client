@@ -1,13 +1,18 @@
+import { takeUntil, tap } from 'rxjs/operators';
+
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { takeUntil, tap } from 'rxjs/operators';
+import {
+  MAT_DIALOG_DATA, MatDialog, MatDialogRef
+} from '@angular/material/dialog';
 
 import { integerPattern, scorePattern } from '../../../../../app.constants';
 import {
-  WithObservableOnDestroy,
+  WithObservableOnDestroy
 } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry, listEntryStatuses
+} from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { AnimeCommands } from '../../../commands/anime.commands';
@@ -63,8 +68,8 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
       .saveAnimeListEntry(formListEntry)
       .pipe(
         takeUntil(this.destroyed$),
-        tap(savedListEntry => {
-          const success: boolean = savedListEntry.id !== undefined;
+        tap((savedListEntry) => {
+          const success = savedListEntry.id !== undefined;
           if (success) {
             this.dialog.closeAll();
           }
@@ -80,7 +85,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
         takeUntil(this.destroyed$),
-        tap(success => {
+        tap((success) => {
           if (success) {
             this.dialog.closeAll();
           }
@@ -107,9 +112,9 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     return {
       ...this.listEntry,
       status,
-      repeat: parseInt(repeat),
+      repeat: parseInt(repeat, 10),
       scoreRaw: Math.trunc(parseFloat(score) * 10),
-      progress: parseInt(progress),
+      progress: parseInt(progress, 10),
     };
   }
 

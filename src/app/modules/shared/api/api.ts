@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+/* eslint-disable no-console */
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { HttpClient } from '@angular/common/http';
 
 import { apiUrl } from '../../../app.constants';
 import { AuthStore } from '../store/auth.store';
@@ -8,13 +10,14 @@ import { PageInfo, PageQuery } from '../types/anilist/pageInfo.types';
 import { AnilistResponse } from '../types/anilist/response.types';
 
 export class AniListApi {
+  protected apiUrl = apiUrl;
   private loggingEnabled = false;
-  protected apiUrl: string = apiUrl;
 
   constructor(protected httpClient: HttpClient, protected authStore: AuthStore) {}
 
   protected getRequestOptions() {
     const accessToken = this.authStore.getAccessToken();
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     return { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} };
   }
 
@@ -31,7 +34,7 @@ export class AniListApi {
   ): Observable<AnilistResponse<ResponseType>> {
     const parsedVariables = { ...variables };
     if (parsedVariables) {
-      Object.keys(parsedVariables).forEach(key => {
+      Object.keys(parsedVariables).forEach((key) => {
         const value = parsedVariables[key];
 
         if (
@@ -70,6 +73,6 @@ export class AniListApi {
   }
 
   protected mapObjectErrorToStringError() {
-    return catchError(error => throwError(JSON.stringify(error, undefined, 2)));
+    return catchError((error) => throwError(JSON.stringify(error, undefined, 2)));
   }
 }

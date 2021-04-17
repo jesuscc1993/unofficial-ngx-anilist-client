@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 
+import { Component } from '@angular/core';
+
 import {
-  WithObservableOnDestroy,
+  WithObservableOnDestroy
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
+import {
+  MediaFormat, mediaFormats
+} from '../../../shared/types/anilist/media.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({
@@ -14,13 +17,11 @@ import { AnimeCommands } from '../../commands/anime.commands';
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
 export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
-  private listEntries: ListEntry[];
   filteredEntries: ListEntry[];
-
+  loading = true;
   mediaFormats: MediaFormat[];
   selectedFormats: MediaFormat[] = [];
-
-  loading: boolean = true;
+  private listEntries: ListEntry[];
 
   constructor(private animeCommands: AnimeCommands) {
     super();
@@ -29,10 +30,10 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
       .getPendingMediaByEndDate()
       .pipe(
         takeUntil(this.destroyed$),
-        tap(animeListEntries => {
+        tap((animeListEntries) => {
           this.listEntries = animeListEntries;
           this.mediaFormats = mediaFormats.filter(
-            format => !!animeListEntries.find(entry => entry.media.format === format)
+            (format) => !!animeListEntries.find((entry) => entry.media.format === format)
           );
           this.filterEntries();
           this.loading = false;
@@ -48,7 +49,7 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
 
   private filterEntries() {
     this.filteredEntries = this.selectedFormats.length
-      ? this.listEntries.filter(entry => this.selectedFormats.includes(entry.media.format))
+      ? this.listEntries.filter((entry) => this.selectedFormats.includes(entry.media.format))
       : this.listEntries;
   }
 }

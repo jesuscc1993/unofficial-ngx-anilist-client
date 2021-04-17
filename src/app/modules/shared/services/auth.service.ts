@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
 
 import { accessTokenCookieKey, userCookieKey } from '../../../app.constants';
 import { LocalStorage } from '../../../utils/local-storage.util';
@@ -10,8 +11,8 @@ import { User } from '../types/anilist/user.types';
 
 @Injectable()
 export class AuthService {
-  private userChangeSubject: Subject<User> = new Subject<User>();
   userChange$: Observable<User>;
+  private userChangeSubject: Subject<User> = new Subject<User>();
 
   constructor(private authApi: AuthApi, private authStore: AuthStore) {
     this.userChangeSubject = new Subject<User>();
@@ -23,7 +24,7 @@ export class AuthService {
   logIn(accessToken: string) {
     this.setAccessToken(accessToken);
     return this.authApi.queryUser().pipe(
-      tap(user => {
+      tap((user) => {
         this.setUser(user);
         this.userChangeSubject.next(user);
       })

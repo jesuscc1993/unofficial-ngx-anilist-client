@@ -10,8 +10,8 @@ import { GenreStats } from '../../../shared/types/anilist/genreStats.types';
 export class MtGenresOverviewComponent implements OnInit {
   @Input() genreStatsList: GenreStats[];
 
-  maxColumnCount: number = 5;
-  minColumnWidth: number = 160;
+  maxColumnCount = 5;
+  minColumnWidth = 160;
 
   constructor() {}
 
@@ -19,8 +19,13 @@ export class MtGenresOverviewComponent implements OnInit {
     this.calculateStatistics();
   }
 
+  getColumnCount(): number {
+    const columnCount = window.screen.width / this.minColumnWidth;
+    return Math.floor(columnCount < this.maxColumnCount ? columnCount : this.maxColumnCount);
+  }
+
   private calculateStatistics() {
-    let totalCount: number = 0;
+    let totalCount = 0;
 
     this.genreStatsList.forEach((genreStats: GenreStats) => {
       totalCount += genreStats.amount;
@@ -29,10 +34,5 @@ export class MtGenresOverviewComponent implements OnInit {
     this.genreStatsList.forEach((genreStats: GenreStats) => {
       genreStats.percentage = Math.round((genreStats.amount * 100) / totalCount);
     });
-  }
-
-  getColumnCount(): number {
-    const columnCount: number = window.screen.width / this.minColumnWidth;
-    return Math.floor(columnCount < this.maxColumnCount ? columnCount : this.maxColumnCount);
   }
 }

@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 
+import { Component } from '@angular/core';
+
 import {
-  WithObservableOnDestroy,
+  WithObservableOnDestroy
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { ListEntry, ListEntryStatus, listEntryStatuses } from '../../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry, ListEntryStatus, listEntryStatuses
+} from '../../../shared/types/anilist/listEntry.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({
@@ -13,13 +16,12 @@ import { AnimeCommands } from '../../commands/anime.commands';
   styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
 })
 export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestroy {
-  private listEntries: ListEntry[];
   filteredEntries: ListEntry[];
-
   listEntryStatuses: ListEntryStatus[];
+  ready: boolean;
   selectedStatuses: ListEntryStatus[] = [];
 
-  ready: boolean;
+  private listEntries: ListEntry[];
 
   constructor(private animeCommands: AnimeCommands) {
     super();
@@ -28,10 +30,10 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
       .getListEntriesByDateUpdated()
       .pipe(
         takeUntil(this.destroyed$),
-        tap(animeListEntries => {
+        tap((animeListEntries) => {
           this.listEntries = animeListEntries.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1));
           this.listEntryStatuses = listEntryStatuses.filter(
-            status => !!animeListEntries.find(entry => entry.status === status)
+            (status) => !!animeListEntries.find((entry) => entry.status === status)
           );
           this.filterEntries();
           this.ready = true;
@@ -47,7 +49,7 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
 
   private filterEntries() {
     this.filteredEntries = this.selectedStatuses.length
-      ? this.listEntries.filter(entry => this.selectedStatuses.includes(entry.status))
+      ? this.listEntries.filter((entry) => this.selectedStatuses.includes(entry.status))
       : this.listEntries;
   }
 }

@@ -4,8 +4,14 @@ import { ListEntry } from '../types/anilist/listEntry.types';
 import { Anime } from '../types/anilist/media.types';
 import { Store } from './store';
 
-export type MediaDictionary<MediaType> = { [mediaId: number]: MediaType };
-export type MediaStoreState = { animeDictionary: MediaDictionary<Anime>; animeListEntries?: ListEntry[] };
+export type MediaDictionary<MediaType> = {
+  [mediaId: number]: MediaType;
+};
+
+export type MediaStoreState = {
+  animeDictionary: MediaDictionary<Anime>;
+  animeListEntries?: ListEntry[];
+};
 
 @Injectable()
 export class MediaStore extends Store<MediaStoreState> {
@@ -30,13 +36,13 @@ export class MediaStore extends Store<MediaStoreState> {
 
   setAnimeListEntries(listEntries: ListEntry[]) {
     this.setState({ animeListEntries: listEntries });
-    this.storeAnime(listEntries.map(listEntry => listEntry.media));
+    this.storeAnime(listEntries.map((listEntry) => listEntry.media));
   }
 
   updateAnimeListEntry(updatedListEntry: ListEntry) {
     this.setAnimeListEntries(
-      this.getAnimeListEntries().find(listEntry => listEntry.id === updatedListEntry.id)
-        ? this.getAnimeListEntries().map(listEntry =>
+      this.getAnimeListEntries().find((listEntry) => listEntry.id === updatedListEntry.id)
+        ? this.getAnimeListEntries().map((listEntry) =>
             listEntry.id === updatedListEntry.id ? updatedListEntry : listEntry
           )
         : [...this.getAnimeListEntries(), updatedListEntry]
@@ -44,7 +50,7 @@ export class MediaStore extends Store<MediaStoreState> {
   }
 
   deleteAnimeListEntry(listEntryToDelete: ListEntry) {
-    this.setAnimeListEntries(this.getAnimeListEntries().filter(listEntry => listEntry.id !== listEntryToDelete.id));
+    this.setAnimeListEntries(this.getAnimeListEntries().filter((listEntry) => listEntry.id !== listEntryToDelete.id));
     const animeDictionary = this.getAnimeDictionary();
     delete animeDictionary[listEntryToDelete.media.id].mediaListEntry;
     this.setState({ animeDictionary });

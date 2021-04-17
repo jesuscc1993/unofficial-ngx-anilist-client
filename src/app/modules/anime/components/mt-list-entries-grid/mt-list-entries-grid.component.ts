@@ -11,7 +11,7 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 export class MtListEntryGridComponent implements OnChanges {
   @Input() listEntries: ListEntry[];
   @Input() wrapperClass?: string;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   pagination: PageEvent;
 

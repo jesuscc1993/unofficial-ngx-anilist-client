@@ -9,7 +9,7 @@ import { TitleService } from '../../modules/shared/services/title.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginPageComponent {
-  apiLoginUrl: string = apiLoginUrl;
+  apiLoginUrl = apiLoginUrl;
 
   constructor(private titleService: TitleService) {
     this.titleService.setTitle();

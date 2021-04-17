@@ -1,18 +1,23 @@
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../app.constants';
 import { ToastService } from '../../shared/services/toast.service';
 import { AuthStore } from '../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry, ListEntryStatus
+} from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { SearchFilters } from '../api/anime/anime-api.types';
-import { MtPromptComponent, PromptData } from '../components/modals/mt-prompt/mt-prompt.component';
+import {
+  MtPromptComponent, PromptData
+} from '../components/modals/mt-prompt/mt-prompt.component';
 import { AnimeService } from '../services/anime.service';
 
 @Injectable()
@@ -48,11 +53,11 @@ export class AnimeCommands {
   }
 
   deleteAnimeListEntry(listEntry: ListEntry) {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       const confirm = () => {
         this._deleteAnimeListEntry(listEntry)
           .pipe(
-            tap(deleted => {
+            tap((deleted) => {
               observer.next(deleted);
               observer.complete();
             })
@@ -85,8 +90,8 @@ export class AnimeCommands {
 
   saveAnimeListEntry(listEntry: ListEntry) {
     return this.animeService.saveAnimeListEntry(listEntry).pipe(
-      tap(savedListEntry => {
-        const success: boolean = savedListEntry.id !== undefined;
+      tap((savedListEntry) => {
+        const success = savedListEntry.id !== undefined;
         if (success) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.update.success', {
@@ -112,8 +117,8 @@ export class AnimeCommands {
 
   toggleFavouriteAnimeListEntry(listEntry: ListEntry) {
     return this.animeService.toggleFavouriteAnimeListEntry(listEntry).pipe(
-      tap(listEntryId => {
-        const success: boolean = listEntryId !== undefined;
+      tap((listEntryId) => {
+        const success = listEntryId !== undefined;
         if (success) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.favouriteToggle.success', {
@@ -140,7 +145,7 @@ export class AnimeCommands {
   private _deleteAnimeListEntry(listEntry: ListEntry) {
     return this.animeService.deleteAnimeListEntry(listEntry).pipe(
       map(({ deleted }) => deleted),
-      tap(deleted => {
+      tap((deleted) => {
         if (deleted) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.deletion.success', {

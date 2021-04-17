@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs/operators';
 
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { environment } from '../../../../../environments/environment';
-import { animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl } from '../../../../app.constants';
+import {
+  animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl,
+  userListUrl
+} from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy
+} from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
   selector: 'mt-header',
@@ -15,10 +21,10 @@ import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-obse
   styleUrls: ['./mt-header.component.scss'],
 })
 export class MtHeaderComponent extends WithObservableOnDestroy {
-  apiLoginUrl: string = apiLoginUrl;
-  dashboardUrl: string = dashboardUrl;
-  animeSearchUrl: string = animeSearchUrl;
-  userListUrl: string = userListUrl;
+  apiLoginUrl = apiLoginUrl;
+  dashboardUrl = dashboardUrl;
+  animeSearchUrl = animeSearchUrl;
+  userListUrl = userListUrl;
 
   user: User;
   onRoot: boolean;
@@ -33,14 +39,11 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     if (location.href.includes(apiTokenPrefix)) {
       const locationParts: string[] = location.href.split('&')[0].split(apiTokenPrefix);
       history.replaceState({}, 'Login success', locationParts[0]);
-      this.authCommands
-        .logIn(locationParts[1])
-        .pipe(takeUntil(this.destroyed$))
-        .subscribe();
+      this.authCommands.logIn(locationParts[1]).pipe(takeUntil(this.destroyed$)).subscribe();
       this.navigateToHomePage(true);
     }
 
-    this.loginAvailable = environment.anilist_client_id >= 0;
+    this.loginAvailable = environment.anilistClientId >= 0;
     this.user = this.authStore.getUser();
 
     this.router.events
@@ -59,7 +62,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       .onUserChange()
       .pipe(
         takeUntil(this.destroyed$),
-        tap(user => (this.user = user))
+        tap((user) => (this.user = user))
       )
       .subscribe();
   }
@@ -69,18 +72,15 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   }
 
   logOut() {
-    this.authCommands
-      .logOut()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe();
+    this.authCommands.logOut().pipe(takeUntil(this.destroyed$)).subscribe();
     this.user = undefined;
-    this.loginAvailable = environment.anilist_client_id >= 0;
+    this.loginAvailable = environment.anilistClientId >= 0;
     this.navigateToHomePage();
   }
 
   private navigateToHomePage(replaceUrl?: boolean) {
     this.router.navigate([rootUrl], {
-      replaceUrl: replaceUrl,
+      replaceUrl,
     });
   }
 }
