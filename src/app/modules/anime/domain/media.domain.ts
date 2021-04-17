@@ -1,7 +1,9 @@
 import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
-import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
+import {
+  ListEntriesByStatus, ListEntry
+} from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { MediaSort } from '../../shared/types/anilist/mediaSort.types';
 
@@ -32,7 +34,7 @@ export const getDateScalarFromYear = (year: number) => {
 
 export const getMediaSortFromSort = (sort: Sort) => {
   const directionSuffix = sort.direction === 'desc' ? '_DESC' : '';
-  return <MediaSort>(sort.active.replace(/-/g, '_').toUpperCase() + directionSuffix);
+  return (sort.active.replace(/-/g, '_').toUpperCase() + directionSuffix) as MediaSort;
 };
 
 export const getListEntriesByStatus = (listEntries: ListEntry[]) => {

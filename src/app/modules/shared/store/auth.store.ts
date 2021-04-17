@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { User } from '../types/anilist/user.types';
 import { Store } from './store';
 
-export type AuthStoreState = { accessToken?: string; user?: User };
+export type AuthStoreState = {
+  accessToken?: string;
+  user?: User;
+};
 
 @Injectable()
 export class AuthStore extends Store<AuthStoreState> {

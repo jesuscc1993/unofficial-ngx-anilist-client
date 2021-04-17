@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output,
+  SimpleChanges, ViewChild
+} from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -11,7 +14,7 @@ import { getMediaSortFromSort } from '../../domain/media.domain';
   templateUrl: './mt-search-results-table.component.html',
   styleUrls: ['./mt-search-results-table.component.scss'],
 })
-export class MtSearchResultsTableComponent implements OnInit, OnChanges {
+export class MtSearchResultsTableComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() tableData: Anime[];
   @Output() onSortChange: EventEmitter<MediaSort> = new EventEmitter<MediaSort>();
   @ViewChild(MatSort, { static: true }) sort: MatSort;

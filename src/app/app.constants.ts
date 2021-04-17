@@ -2,9 +2,7 @@ import { environment } from '../environments/environment';
 import { ModalOptions } from './modules/shared/types/modal.types';
 
 export const apiUrl = 'https://graphql.anilist.co';
-export const apiLoginUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${
-  environment.anilist_client_id
-}&response_type=token`;
+export const apiLoginUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${environment.anilistClientId}&response_type=token`;
 export const apiTokenPrefix = '#access_token=';
 
 export const accessTokenCookieKey = 'accessToken';

@@ -1,0 +1,62 @@
+{
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "extends": [
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "files": ["*.ts"],
+      "parserOptions": {
+        "createDefaultProgram": true,
+        "project": ["tsconfig.json", "e2e/tsconfig.json"]
+      },
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "prefix": "mt",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "prefix": "mt",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/no-output-on-prefix": "off",
+        "@typescript-eslint/member-delimiter-style": [
+          "error",
+          {
+            "multiline": {
+              "delimiter": "semi",
+              "requireLast": true
+            },
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": false
+            }
+          }
+        ],
+        "@typescript-eslint/semi": ["error", "always"],
+        "arrow-body-style": "off",
+        "curly": ["error", "multi-line"],
+        "eqeqeq": ["error", "always"],
+        "no-invalid-this": "error",
+        "no-multiple-empty-lines": "error",
+        "no-redeclare": "error",
+        "no-underscore-dangle": "off",
+        "prefer-template": "error"
+      }
+    },
+    {
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ],
+  "root": true
+}

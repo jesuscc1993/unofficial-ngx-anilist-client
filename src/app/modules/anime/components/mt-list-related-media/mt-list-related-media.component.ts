@@ -1,14 +1,21 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { of } from 'rxjs';
 import { catchError, flatMap, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  WithObservableOnDestroy,
+  Component, ElementRef, HostListener, OnInit, ViewChild
+} from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+
+import {
+  WithObservableOnDestroy
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { MediaStore } from '../../../shared/store/media.store';
-import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
-import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
+import {
+  Anime, MediaFormat, mediaFormats
+} from '../../../shared/types/anilist/media.types';
+import {
+  basicMediaSorts, MediaSort
+} from '../../../shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 
@@ -43,6 +50,18 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
     this.onError = this.onError.bind(this);
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    const newColCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+
+    if (newColCount !== this.colCount) {
+      this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+
+      this.initialize();
+      this.queryData().pipe(takeUntil(this.destroyed$), catchError(this.onError)).subscribe();
+    }
+  }
+
   ngOnInit() {
     this.onResize();
 
@@ -57,23 +76,9 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
       .subscribe();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    const newColCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
-
-    if (newColCount !== this.colCount) {
-      this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
-
-      this.initialize();
-      this.queryData()
-        .pipe(takeUntil(this.destroyed$), catchError(this.onError))
-        .subscribe();
-    }
-  }
-
   queryData() {
     return this.animeCommands.getRelatedAnimeMediaIds().pipe(
-      tap(relatedMediaIds => {
+      tap((relatedMediaIds) => {
         this.relatedMediaIds = relatedMediaIds;
         this.search(0, this.colCount * this.rowCount);
       })
@@ -119,7 +124,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
       )
       .pipe(
         takeUntil(this.destroyed$),
-        tap(response => {
+        tap((response) => {
           this.animeList = response.media;
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;

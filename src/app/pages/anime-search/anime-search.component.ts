@@ -1,27 +1,32 @@
+import { of } from 'rxjs';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
-import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { animeSearchUrl, integerPattern, scorePattern } from '../../app.constants';
+import {
+  animeSearchUrl, integerPattern, scorePattern
+} from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
-  MtSearchResultsTableComponent,
+  MtSearchResultsTableComponent
 } from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../modules/anime/domain/media.domain';
 import { AuthCommands } from '../../modules/shared/commands/auth.commands';
 import {
-  WithObservableOnDestroy,
+  WithObservableOnDestroy
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { MediaStore } from '../../modules/shared/store/media.store';
-import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/anilist/media.types';
+import {
+  Anime, mediaFormats, mediaStatuses
+} from '../../modules/shared/types/anilist/media.types';
 import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
@@ -33,7 +38,7 @@ import { User } from '../../modules/shared/types/anilist/user.types';
 })
 export class AnimeSearchPageComponent extends WithObservableOnDestroy implements OnInit {
   @ViewChild(MatExpansionPanel, { static: true }) expansionPanel: MatExpansionPanel;
-  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef, static: false }) resultsTable: ElementRef;
+  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
 
   user: User;
   animeList: Anime[];
@@ -73,7 +78,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       .getAnimeGenres()
       .pipe(
         takeUntil(this.destroyed$),
-        tap(mediaGenres => (this.mediaGenres = mediaGenres))
+        tap((mediaGenres) => (this.mediaGenres = mediaGenres))
       )
       .subscribe();
 
@@ -81,7 +86,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       .onUserChange()
       .pipe(
         takeUntil(this.destroyed$),
-        tap(user => (this.user = user))
+        tap((user) => (this.user = user))
       )
       .subscribe();
 
@@ -103,7 +108,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
     const fieldKeys = Object.keys(queryParams);
 
     if (fieldKeys.length) {
-      Object.keys(queryParams).forEach(fieldKey => {
+      Object.keys(queryParams).forEach((fieldKey) => {
         const field = this.searchForm.controls[fieldKey];
         const value = JSON.parse(queryParams[fieldKey]);
 
@@ -137,7 +142,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
 
     const filters = this.searchForm.value;
 
-    let query: SearchFilters = {
+    const query: SearchFilters = {
       ...filters,
       startDateSmallerThan: filters.startDateSmallerThan && getDateScalarFromYear(filters.startDateSmallerThan),
       startDateGreaterThan: filters.startDateGreaterThan && getDateScalarFromYear(filters.startDateGreaterThan),
@@ -153,13 +158,13 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
       })
       .pipe(
         takeUntil(this.destroyed$),
-        tap(response => {
+        tap((response) => {
           this.animeList = response.media;
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
         }),
-        catchError(error => {
+        catchError((error) => {
           this.error = error;
           this.searching = false;
 
@@ -208,7 +213,7 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
 
     const filters = this.searchForm.value;
 
-    Object.keys(filters).forEach(fieldKey => {
+    Object.keys(filters).forEach((fieldKey) => {
       const field = filters[fieldKey];
 
       if (this.isSet(field)) {

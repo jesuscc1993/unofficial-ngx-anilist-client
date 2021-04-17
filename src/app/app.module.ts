@@ -2,7 +2,11 @@ import { LOCATION_INITIALIZED } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '../environments/environment';
@@ -27,8 +31,8 @@ const appRoutes: Routes = [
 ];
 
 const translationFactory = (translateService: TranslateService, injector: Injector) => {
-  return () =>
-    new Promise<any>((resolve: any) => {
+  return () => {
+    return new Promise<any>((resolve: any) => {
       const availableLanguages = ['en-US', 'es-ES'];
       const defaultLanguage = availableLanguages[0];
 
@@ -39,6 +43,7 @@ const translationFactory = (translateService: TranslateService, injector: Inject
           .subscribe(() => resolve(null));
       });
     });
+  };
 };
 
 @NgModule({
@@ -54,7 +59,7 @@ const translationFactory = (translateService: TranslateService, injector: Inject
   imports: [
     SharedModule,
     AnimeModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

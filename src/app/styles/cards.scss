@@ -33,6 +33,10 @@
           margin-bottom: -$regular-padding;
         }
       }
+
+      .header-dropdown + .header-dropdown {
+        padding-left: 0;
+      }
     }
   }
 }

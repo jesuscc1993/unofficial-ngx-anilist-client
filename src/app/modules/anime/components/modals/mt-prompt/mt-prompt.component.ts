@@ -32,17 +32,17 @@ export class MtPromptComponent {
   }
 
   cancel() {
-    this.data.cancel && this.data.cancel();
+    if (this.data.cancel) this.data.cancel();
     this.dialogRef.close();
   }
 
   confirm() {
-    this.data.confirm && this.data.confirm();
+    if (this.data.confirm) this.data.confirm();
     this.dialogRef.close();
   }
 
   dismiss() {
-    this.data.dismiss && this.data.dismiss();
+    if (this.data.dismiss) this.data.dismiss();
     this.dialogRef.close();
   }
 }
