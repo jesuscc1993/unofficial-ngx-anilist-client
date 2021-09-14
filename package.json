@@ -30,7 +30,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-cli-ghpages": "^0.6.2",
     "rxjs": "^6.5.4",
-    "set-value": "3.0.1",
+    "set-value": "4.0.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },
