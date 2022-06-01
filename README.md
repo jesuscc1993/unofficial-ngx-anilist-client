@@ -105,9 +105,10 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
-- Add sort to dashboard lists
-- Add favourites to store and mark favorited entries
-- Add language selection
 - Add "export as JSON" feature to the user's list
-- Move tags to the store
+- Add language selection
+- Add query options popup for dashboard lists
+  - Include, at least, limit, sort, status and format
 - Do NOT reset pagination on list changes (reset only on filter changes)
+- Limit dashboard results to improve load times
+- Move tags to the store

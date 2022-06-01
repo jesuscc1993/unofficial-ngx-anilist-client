@@ -39,7 +39,7 @@
   <!-- not logged in -->
   <div *ngIf="!user" class="flex-box center">
     <a *ngIf="loginAvailable" [href]="apiLoginUrl">
-      <span class="hide-below-s">{{ 'user.logIn' | translate }}</span>
+      <span class="hide-below-s">{{ 'user.logIn' | translate }}{{ ' ' }}</span>
       <fa-icon name="sign-in-alt"></fa-icon>
     </a>
   </div>

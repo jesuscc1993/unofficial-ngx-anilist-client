@@ -30,7 +30,7 @@
         <span class="text">
           <span>{{ entry.media.title.romaji }}</span>
           <span *ngIf="favouriteIDs?.includes(entry.media.id)">
-            <fa-icon name="heart" class="favourite"></fa-icon>
+            {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
           </span>
         </span>
       </mat-cell>
