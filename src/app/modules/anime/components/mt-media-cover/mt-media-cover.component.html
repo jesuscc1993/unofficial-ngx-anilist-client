@@ -1,17 +1,33 @@
 <div *ngIf="media">
-  <div [style.background-image]="'url(' + media.coverImage.large + ')'" class="cover">
+  <div
+    class="cover"
+    [style.background-image]="'url(' + media.coverImage.large + ')'"
+  >
     <div class="backdrop">
       <div class="full-width">
         <div (click)="openDetailModal($event)" class="title clickable">
-          <div *ngIf="media.title" lines="4" ngxEllipsis title="{{ media.title.romaji }}">
+          <div
+            *ngIf="media.title"
+            lines="4"
+            ngxEllipsis
+            title="{{ media.title.romaji }}"
+          >
             {{ media.title.romaji }}
           </div>
           <div *ngIf="media.averageScore">({{ media.averageScore / 10 }})</div>
         </div>
 
         <div *ngIf="listEntry" class="cover-actions-container">
-          <fa-icon (click)="openEditionModal($event)" class="cover-action clickable" name="pen"></fa-icon>
-          <fa-icon (click)="deleteEntry($event)" class="cover-action clickable" name="trash"></fa-icon>
+          <fa-icon
+            class="cover-action clickable"
+            name="pen"
+            (click)="openEditionModal($event)"
+          ></fa-icon>
+          <fa-icon
+            class="cover-action clickable"
+            name="trash"
+            (click)="deleteEntry($event)"
+          ></fa-icon>
         </div>
       </div>
     </div>

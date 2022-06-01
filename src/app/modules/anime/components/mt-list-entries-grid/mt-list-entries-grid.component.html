@@ -2,10 +2,10 @@
   <div class="media-cover-grid">
     <mt-media-cover
       *ngFor="
-        let listEntry of (listEntries
+        let listEntry of listEntries
           | slice
             : pagination.pageIndex * pagination.pageSize
-            : pagination.pageIndex * pagination.pageSize + pagination.pageSize)
+            : pagination.pageIndex * pagination.pageSize + pagination.pageSize
       "
       [listEntry]="listEntry"
     ></mt-media-cover>

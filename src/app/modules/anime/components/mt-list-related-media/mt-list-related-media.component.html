@@ -1,12 +1,18 @@
 <mat-card class="composite compact">
   <div class="composite-header">
     <div class="header flex-1">
-      <h4 class="no-margin">{{ 'anime.dashboard.relatedMedia' | translate }}</h4>
+      <h4 class="no-margin">
+        {{ 'anime.dashboard.relatedMedia' | translate }}
+      </h4>
     </div>
 
     <div class="header header-dropdown">
       <span>{{ 'generic.sort' | translate }}:</span>
-      <mat-select class="width-auto" [ngModel]="selectedSort" (ngModelChange)="sortBy($event)">
+      <mat-select
+        class="width-auto"
+        [ngModel]="selectedSort"
+        (ngModelChange)="sortBy($event)"
+      >
         <mat-option *ngFor="let sort of mediaSorts" [value]="sort">{{
           'media.sortValues.' + sort | translate
         }}</mat-option>
@@ -14,7 +20,10 @@
     </div>
 
     <div class="header header-dropdown">
-      <span>{{ 'media.format' | translate }} {{ 'anime.search.filters.includedIn' | translate }}:</span>
+      <span
+        >{{ 'media.format' | translate }}
+        {{ 'anime.search.filters.includedIn' | translate }}:</span
+      >
       <mat-select
         class="width-auto"
         placeholder="{{ 'media.formatValues.undefined' | translate }}"
@@ -41,7 +50,10 @@
 
       <div *ngIf="!searching && animeList?.length">
         <div class="media-cover-grid">
-          <mt-media-cover *ngFor="let media of animeList" [media]="media"></mt-media-cover>
+          <mt-media-cover
+            *ngFor="let media of animeList"
+            [media]="media"
+          ></mt-media-cover>
         </div>
       </div>
 

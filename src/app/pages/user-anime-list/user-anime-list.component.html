@@ -6,7 +6,11 @@
     </h4>
   </mat-card>
 
-  <mat-spinner *ngIf="user && !ready" mode="indeterminate" class="full-page"></mat-spinner>
+  <mat-spinner
+    *ngIf="user && !ready"
+    class="full-page"
+    mode="indeterminate"
+  ></mat-spinner>
 
   <div *ngIf="ready">
     <div *ngIf="statuses && statuses.length">
@@ -21,7 +25,10 @@
       </mat-card>
 
       <mat-card class="margin-top-s">
-        <h3>{{ 'anime.userList.show' | translate }} / {{ 'anime.userList.goTo' | translate }}</h3>
+        <h3>
+          {{ 'anime.userList.show' | translate }} /
+          {{ 'anime.userList.goTo' | translate }}
+        </h3>
 
         <div class="statuses-wrapper">
           <span *ngFor="let status of statuses" class="status-wrapper">
@@ -31,7 +38,10 @@
               }}</mat-checkbox>
 
               <a class="go-to-link" (click)="scrollToStatus(status.value)">
-                <fa-icon name="arrow-down" class="vertically-centered margin-left-xxxs"></fa-icon>
+                <fa-icon
+                  class="vertically-centered margin-left-xxxs"
+                  name="arrow-down"
+                ></fa-icon>
               </a>
             </div>
           </span>
@@ -39,7 +49,11 @@
       </mat-card>
 
       <div *ngFor="let status of statuses">
-        <div id="{{ status.value }}" *ngIf="status.shown && hasDataOfStatus(status.value)" class="status-table-wrapper">
+        <div
+          *ngIf="status.shown && hasDataOfStatus(status.value)"
+          class="status-table-wrapper"
+          id="{{ status.value }}"
+        >
           <mt-user-anime-list-table
             [tableStatus]="status.value"
             [tableData]="listEntriesByStatus[status.value]"
@@ -50,7 +64,8 @@
         </div>
       </div>
 
-      <mt-genres-overview [genreStatsList]="user.stats.favouredGenresOverview"> </mt-genres-overview>
+      <mt-genres-overview [genreStatsList]="user.stats.favouredGenresOverview">
+      </mt-genres-overview>
     </div>
 
     <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">

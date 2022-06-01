@@ -1,9 +1,15 @@
 <h3>{{ 'anime.userList.genresOverview' | translate }}</h3>
 
-<mat-grid-list *ngIf="(genreStatsList?.length | sort: 'amount')" [cols]="getColumnCount()" rowHeight="32px">
+<mat-grid-list
+  *ngIf="genreStatsList?.length | sort: 'amount'"
+  rowHeight="32px"
+  [cols]="getColumnCount()"
+>
   <mat-grid-tile
     *ngFor="let genreStats of genreStatsList"
-    [matTooltip]="genreStats.amount + ' ' + ('anime.userList.entries' | translate)"
+    [matTooltip]="
+      genreStats.amount + ' ' + ('anime.userList.entries' | translate)
+    "
     matTooltipPosition="above"
     >{{ genreStats.genre }} ({{ genreStats.percentage }}%)</mat-grid-tile
   >

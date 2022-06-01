@@ -19,10 +19,15 @@
       <!-- status -->
       <div class="form-group">
         <mat-form-field>
-          <mat-select placeholder="{{ 'media.status' | translate }}" formControlName="status">
-            <mat-option *ngFor="let status of listEntryStatuses" [value]="status">{{
-              'anime.statusValues.' + status | translate
-            }}</mat-option>
+          <mat-select
+            formControlName="status"
+            placeholder="{{ 'media.status' | translate }}"
+          >
+            <mat-option
+              *ngFor="let status of listEntryStatuses"
+              [value]="status"
+              >{{ 'anime.statusValues.' + status | translate }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
@@ -37,14 +42,28 @@
       <div class="form-group">
         <mat-form-field>
           <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
-          <input matInput type="text" placeholder="0" formControlName="repeat" />
+          <input
+            matInput
+            type="text"
+            placeholder="0"
+            formControlName="repeat"
+          />
         </mat-form-field>
       </div>
 
       <div class="form-group">
         <mat-form-field>
-          <mat-label>{{ 'media.episodes' | translate }} (*/{{ media.episodes || '?' }})</mat-label>
-          <input matInput type="text" placeholder="0" formControlName="progress" />
+          <mat-label
+            >{{ 'media.episodes' | translate }} (*/{{
+              media.episodes || '?'
+            }})</mat-label
+          >
+          <input
+            matInput
+            type="text"
+            placeholder="0"
+            formControlName="progress"
+          />
         </mat-form-field>
       </div>
     </mt-modal-content>
@@ -63,7 +82,11 @@
           <span>{{ 'generic.delete' | translate }}</span>
         </button>
 
-        <button mat-raised-button color="accent" [disabled]="!listEntryForm.valid || !isSubmitAvailable()">
+        <button
+          mat-raised-button
+          color="accent"
+          [disabled]="!listEntryForm.valid || !isSubmitAvailable()"
+        >
           <fa-icon name="save"></fa-icon>
           <span>{{ 'generic.submit' | translate }}</span>
         </button>

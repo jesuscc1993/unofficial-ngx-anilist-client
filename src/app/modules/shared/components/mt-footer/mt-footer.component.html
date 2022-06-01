@@ -4,12 +4,18 @@
 
     <div class="links-wrapper">
       <a [href]="gitHubProjectUrl">
-        <fa-icon type="fab" name="github" iconClass="margin-right-xxxs"></fa-icon>{{ 'footer.github' | translate }}</a
+        <fa-icon
+          iconClass="margin-right-xxxs"
+          name="github"
+          type="fab"
+        ></fa-icon
+        >{{ 'footer.github' | translate }}</a
       >
     </div>
 
     <div class="about-anilist margin-top-xxs">
-      {{ 'footer.anilistPrefix' | translate }} <mat-icon svgIcon="anilist"></mat-icon>
+      {{ 'footer.anilistPrefix' | translate }}
+      <mat-icon svgIcon="anilist"></mat-icon>
       {{ 'footer.anilistSuffix' | translate }}
     </div>
   </div>

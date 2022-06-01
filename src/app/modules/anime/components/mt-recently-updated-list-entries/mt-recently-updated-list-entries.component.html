@@ -1,11 +1,16 @@
 <mat-card class="composite compact">
   <div class="composite-header">
     <div class="header flex-1">
-      <h4 class="no-margin">{{ 'anime.dashboard.recentlyUpdated' | translate }}</h4>
+      <h4 class="no-margin">
+        {{ 'anime.dashboard.recentlyUpdated' | translate }}
+      </h4>
     </div>
 
     <div class="header header-dropdown">
-      <span>{{ 'media.status' | translate }} {{ 'anime.search.filters.includedIn' | translate }}:</span>
+      <span
+        >{{ 'media.status' | translate }}
+        {{ 'anime.search.filters.includedIn' | translate }}:</span
+      >
       <mat-select
         class="width-auto"
         placeholder="{{ 'anime.statusValues.undefined' | translate }}"
@@ -25,6 +30,9 @@
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
-    <mt-list-entries-grid [listEntries]="filteredEntries" wrapperClass="negative-bottom-margin"></mt-list-entries-grid>
+    <mt-list-entries-grid
+      wrapperClass="negative-bottom-margin"
+      [listEntries]="filteredEntries"
+    ></mt-list-entries-grid>
   </div>
 </mat-card>

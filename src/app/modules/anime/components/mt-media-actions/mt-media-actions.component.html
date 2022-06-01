@@ -1,33 +1,49 @@
-<fa-icon name="bars" class="menu-toggle clickable" [matMenuTriggerFor]="entryMenu"></fa-icon>
+<fa-icon
+  class="menu-toggle clickable"
+  name="bars"
+  [matMenuTriggerFor]="entryMenu"
+></fa-icon>
 
 <mat-menu #entryMenu="matMenu">
   <div *ngIf="editEnabled">
     <mt-menu-action
-      (onPress)="openEditionModal()"
-      icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
       disabled="{{ !user }}"
+      icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
+      (onPress)="openEditionModal()"
       >{{
-        (isUpdateAvailable() ? 'anime.userList.updateEntry' : 'anime.userList.addToList') | translate
+        (isUpdateAvailable()
+          ? 'anime.userList.updateEntry'
+          : 'anime.userList.addToList'
+        ) | translate
       }}</mt-menu-action
     >
 
-    <mt-menu-action (onPress)="setAsPlanning()" icon="clock" disabled="{{ !user }}">{{
-      'anime.userList.setAsPlanning' | translate
-    }}</mt-menu-action>
+    <mt-menu-action
+      icon="clock"
+      disabled="{{ !user }}"
+      (onPress)="setAsPlanning()"
+      >{{ 'anime.userList.setAsPlanning' | translate }}</mt-menu-action
+    >
 
     <mat-divider></mat-divider>
   </div>
 
   <div>
-    <mt-menu-action (onPress)="toggleFavourite()" icon="star" disabled="{{ !user }}">{{
-      'anime.userList.toggleFavourite' | translate
-    }}</mt-menu-action>
+    <mt-menu-action
+      (onPress)="toggleFavourite()"
+      icon="star"
+      disabled="{{ !user }}"
+      >{{ 'anime.userList.toggleFavourite' | translate }}</mt-menu-action
+    >
   </div>
 
   <div *ngIf="listEntry">
-    <mt-menu-action (onPress)="deleteEntry()" icon="trash" disabled="{{ !user }}">{{
-      'anime.userList.deleteFromList' | translate
-    }}</mt-menu-action>
+    <mt-menu-action
+      disabled="{{ !user }}"
+      icon="trash"
+      (onPress)="deleteEntry()"
+      >{{ 'anime.userList.deleteFromList' | translate }}</mt-menu-action
+    >
   </div>
 
   <mat-divider></mat-divider>

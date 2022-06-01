@@ -1,6 +1,10 @@
 <mat-toolbar>
   <div>
-    <span class="hide-below-s" title="Unofficial Angular Material Anilist Client">{{ 'app.title' | translate }}</span>
+    <span
+      class="hide-below-s"
+      title="Unofficial Angular Material Anilist Client"
+      >{{ 'app.title' | translate }}</span
+    >
   </div>
 
   <div class="centered-content section-links" *ngIf="user">
@@ -20,19 +24,31 @@
 
   <!-- logged in -->
   <div *ngIf="user" class="flex-box center">
-    <span class="padding-right-xs clickable hide-below-s" [matMenuTriggerFor]="userMenu">{{ user.name }}</span>
-    <img class="avatar clickable hide-below-s" [src]="user.avatar.large" [matMenuTriggerFor]="userMenu" />
+    <span
+      class="padding-right-xs clickable hide-below-s"
+      [matMenuTriggerFor]="userMenu"
+      >{{ user.name }}</span
+    >
+    <img
+      class="avatar clickable hide-below-s"
+      [matMenuTriggerFor]="userMenu"
+      [src]="user.avatar.large"
+    />
 
     <a class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
       <fa-icon name="bars"></fa-icon>
     </a>
 
     <mat-menu #userMenu="matMenu">
-      <mt-menu-action (onPress)="openAnilistProfile()" icon="external-link-alt">{{
-        'user.viewProfile' | translate
-      }}</mt-menu-action>
+      <mt-menu-action
+        icon="external-link-alt"
+        (onPress)="openAnilistProfile()"
+        >{{ 'user.viewProfile' | translate }}</mt-menu-action
+      >
 
-      <mt-menu-action (onPress)="logOut()" icon="door-open">{{ 'user.logOut' | translate }}</mt-menu-action>
+      <mt-menu-action (onPress)="logOut()" icon="door-open">{{
+        'user.logOut' | translate
+      }}</mt-menu-action>
     </mat-menu>
   </div>
 

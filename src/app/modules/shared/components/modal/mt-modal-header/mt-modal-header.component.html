@@ -3,7 +3,11 @@
     <ng-content></ng-content>
   </h3>
 
-  <fa-icon name="times" class="clickable" (click)="onClosePressed.emit()"></fa-icon>
+  <fa-icon
+    class="clickable"
+    name="times"
+    (click)="onClosePressed.emit()"
+  ></fa-icon>
 </div>
 
 <mat-divider></mat-divider>
