@@ -1,16 +1,20 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+import { defaultModalOptions } from '../../../../../app.constants';
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { AnimeCommands } from '../../../commands/anime.commands';
+import {
+  MtListEntryFormModalComponent,
+} from '../mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 
 type MediaDetailModalParameters = {
   media: Media;
@@ -27,6 +31,7 @@ export class MtMediaDetailModalComponent extends WithObservableOnDestroy {
   media: Media;
 
   constructor(
+    private dialog: MatDialog,
     private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
     private router: Router,
     private animeCommands: AnimeCommands,
@@ -45,6 +50,17 @@ export class MtMediaDetailModalComponent extends WithObservableOnDestroy {
   navigateToDetail() {
     this.router.navigate(['anime-detail/', this.media.id]);
     this.dismiss();
+  }
+
+  openEditionModal() {
+    this.dialog.open(MtListEntryFormModalComponent, {
+      ...defaultModalOptions,
+      data: {
+        origin: this.origin || 'edit',
+        listEntry: { ...this.media.mediaListEntry, media: this.media },
+        media: this.media,
+      },
+    });
   }
 
   setAsPlanning() {
