@@ -1,21 +1,5 @@
 import { Media } from './media.types';
 
-export type ListEntryStatus =
-  | 'COMPLETED'
-  | 'CURRENT'
-  | 'DROPPED'
-  | 'PAUSED'
-  | 'PLANNING'
-  | 'REPEATING';
-export const listEntryStatuses: ListEntryStatus[] = [
-  'COMPLETED',
-  'DROPPED',
-  'PAUSED',
-  'PLANNING',
-  'REPEATING',
-  'CURRENT',
-];
-
 export type ListEntry = {
   id?: number;
   scoreRaw?: number;
@@ -27,3 +11,14 @@ export type ListEntry = {
 };
 
 export type ListEntriesByStatus = { [Status in ListEntryStatus]?: ListEntry[] };
+
+/* eslint-disable @typescript-eslint/naming-convention */
+export enum ListEntryStatus {
+  COMPLETED = 'COMPLETED',
+  CURRENT = 'CURRENT',
+  DROPPED = 'DROPPED',
+  PAUSED = 'PAUSED',
+  PLANNING = 'PLANNING',
+  REPEATING = 'REPEATING',
+}
+/* eslint-enable @typescript-eslint/naming-convention */

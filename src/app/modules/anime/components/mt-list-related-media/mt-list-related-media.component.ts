@@ -7,9 +7,9 @@ import { PageEvent } from '@angular/material/paginator';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaFormats } from '../../../shared/constants/media.constants';
 import { MediaStore } from '../../../shared/store/media.store';
-import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
-import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
+import { Anime, MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 
@@ -35,7 +35,7 @@ export class MtListRelatedMediaComponent
   relatedMediaIds: number[];
   animeList: Anime[];
   pagination: PageInfo;
-  selectedSort: MediaSort = 'END_DATE_DESC';
+  selectedSort = MediaSort.END_DATE_DESC;
   selectedFormats: MediaFormat[] = [];
 
   animeListEntriesLength: number;

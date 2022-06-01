@@ -9,7 +9,7 @@ import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
@@ -82,7 +82,7 @@ export class MtMediaActionsComponent
 
   setAsPlanning() {
     this.animeCommands
-      .saveMediaWithStatus(this.media, 'PLANNING')
+      .saveMediaWithStatus(this.media, ListEntryStatus.PLANNING)
       .pipe(
         takeUntil(this.destroyed$),
         tap((savedListEntry) => {

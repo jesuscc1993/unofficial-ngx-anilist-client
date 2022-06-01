@@ -2,8 +2,7 @@ import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
 import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
-import { Media } from '../../shared/types/anilist/media.types';
-import { MediaSort } from '../../shared/types/anilist/mediaSort.types';
+import { Media, MediaSort } from '../../shared/types/anilist/media.types';
 
 export const getFormattedMediaDuration = (media: Media) => {
   return media.duration < 60

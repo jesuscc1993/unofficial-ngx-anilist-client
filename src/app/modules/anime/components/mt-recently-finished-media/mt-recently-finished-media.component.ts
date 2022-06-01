@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaFormats } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
-import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
+import { MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 import {
   sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
@@ -25,7 +25,7 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
   loading = true;
   mediaFormats: MediaFormat[];
   selectedFormats: MediaFormat[] = [];
-  selectedSort: MediaSort = 'END_DATE_DESC';
+  selectedSort = MediaSort.END_DATE_DESC;
 
   private listEntries: ListEntry[];
 

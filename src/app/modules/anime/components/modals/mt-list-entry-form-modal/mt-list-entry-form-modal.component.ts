@@ -8,7 +8,8 @@ import { integerPattern, scorePattern } from '../../../../../app.constants';
 import {
   WithObservableOnDestroy,
 } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { ListEntry, listEntryStatuses } from '../../../../shared/types/anilist/listEntry.types';
+import { listEntryStatuses } from '../../../../shared/constants/listEntry.constants';
+import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { AnimeCommands } from '../../../commands/anime.commands';

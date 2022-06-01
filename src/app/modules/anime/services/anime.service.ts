@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 
 import { MediaStore } from '../../shared/store/media.store';
 import { ListEntry } from '../../shared/types/anilist/listEntry.types';
+import { MediaSort } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
@@ -28,7 +29,9 @@ export class AnimeService {
       mergeMap((pageData) => {
         const animeIds = pageData.media.map((media) => media.id);
         return this.getAnimeFromIds(animeIds, {
-          sort: query.sort || (query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI'),
+          sort:
+            query.sort ||
+            (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
         }).pipe(
           map(({ media }) => ({
             ...pageData,

@@ -5,9 +5,8 @@ import { Component } from '@angular/core';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  ListEntry, ListEntryStatus, listEntryStatuses,
-} from '../../../shared/types/anilist/listEntry.types';
+import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({

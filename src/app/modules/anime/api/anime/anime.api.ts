@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 
 import { AniListApi } from '../../../shared/api/api';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { MediaListSort, MediaSort } from '../../../shared/types/anilist/media.types';
 import { PageQuery } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import {
@@ -60,7 +61,9 @@ export class AnimeApi extends AniListApi {
         ...query,
         adultContent: query.adultContent || false,
         mediaType: 'ANIME',
-        sort: query.sort || (query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI'),
+        sort:
+          query.sort ||
+          (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
       }
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
@@ -69,7 +72,7 @@ export class AnimeApi extends AniListApi {
     return this.postGraphQlRequest<ListMediaDto, MediaFilters>(listQuery, {
       mediaType: 'ANIME',
       userId: user.id,
-      sort: 'UPDATED_TIME_DESC',
+      sort: MediaListSort.UPDATED_TIME_DESC,
     }).pipe(
       map((response) =>
         this.getResponseData(response).MediaListCollection.lists.reduce(
@@ -133,7 +136,7 @@ export class AnimeApi extends AniListApi {
         repeat,
         scoreRaw,
         mediaId: media.id,
-        status: status || 'COMPLETED',
+        status: status || ListEntryStatus.COMPLETED,
       }
     ).pipe(
       map((response) => this.getResponseData(response).SaveMediaListEntry)

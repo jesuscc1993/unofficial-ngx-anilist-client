@@ -19,11 +19,11 @@ import { AuthCommands } from '../../modules/shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { mediaFormats, mediaStatuses } from '../../modules/shared/constants/media.constants';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { MediaStore } from '../../modules/shared/store/media.store';
-import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/anilist/media.types';
-import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
+import { Anime, MediaSort } from '../../modules/shared/types/anilist/media.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 

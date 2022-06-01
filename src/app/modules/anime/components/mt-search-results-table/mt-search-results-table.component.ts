@@ -5,8 +5,7 @@ import {
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { Anime } from '../../../shared/types/anilist/media.types';
-import { MediaSort } from '../../../shared/types/anilist/mediaSort.types';
+import { Anime, MediaSort } from '../../../shared/types/anilist/media.types';
 import { getMediaSortFromSort } from '../../domain/media.domain';
 
 @Component({
