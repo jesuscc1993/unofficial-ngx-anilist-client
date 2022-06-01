@@ -64,21 +64,21 @@ button {
 }
 
 .mat-chip {
-  outline: none;
+  display: inline-block;
   margin: 0 $spacing-xxxxs $spacing-xxxxs * 2;
+  outline: none;
 
   &.rounded {
     $height: 22px;
-    line-height: $height;
     border-radius: $height / 2;
+    line-height: $height;
     padding: $spacing-xxxxs $spacing-xxs;
   }
 
   &:not(.rounded) {
     $vertical-padding: $spacing-xxxs;
-    padding: $spacing-xxxxs $vertical-padding;
     border-radius: $vertical-padding * 3/4;
-    display: inline-block;
+    padding: $spacing-xxxxs $vertical-padding;
     white-space: nowrap;
   }
 }
