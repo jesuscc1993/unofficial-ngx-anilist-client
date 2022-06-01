@@ -10,7 +10,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
-import { fuzzyDateToDate, getListEntriesByStatus } from '../domain/media.domain';
+import { getListEntriesByStatus } from '../domain/media.domain';
 
 @Injectable()
 export class AnimeService {
@@ -27,7 +27,10 @@ export class AnimeService {
         return this.getAnimeFromIds(animeIds, {
           sort: query.sort || (query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI'),
         }).pipe(
-          map(({ media }) => ({ ...pageData, media: animeIds.map((id) => media.find((anime) => anime.id === id)) }))
+          map(({ media }) => ({
+            ...pageData,
+            media: animeIds.map((id) => media.find((anime) => anime.id === id)),
+          }))
         );
       })
     );
@@ -94,7 +97,10 @@ export class AnimeService {
       tap((updatedListEntry) => {
         this.mediaStore.updateAnimeListEntry({
           ...updatedListEntry,
-          media: { ...updatedListEntry.media, mediaListEntry: updatedListEntry },
+          media: {
+            ...updatedListEntry.media,
+            mediaListEntry: updatedListEntry,
+          },
         });
       })
     );
@@ -122,16 +128,14 @@ export class AnimeService {
     return this.mediaStore.changes('animeListEntries');
   }
 
-  getPendingMediaByEndDate() {
+  getPendingMedia() {
     return this.mediaStore
       .changes('animeListEntries')
       .pipe(
         map((animeListEntries) =>
-          animeListEntries
-            .filter(
-              (listEntry) => ['PLANNING', 'CURRENT'].includes(listEntry.status) && listEntry.media.status === 'FINISHED'
-            )
-            .sort(({ media: a }, { media: b }) => (fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1))
+          animeListEntries.filter(
+            (listEntry) => ['PLANNING', 'CURRENT'].includes(listEntry.status) && listEntry.media.status === 'FINISHED'
+          )
         )
       );
   }

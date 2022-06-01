@@ -1,7 +1,18 @@
 <mat-card class="composite compact">
   <div class="composite-header">
     <div class="header flex-1">
-      <h4 class="no-margin">{{ 'anime.dashboard.finishedAiring' | translate }}</h4>
+      <h4 class="no-margin">
+        {{ 'anime.dashboard.finishedAiring' | translate }}
+      </h4>
+    </div>
+
+    <div class="header header-dropdown">
+      <span>{{ 'generic.sort' | translate }}:</span>
+      <mat-select class="width-auto" [ngModel]="selectedSort" (ngModelChange)="sortBy($event)">
+        <mat-option *ngFor="let sort of mediaSorts" [value]="sort">{{
+          'media.sortValues.' + sort | translate
+        }}</mat-option>
+      </mat-select>
     </div>
 
     <div class="header header-dropdown">

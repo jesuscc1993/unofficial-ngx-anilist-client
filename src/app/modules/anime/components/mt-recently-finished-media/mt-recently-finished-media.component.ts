@@ -3,13 +3,15 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import {
-  MediaFormat, mediaFormats
-} from '../../../shared/types/anilist/media.types';
+import { MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
+import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
 import { AnimeCommands } from '../../commands/anime.commands';
+import {
+  sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
+} from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-recently-finished-media',
@@ -17,17 +19,21 @@ import { AnimeCommands } from '../../commands/anime.commands';
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
 export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
+  readonly mediaSorts = basicMediaSorts;
+
   filteredEntries: ListEntry[];
   loading = true;
   mediaFormats: MediaFormat[];
   selectedFormats: MediaFormat[] = [];
+  selectedSort: MediaSort = 'END_DATE_DESC';
+
   private listEntries: ListEntry[];
 
   constructor(private animeCommands: AnimeCommands) {
     super();
 
     this.animeCommands
-      .getPendingMediaByEndDate()
+      .getPendingMedia()
       .pipe(
         takeUntil(this.destroyed$),
         tap((animeListEntries) => {
@@ -40,6 +46,20 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
         })
       )
       .subscribe();
+  }
+
+  sortBy(mediaSort: MediaSort) {
+    this.selectedSort = mediaSort;
+
+    const sort = {
+      ['END_DATE_DESC']: sortListEntriesByMediaEndDate,
+      ['SCORE_DESC']: sortListEntriesByMediaScore,
+      ['TITLE_ROMAJI']: sortListEntriesByMediaTitle,
+    }[mediaSort];
+
+    this.listEntries = sort(this.listEntries);
+
+    this.filterEntries();
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {

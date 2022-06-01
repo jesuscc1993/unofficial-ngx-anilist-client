@@ -1,9 +1,7 @@
 import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
-import {
-  ListEntriesByStatus, ListEntry
-} from '../../shared/types/anilist/listEntry.types';
+import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { MediaSort } from '../../shared/types/anilist/mediaSort.types';
 
@@ -44,5 +42,23 @@ export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
       [listEntry.status]: [...(listEntriesByStatus[listEntry.status] || []), listEntry],
     }),
     {} as ListEntriesByStatus
+  );
+};
+
+export const sortListEntriesByMediaEndDate = (listEntries: ListEntry[]) => {
+  return listEntries.sort(({ media: a }, { media: b }) =>
+    fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1
+  );
+};
+
+export const sortListEntriesByMediaScore = (listEntries: ListEntry[]) => {
+  return listEntries.sort(({ media: a }, { media: b }) => (a.averageScore > b.averageScore ? -1 : 1));
+};
+
+export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
+  return listEntries.sort(({ media: a }, { media: b }) =>
+    a.title.romaji.localeCompare(b.title.romaji, 'en', {
+      sensitivity: 'base',
+    })
   );
 };
