@@ -7,12 +7,10 @@ $sizes: (
   s: $screen-s,
   m: $screen-m,
   l: $screen-l,
-  xl: $screen-xl
+  xl: $screen-xl,
 );
 
-
 @each $size, $width in $sizes {
-
   @media (min-width: $width + 1) {
     .hide-above-#{$size} {
       display: none !important;
@@ -30,5 +28,4 @@ $sizes: (
       display: none !important;
     }
   }
-
 }

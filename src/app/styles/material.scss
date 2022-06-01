@@ -9,7 +9,8 @@ mat-dialog-container {
 
 mat-spinner {
   &.full-page {
-    margin: calc((100vh - #{$mat-toolbar-height} - #{$mat-spinner-size}) / 2) auto;
+    margin: calc((100vh - #{$mat-toolbar-height} - #{$mat-spinner-size}) / 2)
+      auto;
   }
 }
 
