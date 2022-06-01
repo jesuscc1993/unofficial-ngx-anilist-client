@@ -9,6 +9,7 @@ $themes: (
     background: $mat-dark-theme-background,
     foreground: $mat-dark-theme-foreground,
     body-background: #333,
+    border: rgba(white, 0.12),
     button-background: map-get($mat-gray, 700),
     success: (
       background: map-get($mat-green, 800),
@@ -32,6 +33,7 @@ $themes: (
     background: $mat-light-theme-background,
     foreground: $mat-light-theme-foreground,
     body-background: #ccc,
+    border: rgba(black, 0.12),
     button-background: map-get($mat-gray, 300),
     info: (
       background: map-get($mat-blue, 50),
@@ -117,6 +119,11 @@ mat-toolbar {
 .mat-fab.mat-accent,
 .mat-mini-fab.mat-accent {
   color: white;
+}
+
+.border,
+.mat-divider {
+  border-color: map-get($theme, border);
 }
 
 .mat-chip:not(.mat-basic-chip) {
