@@ -1,59 +1,59 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
-$primary-palette: mat-palette($mat-orange);
-$accent-palette: mat-palette($mat-orange);
+$primary-palette: mat.define-palette(mat.$orange-palette);
+$accent-palette: mat.define-palette(mat.$orange-palette);
 
 $themes: (
   dark: (
-    material-theme: mat-dark-theme($primary-palette, $accent-palette),
-    background: $mat-dark-theme-background,
-    foreground: $mat-dark-theme-foreground,
+    material-theme: mat.define-dark-theme($primary-palette, $accent-palette),
+    background: mat.$dark-theme-background-palette,
+    foreground: mat.$dark-theme-foreground-palette,
     body-background: #333,
     border: rgba(white, 0.12),
-    button-background: map-get($mat-gray, 700),
+    button-background: map-get(mat.$gray-palette, 700),
     success: (
-      background: map-get($mat-green, 800),
-      foreground: map-get($mat-green, 50),
+      background: map-get(mat.$green-palette, 800),
+      foreground: map-get(mat.$green-palette, 50),
     ),
     info: (
-      background: map-get($mat-blue, 800),
-      foreground: map-get($mat-blue, 50),
+      background: map-get(mat.$blue-palette, 800),
+      foreground: map-get(mat.$blue-palette, 50),
     ),
     warning: (
-      background: map-get($mat-orange, 800),
-      foreground: map-get($mat-orange, 50),
+      background: map-get(mat.$orange-palette, 800),
+      foreground: map-get(mat.$orange-palette, 50),
     ),
     error: (
-      background: map-get($mat-red, 800),
-      foreground: map-get($mat-red, 50),
+      background: map-get(mat.$red-palette, 800),
+      foreground: map-get(mat.$red-palette, 50),
     ),
   ),
   light: (
-    material-theme: mat-light-theme($primary-palette, $accent-palette),
-    background: $mat-light-theme-background,
-    foreground: $mat-light-theme-foreground,
+    material-theme: mat.define-light-theme($primary-palette, $accent-palette),
+    background: mat.$light-theme-background-palette,
+    foreground: mat.$light-theme-foreground-palette,
     body-background: #ccc,
     border: rgba(black, 0.12),
-    button-background: map-get($mat-gray, 300),
+    button-background: map-get(mat.$gray-palette, 300),
     info: (
-      background: map-get($mat-blue, 50),
-      foreground: map-get($mat-blue, 600),
+      background: map-get(mat.$blue-palette, 50),
+      foreground: map-get(mat.$blue-palette, 600),
     ),
     warning: (
-      background: map-get($mat-orange, 50),
-      foreground: map-get($mat-orange, 600),
+      background: map-get(mat.$orange-palette, 50),
+      foreground: map-get(mat.$orange-palette, 600),
     ),
     error: (
-      background: map-get($mat-red, 50),
-      foreground: map-get($mat-red, 600),
+      background: map-get(mat.$red-palette, 50),
+      foreground: map-get(mat.$red-palette, 600),
     ),
   ),
 );
 
 $theme: map-get($themes, dark);
 
-@include mat-core();
-@include angular-material-theme(map-get($theme, material-theme));
+@include mat.core();
+@include mat.all-component-themes(map-get($theme, material-theme));
 
 body {
   background-color: map-get($theme, body-background);
@@ -61,10 +61,10 @@ body {
 }
 
 a {
-  color: mat-color($primary-palette, darker);
+  color: mat.get-color-from-palette($primary-palette, darker);
 
   &:hover {
-    color: mat-color($primary-palette, default);
+    color: mat.get-color-from-palette($primary-palette, default);
   }
 }
 
@@ -94,11 +94,11 @@ mat-toolbar {
       border-top-color: transparent;
 
       &.active {
-        border-bottom-color: mat-color($primary-palette, default);
+        border-bottom-color: mat.get-color-from-palette($primary-palette, default);
 
         &,
         &:hover {
-          color: mat-color($primary-palette, default);
+          color: mat.get-color-from-palette($primary-palette, default);
         }
       }
 

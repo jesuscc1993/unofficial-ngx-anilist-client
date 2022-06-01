@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import 'src/app/styles/variables';
 
 .cover {
@@ -40,7 +40,7 @@
       transition: $transition-duration;
 
       &:hover {
-        color: map-get($mat-orange, 500);
+        color: map-get(mat.$orange-palette, 500);
       }
     }
   }
@@ -57,20 +57,20 @@
     width: $size;
 
     &.completed {
-      background: map-get($mat-green, 500);
+      background: map-get(mat.$green-palette, 500);
     }
     &.repeating {
-      background: map-get($mat-blue, 500);
+      background: map-get(mat.$blue-palette, 500);
     }
     &.planning,
     &.watching {
-      background: map-get($mat-orange, 500);
+      background: map-get(mat.$orange-palette, 500);
     }
     &.paused {
-      background: map-get($mat-pink, 300);
+      background: map-get(mat.$pink-palette, 300);
     }
     &.dropped {
-      background: map-get($mat-red, 500);
+      background: map-get(mat.$red-palette, 500);
     }
   }
 

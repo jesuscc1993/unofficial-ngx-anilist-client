@@ -14,7 +14,7 @@
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
  */
 import 'core-js/es/reflect';
-import 'zone.js/dist/zone';
+import 'zone.js';
 
 /***************************************************************************************************
  * BROWSER POLYFILLS

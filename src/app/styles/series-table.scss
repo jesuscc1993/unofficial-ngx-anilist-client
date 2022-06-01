@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import 'src/app/styles/variables';
 
 $desktop-horizontal-cell-padding: 32px;
@@ -15,24 +15,24 @@ $mobile-horizontal-cell-padding: 40px;
 .series-table {
   mat-row {
     &.completed {
-      $color: map-get($mat-green, 500);
+      $color: map-get(mat.$green-palette, 500);
       @include setup-row-status($color);
     }
     &.repeating {
-      $color: map-get($mat-blue, 500);
+      $color: map-get(mat.$blue-palette, 500);
       @include setup-row-status($color);
     }
     &.planning,
     &.watching {
-      $color: map-get($mat-orange, 500);
+      $color: map-get(mat.$orange-palette, 500);
       @include setup-row-status($color);
     }
     &.paused {
-      $color: map-get($mat-pink, 500);
+      $color: map-get(mat.$pink-palette, 500);
       @include setup-row-status($color);
     }
     &.dropped {
-      $color: map-get($mat-red, 500);
+      $color: map-get(mat.$red-palette, 500);
       @include setup-row-status($color);
     }
   }
