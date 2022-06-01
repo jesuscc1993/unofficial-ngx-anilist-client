@@ -10,7 +10,11 @@ export const defaultToastOptions: MatSnackBarConfig = {
 export class ToastService {
   constructor(private matSnackBar: MatSnackBar) {}
 
-  showToast(message: string, action?: string, config: MatSnackBarConfig = defaultToastOptions) {
+  showToast(
+    message: string,
+    action?: string,
+    config: MatSnackBarConfig = defaultToastOptions
+  ) {
     this.matSnackBar.open(message, action, config);
   }
 }

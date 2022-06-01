@@ -5,14 +5,13 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
 import {
-  animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl,
-  userListUrl
+  animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl,
 } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
@@ -33,13 +32,25 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   onUserList: boolean;
   loginAvailable: boolean;
 
-  constructor(private router: Router, private authCommands: AuthCommands, private authStore: AuthStore) {
+  constructor(
+    private router: Router,
+    private authCommands: AuthCommands,
+    private authStore: AuthStore
+  ) {
     super();
 
     if (location.href.includes(apiTokenPrefix)) {
-      const locationParts: string[] = location.href.split('&')[0].split(apiTokenPrefix);
+      const locationParts: string[] = location.href
+        .split('&')[0]
+        .split(apiTokenPrefix);
+
       history.replaceState({}, 'Login success', locationParts[0]);
-      this.authCommands.logIn(locationParts[1]).pipe(takeUntil(this.destroyed$)).subscribe();
+
+      this.authCommands
+        .logIn(locationParts[1])
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe();
+
       this.navigateToHomePage(true);
     }
 

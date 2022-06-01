@@ -4,7 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'sort',
 })
 export class SortPipe implements PipeTransform {
-  transform(array: { [index: string]: unknown }[], field: string, desc?: boolean) {
+  transform(
+    array: { [index: string]: unknown }[],
+    field: string,
+    desc?: boolean
+  ) {
     const direction = desc ? -1 : 1;
 
     if (array && array.length) {

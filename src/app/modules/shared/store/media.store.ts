@@ -23,7 +23,10 @@ export class MediaStore extends Store<MediaStoreState> {
     this.setState({
       animeDictionary: {
         ...animeList.reduce(
-          (animeDictionary, anime) => ({ ...animeDictionary, [anime.id]: anime }),
+          (animeDictionary, anime) => ({
+            ...animeDictionary,
+            [anime.id]: anime,
+          }),
           this.getAnimeDictionary()
         ),
       },
@@ -41,7 +44,9 @@ export class MediaStore extends Store<MediaStoreState> {
 
   updateAnimeListEntry(updatedListEntry: ListEntry) {
     this.setAnimeListEntries(
-      this.getAnimeListEntries().find((listEntry) => listEntry.id === updatedListEntry.id)
+      this.getAnimeListEntries().find(
+        (listEntry) => listEntry.id === updatedListEntry.id
+      )
         ? this.getAnimeListEntries().map((listEntry) =>
             listEntry.id === updatedListEntry.id ? updatedListEntry : listEntry
           )
@@ -50,7 +55,11 @@ export class MediaStore extends Store<MediaStoreState> {
   }
 
   deleteAnimeListEntry(listEntryToDelete: ListEntry) {
-    this.setAnimeListEntries(this.getAnimeListEntries().filter((listEntry) => listEntry.id !== listEntryToDelete.id));
+    this.setAnimeListEntries(
+      this.getAnimeListEntries().filter(
+        (listEntry) => listEntry.id !== listEntryToDelete.id
+      )
+    );
     const animeDictionary = this.getAnimeDictionary();
     delete animeDictionary[listEntryToDelete.media.id].mediaListEntry;
     this.setState({ animeDictionary });

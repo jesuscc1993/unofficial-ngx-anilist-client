@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import {
-  ListEntry, ListEntryStatus
-} from '../../../shared/types/anilist/listEntry.types';
-import {
-  Anime, Media, MediaStatus
-} from '../../../shared/types/anilist/media.types';
-import {
-  MediaListSort, MediaSort
-} from '../../../shared/types/anilist/mediaSort.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { Anime, Media, MediaStatus } from '../../../shared/types/anilist/media.types';
+import { MediaListSort, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
 /* filters */

@@ -25,7 +25,9 @@ export class Store<StoreState> {
       filter(({ currentState }) => !!currentState[field]),
       filter(
         ({ currentState, previousState }, index) =>
-          index === 0 || !previousState || currentState[field] !== previousState[field]
+          index === 0 ||
+          !previousState ||
+          currentState[field] !== previousState[field]
       ),
       map(({ currentState }) => currentState[field])
     );

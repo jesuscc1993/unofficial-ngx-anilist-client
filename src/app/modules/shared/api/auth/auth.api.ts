@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { userQuery } from '../../../anime/api/anime/anime-api.queries';
 import { AuthStore } from '../../store/auth.store';
@@ -11,11 +12,16 @@ import { UserDto } from './auth-api.types';
 
 @Injectable()
 export class AuthApi extends AniListApi {
-  constructor(protected httpClient: HttpClient, protected authStore: AuthStore) {
+  constructor(
+    protected httpClient: HttpClient,
+    protected authStore: AuthStore
+  ) {
     super(httpClient, authStore);
   }
 
   queryUser(): Observable<User> {
-    return this.postGraphQlRequest<UserDto>(userQuery).pipe(map(response => this.getResponseData(response).Viewer));
+    return this.postGraphQlRequest<UserDto>(userQuery).pipe(
+      map((response) => this.getResponseData(response).Viewer)
+    );
   }
 }

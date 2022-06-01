@@ -21,7 +21,10 @@ const gridSpacing = 6;
   templateUrl: './mt-list-related-media.component.html',
   styleUrls: ['./mt-list-related-media.component.scss'],
 })
-export class MtListRelatedMediaComponent extends WithObservableOnDestroy implements OnInit {
+export class MtListRelatedMediaComponent
+  extends WithObservableOnDestroy
+  implements OnInit
+{
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
   readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
@@ -39,7 +42,10 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
   searching: boolean;
   error: Error;
 
-  constructor(private animeCommands: AnimeCommands, private mediaStore: MediaStore) {
+  constructor(
+    private animeCommands: AnimeCommands,
+    private mediaStore: MediaStore
+  ) {
     super();
     this.initialize();
     this.onError = this.onError.bind(this);
@@ -47,13 +53,19 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    const newColCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+    const newColCount = Math.floor(
+      this.content.nativeElement.offsetWidth / (gridCard + gridSpacing)
+    );
 
     if (newColCount !== this.colCount) {
-      this.colCount = Math.floor(this.content.nativeElement.offsetWidth / (gridCard + gridSpacing));
+      this.colCount = Math.floor(
+        this.content.nativeElement.offsetWidth / (gridCard + gridSpacing)
+      );
 
       this.initialize();
-      this.queryData().pipe(takeUntil(this.destroyed$), catchError(this.onError)).subscribe();
+      this.queryData()
+        .pipe(takeUntil(this.destroyed$), catchError(this.onError))
+        .subscribe();
     }
   }
 
@@ -66,7 +78,10 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
         takeUntil(this.destroyed$),
         mergeMap((animeListEntries) => {
           // check this.animeListEntriesLength is set to prevent reloading when the list is first loaded
-          if (this.animeListEntriesLength && this.animeListEntriesLength !== animeListEntries.length) {
+          if (
+            this.animeListEntriesLength &&
+            this.animeListEntriesLength !== animeListEntries.length
+          ) {
             this.animeListEntriesLength = animeListEntries.length;
             this.initialize();
             return this.queryData();
@@ -118,7 +133,9 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
       .getAnimeFromIds(
         this.relatedMediaIds,
         {
-          formatIn: this.selectedFormats.length ? this.selectedFormats : undefined,
+          formatIn: this.selectedFormats.length
+            ? this.selectedFormats
+            : undefined,
           onList: false,
           sort: this.selectedSort,
         },

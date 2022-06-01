@@ -1,17 +1,13 @@
 import {
-  AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges,
-  ViewChild
+  AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ScrollUtil } from '../../../../utils/generic.util';
-import {
-  ListEntry, ListEntryStatus
-} from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Anime } from '../../../shared/types/anilist/media.types';
-import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({
   selector: 'mt-user-anime-list-table',
@@ -64,7 +60,10 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.dataSource.sortingDataAccessor = (listEntry: ListEntry, property: string) => {
+    this.dataSource.sortingDataAccessor = (
+      listEntry: ListEntry,
+      property: string
+    ) => {
       const anime = listEntry.media as Anime;
 
       return {
@@ -77,8 +76,14 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
       }[property];
     };
 
-    this.dataSource.filterPredicate = (listEntry: ListEntry, filter: string) => {
-      return listEntry.media.title.romaji.trim().toLowerCase().includes(filter.trim().toLowerCase());
+    this.dataSource.filterPredicate = (
+      listEntry: ListEntry,
+      filter: string
+    ) => {
+      return listEntry.media.title.romaji
+        .trim()
+        .toLowerCase()
+        .includes(filter.trim().toLowerCase());
     };
   }
 }

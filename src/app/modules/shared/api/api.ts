@@ -13,17 +13,26 @@ export class AniListApi {
   protected apiUrl = apiUrl;
   private loggingEnabled = false;
 
-  constructor(protected httpClient: HttpClient, protected authStore: AuthStore) {}
+  constructor(
+    protected httpClient: HttpClient,
+    protected authStore: AuthStore
+  ) {}
 
   protected getRequestOptions() {
     const accessToken = this.authStore.getAccessToken();
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    return { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} };
+    return {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+    };
   }
 
   protected getPageOptions(pageOptions?: PageQuery | PageInfo) {
     return {
-      page: pageOptions ? (pageOptions.pageIndex >= 1 ? pageOptions.pageIndex : 1) : 1,
+      page: pageOptions
+        ? pageOptions.pageIndex >= 1
+          ? pageOptions.pageIndex
+          : 1
+        : 1,
       perPage: pageOptions ? pageOptions.perPage || 10 : 1,
     };
   }
@@ -73,6 +82,8 @@ export class AniListApi {
   }
 
   protected mapObjectErrorToStringError() {
-    return catchError((error) => throwError(JSON.stringify(error, undefined, 2)));
+    return catchError((error) =>
+      throwError(JSON.stringify(error, undefined, 2))
+    );
   }
 }

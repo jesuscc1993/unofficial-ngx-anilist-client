@@ -34,7 +34,11 @@ export type MediaSort =
   | 'VOLUMES_DESC'
   | 'UPDATED_AT'
   | 'UPDATED_AT_DESC';
-export const basicMediaSorts: MediaSort[] = ['TITLE_ROMAJI', 'END_DATE_DESC', 'SCORE_DESC'];
+export const basicMediaSorts: MediaSort[] = [
+  'TITLE_ROMAJI',
+  'END_DATE_DESC',
+  'SCORE_DESC',
+];
 
 export type MediaListSort =
   | 'MEDIA_ID'

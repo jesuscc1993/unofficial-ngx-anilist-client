@@ -8,12 +8,15 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./mt-footer.component.scss'],
 })
 export class MtFooterComponent {
-  gitHubProjectUrl = 'https://github.com/jesuscc1993/unofficial-ngx-anilist-client';
+  gitHubProjectUrl =
+    'https://github.com/jesuscc1993/unofficial-ngx-anilist-client';
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'anilist',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/pictures/vectorial/icons/anilist.svg')
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/pictures/vectorial/icons/anilist.svg'
+      )
     );
   }
 }

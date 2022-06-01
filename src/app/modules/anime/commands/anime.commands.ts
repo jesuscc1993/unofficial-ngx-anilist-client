@@ -28,7 +28,11 @@ export class AnimeCommands {
     this._deleteAnimeListEntry = this._deleteAnimeListEntry.bind(this);
   }
 
-  getAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery) {
+  getAnimeFromIds(
+    mediaIds: number[],
+    query: SearchFilters,
+    pageQuery?: PageQuery
+  ) {
     return this.animeService.getAnimeFromIds(mediaIds, query, pageQuery);
   }
 
@@ -40,7 +44,10 @@ export class AnimeCommands {
     return this.animeService.getAnimeListEntries(this.authStore.getUser());
   }
 
-  getAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+  getAnimeListFavouriteIDs(
+    user: User,
+    callback: (favouriteIDs: number[]) => void
+  ) {
     return this.animeService.getAnimeListFavouriteIDs(user, callback);
   }
 
@@ -76,9 +83,12 @@ export class AnimeCommands {
           dismiss: cancel,
           hasCancel: true,
           hasConfirm: true,
-          title: this.translateService.instant('anime.actions.deleteDescription', {
-            mediaTitle: listEntry.media.title.romaji,
-          }),
+          title: this.translateService.instant(
+            'anime.actions.deleteDescription',
+            {
+              mediaTitle: listEntry.media.title.romaji,
+            }
+          ),
         } as PromptData,
       });
     });

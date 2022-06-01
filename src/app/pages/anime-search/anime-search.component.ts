@@ -8,25 +8,21 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import {
-  animeSearchUrl, integerPattern, scorePattern
-} from '../../app.constants';
+import { animeSearchUrl, integerPattern, scorePattern } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
-  MtSearchResultsTableComponent
+  MtSearchResultsTableComponent,
 } from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../modules/anime/domain/media.domain';
 import { AuthCommands } from '../../modules/shared/commands/auth.commands';
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { MediaStore } from '../../modules/shared/store/media.store';
-import {
-  Anime, mediaFormats, mediaStatuses
-} from '../../modules/shared/types/anilist/media.types';
+import { Anime, mediaFormats, mediaStatuses } from '../../modules/shared/types/anilist/media.types';
 import { MediaSort } from '../../modules/shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
@@ -36,9 +32,14 @@ import { User } from '../../modules/shared/types/anilist/user.types';
   templateUrl: './anime-search.component.html',
   styleUrls: ['./anime-search.component.scss'],
 })
-export class AnimeSearchPageComponent extends WithObservableOnDestroy implements OnInit {
-  @ViewChild(MatExpansionPanel, { static: true }) expansionPanel: MatExpansionPanel;
-  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef }) resultsTable: ElementRef;
+export class AnimeSearchPageComponent
+  extends WithObservableOnDestroy
+  implements OnInit
+{
+  @ViewChild(MatExpansionPanel, { static: true })
+  expansionPanel: MatExpansionPanel;
+  @ViewChild(MtSearchResultsTableComponent, { read: ElementRef })
+  resultsTable: ElementRef;
 
   user: User;
   animeList: Anime[];
@@ -69,7 +70,9 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   ) {
     super();
 
-    this.titleService.setTitle(this.translateService.instant('anime.search.title'));
+    this.titleService.setTitle(
+      this.translateService.instant('anime.search.title')
+    );
 
     this.user = this.authStore.getUser();
     this.setupForm();
@@ -144,10 +147,16 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
 
     const query: SearchFilters = {
       ...filters,
-      startDateSmallerThan: filters.startDateSmallerThan && getDateScalarFromYear(filters.startDateSmallerThan),
-      startDateGreaterThan: filters.startDateGreaterThan && getDateScalarFromYear(filters.startDateGreaterThan),
-      averageScoreGreaterThan: filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10,
-      averageScoreSmallerThan: filters.averageScoreSmallerThan && filters.averageScoreSmallerThan * 10,
+      startDateSmallerThan:
+        filters.startDateSmallerThan &&
+        getDateScalarFromYear(filters.startDateSmallerThan),
+      startDateGreaterThan:
+        filters.startDateGreaterThan &&
+        getDateScalarFromYear(filters.startDateGreaterThan),
+      averageScoreGreaterThan:
+        filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10,
+      averageScoreSmallerThan:
+        filters.averageScoreSmallerThan && filters.averageScoreSmallerThan * 10,
       sort: this.sort,
     };
 
@@ -192,8 +201,14 @@ export class AnimeSearchPageComponent extends WithObservableOnDestroy implements
   private setupForm() {
     this.searchForm = this.formBuilder.group({
       search: [''],
-      startDateGreaterThan: [undefined, [Validators.pattern(integerPattern), Validators.min(this.minYear)]],
-      startDateSmallerThan: [undefined, [Validators.pattern(integerPattern), Validators.min(this.minYear)]],
+      startDateGreaterThan: [
+        undefined,
+        [Validators.pattern(integerPattern), Validators.min(this.minYear)],
+      ],
+      startDateSmallerThan: [
+        undefined,
+        [Validators.pattern(integerPattern), Validators.min(this.minYear)],
+      ],
       averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
       averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
       genreIn: [[]],

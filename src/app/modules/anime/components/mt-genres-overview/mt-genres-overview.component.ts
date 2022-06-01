@@ -21,7 +21,9 @@ export class MtGenresOverviewComponent implements OnInit {
 
   getColumnCount(): number {
     const columnCount = window.screen.width / this.minColumnWidth;
-    return Math.floor(columnCount < this.maxColumnCount ? columnCount : this.maxColumnCount);
+    return Math.floor(
+      columnCount < this.maxColumnCount ? columnCount : this.maxColumnCount
+    );
   }
 
   private calculateStatistics() {
@@ -32,7 +34,9 @@ export class MtGenresOverviewComponent implements OnInit {
     });
 
     this.genreStatsList.forEach((genreStats: GenreStats) => {
-      genreStats.percentage = Math.round((genreStats.amount * 100) / totalCount);
+      genreStats.percentage = Math.round(
+        (genreStats.amount * 100) / totalCount
+      );
     });
   }
 }

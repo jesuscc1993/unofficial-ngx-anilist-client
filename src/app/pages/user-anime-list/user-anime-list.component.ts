@@ -8,12 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { rootUrl } from '../../app.constants';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import {
-  ListEntriesByStatus, ListEntryStatus
+  ListEntriesByStatus, ListEntryStatus,
 } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 import { ScrollUtil } from '../../utils/generic.util';
@@ -49,7 +49,9 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
   ) {
     super();
 
-    this.titleService.setTitle(this.translateService.instant('anime.userList.title'));
+    this.titleService.setTitle(
+      this.translateService.instant('anime.userList.title')
+    );
 
     this.user = this.authStore.getUser();
     this.loggedIn = this.user !== undefined;
@@ -62,7 +64,11 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
   }
 
   hasDataOfStatus(status: string): boolean {
-    return this.listEntriesByStatus && this.listEntriesByStatus[status] && this.listEntriesByStatus[status].length > 0;
+    return (
+      this.listEntriesByStatus &&
+      this.listEntriesByStatus[status] &&
+      this.listEntriesByStatus[status].length > 0
+    );
   }
 
   scrollToStatus(status: string) {

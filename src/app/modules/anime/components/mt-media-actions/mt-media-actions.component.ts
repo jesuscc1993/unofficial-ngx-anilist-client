@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { defaultModalOptions } from '../../../../app.constants';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
@@ -15,10 +15,10 @@ import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 import {
-  MtListEntryFormModalComponent
+  MtListEntryFormModalComponent,
 } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import {
-  MtMediaDetailModalComponent
+  MtMediaDetailModalComponent,
 } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
@@ -26,7 +26,10 @@ import {
   templateUrl: './mt-media-actions.component.html',
   styleUrls: ['./mt-media-actions.component.scss'],
 })
-export class MtMediaActionsComponent extends WithObservableOnDestroy implements OnInit {
+export class MtMediaActionsComponent
+  extends WithObservableOnDestroy
+  implements OnInit
+{
   @Input() editEnabled = true;
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
@@ -104,7 +107,9 @@ export class MtMediaActionsComponent extends WithObservableOnDestroy implements 
   }
 
   toggleFavourite() {
-    this.animeCommands.toggleFavouriteAnimeListEntry(this.listEntry).subscribe();
+    this.animeCommands
+      .toggleFavouriteAnimeListEntry(this.listEntry)
+      .subscribe();
   }
 
   deleteEntry() {

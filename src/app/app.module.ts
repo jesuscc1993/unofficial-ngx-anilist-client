@@ -2,11 +2,7 @@ import { LOCATION_INITIALIZED } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '../environments/environment';
@@ -30,7 +26,10 @@ const appRoutes: Routes = [
   { path: '**', component: PageNotFoundPageComponent },
 ];
 
-const translationFactory = (translateService: TranslateService, injector: Injector) => {
+const translationFactory = (
+  translateService: TranslateService,
+  injector: Injector
+) => {
   return () => {
     return new Promise<any>((resolve: any) => {
       const availableLanguages = ['en-US', 'es-ES'];
@@ -39,7 +38,11 @@ const translationFactory = (translateService: TranslateService, injector: Inject
       injector.get(LOCATION_INITIALIZED, Promise.resolve(null)).then(() => {
         translateService.setDefaultLang(defaultLanguage);
         translateService
-          .use(availableLanguages.includes(navigator.language) ? navigator.language : defaultLanguage)
+          .use(
+            availableLanguages.includes(navigator.language)
+              ? navigator.language
+              : defaultLanguage
+          )
           .subscribe(() => resolve(null));
       });
     });
@@ -63,7 +66,8 @@ const translationFactory = (translateService: TranslateService, injector: Inject
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, environment.i18nPath),
+        useFactory: (http: HttpClient) =>
+          new TranslateHttpLoader(http, environment.i18nPath),
         deps: [HttpClient],
       },
     }),

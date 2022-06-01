@@ -4,7 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class TitleService {
-  constructor(private title: Title, private translateService: TranslateService) {}
+  constructor(
+    private title: Title,
+    private translateService: TranslateService
+  ) {}
 
   setTitle(title?: string) {
     this.title.setTitle(

@@ -7,15 +7,25 @@ export class MatPaginatorI18n extends MatPaginatorIntl {
   constructor(private translateService: TranslateService) {
     super();
 
-    this.itemsPerPageLabel = this.translateService.instant('matPaginator.itemsPerPageLabel');
+    this.itemsPerPageLabel = this.translateService.instant(
+      'matPaginator.itemsPerPageLabel'
+    );
 
-    this.nextPageLabel = this.translateService.instant('matPaginator.nextPageLabel');
+    this.nextPageLabel = this.translateService.instant(
+      'matPaginator.nextPageLabel'
+    );
 
-    this.previousPageLabel = this.translateService.instant('matPaginator.previousPageLabel');
+    this.previousPageLabel = this.translateService.instant(
+      'matPaginator.previousPageLabel'
+    );
 
-    this.firstPageLabel = this.translateService.instant('matPaginator.firstPageLabel');
+    this.firstPageLabel = this.translateService.instant(
+      'matPaginator.firstPageLabel'
+    );
 
-    this.lastPageLabel = this.translateService.instant('matPaginator.lastPageLabel');
+    this.lastPageLabel = this.translateService.instant(
+      'matPaginator.lastPageLabel'
+    );
 
     this.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const firstResultIndex = page * pageSize;

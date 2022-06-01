@@ -9,7 +9,12 @@ import { TitleService } from '../../modules/shared/services/title.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardPageComponent {
-  constructor(private titleService: TitleService, private translateService: TranslateService) {
-    this.titleService.setTitle(this.translateService.instant('anime.dashboard.title'));
+  constructor(
+    private titleService: TitleService,
+    private translateService: TranslateService
+  ) {
+    this.titleService.setTitle(
+      this.translateService.instant('anime.dashboard.title')
+    );
   }
 }

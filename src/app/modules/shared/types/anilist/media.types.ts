@@ -2,11 +2,35 @@ import { CoverImage, FuzzyDate, Tag, Title } from './dataTypes.types';
 import { ListEntry } from './listEntry.types';
 import { NodeList } from './nodeList.types';
 
-export type MediaFormat = 'MOVIE' | 'MUSIC' | 'ONA' | 'OVA' | 'SPECIAL' | 'TV_SHORT' | 'TV';
-export const mediaFormats: MediaFormat[] = ['MOVIE', 'MUSIC', 'ONA', 'OVA', 'SPECIAL', 'TV_SHORT', 'TV'];
+export type MediaFormat =
+  | 'MOVIE'
+  | 'MUSIC'
+  | 'ONA'
+  | 'OVA'
+  | 'SPECIAL'
+  | 'TV_SHORT'
+  | 'TV';
+export const mediaFormats: MediaFormat[] = [
+  'MOVIE',
+  'MUSIC',
+  'ONA',
+  'OVA',
+  'SPECIAL',
+  'TV_SHORT',
+  'TV',
+];
 
-export type MediaStatus = 'FINISHED' | 'RELEASING' | 'NOT_YET_RELEASED' | 'CANCELLED';
-export const mediaStatuses: MediaStatus[] = ['FINISHED', 'RELEASING', 'NOT_YET_RELEASED', 'CANCELLED'];
+export type MediaStatus =
+  | 'FINISHED'
+  | 'RELEASING'
+  | 'NOT_YET_RELEASED'
+  | 'CANCELLED';
+export const mediaStatuses: MediaStatus[] = [
+  'FINISHED',
+  'RELEASING',
+  'NOT_YET_RELEASED',
+  'CANCELLED',
+];
 
 export type Studio = {
   name: string;

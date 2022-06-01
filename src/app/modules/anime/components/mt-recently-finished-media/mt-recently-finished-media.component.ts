@@ -39,7 +39,8 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
         tap((animeListEntries) => {
           this.listEntries = animeListEntries;
           this.mediaFormats = mediaFormats.filter(
-            (format) => !!animeListEntries.find((entry) => entry.media.format === format)
+            (format) =>
+              !!animeListEntries.find((entry) => entry.media.format === format)
           );
           this.filterEntries();
           this.loading = false;
@@ -69,7 +70,9 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
 
   private filterEntries() {
     this.filteredEntries = this.selectedFormats.length
-      ? this.listEntries.filter((entry) => this.selectedFormats.includes(entry.media.format))
+      ? this.listEntries.filter((entry) =>
+          this.selectedFormats.includes(entry.media.format)
+        )
       : this.listEntries;
   }
 }

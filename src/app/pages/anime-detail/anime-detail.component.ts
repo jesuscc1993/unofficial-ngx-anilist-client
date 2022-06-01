@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { Anime } from '../../modules/shared/types/anilist/media.types';

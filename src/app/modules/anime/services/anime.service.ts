@@ -20,7 +20,10 @@ export class AnimeService {
     return this.animeApi.queryAnimeGenres();
   }
 
-  searchAnime(query: SearchFilters, pageQuery?: PageQuery): Observable<MediaPage> {
+  searchAnime(
+    query: SearchFilters,
+    pageQuery?: PageQuery
+  ): Observable<MediaPage> {
     return this.animeApi.queryAnimeSearch(query, pageQuery).pipe(
       mergeMap((pageData) => {
         const animeIds = pageData.media.map((media) => media.id);
@@ -36,12 +39,18 @@ export class AnimeService {
     );
   }
 
-  getAnimeFromIds(mediaIds: number[], query: SearchFilters, pageQuery?: PageQuery): Observable<MediaPage> {
+  getAnimeFromIds(
+    mediaIds: number[],
+    query: SearchFilters,
+    pageQuery?: PageQuery
+  ): Observable<MediaPage> {
     const animeDictionary = this.mediaStore.getAnimeDictionary();
     let missingIds: number[];
 
     if (animeDictionary) {
-      const storeIds = Object.keys(animeDictionary).map((key) => parseInt(key, 10));
+      const storeIds = Object.keys(animeDictionary).map((key) =>
+        parseInt(key, 10)
+      );
       missingIds = mediaIds.filter((id) => storeIds.indexOf(id) < 0);
     }
 
@@ -51,7 +60,9 @@ export class AnimeService {
           .queryAnimeFromIds(mediaIds, query, pageQuery)
           .pipe(tap((pageData) => this.mediaStore.storeAnime(pageData.media)))
       : of({
-          media: mediaIds.map((id) => animeDictionary[id]).filter((anime) => !!anime),
+          media: mediaIds
+            .map((id) => animeDictionary[id])
+            .filter((anime) => !!anime),
           pageInfo: pageQuery as PageInfo,
         });
   }
@@ -60,7 +71,13 @@ export class AnimeService {
     const storeEntries = this.mediaStore.getAnimeListEntries();
     return storeEntries
       ? of(storeEntries)
-      : this.animeApi.queryAnimeList(user).pipe(tap((listEntries) => this.mediaStore.setAnimeListEntries(listEntries)));
+      : this.animeApi
+          .queryAnimeList(user)
+          .pipe(
+            tap((listEntries) =>
+              this.mediaStore.setAnimeListEntries(listEntries)
+            )
+          );
   }
 
   getAnimeListEntriesExport(user: User) {
@@ -79,7 +96,15 @@ export class AnimeService {
           return entryExport;
         })
       ),
-      tap((entries) => console.log(JSON.stringify(entries, (key, value) => (!!value ? value : undefined), 2)))
+      tap((entries) =>
+        console.log(
+          JSON.stringify(
+            entries,
+            (_, value) => (!!value ? value : undefined),
+            2
+          )
+        )
+      )
     );
   }
 
@@ -87,7 +112,10 @@ export class AnimeService {
     return this.animeApi.queryRelatedAnimeMediaIds(user);
   }
 
-  getAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+  getAnimeListFavouriteIDs(
+    user: User,
+    callback: (favouriteIDs: number[]) => void
+  ) {
     return this.animeApi.queryAnimeListFavouriteIDs(user, callback);
   }
 
@@ -121,7 +149,9 @@ export class AnimeService {
   getListEntriesGroupedByStatus() {
     return this.mediaStore
       .changes('animeListEntries')
-      .pipe(map((animeListEntries) => getListEntriesByStatus(animeListEntries)));
+      .pipe(
+        map((animeListEntries) => getListEntriesByStatus(animeListEntries))
+      );
   }
 
   getListEntriesByDateUpdated() {
@@ -134,7 +164,9 @@ export class AnimeService {
       .pipe(
         map((animeListEntries) =>
           animeListEntries.filter(
-            (listEntry) => ['PLANNING', 'CURRENT'].includes(listEntry.status) && listEntry.media.status === 'FINISHED'
+            (listEntry) =>
+              ['PLANNING', 'CURRENT'].includes(listEntry.status) &&
+              listEntry.media.status === 'FINISHED'
           )
         )
       );

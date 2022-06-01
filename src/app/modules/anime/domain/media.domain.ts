@@ -6,7 +6,9 @@ import { Media } from '../../shared/types/anilist/media.types';
 import { MediaSort } from '../../shared/types/anilist/mediaSort.types';
 
 export const getFormattedMediaDuration = (media: Media) => {
-  return media.duration < 60 ? `${media.duration}m` : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
+  return media.duration < 60
+    ? `${media.duration}m`
+    : `${Math.floor(media.duration / 60)}h ${media.duration % 60}m`;
 };
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
@@ -15,14 +17,21 @@ export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
 
 export const getFormattedFuzzyDate = (fuzzyDatemedia: FuzzyDate) => {
   const date = fuzzyDateToDate(fuzzyDatemedia);
-  return `${date.getFullYear()}.${pad(date.getMonth() + 1, 2)}.${pad(date.getDate(), 2)}`;
+  return `${date.getFullYear()}.${pad(date.getMonth() + 1, 2)}.${pad(
+    date.getDate(),
+    2
+  )}`;
 };
 
 export const getSanitizedMediaDescription = (media: Media) => {
   return media.description.replace(/h\d+>/g, 'strong>');
 };
 
-export const pad = (value: number | string, length: number = 2, character: string = '0') => {
+export const pad = (
+  value: number | string,
+  length: number = 2,
+  character: string = '0'
+) => {
   return String(value).padStart(length, character);
 };
 
@@ -32,14 +41,18 @@ export const getDateScalarFromYear = (year: number) => {
 
 export const getMediaSortFromSort = (sort: Sort) => {
   const directionSuffix = sort.direction === 'desc' ? '_DESC' : '';
-  return (sort.active.replace(/-/g, '_').toUpperCase() + directionSuffix) as MediaSort;
+  return (sort.active.replace(/-/g, '_').toUpperCase() +
+    directionSuffix) as MediaSort;
 };
 
 export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
   return listEntries.reduce(
     (listEntriesByStatus, listEntry) => ({
       ...listEntriesByStatus,
-      [listEntry.status]: [...(listEntriesByStatus[listEntry.status] || []), listEntry],
+      [listEntry.status]: [
+        ...(listEntriesByStatus[listEntry.status] || []),
+        listEntry,
+      ],
     }),
     {} as ListEntriesByStatus
   );
@@ -52,7 +65,9 @@ export const sortListEntriesByMediaEndDate = (listEntries: ListEntry[]) => {
 };
 
 export const sortListEntriesByMediaScore = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) => (a.averageScore > b.averageScore ? -1 : 1));
+  return listEntries.sort(({ media: a }, { media: b }) =>
+    a.averageScore > b.averageScore ? -1 : 1
+  );
 };
 
 export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {

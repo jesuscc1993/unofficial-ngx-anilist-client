@@ -1,6 +1,7 @@
+import { takeUntil, tap } from 'rxjs/operators';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { takeUntil, tap } from 'rxjs/operators';
 
 import { defaultModalOptions } from '../../../../app.constants';
 import {
@@ -9,15 +10,22 @@ import {
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { AnimeCommands } from '../../commands/anime.commands';
-import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtListEntryFormModalComponent,
+} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-cover',
   templateUrl: './mt-media-cover.component.html',
   styleUrls: ['./mt-media-cover.component.scss'],
 })
-export class MtMediaCoverComponent extends WithObservableOnDestroy implements OnInit {
+export class MtMediaCoverComponent
+  extends WithObservableOnDestroy
+  implements OnInit
+{
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
 
@@ -71,7 +79,7 @@ export class MtMediaCoverComponent extends WithObservableOnDestroy implements On
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
         takeUntil(this.destroyed$),
-        tap(success => {
+        tap((success) => {
           if (success) {
             this.dialog.closeAll();
           }
