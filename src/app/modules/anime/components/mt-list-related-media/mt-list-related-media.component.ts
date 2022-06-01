@@ -1,21 +1,15 @@
 import { of } from 'rxjs';
-import { catchError, flatMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
-import {
-  Component, ElementRef, HostListener, OnInit, ViewChild
-} from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import {
-  WithObservableOnDestroy
+  WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { MediaStore } from '../../../shared/store/media.store';
-import {
-  Anime, MediaFormat, mediaFormats
-} from '../../../shared/types/anilist/media.types';
-import {
-  basicMediaSorts, MediaSort
-} from '../../../shared/types/anilist/mediaSort.types';
+import { Anime, MediaFormat, mediaFormats } from '../../../shared/types/anilist/media.types';
+import { basicMediaSorts, MediaSort } from '../../../shared/types/anilist/mediaSort.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 
@@ -41,6 +35,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
   selectedSort: MediaSort = 'END_DATE_DESC';
   selectedFormats: MediaFormat[] = [];
 
+  animeListEntriesLength: number;
   searching: boolean;
   error: Error;
 
@@ -69,8 +64,17 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
       .changes('animeListEntries')
       .pipe(
         takeUntil(this.destroyed$),
-        tap(() => this.initialize()),
-        flatMap(() => this.queryData()),
+        mergeMap((animeListEntries) => {
+          // check this.animeListEntriesLength is set to prevent reloading when the list is first loaded
+          if (this.animeListEntriesLength && this.animeListEntriesLength !== animeListEntries.length) {
+            this.animeListEntriesLength = animeListEntries.length;
+            this.initialize();
+            return this.queryData();
+          }
+
+          this.animeListEntriesLength = animeListEntries.length;
+          return of(undefined);
+        }),
         catchError(this.onError)
       )
       .subscribe();
@@ -115,6 +119,7 @@ export class MtListRelatedMediaComponent extends WithObservableOnDestroy impleme
         this.relatedMediaIds,
         {
           formatIn: this.selectedFormats.length ? this.selectedFormats : undefined,
+          onList: false,
           sort: this.selectedSort,
         },
         {

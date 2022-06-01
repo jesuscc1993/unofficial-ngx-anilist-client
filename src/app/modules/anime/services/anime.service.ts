@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 
@@ -10,9 +10,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
-import {
-  fuzzyDateToDate, getListEntriesByStatus
-} from '../domain/media.domain';
+import { fuzzyDateToDate, getListEntriesByStatus } from '../domain/media.domain';
 
 @Injectable()
 export class AnimeService {
@@ -24,7 +22,7 @@ export class AnimeService {
 
   searchAnime(query: SearchFilters, pageQuery?: PageQuery): Observable<MediaPage> {
     return this.animeApi.queryAnimeSearch(query, pageQuery).pipe(
-      flatMap((pageData) => {
+      mergeMap((pageData) => {
         const animeIds = pageData.media.map((media) => media.id);
         return this.getAnimeFromIds(animeIds, {
           sort: query.sort || (query.search ? 'SEARCH_MATCH' : 'TITLE_ROMAJI'),
@@ -83,17 +81,7 @@ export class AnimeService {
   }
 
   getRelatedAnimeMediaIds(user: User): Observable<number[]> {
-    const storeEntries = this.mediaStore.getAnimeListEntries();
-    return this.animeApi.queryRelatedAnimeMediaIds(user).pipe(
-      flatMap((animeMediaIds) =>
-        (storeEntries ? of(storeEntries) : this.animeApi.queryAnimeList(user)).pipe(
-          map((entries) => {
-            const userMediaIds = entries.map((entry) => entry.media.id);
-            return animeMediaIds.filter((mediaId) => !userMediaIds.includes(mediaId));
-          })
-        )
-      )
-    );
+    return this.animeApi.queryRelatedAnimeMediaIds(user);
   }
 
   getAnimeListFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
