@@ -53,10 +53,9 @@ const declarations = [
 ];
 
 @NgModule({
-  declarations,
-  imports: [SharedModule],
-  entryComponents: [MtListEntryFormModalComponent, MtMediaDetailModalComponent],
-  exports: declarations,
-  providers: [AnimeApi, AnimeCommands, AnimeService],
+    declarations,
+    imports: [SharedModule],
+    exports: declarations,
+    providers: [AnimeApi, AnimeCommands, AnimeService]
 })
 export class AnimeModule {}

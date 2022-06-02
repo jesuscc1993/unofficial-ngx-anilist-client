@@ -42,6 +42,7 @@ yarn-error.log
 *.tif
 
 # misc
+/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage

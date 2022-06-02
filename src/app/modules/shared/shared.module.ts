@@ -59,18 +59,17 @@ const imports = [
 ];
 
 @NgModule({
-  declarations,
-  imports,
-  entryComponents: [MtPromptComponent],
-  exports: [...declarations, ...imports],
-  providers: [
-    AuthApi,
-    AuthCommands,
-    AuthService,
-    AuthStore,
-    MediaStore,
-    TitleService,
-    ToastService,
-  ],
+    declarations,
+    imports,
+    exports: [...declarations, ...imports],
+    providers: [
+        AuthApi,
+        AuthCommands,
+        AuthService,
+        AuthStore,
+        MediaStore,
+        TitleService,
+        ToastService,
+    ]
 })
 export class SharedModule {}
