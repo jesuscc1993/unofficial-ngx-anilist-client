@@ -23,8 +23,8 @@
         "notIncludedIn": "no incluído en",
         "onList": "En lista",
         "onListValues": {
-          "true": "En lista",
           "false": "No en lista",
+          "true": "En lista",
           "undefined": "Ambos"
         }
       },
@@ -34,18 +34,19 @@
     },
     "status": "Estado",
     "statusValues": {
-      "undefined": "Cualquiera",
       "COMPLETED": "Completado",
       "CURRENT": "Viendo",
       "DROPPED": "Abandonado",
       "PAUSED": "En pausa",
       "PLANNING": "Planeado",
-      "REPEATING": "Repitiendo"
+      "REPEATING": "Repitiendo",
+      "undefined": "Cualquiera"
     },
     "userList": {
       "addToList": "Añadir a la lista",
       "deleteFromList": "Eliminar de la lista",
       "entries": "entradas",
+      "exportList": "Exportar Lista",
       "genresOverview": "Overview de Géneros",
       "goTo": "Ir a",
       "noEntries": "Sin entradas añadidas aún.",
@@ -57,9 +58,9 @@
     }
   },
   "app": {
+    "pageNotFound": "Página no encontrada",
     "title": "Cliente No Oficial de AniList",
-    "titleShort": "CNOA",
-    "pageNotFound": "Página no encontrada"
+    "titleShort": "CNOA"
   },
   "footer": {
     "about": "Acerca",
@@ -78,14 +79,14 @@
     "yes": "Sí"
   },
   "listEntry": {
-    "update": {
-      "success": "Actualizada entrada para \"{{ mediaTitle }}\"."
-    },
     "deletion": {
       "success": "Eliminada entrada para \"{{ mediaTitle }}\"."
     },
     "favouriteToggle": {
       "success": "Alternada entrada para \"{{ mediaTitle }} como favorita\"."
+    },
+    "update": {
+      "success": "Actualizada entrada para \"{{ mediaTitle }}\"."
     }
   },
   "matPaginator": {
@@ -105,23 +106,23 @@
     "episodes": "Episodios",
     "format": "Formato",
     "formatValues": {
-      "undefined": "Cualquiera",
       "MOVIE": "Película",
       "MUSIC": "Música",
       "ONA": "ONA",
       "OVA": "OVA",
       "SPECIAL": "Especial",
       "TV": "TV",
-      "TV_SHORT": "Corto TV"
+      "TV_SHORT": "Corto TV",
+      "undefined": "Cualquiera"
     },
     "genre": "Género",
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
     "score": "Nota",
     "sortValues": {
-      "TITLE_ROMAJI": "Título",
       "END_DATE_DESC": "Fecha fin",
-      "SCORE_DESC": "Nota"
+      "SCORE_DESC": "Nota",
+      "TITLE_ROMAJI": "Título"
     },
     "startDate": "Fecha Inicio",
     "status": "Estado",
