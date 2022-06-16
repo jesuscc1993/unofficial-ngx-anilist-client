@@ -14,6 +14,7 @@ import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { SearchFilters } from '../api/anime/anime-api.types';
 import { MtPromptComponent, PromptData } from '../components/modals/mt-prompt/mt-prompt.component';
+import { sortListEntriesByMediaTitle } from '../domain/media.domain';
 import { AnimeService } from '../services/anime.service';
 
 @Injectable()
@@ -142,6 +143,26 @@ export class AnimeCommands {
 
   getListEntriesByDateUpdated() {
     return this.animeService.getListEntriesByDateUpdated();
+  }
+
+  getListEntriesExport() {
+    return this.animeService.getListEntriesByDateUpdated().pipe(
+      map((listEntries) =>
+        sortListEntriesByMediaTitle(listEntries).map((listEntry) => {
+          const { id, media, ...entry } = listEntry;
+
+          return {
+            entryId: id,
+            mediaId: media.id,
+            progress: entry.progress,
+            repeat: entry.repeat,
+            scoreRaw: entry.scoreRaw,
+            status: entry.status,
+            title: media.title.romaji,
+          };
+        })
+      )
+    );
   }
 
   getPendingMedia() {

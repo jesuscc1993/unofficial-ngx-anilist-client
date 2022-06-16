@@ -23,8 +23,8 @@
         "notIncludedIn": "not in",
         "onList": "On list",
         "onListValues": {
-          "true": "On list",
           "false": "Not on list",
+          "true": "On list",
           "undefined": "Both"
         }
       },
@@ -34,18 +34,19 @@
     },
     "status": "Status",
     "statusValues": {
-      "undefined": "Any",
       "COMPLETED": "Completed",
       "CURRENT": "Viewing",
       "DROPPED": "Dropped",
       "PAUSED": "Paused",
       "PLANNING": "Planning",
-      "REPEATING": "Repeating"
+      "REPEATING": "Repeating",
+      "undefined": "Any"
     },
     "userList": {
       "addToList": "Add to list",
       "deleteFromList": "Delete from list",
       "entries": "entries",
+      "exportList": "Export List",
       "genresOverview": "Genres Overview",
       "goTo": "Go to",
       "noEntries": "No entries added yet.",
@@ -57,9 +58,9 @@
     }
   },
   "app": {
+    "pageNotFound": "Page not found",
     "title": "Unofficial AniList Client",
-    "titleShort": "UAC",
-    "pageNotFound": "Page not found"
+    "titleShort": "UAC"
   },
   "footer": {
     "about": "About",
@@ -78,14 +79,14 @@
     "yes": "Yes"
   },
   "listEntry": {
-    "update": {
-      "success": "Updated list entry for \"{{ mediaTitle }}\"."
-    },
     "deletion": {
       "success": "Deleted list entry for \"{{ mediaTitle }}\"."
     },
     "favouriteToggle": {
       "success": "Toggled list entry \"{{ mediaTitle }}\" as favourite."
+    },
+    "update": {
+      "success": "Updated list entry for \"{{ mediaTitle }}\"."
     }
   },
   "matPaginator": {
@@ -105,24 +106,24 @@
     "episodes": "Episodes",
     "format": "Format",
     "formatValues": {
-      "null": "-",
-      "undefined": "Any",
       "MOVIE": "Movie",
       "MUSIC": "Music",
+      "null": "-",
       "ONA": "ONA",
       "OVA": "OVA",
       "SPECIAL": "Special",
       "TV": "TV",
-      "TV_SHORT": "TV short"
+      "TV_SHORT": "TV short",
+      "undefined": "Any"
     },
     "genre": "Genre",
     "genres": "Genres",
     "goToDetail": "Go to full detail",
     "score": "Score",
     "sortValues": {
-      "TITLE_ROMAJI": "Title",
       "END_DATE_DESC": "End Date",
-      "SCORE_DESC": "Score"
+      "SCORE_DESC": "Score",
+      "TITLE_ROMAJI": "Title"
     },
     "startDate": "Start Date",
     "status": "Status",

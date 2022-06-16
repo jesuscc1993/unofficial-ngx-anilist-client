@@ -16,6 +16,7 @@ import {
   ListEntriesByStatus, ListEntryStatus,
 } from '../../modules/shared/types/anilist/listEntry.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
+import { downloadFile } from '../../utils/file.util';
 import { ScrollUtil } from '../../utils/generic.util';
 
 type Status = {
@@ -83,6 +84,27 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
     return JSON.stringify(this.listEntriesByStatus, undefined, 2);
   }
 
+  exportList(event?: Event) {
+    this.preventDefault(event);
+
+    if (this.user) {
+      this.animeCommands
+        .getListEntriesExport()
+        .pipe(
+          takeUntil(this.destroyed$),
+          tap((listEntries) => {
+            downloadFile(
+              JSON.stringify(listEntries, null, 2),
+              `anilist_${this.user.name}_${new Date().getTime()}.json`,
+              'application/json'
+            );
+          }),
+          catchError((error) => of(alert(error)))
+        )
+        .subscribe();
+    }
+  }
+
   private getListFavouriteIDs() {
     if (this.user) {
       this.animeCommands.getAnimeListFavouriteIDs(this.user, (favouriteIDs) => {
@@ -126,5 +148,11 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
 
     this.getUserList();
     this.getListFavouriteIDs();
+  }
+
+  private preventDefault(event: Event) {
+    if (event) {
+      event.preventDefault();
+    }
   }
 }

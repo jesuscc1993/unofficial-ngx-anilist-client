@@ -71,8 +71,10 @@ export const sortListEntriesByMediaScore = (listEntries: ListEntry[]) => {
 
 export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
   return listEntries.sort(({ media: a }, { media: b }) =>
-    a.title.romaji.localeCompare(b.title.romaji, 'en', {
-      sensitivity: 'base',
-    })
+    a.title.romaji
+      .toLowerCase()
+      .localeCompare(b.title.romaji.toLowerCase(), 'en', {
+        sensitivity: 'base',
+      })
   );
 };

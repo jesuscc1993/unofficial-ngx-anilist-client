@@ -64,6 +64,13 @@
         </div>
       </div>
 
+      <div class="text-center margin-top-xs">
+        <button mat-raised-button color="accent" (click)="exportList($event)">
+          <fa-icon name="file-download"></fa-icon>
+          <span>{{ 'anime.userList.exportList' | translate }}</span>
+        </button>
+      </div>
+
       <mt-genres-overview [genreStatsList]="user.stats.favouredGenresOverview">
       </mt-genres-overview>
     </div>

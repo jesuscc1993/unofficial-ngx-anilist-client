@@ -14,7 +14,7 @@
     </div>
   </mt-modal-header>
 
-  <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry()">
+  <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry($event)">
     <mt-modal-content>
       <!-- status -->
       <div class="form-group">

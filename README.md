@@ -105,7 +105,6 @@ Provides multiple actions to be done with an anime
 
 ## TODO
 
-- Add "export as JSON" feature to the user's list
 - Add language selection
 - Add query options popup for dashboard lists
   - Include, at least, limit, sort, status and format

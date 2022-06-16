@@ -69,7 +69,9 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     });
   }
 
-  saveEntry() {
+  saveEntry(event) {
+    this.preventDefault(event);
+
     const formListEntry: ListEntry = this.getFormEntry();
 
     this.animeCommands
