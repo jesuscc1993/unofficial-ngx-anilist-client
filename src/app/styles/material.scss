@@ -71,14 +71,14 @@ button {
 
   &.rounded {
     $height: 22px;
-    border-radius: $height / 2;
+    border-radius: $height * 0.5;
     line-height: $height;
     padding: $spacing-xxxxs $spacing-xxs;
   }
 
   &:not(.rounded) {
     $vertical-padding: $spacing-xxxs;
-    border-radius: $vertical-padding * 3/4;
+    border-radius: $vertical-padding * 3*0.25;
     padding: $spacing-xxxxs $vertical-padding;
     white-space: nowrap;
   }

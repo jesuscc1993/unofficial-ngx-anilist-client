@@ -1,11 +1,13 @@
+@use "sass:math";
+
 @import 'src/app/styles/variables';
 
 .form-group {
   $cols: 4;
   $col-spacing: $spacing-xs;
   display: inline-block;
-  width: calc(#{100% / $cols} - #{$col-spacing * ($cols - 1) / $cols});
-  margin: 0 $col-spacing / 2;
+  width: calc(#{math.div(100%, $cols)} - #{math.div($col-spacing * ($cols - 1), $cols)});
+  margin: 0 $col-spacing * 0.5;
 
   &:nth-child(#{$cols}n + 0) {
     margin-right: 0;

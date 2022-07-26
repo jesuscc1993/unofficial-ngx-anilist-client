@@ -114,7 +114,7 @@ $mobile-horizontal-cell-padding: 40px;
             &.rounded {
               $height: 19px;
               line-height: $height;
-              border-radius: $height / 2;
+              border-radius: $height * 0.5;
               padding: 0 $spacing-xxs;
             }
           }

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @use '@angular/material' as mat;
 @import 'src/app/styles/variables';
 
@@ -33,7 +35,7 @@
     align-items: center;
     text-align: center;
 
-    background: rgba(black, 2/3);
+    background: rgba(black, math.div(2, 3));
     color: white;
 
     .clickable {

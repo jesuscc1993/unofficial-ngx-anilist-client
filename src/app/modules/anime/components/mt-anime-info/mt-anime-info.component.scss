@@ -1,6 +1,6 @@
 @import 'src/app/styles/variables';
 
-$cover-width: $screen-xxxs / 2;
+$cover-width: $screen-xxxs * 0.5;
 $max-cover-width: 33vw;
 $content-padding: $spacing-xs - $spacing-xxxs;
 
