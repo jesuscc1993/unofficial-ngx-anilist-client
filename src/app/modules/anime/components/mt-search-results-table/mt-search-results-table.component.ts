@@ -2,11 +2,17 @@ import {
   AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { Anime, MediaSort } from '../../../shared/types/anilist/media.types';
+import { defaultModalOptions } from '../../../../app.constants';
+import { Anime, Media, MediaSort } from '../../../shared/types/anilist/media.types';
+import { ModalOrigin } from '../../../shared/types/modal.types';
 import { getMediaSortFromSort } from '../../domain/media.domain';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-search-results-table',
@@ -33,7 +39,7 @@ export class MtSearchResultsTableComponent
   ];
   dataSource: MatTableDataSource<Anime>;
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {}
 
@@ -45,6 +51,17 @@ export class MtSearchResultsTableComponent
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  openDetailModal(media: Media) {
+    this.dialog.open(MtMediaDetailModalComponent, {
+      ...defaultModalOptions,
+      maxWidth: '800px',
+      data: {
+        media,
+        origin: ModalOrigin.View,
+      },
+    });
   }
 
   sortBy(sort: Sort) {

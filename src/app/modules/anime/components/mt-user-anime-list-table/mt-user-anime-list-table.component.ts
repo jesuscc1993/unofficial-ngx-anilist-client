@@ -1,13 +1,19 @@
 import {
   AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { defaultModalOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
-import { Anime } from '../../../shared/types/anilist/media.types';
+import { Anime, Media } from '../../../shared/types/anilist/media.types';
+import { ModalOrigin } from '../../../shared/types/modal.types';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-user-anime-list-table',
@@ -34,7 +40,7 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   ];
   dataSource: MatTableDataSource<ListEntry>;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private dialog: MatDialog, private elementRef: ElementRef) {}
 
   ngAfterViewInit() {
     // TODO: Fix ExpressionChangedAfterItHasBeenCheckedError
@@ -50,6 +56,17 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
 
   onPageChange() {
     ScrollUtil.scrollToRef(this.elementRef);
+  }
+
+  openDetailModal(media: Media) {
+    this.dialog.open(MtMediaDetailModalComponent, {
+      ...defaultModalOptions,
+      maxWidth: '800px',
+      data: {
+        media,
+        origin: ModalOrigin.View,
+      },
+    });
   }
 
   private initializeDataSource() {

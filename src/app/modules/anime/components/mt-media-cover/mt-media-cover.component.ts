@@ -9,6 +9,7 @@ import {
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
+import { ModalOrigin } from '../../../shared/types/modal.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 import {
   MtListEntryFormModalComponent,
@@ -53,7 +54,7 @@ export class MtMediaCoverComponent
       ...defaultModalOptions,
       maxWidth: '800px',
       data: {
-        origin: 'view',
+        origin: ModalOrigin.View,
         media: this.media,
       },
     });

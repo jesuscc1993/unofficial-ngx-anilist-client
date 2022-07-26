@@ -1,6 +1,7 @@
 <fa-icon
   class="menu-toggle clickable"
   name="bars"
+  (click)="$event.stopPropagation()"
   [matMenuTriggerFor]="entryMenu"
 ></fa-icon>
 

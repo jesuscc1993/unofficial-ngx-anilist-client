@@ -4,4 +4,9 @@ export type ModalOptions = {
   maxWidth: string;
 };
 
-export type ModalOrigin = 'view' | 'edit';
+/* eslint-disable @typescript-eslint/naming-convention */
+export enum ModalOrigin {
+  View = 'view',
+  Edit = 'edit',
+}
+/* eslint-enable @typescript-eslint/naming-convention */

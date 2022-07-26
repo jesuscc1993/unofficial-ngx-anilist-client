@@ -74,7 +74,7 @@ export class MtMediaActionsComponent
       ...defaultModalOptions,
       maxWidth: '800px',
       data: {
-        origin: this.origin || 'view',
+        origin: this.origin || ModalOrigin.View,
         media: this.media,
       },
     });

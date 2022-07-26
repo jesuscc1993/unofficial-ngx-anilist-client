@@ -91,6 +91,7 @@
     [class.planning]="anime?.mediaListEntry?.status === 'PLANNING'"
     [class.repeating]="anime?.mediaListEntry?.status === 'REPEATING'"
     [class.watching]="anime?.mediaListEntry?.status === 'CURRENT'"
+    (click)="openDetailModal(anime)"
   >
   </mat-row>
 </mat-table>

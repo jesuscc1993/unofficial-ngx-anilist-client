@@ -12,6 +12,18 @@ $mobile-horizontal-cell-padding: 40px;
   // }
 }
 
+@media (min-width: ($screen-xxs + 1)) {
+  :root {
+    --cover-width: 88px;
+  }
+}
+
+@media (max-width: $screen-xxs) {
+  :root {
+    --cover-width: 48px;
+  }
+}
+
 .series-table {
   mat-row {
     &.completed {
@@ -60,16 +72,22 @@ $mobile-horizontal-cell-padding: 40px;
   }
 
   .mat-column-actions {
+    align-items: stretch;
     overflow: visible;
-    font-size: 0;
 
     .menu-toggle {
       $size: $desktop-horizontal-cell-padding;
-      width: $size;
-      margin-left: -$size;
+
+      align-items: center;
+      display: flex;
       font-size: $font-size-m;
+      height: 100%;
+      min-height: $size;
+      justify-content: center;
+      margin-left: -$size;
       text-align: center;
       vertical-align: bottom;
+      width: $size;
     }
   }
 
@@ -126,26 +144,12 @@ $mobile-horizontal-cell-padding: 40px;
   .mat-column-cover-image {
     flex: 0;
     font-size: 0;
+    padding-right: calc(var(--cover-width) + $spacing-xxs);
 
     img.cover {
       height: auto;
-    }
-
-    @media (min-width: $screen-xxs + 1) {
-      $cover-width: 88px;
-      padding-right: $cover-width + $spacing-xxs;
-
-      img.cover {
-        max-width: $cover-width;
-      }
-    }
-    @media (max-width: $screen-xxs) {
-      $cover-width: 48px;
-      padding-right: $cover-width + $spacing-xxs;
-
-      img.cover {
-        max-width: $cover-width;
-      }
+      min-height: var(--cover-width);
+      max-width: var(--cover-width);
     }
   }
 
@@ -193,7 +197,7 @@ $mobile-horizontal-cell-padding: 40px;
     flex: 1;
   }
 
-  @media (min-width: $screen-m + 1) {
+  @media (min-width: ($screen-m + 1)) {
     .mat-column-title-romaji {
       flex: 9;
     }

@@ -1,6 +1,14 @@
 @use '@angular/material' as mat;
 
-.favourite {
-  padding: 3px 0 0;
-  color: map-get(mat.$pink-palette, 500);
+mat-row {
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+
+  .favourite {
+    padding: 3px 0 0;
+    color: map-get(mat.$pink-palette, 500);
+  }
 }
