@@ -42,7 +42,7 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
             (format) =>
               !!animeListEntries.find((entry) => entry.media.format === format)
           );
-          this.filterEntries();
+          this.sortEntries();
           this.loading = false;
         })
       )
@@ -52,15 +52,7 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
   sortBy(mediaSort: MediaSort) {
     this.selectedSort = mediaSort;
 
-    const sort = {
-      ['END_DATE_DESC']: sortListEntriesByMediaEndDate,
-      ['SCORE_DESC']: sortListEntriesByMediaScore,
-      ['TITLE_ROMAJI']: sortListEntriesByMediaTitle,
-    }[mediaSort];
-
-    this.listEntries = sort(this.listEntries);
-
-    this.filterEntries();
+    this.sortEntries();
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
@@ -74,5 +66,17 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
           this.selectedFormats.includes(entry.media.format)
         )
       : this.listEntries;
+  }
+
+  private sortEntries() {
+    const sort = {
+      [MediaSort.END_DATE_DESC]: sortListEntriesByMediaEndDate,
+      [MediaSort.SCORE_DESC]: sortListEntriesByMediaScore,
+      [MediaSort.TITLE_ROMAJI]: sortListEntriesByMediaTitle,
+    }[this.selectedSort];
+
+    this.listEntries = sort(this.listEntries);
+
+    this.filterEntries();
   }
 }
