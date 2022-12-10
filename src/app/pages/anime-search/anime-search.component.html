@@ -269,7 +269,7 @@
       <mat-paginator
         *ngIf="pagination?.total"
         [showFirstLastButtons]="true"
-        [length]="pagination.total"
+        [length]="pagination.lastPage"
         [pageSize]="pagination.perPage"
         [pageIndex]="pagination.pageIndex"
         [pageSizeOptions]="[5, 10, 25, 50]"
