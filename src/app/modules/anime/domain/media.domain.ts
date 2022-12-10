@@ -14,12 +14,12 @@ export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
   return new Date(year, month, day);
 };
 
-export const getFormattedFuzzyDate = (fuzzyDatemedia: FuzzyDate) => {
-  const date = fuzzyDateToDate(fuzzyDatemedia);
-  return `${date.getFullYear()}.${pad(date.getMonth() + 1, 2)}.${pad(
-    date.getDate(),
-    2
-  )}`;
+export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {
+  let date = '-';
+  if (fuzzyDate.year) date = `${fuzzyDate.year}`;
+  if (fuzzyDate.month) date += `.${pad(fuzzyDate.month, 2)}`;
+  if (fuzzyDate.day) date += `.${pad(fuzzyDate.day, 2)}`;
+  return date;
 };
 
 export const getSanitizedMediaDescription = (media: Media) => {
