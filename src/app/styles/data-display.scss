@@ -37,8 +37,6 @@
   grid-template-rows: repeat(auto-fill, $cell-height);
   grid-gap: $cell-spacing;
 
-  height: calc($cell-height * 4 + $cell-spacing * 3);
-
   mt-media-cover {
     display: inline-block;
     vertical-align: middle;
@@ -47,6 +45,12 @@
       width: $cell-width;
       height: $cell-height;
       margin: auto;
+    }
+  }
+
+  @media (min-width: $screen-l) {
+    & {
+      height: calc($cell-height * 4 + $cell-spacing * 3);
     }
   }
 }
