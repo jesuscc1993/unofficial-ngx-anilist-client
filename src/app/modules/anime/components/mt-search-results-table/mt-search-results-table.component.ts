@@ -27,7 +27,7 @@ export class MtSearchResultsTableComponent
     new EventEmitter<MediaSort>();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  tableRows: string[] = [
+  tableRows = [
     'actions',
     'cover-image',
     'title-romaji',

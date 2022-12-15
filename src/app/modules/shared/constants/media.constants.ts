@@ -1,12 +1,12 @@
 import { MediaFormat, MediaSort, MediaStatus } from '../types/anilist/media.types';
 
-export const basicMediaSorts: MediaSort[] = [
+export const basicMediaSorts = [
   MediaSort.END_DATE_DESC,
   MediaSort.SCORE_DESC,
   MediaSort.TITLE_ROMAJI,
 ];
 
-export const mediaFormats: MediaFormat[] = [
+export const mediaFormats = [
   MediaFormat.MOVIE,
   MediaFormat.MUSIC,
   MediaFormat.ONA,
@@ -16,7 +16,7 @@ export const mediaFormats: MediaFormat[] = [
   MediaFormat.TV_SHORT,
 ];
 
-export const mediaStatuses: MediaStatus[] = [
+export const mediaStatuses = [
   MediaStatus.CANCELLED,
   MediaStatus.FINISHED,
   MediaStatus.NOT_YET_RELEASED,
