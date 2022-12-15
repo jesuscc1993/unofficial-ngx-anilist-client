@@ -8,7 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { animeSearchUrl, integerPattern, scorePattern } from '../../app.constants';
+import { animeSearchUrl, integerPattern, pageSizeOptions, scorePattern } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
@@ -51,6 +51,7 @@ export class AnimeSearchPageComponent
   mediaGenres: string[];
   mediaFormats = mediaFormats;
   mediaStatuses = mediaStatuses;
+  pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
   minYear = 1900;
 
@@ -99,7 +100,7 @@ export class AnimeSearchPageComponent
         takeUntil(this.destroyed$),
         tap(() => {
           if (this.animeList) {
-            this.search();
+            this.search(undefined, this.pagination?.perPage);
           }
         })
       )
@@ -123,7 +124,7 @@ export class AnimeSearchPageComponent
       this.sort = queryParams.sort ? JSON.parse(queryParams.sort) : this.sort;
 
       this.expansionPanel.open();
-      this.search();
+      this.search(undefined, this.pagination?.perPage);
     }
   }
 
@@ -189,7 +190,7 @@ export class AnimeSearchPageComponent
 
   sortBy(mediaSort: MediaSort) {
     this.sort = mediaSort;
-    this.search();
+    this.search(undefined, this.pagination?.perPage);
   }
 
   private preventDefault(event: Event) {
