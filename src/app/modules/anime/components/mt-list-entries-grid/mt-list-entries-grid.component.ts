@@ -10,6 +10,7 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 })
 export class MtListEntryGridComponent implements OnChanges {
   @Input() listEntries: ListEntry[];
+  @Input() showStatusBadge?: boolean;
   @Input() wrapperClass?: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

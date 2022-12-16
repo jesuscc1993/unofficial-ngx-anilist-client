@@ -29,6 +29,7 @@ export class MtMediaCoverComponent
 {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
+  @Input() showStatusBadge?: boolean;
 
   constructor(private dialog: MatDialog, private animeCommands: AnimeCommands) {
     super();

@@ -33,8 +33,9 @@
       </div>
     </div>
 
-    <div *ngIf="listEntry">
-      <div class="status-badge {{ listEntry.status.toLowerCase() }}"></div>
-    </div>
+    <div
+      *ngIf="listEntry && showStatusBadge"
+      class="status-badge {{ listEntry.status.toLowerCase() }}"
+    ></div>
   </div>
 </div>
