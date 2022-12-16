@@ -28,14 +28,15 @@
 }
 
 .media-cover-grid {
-  $cell-width: 96px;
-  $cell-height: 134px;
+  $cell-height: $media-cover-height;
+  $cell-width: $media-cover-width;
   $cell-spacing: 6px;
+
   display: grid;
-  justify-content: space-around;
+  grid-gap: $cell-spacing;
   grid-template-columns: repeat(auto-fill, $cell-width);
   grid-template-rows: repeat(auto-fill, $cell-height);
-  grid-gap: $cell-spacing;
+  justify-content: space-around;
 
   mt-media-cover {
     display: inline-block;

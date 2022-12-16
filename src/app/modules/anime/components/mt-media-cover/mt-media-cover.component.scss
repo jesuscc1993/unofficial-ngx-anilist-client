@@ -4,8 +4,8 @@
 @import 'src/app/styles/variables';
 
 .cover {
-  height: 138px;
-  width: 100px;
+  height: $media-cover-height;
+  width: $media-cover-width;
 
   background-position: center center;
   background-size: cover;
