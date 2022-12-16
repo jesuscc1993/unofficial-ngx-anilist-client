@@ -1,7 +1,9 @@
 <div *ngIf="media">
   <div
     class="cover"
-    [style.background-image]="'url(' + media.coverImage.large + ')'"
+    [style.background-image]="
+      'url(' + getSmallCoverImage(media.coverImage) + ')'
+    "
   >
     <div class="backdrop">
       <div class="full-width">

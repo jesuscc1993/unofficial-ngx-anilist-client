@@ -7,6 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { defaultModalOptions } from '../../../../app.constants';
+import { getSmallCoverImage } from '../../../shared/domain/shared.domain';
 import { Anime, Media, MediaSort } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { getMediaSortFromSort } from '../../domain/media.domain';
@@ -26,6 +27,8 @@ export class MtSearchResultsTableComponent
   @Output() onSortChange: EventEmitter<MediaSort> =
     new EventEmitter<MediaSort>();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  getSmallCoverImage = getSmallCoverImage;
 
   tableRows = [
     'actions',

@@ -7,6 +7,7 @@ import { defaultModalOptions } from '../../../../app.constants';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { getSmallCoverImage } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
@@ -30,6 +31,8 @@ export class MtMediaCoverComponent
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
   @Input() showStatusBadge?: boolean;
+
+  getSmallCoverImage = getSmallCoverImage;
 
   constructor(private dialog: MatDialog, private animeCommands: AnimeCommands) {
     super();
