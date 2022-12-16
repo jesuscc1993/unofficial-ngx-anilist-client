@@ -1,15 +1,16 @@
-@use "sass:math";
+@use 'sass:math';
 
 @use '@angular/material' as mat;
 @import 'src/app/styles/variables';
 
 .cover {
-  $width: 100px;
-  $height: 138px;
-  width: $width;
-  height: $height;
+  border-radius: 2px;
+  height: 138px;
+  width: 100px;
+
   background-position: center center;
   background-size: cover;
+  overflow: hidden;
   position: relative;
 
   &:hover {
@@ -47,32 +48,47 @@
     }
   }
 
+  .title {
+    > div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .status-badge {
-    $size: 6px;
-    border-radius: 2px;
-    box-shadow: 0 0 2px black;
-    display: block;
-    height: $size;
-    margin: 3px;
+    $size: 16px;
+    $shadow-size: $size + 1px;
+    border-color: transparent #0006;
+    border-style: solid;
+    border-width: 0px 0px $shadow-size $shadow-size;
     position: absolute;
     top: 0;
-    width: $size;
 
-    &.completed {
-      background: map-get(mat.$green-palette, 500);
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+
+      border-style: solid;
+      border-width: 0px 0px $size $size;
+      margin-left: -1 * $shadow-size;
     }
-    &.repeating {
-      background: map-get(mat.$blue-palette, 500);
+
+    &.completed:after {
+      border-color: transparent map-get(mat.$green-palette, 500);
     }
-    &.planning,
-    &.watching {
-      background: map-get(mat.$orange-palette, 500);
+    &.repeating:after {
+      border-color: transparent map-get(mat.$blue-palette, 500);
     }
-    &.paused {
-      background: map-get(mat.$pink-palette, 300);
+    &.planning:after,
+    &.watching:after {
+      border-color: transparent map-get(mat.$orange-palette, 500);
     }
-    &.dropped {
-      background: map-get(mat.$red-palette, 500);
+    &.paused:after {
+      border-color: transparent map-get(mat.$pink-palette, 300);
+    }
+    &.dropped:after {
+      border-color: transparent map-get(mat.$red-palette, 500);
     }
   }
 
