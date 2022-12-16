@@ -43,12 +43,12 @@
       <div
         *ngIf="searching"
         class="placeholder"
-        [ngClass]="{ 'with-pagination': pagination && pagination.hasNextPage }"
+        [ngClass]="{ 'with-pagination': pagination }"
       >
         <mat-spinner mode="indeterminate"></mat-spinner>
       </div>
 
-      <div *ngIf="!searching && animeList?.length">
+      <div *ngIf="!searching">
         <div class="media-cover-grid">
           <mt-media-cover
             *ngFor="let media of animeList"

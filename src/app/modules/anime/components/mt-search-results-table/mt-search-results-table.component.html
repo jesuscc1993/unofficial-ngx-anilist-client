@@ -18,7 +18,7 @@
       'media.cover' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let anime">
-      <img [src]="getSmallCoverImage(anime.coverImage)" class="cover" />
+      <img [src]="getSizedCoverImage(anime.coverImage)" class="cover" />
     </mat-cell>
   </ng-container>
 

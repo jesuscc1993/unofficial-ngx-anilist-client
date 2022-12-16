@@ -1,7 +1,10 @@
-import { CoverImage } from '../types/anilist/dataTypes.types';
+import { CoverImage, CoverImageSize } from '../types/anilist/dataTypes.types';
 
-export const getSmallCoverImage = (coverImage?: CoverImage) => {
+export const getSizedCoverImage = (
+  coverImage: CoverImage | undefined = undefined,
+  size = CoverImageSize.Medium
+) => {
   return coverImage?.medium
-    ? coverImage.medium.replace(/\/medium\//, 'small')
+    ? coverImage.medium.replace(/\/(small|medium|large)\//, `/${size}/`)
     : undefined;
 };

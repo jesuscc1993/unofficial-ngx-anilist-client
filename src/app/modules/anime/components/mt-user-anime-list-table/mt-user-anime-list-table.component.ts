@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { defaultModalOptions, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import { getSmallCoverImage } from '../../../shared/domain/shared.domain';
+import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Anime, Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
@@ -29,7 +29,7 @@ export class MtUserAnimeListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  getSmallCoverImage = getSmallCoverImage;
+  getSizedCoverImage = getSizedCoverImage;
   pageSizeOptions = pageSizeOptions;
 
   tableRows = [

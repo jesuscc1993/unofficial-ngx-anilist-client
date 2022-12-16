@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import {
   Anime, Media, MediaListSort, MediaSort, MediaStatus,

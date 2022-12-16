@@ -29,7 +29,6 @@ export class Anime extends MediaData {
 
 export type Media = Anime;
 
-/* eslint-disable @typescript-eslint/naming-convention */
 export enum MediaFormat {
   MOVIE = 'MOVIE',
   MUSIC = 'MUSIC',
@@ -109,4 +108,3 @@ export enum MediaStatus {
   NOT_YET_RELEASED = 'NOT_YET_RELEASED',
   CANCELLED = 'CANCELLED',
 }
-/* eslint-enable @typescript-eslint/naming-convention */

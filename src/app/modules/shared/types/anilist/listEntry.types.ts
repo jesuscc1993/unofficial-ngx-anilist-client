@@ -12,7 +12,6 @@ export type ListEntry = {
 
 export type ListEntriesByStatus = { [Status in ListEntryStatus]?: ListEntry[] };
 
-/* eslint-disable @typescript-eslint/naming-convention */
 export enum ListEntryStatus {
   COMPLETED = 'COMPLETED',
   CURRENT = 'CURRENT',
@@ -21,4 +20,3 @@ export enum ListEntryStatus {
   PLANNING = 'PLANNING',
   REPEATING = 'REPEATING',
 }
-/* eslint-enable @typescript-eslint/naming-convention */

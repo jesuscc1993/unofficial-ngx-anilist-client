@@ -8,9 +8,15 @@ export type FuzzyDate = {
   day: number;
 };
 
+export enum CoverImageSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
+
 export type CoverImage = {
-  medium: string;
-  large: string;
+  [CoverImageSize.Large]: string;
+  [CoverImageSize.Medium]: string;
 };
 
 export type Tag = {
