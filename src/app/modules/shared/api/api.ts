@@ -21,7 +21,6 @@ export class AniListApi {
   protected getRequestOptions() {
     const accessToken = this.authStore.getAccessToken();
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
     };
   }
