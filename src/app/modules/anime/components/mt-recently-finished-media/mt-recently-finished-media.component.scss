@@ -5,6 +5,10 @@
   min-height: 594px;
 }
 
-::ng-deep .mat-select-value {
+::ng-deep mt-recently-finished-media .mat-select-value {
   max-width: 128px !important;
+}
+
+::ng-deep mt-recently-finished-media .status-badge {
+  display: none;
 }

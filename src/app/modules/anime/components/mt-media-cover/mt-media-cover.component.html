@@ -5,9 +5,10 @@
   >
     <div class="backdrop">
       <div class="full-width">
-        <div (click)="openDetailModal($event)" class="title clickable">
+        <div (click)="openDetailModal($event)" class="clickable">
           <div
             *ngIf="media.title"
+            class="title"
             lines="4"
             ngxEllipsis
             title="{{ media.title.romaji }}"
