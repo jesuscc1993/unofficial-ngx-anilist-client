@@ -18,6 +18,9 @@
         [ngModel]="selectedStatuses"
         (ngModelChange)="selectedStatusChanged($event)"
       >
+        <mat-select-trigger>
+          {{ selectedStatuses ? '...' : '' }}
+        </mat-select-trigger>
         <mat-option *ngFor="let status of listEntryStatuses" [value]="status">{{
           'anime.statusValues.' + status | translate
         }}</mat-option>
