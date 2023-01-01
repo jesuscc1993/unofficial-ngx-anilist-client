@@ -8,6 +8,7 @@ import {
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { AnimeCommands } from '../../commands/anime.commands';
+import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',
@@ -18,7 +19,11 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
   ready: boolean;
-  selectedStatuses: ListEntryStatus[] = [];
+
+  selectedStatuses = storageService.getItem<ListEntryStatus[]>(
+    StorageKeys.RecentlyUpdated.Status,
+    []
+  );
 
   private listEntries: ListEntry[];
 
@@ -47,6 +52,10 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
   selectedStatusChanged(selectedStatuses: ListEntryStatus[]) {
     this.selectedStatuses = selectedStatuses;
     this.filterEntries();
+    storageService.setItem(
+      StorageKeys.RecentlyUpdated.Status,
+      selectedStatuses
+    );
   }
 
   private filterEntries() {
