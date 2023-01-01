@@ -31,6 +31,9 @@
         [ngModel]="selectedFormats"
         (ngModelChange)="selectedFormatChanged($event)"
       >
+        <mat-select-trigger>
+          {{ selectedFormats ? '...' : '' }}
+        </mat-select-trigger>
         <mat-option *ngFor="let format of mediaFormats" [value]="format">{{
           'media.formatValues.' + format | translate
         }}</mat-option>
