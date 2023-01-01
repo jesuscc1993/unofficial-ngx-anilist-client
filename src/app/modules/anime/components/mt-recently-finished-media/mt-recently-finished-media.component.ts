@@ -12,6 +12,7 @@ import { AnimeCommands } from '../../commands/anime.commands';
 import {
   sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
+import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
   selector: 'mt-recently-finished-media',
@@ -24,8 +25,16 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
   filteredEntries: ListEntry[];
   loading = true;
   mediaFormats: MediaFormat[];
-  selectedFormats: MediaFormat[] = [];
-  selectedSort = MediaSort.END_DATE_DESC;
+
+  selectedFormats = storageService.getItem<MediaFormat[]>(
+    StorageKeys.RecentlyFinished.Format,
+    []
+  );
+
+  selectedSort = storageService.getItem<MediaSort>(
+    StorageKeys.RecentlyFinished.Sort,
+    MediaSort.END_DATE_DESC
+  );
 
   private listEntries: ListEntry[];
 
@@ -49,15 +58,19 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
       .subscribe();
   }
 
-  sortBy(mediaSort: MediaSort) {
-    this.selectedSort = mediaSort;
-
+  sortBy(selectedSort: MediaSort) {
+    this.selectedSort = selectedSort;
     this.sortEntries();
+    storageService.setItem(StorageKeys.RecentlyFinished.Sort, selectedSort);
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
+    storageService.setItem(
+      StorageKeys.RecentlyFinished.Format,
+      selectedFormats
+    );
   }
 
   private filterEntries() {

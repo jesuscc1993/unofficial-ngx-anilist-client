@@ -12,6 +12,7 @@ import { MediaStore } from '../../../shared/store/media.store';
 import { Anime, MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeCommands } from '../../commands/anime.commands';
+import { StorageKeys, storageService } from '../../services/storage.service';
 
 const gridCard = 96;
 const gridSpacing = 6;
@@ -35,8 +36,16 @@ export class MtListRelatedMediaComponent
   relatedMediaIds: number[];
   animeList: Anime[];
   pagination: PageInfo;
-  selectedSort = MediaSort.END_DATE_DESC;
-  selectedFormats: MediaFormat[] = [];
+
+  selectedFormats = storageService.getItem<MediaFormat[]>(
+    StorageKeys.RelatedMedia.Format,
+    []
+  );
+
+  selectedSort = storageService.getItem<MediaSort>(
+    StorageKeys.RelatedMedia.Sort,
+    MediaSort.END_DATE_DESC
+  );
 
   animeListEntriesLength: number;
   searching: boolean;
@@ -104,14 +113,16 @@ export class MtListRelatedMediaComponent
     );
   }
 
-  sortBy(mediaSort: MediaSort) {
-    this.selectedSort = mediaSort;
+  sortBy(selectedSort: MediaSort) {
+    this.selectedSort = selectedSort;
     this.search(0, this.pagination.perPage);
+    storageService.setItem(StorageKeys.RelatedMedia.Sort, selectedSort);
   }
 
   selectedFormatChanged(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.search(0, this.pagination.perPage);
+    storageService.setItem(StorageKeys.RelatedMedia.Format, selectedFormats);
   }
 
   changePage({ pageIndex, pageSize }: PageEvent) {
