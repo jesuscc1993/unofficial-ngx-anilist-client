@@ -12,6 +12,7 @@ import { MediaStore } from '../../../shared/store/media.store';
 import { Anime, MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { AnimeCommands } from '../../commands/anime.commands';
+import { getFormatLiteral, getSortLiteral } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 const gridCard = 96;
@@ -27,6 +28,8 @@ export class MtListRelatedMediaComponent
   implements OnInit
 {
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
+  readonly getFormatLiteral = getFormatLiteral;
+  readonly getSortLiteral = getSortLiteral;
   readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
   readonly rowCount = 4;
@@ -56,8 +59,12 @@ export class MtListRelatedMediaComponent
     private mediaStore: MediaStore
   ) {
     super();
-    this.initialize();
+
     this.onError = this.onError.bind(this);
+    this.setFormats = this.setFormats.bind(this);
+    this.setSort = this.setSort.bind(this);
+
+    this.initialize();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -113,13 +120,13 @@ export class MtListRelatedMediaComponent
     );
   }
 
-  sortBy(selectedSort: MediaSort) {
+  setSort(selectedSort: MediaSort) {
     this.selectedSort = selectedSort;
     this.search(0, this.pagination.perPage);
     storageService.setItem(StorageKeys.RelatedMedia.Sort, selectedSort);
   }
 
-  selectedFormatChanged(selectedFormats: MediaFormat[]) {
+  setFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.search(0, this.pagination.perPage);
     storageService.setItem(StorageKeys.RelatedMedia.Format, selectedFormats);

@@ -38,6 +38,10 @@
     background: rgba(black, math.div(2, 3));
     color: white;
 
+    .padded-contents {
+      padding-bottom: $spacing-xxs;
+    }
+
     .clickable {
       transition: $transition-duration;
 

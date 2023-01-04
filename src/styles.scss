@@ -133,7 +133,16 @@ label[for],
   display: none !important;
 }
 
+[title] {
+  cursor: pointer;
+}
+
 .square-button {
   min-width: 36px !important;
   padding: 0 !important;
+}
+
+/* overrides */
+.fa-fw {
+  width: 1em;
 }
