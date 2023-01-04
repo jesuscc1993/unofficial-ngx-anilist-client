@@ -48,7 +48,7 @@
         <mat-spinner mode="indeterminate"></mat-spinner>
       </div>
 
-      <div class="media-cover-grid">
+      <div [ngClass]="{ 'media-cover-grid': !searching }">
         <mt-media-cover
           *ngFor="let media of animeList"
           [media]="media"
