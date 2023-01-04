@@ -21,6 +21,7 @@
       placeholder="{{ 'media.formatValues.undefined' | translate }}"
       [multiple]="true"
       [options]="mediaFormats"
+      [truncate]="true"
       [value]="selectedFormats"
       [getOptionLiteral]="getFormatLiteral"
       [onChange]="setFormats"
