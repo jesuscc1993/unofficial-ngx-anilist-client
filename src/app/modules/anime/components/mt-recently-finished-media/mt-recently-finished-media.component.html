@@ -20,10 +20,7 @@
     </div>
 
     <div class="header header-dropdown">
-      <span
-        >{{ 'media.format' | translate }}
-        {{ 'anime.search.filters.includedIn' | translate }}:</span
-      >
+      <span>{{ 'media.format' | translate }}:</span>
       <mat-select
         class="width-auto"
         placeholder="{{ 'media.formatValues.undefined' | translate }}"
@@ -42,7 +39,7 @@
   </div>
 
   <div class="content">
-    <div *ngIf="loading" class="placeholder">
+    <div *ngIf="searching" class="placeholder">
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 

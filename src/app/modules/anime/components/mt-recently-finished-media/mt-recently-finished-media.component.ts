@@ -23,8 +23,8 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
   readonly mediaSorts = basicMediaSorts;
 
   filteredEntries: ListEntry[];
-  loading = true;
   mediaFormats: MediaFormat[];
+  searching = true;
 
   selectedFormats = storageService.getItem<MediaFormat[]>(
     StorageKeys.RecentlyFinished.Format,
@@ -52,7 +52,7 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
               !!animeListEntries.find((entry) => entry.media.format === format)
           );
           this.sortEntries();
-          this.loading = false;
+          this.searching = false;
         })
       )
       .subscribe();

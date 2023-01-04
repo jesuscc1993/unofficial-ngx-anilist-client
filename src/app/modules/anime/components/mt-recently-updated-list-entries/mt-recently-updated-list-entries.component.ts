@@ -6,7 +6,9 @@ import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
+import { mediaFormats } from '../../../shared/constants/media.constants';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { MediaFormat } from '../../../shared/types/anilist/media.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -18,10 +20,16 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestroy {
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
-  ready: boolean;
+  mediaFormats: MediaFormat[];
+  searching = true;
 
   selectedStatuses = storageService.getItem<ListEntryStatus[]>(
     StorageKeys.RecentlyUpdated.Status,
+    []
+  );
+
+  selectedFormats = storageService.getItem<MediaFormat[]>(
+    StorageKeys.RecentlyUpdated.Format,
     []
   );
 
@@ -42,8 +50,12 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
             (status) =>
               !!animeListEntries.find((entry) => entry.status === status)
           );
+          this.mediaFormats = mediaFormats.filter(
+            (format) =>
+              !!animeListEntries.find((entry) => entry.media.format === format)
+          );
           this.filterEntries();
-          this.ready = true;
+          this.searching = false;
         })
       )
       .subscribe();
@@ -58,11 +70,19 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
     );
   }
 
+  selectedFormatChanged(selectedFormats: MediaFormat[]) {
+    this.selectedFormats = selectedFormats;
+    this.filterEntries();
+    storageService.setItem(StorageKeys.RecentlyUpdated.Format, selectedFormats);
+  }
+
   private filterEntries() {
-    this.filteredEntries = this.selectedStatuses.length
-      ? this.listEntries.filter((entry) =>
-          this.selectedStatuses.includes(entry.status)
-        )
-      : this.listEntries;
+    this.filteredEntries = this.listEntries.filter(
+      (entry) =>
+        (!this.selectedFormats.length ||
+          this.selectedFormats.includes(entry.media.format)) &&
+        (!this.selectedStatuses.length ||
+          this.selectedStatuses.includes(entry.status))
+    );
   }
 }

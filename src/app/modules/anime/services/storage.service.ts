@@ -21,7 +21,7 @@ export const StorageKeys = {
     Sort: 'RecentlyFinishedSort',
   },
   RecentlyUpdated: {
-    Sort: 'RecentlyUpdatedSort',
+    Format: 'RecentlyUpdatedFormat',
     Status: 'RecentlyUpdatedStatus',
   },
   RelatedMedia: {

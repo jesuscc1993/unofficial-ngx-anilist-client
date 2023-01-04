@@ -7,10 +7,7 @@
     </div>
 
     <div class="header header-dropdown">
-      <span
-        >{{ 'media.status' | translate }}
-        {{ 'anime.search.filters.includedIn' | translate }}:</span
-      >
+      <span>{{ 'media.status' | translate }}:</span>
       <mat-select
         class="width-auto"
         placeholder="{{ 'anime.statusValues.undefined' | translate }}"
@@ -26,10 +23,28 @@
         }}</mat-option>
       </mat-select>
     </div>
+
+    <div class="header header-dropdown">
+      <span>{{ 'media.format' | translate }}:</span>
+      <mat-select
+        class="width-auto"
+        placeholder="{{ 'media.formatValues.undefined' | translate }}"
+        multiple
+        [ngModel]="selectedFormats"
+        (ngModelChange)="selectedFormatChanged($event)"
+      >
+        <mat-select-trigger>
+          {{ selectedFormats ? '...' : '' }}
+        </mat-select-trigger>
+        <mat-option *ngFor="let format of mediaFormats" [value]="format">{{
+          'media.formatValues.' + format | translate
+        }}</mat-option>
+      </mat-select>
+    </div>
   </div>
 
   <div class="content">
-    <div *ngIf="!ready" class="placeholder">
+    <div *ngIf="searching" class="placeholder">
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
