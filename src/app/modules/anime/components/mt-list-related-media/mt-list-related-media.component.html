@@ -6,36 +6,25 @@
       </h4>
     </div>
 
-    <div class="header header-dropdown">
-      <span>{{ 'generic.sort' | translate }}:</span>
-      <mat-select
-        class="width-auto"
-        [ngModel]="selectedSort"
-        (ngModelChange)="sortBy($event)"
-      >
-        <mat-option *ngFor="let sort of mediaSorts" [value]="sort">{{
-          'media.sortValues.' + sort | translate
-        }}</mat-option>
-      </mat-select>
-    </div>
+    <mt-header-picker
+      iconName="sort"
+      title="{{ 'generic.sort' | translate }}"
+      [options]="mediaSorts"
+      [value]="selectedSort"
+      [getOptionLiteral]="getSortLiteral"
+      [onChange]="setSort"
+    ></mt-header-picker>
 
-    <div class="header header-dropdown">
-      <span>{{ 'media.format' | translate }}:</span>
-      <mat-select
-        class="width-auto"
-        placeholder="{{ 'media.formatValues.undefined' | translate }}"
-        multiple
-        [ngModel]="selectedFormats"
-        (ngModelChange)="selectedFormatChanged($event)"
-      >
-        <mat-select-trigger>
-          {{ selectedFormats ? '...' : '' }}
-        </mat-select-trigger>
-        <mat-option *ngFor="let format of mediaFormats" [value]="format">{{
-          'media.formatValues.' + format | translate
-        }}</mat-option>
-      </mat-select>
-    </div>
+    <mt-header-picker
+      iconName="filter"
+      title="{{ 'media.format' | translate }}"
+      placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [multiple]="true"
+      [options]="mediaFormats"
+      [value]="selectedFormats"
+      [getOptionLiteral]="getFormatLiteral"
+      [onChange]="setFormats"
+    ></mt-header-picker>
   </div>
 
   <div class="content">
@@ -48,7 +37,7 @@
         <mat-spinner mode="indeterminate"></mat-spinner>
       </div>
 
-      <div [ngClass]="{ 'media-cover-grid': !searching }">
+      <div *ngIf="!searching" class="media-cover-grid">
         <mt-media-cover
           *ngFor="let media of animeList"
           [media]="media"

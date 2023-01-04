@@ -66,11 +66,12 @@
     "about": "About",
     "anilistPrefix": "Powered by the",
     "anilistSuffix": "AniList API.",
-    "github": "GitHub repository"
+    "github": "GitHub"
   },
   "generic": {
     "cancel": "Cancel",
     "delete": "Delete",
+    "ellipsis": "...",
     "no": "No",
     "noResults": "No results.",
     "sort": "Sort",

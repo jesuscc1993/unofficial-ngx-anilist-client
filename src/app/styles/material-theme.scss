@@ -94,7 +94,10 @@ mat-toolbar {
       border-top-color: transparent;
 
       &.active {
-        border-bottom-color: mat.get-color-from-palette($primary-palette, default);
+        border-bottom-color: mat.get-color-from-palette(
+          $primary-palette,
+          default
+        );
 
         &,
         &:hover {
@@ -150,6 +153,12 @@ mat-card {
             background-color: map-get(map-get($theme, background), card);
           }
         }
+      }
+    }
+
+    .composite-footer {
+      .footer:not(.tab) {
+        border-color: map-get(map-get($theme, foreground), divider);
       }
     }
   }

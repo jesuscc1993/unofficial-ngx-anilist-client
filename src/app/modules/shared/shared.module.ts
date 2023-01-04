@@ -23,6 +23,7 @@ import {
 } from './components/modal/mt-modal-header/mt-modal-header.component';
 import { MtModalComponent } from './components/modal/mt-modal/mt-modal.component';
 import { MtFooterComponent } from './components/mt-footer/mt-footer.component';
+import { MtHeaderPickerComponent } from './components/mt-header-picker/mt-header-picker.component';
 import { MtHeaderComponent } from './components/mt-header/mt-header.component';
 import { MtMenuActionComponent } from './components/mt-menu-action/mt-menu-action.component';
 import { SortPipe } from './pipes/sort';
@@ -36,6 +37,7 @@ const declarations = [
   FaIconComponent,
   MtFooterComponent,
   MtHeaderComponent,
+  MtHeaderPickerComponent,
   MtMenuActionComponent,
   MtModalComponent,
   MtModalContentComponent,

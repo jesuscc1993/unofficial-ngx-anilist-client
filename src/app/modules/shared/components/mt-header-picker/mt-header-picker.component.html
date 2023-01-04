@@ -1,0 +1,23 @@
+<div class="header header-dropdown">
+  <fa-icon
+    name="{{ iconName }}"
+    iconClass="fa-fw margin-right-xxs"
+    [title]="title"
+  ></fa-icon>
+
+  <mat-select
+    class="width-auto"
+    [multiple]="multiple"
+    [ngModel]="value"
+    [placeholder]="placeholder"
+    (ngModelChange)="onChange($event)"
+  >
+    <mat-select-trigger *ngIf="shouldTruncate()">
+      {{ getTruncatedLiteral() | translate }}
+    </mat-select-trigger>
+
+    <mat-option *ngFor="let option of options" [value]="option">{{
+      getOptionLiteral(option) | translate
+    }}</mat-option>
+  </mat-select>
+</div>

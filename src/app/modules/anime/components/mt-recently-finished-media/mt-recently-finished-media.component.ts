@@ -10,7 +10,8 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
 import { AnimeCommands } from '../../commands/anime.commands';
 import {
-  sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
+  getFormatLiteral, getSortLiteral, sortListEntriesByMediaEndDate, sortListEntriesByMediaScore,
+  sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -20,6 +21,8 @@ import { StorageKeys, storageService } from '../../services/storage.service';
   styleUrls: ['./mt-recently-finished-media.component.scss'],
 })
 export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
+  readonly getFormatLiteral = getFormatLiteral;
+  readonly getSortLiteral = getSortLiteral;
   readonly mediaSorts = basicMediaSorts;
 
   filteredEntries: ListEntry[];
@@ -41,6 +44,9 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
   constructor(private animeCommands: AnimeCommands) {
     super();
 
+    this.setFormats = this.setFormats.bind(this);
+    this.setSort = this.setSort.bind(this);
+
     this.animeCommands
       .getPendingMedia()
       .pipe(
@@ -58,13 +64,13 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
       .subscribe();
   }
 
-  sortBy(selectedSort: MediaSort) {
+  setSort(selectedSort: MediaSort) {
     this.selectedSort = selectedSort;
     this.sortEntries();
     storageService.setItem(StorageKeys.RecentlyFinished.Sort, selectedSort);
   }
 
-  selectedFormatChanged(selectedFormats: MediaFormat[]) {
+  setFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
     storageService.setItem(

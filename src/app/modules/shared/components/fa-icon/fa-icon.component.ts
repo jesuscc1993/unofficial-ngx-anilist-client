@@ -6,7 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./fa-icon.component.scss'],
 })
 export class FaIconComponent {
-  @Input() type?: 'fas' | 'fab';
-  @Input() name: string;
   @Input() iconClass?: string;
+  @Input() name: string;
+  @Input() title?: string;
+  @Input() type?: 'fas' | 'fab';
 }

@@ -10,6 +10,8 @@ import { mediaFormats } from '../../../shared/constants/media.constants';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat } from '../../../shared/types/anilist/media.types';
 import { AnimeCommands } from '../../commands/anime.commands';
+import { getStatusLiteral } from '../../domain/anime.domain';
+import { getFormatLiteral } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
@@ -18,6 +20,9 @@ import { StorageKeys, storageService } from '../../services/storage.service';
   styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
 })
 export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestroy {
+  readonly getFormatLiteral = getFormatLiteral;
+  readonly getStatusLiteral = getStatusLiteral;
+
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
   mediaFormats: MediaFormat[];
@@ -37,6 +42,9 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
 
   constructor(private animeCommands: AnimeCommands) {
     super();
+
+    this.setFormats = this.setFormats.bind(this);
+    this.setStatuses = this.setStatuses.bind(this);
 
     this.animeCommands
       .getListEntriesByDateUpdated()
@@ -61,7 +69,7 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
       .subscribe();
   }
 
-  selectedStatusChanged(selectedStatuses: ListEntryStatus[]) {
+  setStatuses(selectedStatuses: ListEntryStatus[]) {
     this.selectedStatuses = selectedStatuses;
     this.filterEntries();
     storageService.setItem(
@@ -70,7 +78,7 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
     );
   }
 
-  selectedFormatChanged(selectedFormats: MediaFormat[]) {
+  setFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
     storageService.setItem(StorageKeys.RecentlyUpdated.Format, selectedFormats);

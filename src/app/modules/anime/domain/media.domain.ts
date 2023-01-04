@@ -2,7 +2,7 @@ import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
 import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
-import { Media, MediaSort } from '../../shared/types/anilist/media.types';
+import { Media, MediaFormat, MediaSort } from '../../shared/types/anilist/media.types';
 
 export const getFormattedMediaDuration = (media: Media) => {
   return media.duration < 60
@@ -36,6 +36,14 @@ export const pad = (
 
 export const getDateScalarFromYear = (year: number) => {
   return year * 10000;
+};
+
+export const getFormatLiteral = (mediaFormat: MediaFormat) => {
+  return `media.formatValues.${mediaFormat}`;
+};
+
+export const getSortLiteral = (mediaSort: MediaSort) => {
+  return `media.sortValues.${mediaSort}`;
 };
 
 export const getMediaSortFromSort = (sort: Sort) => {

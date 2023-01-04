@@ -87,6 +87,15 @@ mat-card {
         }
       }
     }
+
+    .composite-footer {
+      display: flex;
+
+      .footer:not(.tab) {
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+    }
   }
 
   .buttons-container {
