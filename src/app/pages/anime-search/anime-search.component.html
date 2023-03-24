@@ -203,11 +203,28 @@
             </mat-form-field>
           </div>
 
-          <!-- on list -->
-          <div class="form-group">
+          <div class="form-group two-rows">
+            <!-- country -->
             <mat-form-field>
               <mat-select
-                placeholder="{{ 'anime.search.filters.onList' | translate }}..."
+                placeholder="{{
+                  'anime.search.filters.countryOfOrigin' | translate
+                }}"
+                #formatInput
+                formControlName="countryOfOrigin"
+              >
+                <mat-option
+                  *ngFor="let country of mediaCountries"
+                  [value]="country"
+                  >{{ 'country.' + country | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
+            <!-- on list -->
+            <mat-form-field>
+              <mat-select
+                placeholder="{{ 'anime.search.filters.onList' | translate }}"
                 formControlName="onList"
               >
                 <mat-option

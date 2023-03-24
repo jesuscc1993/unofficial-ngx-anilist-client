@@ -31,6 +31,7 @@ export type PagedMediaFilters = MediaFilters &
 export type SearchFilters = MediaFilters & {
   averageScoreGreaterThan?: number;
   averageScoreSmallerThan?: number;
+  countryOfOrigin?: string;
   formatIn?: string[];
   formatNotIn?: string[];
   genreIn?: string[];

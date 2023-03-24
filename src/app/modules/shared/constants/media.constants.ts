@@ -1,4 +1,4 @@
-import { MediaFormat, MediaSort, MediaStatus } from '../types/anilist/media.types';
+import { MediaCountry, MediaFormat, MediaSort, MediaStatus } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
   MediaSort.END_DATE_DESC,
@@ -21,4 +21,12 @@ export const mediaStatuses = [
   MediaStatus.FINISHED,
   MediaStatus.NOT_YET_RELEASED,
   MediaStatus.RELEASING,
+];
+
+export const mediaCountries = [
+  undefined,
+  MediaCountry.CN,
+  MediaCountry.JP,
+  MediaCountry.KR,
+  MediaCountry.TW,
 ];
