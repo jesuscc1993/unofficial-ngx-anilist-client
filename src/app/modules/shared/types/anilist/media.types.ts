@@ -108,3 +108,10 @@ export enum MediaStatus {
   NOT_YET_RELEASED = 'NOT_YET_RELEASED',
   CANCELLED = 'CANCELLED',
 }
+
+export enum MediaCountry {
+  JP = 'JP',
+  KR = 'KR',
+  TW = 'TW',
+  CN = 'CN',
+}

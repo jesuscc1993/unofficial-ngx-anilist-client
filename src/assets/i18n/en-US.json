@@ -19,6 +19,7 @@
         "below": "below",
         "byTitle": "Filter by name",
         "clear": "Clear filters",
+        "countryOfOrigin": "Country of origin",
         "includedIn": "in",
         "notIncludedIn": "not in",
         "onList": "On list",
@@ -61,6 +62,13 @@
     "pageNotFound": "Page not found",
     "title": "Unofficial AniList Client",
     "titleShort": "UAC"
+  },
+  "country": {
+    "CN": "China",
+    "JP": "Japan",
+    "KR": "South Korea",
+    "TW": "Taiwan",
+    "undefined": "Any"
   },
   "footer": {
     "about": "About",
@@ -109,12 +117,12 @@
     "formatValues": {
       "MOVIE": "Movie",
       "MUSIC": "Music",
-      "null": "-",
       "ONA": "ONA",
       "OVA": "OVA",
       "SPECIAL": "Special",
       "TV": "TV",
       "TV_SHORT": "TV short",
+      "null": "-",
       "undefined": "Any"
     },
     "genre": "Genre",

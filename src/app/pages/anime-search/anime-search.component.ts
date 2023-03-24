@@ -19,7 +19,9 @@ import { AuthCommands } from '../../modules/shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { mediaFormats, mediaStatuses } from '../../modules/shared/constants/media.constants';
+import {
+  mediaCountries, mediaFormats, mediaStatuses,
+} from '../../modules/shared/constants/media.constants';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
 import { MediaStore } from '../../modules/shared/store/media.store';
@@ -49,6 +51,7 @@ export class AnimeSearchPageComponent
   excludeOnList: boolean;
 
   mediaGenres: string[];
+  mediaCountries = mediaCountries;
   mediaFormats = mediaFormats;
   mediaStatuses = mediaStatuses;
   pageSizeOptions = pageSizeOptions;
@@ -137,9 +140,9 @@ export class AnimeSearchPageComponent
   search(pageIndex?: number, perPage?: number) {
     this.updateQueryParams();
 
-    if (this.resultsTable) {
-      // ScrollUtil.scrollToRef(this.resultsTable);
-    }
+    // if (this.resultsTable) {
+    //   ScrollUtil.scrollToRef(this.resultsTable);
+    // }
 
     this.searching = true;
     this.error = undefined;
@@ -201,6 +204,14 @@ export class AnimeSearchPageComponent
 
   private setupForm() {
     this.searchForm = this.formBuilder.group({
+      averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
+      averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
+      countryOfOrigin: [[]],
+      formatIn: [[]],
+      formatNotIn: [[]],
+      genreIn: [[]],
+      genreNotIn: [[]],
+      onList: [undefined],
       search: [''],
       startDateGreaterThan: [
         undefined,
@@ -210,15 +221,8 @@ export class AnimeSearchPageComponent
         undefined,
         [Validators.pattern(integerPattern), Validators.min(this.minYear)],
       ],
-      averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
-      averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
-      genreIn: [[]],
-      genreNotIn: [[]],
-      formatIn: [[]],
-      formatNotIn: [[]],
       statusIn: [[]],
       statusNotIn: [[]],
-      onList: [undefined],
     });
   }
 

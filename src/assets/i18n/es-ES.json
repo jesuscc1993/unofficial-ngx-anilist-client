@@ -19,6 +19,7 @@
         "below": "por debajo de",
         "byTitle": "Filtrar por nombre",
         "clear": "Limpiar filtros",
+        "countryOfOrigin": "País de origen",
         "includedIn": "incluído en",
         "notIncludedIn": "no incluído en",
         "onList": "En lista",
@@ -61,6 +62,13 @@
     "pageNotFound": "Página no encontrada",
     "title": "Cliente No Oficial de AniList",
     "titleShort": "CNOA"
+  },
+  "country": {
+    "CN": "China",
+    "JP": "Japón",
+    "KR": "Corea del Sur",
+    "TW": "Taiwán",
+    "undefined": "Cualquiera"
   },
   "footer": {
     "about": "Acerca",
