@@ -14,7 +14,7 @@ export const userListUrl = '/user-anime-list';
 export const rootUrl = animeSearchUrl;
 
 export const integerPattern = /^\d+$/;
-export const scorePattern = /^0*([0-9]|10)(\.[0-9]{1})?$/;
+export const scorePattern = /^0*([0-9]|10)(\.[0-9]{1,2})?$/;
 
 export const pageSizeOptions = [5, 10, 25, 50];
 

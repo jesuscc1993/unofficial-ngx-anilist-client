@@ -8,7 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { animeSearchUrl, integerPattern, pageSizeOptions, scorePattern } from '../../app.constants';
+import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../app.constants';
 import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
@@ -204,8 +204,14 @@ export class AnimeSearchPageComponent
 
   private setupForm() {
     this.searchForm = this.formBuilder.group({
-      averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
-      averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
+      averageScoreGreaterThan: [
+        undefined,
+        [Validators.pattern(integerPattern)],
+      ],
+      averageScoreSmallerThan: [
+        undefined,
+        [Validators.pattern(integerPattern)],
+      ],
       countryOfOrigin: [[]],
       formatIn: [[]],
       formatNotIn: [[]],
