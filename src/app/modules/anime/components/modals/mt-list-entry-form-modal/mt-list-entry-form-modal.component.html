@@ -35,7 +35,15 @@
       <div class="form-group">
         <mat-form-field>
           <mat-label>{{ 'media.score' | translate }} (*/10)</mat-label>
-          <input matInput type="text" placeholder="0" formControlName="score" />
+          <input
+            matInput
+            formControlName="score"
+            max="10"
+            min="0"
+            placeholder="0"
+            step=".5"
+            type="number"
+          />
         </mat-form-field>
       </div>
 

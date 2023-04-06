@@ -4,7 +4,7 @@
   "license": "CC BY-NC 4.0",
   "scripts": {
     "build": "ng build --configuration production --base-href https://jesuscc1993.github.io/unofficial-ngx-anilist-client/",
-    "deploy": "git checkout master && git pl && git merge develop && git push && yarn build && npx ngh --dir=dist/unofficial-ngx-anilist-client/ && git checkout develop",
+    "deploy": "git checkout master && git pl && git merge develop && git push && yarn build && yarn ngh --dir=dist/unofficial-ngx-anilist-client/ && git checkout develop",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
