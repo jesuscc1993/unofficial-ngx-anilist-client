@@ -3,10 +3,11 @@
     <div title="{{ media.title.romaji }}" class="text-ellipsis">
       <mt-media-actions
         *ngIf="media"
-        [origin]="origin"
-        [media]="media"
-        [viewEnabled]="false"
         [editEnabled]="origin !== 'edit'"
+        [listMode]="false"
+        [media]="media"
+        [origin]="origin"
+        [viewEnabled]="false"
         (onListEntryChanges)="onListEntryChanges($event)"
         class="inline-block margin-right-xxs"
       >

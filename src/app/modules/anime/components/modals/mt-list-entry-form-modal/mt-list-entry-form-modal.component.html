@@ -2,10 +2,11 @@
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
     <div title="{{ listEntry.media.title.romaji }}" class="text-ellipsis">
       <mt-media-actions
-        [origin]="origin"
-        [media]="listEntry.media"
-        [viewEnabled]="origin !== 'view'"
         [editEnabled]="false"
+        [listMode]="false"
+        [media]="listEntry.media"
+        [origin]="origin"
+        [viewEnabled]="origin !== 'view'"
         (onListEntryChanges)="onListEntryChanges($event)"
         class="inline-block margin-right-xxs"
       >

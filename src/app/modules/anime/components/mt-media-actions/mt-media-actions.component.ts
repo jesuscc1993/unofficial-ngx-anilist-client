@@ -30,6 +30,7 @@ export class MtMediaActionsComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  @Input() listMode = true;
   @Input() editEnabled = true;
   @Input() listEntry?: ListEntry;
   @Input() media: Media;

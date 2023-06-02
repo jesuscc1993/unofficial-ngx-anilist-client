@@ -4,10 +4,29 @@
   display: flex;
   align-items: center;
   overflow: visible;
-}
 
-.action-icon {
-  min-width: $spacing-s;
-  display: inline-block;
-  text-align: center;
+  .menu-toggle {
+    opacity: 0.5;
+    transition: 150ms;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .list-only {
+    font-size: $font-size-s;
+  }
+
+  .action-icon {
+    min-width: $spacing-s;
+    display: inline-block;
+    text-align: center;
+  }
+
+  &:not(:hover) {
+    .list-only {
+      opacity: 0;
+    }
+  }
 }
