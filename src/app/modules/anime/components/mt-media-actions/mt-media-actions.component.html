@@ -1,9 +1,25 @@
-<fa-icon
-  class="menu-toggle clickable"
-  name="bars"
-  (click)="$event.stopPropagation()"
-  [matMenuTriggerFor]="entryMenu"
-></fa-icon>
+<div class="container">
+  <fa-icon
+    *ngIf="listMode"
+    class="menu-toggle clickable list-only"
+    name="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
+    (click)="$event.stopPropagation(); openEditionModal()"
+  ></fa-icon>
+
+  <fa-icon
+    class="menu-toggle clickable"
+    name="bars"
+    (click)="$event.stopPropagation()"
+    [matMenuTriggerFor]="entryMenu"
+  ></fa-icon>
+
+  <fa-icon
+    *ngIf="listMode"
+    class="menu-toggle clickable list-only"
+    name="external-link-alt"
+    (click)="$event.stopPropagation(); openOnAniList()"
+  ></fa-icon>
+</div>
 
 <mat-menu #entryMenu="matMenu">
   <div *ngIf="editEnabled">
