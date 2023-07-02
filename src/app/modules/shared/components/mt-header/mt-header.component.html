@@ -13,7 +13,13 @@
       [routerLink]="route.path"
       [class.active]="onPage(route.path)"
     >
-      <fa-icon [name]="route.icon" class="section-icon"></fa-icon>
+      <span>
+        <fa-icon [name]="route.icon" class="section-icon"></fa-icon>
+        <span *ngIf="route.iconb">
+          &nbsp;
+          <fa-icon [name]="route.iconb" class="section-icon"></fa-icon>
+        </span>
+      </span>
       <span class="small">{{ route.literal | translate }}</span>
     </a>
   </div>

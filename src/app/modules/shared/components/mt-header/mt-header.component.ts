@@ -35,33 +35,39 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   routes = [
     {
       path: 'anime-search',
-      icon: 'search',
       literal: 'anime.search.title',
-    },
-    {
-      path: 'manga-search',
-      icon: 'search',
-      literal: 'manga.search.title',
+      icon: 'tv',
+      iconb: 'search',
     },
     {
       path: 'anime-dashboard',
-      icon: 'columns',
       literal: 'anime.dashboard.title',
-    },
-    {
-      path: 'manga-dashboard',
-      icon: 'columns',
-      literal: 'manga.dashboard.title',
+      icon: 'tv',
+      iconb: 'columns',
     },
     {
       path: 'user-anime-list',
-      icon: 'th-list',
       literal: 'anime.userList.title',
+      icon: 'tv',
+      iconb: 'th-list',
+    },
+    {
+      path: 'manga-search',
+      literal: 'manga.search.title',
+      icon: 'book-open',
+      iconb: 'search',
+    },
+    {
+      path: 'manga-dashboard',
+      literal: 'manga.dashboard.title',
+      icon: 'book-open',
+      iconb: 'columns',
     },
     {
       path: 'user-manga-list',
-      icon: 'th-list',
       literal: 'manga.userList.title',
+      icon: 'book-open',
+      iconb: 'th-list',
     },
   ];
 
