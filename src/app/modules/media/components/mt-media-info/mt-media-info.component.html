@@ -35,6 +35,14 @@
       </p>
 
       <p
+        *ngIf="!generalInfoOnly && media.volumes"
+        class="property-value-pair flex-box"
+      >
+        <strong class="property">{{ 'media.volumes' | translate }}:</strong>
+        <span class="value">{{ media.volumes }}</span>
+      </p>
+
+      <p
         *ngIf="!generalInfoOnly && media.duration"
         class="property-value-pair flex-box"
       >

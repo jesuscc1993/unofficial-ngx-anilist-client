@@ -1,5 +1,5 @@
 import { MediaStatus } from '../../shared/types/anilist/media.types';
 
-export const getStatusLiteral = (mediaStatus: MediaStatus) => {
+export const getMangaStatusLiteral = (mediaStatus: MediaStatus) => {
   return `manga.statusValues.${mediaStatus}`;
 };

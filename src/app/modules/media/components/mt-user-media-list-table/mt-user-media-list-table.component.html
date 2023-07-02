@@ -1,5 +1,5 @@
 <h3 class="no-margin-bottom margin-top-xxs vertical-padding-xs">
-  {{ 'anime.statusValues.' + tableStatus | translate }}
+  {{ mediaType.toLowerCase() + '.statusValues.' + tableStatus | translate }}
 </h3>
 
 <mat-card class="no-padding">
@@ -83,7 +83,7 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="episodes">
+    <ng-container matColumnDef="{{ mediaType === 'ANIME' ? 'episodes' : 'chapters' }}">
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
         getMediaTypeProgressLiteral(mediaType) | translate
       }}</mat-header-cell>

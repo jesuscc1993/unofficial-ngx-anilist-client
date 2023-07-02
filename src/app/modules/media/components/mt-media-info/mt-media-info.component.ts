@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { getFormattedAnimeDuration } from '../../../anime/domain/anime.domain';
-import { FuzzyDate } from '../../../shared/types/anilist/dataTypes.types';
-import { Anime, Media, MediaType } from '../../../shared/types/anilist/media.types';
+import { Media } from '../../../shared/types/anilist/media.types';
 import {
   getFormattedFuzzyDate, getMediaProgress, getMediaTypeProgressLiteral,
   getSanitizedMediaDescription,
@@ -18,21 +17,10 @@ export class MtMediaInfoComponent {
   @Input() showAsColumns?: boolean;
   @Input() generalInfoOnly?: boolean;
 
-  getFormattedAnimeDuration(anime: Anime) {
-    return getFormattedAnimeDuration(anime);
-  }
-
-  getFormattedFuzzyDate(fuzzyDatemedia: FuzzyDate) {
-    return getFormattedFuzzyDate(fuzzyDatemedia);
-  }
-
-  getMediaTypeProgressLiteral(mediaType: MediaType) {
-    return getMediaTypeProgressLiteral(mediaType);
-  }
-
-  getMediaProgress(media: Media) {
-    return getMediaProgress(media);
-  }
+  readonly getFormattedAnimeDuration = getFormattedAnimeDuration;
+  readonly getFormattedFuzzyDate = getFormattedFuzzyDate;
+  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
 
   sanitizeDescription() {
     return getSanitizedMediaDescription(this.media);

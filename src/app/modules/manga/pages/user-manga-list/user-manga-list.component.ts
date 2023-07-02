@@ -94,7 +94,7 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
           tap((listEntries) => {
             downloadFile(
               JSON.stringify(listEntries, null, 2),
-              `anilist_${this.user.name}_${new Date().getTime()}.json`,
+              `manga_list_${this.user.name}_${new Date().getTime()}.json`,
               'application/json'
             );
           }),

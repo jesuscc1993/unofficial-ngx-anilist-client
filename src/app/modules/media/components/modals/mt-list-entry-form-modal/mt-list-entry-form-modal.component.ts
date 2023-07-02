@@ -11,7 +11,7 @@ import {
 } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../../shared/constants/listEntry.constants';
 import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
-import { Anime, Manga, Media, MediaType } from '../../../../shared/types/anilist/media.types';
+import { Anime, Manga, Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { getMediaProgress, getMediaTypeProgressLiteral } from '../../../domain/media.domain';
 
@@ -27,6 +27,8 @@ type ListEntryFormModalParameters = {
   styleUrls: ['./mt-list-entry-form-modal.component.scss'],
 })
 export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
+  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly listEntryStatuses = listEntryStatuses;
 
   readonly origin: ModalOrigin;
@@ -121,14 +123,6 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
 
   onListEntryChanges(_: ListEntry) {
     this.dismiss();
-  }
-
-  getMediaTypeProgressLiteral(mediaType: MediaType) {
-    return getMediaTypeProgressLiteral(mediaType);
-  }
-
-  getMediaProgress(media: Media) {
-    return getMediaProgress(media);
   }
 
   private getFormEntry(): ListEntry {

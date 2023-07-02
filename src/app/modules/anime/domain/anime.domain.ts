@@ -1,6 +1,6 @@
 import { Anime, MediaStatus } from '../../shared/types/anilist/media.types';
 
-export const getStatusLiteral = (mediaStatus: MediaStatus) => {
+export const getAnimeStatusLiteral = (mediaStatus: MediaStatus) => {
   return `anime.statusValues.${mediaStatus}`;
 };
 

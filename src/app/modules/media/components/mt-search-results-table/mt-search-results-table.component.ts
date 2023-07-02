@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { defaultModalOptions } from '../../../../app.constants';
 import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
-import { Anime, Media, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
+import { Anime, Media, MediaSort } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
   getMediaProgress, getMediaSortFromSort, getMediaTypeProgressLiteral,
@@ -29,6 +29,9 @@ export class MtSearchResultsTableComponent
   @Output() onSortChange: EventEmitter<MediaSort> =
     new EventEmitter<MediaSort>();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
 
   getSizedCoverImage = getSizedCoverImage;
 
@@ -71,14 +74,6 @@ export class MtSearchResultsTableComponent
 
   sortBy(sort: Sort) {
     this.onSortChange.emit(getMediaSortFromSort(sort));
-  }
-
-  getMediaTypeProgressLiteral(mediaType: MediaType) {
-    return getMediaTypeProgressLiteral(mediaType);
-  }
-
-  getMediaProgress(media: Media) {
-    return getMediaProgress(media);
   }
 
   private initializeDataSource() {

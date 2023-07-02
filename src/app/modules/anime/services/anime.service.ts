@@ -99,15 +99,6 @@ export class AnimeService implements MediaServiceInterface {
           };
           return entryExport;
         })
-      ),
-      tap((entries) =>
-        console.log(
-          JSON.stringify(
-            entries,
-            (_, value) => (!!value ? value : undefined),
-            2
-          )
-        )
       )
     );
   }

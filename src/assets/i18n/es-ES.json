@@ -84,6 +84,15 @@
     }
   },
   "manga": {
+    "statusValues": {
+      "COMPLETED": "Completado",
+      "CURRENT": "Leyendo",
+      "DROPPED": "Abandonado",
+      "PAUSED": "En pausa",
+      "PLANNING": "Planeado",
+      "REPEATING": "Releyendo",
+      "undefined": "Cualquiera"
+    },
     "userList": {
       "title": "Lista de manga"
     }
@@ -98,6 +107,7 @@
   },
   "media": {
     "additionalInfo": "Más información",
+    "chapters": "Capítulos",
     "cover": "Imagen",
     "description": "Descripción",
     "duration": "Duración",
@@ -105,6 +115,7 @@
     "episodes": "Episodios",
     "format": "Formato",
     "formatValues": {
+      "MANGA": "Manga",
       "MOVIE": "Película",
       "MUSIC": "Música",
       "ONA": "ONA",
@@ -150,6 +161,7 @@
       "updateEntry": "Actualizar entrada"
     },
     "viewOnAniList": "Ver en AniList",
+    "volumes": "Tomos",
     "year": "Año"
   },
   "settings": {

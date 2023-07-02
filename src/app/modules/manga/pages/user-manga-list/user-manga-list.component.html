@@ -18,7 +18,7 @@
         <mat-form-field class="full-width">
           <input
             matInput
-            placeholder="{{ 'anime.search.filters.byTitle' | translate }}"
+            placeholder="{{ 'manga.search.filters.byTitle' | translate }}"
             (keyup)="applyFilter($event.target.value)"
           />
         </mat-form-field>
@@ -34,7 +34,7 @@
           <span *ngFor="let status of statuses" class="status-wrapper">
             <div *ngIf="hasDataOfStatus(status.value)">
               <mat-checkbox [(ngModel)]="status.shown">{{
-                'anime.statusValues.' + status.value | translate
+                'manga.statusValues.' + status.value | translate
               }}</mat-checkbox>
 
               <a class="go-to-link" (click)="scrollToStatus(status.value)">

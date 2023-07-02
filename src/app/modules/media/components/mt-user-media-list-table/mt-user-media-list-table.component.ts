@@ -31,7 +31,9 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  getSizedCoverImage = getSizedCoverImage;
+  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
+  readonly getSizedCoverImage = getSizedCoverImage;
   pageSizeOptions = pageSizeOptions;
 
   tableRows: string[];
@@ -75,14 +77,6 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
         origin: ModalOrigin.View,
       },
     });
-  }
-
-  getMediaTypeProgressLiteral(mediaType: MediaType) {
-    return getMediaTypeProgressLiteral(mediaType);
-  }
-
-  getMediaProgress(media: Media) {
-    return getMediaProgress(media);
   }
 
   private initializeDataSource() {

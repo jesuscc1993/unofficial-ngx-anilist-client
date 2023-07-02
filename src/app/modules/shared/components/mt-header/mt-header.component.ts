@@ -45,11 +45,11 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       icon: 'th-list',
       literal: 'anime.userList.title',
     },
-    // {
-    //   path: 'user-manga-list',
-    //   icon: 'th-list',
-    //   literal: 'manga.userList.title',
-    // },
+    {
+      path: 'user-manga-list',
+      icon: 'th-list',
+      literal: 'manga.userList.title',
+    },
   ];
 
   constructor(

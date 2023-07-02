@@ -3,7 +3,8 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
-import { getStatusLiteral } from '../../../anime/domain/anime.domain';
+import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
+import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
@@ -21,7 +22,8 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 })
 export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestroy {
   readonly getFormatLiteral = getFormatLiteral;
-  readonly getStatusLiteral = getStatusLiteral;
+  readonly getAnimeStatusLiteral = getAnimeStatusLiteral;
+  readonly getMangaStatusLiteral = getMangaStatusLiteral;
 
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
