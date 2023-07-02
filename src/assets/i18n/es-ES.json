@@ -4,7 +4,7 @@
       "finishedAiring": "Emisiones finalizadas",
       "recentlyUpdated": "Últimas actualizaciones en su lista",
       "relatedMedia": "Media relacionada",
-      "title": "Dashboard de anime"
+      "title": "Panel de anime"
     },
     "search": {
       "filters": {
@@ -84,6 +84,12 @@
     }
   },
   "manga": {
+    "dashboard": {
+      "finishedAiring": "Publicaciones finalizadas",
+      "recentlyUpdated": "Últimas actualizaciones en su lista",
+      "relatedMedia": "Media relacionada",
+      "title": "Panel de manga"
+    },
     "statusValues": {
       "COMPLETED": "Completado",
       "CURRENT": "Leyendo",

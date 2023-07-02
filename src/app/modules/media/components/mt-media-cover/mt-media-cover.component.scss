@@ -83,6 +83,7 @@
     &.repeating:after {
       border-color: transparent map-get(mat.$blue-palette, 500);
     }
+    &.current:after,
     &.planning:after,
     &.watching:after {
       border-color: transparent map-get(mat.$orange-palette, 500);

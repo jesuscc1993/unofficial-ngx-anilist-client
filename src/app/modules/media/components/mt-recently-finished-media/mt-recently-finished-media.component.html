@@ -2,20 +2,12 @@
   <div class="composite-header">
     <div class="header flex-1">
       <h4 class="no-margin">
-        {{ 'anime.dashboard.finishedAiring' | translate }}
+        {{ mediaType.toLowerCase() + '.dashboard.finishedAiring' | translate }}
       </h4>
     </div>
 
     <mt-header-picker
-      iconName="sort"
-      title="{{ 'generic.sort' | translate }}"
-      [options]="mediaSorts"
-      [value]="selectedSort"
-      [getOptionLiteral]="getSortLiteral"
-      [onChange]="setSort"
-    ></mt-header-picker>
-
-    <mt-header-picker
+      *ngIf="mediaType === 'ANIME'"
       iconName="filter"
       title="{{ 'media.format' | translate }}"
       placeholder="{{ 'media.formatValues.undefined' | translate }}"
@@ -25,6 +17,15 @@
       [value]="selectedFormats"
       [getOptionLiteral]="getFormatLiteral"
       [onChange]="setFormats"
+    ></mt-header-picker>
+
+    <mt-header-picker
+      iconName="sort"
+      title="{{ 'generic.sort' | translate }}"
+      [options]="mediaSorts"
+      [value]="selectedSort"
+      [getOptionLiteral]="getSortLiteral"
+      [onChange]="setSort"
     ></mt-header-picker>
   </div>
 

@@ -2,9 +2,22 @@
   <div class="composite-header">
     <div class="header flex-1">
       <h4 class="no-margin">
-        {{ 'anime.dashboard.recentlyUpdated' | translate }}
+        {{ mediaType.toLowerCase() + '.dashboard.recentlyUpdated' | translate }}
       </h4>
     </div>
+
+    <mt-header-picker
+      *ngIf="mediaType === 'ANIME'"
+      iconName="filter"
+      title="{{ 'media.format' | translate }}"
+      placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [multiple]="true"
+      [options]="mediaFormats"
+      [truncate]="true"
+      [value]="selectedFormats"
+      [getOptionLiteral]="getFormatLiteral"
+      [onChange]="setFormats"
+    ></mt-header-picker>
 
     <mt-header-picker
       iconName="clipboard"
@@ -16,18 +29,6 @@
       [value]="selectedStatuses"
       [getOptionLiteral]="getAnimeStatusLiteral"
       [onChange]="setStatuses"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      iconName="filter"
-      title="{{ 'media.format' | translate }}"
-      placeholder="{{ 'media.formatValues.undefined' | translate }}"
-      [multiple]="true"
-      [options]="mediaFormats"
-      [truncate]="true"
-      [value]="selectedFormats"
-      [getOptionLiteral]="getFormatLiteral"
-      [onChange]="setFormats"
     ></mt-header-picker>
   </div>
 

@@ -6,11 +6,10 @@ import { MangaService } from '../manga/services/manga.service';
 import { MangaStore } from '../manga/store/manga.store';
 import { MediaModule } from '../media/media.module';
 import { SharedModule } from '../shared/shared.module';
+import { MangaDashboardPageComponent } from './pages/manga-dashboard/manga-dashboard.component';
 import { UserMangaListPageComponent } from './pages/user-manga-list/user-manga-list.component';
 
-const declarations = [
-  UserMangaListPageComponent,
-];
+const declarations = [MangaDashboardPageComponent, UserMangaListPageComponent];
 
 @NgModule({
   declarations,

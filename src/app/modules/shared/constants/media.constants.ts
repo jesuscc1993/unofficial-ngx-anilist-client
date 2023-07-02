@@ -1,4 +1,9 @@
-import { MediaCountry, MediaFormat, MediaSort, MediaStatus } from '../types/anilist/media.types';
+import {
+  MediaCountry,
+  MediaFormat,
+  MediaSort,
+  MediaStatus,
+} from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
   MediaSort.END_DATE_DESC,
@@ -7,6 +12,7 @@ export const basicMediaSorts = [
 ];
 
 export const mediaFormats = [
+  MediaFormat.MANGA,
   MediaFormat.MOVIE,
   MediaFormat.MUSIC,
   MediaFormat.ONA,

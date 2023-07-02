@@ -1,17 +1,32 @@
 import { of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
+import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { basicMediaSorts, mediaFormats } from '../../../shared/constants/media.constants';
-import { Media, MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
+  basicMediaSorts,
+  mediaFormats,
+} from '../../../shared/constants/media.constants';
+import {
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
+import { MediaCommandsInterface } from '../../commands/media.commands.interface';
 import { getFormatLiteral, getSortLiteral } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -27,7 +42,9 @@ export class MtListRelatedMediaComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  @Input() mediaType: MediaType;
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
+
   readonly getFormatLiteral = getFormatLiteral;
   readonly getSortLiteral = getSortLiteral;
   readonly mediaSorts = basicMediaSorts;
@@ -37,6 +54,7 @@ export class MtListRelatedMediaComponent
   colCount?: number;
 
   relatedMediaIds: number[];
+  mediaCommands: MediaCommandsInterface;
   mediaList: Media[];
   pagination: PageInfo;
 
@@ -56,6 +74,7 @@ export class MtListRelatedMediaComponent
 
   constructor(
     private animeCommands: AnimeCommands,
+    private mangaCommands: MangaCommands,
     private mediaStore: AnimeStore
   ) {
     super();
@@ -86,6 +105,11 @@ export class MtListRelatedMediaComponent
   }
 
   ngOnInit() {
+    this.mediaCommands =
+      this.mediaType === MediaType.ANIME
+        ? this.animeCommands
+        : this.mangaCommands;
+
     this.onResize();
 
     this.mediaStore
@@ -112,7 +136,7 @@ export class MtListRelatedMediaComponent
   }
 
   queryData() {
-    return this.animeCommands.queryRelatedMediaIds().pipe(
+    return this.mediaCommands.queryRelatedMediaIds().pipe(
       tap((relatedMediaIds) => {
         this.relatedMediaIds = relatedMediaIds;
         this.search(0, this.colCount * this.rowCount);
@@ -147,13 +171,14 @@ export class MtListRelatedMediaComponent
     this.searching = true;
     this.error = undefined;
 
-    this.animeCommands
+    this.mediaCommands
       .getMediaFromIds(
         this.relatedMediaIds,
         {
-          formatIn: this.selectedFormats.length
-            ? this.selectedFormats
-            : undefined,
+          formatIn:
+            this.mediaType === MediaType.ANIME && this.selectedFormats.length
+              ? this.selectedFormats
+              : undefined,
           onList: false,
           sort: this.selectedSort,
         },

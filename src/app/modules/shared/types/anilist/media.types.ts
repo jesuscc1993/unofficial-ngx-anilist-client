@@ -41,6 +41,7 @@ export enum MediaType {
 }
 
 export enum MediaFormat {
+  MANGA = 'MANGA',
   MOVIE = 'MOVIE',
   MUSIC = 'MUSIC',
   ONA = 'ONA',
