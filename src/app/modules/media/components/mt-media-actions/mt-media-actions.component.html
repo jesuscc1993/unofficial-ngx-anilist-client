@@ -29,8 +29,8 @@
       (onPress)="openEditionModal()"
       >{{
         (isUpdateAvailable()
-          ? 'anime.userList.updateEntry'
-          : 'anime.userList.addToList'
+          ? 'media.userList.updateEntry'
+          : 'media.userList.addToList'
         ) | translate
       }}</mt-menu-action
     >
@@ -39,7 +39,7 @@
       icon="clock"
       disabled="{{ !user }}"
       (onPress)="setAsPlanning()"
-      >{{ 'anime.userList.setAsPlanning' | translate }}</mt-menu-action
+      >{{ 'media.userList.setAsPlanning' | translate }}</mt-menu-action
     >
 
     <mat-divider></mat-divider>
@@ -50,7 +50,7 @@
       (onPress)="toggleFavourite()"
       icon="star"
       disabled="{{ !user }}"
-      >{{ 'anime.userList.toggleFavourite' | translate }}</mt-menu-action
+      >{{ 'media.userList.toggleFavourite' | translate }}</mt-menu-action
     >
   </div>
 
@@ -59,7 +59,7 @@
       disabled="{{ !user }}"
       icon="trash"
       (onPress)="deleteEntry()"
-      >{{ 'anime.userList.deleteFromList' | translate }}</mt-menu-action
+      >{{ 'media.userList.deleteFromList' | translate }}</mt-menu-action
     >
   </div>
 

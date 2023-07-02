@@ -8,7 +8,7 @@
       "finishedAiring": "Emisiones finalizadas",
       "recentlyUpdated": "Últimas actualizaciones en su lista",
       "relatedMedia": "Media relacionada",
-      "title": "Dashboard"
+      "title": "Dashboard de anime"
     },
     "search": {
       "filters": {
@@ -44,18 +44,7 @@
       "undefined": "Cualquiera"
     },
     "userList": {
-      "addToList": "Añadir a la lista",
-      "deleteFromList": "Eliminar de la lista",
-      "entries": "entradas",
-      "exportList": "Exportar Lista",
-      "genresOverview": "Overview de Géneros",
-      "goTo": "Ir a",
-      "noEntries": "Sin entradas añadidas aún.",
-      "setAsPlanning": "Guardar como planeado",
-      "show": "Mostrar",
-      "title": "Lista del usuario",
-      "toggleFavourite": "Alternar favorito",
-      "updateEntry": "Actualizar entrada"
+      "title": "Lista de anime"
     }
   },
   "app": {
@@ -122,7 +111,20 @@
       "SPECIAL": "Especial",
       "TV": "TV",
       "TV_SHORT": "Corto TV",
-      "undefined": "Cualquiera"
+      "undefined": "Cualquiera",
+      "userList": {
+        "addToList": "Añadir a la lista",
+        "deleteFromList": "Eliminar de la lista",
+        "entries": "entradas",
+        "exportList": "Exportar Lista",
+        "genresOverview": "Overview de Géneros",
+        "goTo": "Ir a",
+        "noEntries": "Sin entradas añadidas aún.",
+        "setAsPlanning": "Guardar como planeado",
+        "show": "Mostrar",
+        "toggleFavourite": "Alternar favorito",
+        "updateEntry": "Actualizar entrada"
+      }
     },
     "genre": "Género",
     "genres": "Géneros",

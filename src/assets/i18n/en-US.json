@@ -8,7 +8,7 @@
       "finishedAiring": "Finished airing",
       "recentlyUpdated": "Latest list updates",
       "relatedMedia": "Related media",
-      "title": "Dashboard"
+      "title": "Anime dashboard"
     },
     "search": {
       "filters": {
@@ -44,18 +44,7 @@
       "undefined": "Any"
     },
     "userList": {
-      "addToList": "Add to list",
-      "deleteFromList": "Delete from list",
-      "entries": "entries",
-      "exportList": "Export List",
-      "genresOverview": "Genres Overview",
-      "goTo": "Go to",
-      "noEntries": "No entries added yet.",
-      "setAsPlanning": "Set as planning",
-      "show": "Show",
-      "title": "User's list",
-      "toggleFavourite": "Toggle favourite",
-      "updateEntry": "Update list entry"
+      "title": "User's anime list"
     }
   },
   "app": {
@@ -146,6 +135,19 @@
     "tags": "Tags",
     "timesRepeated": "Times Repeated",
     "title": "Title",
+    "userList": {
+      "addToList": "Add to list",
+      "deleteFromList": "Delete from list",
+      "entries": "entries",
+      "exportList": "Export List",
+      "genresOverview": "Genres Overview",
+      "goTo": "Go to",
+      "noEntries": "No entries added yet.",
+      "setAsPlanning": "Set as planning",
+      "show": "Show",
+      "toggleFavourite": "Toggle favourite",
+      "updateEntry": "Update list entry"
+    },
     "viewOnAniList": "View on AniList",
     "year": "Year"
   },

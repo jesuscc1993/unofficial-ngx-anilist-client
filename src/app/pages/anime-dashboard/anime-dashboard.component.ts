@@ -4,9 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { TitleService } from '../../modules/shared/services/title.service';
 
 @Component({
-  selector: 'mt-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'mt-anime-dashboard',
+  templateUrl: './anime-dashboard.component.html',
+  styleUrls: ['./anime-dashboard.component.scss'],
 })
 export class DashboardPageComponent {
   constructor(

@@ -26,8 +26,8 @@
 
       <mat-card class="margin-top-s">
         <h3>
-          {{ 'anime.userList.show' | translate }} /
-          {{ 'anime.userList.goTo' | translate }}
+          {{ 'media.userList.show' | translate }} /
+          {{ 'media.userList.goTo' | translate }}
         </h3>
 
         <div class="statuses-wrapper">
@@ -68,7 +68,7 @@
       <div class="text-center margin-top-xs">
         <button mat-raised-button color="accent" (click)="exportList($event)">
           <fa-icon name="file-download"></fa-icon>
-          <span>{{ 'anime.userList.exportList' | translate }}</span>
+          <span>{{ 'media.userList.exportList' | translate }}</span>
         </button>
       </div>
 
@@ -79,7 +79,7 @@
     <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
       <h4>
         <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
-        {{ 'anime.userList.noEntries' | translate }}
+        {{ 'media.userList.noEntries' | translate }}
       </h4>
     </mat-card>
   </div>
