@@ -8,10 +8,11 @@ import { SearchFilters } from '../api/media.types';
 
 export interface MediaServiceInterface {
   deleteListEntry(listEntry: ListEntry);
+  getFavouriteIDs$();
   getFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void);
   getGenres();
   getListEntries(user: User): Observable<ListEntry[]>;
-  getListEntriesByDateUpdated();
+  getListEntries$();
   getListEntriesExport(user: User);
   getListEntriesGroupedByStatus();
   getMediaFromIds(
@@ -23,5 +24,5 @@ export interface MediaServiceInterface {
   getRelatedMediaIds(user: User): Observable<number[]>;
   saveListEntry(listEntry: ListEntry): Observable<ListEntry>;
   searchMedia(query: SearchFilters, pageQuery?: PageQuery);
-  toggleFavourite(media: Media);
+  toggleFavourite(user: User, media: Media);
 }

@@ -49,7 +49,6 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
     this.animeCommands
       .getListEntriesByDateUpdated()
       .pipe(
-        takeUntil(this.destroyed$),
         tap((animeListEntries) => {
           this.listEntries = animeListEntries.sort((a, b) =>
             a.updatedAt > b.updatedAt ? -1 : 1
@@ -64,7 +63,8 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
           );
           this.filterEntries();
           this.searching = false;
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

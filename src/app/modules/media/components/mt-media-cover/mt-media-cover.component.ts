@@ -83,12 +83,12 @@ export class MtMediaCoverComponent
     this.animeCommands
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
-        takeUntil(this.destroyed$),
         tap((success) => {
           if (success) {
             this.dialog.closeAll();
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

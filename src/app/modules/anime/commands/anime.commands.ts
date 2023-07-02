@@ -47,11 +47,8 @@ export class AnimeCommands {
     return this.animeService.getListEntries(this.authStore.getUser());
   }
 
-  getAnimeListFavouriteIDs(
-    user: User,
-    callback: (favouriteIDs: number[]) => void
-  ) {
-    return this.animeService.getFavouriteIDs(user, callback);
+  getAnimeListFavouriteIDs(user: User) {
+    return this.animeService.getFavouriteIDs(user);
   }
 
   getRelatedAnimeMediaIds() {
@@ -124,8 +121,8 @@ export class AnimeCommands {
     return this.animeService.searchMedia(query, pageQuery);
   }
 
-  toggleFavouriteAnime(media: Media) {
-    return this.animeService.toggleFavourite(media).pipe(
+  toggleFavouriteAnime(user: User, media: Media) {
+    return this.animeService.toggleFavourite(user, media).pipe(
       tap((mediaId) => {
         const success = mediaId !== undefined;
         if (success) {
@@ -143,12 +140,16 @@ export class AnimeCommands {
     return this.animeService.getListEntriesGroupedByStatus();
   }
 
+  getFavouriteIDs() {
+    return this.animeService.getFavouriteIDs$();
+  }
+
   getListEntriesByDateUpdated() {
-    return this.animeService.getListEntriesByDateUpdated();
+    return this.animeService.getListEntries$();
   }
 
   getListEntriesExport() {
-    return this.animeService.getListEntriesByDateUpdated().pipe(
+    return this.animeService.getListEntries$().pipe(
       map((listEntries) =>
         sortListEntriesByMediaTitle(listEntries).map((listEntry) => {
           const { id, media, ...entry } = listEntry;

@@ -84,28 +84,28 @@ export class AnimeSearchPageComponent
     this.animeCommands
       .getAnimeGenres()
       .pipe(
-        takeUntil(this.destroyed$),
-        tap((mediaGenres) => (this.mediaGenres = mediaGenres))
+        tap((mediaGenres) => (this.mediaGenres = mediaGenres)),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
 
     this.authCommands
       .onUserChange()
       .pipe(
-        takeUntil(this.destroyed$),
-        tap((user) => (this.user = user))
+        tap((user) => (this.user = user)),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
 
     this.mediaStore
-      .onEntriesChanges()
+      .onListEntriesChanges()
       .pipe(
-        takeUntil(this.destroyed$),
         tap(() => {
           if (this.mediaList) {
             this.search(undefined, this.pagination?.perPage);
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }
@@ -170,7 +170,6 @@ export class AnimeSearchPageComponent
         perPage,
       })
       .pipe(
-        takeUntil(this.destroyed$),
         tap((response) => {
           this.mediaList = response.media;
           this.pagination = response.pageInfo;
@@ -182,7 +181,8 @@ export class AnimeSearchPageComponent
           this.searching = false;
 
           return of();
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

@@ -80,13 +80,13 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     this.animeCommands
       .saveAnimeListEntry(formListEntry)
       .pipe(
-        takeUntil(this.destroyed$),
         tap((savedListEntry) => {
           const success = savedListEntry.id !== undefined;
           if (success) {
             this.dialog.closeAll();
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }
@@ -97,12 +97,12 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     this.animeCommands
       .deleteAnimeListEntry(this.listEntry)
       .pipe(
-        takeUntil(this.destroyed$),
         tap((success) => {
           if (success) {
             this.dialog.closeAll();
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

@@ -80,7 +80,7 @@ export class MtListRelatedMediaComponent
 
       this.initialize();
       this.queryData()
-        .pipe(takeUntil(this.destroyed$), catchError(this.onError))
+        .pipe(catchError(this.onError), takeUntil(this.destroyed$))
         .subscribe();
     }
   }
@@ -89,9 +89,8 @@ export class MtListRelatedMediaComponent
     this.onResize();
 
     this.mediaStore
-      .onEntriesChanges()
+      .onListEntriesChanges()
       .pipe(
-        takeUntil(this.destroyed$),
         mergeMap((mediaListEntries) => {
           // check this.mediaListEntriesLength is set to prevent reloading when the list is first loaded
           if (
@@ -106,7 +105,8 @@ export class MtListRelatedMediaComponent
           this.mediaListEntriesLength = mediaListEntries.length;
           return of(undefined);
         }),
-        catchError(this.onError)
+        catchError(this.onError),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }
@@ -163,14 +163,14 @@ export class MtListRelatedMediaComponent
         }
       )
       .pipe(
-        takeUntil(this.destroyed$),
         tap((response) => {
           this.mediaList = response.media;
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
         }),
-        catchError(this.onError)
+        catchError(this.onError),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

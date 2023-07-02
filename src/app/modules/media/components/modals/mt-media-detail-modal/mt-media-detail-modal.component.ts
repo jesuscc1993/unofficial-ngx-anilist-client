@@ -67,13 +67,13 @@ export class MtMediaDetailModalComponent extends WithObservableOnDestroy {
     this.animeCommands
       .saveMediaWithStatus(this.media, ListEntryStatus.PLANNING)
       .pipe(
-        takeUntil(this.destroyed$),
         tap((savedListEntry) => {
           const success = savedListEntry.id !== undefined;
           if (success) {
             this.dismiss();
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

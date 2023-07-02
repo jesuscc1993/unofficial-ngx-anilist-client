@@ -50,7 +50,6 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
     this.animeCommands
       .getPendingMedia()
       .pipe(
-        takeUntil(this.destroyed$),
         tap((animeListEntries) => {
           this.listEntries = animeListEntries;
           this.mediaFormats = mediaFormats.filter(
@@ -59,7 +58,8 @@ export class MtRecentlyFinishedMediaComponent extends WithObservableOnDestroy {
           );
           this.sortEntries();
           this.searching = false;
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

@@ -91,7 +91,6 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
       this.animeCommands
         .getListEntriesExport()
         .pipe(
-          takeUntil(this.destroyed$),
           tap((listEntries) => {
             downloadFile(
               JSON.stringify(listEntries, null, 2),
@@ -99,7 +98,8 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
               'application/json'
             );
           }),
-          catchError((error) => of(alert(error)))
+          catchError((error) => of(alert(error))),
+          takeUntil(this.destroyed$)
         )
         .subscribe();
     }
@@ -107,9 +107,17 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
 
   private getListFavouriteIDs() {
     if (this.user) {
-      this.animeCommands.getAnimeListFavouriteIDs(this.user, (favouriteIDs) => {
-        this.favouriteIDs = favouriteIDs;
-      });
+      this.animeCommands
+        .getFavouriteIDs()
+        .pipe(
+          tap((favouriteIDs) => {
+            this.favouriteIDs = favouriteIDs;
+          }),
+          takeUntil(this.destroyed$)
+        )
+        .subscribe();
+
+      this.animeCommands.getAnimeListFavouriteIDs(this.user);
     }
   }
 
@@ -118,7 +126,6 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
       this.animeCommands
         .getListEntriesGroupedByStatus()
         .pipe(
-          takeUntil(this.destroyed$),
           tap((listEntriesByStatus) => {
             this.listEntriesByStatus = listEntriesByStatus;
             this.statuses = Object.keys(this.listEntriesByStatus)
@@ -134,7 +141,8 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
             this.ready = true;
 
             return of();
-          })
+          }),
+          takeUntil(this.destroyed$)
         )
         .subscribe();
     }

@@ -53,8 +53,8 @@ export class MtMediaActionsComponent
     this.authCommands
       .onUserChange()
       .pipe(
-        takeUntil(this.destroyed$),
-        tap((user) => (this.user = user))
+        tap((user) => (this.user = user)),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
 
@@ -85,13 +85,13 @@ export class MtMediaActionsComponent
     this.animeCommands
       .saveMediaWithStatus(this.media, ListEntryStatus.PLANNING)
       .pipe(
-        takeUntil(this.destroyed$),
         tap((savedListEntry) => {
           const success = savedListEntry.id !== undefined;
           if (success) {
             this.setListEntry(savedListEntry);
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }
@@ -108,7 +108,7 @@ export class MtMediaActionsComponent
   }
 
   toggleFavourite() {
-    this.animeCommands.toggleFavouriteAnime(this.media).subscribe();
+    this.animeCommands.toggleFavouriteAnime(this.user, this.media).subscribe();
   }
 
   deleteEntry() {

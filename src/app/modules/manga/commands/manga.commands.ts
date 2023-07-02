@@ -124,8 +124,8 @@ export class MangaCommands {
     return this.mangaService.searchMedia(query, pageQuery);
   }
 
-  toggleFavouriteManga(manga: Media) {
-    return this.mangaService.toggleFavourite(manga).pipe(
+  toggleFavouriteManga(user: User, manga: Media) {
+    return this.mangaService.toggleFavourite(user, manga).pipe(
       tap((mediaId) => {
         const success = mediaId !== undefined;
         if (success) {
@@ -143,12 +143,16 @@ export class MangaCommands {
     return this.mangaService.getListEntriesGroupedByStatus();
   }
 
+  getFavouriteIDs() {
+    return this.mangaService.getFavouriteIDs$();
+  }
+
   getListEntriesByDateUpdated() {
-    return this.mangaService.getListEntriesByDateUpdated();
+    return this.mangaService.getListEntries$();
   }
 
   getListEntriesExport() {
-    return this.mangaService.getListEntriesByDateUpdated().pipe(
+    return this.mangaService.getListEntries$().pipe(
       map((listEntries) =>
         sortListEntriesByMediaTitle(listEntries).map((listEntry) => {
           const { id, media, ...entry } = listEntry;

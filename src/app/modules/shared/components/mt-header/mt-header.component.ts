@@ -59,21 +59,21 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 
     this.router.events
       .pipe(
-        takeUntil(this.destroyed$),
         tap(() => {
           this.onRoot = location.href.includes(rootUrl);
           this.onDashboard = location.href.includes(dashboardUrl);
           this.onAnimeSearch = location.href.includes(animeSearchUrl);
           this.onUserList = location.href.includes(userListUrl);
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
 
     this.authCommands
       .onUserChange()
       .pipe(
-        takeUntil(this.destroyed$),
-        tap((user) => (this.user = user))
+        tap((user) => (this.user = user)),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

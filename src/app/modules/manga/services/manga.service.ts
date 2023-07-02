@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { noop, Observable, of } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
@@ -62,7 +62,7 @@ export class MangaService implements MediaServiceInterface {
     return missingIds.length
       ? this.mangaApi
           .queryFromIds(mediaIds, query, pageQuery)
-          .pipe(tap((pageData) => this.mediaStore.storeManga(pageData.media)))
+          .pipe(tap((pageData) => this.mediaStore.storeMedia(pageData.media)))
       : of({
           media: mediaIds
             .map((id) => mangaDictionary[id])
@@ -72,15 +72,13 @@ export class MangaService implements MediaServiceInterface {
   }
 
   getListEntries(user: User): Observable<ListEntry[]> {
-    const storeEntries = this.mediaStore.getMangaListEntries();
+    const storeEntries = this.mediaStore.getListEntries();
     return storeEntries
       ? of(storeEntries)
       : this.mangaApi
           .queryList(user)
           .pipe(
-            tap((listEntries) =>
-              this.mediaStore.setMangaListEntries(listEntries)
-            )
+            tap((listEntries) => this.mediaStore.setListEntries(listEntries))
           );
   }
 
@@ -117,14 +115,17 @@ export class MangaService implements MediaServiceInterface {
   }
 
   getFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
-    return this.mangaApi.queryFavouriteIDs(user, callback);
+    return this.mangaApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
+      this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
+      callback(favouriteIDs);
+    });
   }
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry> {
     return this.mangaApi.saveMediaListEntry(listEntry).pipe(
       map((updatedListEntry) => ({ ...listEntry, ...updatedListEntry })),
       tap((updatedListEntry) => {
-        this.mediaStore.updateMangaListEntry({
+        this.mediaStore.updateListEntry({
           ...updatedListEntry,
           media: {
             ...updatedListEntry.media,
@@ -138,30 +139,38 @@ export class MangaService implements MediaServiceInterface {
   deleteListEntry(listEntry: ListEntry) {
     return this.mangaApi.deleteMediaListEntry(listEntry).pipe(
       tap(() => {
-        this.mediaStore.deleteMangaListEntry(listEntry);
+        this.mediaStore.deleteListEntry(listEntry);
       })
     );
   }
 
-  toggleFavourite(media: Media) {
-    return this.mangaApi.toggleFavourite(media);
+  toggleFavourite(user: User, media: Media) {
+    return this.mangaApi.toggleFavourite(media).pipe(
+      tap(() => {
+        this.getFavouriteIDs(user, noop);
+      })
+    );
   }
 
   getListEntriesGroupedByStatus() {
     return this.mediaStore
-      .onEntriesChanges()
+      .onListEntriesChanges()
       .pipe(
         map((mangaListEntries) => getListEntriesByStatus(mangaListEntries))
       );
   }
 
-  getListEntriesByDateUpdated() {
-    return this.mediaStore.onEntriesChanges();
+  getFavouriteIDs$() {
+    return this.mediaStore.onFavouriteIDsChanges();
+  }
+
+  getListEntries$() {
+    return this.mediaStore.onListEntriesChanges();
   }
 
   getPendingMedia() {
     return this.mediaStore
-      .onEntriesChanges()
+      .onListEntriesChanges()
       .pipe(
         map((mangaListEntries) =>
           mangaListEntries.filter(

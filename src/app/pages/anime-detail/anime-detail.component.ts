@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { Media } from '../../modules/shared/types/anilist/media.types';
 
@@ -43,7 +41,6 @@ export class AnimeDetailPageComponent extends WithObservableOnDestroy {
     this.animeCommands
       .searchAnime({ id: animeId })
       .pipe(
-        takeUntil(this.destroyed$),
         tap(
           (response) => {
             this.media = response.media.length > 0 && response.media[0];
@@ -54,7 +51,8 @@ export class AnimeDetailPageComponent extends WithObservableOnDestroy {
             this.errorGotten = true;
             this.searching = false;
           }
-        )
+        ),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

@@ -16,7 +16,7 @@ import { AnimeStore } from '../store/anime.store';
 
 @Injectable()
 export class AnimeService implements MediaServiceInterface {
-  constructor(private animeApi: AnimeApi, private animeStore: AnimeStore) {}
+  constructor(private animeApi: AnimeApi, private mediaStore: AnimeStore) {}
 
   getGenres() {
     return this.animeApi.queryGenres();
@@ -48,7 +48,7 @@ export class AnimeService implements MediaServiceInterface {
     query: SearchFilters,
     pageQuery?: PageQuery
   ): Observable<MediaPage> {
-    const animeDictionary = this.animeStore.getAnimeDictionary();
+    const animeDictionary = this.mediaStore.getMediaDictionary();
     let missingIds: number[];
 
     if (animeDictionary) {
@@ -62,7 +62,7 @@ export class AnimeService implements MediaServiceInterface {
     return missingIds.length
       ? this.animeApi
           .queryFromIds(mediaIds, query, pageQuery)
-          .pipe(tap((pageData) => this.animeStore.storeAnime(pageData.media)))
+          .pipe(tap((pageData) => this.mediaStore.storeMedia(pageData.media)))
       : of({
           media: mediaIds
             .map((id) => animeDictionary[id])
@@ -72,15 +72,13 @@ export class AnimeService implements MediaServiceInterface {
   }
 
   getListEntries(user: User): Observable<ListEntry[]> {
-    const storeEntries = this.animeStore.getAnimeListEntries();
+    const storeEntries = this.mediaStore.getListEntries();
     return storeEntries
       ? of(storeEntries)
       : this.animeApi
           .queryList(user)
           .pipe(
-            tap((listEntries) =>
-              this.animeStore.setAnimeListEntries(listEntries)
-            )
+            tap((listEntries) => this.mediaStore.setListEntries(listEntries))
           );
   }
 
@@ -116,15 +114,17 @@ export class AnimeService implements MediaServiceInterface {
     return this.animeApi.queryRelatedIds(user);
   }
 
-  getFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
-    return this.animeApi.queryFavouriteIDs(user, callback);
+  getFavouriteIDs(user: User) {
+    return this.animeApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
+      this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
+    });
   }
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry> {
     return this.animeApi.saveMediaListEntry(listEntry).pipe(
       map((updatedListEntry) => ({ ...listEntry, ...updatedListEntry })),
       tap((updatedListEntry) => {
-        this.animeStore.updateAnimeListEntry({
+        this.mediaStore.updateListEntry({
           ...updatedListEntry,
           media: {
             ...updatedListEntry.media,
@@ -138,30 +138,38 @@ export class AnimeService implements MediaServiceInterface {
   deleteListEntry(listEntry: ListEntry) {
     return this.animeApi.deleteMediaListEntry(listEntry).pipe(
       tap(() => {
-        this.animeStore.deleteAnimeListEntry(listEntry);
+        this.mediaStore.deleteListEntry(listEntry);
       })
     );
   }
 
-  toggleFavourite(media: Media) {
-    return this.animeApi.toggleFavourite(media);
+  toggleFavourite(user: User, media: Media) {
+    return this.animeApi.toggleFavourite(media).pipe(
+      tap(() => {
+        this.getFavouriteIDs(user);
+      })
+    );
   }
 
   getListEntriesGroupedByStatus() {
-    return this.animeStore
-      .onEntriesChanges()
+    return this.mediaStore
+      .onListEntriesChanges()
       .pipe(
         map((animeListEntries) => getListEntriesByStatus(animeListEntries))
       );
   }
 
-  getListEntriesByDateUpdated() {
-    return this.animeStore.onEntriesChanges();
+  getFavouriteIDs$() {
+    return this.mediaStore.onFavouriteIDsChanges();
+  }
+
+  getListEntries$() {
+    return this.mediaStore.onListEntriesChanges();
   }
 
   getPendingMedia() {
-    return this.animeStore
-      .onEntriesChanges()
+    return this.mediaStore
+      .onListEntriesChanges()
       .pipe(
         map((animeListEntries) =>
           animeListEntries.filter(
