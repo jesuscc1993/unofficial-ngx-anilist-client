@@ -1,9 +1,5 @@
 {
   "anime": {
-    "actions": {
-      "delete": "Delete list entry",
-      "deleteDescription": "Delete list entry for \"{{ mediaTitle }}\"?"
-    },
     "dashboard": {
       "finishedAiring": "Finished airing",
       "recentlyUpdated": "Latest list updates",
@@ -137,6 +133,7 @@
     "title": "Title",
     "userList": {
       "addToList": "Add to list",
+      "deleteDescription": "Delete list entry for \"{{ mediaTitle }}\"?",
       "deleteFromList": "Delete from list",
       "entries": "entries",
       "exportList": "Export List",

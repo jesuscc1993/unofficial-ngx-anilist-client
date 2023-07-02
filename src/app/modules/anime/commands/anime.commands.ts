@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
+import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
 import {
   MtPromptComponent, PromptData,
 } from '../../media/components/modals/mt-prompt/mt-prompt.component';
@@ -20,7 +21,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { AnimeService } from '../services/anime.service';
 
 @Injectable()
-export class AnimeCommands {
+export class AnimeCommands implements MediaCommandsInterface {
   constructor(
     private animeService: AnimeService,
     private authStore: AuthStore,
@@ -28,10 +29,10 @@ export class AnimeCommands {
     private toastService: ToastService,
     private translateService: TranslateService
   ) {
-    this._deleteAnimeListEntry = this._deleteAnimeListEntry.bind(this);
+    this._deleteListEntry = this._deleteListEntry.bind(this);
   }
 
-  getAnimeFromIds(
+  getMediaFromIds(
     mediaIds: number[],
     query: SearchFilters,
     pageQuery?: PageQuery
@@ -39,26 +40,26 @@ export class AnimeCommands {
     return this.animeService.getMediaFromIds(mediaIds, query, pageQuery);
   }
 
-  getAnimeGenres() {
-    return this.animeService.getGenres();
+  queryGenres() {
+    return this.animeService.queryGenres();
   }
 
-  getAnimeListEntries() {
-    return this.animeService.getListEntries(this.authStore.getUser());
+  queryListEntries() {
+    return this.animeService.queryListEntries(this.authStore.getUser());
   }
 
-  getAnimeListFavouriteIDs(user: User) {
-    return this.animeService.getFavouriteIDs(user);
+  queryFavouriteIDs(user: User) {
+    return this.animeService.queryFavouriteIDs(user);
   }
 
-  getRelatedAnimeMediaIds() {
-    return this.animeService.getRelatedMediaIds(this.authStore.getUser());
+  queryRelatedMediaIds() {
+    return this.animeService.queryRelatedMediaIds(this.authStore.getUser());
   }
 
-  deleteAnimeListEntry(listEntry: ListEntry) {
+  deleteListEntry(listEntry: ListEntry) {
     return new Observable((observer) => {
       const confirm = () => {
-        this._deleteAnimeListEntry(listEntry)
+        this._deleteListEntry(listEntry)
           .pipe(
             tap((deleted) => {
               observer.next(deleted);
@@ -84,7 +85,7 @@ export class AnimeCommands {
           hasCancel: true,
           hasConfirm: true,
           title: this.translateService.instant(
-            'anime.actions.deleteDescription',
+            'media.userList.deleteDescription',
             {
               mediaTitle: listEntry.media.title.romaji,
             }
@@ -94,7 +95,7 @@ export class AnimeCommands {
     });
   }
 
-  saveAnimeListEntry(listEntry: ListEntry) {
+  saveListEntry(listEntry: ListEntry) {
     return this.animeService.saveListEntry(listEntry).pipe(
       tap((savedListEntry) => {
         const success = savedListEntry.id !== undefined;
@@ -110,18 +111,18 @@ export class AnimeCommands {
   }
 
   saveMediaWithStatus(media: Media, status: ListEntryStatus) {
-    return this.saveAnimeListEntry({
+    return this.saveListEntry({
       ...(media.mediaListEntry || ({} as ListEntry)),
       media,
       status,
     });
   }
 
-  searchAnime(query: SearchFilters, pageQuery?: PageQuery) {
-    return this.animeService.searchMedia(query, pageQuery);
+  queryMedia(query: SearchFilters, pageQuery?: PageQuery) {
+    return this.animeService.queryMedia(query, pageQuery);
   }
 
-  toggleFavouriteAnime(user: User, media: Media) {
+  toggleFavourite(user: User, media: Media) {
     return this.animeService.toggleFavourite(user, media).pipe(
       tap((mediaId) => {
         const success = mediaId !== undefined;
@@ -141,15 +142,15 @@ export class AnimeCommands {
   }
 
   getFavouriteIDs() {
-    return this.animeService.getFavouriteIDs$();
+    return this.animeService.getFavouriteIDs();
   }
 
-  getListEntriesByDateUpdated() {
-    return this.animeService.getListEntries$();
+  getListEntries() {
+    return this.animeService.getListEntries();
   }
 
   getListEntriesExport() {
-    return this.animeService.getListEntries$().pipe(
+    return this.animeService.getListEntries().pipe(
       map((listEntries) =>
         sortListEntriesByMediaTitle(listEntries).map((listEntry) => {
           const { id, media, ...entry } = listEntry;
@@ -172,7 +173,7 @@ export class AnimeCommands {
     return this.animeService.getPendingMedia();
   }
 
-  private _deleteAnimeListEntry(listEntry: ListEntry) {
+  private _deleteListEntry(listEntry: ListEntry) {
     return this.animeService.deleteListEntry(listEntry).pipe(
       map(({ deleted }) => deleted),
       tap((deleted) => {

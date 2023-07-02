@@ -24,12 +24,12 @@ export class MangaApi extends MediaApi implements MediaInterface {
     super(httpClient, authStore);
   }
 
-  queryFromIds(
+  queryMediaFromIds(
     mediaIds: number[],
     query: SearchFilters,
     pageQuery?: PageQuery
   ) {
-    return this.queryMediaFromIds(
+    return this._queryMediaFromIds(
       MediaType.MANGA,
       mangaSearchQuery,
       mediaIds,
@@ -38,20 +38,20 @@ export class MangaApi extends MediaApi implements MediaInterface {
     );
   }
 
-  querySearch(query: SearchFilters, pageQuery?: PageQuery) {
-    return this.queryMediaSearch(MediaType.MANGA, query, pageQuery);
+  queryMedia(query: SearchFilters, pageQuery?: PageQuery) {
+    return this._queryMedia(MediaType.MANGA, query, pageQuery);
   }
 
-  queryList(user: User) {
-    return this.queryMediaList(MediaType.MANGA, mangaListQuery, user);
+  queryListEntries(user: User) {
+    return this._queryListEntries(MediaType.MANGA, mangaListQuery, user);
   }
 
-  queryRelatedIds(user: User) {
-    return this.queryRelatedMediaIds(MediaType.MANGA, user);
+  queryRelatedMediaIds(user: User) {
+    return this._queryRelatedMediaIds(MediaType.MANGA, user);
   }
 
   queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
-    this.queryMediaListFavouriteIDs(
+    this._queryFavouriteIDs(
       MediaType.MANGA,
       listFavouriteMangaQuery,
       user,

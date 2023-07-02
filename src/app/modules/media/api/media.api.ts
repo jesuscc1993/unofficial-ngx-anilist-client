@@ -27,7 +27,7 @@ export class MediaApi extends AniListApi {
     super(httpClient, authStore);
   }
 
-  saveMediaListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
+  saveListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
     return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(
       saveListEntryQuery,
       {
@@ -42,7 +42,7 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  deleteMediaListEntry(listEntry: ListEntry) {
+  deleteListEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<DeleteListEntryDto, DeleteListEntryRequest>(
       deleteListEntryQuery,
       { id: listEntry.id }
@@ -57,7 +57,7 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected queryMediaFromIds(
+  protected _queryMediaFromIds(
     mediaType: MediaType,
     mediaQuery: string,
     mediaIds: number[],
@@ -77,7 +77,7 @@ export class MediaApi extends AniListApi {
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 
-  protected queryMediaSearch(
+  protected _queryMedia(
     mediaType: MediaType,
     query: SearchFilters,
     pageQuery?: PageQuery
@@ -96,7 +96,7 @@ export class MediaApi extends AniListApi {
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 
-  protected queryMediaList(
+  protected _queryListEntries(
     mediaType: MediaType,
     mediaQuery: string,
     user: User
@@ -115,7 +115,7 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected queryRelatedMediaIds(mediaType: MediaType, user: User) {
+  protected _queryRelatedMediaIds(mediaType: MediaType, user: User) {
     return this.postGraphQlRequest<RelatedMediaIdsDto, MediaFilters>(
       relatedMediaIdsQuery,
       {
@@ -146,13 +146,13 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected queryMediaListFavouriteIDs(
+  protected _queryFavouriteIDs(
     mediaType: MediaType,
     mediaQuery: string,
     user: User,
     callback: (favouriteIDs: number[]) => void
   ) {
-    this.queryFavouriteIdsResultsPage(
+    this._queryFavouriteIdsResultsPage(
       mediaType,
       mediaQuery,
       { userId: user.id, page: 0 },
@@ -161,7 +161,7 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected queryFavouriteIdsResultsPage(
+  protected _queryFavouriteIdsResultsPage(
     mediaType: MediaType,
     mediaQuery: string,
     options: { userId: number; page: number },
@@ -192,7 +192,7 @@ export class MediaApi extends AniListApi {
 
             if (favouritesData.pageInfo.hasNextPage) {
               options.page++;
-              this.queryFavouriteIdsResultsPage(
+              this._queryFavouriteIdsResultsPage(
                 mediaType,
                 mediaQuery,
                 options,

@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
+import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
 import {
   MtPromptComponent, PromptData,
 } from '../../media/components/modals/mt-prompt/mt-prompt.component';
@@ -20,7 +21,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MangaService } from '../services/manga.service';
 
 @Injectable()
-export class MangaCommands {
+export class MangaCommands implements MediaCommandsInterface {
   constructor(
     private mangaService: MangaService,
     private authStore: AuthStore,
@@ -28,10 +29,10 @@ export class MangaCommands {
     private toastService: ToastService,
     private translateService: TranslateService
   ) {
-    this._deleteMangaListEntry = this._deleteMangaListEntry.bind(this);
+    this._deleteListEntry = this._deleteListEntry.bind(this);
   }
 
-  getMangaFromIds(
+  getMediaFromIds(
     mediaIds: number[],
     query: SearchFilters,
     pageQuery?: PageQuery
@@ -39,29 +40,26 @@ export class MangaCommands {
     return this.mangaService.getMediaFromIds(mediaIds, query, pageQuery);
   }
 
-  getMangaGenres() {
-    return this.mangaService.getGenres();
+  queryGenres() {
+    return this.mangaService.queryGenres();
   }
 
-  getMangaListEntries() {
-    return this.mangaService.getListEntries(this.authStore.getUser());
+  queryListEntries() {
+    return this.mangaService.queryListEntries(this.authStore.getUser());
   }
 
-  getMangaListFavouriteIDs(
-    user: User,
-    callback: (favouriteIDs: number[]) => void
-  ) {
-    return this.mangaService.getFavouriteIDs(user, callback);
+  queryFavouriteIDs(user: User) {
+    return this.mangaService.queryFavouriteIDs(user);
   }
 
-  getRelatedMangaMediaIds() {
-    return this.mangaService.getRelatedMediaIds(this.authStore.getUser());
+  queryRelatedMediaIds() {
+    return this.mangaService.queryRelatedMediaIds(this.authStore.getUser());
   }
 
-  deleteMangaListEntry(listEntry: ListEntry) {
+  deleteListEntry(listEntry: ListEntry) {
     return new Observable((observer) => {
       const confirm = () => {
-        this._deleteMangaListEntry(listEntry)
+        this._deleteListEntry(listEntry)
           .pipe(
             tap((deleted) => {
               observer.next(deleted);
@@ -87,7 +85,7 @@ export class MangaCommands {
           hasCancel: true,
           hasConfirm: true,
           title: this.translateService.instant(
-            'manga.actions.deleteDescription',
+            'media.userList.deleteDescription',
             {
               mediaTitle: listEntry.media.title.romaji,
             }
@@ -97,7 +95,7 @@ export class MangaCommands {
     });
   }
 
-  saveMangaListEntry(listEntry: ListEntry) {
+  saveListEntry(listEntry: ListEntry) {
     return this.mangaService.saveListEntry(listEntry).pipe(
       tap((savedListEntry) => {
         const success = savedListEntry.id !== undefined;
@@ -113,25 +111,25 @@ export class MangaCommands {
   }
 
   saveMediaWithStatus(media: Media, status: ListEntryStatus) {
-    return this.saveMangaListEntry({
+    return this.saveListEntry({
       ...(media.mediaListEntry || ({} as ListEntry)),
       media,
       status,
     });
   }
 
-  searchManga(query: SearchFilters, pageQuery?: PageQuery) {
-    return this.mangaService.searchMedia(query, pageQuery);
+  queryMedia(query: SearchFilters, pageQuery?: PageQuery) {
+    return this.mangaService.queryMedia(query, pageQuery);
   }
 
-  toggleFavouriteManga(user: User, manga: Media) {
-    return this.mangaService.toggleFavourite(user, manga).pipe(
+  toggleFavourite(user: User, media: Media) {
+    return this.mangaService.toggleFavourite(user, media).pipe(
       tap((mediaId) => {
         const success = mediaId !== undefined;
         if (success) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.favouriteToggle.success', {
-              mediaTitle: manga.title.romaji,
+              mediaTitle: media.title.romaji,
             })
           );
         }
@@ -144,15 +142,15 @@ export class MangaCommands {
   }
 
   getFavouriteIDs() {
-    return this.mangaService.getFavouriteIDs$();
+    return this.mangaService.getFavouriteIDs();
   }
 
-  getListEntriesByDateUpdated() {
-    return this.mangaService.getListEntries$();
+  getListEntries() {
+    return this.mangaService.getListEntries();
   }
 
   getListEntriesExport() {
-    return this.mangaService.getListEntries$().pipe(
+    return this.mangaService.getListEntries().pipe(
       map((listEntries) =>
         sortListEntriesByMediaTitle(listEntries).map((listEntry) => {
           const { id, media, ...entry } = listEntry;
@@ -175,7 +173,7 @@ export class MangaCommands {
     return this.mangaService.getPendingMedia();
   }
 
-  private _deleteMangaListEntry(listEntry: ListEntry) {
+  private _deleteListEntry(listEntry: ListEntry) {
     return this.mangaService.deleteListEntry(listEntry).pipe(
       map(({ deleted }) => deleted),
       tap((deleted) => {

@@ -112,7 +112,7 @@ export class MtListRelatedMediaComponent
   }
 
   queryData() {
-    return this.animeCommands.getRelatedAnimeMediaIds().pipe(
+    return this.animeCommands.queryRelatedMediaIds().pipe(
       tap((relatedMediaIds) => {
         this.relatedMediaIds = relatedMediaIds;
         this.search(0, this.colCount * this.rowCount);
@@ -148,7 +148,7 @@ export class MtListRelatedMediaComponent
     this.error = undefined;
 
     this.animeCommands
-      .getAnimeFromIds(
+      .getMediaFromIds(
         this.relatedMediaIds,
         {
           formatIn: this.selectedFormats.length

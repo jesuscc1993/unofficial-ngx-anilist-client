@@ -81,7 +81,7 @@ export class MtMediaCoverComponent
     event.stopPropagation();
 
     this.animeCommands
-      .deleteAnimeListEntry(this.listEntry)
+      .deleteListEntry(this.listEntry)
       .pipe(
         tap((success) => {
           if (success) {

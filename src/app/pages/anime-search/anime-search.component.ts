@@ -82,7 +82,7 @@ export class AnimeSearchPageComponent
     this.setupForm();
 
     this.animeCommands
-      .getAnimeGenres()
+      .queryGenres()
       .pipe(
         tap((mediaGenres) => (this.mediaGenres = mediaGenres)),
         takeUntil(this.destroyed$)
@@ -165,7 +165,7 @@ export class AnimeSearchPageComponent
     };
 
     this.animeCommands
-      .searchAnime(query, {
+      .queryMedia(query, {
         pageIndex,
         perPage,
       })

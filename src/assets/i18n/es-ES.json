@@ -1,9 +1,5 @@
 {
   "anime": {
-    "actions": {
-      "delete": "Borrar entrada",
-      "deleteDescription": "¿Borrar entrada para \"{{ mediaTitle }}\"?"
-    },
     "dashboard": {
       "finishedAiring": "Emisiones finalizadas",
       "recentlyUpdated": "Últimas actualizaciones en su lista",
@@ -111,20 +107,7 @@
       "SPECIAL": "Especial",
       "TV": "TV",
       "TV_SHORT": "Corto TV",
-      "undefined": "Cualquiera",
-      "userList": {
-        "addToList": "Añadir a la lista",
-        "deleteFromList": "Eliminar de la lista",
-        "entries": "entradas",
-        "exportList": "Exportar Lista",
-        "genresOverview": "Overview de Géneros",
-        "goTo": "Ir a",
-        "noEntries": "Sin entradas añadidas aún.",
-        "setAsPlanning": "Guardar como planeado",
-        "show": "Mostrar",
-        "toggleFavourite": "Alternar favorito",
-        "updateEntry": "Actualizar entrada"
-      }
+      "undefined": "Cualquiera"
     },
     "genre": "Género",
     "genres": "Géneros",
@@ -147,6 +130,20 @@
     "tags": "Etiquetas",
     "timesRepeated": "Veces Repetida",
     "title": "Nombre",
+    "userList": {
+      "addToList": "Añadir a la lista",
+      "deleteDescription": "¿Borrar entrada para \"{{ mediaTitle }}\"?",
+      "deleteFromList": "Eliminar de la lista",
+      "entries": "entradas",
+      "exportList": "Exportar Lista",
+      "genresOverview": "Overview de Géneros",
+      "goTo": "Ir a",
+      "noEntries": "Sin entradas añadidas aún.",
+      "setAsPlanning": "Guardar como planeado",
+      "show": "Mostrar",
+      "toggleFavourite": "Alternar favorito",
+      "updateEntry": "Actualizar entrada"
+    },
     "viewOnAniList": "Ver en AniList",
     "year": "Año"
   },

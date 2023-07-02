@@ -18,15 +18,15 @@ import { AnimeStore } from '../store/anime.store';
 export class AnimeService implements MediaServiceInterface {
   constructor(private animeApi: AnimeApi, private mediaStore: AnimeStore) {}
 
-  getGenres() {
+  queryGenres() {
     return this.animeApi.queryGenres();
   }
 
-  searchMedia(
+  queryMedia(
     query: SearchFilters,
     pageQuery?: PageQuery
   ): Observable<MediaPage> {
-    return this.animeApi.querySearch(query, pageQuery).pipe(
+    return this.animeApi.queryMedia(query, pageQuery).pipe(
       mergeMap((pageData) => {
         const mediaIds = pageData.media.map((media) => media.id);
         return this.getMediaFromIds(mediaIds, {
@@ -34,9 +34,11 @@ export class AnimeService implements MediaServiceInterface {
             query.sort ||
             (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
         }).pipe(
-          map(({ media }) => ({
+          map(({ media: mediaList }) => ({
             ...pageData,
-            media: mediaIds.map((id) => media.find((anime) => anime.id === id)),
+            media: mediaIds.map((id) =>
+              mediaList.find((media) => media.id === id)
+            ),
           }))
         );
       })
@@ -48,11 +50,11 @@ export class AnimeService implements MediaServiceInterface {
     query: SearchFilters,
     pageQuery?: PageQuery
   ): Observable<MediaPage> {
-    const animeDictionary = this.mediaStore.getMediaDictionary();
+    const mediaDictionary = this.mediaStore.getMediaDictionary();
     let missingIds: number[];
 
-    if (animeDictionary) {
-      const storeIds = Object.keys(animeDictionary).map((key) =>
+    if (mediaDictionary) {
+      const storeIds = Object.keys(mediaDictionary).map((key) =>
         parseInt(key, 10)
       );
       missingIds = mediaIds.filter((id) => storeIds.indexOf(id) < 0);
@@ -61,29 +63,29 @@ export class AnimeService implements MediaServiceInterface {
     // NOTE: all media has to be retrieved even if some exist due to search pagination
     return missingIds.length
       ? this.animeApi
-          .queryFromIds(mediaIds, query, pageQuery)
+          .queryMediaFromIds(mediaIds, query, pageQuery)
           .pipe(tap((pageData) => this.mediaStore.storeMedia(pageData.media)))
       : of({
           media: mediaIds
-            .map((id) => animeDictionary[id])
-            .filter((anime) => !!anime),
+            .map((id) => mediaDictionary[id])
+            .filter((media) => !!media),
           pageInfo: pageQuery as PageInfo,
         });
   }
 
-  getListEntries(user: User): Observable<ListEntry[]> {
+  queryListEntries(user: User): Observable<ListEntry[]> {
     const storeEntries = this.mediaStore.getListEntries();
     return storeEntries
       ? of(storeEntries)
       : this.animeApi
-          .queryList(user)
+          .queryListEntries(user)
           .pipe(
             tap((listEntries) => this.mediaStore.setListEntries(listEntries))
           );
   }
 
   getListEntriesExport(user: User) {
-    return this.getListEntries(user).pipe(
+    return this.queryListEntries(user).pipe(
       map((entries) =>
         entries.map(({ scoreRaw, progress, repeat, status, media }) => {
           const entryExport = {
@@ -110,18 +112,18 @@ export class AnimeService implements MediaServiceInterface {
     );
   }
 
-  getRelatedMediaIds(user: User): Observable<number[]> {
-    return this.animeApi.queryRelatedIds(user);
+  queryRelatedMediaIds(user: User): Observable<number[]> {
+    return this.animeApi.queryRelatedMediaIds(user);
   }
 
-  getFavouriteIDs(user: User) {
+  queryFavouriteIDs(user: User) {
     return this.animeApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
       this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
     });
   }
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry> {
-    return this.animeApi.saveMediaListEntry(listEntry).pipe(
+    return this.animeApi.saveListEntry(listEntry).pipe(
       map((updatedListEntry) => ({ ...listEntry, ...updatedListEntry })),
       tap((updatedListEntry) => {
         this.mediaStore.updateListEntry({
@@ -136,7 +138,7 @@ export class AnimeService implements MediaServiceInterface {
   }
 
   deleteListEntry(listEntry: ListEntry) {
-    return this.animeApi.deleteMediaListEntry(listEntry).pipe(
+    return this.animeApi.deleteListEntry(listEntry).pipe(
       tap(() => {
         this.mediaStore.deleteListEntry(listEntry);
       })
@@ -146,7 +148,7 @@ export class AnimeService implements MediaServiceInterface {
   toggleFavourite(user: User, media: Media) {
     return this.animeApi.toggleFavourite(media).pipe(
       tap(() => {
-        this.getFavouriteIDs(user);
+        this.queryFavouriteIDs(user);
       })
     );
   }
@@ -155,15 +157,15 @@ export class AnimeService implements MediaServiceInterface {
     return this.mediaStore
       .onListEntriesChanges()
       .pipe(
-        map((animeListEntries) => getListEntriesByStatus(animeListEntries))
+        map((mediaListEntries) => getListEntriesByStatus(mediaListEntries))
       );
   }
 
-  getFavouriteIDs$() {
+  getFavouriteIDs() {
     return this.mediaStore.onFavouriteIDsChanges();
   }
 
-  getListEntries$() {
+  getListEntries() {
     return this.mediaStore.onListEntriesChanges();
   }
 
@@ -171,8 +173,8 @@ export class AnimeService implements MediaServiceInterface {
     return this.mediaStore
       .onListEntriesChanges()
       .pipe(
-        map((animeListEntries) =>
-          animeListEntries.filter(
+        map((mediaListEntries) =>
+          mediaListEntries.filter(
             (listEntry) =>
               ['PLANNING', 'CURRENT'].includes(listEntry.status) &&
               listEntry.media.status === 'FINISHED'

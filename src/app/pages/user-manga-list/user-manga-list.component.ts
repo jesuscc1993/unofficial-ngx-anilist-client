@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { rootUrl } from '../../app.constants';
-import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
+import { MangaCommands } from '../../modules/manga/commands/manga.commands';
 import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
@@ -25,11 +25,11 @@ type Status = {
 };
 
 @Component({
-  selector: 'mt-user-anime-list',
-  templateUrl: './user-anime-list.component.html',
-  styleUrls: ['./user-anime-list.component.scss'],
+  selector: 'mt-user-manga-list',
+  templateUrl: './user-manga-list.component.html',
+  styleUrls: ['./user-manga-list.component.scss'],
 })
-export class UserAnimeListPageComponent extends WithObservableOnDestroy {
+export class UserMangaListPageComponent extends WithObservableOnDestroy {
   user: User;
   listEntriesByStatus: ListEntriesByStatus;
   statuses: Status[];
@@ -45,13 +45,13 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
     private router: Router,
     private titleService: TitleService,
     private translateService: TranslateService,
-    private animeCommands: AnimeCommands,
+    private mangaCommands: MangaCommands,
     private authStore: AuthStore
   ) {
     super();
 
     this.titleService.setTitle(
-      this.translateService.instant('anime.userList.title')
+      this.translateService.instant('manga.userList.title')
     );
 
     this.user = this.authStore.getUser();
@@ -88,7 +88,7 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
     this.preventDefault(event);
 
     if (this.user) {
-      this.animeCommands
+      this.mangaCommands
         .getListEntriesExport()
         .pipe(
           tap((listEntries) => {
@@ -107,7 +107,7 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
 
   private getListFavouriteIDs() {
     if (this.user) {
-      this.animeCommands
+      this.mangaCommands
         .getFavouriteIDs()
         .pipe(
           tap((favouriteIDs) => {
@@ -117,13 +117,13 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
         )
         .subscribe();
 
-      this.animeCommands.queryFavouriteIDs(this.user);
+      this.mangaCommands.queryFavouriteIDs(this.user);
     }
   }
 
   private getUserList() {
     if (this.user) {
-      this.animeCommands
+      this.mangaCommands
         .getListEntriesGroupedByStatus()
         .pipe(
           tap((listEntriesByStatus) => {

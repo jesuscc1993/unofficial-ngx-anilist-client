@@ -1,4 +1,4 @@
-import { noop, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
@@ -18,15 +18,15 @@ import { MangaStore } from '../store/manga.store';
 export class MangaService implements MediaServiceInterface {
   constructor(private mangaApi: MangaApi, private mediaStore: MangaStore) {}
 
-  getGenres() {
+  queryGenres() {
     return this.mangaApi.queryGenres();
   }
 
-  searchMedia(
+  queryMedia(
     query: SearchFilters,
     pageQuery?: PageQuery
   ): Observable<MediaPage> {
-    return this.mangaApi.querySearch(query, pageQuery).pipe(
+    return this.mangaApi.queryMedia(query, pageQuery).pipe(
       mergeMap((pageData) => {
         const mediaIds = pageData.media.map((media) => media.id);
         return this.getMediaFromIds(mediaIds, {
@@ -34,9 +34,11 @@ export class MangaService implements MediaServiceInterface {
             query.sort ||
             (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
         }).pipe(
-          map(({ media }) => ({
+          map(({ media: mediaList }) => ({
             ...pageData,
-            media: mediaIds.map((id) => media.find((manga) => manga.id === id)),
+            media: mediaIds.map((id) =>
+              mediaList.find((media) => media.id === id)
+            ),
           }))
         );
       })
@@ -48,11 +50,11 @@ export class MangaService implements MediaServiceInterface {
     query: SearchFilters,
     pageQuery?: PageQuery
   ): Observable<MediaPage> {
-    const mangaDictionary = this.mediaStore.getMediaDictionary();
+    const mediaDictionary = this.mediaStore.getMediaDictionary();
     let missingIds: number[];
 
-    if (mangaDictionary) {
-      const storeIds = Object.keys(mangaDictionary).map((key) =>
+    if (mediaDictionary) {
+      const storeIds = Object.keys(mediaDictionary).map((key) =>
         parseInt(key, 10)
       );
       missingIds = mediaIds.filter((id) => storeIds.indexOf(id) < 0);
@@ -61,29 +63,29 @@ export class MangaService implements MediaServiceInterface {
     // NOTE: all media has to be retrieved even if some exist due to search pagination
     return missingIds.length
       ? this.mangaApi
-          .queryFromIds(mediaIds, query, pageQuery)
+          .queryMediaFromIds(mediaIds, query, pageQuery)
           .pipe(tap((pageData) => this.mediaStore.storeMedia(pageData.media)))
       : of({
           media: mediaIds
-            .map((id) => mangaDictionary[id])
-            .filter((manga) => !!manga),
+            .map((id) => mediaDictionary[id])
+            .filter((media) => !!media),
           pageInfo: pageQuery as PageInfo,
         });
   }
 
-  getListEntries(user: User): Observable<ListEntry[]> {
+  queryListEntries(user: User): Observable<ListEntry[]> {
     const storeEntries = this.mediaStore.getListEntries();
     return storeEntries
       ? of(storeEntries)
       : this.mangaApi
-          .queryList(user)
+          .queryListEntries(user)
           .pipe(
             tap((listEntries) => this.mediaStore.setListEntries(listEntries))
           );
   }
 
   getListEntriesExport(user: User) {
-    return this.getListEntries(user).pipe(
+    return this.queryListEntries(user).pipe(
       map((entries) =>
         entries.map(({ scoreRaw, progress, repeat, status, media }) => {
           const entryExport = {
@@ -110,19 +112,18 @@ export class MangaService implements MediaServiceInterface {
     );
   }
 
-  getRelatedMediaIds(user: User): Observable<number[]> {
-    return this.mangaApi.queryRelatedIds(user);
+  queryRelatedMediaIds(user: User): Observable<number[]> {
+    return this.mangaApi.queryRelatedMediaIds(user);
   }
 
-  getFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+  queryFavouriteIDs(user: User) {
     return this.mangaApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
       this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
-      callback(favouriteIDs);
     });
   }
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry> {
-    return this.mangaApi.saveMediaListEntry(listEntry).pipe(
+    return this.mangaApi.saveListEntry(listEntry).pipe(
       map((updatedListEntry) => ({ ...listEntry, ...updatedListEntry })),
       tap((updatedListEntry) => {
         this.mediaStore.updateListEntry({
@@ -137,7 +138,7 @@ export class MangaService implements MediaServiceInterface {
   }
 
   deleteListEntry(listEntry: ListEntry) {
-    return this.mangaApi.deleteMediaListEntry(listEntry).pipe(
+    return this.mangaApi.deleteListEntry(listEntry).pipe(
       tap(() => {
         this.mediaStore.deleteListEntry(listEntry);
       })
@@ -147,7 +148,7 @@ export class MangaService implements MediaServiceInterface {
   toggleFavourite(user: User, media: Media) {
     return this.mangaApi.toggleFavourite(media).pipe(
       tap(() => {
-        this.getFavouriteIDs(user, noop);
+        this.queryFavouriteIDs(user);
       })
     );
   }
@@ -156,15 +157,15 @@ export class MangaService implements MediaServiceInterface {
     return this.mediaStore
       .onListEntriesChanges()
       .pipe(
-        map((mangaListEntries) => getListEntriesByStatus(mangaListEntries))
+        map((mediaListEntries) => getListEntriesByStatus(mediaListEntries))
       );
   }
 
-  getFavouriteIDs$() {
+  getFavouriteIDs() {
     return this.mediaStore.onFavouriteIDsChanges();
   }
 
-  getListEntries$() {
+  getListEntries() {
     return this.mediaStore.onListEntriesChanges();
   }
 
@@ -172,8 +173,8 @@ export class MangaService implements MediaServiceInterface {
     return this.mediaStore
       .onListEntriesChanges()
       .pipe(
-        map((mangaListEntries) =>
-          mangaListEntries.filter(
+        map((mediaListEntries) =>
+          mediaListEntries.filter(
             (listEntry) =>
               ['PLANNING', 'CURRENT'].includes(listEntry.status) &&
               listEntry.media.status === 'FINISHED'

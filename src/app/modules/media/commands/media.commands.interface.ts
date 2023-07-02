@@ -1,17 +1,14 @@
-import { Observable } from 'rxjs';
-
-import { ListEntry } from '../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { SearchFilters } from '../api/media.types';
 
-export interface MediaServiceInterface {
+export interface MediaCommandsInterface {
   deleteListEntry(listEntry: ListEntry);
   getFavouriteIDs();
   getListEntries();
-  queryListEntries(user: User): Observable<ListEntry[]>;
-  getListEntriesExport(user: User);
+  getListEntriesExport();
   getListEntriesGroupedByStatus();
   getMediaFromIds(
     mediaIds: number[],
@@ -19,10 +16,12 @@ export interface MediaServiceInterface {
     pageQuery?: PageQuery
   );
   getPendingMedia();
-  queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void);
+  queryFavouriteIDs(user: User);
   queryGenres();
+  queryListEntries();
   queryMedia(query: SearchFilters, pageQuery?: PageQuery);
-  queryRelatedMediaIds(user: User): Observable<number[]>;
-  saveListEntry(listEntry: ListEntry): Observable<ListEntry>;
+  queryRelatedMediaIds();
+  saveListEntry(listEntry: ListEntry);
+  saveMediaWithStatus(media: Media, status: ListEntryStatus);
   toggleFavourite(user: User, media: Media);
 }

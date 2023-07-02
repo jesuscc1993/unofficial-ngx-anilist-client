@@ -78,7 +78,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     const formListEntry: ListEntry = this.getFormEntry();
 
     this.animeCommands
-      .saveAnimeListEntry(formListEntry)
+      .saveListEntry(formListEntry)
       .pipe(
         tap((savedListEntry) => {
           const success = savedListEntry.id !== undefined;
@@ -95,7 +95,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     this.preventDefault(event);
 
     this.animeCommands
-      .deleteAnimeListEntry(this.listEntry)
+      .deleteListEntry(this.listEntry)
       .pipe(
         tap((success) => {
           if (success) {

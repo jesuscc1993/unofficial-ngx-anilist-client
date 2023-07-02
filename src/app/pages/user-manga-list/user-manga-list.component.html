@@ -1,0 +1,93 @@
+<div class="narrow-page">
+  <mat-card *ngIf="!user" class="alert warning">
+    <h4>
+      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+      {{ 'user.notLoggedIn' | translate }}
+    </h4>
+  </mat-card>
+
+  <mat-spinner
+    *ngIf="user && !ready"
+    class="full-page"
+    mode="indeterminate"
+  ></mat-spinner>
+
+  <div *ngIf="ready">
+    <div *ngIf="statuses && statuses.length">
+      <mat-card class="table-filter">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="{{ 'anime.search.filters.byTitle' | translate }}"
+            (keyup)="applyFilter($event.target.value)"
+          />
+        </mat-form-field>
+      </mat-card>
+
+      <mat-card class="margin-top-s">
+        <h3>
+          {{ 'media.userList.show' | translate }} /
+          {{ 'media.userList.goTo' | translate }}
+        </h3>
+
+        <div class="statuses-wrapper">
+          <span *ngFor="let status of statuses" class="status-wrapper">
+            <div *ngIf="hasDataOfStatus(status.value)">
+              <mat-checkbox [(ngModel)]="status.shown">{{
+                'anime.statusValues.' + status.value | translate
+              }}</mat-checkbox>
+
+              <a class="go-to-link" (click)="scrollToStatus(status.value)">
+                <fa-icon
+                  class="vertically-centered margin-left-xxxs"
+                  name="arrow-down"
+                ></fa-icon>
+              </a>
+            </div>
+          </span>
+        </div>
+      </mat-card>
+
+      <div *ngFor="let status of statuses">
+        <div
+          *ngIf="status.shown && hasDataOfStatus(status.value)"
+          class="status-table-wrapper"
+          id="{{ status.value }}"
+        >
+          <mt-user-media-list-table
+            [favouriteIDs]="favouriteIDs"
+            [filter]="filter"
+            [tableData]="listEntriesByStatus[status.value]"
+            [tableStatus]="status.value"
+            mediaType="ANIME"
+          >
+          </mt-user-media-list-table>
+        </div>
+      </div>
+
+      <div class="text-center margin-top-xs">
+        <button mat-raised-button color="accent" (click)="exportList($event)">
+          <fa-icon name="file-download"></fa-icon>
+          <span>{{ 'media.userList.exportList' | translate }}</span>
+        </button>
+      </div>
+
+      <mt-genres-overview [genreStatsList]="user.stats.favouredGenresOverview">
+      </mt-genres-overview>
+    </div>
+
+    <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
+      <h4>
+        <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+        {{ 'media.userList.noEntries' | translate }}
+      </h4>
+    </mat-card>
+  </div>
+
+  <mat-card *ngIf="error" class="error">
+    <h4>
+      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+      {{ error }}
+    </h4>
+  </mat-card>
+</div>

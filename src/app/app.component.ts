@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
       .pipe(
         tap((user) => {
           if (user) {
-            this.animeCommands.getAnimeListEntries().subscribe();
+            this.animeCommands.queryListEntries().subscribe();
           }
         })
       )

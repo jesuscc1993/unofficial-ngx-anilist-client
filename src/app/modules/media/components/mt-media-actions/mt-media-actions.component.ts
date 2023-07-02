@@ -108,12 +108,12 @@ export class MtMediaActionsComponent
   }
 
   toggleFavourite() {
-    this.animeCommands.toggleFavouriteAnime(this.user, this.media).subscribe();
+    this.animeCommands.toggleFavourite(this.user, this.media).subscribe();
   }
 
   deleteEntry() {
     this.animeCommands
-      .deleteAnimeListEntry(this.listEntry)
+      .deleteListEntry(this.listEntry)
       .pipe(
         tap((success) => {
           if (success) {

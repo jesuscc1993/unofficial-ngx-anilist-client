@@ -47,7 +47,7 @@ export class MtRecentlyUpdatedListEntriesComponent extends WithObservableOnDestr
     this.setStatuses = this.setStatuses.bind(this);
 
     this.animeCommands
-      .getListEntriesByDateUpdated()
+      .getListEntries()
       .pipe(
         tap((animeListEntries) => {
           this.listEntries = animeListEntries.sort((a, b) =>
