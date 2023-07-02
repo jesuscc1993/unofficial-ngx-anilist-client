@@ -176,9 +176,11 @@ export class MtListRelatedMediaComponent
         this.relatedMediaIds,
         {
           formatIn:
-            this.mediaType === MediaType.ANIME && this.selectedFormats.length
-              ? this.selectedFormats
-              : undefined,
+            this.mediaType === MediaType.ANIME
+              ? this.selectedFormats.length
+                ? this.selectedFormats
+                : undefined
+              : [MediaFormat.MANGA],
           onList: false,
           sort: this.selectedSort,
         },
