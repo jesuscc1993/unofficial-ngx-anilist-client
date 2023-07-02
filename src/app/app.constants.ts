@@ -8,9 +8,9 @@ export const apiTokenPrefix = '#access_token=';
 export const accessTokenCookieKey = 'accessToken';
 export const userCookieKey = 'user';
 
-export const dashboardUrl = '/dashboard';
 export const animeSearchUrl = '/anime-search';
-export const userListUrl = '/user-anime-list';
+export const animeDashboardUrl = '/anime-dashboard';
+export const userAnimeListUrl = '/user-anime-list';
 export const rootUrl = animeSearchUrl;
 
 export const integerPattern = /^\d+$/;

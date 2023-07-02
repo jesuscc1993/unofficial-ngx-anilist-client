@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
 import {
-  animeSearchUrl, apiLoginUrl, apiTokenPrefix, dashboardUrl, rootUrl, userListUrl,
+  animeDashboardUrl, animeSearchUrl, apiLoginUrl, apiTokenPrefix, rootUrl, userAnimeListUrl,
 } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import { AuthStore } from '../../store/auth.store';
@@ -20,16 +20,13 @@ import {
   styleUrls: ['./mt-header.component.scss'],
 })
 export class MtHeaderComponent extends WithObservableOnDestroy {
-  apiLoginUrl = apiLoginUrl;
-  dashboardUrl = dashboardUrl;
+  animeDashboardUrl = animeDashboardUrl;
   animeSearchUrl = animeSearchUrl;
-  userListUrl = userListUrl;
+  apiLoginUrl = apiLoginUrl;
+  userAnimeListUrl = userAnimeListUrl;
 
   user: User;
-  onRoot: boolean;
-  onDashboard: boolean;
-  onAnimeSearch: boolean;
-  onUserList: boolean;
+  page: string;
   loginAvailable: boolean;
 
   constructor(
@@ -57,18 +54,6 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     this.loginAvailable = environment.anilistClientId >= 0;
     this.user = this.authStore.getUser();
 
-    this.router.events
-      .pipe(
-        tap(() => {
-          this.onRoot = location.href.includes(rootUrl);
-          this.onDashboard = location.href.includes(dashboardUrl);
-          this.onAnimeSearch = location.href.includes(animeSearchUrl);
-          this.onUserList = location.href.includes(userListUrl);
-        }),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
-
     this.authCommands
       .onUserChange()
       .pipe(
@@ -76,6 +61,10 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
         takeUntil(this.destroyed$)
       )
       .subscribe();
+  }
+
+  onPage(url: string) {
+    return location.href.includes(url);
   }
 
   openAnilistProfile() {

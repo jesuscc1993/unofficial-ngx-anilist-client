@@ -8,7 +8,7 @@ import { TitleService } from '../../modules/shared/services/title.service';
   templateUrl: './anime-dashboard.component.html',
   styleUrls: ['./anime-dashboard.component.scss'],
 })
-export class DashboardPageComponent {
+export class AnimeDashboardPageComponent {
   constructor(
     private titleService: TitleService,
     private translateService: TranslateService

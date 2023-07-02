@@ -11,7 +11,7 @@ import { AnimeModule } from './modules/anime/anime.module';
 import { MangaModule } from './modules/manga/manga.module';
 import { MediaModule } from './modules/media/media.module';
 import { SharedModule } from './modules/shared/shared.module';
-import { DashboardPageComponent } from './pages/anime-dashboard/anime-dashboard.component';
+import { AnimeDashboardPageComponent } from './pages/anime-dashboard/anime-dashboard.component';
 import { AnimeDetailPageComponent } from './pages/anime-detail/anime-detail.component';
 import { AnimeSearchPageComponent } from './pages/anime-search/anime-search.component';
 import { LoginPageComponent } from './pages/login/login.component';
@@ -21,8 +21,8 @@ import { UserAnimeListPageComponent } from './pages/user-anime-list/user-anime-l
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
-  { path: 'dashboard', component: DashboardPageComponent },
   { path: 'anime-search', component: AnimeSearchPageComponent },
+  { path: 'anime-dashboard', component: AnimeDashboardPageComponent },
   { path: 'anime-detail/:id', component: AnimeDetailPageComponent },
   { path: 'user-anime-list', component: UserAnimeListPageComponent },
   { path: '**', component: PageNotFoundPageComponent },
@@ -56,7 +56,7 @@ const translationFactory = (
     AppComponent,
     PageNotFoundPageComponent,
     LoginPageComponent,
-    DashboardPageComponent,
+    AnimeDashboardPageComponent,
     AnimeSearchPageComponent,
     AnimeDetailPageComponent,
     UserAnimeListPageComponent,
