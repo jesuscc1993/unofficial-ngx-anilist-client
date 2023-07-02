@@ -1,36 +1,12 @@
 {
   "anime": {
-    "actions": {
-      "delete": "Delete list entry",
-      "deleteDescription": "Delete list entry for \"{{ mediaTitle }}\"?"
-    },
     "dashboard": {
       "finishedAiring": "Finished airing",
       "recentlyUpdated": "Latest list updates",
       "relatedMedia": "Related media",
-      "title": "Dashboard"
+      "title": "Anime board"
     },
     "search": {
-      "filters": {
-        "above": "above",
-        "advanced": "Advanced filters",
-        "after": "after",
-        "before": "before",
-        "below": "below",
-        "byTitle": "Filter by name",
-        "clear": "Clear filters",
-        "countryOfOrigin": "Country of origin",
-        "includedIn": "in",
-        "notIncludedIn": "not in",
-        "onList": "On list",
-        "onListValues": {
-          "false": "Not on list",
-          "true": "On list",
-          "undefined": "Both"
-        }
-      },
-      "limittedFeatures": "Search will be available but most other features will not.",
-      "submit": "Search",
       "title": "Anime search"
     },
     "status": "Status",
@@ -44,18 +20,7 @@
       "undefined": "Any"
     },
     "userList": {
-      "addToList": "Add to list",
-      "deleteFromList": "Delete from list",
-      "entries": "entries",
-      "exportList": "Export List",
-      "genresOverview": "Genres Overview",
-      "goTo": "Go to",
-      "noEntries": "No entries added yet.",
-      "setAsPlanning": "Set as planning",
-      "show": "Show",
-      "title": "User's list",
-      "toggleFavourite": "Toggle favourite",
-      "updateEntry": "Update list entry"
+      "title": "Anime list"
     }
   },
   "app": {
@@ -98,6 +63,29 @@
       "success": "Updated list entry for \"{{ mediaTitle }}\"."
     }
   },
+  "manga": {
+    "dashboard": {
+      "finishedAiring": "Finished publishing",
+      "recentlyUpdated": "Latest list updates",
+      "relatedMedia": "Related media",
+      "title": "Manga board"
+    },
+    "search": {
+      "title": "Manga search"
+    },
+    "statusValues": {
+      "COMPLETED": "Completed",
+      "CURRENT": "Reading",
+      "DROPPED": "Dropped",
+      "PAUSED": "Paused",
+      "PLANNING": "Planning",
+      "REPEATING": "Rereading",
+      "undefined": "Any"
+    },
+    "userList": {
+      "title": "Manga list"
+    }
+  },
   "matPaginator": {
     "firstPageLabel": "First page",
     "itemsPerPageLabel": "Results per page",
@@ -108,6 +96,7 @@
   },
   "media": {
     "additionalInfo": "Additional info",
+    "chapters": "Chapters",
     "cover": "Cover",
     "description": "Description",
     "duration": "Duration",
@@ -115,6 +104,7 @@
     "episodes": "Episodes",
     "format": "Format",
     "formatValues": {
+      "MANGA": "Manga",
       "MOVIE": "Movie",
       "MUSIC": "Music",
       "ONA": "ONA",
@@ -129,6 +119,28 @@
     "genres": "Genres",
     "goToDetail": "Go to full detail",
     "score": "Score",
+    "search": {
+      "filters": {
+        "above": "above",
+        "advanced": "Advanced filters",
+        "after": "after",
+        "before": "before",
+        "below": "below",
+        "byTitle": "Filter by name",
+        "clear": "Clear filters",
+        "countryOfOrigin": "Country of origin",
+        "includedIn": "in",
+        "notIncludedIn": "not in",
+        "onList": "On list",
+        "onListValues": {
+          "false": "Not on list",
+          "true": "On list",
+          "undefined": "Both"
+        }
+      },
+      "limittedFeatures": "Search will be available but most other features will not.",
+      "submit": "Search"
+    },
     "sortValues": {
       "END_DATE_DESC": "End Date",
       "SCORE_DESC": "Score",
@@ -146,7 +158,22 @@
     "tags": "Tags",
     "timesRepeated": "Times Repeated",
     "title": "Title",
+    "userList": {
+      "addToList": "Add to list",
+      "deleteDescription": "Delete list entry for \"{{ mediaTitle }}\"?",
+      "deleteFromList": "Delete from list",
+      "entries": "entries",
+      "exportList": "Export List",
+      "genresOverview": "Genres Overview",
+      "goTo": "Go to",
+      "noEntries": "No entries added yet.",
+      "setAsPlanning": "Set as planning",
+      "show": "Show",
+      "toggleFavourite": "Toggle favourite",
+      "updateEntry": "Update list entry"
+    },
     "viewOnAniList": "View on AniList",
+    "volumes": "Volumes",
     "year": "Year"
   },
   "settings": {
