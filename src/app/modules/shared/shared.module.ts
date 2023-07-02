@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { NgxMultiLineEllipsisModule } from '@davidperis92/ngx-multi-line-ellipsis';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AnimeStore } from '../anime/store/anime.store';
 import { MaterialModule } from '../material/material.module';
 import { AuthApi } from './api/auth/auth.api';
 import { AuthCommands } from './commands/auth.commands';
@@ -31,7 +32,6 @@ import { AuthService } from './services/auth.service';
 import { TitleService } from './services/title.service';
 import { ToastService } from './services/toast.service';
 import { AuthStore } from './store/auth.store';
-import { MediaStore } from './store/media.store';
 
 const declarations = [
   FaIconComponent,
@@ -68,7 +68,7 @@ const imports = [
     AuthCommands,
     AuthService,
     AuthStore,
-    MediaStore,
+    AnimeStore,
     TitleService,
     ToastService,
   ],

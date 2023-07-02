@@ -1,0 +1,74 @@
+<mat-card class="composite compact">
+  <div class="composite-header">
+    <div class="header flex-1">
+      <h4 class="no-margin">
+        {{ 'anime.dashboard.relatedMedia' | translate }}
+      </h4>
+    </div>
+
+    <mt-header-picker
+      iconName="sort"
+      title="{{ 'generic.sort' | translate }}"
+      [options]="mediaSorts"
+      [value]="selectedSort"
+      [getOptionLiteral]="getSortLiteral"
+      [onChange]="setSort"
+    ></mt-header-picker>
+
+    <mt-header-picker
+      iconName="filter"
+      title="{{ 'media.format' | translate }}"
+      placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [multiple]="true"
+      [options]="mediaFormats"
+      [truncate]="true"
+      [value]="selectedFormats"
+      [getOptionLiteral]="getFormatLiteral"
+      [onChange]="setFormats"
+    ></mt-header-picker>
+  </div>
+
+  <div class="content">
+    <div #content>
+      <div
+        *ngIf="searching"
+        class="placeholder"
+        [ngClass]="{ 'with-pagination': pagination }"
+      >
+        <mat-spinner mode="indeterminate"></mat-spinner>
+      </div>
+
+      <div *ngIf="!searching" class="media-cover-grid">
+        <mt-media-cover
+          *ngFor="let media of mediaList"
+          [media]="media"
+        ></mt-media-cover>
+      </div>
+
+      <mat-paginator
+        *ngIf="pagination?.total"
+        [showFirstLastButtons]="true"
+        [length]="pagination.total"
+        [pageSize]="pagination.perPage"
+        [pageIndex]="pagination.pageIndex"
+        (page)="changePage($event)"
+        class="basic negative-bottom-margin"
+      >
+      </mat-paginator>
+
+      <mat-card *ngIf="pagination && !pagination.total" class="info">
+        <h4>
+          <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
+          {{ 'generic.noResults' | translate }}
+        </h4>
+      </mat-card>
+
+      <mat-card *ngIf="error" class="error">
+        <h4>
+          <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+          {{ error }}
+        </h4>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>

@@ -10,24 +10,30 @@ export class MediaData {
   averageScore: number;
   coverImage: CoverImage;
   description: string;
-  duration: number;
+  endDate?: FuzzyDate;
   format: MediaFormat;
+  genres: string[];
   id: number;
   mediaListEntry: ListEntry;
+  startDate: FuzzyDate;
   status: MediaStatus;
   studios: NodeList<Studio>;
   tags: Tag[];
   title: Title;
-  endDate?: FuzzyDate;
+  type: MediaType;
 }
 
 export class Anime extends MediaData {
-  startDate: FuzzyDate;
   episodes: number;
-  genres: string[];
+  duration: number;
 }
 
-export type Media = Anime;
+export class Manga extends MediaData {
+  chapters: number;
+  volumes: number;
+}
+
+export type Media = Anime | Manga;
 
 export enum MediaType {
   ANIME = 'ANIME',

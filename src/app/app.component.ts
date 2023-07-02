@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authStore
-      .changes('user')
+      .onUserChange()
       .pipe(
         tap((user) => {
           if (user) {

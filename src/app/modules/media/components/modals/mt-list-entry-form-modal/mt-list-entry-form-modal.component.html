@@ -1,0 +1,106 @@
+<mt-modal>
+  <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
+    <div title="{{ listEntry.media.title.romaji }}" class="text-ellipsis">
+      <mt-media-actions
+        [editEnabled]="false"
+        [listMode]="false"
+        [media]="listEntry.media"
+        [origin]="origin"
+        [viewEnabled]="origin !== 'view'"
+        (onListEntryChanges)="onListEntryChanges($event)"
+        class="inline-block margin-right-xxs"
+      >
+      </mt-media-actions
+      >{{ listEntry.media.title.romaji }}
+    </div>
+  </mt-modal-header>
+
+  <form [formGroup]="listEntryForm" (ngSubmit)="saveEntry($event)">
+    <mt-modal-content>
+      <!-- status -->
+      <div class="form-group">
+        <mat-form-field>
+          <mat-select
+            formControlName="status"
+            placeholder="{{ 'media.status' | translate }}"
+          >
+            <mat-option
+              *ngFor="let status of listEntryStatuses"
+              [value]="status"
+              >{{ 'anime.statusValues.' + status | translate }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>{{ 'media.score' | translate }} (*/10)</mat-label>
+          <input
+            matInput
+            formControlName="score"
+            max="10"
+            min="0"
+            placeholder="0"
+            step=".5"
+            type="number"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="0"
+            formControlName="repeat"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label
+            >{{
+              getMediaTypeProgressLiteral(listEntry.media.type) | translate
+            }}
+            (*/{{ getMediaProgress(listEntry.media) || '?' }})</mat-label
+          >
+          <input
+            matInput
+            type="text"
+            placeholder="0"
+            formControlName="progress"
+          />
+        </mat-form-field>
+      </div>
+    </mt-modal-content>
+
+    <mat-divider></mat-divider>
+
+    <mt-modal-footer>
+      <span class="buttons-container float-right">
+        <button (click)="dismiss($event)" mat-raised-button>
+          <fa-icon name="times"></fa-icon>
+          <span>{{ 'generic.cancel' | translate }}</span>
+        </button>
+
+        <button (click)="deleteEntry($event)" mat-raised-button color="warn">
+          <fa-icon name="trash"></fa-icon>
+          <span>{{ 'generic.delete' | translate }}</span>
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          [disabled]="!listEntryForm.valid || !isSubmitAvailable()"
+        >
+          <fa-icon name="save"></fa-icon>
+          <span>{{ 'generic.submit' | translate }}</span>
+        </button>
+      </span>
+    </mt-modal-footer>
+  </form>
+</mt-modal>

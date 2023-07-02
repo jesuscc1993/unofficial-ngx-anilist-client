@@ -8,7 +8,7 @@ import {
   WithObservableOnDestroy,
 } from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../modules/shared/services/title.service';
-import { Anime } from '../../modules/shared/types/anilist/media.types';
+import { Media } from '../../modules/shared/types/anilist/media.types';
 
 @Component({
   selector: 'mt-anime-detail',
@@ -16,7 +16,7 @@ import { Anime } from '../../modules/shared/types/anilist/media.types';
   styleUrls: ['./anime-detail.component.scss'],
 })
 export class AnimeDetailPageComponent extends WithObservableOnDestroy {
-  anime: Anime;
+  media: Media;
 
   searching: boolean;
   errorGotten: boolean;
@@ -46,8 +46,8 @@ export class AnimeDetailPageComponent extends WithObservableOnDestroy {
         takeUntil(this.destroyed$),
         tap(
           (response) => {
-            this.anime = response.media.length > 0 && response.media[0];
-            this.titleService.setTitle(this.anime.title.romaji);
+            this.media = response.media.length > 0 && response.media[0];
+            this.titleService.setTitle(this.media.title.romaji);
             this.searching = false;
           },
           () => {
