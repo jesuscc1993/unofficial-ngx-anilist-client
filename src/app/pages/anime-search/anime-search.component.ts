@@ -9,12 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../app.constants';
-import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
+import { AnimeStore } from '../../modules/anime/store/anime.store';
+import { SearchFilters } from '../../modules/media/api/media.types';
 import {
   MtSearchResultsTableComponent,
-} from '../../modules/anime/components/mt-search-results-table/mt-search-results-table.component';
-import { getDateScalarFromYear } from '../../modules/anime/domain/media.domain';
+} from '../../modules/media/components/mt-search-results-table/mt-search-results-table.component';
+import { getDateScalarFromYear } from '../../modules/media/domain/media.domain';
 import { AuthCommands } from '../../modules/shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
@@ -24,8 +25,7 @@ import {
 } from '../../modules/shared/constants/media.constants';
 import { TitleService } from '../../modules/shared/services/title.service';
 import { AuthStore } from '../../modules/shared/store/auth.store';
-import { MediaStore } from '../../modules/shared/store/media.store';
-import { Anime, MediaSort } from '../../modules/shared/types/anilist/media.types';
+import { Media, MediaSort } from '../../modules/shared/types/anilist/media.types';
 import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
 import { User } from '../../modules/shared/types/anilist/user.types';
 
@@ -44,7 +44,7 @@ export class AnimeSearchPageComponent
   resultsTable: ElementRef;
 
   user: User;
-  animeList: Anime[];
+  mediaList: Media[];
   searchForm: FormGroup;
   pagination: PageInfo;
   sort: MediaSort;
@@ -69,7 +69,7 @@ export class AnimeSearchPageComponent
     private animeCommands: AnimeCommands,
     private authCommands: AuthCommands,
     private authStore: AuthStore,
-    private mediaStore: MediaStore,
+    private mediaStore: AnimeStore,
     private formBuilder: FormBuilder
   ) {
     super();
@@ -84,28 +84,28 @@ export class AnimeSearchPageComponent
     this.animeCommands
       .getAnimeGenres()
       .pipe(
-        takeUntil(this.destroyed$),
-        tap((mediaGenres) => (this.mediaGenres = mediaGenres))
+        tap((mediaGenres) => (this.mediaGenres = mediaGenres)),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
 
     this.authCommands
       .onUserChange()
       .pipe(
-        takeUntil(this.destroyed$),
-        tap((user) => (this.user = user))
+        tap((user) => (this.user = user)),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
 
     this.mediaStore
-      .changes('animeListEntries')
+      .onListEntriesChanges()
       .pipe(
-        takeUntil(this.destroyed$),
         tap(() => {
-          if (this.animeList) {
+          if (this.mediaList) {
             this.search(undefined, this.pagination?.perPage);
           }
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }
@@ -170,9 +170,8 @@ export class AnimeSearchPageComponent
         perPage,
       })
       .pipe(
-        takeUntil(this.destroyed$),
         tap((response) => {
-          this.animeList = response.media;
+          this.mediaList = response.media;
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
@@ -182,7 +181,8 @@ export class AnimeSearchPageComponent
           this.searching = false;
 
           return of();
-        })
+        }),
+        takeUntil(this.destroyed$)
       )
       .subscribe();
   }

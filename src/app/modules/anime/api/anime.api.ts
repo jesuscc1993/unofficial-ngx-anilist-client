@@ -1,0 +1,70 @@
+import { map } from 'rxjs/operators';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { MediaApi } from '../../media/api/media.api';
+import { MediaInterface } from '../../media/api/media.interface';
+import { SearchFilters, ToggleFavouriteMediaResponseDto } from '../../media/api/media.types';
+import { AuthStore } from '../../shared/store/auth.store';
+import { Media, MediaType } from '../../shared/types/anilist/media.types';
+import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
+import { User } from '../../shared/types/anilist/user.types';
+import {
+  animeListQuery, animeSearchQuery, listFavouriteAnimeQuery, toggleFavouriteAnimeEntryQuery,
+} from './anime.queries';
+import { ToggleFavouriteAnimeRequest } from './anime.types';
+
+@Injectable()
+export class AnimeApi extends MediaApi implements MediaInterface {
+  constructor(
+    protected httpClient: HttpClient,
+    protected authStore: AuthStore
+  ) {
+    super(httpClient, authStore);
+  }
+
+  queryFromIds(
+    mediaIds: number[],
+    query: SearchFilters,
+    pageQuery?: PageQuery
+  ) {
+    return this.queryMediaFromIds(
+      MediaType.ANIME,
+      animeSearchQuery,
+      mediaIds,
+      query,
+      pageQuery
+    );
+  }
+
+  querySearch(query: SearchFilters, pageQuery?: PageQuery) {
+    return this.queryMediaSearch(MediaType.ANIME, query, pageQuery);
+  }
+
+  queryList(user: User) {
+    return this.queryMediaList(MediaType.ANIME, animeListQuery, user);
+  }
+
+  queryRelatedIds(user: User) {
+    return this.queryRelatedMediaIds(MediaType.ANIME, user);
+  }
+
+  queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+    this.queryMediaListFavouriteIDs(
+      MediaType.ANIME,
+      listFavouriteAnimeQuery,
+      user,
+      callback
+    );
+  }
+
+  toggleFavourite(anime: Media) {
+    return this.postGraphQlRequest<
+      ToggleFavouriteMediaResponseDto,
+      ToggleFavouriteAnimeRequest
+    >(toggleFavouriteAnimeEntryQuery, { animeId: anime.id }).pipe(
+      map((response) => this.getResponseData(response).ToggleFavourite)
+    );
+  }
+}

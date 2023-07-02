@@ -33,4 +33,8 @@ export class AuthStore extends Store<AuthStoreState> {
   removeUser() {
     this.setState({ user: undefined });
   }
+
+  onUserChange() {
+    return this.changes('user');
+  }
 }

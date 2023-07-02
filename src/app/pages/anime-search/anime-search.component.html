@@ -283,9 +283,9 @@
       </h4>
     </mat-card>
 
-    <mat-card *ngIf="animeList?.length > 0" class="no-padding">
+    <mat-card *ngIf="mediaList?.length > 0" class="no-padding">
       <mt-search-results-table
-        [tableData]="animeList"
+        [tableData]="mediaList"
         (onSortChange)="sortBy($event)"
       ></mt-search-results-table>
 

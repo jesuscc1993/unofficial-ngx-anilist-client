@@ -7,7 +7,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { AnimeModule } from './modules/anime/anime.module';
+import { AnimeModule } from './modules/media/media.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AnimeDetailPageComponent } from './pages/anime-detail/anime-detail.component';
 import { AnimeSearchPageComponent } from './pages/anime-search/anime-search.component';

@@ -54,13 +54,14 @@
           class="status-table-wrapper"
           id="{{ status.value }}"
         >
-          <mt-user-anime-list-table
-            [tableStatus]="status.value"
-            [tableData]="listEntriesByStatus[status.value]"
+          <mt-user-media-list-table
             [favouriteIDs]="favouriteIDs"
             [filter]="filter"
+            [tableData]="listEntriesByStatus[status.value]"
+            [tableStatus]="status.value"
+            mediaType="ANIME"
           >
-          </mt-user-anime-list-table>
+          </mt-user-media-list-table>
         </div>
       </div>
 

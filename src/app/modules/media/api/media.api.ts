@@ -1,0 +1,210 @@
+import { map, tap } from 'rxjs/operators';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { AniListApi } from '../../shared/api/api';
+import { AuthStore } from '../../shared/store/auth.store';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/media.types';
+import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
+import { User } from '../../shared/types/anilist/user.types';
+import {
+  deleteListEntryQuery, genresQuery, mediaIdSearchQuery, relatedMediaIdsQuery, saveListEntryQuery,
+} from './media.queries';
+import {
+  DeleteListEntryDto, DeleteListEntryRequest, FavouriteMediaDto, GenreCollectionDto, ListMediaDto,
+  MediaFilters, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto, SaveListEntryRequest,
+  SearchFilters, SearchMediaDto,
+} from './media.types';
+
+@Injectable()
+export class MediaApi extends AniListApi {
+  constructor(
+    protected httpClient: HttpClient,
+    protected authStore: AuthStore
+  ) {
+    super(httpClient, authStore);
+  }
+
+  saveMediaListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
+    return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(
+      saveListEntryQuery,
+      {
+        progress,
+        repeat,
+        scoreRaw,
+        mediaId: media.id,
+        status: status || ListEntryStatus.COMPLETED,
+      }
+    ).pipe(
+      map((response) => this.getResponseData(response).SaveMediaListEntry)
+    );
+  }
+
+  deleteMediaListEntry(listEntry: ListEntry) {
+    return this.postGraphQlRequest<DeleteListEntryDto, DeleteListEntryRequest>(
+      deleteListEntryQuery,
+      { id: listEntry.id }
+    ).pipe(
+      map((response) => this.getResponseData(response).DeleteMediaListEntry)
+    );
+  }
+
+  queryGenres() {
+    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).pipe(
+      map((response) => this.getResponseData(response).GenreCollection)
+    );
+  }
+
+  protected queryMediaFromIds(
+    mediaType: MediaType,
+    mediaQuery: string,
+    mediaIds: number[],
+    query: SearchFilters,
+    pageQuery?: PageQuery
+  ) {
+    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(
+      mediaQuery,
+      {
+        ...(pageQuery
+          ? this.getPageOptions(pageQuery)
+          : { perPage: mediaIds.length }),
+        ...query,
+        mediaType,
+        idIn: mediaIds,
+      }
+    ).pipe(map((response) => this.getResponseData(response).Page));
+  }
+
+  protected queryMediaSearch(
+    mediaType: MediaType,
+    query: SearchFilters,
+    pageQuery?: PageQuery
+  ) {
+    return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(
+      mediaIdSearchQuery,
+      {
+        ...this.getPageOptions(pageQuery),
+        ...query,
+        mediaType,
+        adultContent: query.adultContent || false,
+        sort:
+          query.sort ||
+          (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
+      }
+    ).pipe(map((response) => this.getResponseData(response).Page));
+  }
+
+  protected queryMediaList(
+    mediaType: MediaType,
+    mediaQuery: string,
+    user: User
+  ) {
+    return this.postGraphQlRequest<ListMediaDto, MediaFilters>(mediaQuery, {
+      mediaType,
+      userId: user.id,
+      sort: MediaListSort.UPDATED_TIME_DESC,
+    }).pipe(
+      map((response) =>
+        this.getResponseData(response).MediaListCollection.lists.reduce(
+          (listEntries, list) => [...listEntries, ...list.entries],
+          [] as ListEntry[]
+        )
+      )
+    );
+  }
+
+  protected queryRelatedMediaIds(mediaType: MediaType, user: User) {
+    return this.postGraphQlRequest<RelatedMediaIdsDto, MediaFilters>(
+      relatedMediaIdsQuery,
+      {
+        mediaType,
+        userId: user.id,
+      }
+    ).pipe(
+      map((response) => {
+        const mediaIds: number[] = [];
+
+        const listMediaDto = this.getResponseData(response);
+        if (listMediaDto) {
+          listMediaDto.MediaListCollection.lists.forEach((list) => {
+            if (['COMPLETED', 'REPEATING'].includes(list.entries[0].status)) {
+              list.entries.forEach((listEntry) => {
+                listEntry.media.relations.nodes.forEach((media) => {
+                  if (!mediaIds.includes(media.id)) {
+                    mediaIds.push(media.id);
+                  }
+                });
+              });
+            }
+          });
+        }
+
+        return mediaIds;
+      })
+    );
+  }
+
+  protected queryMediaListFavouriteIDs(
+    mediaType: MediaType,
+    mediaQuery: string,
+    user: User,
+    callback: (favouriteIDs: number[]) => void
+  ) {
+    this.queryFavouriteIdsResultsPage(
+      mediaType,
+      mediaQuery,
+      { userId: user.id, page: 0 },
+      [],
+      callback
+    );
+  }
+
+  protected queryFavouriteIdsResultsPage(
+    mediaType: MediaType,
+    mediaQuery: string,
+    options: { userId: number; page: number },
+    favouriteIds: number[],
+    callback: (favouriteIds: number[]) => void
+  ) {
+    return this.postGraphQlRequest<FavouriteMediaDto, PagedSearchFilters>(
+      mediaQuery,
+      options
+    )
+      .pipe(
+        tap((response) => {
+          const responseData = this.getResponseData(response);
+          if (
+            responseData &&
+            responseData.User &&
+            responseData.User.favourites
+          ) {
+            const favouritesData =
+              mediaType === MediaType.ANIME
+                ? responseData.User.favourites.anime
+                : responseData.User.favourites.manga;
+
+            favouriteIds = [
+              ...favouriteIds,
+              ...favouritesData.nodes.map((node) => node.id),
+            ];
+
+            if (favouritesData.pageInfo.hasNextPage) {
+              options.page++;
+              this.queryFavouriteIdsResultsPage(
+                mediaType,
+                mediaQuery,
+                options,
+                favouriteIds,
+                callback
+              );
+            } else {
+              callback(favouriteIds);
+            }
+          }
+        })
+      )
+      .subscribe();
+  }
+}

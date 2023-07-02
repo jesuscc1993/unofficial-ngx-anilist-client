@@ -1,0 +1,110 @@
+<h3 class="no-margin-bottom margin-top-xxs vertical-padding-xs">
+  {{ 'anime.statusValues.' + tableStatus | translate }}
+</h3>
+
+<mat-card class="no-padding">
+  <mat-table
+    #table
+    [dataSource]="dataSource"
+    [hidden]="!dataSource || dataSource.data.length < 1"
+    matSort
+    class="series-table"
+  >
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <mt-media-actions [listEntry]="entry" [media]="entry.media">
+        </mt-media-actions>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cover-image">
+      <mat-header-cell *matHeaderCellDef>{{
+        'media.cover' | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <img [src]="getSizedCoverImage(entry.media.coverImage)" class="cover" />
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title-romaji">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+        'media.title' | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="text">
+          <span>{{ entry.media.title.romaji }}</span>
+          <span *ngIf="favouriteIDs?.includes(entry.media.id)">
+            {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
+          </span>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="format">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+        'media.format' | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="text">{{
+          'media.formatValues.' + entry.media.format | translate
+        }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="start-date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
+        'media.year' | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="text">{{ entry.media.startDate.year }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="genres">
+      <mat-header-cell *matHeaderCellDef>{{
+        'media.genres' | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <mat-list>
+          <mat-list-item *ngFor="let genre of entry.media.genres">
+            <mat-chip class="rounded">{{ genre }}</mat-chip>
+          </mat-list-item>
+        </mat-list>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
+        'media.score' | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="text">{{ entry.scoreRaw / 10 }}/10</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="episodes">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
+        getMediaTypeProgressLiteral(mediaType) | translate
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let entry">
+        <span class="text">{{ getMediaProgress(entry.media) }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
+    <mat-row
+      *matRowDef="let entry; columns: tableRows"
+      (click)="openDetailModal(entry.media)"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true"
+    (page)="onPageChange()"
+  >
+  </mat-paginator>
+</mat-card>
