@@ -83,6 +83,11 @@
       "success": "Actualizada entrada para \"{{ mediaTitle }}\"."
     }
   },
+  "manga": {
+    "userList": {
+      "title": "Lista de manga"
+    }
+  },
   "matPaginator": {
     "firstPageLabel": "Primera página",
     "itemsPerPageLabel": "Resultados por página",

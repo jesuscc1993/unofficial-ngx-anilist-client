@@ -29,6 +29,29 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   page: string;
   loginAvailable: boolean;
 
+  routes = [
+    {
+      path: 'anime-search',
+      icon: 'search',
+      literal: 'anime.search.title',
+    },
+    {
+      path: 'anime-dashboard',
+      icon: 'columns',
+      literal: 'anime.dashboard.title',
+    },
+    {
+      path: 'user-anime-list',
+      icon: 'th-list',
+      literal: 'anime.userList.title',
+    },
+    // {
+    //   path: 'user-manga-list',
+    //   icon: 'th-list',
+    //   literal: 'manga.userList.title',
+    // },
+  ];
+
   constructor(
     private router: Router,
     private authCommands: AuthCommands,

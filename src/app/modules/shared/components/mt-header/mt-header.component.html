@@ -8,17 +8,13 @@
   </div>
 
   <div class="centered-content section-links" *ngIf="user">
-    <a [routerLink]="animeSearchUrl" [class.active]="onPage(animeSearchUrl)">
-      <fa-icon name="search" class="section-icon"></fa-icon>
-      <span class="small">{{ 'anime.search.title' | translate }}</span>
-    </a>
-    <a [routerLink]="animeDashboardUrl" [class.active]="onPage(animeDashboardUrl)">
-      <fa-icon name="columns" class="section-icon"></fa-icon>
-      <span class="small">{{ 'anime.dashboard.title' | translate }}</span>
-    </a>
-    <a [routerLink]="userAnimeListUrl" [class.active]="onPage(userAnimeListUrl)">
-      <fa-icon name="th-list" class="section-icon"></fa-icon>
-      <span class="small">{{ 'anime.userList.title' | translate }}</span>
+    <a
+      *ngFor="let route of routes"
+      [routerLink]="route.path"
+      [class.active]="onPage(route.path)"
+    >
+      <fa-icon [name]="route.icon" class="section-icon"></fa-icon>
+      <span class="small">{{ route.literal | translate }}</span>
     </a>
   </div>
 

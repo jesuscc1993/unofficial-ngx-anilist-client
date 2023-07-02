@@ -1,23 +1,23 @@
 import { of } from 'rxjs';
-import { catchError, filter, takeUntil, tap } from 'rxjs/operators';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { rootUrl } from '../../app.constants';
-import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
+import { rootUrl } from '../../../../app.constants';
+import { downloadFile } from '../../../../utils/file.util';
+import { ScrollUtil } from '../../../../utils/generic.util';
 import {
   WithObservableOnDestroy,
-} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { TitleService } from '../../modules/shared/services/title.service';
-import { AuthStore } from '../../modules/shared/store/auth.store';
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { TitleService } from '../../../shared/services/title.service';
+import { AuthStore } from '../../../shared/store/auth.store';
 import {
   ListEntriesByStatus, ListEntryStatus,
-} from '../../modules/shared/types/anilist/listEntry.types';
-import { User } from '../../modules/shared/types/anilist/user.types';
-import { downloadFile } from '../../utils/file.util';
-import { ScrollUtil } from '../../utils/generic.util';
+} from '../../../shared/types/anilist/listEntry.types';
+import { User } from '../../../shared/types/anilist/user.types';
+import { AnimeCommands } from '../../commands/anime.commands';
 
 type Status = {
   value: ListEntryStatus;

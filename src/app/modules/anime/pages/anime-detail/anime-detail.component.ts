@@ -3,12 +3,12 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
   WithObservableOnDestroy,
-} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { TitleService } from '../../modules/shared/services/title.service';
-import { Media } from '../../modules/shared/types/anilist/media.types';
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { TitleService } from '../../../shared/services/title.service';
+import { Media } from '../../../shared/types/anilist/media.types';
+import { AnimeCommands } from '../../commands/anime.commands';
 
 @Component({
   selector: 'mt-anime-detail',

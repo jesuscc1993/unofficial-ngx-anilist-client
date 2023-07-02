@@ -4,7 +4,7 @@
       "finishedAiring": "Finished airing",
       "recentlyUpdated": "Latest list updates",
       "relatedMedia": "Related media",
-      "title": "Anime dashboard"
+      "title": "Anime board"
     },
     "search": {
       "filters": {
@@ -40,7 +40,7 @@
       "undefined": "Any"
     },
     "userList": {
-      "title": "User's anime list"
+      "title": "Anime list"
     }
   },
   "app": {
@@ -81,6 +81,11 @@
     },
     "update": {
       "success": "Updated list entry for \"{{ mediaTitle }}\"."
+    }
+  },
+  "manga": {
+    "userList": {
+      "title": "Manga list"
     }
   },
   "matPaginator": {

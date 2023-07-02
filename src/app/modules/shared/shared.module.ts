@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { NgxMultiLineEllipsisModule } from '@davidperis92/ngx-multi-line-ellipsis';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AnimeStore } from '../anime/store/anime.store';
 import { MaterialModule } from '../material/material.module';
 import { AuthApi } from './api/auth/auth.api';
 import { AuthCommands } from './commands/auth.commands';
@@ -68,7 +67,6 @@ const imports = [
     AuthCommands,
     AuthService,
     AuthStore,
-    AnimeStore,
     TitleService,
     ToastService,
   ],

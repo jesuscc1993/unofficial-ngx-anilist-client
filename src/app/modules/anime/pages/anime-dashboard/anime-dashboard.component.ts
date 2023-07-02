@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TitleService } from '../../modules/shared/services/title.service';
+import { TitleService } from '../../../shared/services/title.service';
 
 @Component({
   selector: 'mt-anime-dashboard',

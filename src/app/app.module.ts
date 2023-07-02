@@ -8,15 +8,26 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AnimeModule } from './modules/anime/anime.module';
+import {
+  AnimeDashboardPageComponent,
+} from './modules/anime/pages/anime-dashboard/anime-dashboard.component';
+import {
+  AnimeDetailPageComponent,
+} from './modules/anime/pages/anime-detail/anime-detail.component';
+import {
+  AnimeSearchPageComponent,
+} from './modules/anime/pages/anime-search/anime-search.component';
+import {
+  UserAnimeListPageComponent,
+} from './modules/anime/pages/user-anime-list/user-anime-list.component';
 import { MangaModule } from './modules/manga/manga.module';
+import {
+  UserMangaListPageComponent,
+} from './modules/manga/pages/user-manga-list/user-manga-list.component';
 import { MediaModule } from './modules/media/media.module';
 import { SharedModule } from './modules/shared/shared.module';
-import { AnimeDashboardPageComponent } from './pages/anime-dashboard/anime-dashboard.component';
-import { AnimeDetailPageComponent } from './pages/anime-detail/anime-detail.component';
-import { AnimeSearchPageComponent } from './pages/anime-search/anime-search.component';
 import { LoginPageComponent } from './pages/login/login.component';
 import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found.component';
-import { UserAnimeListPageComponent } from './pages/user-anime-list/user-anime-list.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
@@ -25,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'anime-dashboard', component: AnimeDashboardPageComponent },
   { path: 'anime-detail/:id', component: AnimeDetailPageComponent },
   { path: 'user-anime-list', component: UserAnimeListPageComponent },
+  { path: 'user-manga-list', component: UserMangaListPageComponent },
   { path: '**', component: PageNotFoundPageComponent },
 ];
 
@@ -52,15 +64,7 @@ const translationFactory = (
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundPageComponent,
-    LoginPageComponent,
-    AnimeDashboardPageComponent,
-    AnimeSearchPageComponent,
-    AnimeDetailPageComponent,
-    UserAnimeListPageComponent,
-  ],
+  declarations: [AppComponent, PageNotFoundPageComponent, LoginPageComponent],
   imports: [
     SharedModule,
     MediaModule,

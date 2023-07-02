@@ -8,26 +8,26 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../app.constants';
-import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
-import { AnimeStore } from '../../modules/anime/store/anime.store';
-import { SearchFilters } from '../../modules/media/api/media.types';
+import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../../../app.constants';
+import { SearchFilters } from '../../../media/api/media.types';
 import {
   MtSearchResultsTableComponent,
-} from '../../modules/media/components/mt-search-results-table/mt-search-results-table.component';
-import { getDateScalarFromYear } from '../../modules/media/domain/media.domain';
-import { AuthCommands } from '../../modules/shared/commands/auth.commands';
+} from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
+import { getDateScalarFromYear } from '../../../media/domain/media.domain';
+import { AuthCommands } from '../../../shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
-} from '../../modules/shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
   mediaCountries, mediaFormats, mediaStatuses,
-} from '../../modules/shared/constants/media.constants';
-import { TitleService } from '../../modules/shared/services/title.service';
-import { AuthStore } from '../../modules/shared/store/auth.store';
-import { Media, MediaSort } from '../../modules/shared/types/anilist/media.types';
-import { PageInfo } from '../../modules/shared/types/anilist/pageInfo.types';
-import { User } from '../../modules/shared/types/anilist/user.types';
+} from '../../../shared/constants/media.constants';
+import { TitleService } from '../../../shared/services/title.service';
+import { AuthStore } from '../../../shared/store/auth.store';
+import { Media, MediaSort } from '../../../shared/types/anilist/media.types';
+import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
+import { User } from '../../../shared/types/anilist/user.types';
+import { AnimeCommands } from '../../commands/anime.commands';
+import { AnimeStore } from '../../store/anime.store';
 
 @Component({
   selector: 'mt-anime-search',
