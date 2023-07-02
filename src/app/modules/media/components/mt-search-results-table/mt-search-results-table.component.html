@@ -75,7 +75,7 @@
 
   <ng-container matColumnDef="episodes">
     <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
-      getMediaTypeProgressLiteral(media.type) | translate
+      getMediaTypeProgressLiteral(mediaType) | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let media">
       <span class="text">{{ getMediaProgress(media) }}</span>

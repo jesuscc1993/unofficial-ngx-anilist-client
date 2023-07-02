@@ -12,7 +12,6 @@ export const basicMediaSorts = [
 ];
 
 export const mediaFormats = [
-  MediaFormat.MANGA,
   MediaFormat.MOVIE,
   MediaFormat.MUSIC,
   MediaFormat.ONA,

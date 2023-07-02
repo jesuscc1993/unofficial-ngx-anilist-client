@@ -7,26 +7,6 @@
       "title": "Panel de anime"
     },
     "search": {
-      "filters": {
-        "above": "por encima de",
-        "advanced": "Filtros avanzados",
-        "after": "después de",
-        "before": "antes de",
-        "below": "por debajo de",
-        "byTitle": "Filtrar por nombre",
-        "clear": "Limpiar filtros",
-        "countryOfOrigin": "País de origen",
-        "includedIn": "incluído en",
-        "notIncludedIn": "no incluído en",
-        "onList": "En lista",
-        "onListValues": {
-          "false": "No en lista",
-          "true": "En lista",
-          "undefined": "Ambos"
-        }
-      },
-      "limittedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
-      "submit": "Buscar",
       "title": "Búsqueda de anime"
     },
     "status": "Estado",
@@ -90,6 +70,9 @@
       "relatedMedia": "Media relacionada",
       "title": "Panel de manga"
     },
+    "search": {
+      "title": "Búsqueda de manga"
+    },
     "statusValues": {
       "COMPLETED": "Completado",
       "CURRENT": "Leyendo",
@@ -135,6 +118,29 @@
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
     "score": "Nota",
+    "search": {
+      "filters": {
+        "above": "por encima de",
+        "advanced": "Filtros avanzados",
+        "after": "después de",
+        "before": "antes de",
+        "below": "por debajo de",
+        "byTitle": "Filtrar por nombre",
+        "clear": "Limpiar filtros",
+        "countryOfOrigin": "País de origen",
+        "includedIn": "incluído en",
+        "notIncludedIn": "no incluído en",
+        "onList": "En lista",
+        "onListValues": {
+          "false": "No en lista",
+          "true": "En lista",
+          "undefined": "Ambos"
+        }
+      },
+      "limittedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
+      "submit": "Buscar",
+      "title": "Búsqueda de anime"
+    },
     "sortValues": {
       "END_DATE_DESC": "Fecha fin",
       "SCORE_DESC": "Nota",

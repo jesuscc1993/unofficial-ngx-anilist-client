@@ -39,6 +39,11 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       literal: 'anime.search.title',
     },
     {
+      path: 'manga-search',
+      icon: 'search',
+      literal: 'manga.search.title',
+    },
+    {
       path: 'anime-dashboard',
       icon: 'columns',
       literal: 'anime.dashboard.title',

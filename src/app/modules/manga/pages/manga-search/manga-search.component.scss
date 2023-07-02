@@ -1,0 +1,63 @@
+@import '../../../../styles/variables';
+
+mat-form-field {
+  width: 100%;
+}
+
+#searchInput {
+  $font-size: $font-size-m;
+  font-size: $font-size;
+  line-height: $font-size * 1.5;
+}
+
+.form-group {
+  max-width: $max-input-size;
+  margin: auto;
+
+  &.two-rows {
+    > * {
+      @media (min-width: #{$screen-xxs + 1}) {
+        max-width: calc(50% - #{$spacing-xs});
+
+        &:first-child {
+          float: left;
+        }
+        &:last-child {
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+.progress-placeholder {
+  height: 5px;
+}
+
+mat-card {
+  &:not(:first-of-type) {
+    margin-top: $spacing-s;
+  }
+}
+
+mat-expansion-panel-header {
+  padding: 0 $spacing-xxs;
+}
+
+@media (max-width: $screen-xxs) {
+  button {
+    width: 100%;
+  }
+}
+
+//@media (max-width: #{2 * ($page-padding + $card-padding + $expansion-panel-padding) + $max-input-size}) {
+//  mat-expansion-panel-header {
+//    max-width: $max-input-size;
+//    width: 100%;
+//    margin: auto;
+//    box-sizing: border-box;
+//
+//    padding-left: 0;
+//    padding-right: 0;
+//  }
+//}

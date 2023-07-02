@@ -7,26 +7,6 @@
       "title": "Anime board"
     },
     "search": {
-      "filters": {
-        "above": "above",
-        "advanced": "Advanced filters",
-        "after": "after",
-        "before": "before",
-        "below": "below",
-        "byTitle": "Filter by name",
-        "clear": "Clear filters",
-        "countryOfOrigin": "Country of origin",
-        "includedIn": "in",
-        "notIncludedIn": "not in",
-        "onList": "On list",
-        "onListValues": {
-          "false": "Not on list",
-          "true": "On list",
-          "undefined": "Both"
-        }
-      },
-      "limittedFeatures": "Search will be available but most other features will not.",
-      "submit": "Search",
       "title": "Anime search"
     },
     "status": "Status",
@@ -90,6 +70,9 @@
       "relatedMedia": "Related media",
       "title": "Manga board"
     },
+    "search": {
+      "title": "Manga search"
+    },
     "statusValues": {
       "COMPLETED": "Completed",
       "CURRENT": "Reading",
@@ -136,6 +119,28 @@
     "genres": "Genres",
     "goToDetail": "Go to full detail",
     "score": "Score",
+    "search": {
+      "filters": {
+        "above": "above",
+        "advanced": "Advanced filters",
+        "after": "after",
+        "before": "before",
+        "below": "below",
+        "byTitle": "Filter by name",
+        "clear": "Clear filters",
+        "countryOfOrigin": "Country of origin",
+        "includedIn": "in",
+        "notIncludedIn": "not in",
+        "onList": "On list",
+        "onListValues": {
+          "false": "Not on list",
+          "true": "On list",
+          "undefined": "Both"
+        }
+      },
+      "limittedFeatures": "Search will be available but most other features will not.",
+      "submit": "Search"
+    },
     "sortValues": {
       "END_DATE_DESC": "End Date",
       "SCORE_DESC": "Score",

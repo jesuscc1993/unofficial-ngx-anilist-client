@@ -9,6 +9,7 @@ export const accessTokenCookieKey = 'accessToken';
 export const userCookieKey = 'user';
 
 export const animeSearchUrl = '/anime-search';
+export const mangaSearchUrl = '/manga-search';
 export const animeDashboardUrl = '/anime-dashboard';
 export const userAnimeListUrl = '/user-anime-list';
 export const rootUrl = animeSearchUrl;

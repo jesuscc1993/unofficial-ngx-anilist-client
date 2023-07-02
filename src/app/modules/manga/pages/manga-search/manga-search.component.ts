@@ -9,8 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  animeSearchUrl,
   integerPattern,
+  mangaSearchUrl,
   pageSizeOptions,
 } from '../../../../app.constants';
 import { SearchFilters } from '../../../media/api/media.types';
@@ -20,7 +20,6 @@ import { AuthCommands } from '../../../shared/commands/auth.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
   mediaCountries,
-  mediaFormats,
   mediaStatuses,
 } from '../../../shared/constants/media.constants';
 import { TitleService } from '../../../shared/services/title.service';
@@ -28,15 +27,15 @@ import { AuthStore } from '../../../shared/store/auth.store';
 import { Media, MediaSort } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
-import { AnimeCommands } from '../../commands/anime.commands';
-import { AnimeStore } from '../../store/anime.store';
+import { MangaCommands } from '../../commands/manga.commands';
+import { MangaStore } from '../../store/manga.store';
 
 @Component({
-  selector: 'mt-anime-search',
-  templateUrl: './anime-search.component.html',
-  styleUrls: ['./anime-search.component.scss'],
+  selector: 'mt-manga-search',
+  templateUrl: './manga-search.component.html',
+  styleUrls: ['./manga-search.component.scss'],
 })
-export class AnimeSearchPageComponent
+export class MangaSearchPageComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
@@ -54,7 +53,6 @@ export class AnimeSearchPageComponent
 
   mediaGenres: string[];
   mediaCountries = mediaCountries;
-  mediaFormats = mediaFormats;
   mediaStatuses = mediaStatuses;
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
@@ -68,22 +66,22 @@ export class AnimeSearchPageComponent
     private activatedRoute: ActivatedRoute,
     private titleService: TitleService,
     private translateService: TranslateService,
-    private animeCommands: AnimeCommands,
+    private mangaCommands: MangaCommands,
     private authCommands: AuthCommands,
     private authStore: AuthStore,
-    private mediaStore: AnimeStore,
+    private mediaStore: MangaStore,
     private formBuilder: FormBuilder
   ) {
     super();
 
     this.titleService.setTitle(
-      this.translateService.instant('anime.search.title')
+      this.translateService.instant('manga.search.title')
     );
 
     this.user = this.authStore.getUser();
     this.setupForm();
 
-    this.animeCommands
+    this.mangaCommands
       .queryGenres()
       .pipe(
         tap((mediaGenres) => (this.mediaGenres = mediaGenres)),
@@ -166,7 +164,7 @@ export class AnimeSearchPageComponent
       sort: this.sort,
     };
 
-    this.animeCommands
+    this.mangaCommands
       .queryMedia(query, {
         pageIndex,
         perPage,
@@ -215,8 +213,6 @@ export class AnimeSearchPageComponent
         [Validators.pattern(integerPattern)],
       ],
       countryOfOrigin: [[]],
-      formatIn: [[]],
-      formatNotIn: [[]],
       genreIn: [[]],
       genreNotIn: [[]],
       onList: [undefined],
@@ -249,7 +245,7 @@ export class AnimeSearchPageComponent
       }
     });
 
-    this.router.navigate([animeSearchUrl], { queryParams });
+    this.router.navigate([mangaSearchUrl], { queryParams });
   }
 
   private isSet(variable: any): boolean {

@@ -18,6 +18,7 @@ import { AnimeSearchPageComponent } from './modules/anime/pages/anime-search/ani
 import { UserAnimeListPageComponent } from './modules/anime/pages/user-anime-list/user-anime-list.component';
 import { MangaModule } from './modules/manga/manga.module';
 import { MangaDashboardPageComponent } from './modules/manga/pages/manga-dashboard/manga-dashboard.component';
+import { MangaSearchPageComponent } from './modules/manga/pages/manga-search/manga-search.component';
 import { UserMangaListPageComponent } from './modules/manga/pages/user-manga-list/user-manga-list.component';
 import { MediaModule } from './modules/media/media.module';
 import { SharedModule } from './modules/shared/shared.module';
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/anime-search', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'anime-search', component: AnimeSearchPageComponent },
+  { path: 'manga-search', component: MangaSearchPageComponent },
   { path: 'anime-dashboard', component: AnimeDashboardPageComponent },
   { path: 'manga-dashboard', component: MangaDashboardPageComponent },
   { path: 'anime-detail/:id', component: AnimeDetailPageComponent },
