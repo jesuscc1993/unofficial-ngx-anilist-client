@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { userQuery } from '../../../anime/api/anime/anime-api.queries';
+import { userQuery } from '../../../anime/api/media/media.queries';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
 import { AniListApi } from '../api';

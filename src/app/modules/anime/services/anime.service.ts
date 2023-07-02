@@ -9,8 +9,8 @@ import { MediaSort } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
-import { SearchFilters } from '../api/anime/anime-api.types';
 import { AnimeApi } from '../api/anime/anime.api';
+import { SearchFilters } from '../api/media/media.types';
 import { getListEntriesByStatus } from '../domain/media.domain';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class AnimeService {
   constructor(private animeApi: AnimeApi, private mediaStore: MediaStore) {}
 
   getAnimeGenres() {
-    return this.animeApi.queryAnimeGenres();
+    return this.animeApi.queryGenres();
   }
 
   searchAnime(
@@ -123,7 +123,7 @@ export class AnimeService {
   }
 
   saveAnimeListEntry(listEntry: ListEntry): Observable<ListEntry> {
-    return this.animeApi.saveAnimeListEntry(listEntry).pipe(
+    return this.animeApi.saveMediaListEntry(listEntry).pipe(
       map((updatedListEntry) => ({ ...listEntry, ...updatedListEntry })),
       tap((updatedListEntry) => {
         this.mediaStore.updateAnimeListEntry({
@@ -138,7 +138,7 @@ export class AnimeService {
   }
 
   deleteAnimeListEntry(listEntry: ListEntry) {
-    return this.animeApi.deleteAnimeListEntry(listEntry).pipe(
+    return this.animeApi.deleteMediaListEntry(listEntry).pipe(
       tap(() => {
         this.mediaStore.deleteAnimeListEntry(listEntry);
       })

@@ -29,6 +29,11 @@ export class Anime extends MediaData {
 
 export type Media = Anime;
 
+export enum MediaType {
+  ANIME = 'ANIME',
+  MANGA = 'MANGA',
+}
+
 export enum MediaFormat {
   MOVIE = 'MOVIE',
   MUSIC = 'MUSIC',

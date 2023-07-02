@@ -1,6 +1,6 @@
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import {
-  Anime, Media, MediaListSort, MediaSort, MediaStatus,
+  Media, MediaListSort, MediaSort, MediaStatus,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
@@ -63,15 +63,11 @@ export type DeleteListEntryRequest = {
   id: number;
 };
 
-export type ToggleFavouriteMediaRequest = {
-  animeId: number;
-};
-
 /* dtos */
 export type SearchMediaDto = {
   Page: {
     pageInfo: PageInfo;
-    media: (Anime & {
+    media: (Media & {
       mediaListEntry: {
         id: number;
         scoreRaw: number;
@@ -155,9 +151,11 @@ export type FavouriteMediaDto = {
   User: {
     favourites: {
       anime: {
-        nodes: {
-          id: number;
-        }[];
+        nodes: { id: number }[];
+        pageInfo: PageInfo;
+      };
+      manga: {
+        nodes: { id: number }[];
         pageInfo: PageInfo;
       };
     };

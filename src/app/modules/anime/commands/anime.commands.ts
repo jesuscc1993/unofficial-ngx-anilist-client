@@ -12,7 +12,7 @@ import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
-import { SearchFilters } from '../api/anime/anime-api.types';
+import { SearchFilters } from '../api/media/media.types';
 import { MtPromptComponent, PromptData } from '../components/modals/mt-prompt/mt-prompt.component';
 import { sortListEntriesByMediaTitle } from '../domain/media.domain';
 import { AnimeService } from '../services/anime.service';

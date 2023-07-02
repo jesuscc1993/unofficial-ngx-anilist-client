@@ -11,12 +11,12 @@ import { User } from '../../../shared/types/anilist/user.types';
 import { MediaApi } from '../media/media.api';
 import { SearchFilters, ToggleFavouriteMediaResponseDto } from '../media/media.types';
 import {
-  animeListQuery, animeSearchQuery, listFavouriteAnimeQuery, toggleFavouriteAnimeEntryQuery,
-} from './anime.queries';
-import { ToggleFavouriteAnimeRequest } from './anime.types';
+  listFavouriteMangaQuery, mangaListQuery, mangaSearchQuery, toggleFavouriteMangaEntryQuery,
+} from './manga.queries';
+import { ToggleFavouriteMangaRequest } from './manga.types';
 
 @Injectable()
-export class AnimeApi extends MediaApi {
+export class MangaApi extends MediaApi {
   constructor(
     protected httpClient: HttpClient,
     protected authStore: AuthStore
@@ -24,49 +24,49 @@ export class AnimeApi extends MediaApi {
     super(httpClient, authStore);
   }
 
-  queryAnimeFromIds(
+  queryMangaFromIds(
     mediaIds: number[],
     query: SearchFilters,
     pageQuery?: PageQuery
   ) {
     return this.queryMediaFromIds(
-      MediaType.ANIME,
-      animeSearchQuery,
+      MediaType.MANGA,
+      mangaSearchQuery,
       mediaIds,
       query,
       pageQuery
     );
   }
 
-  queryAnimeSearch(query: SearchFilters, pageQuery?: PageQuery) {
-    return this.queryMediaSearch(MediaType.ANIME, query, pageQuery);
+  queryMangaSearch(query: SearchFilters, pageQuery?: PageQuery) {
+    return this.queryMediaSearch(MediaType.MANGA, query, pageQuery);
   }
 
-  queryAnimeList(user: User) {
-    return this.queryMediaList(MediaType.ANIME, animeListQuery, user);
+  queryMangaList(user: User) {
+    return this.queryMediaList(MediaType.MANGA, mangaListQuery, user);
   }
 
-  queryRelatedAnimeMediaIds(user: User) {
-    return this.queryRelatedMediaIds(MediaType.ANIME, user);
+  queryRelatedMangaMediaIds(user: User) {
+    return this.queryRelatedMediaIds(MediaType.MANGA, user);
   }
 
-  queryAnimeListFavouriteIDs(
+  queryMangaListFavouriteIDs(
     user: User,
     callback: (favouriteIDs: number[]) => void
   ) {
     this.queryMediaListFavouriteIDs(
-      MediaType.ANIME,
-      listFavouriteAnimeQuery,
+      MediaType.MANGA,
+      listFavouriteMangaQuery,
       user,
       callback
     );
   }
 
-  toggleAnimeFavouriteEntry(listEntry: ListEntry) {
+  toggleMangaFavouriteEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<
       ToggleFavouriteMediaResponseDto,
-      ToggleFavouriteAnimeRequest
-    >(toggleFavouriteAnimeEntryQuery, { animeId: listEntry.media.id }).pipe(
+      ToggleFavouriteMangaRequest
+    >(toggleFavouriteMangaEntryQuery, { mangaId: listEntry.media.id }).pipe(
       map((response) => this.getResponseData(response).ToggleFavourite)
     );
   }

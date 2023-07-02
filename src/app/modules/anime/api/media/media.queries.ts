@@ -1,5 +1,5 @@
-const filterTypes: { [key: string]: string } = {};
-const filterMappings: { [key: string]: string } = {};
+export const filterTypes: { [key: string]: string } = {};
+export const filterMappings: { [key: string]: string } = {};
 
 /* filters */
 
@@ -70,7 +70,7 @@ filterMappings.media = `
 
 /* fields */
 
-const pageInfoFields = `
+export const pageInfoFields = `
   currentPage
   hasNextPage
   lastPage
@@ -78,7 +78,7 @@ const pageInfoFields = `
   total
 `;
 
-const listEntryFields = `
+export const listEntryFields = `
   id
   scoreRaw: score (
     format: POINT_100
@@ -89,22 +89,20 @@ const listEntryFields = `
   updatedAt
 `;
 
-const mediaFields = `
+export const basicMediaFields = `
   id
   mediaListEntry {
     ${listEntryFields}
   }
 `;
 
-const animeFields = `${mediaFields}
+export const mediaFields = `${basicMediaFields}
   averageScore
   coverImage {
     large
     medium
   }
   description
-  duration
-  episodes
   format
   genres
   id
@@ -131,12 +129,6 @@ const animeFields = `${mediaFields}
   }
   title {
     romaji
-  }
-`;
-
-const animeListEntryFields = `${listEntryFields}
-  media {
-    ${animeFields}
   }
 `;
 
@@ -186,43 +178,7 @@ export const mediaIdSearchQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${mediaFields}
-      }
-    }
-  }
-`;
-
-export const mediaSearchQuery = `
-  query (
-    ${filterTypes.media}
-    ${filterTypes.page}
-  ) {
-    Page (
-      ${filterMappings.page}
-    ) {
-      pageInfo {
-        ${pageInfoFields}
-      }
-      media (
-        ${filterMappings.media}
-      ) {
-        ${animeFields}
-      }
-    }
-  }
-`;
-
-export const listQuery = `
-  query (
-    ${filterTypes.mediaCollection}
-  ) {
-    MediaListCollection (
-      ${filterMappings.mediaCollection}
-    ) {
-      lists {
-        entries {
-          ${animeListEntryFields}
-        }
+        ${basicMediaFields}
       }
     }
   }
@@ -284,31 +240,7 @@ export const finishedAiringMediaQuery = `
       media (
         ${filterMappings.media}
       ) {
-        ${mediaFields}
-      }
-    }
-  }
-`;
-
-export const listFavouritesQuery = `
-  query (
-    $userId: Int!,
-    $page: Int
-  ) {
-    User (
-      id: $userId
-    ) {
-      favourites {
-        anime (
-          page: $page
-        ) {
-          nodes {
-            id
-          }
-          pageInfo {
-            ${pageInfoFields}
-          }
-        }
+        ${basicMediaFields}
       }
     }
   }
@@ -346,12 +278,22 @@ export const deleteListEntryQuery = `
 
 export const toggleFavouriteEntryQuery = `
   mutation (
-    $animeId: Int
+    $animeId: Int,
+    $mangaId: Int,
   ) {
     ToggleFavourite (
-      animeId: $animeId
+      animeId: $animeId,
+      mangaId: $animeId,
     ) {
       anime {
+        nodes {
+          id
+          title {
+            romaji
+          }
+        }
+      }
+      manga {
         nodes {
           id
           title {

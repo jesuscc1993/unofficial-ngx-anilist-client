@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../app.constants';
-import { SearchFilters } from '../../modules/anime/api/anime/anime-api.types';
+import { SearchFilters } from '../../modules/anime/api/media/media.types';
 import { AnimeCommands } from '../../modules/anime/commands/anime.commands';
 import {
   MtSearchResultsTableComponent,
