@@ -24,7 +24,11 @@ import {
 } from '../../../shared/constants/media.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { Media, MediaSort } from '../../../shared/types/anilist/media.types';
+import {
+  Media,
+  MediaFormat,
+  MediaSort,
+} from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { MangaCommands } from '../../commands/manga.commands';
@@ -213,6 +217,7 @@ export class MangaSearchPageComponent
         [Validators.pattern(integerPattern)],
       ],
       countryOfOrigin: [[]],
+      formatIn: [[MediaFormat.MANGA]],
       genreIn: [[]],
       genreNotIn: [[]],
       onList: [undefined],

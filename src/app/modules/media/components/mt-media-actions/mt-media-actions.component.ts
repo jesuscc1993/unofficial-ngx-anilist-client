@@ -6,20 +6,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { defaultModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
-import {
-  MtListEntryFormModalComponent,
-} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-actions',
@@ -125,7 +122,9 @@ export class MtMediaActionsComponent
   }
 
   openOnAniList() {
-    window.open(`https://anilist.co/anime/${this.media.id}`);
+    window.open(
+      `https://anilist.co/${this.media.type.toLowerCase()}/${this.media.id}`
+    );
   }
 
   isUpdateAvailable(): boolean {
