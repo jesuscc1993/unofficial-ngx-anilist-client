@@ -41,8 +41,6 @@
       (onPress)="setAsPlanning()"
       >{{ 'media.userList.setAsPlanning' | translate }}</mt-menu-action
     >
-
-    <mat-divider></mat-divider>
   </div>
 
   <div>
@@ -73,5 +71,11 @@
 
   <mt-menu-action (onPress)="openOnAniList()" icon="external-link-alt">{{
     'media.viewOnAniList' | translate
+  }}</mt-menu-action>
+
+  <mat-divider></mat-divider>
+
+  <mt-menu-action (onPress)="searchImages()" icon="image">{{
+    'media.searchImages' | translate
   }}</mt-menu-action>
 </mat-menu>

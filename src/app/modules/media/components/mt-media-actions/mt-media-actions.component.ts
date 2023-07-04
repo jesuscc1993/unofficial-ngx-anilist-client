@@ -127,6 +127,14 @@ export class MtMediaActionsComponent
     );
   }
 
+  searchImages() {
+    window.open(
+      `https://duckduckgo.com/?iax=images&ia=images&q=${
+        this.media.title.romaji
+      }+${this.media.type.toLowerCase()}`
+    );
+  }
+
   isUpdateAvailable(): boolean {
     return !!this.listEntry && !!this.user;
   }
