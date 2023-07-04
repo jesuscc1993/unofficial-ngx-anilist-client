@@ -141,6 +141,7 @@
       "submit": "Buscar",
       "title": "Búsqueda de anime"
     },
+    "searchImages": "Buscar imágenes",
     "sortValues": {
       "END_DATE_DESC": "Fecha fin",
       "SCORE_DESC": "Nota",

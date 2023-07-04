@@ -141,6 +141,7 @@
       "limittedFeatures": "Search will be available but most other features will not.",
       "submit": "Search"
     },
+    "searchImages": "Search images",
     "sortValues": {
       "END_DATE_DESC": "End Date",
       "SCORE_DESC": "Score",
