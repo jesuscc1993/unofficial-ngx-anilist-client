@@ -109,15 +109,22 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   private filterEntries() {
-    this.filteredEntries =
-      this.mediaType === MediaType.ANIME
-        ? this.listEntries.filter(
-            (entry) =>
-              (!this.selectedFormats.length ||
-                this.selectedFormats.includes(entry.media.format)) &&
-              (!this.selectedStatuses.length ||
-                this.selectedStatuses.includes(entry.status))
-          )
-        : this.listEntries;
+    this.filteredEntries = this.listEntries.filter(
+      (entry) => this.isFormatValid(entry) && this.isStatusValid(entry)
+    );
+  }
+
+  private isFormatValid(entry: ListEntry) {
+    if (this.mediaType === MediaType.MANGA || !this.selectedFormats.length) {
+      return true;
+    }
+    return this.selectedFormats.includes(entry.media.format);
+  }
+
+  private isStatusValid(entry: ListEntry) {
+    if (!this.selectedStatuses.length) {
+      return true;
+    }
+    return this.selectedStatuses.includes(entry.status);
   }
 }
