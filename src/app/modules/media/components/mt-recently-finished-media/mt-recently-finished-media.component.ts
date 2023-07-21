@@ -106,12 +106,16 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   private filterEntries() {
-    this.filteredEntries =
-      this.mediaType === MediaType.ANIME && this.selectedFormats.length
-        ? this.listEntries.filter((entry) =>
-            this.selectedFormats.includes(entry.media.format)
-          )
-        : this.listEntries;
+    this.filteredEntries = this.listEntries.filter((entry) =>
+      this.isFormatValid(entry)
+    );
+  }
+
+  private isFormatValid(entry: ListEntry) {
+    if (this.mediaType === MediaType.MANGA || !this.selectedFormats.length) {
+      return true;
+    }
+    return this.selectedFormats.includes(entry.media.format);
   }
 
   private sortEntries() {
