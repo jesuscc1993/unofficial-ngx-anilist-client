@@ -1,20 +1,23 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { defaultModalOptions } from '../../../../../app.constants';
+import { defaultMediumModalOptions } from '../../../../../app.constants';
 import { AnimeCommands } from '../../../../anime/commands/anime.commands';
+import { WithObservableOnDestroy } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { ListEntry, ListEntryStatus } from '../../../../shared/types/anilist/listEntry.types';
+  ListEntry,
+  ListEntryStatus,
+} from '../../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
-import {
-  MtListEntryFormModalComponent,
-} from '../mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import { MtListEntryFormModalComponent } from '../mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 
 type MediaDetailModalParameters = {
   media: Media;
@@ -54,7 +57,7 @@ export class MtMediaDetailModalComponent extends WithObservableOnDestroy {
 
   openEditionModal() {
     this.dialog.open(MtListEntryFormModalComponent, {
-      ...defaultModalOptions,
+      ...defaultMediumModalOptions,
       data: {
         origin: this.origin || 'edit',
         listEntry: { ...this.media.mediaListEntry, media: this.media },

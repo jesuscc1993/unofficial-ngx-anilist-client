@@ -1,21 +1,34 @@
 import {
-  AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { defaultModalOptions, pageSizeOptions } from '../../../../app.constants';
+import {
+  defaultModalOptions,
+  pageSizeOptions,
+} from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
-import { getMediaProgress, getMediaTypeProgressLiteral } from '../../domain/media.domain';
 import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+  getMediaProgress,
+  getMediaTypeProgressLiteral,
+} from '../../domain/media.domain';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-user-media-list-table',
@@ -71,7 +84,6 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   openDetailModal(media: Media) {
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
-      maxWidth: '800px',
       data: {
         media,
         origin: ModalOrigin.View,

@@ -1,5 +1,12 @@
 import {
-  AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,14 +15,18 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { defaultModalOptions } from '../../../../app.constants';
 import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
-import { Anime, Media, MediaSort } from '../../../shared/types/anilist/media.types';
+import {
+  Anime,
+  Media,
+  MediaSort,
+} from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getMediaProgress, getMediaSortFromSort, getMediaTypeProgressLiteral,
+  getMediaProgress,
+  getMediaSortFromSort,
+  getMediaTypeProgressLiteral,
 } from '../../domain/media.domain';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-search-results-table',
@@ -64,7 +75,6 @@ export class MtSearchResultsTableComponent
   openDetailModal(media: Media) {
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
-      maxWidth: '800px',
       data: {
         media,
         origin: ModalOrigin.View,
