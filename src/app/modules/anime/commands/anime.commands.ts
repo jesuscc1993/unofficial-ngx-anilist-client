@@ -77,7 +77,6 @@ export class AnimeCommands implements MediaCommandsInterface {
       this.dialog.open(MtPromptComponent, {
         ...defaultModalOptions,
         minWidth: '160px',
-        maxWidth: '800px',
         data: {
           confirm,
           cancel,

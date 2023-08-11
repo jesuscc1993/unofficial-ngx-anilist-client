@@ -9,12 +9,16 @@ import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
 import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
 import {
-  MtPromptComponent, PromptData,
+  MtPromptComponent,
+  PromptData,
 } from '../../media/components/modals/mt-prompt/mt-prompt.component';
 import { sortListEntriesByMediaTitle } from '../../media/domain/media.domain';
 import { ToastService } from '../../shared/services/toast.service';
 import { AuthStore } from '../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
@@ -77,7 +81,6 @@ export class MangaCommands implements MediaCommandsInterface {
       this.dialog.open(MtPromptComponent, {
         ...defaultModalOptions,
         minWidth: '160px',
-        maxWidth: '800px',
         data: {
           confirm,
           cancel,

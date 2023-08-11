@@ -22,5 +22,10 @@ export const pageSizeOptions = [5, 10, 25, 50];
 export const defaultModalOptions: ModalOptions = {
   minWidth: '480px',
   width: 'auto',
+  maxWidth: '896px',
+};
+
+export const defaultMediumModalOptions: ModalOptions = {
+  ...defaultModalOptions,
   maxWidth: '672px',
 };

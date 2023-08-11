@@ -14,6 +14,7 @@ export class MediaData {
   format: MediaFormat;
   genres: string[];
   id: number;
+  meanScore: number;
   mediaListEntry: ListEntry;
   startDate: FuzzyDate;
   status: MediaStatus;

@@ -116,6 +116,7 @@ export const mediaFields = `${basicMediaFields}
     month
     day
   }
+  meanScore
   status
   studios(isMain: true) {
     nodes {

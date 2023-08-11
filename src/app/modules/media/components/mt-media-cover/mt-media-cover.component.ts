@@ -3,21 +3,18 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { defaultModalOptions } from '../../../../app.constants';
-import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+  defaultMediumModalOptions,
+  defaultModalOptions,
+} from '../../../../app.constants';
+import { AnimeCommands } from '../../../anime/commands/anime.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
-import {
-  MtListEntryFormModalComponent,
-} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-cover',
@@ -56,7 +53,6 @@ export class MtMediaCoverComponent
 
     this.dialog.open(MtMediaDetailModalComponent, {
       ...defaultModalOptions,
-      maxWidth: '800px',
       data: {
         origin: ModalOrigin.View,
         media: this.media,
@@ -68,7 +64,7 @@ export class MtMediaCoverComponent
     event.stopPropagation();
 
     this.dialog.open(MtListEntryFormModalComponent, {
-      ...defaultModalOptions,
+      ...defaultMediumModalOptions,
       data: {
         origin: 'edit',
         listEntry: { ...this.listEntry, media: this.media },

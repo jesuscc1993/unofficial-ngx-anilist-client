@@ -96,6 +96,7 @@
   },
   "media": {
     "additionalInfo": "Additional info",
+    "averageScore": "Average",
     "chapters": "Chapters",
     "cover": "Cover",
     "description": "Description",
@@ -119,6 +120,7 @@
     "genre": "Genre",
     "genres": "Genres",
     "goToDetail": "Go to full detail",
+    "meanScore": "Mean",
     "score": "Score",
     "search": {
       "filters": {
