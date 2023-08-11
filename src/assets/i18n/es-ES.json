@@ -96,6 +96,7 @@
   },
   "media": {
     "additionalInfo": "Más información",
+    "averageScore": "Media",
     "chapters": "Capítulos",
     "cover": "Imagen",
     "description": "Descripción",
@@ -118,6 +119,7 @@
     "genre": "Género",
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
+    "meanScore": "Modo",
     "score": "Nota",
     "search": {
       "filters": {

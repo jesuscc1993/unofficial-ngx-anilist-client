@@ -100,7 +100,22 @@
         class="property-value-pair flex-box"
       >
         <strong class="property">{{ 'media.score' | translate }}:</strong>
-        <span class="value">{{ media.averageScore / 10 }}/10</span>
+        <span class="value">
+          <span *ngIf="media.averageScore === media.meanScore">
+            {{ media.averageScore / 10 }}
+          </span>
+          <span *ngIf="media.averageScore !== media.meanScore">
+            <span title="{{ 'media.averageScore' | translate }}">
+              {{ media.averageScore / 10 }}</span
+            >
+            /
+            <span title="{{ 'media.meanScore' | translate }}">
+              {{ media.meanScore / 10 }}
+            </span>
+          </span>
+          /
+          <span>10</span>
+        </span>
       </p>
     </div>
   </div>
