@@ -26,7 +26,7 @@ import {
 import {
   DeleteListEntryDto,
   DeleteListEntryRequest,
-  FavoriteMediaDto,
+  FavouriteMediaDto,
   GenreCollectionDto,
   ListMediaDto,
   MediaFilters,
@@ -166,13 +166,13 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected _queryFavoriteIDs(
+  protected _queryFavouriteIDs(
     mediaType: MediaType,
     mediaQuery: string,
     user: User,
-    callback: (favoriteIDs: number[]) => void
+    callback: (favouriteIDs: number[]) => void
   ) {
-    this._queryFavoriteIdsResultsPage(
+    this._queryFavouriteIdsResultsPage(
       mediaType,
       mediaQuery,
       { userId: user.id, page: 0 },
@@ -181,14 +181,14 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected _queryFavoriteIdsResultsPage(
+  protected _queryFavouriteIdsResultsPage(
     mediaType: MediaType,
     mediaQuery: string,
     options: { userId: number; page: number },
-    favoriteIds: number[],
-    callback: (favoriteIds: number[]) => void
+    favouriteIds: number[],
+    callback: (favouriteIds: number[]) => void
   ) {
-    return this.postGraphQlRequest<FavoriteMediaDto, PagedSearchFilters>(
+    return this.postGraphQlRequest<FavouriteMediaDto, PagedSearchFilters>(
       mediaQuery,
       options
     )
@@ -198,29 +198,29 @@ export class MediaApi extends AniListApi {
           if (
             responseData &&
             responseData.User &&
-            responseData.User.favorites
+            responseData.User.favourites
           ) {
-            const favoritesData =
+            const favouritesData =
               mediaType === MediaType.ANIME
-                ? responseData.User.favorites.anime
-                : responseData.User.favorites.manga;
+                ? responseData.User.favourites.anime
+                : responseData.User.favourites.manga;
 
-            favoriteIds = [
-              ...favoriteIds,
-              ...favoritesData.nodes.map((node) => node.id),
+            favouriteIds = [
+              ...favouriteIds,
+              ...favouritesData.nodes.map((node) => node.id),
             ];
 
-            if (favoritesData.pageInfo.hasNextPage) {
+            if (favouritesData.pageInfo.hasNextPage) {
               options.page++;
-              this._queryFavoriteIdsResultsPage(
+              this._queryFavouriteIdsResultsPage(
                 mediaType,
                 mediaQuery,
                 options,
-                favoriteIds,
+                favouriteIds,
                 callback
               );
             } else {
-              callback(favoriteIds);
+              callback(favouriteIds);
             }
           }
         })

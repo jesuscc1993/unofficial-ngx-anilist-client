@@ -9,7 +9,10 @@ import { SearchFilters } from './media.types';
 export interface MediaApiInterface {
   deleteListEntry(listEntry: ListEntry): Observable<{ deleted: boolean }>;
 
-  queryFavoriteIDs(user: User, callback: (favoriteIDs: number[]) => void): void;
+  queryFavouriteIDs(
+    user: User,
+    callback: (favouriteIDs: number[]) => void
+  ): void;
 
   queryGenres(): Observable<string[]>;
 
@@ -36,5 +39,5 @@ export interface MediaApiInterface {
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry>;
 
-  toggleFavorite(media: Media): Observable<number>;
+  toggleFavourite(media: Media): Observable<number>;
 }

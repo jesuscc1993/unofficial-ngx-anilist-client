@@ -7,6 +7,6 @@ export type MediaDictionary<MediaType> = {
 
 export type MediaStoreState = {
   mediaDictionary: MediaDictionary<Media>;
-  mediaFavoriteIDs?: number[];
+  mediaFavouriteIDs?: number[];
   mediaListEntries?: ListEntry[];
 };

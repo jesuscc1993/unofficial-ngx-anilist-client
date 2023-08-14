@@ -93,8 +93,8 @@ export type DeleteListEntryDto = {
   };
 };
 
-export type ToggleFavoriteMediaResponseDto = {
-  ToggleFavorite: number;
+export type ToggleFavouriteMediaResponseDto = {
+  ToggleFavourite: number;
 };
 
 export type ListEntriesPageDto = {
@@ -153,9 +153,9 @@ export type RelatedMediaIdsDto = {
   };
 };
 
-export type FavoriteMediaDto = {
+export type FavouriteMediaDto = {
   User: {
-    favorites: {
+    favourites: {
       anime: {
         nodes: { id: number }[];
         pageInfo: PageInfo;

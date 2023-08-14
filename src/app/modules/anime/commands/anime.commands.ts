@@ -52,8 +52,8 @@ export class AnimeCommands implements MediaCommandsInterface {
     return this.animeService.queryListEntries(this.authStore.getUser());
   }
 
-  queryFavoriteIDs(user: User) {
-    return this.animeService.queryFavoriteIDs(user);
+  queryFavouriteIDs(user: User) {
+    return this.animeService.queryFavouriteIDs(user);
   }
 
   queryRelatedMediaIds() {
@@ -125,13 +125,13 @@ export class AnimeCommands implements MediaCommandsInterface {
     return this.animeService.queryMedia(query, pageQuery);
   }
 
-  toggleFavorite(user: User, media: Media) {
-    return this.animeService.toggleFavorite(user, media).pipe(
+  toggleFavourite(user: User, media: Media) {
+    return this.animeService.toggleFavourite(user, media).pipe(
       tap((mediaId) => {
         const success = mediaId !== undefined;
         if (success) {
           this.toastService.showToast(
-            this.translateService.instant('listEntry.favoriteToggle.success', {
+            this.translateService.instant('listEntry.favouriteToggle.success', {
               mediaTitle: media.title.romaji,
             })
           );
@@ -144,8 +144,8 @@ export class AnimeCommands implements MediaCommandsInterface {
     return this.animeService.getListEntriesGroupedByStatus();
   }
 
-  getFavoriteIDs() {
-    return this.animeService.getFavoriteIDs();
+  getFavouriteIDs() {
+    return this.animeService.getFavouriteIDs();
   }
 
   getListEntries() {

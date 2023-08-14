@@ -32,7 +32,7 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
   user: User;
   listEntriesByStatus: ListEntriesByStatus;
   statuses: Status[];
-  favoriteIDs: number[];
+  favouriteIDs: number[];
 
   loggedIn: boolean;
   ready: boolean;
@@ -104,19 +104,19 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
     }
   }
 
-  private getListFavoriteIDs() {
+  private getListFavouriteIDs() {
     if (this.user) {
       this.mangaCommands
-        .getFavoriteIDs()
+        .getFavouriteIDs()
         .pipe(
-          tap((favoriteIDs) => {
-            this.favoriteIDs = favoriteIDs;
+          tap((favouriteIDs) => {
+            this.favouriteIDs = favouriteIDs;
           }),
           takeUntil(this.destroyed$)
         )
         .subscribe();
 
-      this.mangaCommands.queryFavoriteIDs(this.user);
+      this.mangaCommands.queryFavouriteIDs(this.user);
     }
   }
 
@@ -150,11 +150,11 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
   private updateListData() {
     this.listEntriesByStatus = undefined;
     this.statuses = undefined;
-    this.favoriteIDs = undefined;
+    this.favouriteIDs = undefined;
     this.ready = false;
 
     this.getUserList();
-    this.getListFavoriteIDs();
+    this.getListFavouriteIDs();
   }
 
   private preventDefault(event: Event) {

@@ -56,7 +56,7 @@
     "deletion": {
       "success": "Eliminada entrada para \"{{ mediaTitle }}\"."
     },
-    "favoriteToggle": {
+    "favouriteToggle": {
       "success": "Alternada entrada para \"{{ mediaTitle }} como favorita\"."
     },
     "update": {
@@ -173,7 +173,7 @@
       "noEntries": "Sin entradas añadidas aún.",
       "setAsPlanning": "Guardar como planeado",
       "show": "Mostrar",
-      "toggleFavorite": "Alternar favorito",
+      "toggleFavourite": "Alternar favorito",
       "updateEntry": "Actualizar entrada"
     },
     "viewOnAniList": "Ver en AniList",

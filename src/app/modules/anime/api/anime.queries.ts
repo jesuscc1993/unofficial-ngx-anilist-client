@@ -57,7 +57,7 @@ export const animeListQuery = `
   }
 `;
 
-export const listFavoriteAnimeQuery = `
+export const listFavouriteAnimeQuery = `
   query (
     $userId: Int!,
     $page: Int
@@ -65,7 +65,7 @@ export const listFavoriteAnimeQuery = `
     User (
       id: $userId
     ) {
-      favorites {
+      favourites {
         anime (
           page: $page
         ) {
@@ -81,11 +81,11 @@ export const listFavoriteAnimeQuery = `
   }
 `;
 
-export const toggleFavoriteAnimeEntryQuery = `
+export const toggleFavouriteAnimeEntryQuery = `
   mutation (
     $animeId: Int
   ) {
-    ToggleFavorite (
+    ToggleFavourite (
       animeId: $animeId
     ) {
       anime {

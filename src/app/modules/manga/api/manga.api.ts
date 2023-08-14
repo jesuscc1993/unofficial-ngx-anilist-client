@@ -7,19 +7,19 @@ import { MediaApi } from '../../media/api/media.api';
 import { MediaApiInterface } from '../../media/api/media.api.interface';
 import {
   SearchFilters,
-  ToggleFavoriteMediaResponseDto,
+  ToggleFavouriteMediaResponseDto,
 } from '../../media/api/media.types';
 import { AuthStore } from '../../shared/store/auth.store';
 import { Media, MediaType } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import {
-  listFavoriteMangaQuery,
+  listFavouriteMangaQuery,
   mangaListQuery,
   mangaSearchQuery,
-  toggleFavoriteMangaEntryQuery,
+  toggleFavouriteMangaEntryQuery,
 } from './manga.queries';
-import { ToggleFavoriteMangaRequest } from './manga.types';
+import { ToggleFavouriteMangaRequest } from './manga.types';
 
 @Injectable()
 export class MangaApi extends MediaApi implements MediaApiInterface {
@@ -56,21 +56,21 @@ export class MangaApi extends MediaApi implements MediaApiInterface {
     return this._queryRelatedMediaIds(MediaType.MANGA, user);
   }
 
-  queryFavoriteIDs(user: User, callback: (favoriteIDs: number[]) => void) {
-    this._queryFavoriteIDs(
+  queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+    this._queryFavouriteIDs(
       MediaType.MANGA,
-      listFavoriteMangaQuery,
+      listFavouriteMangaQuery,
       user,
       callback
     );
   }
 
-  toggleFavorite(manga: Media) {
+  toggleFavourite(manga: Media) {
     return this.postGraphQlRequest<
-      ToggleFavoriteMediaResponseDto,
-      ToggleFavoriteMangaRequest
-    >(toggleFavoriteMangaEntryQuery, { mangaId: manga.id }).pipe(
-      map((response) => this.getResponseData(response).ToggleFavorite)
+      ToggleFavouriteMediaResponseDto,
+      ToggleFavouriteMangaRequest
+    >(toggleFavouriteMangaEntryQuery, { mangaId: manga.id }).pipe(
+      map((response) => this.getResponseData(response).ToggleFavourite)
     );
   }
 }

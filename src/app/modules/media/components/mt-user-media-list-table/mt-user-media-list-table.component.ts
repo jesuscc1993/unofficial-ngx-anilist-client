@@ -36,7 +36,7 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   styleUrls: ['./mt-user-media-list-table.component.scss'],
 })
 export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
-  @Input() favoriteIDs: number[];
+  @Input() favouriteIDs: number[];
   @Input() filter?: string;
   @Input() mediaType: MediaType;
   @Input() tableData: ListEntry[];

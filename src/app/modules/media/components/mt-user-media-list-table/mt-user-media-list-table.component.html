@@ -34,8 +34,8 @@
       <mat-cell *matCellDef="let entry">
         <span class="text">
           <span>{{ entry.media.title.romaji }}</span>
-          <span *ngIf="favoriteIDs?.includes(entry.media.id)">
-            {{ ' ' }}<fa-icon name="heart" class="favorite"></fa-icon>
+          <span *ngIf="favouriteIDs?.includes(entry.media.id)">
+            {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
           </span>
         </span>
       </mat-cell>

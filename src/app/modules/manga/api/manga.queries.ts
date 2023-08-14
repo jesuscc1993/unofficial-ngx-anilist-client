@@ -57,7 +57,7 @@ export const mangaListQuery = `
   }
 `;
 
-export const listFavoriteMangaQuery = `
+export const listFavouriteMangaQuery = `
   query (
     $userId: Int!,
     $page: Int
@@ -65,7 +65,7 @@ export const listFavoriteMangaQuery = `
     User (
       id: $userId
     ) {
-      favorites {
+      favourites {
         manga (
           page: $page
         ) {
@@ -81,11 +81,11 @@ export const listFavoriteMangaQuery = `
   }
 `;
 
-export const toggleFavoriteMangaEntryQuery = `
+export const toggleFavouriteMangaEntryQuery = `
   mutation (
     $mangaId: Int
   ) {
-    ToggleFavorite (
+    ToggleFavourite (
       mangaId: $mangaId
     ) {
       manga {

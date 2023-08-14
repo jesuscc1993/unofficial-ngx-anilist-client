@@ -112,9 +112,9 @@ export class MediaService {
     return this.mediaApi.queryRelatedMediaIds(user);
   }
 
-  queryFavoriteIDs(user: User) {
-    return this.mediaApi.queryFavoriteIDs(user, (favoriteIDs: number[]) => {
-      this.mediaStore.setMediaFavoriteIDs(favoriteIDs);
+  queryFavouriteIDs(user: User) {
+    return this.mediaApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
+      this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
     });
   }
 
@@ -141,10 +141,10 @@ export class MediaService {
     );
   }
 
-  toggleFavorite(user: User, media: Media) {
-    return this.mediaApi.toggleFavorite(media).pipe(
+  toggleFavourite(user: User, media: Media) {
+    return this.mediaApi.toggleFavourite(media).pipe(
       tap(() => {
-        this.queryFavoriteIDs(user);
+        this.queryFavouriteIDs(user);
       })
     );
   }
@@ -157,8 +157,8 @@ export class MediaService {
       );
   }
 
-  getFavoriteIDs() {
-    return this.mediaStore.onFavoriteIDsChanges();
+  getFavouriteIDs() {
+    return this.mediaStore.onFavouriteIDsChanges();
   }
 
   getListEntries() {

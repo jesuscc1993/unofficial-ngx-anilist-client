@@ -7,7 +7,7 @@ import { MediaApi } from '../../media/api/media.api';
 import { MediaApiInterface } from '../../media/api/media.api.interface';
 import {
   SearchFilters,
-  ToggleFavoriteMediaResponseDto,
+  ToggleFavouriteMediaResponseDto,
 } from '../../media/api/media.types';
 import { AuthStore } from '../../shared/store/auth.store';
 import { Media, MediaType } from '../../shared/types/anilist/media.types';
@@ -16,10 +16,10 @@ import { User } from '../../shared/types/anilist/user.types';
 import {
   animeListQuery,
   animeSearchQuery,
-  listFavoriteAnimeQuery,
-  toggleFavoriteAnimeEntryQuery,
+  listFavouriteAnimeQuery,
+  toggleFavouriteAnimeEntryQuery,
 } from './anime.queries';
-import { ToggleFavoriteAnimeRequest } from './anime.types';
+import { ToggleFavouriteAnimeRequest } from './anime.types';
 
 @Injectable()
 export class AnimeApi extends MediaApi implements MediaApiInterface {
@@ -56,21 +56,21 @@ export class AnimeApi extends MediaApi implements MediaApiInterface {
     return this._queryRelatedMediaIds(MediaType.ANIME, user);
   }
 
-  queryFavoriteIDs(user: User, callback: (favoriteIDs: number[]) => void) {
-    this._queryFavoriteIDs(
+  queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
+    this._queryFavouriteIDs(
       MediaType.ANIME,
-      listFavoriteAnimeQuery,
+      listFavouriteAnimeQuery,
       user,
       callback
     );
   }
 
-  toggleFavorite(anime: Media) {
+  toggleFavourite(anime: Media) {
     return this.postGraphQlRequest<
-      ToggleFavoriteMediaResponseDto,
-      ToggleFavoriteAnimeRequest
-    >(toggleFavoriteAnimeEntryQuery, { animeId: anime.id }).pipe(
-      map((response) => this.getResponseData(response).ToggleFavorite)
+      ToggleFavouriteMediaResponseDto,
+      ToggleFavouriteAnimeRequest
+    >(toggleFavouriteAnimeEntryQuery, { animeId: anime.id }).pipe(
+      map((response) => this.getResponseData(response).ToggleFavourite)
     );
   }
 }

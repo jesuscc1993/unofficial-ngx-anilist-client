@@ -106,8 +106,8 @@ export class MtMediaActionsComponent
     });
   }
 
-  toggleFavorite() {
-    this.animeCommands.toggleFavorite(this.user, this.media).subscribe();
+  toggleFavourite() {
+    this.animeCommands.toggleFavourite(this.user, this.media).subscribe();
   }
 
   deleteEntry() {

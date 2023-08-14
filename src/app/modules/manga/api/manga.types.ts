@@ -1,3 +1,3 @@
-export type ToggleFavoriteMangaRequest = {
+export type ToggleFavouriteMangaRequest = {
   mangaId: number;
 };

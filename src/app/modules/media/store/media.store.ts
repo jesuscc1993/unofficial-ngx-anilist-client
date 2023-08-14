@@ -34,8 +34,8 @@ export class MediaStore extends Store<MediaStoreState> {
     this.storeMedia(listEntries.map((listEntry) => listEntry.media));
   }
 
-  setMediaFavoriteIDs(favoriteIDs: number[]) {
-    this.setState({ mediaFavoriteIDs: favoriteIDs });
+  setMediaFavouriteIDs(favouriteIDs: number[]) {
+    this.setState({ mediaFavouriteIDs: favouriteIDs });
   }
 
   updateListEntry(updatedListEntry: ListEntry) {
@@ -65,8 +65,8 @@ export class MediaStore extends Store<MediaStoreState> {
     return this.getState().mediaListEntries;
   }
 
-  onFavoriteIDsChanges() {
-    return this.changes('mediaFavoriteIDs');
+  onFavouriteIDsChanges() {
+    return this.changes('mediaFavouriteIDs');
   }
 
   onListEntriesChanges() {
