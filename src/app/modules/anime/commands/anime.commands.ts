@@ -9,12 +9,16 @@ import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
 import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
 import {
-  MtPromptComponent, PromptData,
+  MtPromptComponent,
+  PromptData,
 } from '../../media/components/modals/mt-prompt/mt-prompt.component';
 import { sortListEntriesByMediaTitle } from '../../media/domain/media.domain';
 import { ToastService } from '../../shared/services/toast.service';
 import { AuthStore } from '../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
@@ -48,8 +52,8 @@ export class AnimeCommands implements MediaCommandsInterface {
     return this.animeService.queryListEntries(this.authStore.getUser());
   }
 
-  queryFavouriteIDs(user: User) {
-    return this.animeService.queryFavouriteIDs(user);
+  queryFavoriteIDs(user: User) {
+    return this.animeService.queryFavoriteIDs(user);
   }
 
   queryRelatedMediaIds() {
@@ -121,13 +125,13 @@ export class AnimeCommands implements MediaCommandsInterface {
     return this.animeService.queryMedia(query, pageQuery);
   }
 
-  toggleFavourite(user: User, media: Media) {
-    return this.animeService.toggleFavourite(user, media).pipe(
+  toggleFavorite(user: User, media: Media) {
+    return this.animeService.toggleFavorite(user, media).pipe(
       tap((mediaId) => {
         const success = mediaId !== undefined;
         if (success) {
           this.toastService.showToast(
-            this.translateService.instant('listEntry.favouriteToggle.success', {
+            this.translateService.instant('listEntry.favoriteToggle.success', {
               mediaTitle: media.title.romaji,
             })
           );
@@ -140,8 +144,8 @@ export class AnimeCommands implements MediaCommandsInterface {
     return this.animeService.getListEntriesGroupedByStatus();
   }
 
-  getFavouriteIDs() {
-    return this.animeService.getFavouriteIDs();
+  getFavoriteIDs() {
+    return this.animeService.getFavoriteIDs();
   }
 
   getListEntries() {

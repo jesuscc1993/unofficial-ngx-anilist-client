@@ -1,6 +1,9 @@
-
 import {
-  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
+  filterMappings,
+  filterTypes,
+  listEntryFields,
+  mediaFields,
+  pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */
@@ -54,7 +57,7 @@ export const animeListQuery = `
   }
 `;
 
-export const listFavouriteAnimeQuery = `
+export const listFavoriteAnimeQuery = `
   query (
     $userId: Int!,
     $page: Int
@@ -62,7 +65,7 @@ export const listFavouriteAnimeQuery = `
     User (
       id: $userId
     ) {
-      favourites {
+      favorites {
         anime (
           page: $page
         ) {
@@ -78,11 +81,11 @@ export const listFavouriteAnimeQuery = `
   }
 `;
 
-export const toggleFavouriteAnimeEntryQuery = `
+export const toggleFavoriteAnimeEntryQuery = `
   mutation (
     $animeId: Int
   ) {
-    ToggleFavourite (
+    ToggleFavorite (
       animeId: $animeId
     ) {
       anime {

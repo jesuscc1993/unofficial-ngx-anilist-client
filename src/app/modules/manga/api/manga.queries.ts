@@ -1,5 +1,9 @@
 import {
-  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
+  filterMappings,
+  filterTypes,
+  listEntryFields,
+  mediaFields,
+  pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */
@@ -53,7 +57,7 @@ export const mangaListQuery = `
   }
 `;
 
-export const listFavouriteMangaQuery = `
+export const listFavoriteMangaQuery = `
   query (
     $userId: Int!,
     $page: Int
@@ -61,7 +65,7 @@ export const listFavouriteMangaQuery = `
     User (
       id: $userId
     ) {
-      favourites {
+      favorites {
         manga (
           page: $page
         ) {
@@ -77,11 +81,11 @@ export const listFavouriteMangaQuery = `
   }
 `;
 
-export const toggleFavouriteMangaEntryQuery = `
+export const toggleFavoriteMangaEntryQuery = `
   mutation (
     $mangaId: Int
   ) {
-    ToggleFavourite (
+    ToggleFavorite (
       mangaId: $mangaId
     ) {
       manga {

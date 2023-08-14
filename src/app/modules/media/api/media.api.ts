@@ -5,17 +5,37 @@ import { Injectable } from '@angular/core';
 
 import { AniListApi } from '../../shared/api/api';
 import { AuthStore } from '../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
-import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/media.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  MediaListSort,
+  MediaSort,
+  MediaType,
+} from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import {
-  deleteListEntryQuery, genresQuery, mediaIdSearchQuery, relatedMediaIdsQuery, saveListEntryQuery,
+  deleteListEntryQuery,
+  genresQuery,
+  mediaIdSearchQuery,
+  relatedMediaIdsQuery,
+  saveListEntryQuery,
 } from './media.queries';
 import {
-  DeleteListEntryDto, DeleteListEntryRequest, FavouriteMediaDto, GenreCollectionDto, ListMediaDto,
-  MediaFilters, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto, SaveListEntryRequest,
-  SearchFilters, SearchMediaDto,
+  DeleteListEntryDto,
+  DeleteListEntryRequest,
+  FavoriteMediaDto,
+  GenreCollectionDto,
+  ListMediaDto,
+  MediaFilters,
+  PagedSearchFilters,
+  RelatedMediaIdsDto,
+  SaveListEntryDto,
+  SaveListEntryRequest,
+  SearchFilters,
+  SearchMediaDto,
 } from './media.types';
 
 @Injectable()
@@ -146,13 +166,13 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected _queryFavouriteIDs(
+  protected _queryFavoriteIDs(
     mediaType: MediaType,
     mediaQuery: string,
     user: User,
-    callback: (favouriteIDs: number[]) => void
+    callback: (favoriteIDs: number[]) => void
   ) {
-    this._queryFavouriteIdsResultsPage(
+    this._queryFavoriteIdsResultsPage(
       mediaType,
       mediaQuery,
       { userId: user.id, page: 0 },
@@ -161,14 +181,14 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected _queryFavouriteIdsResultsPage(
+  protected _queryFavoriteIdsResultsPage(
     mediaType: MediaType,
     mediaQuery: string,
     options: { userId: number; page: number },
-    favouriteIds: number[],
-    callback: (favouriteIds: number[]) => void
+    favoriteIds: number[],
+    callback: (favoriteIds: number[]) => void
   ) {
-    return this.postGraphQlRequest<FavouriteMediaDto, PagedSearchFilters>(
+    return this.postGraphQlRequest<FavoriteMediaDto, PagedSearchFilters>(
       mediaQuery,
       options
     )
@@ -178,29 +198,29 @@ export class MediaApi extends AniListApi {
           if (
             responseData &&
             responseData.User &&
-            responseData.User.favourites
+            responseData.User.favorites
           ) {
-            const favouritesData =
+            const favoritesData =
               mediaType === MediaType.ANIME
-                ? responseData.User.favourites.anime
-                : responseData.User.favourites.manga;
+                ? responseData.User.favorites.anime
+                : responseData.User.favorites.manga;
 
-            favouriteIds = [
-              ...favouriteIds,
-              ...favouritesData.nodes.map((node) => node.id),
+            favoriteIds = [
+              ...favoriteIds,
+              ...favoritesData.nodes.map((node) => node.id),
             ];
 
-            if (favouritesData.pageInfo.hasNextPage) {
+            if (favoritesData.pageInfo.hasNextPage) {
               options.page++;
-              this._queryFavouriteIdsResultsPage(
+              this._queryFavoriteIdsResultsPage(
                 mediaType,
                 mediaQuery,
                 options,
-                favouriteIds,
+                favoriteIds,
                 callback
               );
             } else {
-              callback(favouriteIds);
+              callback(favoriteIds);
             }
           }
         })

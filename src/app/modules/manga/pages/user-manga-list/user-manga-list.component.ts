@@ -8,13 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { rootUrl } from '../../../../app.constants';
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus, ListEntryStatus,
+  ListEntriesByStatus,
+  ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { MangaCommands } from '../../commands/manga.commands';
@@ -33,7 +32,7 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
   user: User;
   listEntriesByStatus: ListEntriesByStatus;
   statuses: Status[];
-  favouriteIDs: number[];
+  favoriteIDs: number[];
 
   loggedIn: boolean;
   ready: boolean;
@@ -105,19 +104,19 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
     }
   }
 
-  private getListFavouriteIDs() {
+  private getListFavoriteIDs() {
     if (this.user) {
       this.mangaCommands
-        .getFavouriteIDs()
+        .getFavoriteIDs()
         .pipe(
-          tap((favouriteIDs) => {
-            this.favouriteIDs = favouriteIDs;
+          tap((favoriteIDs) => {
+            this.favoriteIDs = favoriteIDs;
           }),
           takeUntil(this.destroyed$)
         )
         .subscribe();
 
-      this.mangaCommands.queryFavouriteIDs(this.user);
+      this.mangaCommands.queryFavoriteIDs(this.user);
     }
   }
 
@@ -151,11 +150,11 @@ export class UserMangaListPageComponent extends WithObservableOnDestroy {
   private updateListData() {
     this.listEntriesByStatus = undefined;
     this.statuses = undefined;
-    this.favouriteIDs = undefined;
+    this.favoriteIDs = undefined;
     this.ready = false;
 
     this.getUserList();
-    this.getListFavouriteIDs();
+    this.getListFavoriteIDs();
   }
 
   private preventDefault(event: Event) {

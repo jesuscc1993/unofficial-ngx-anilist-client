@@ -278,12 +278,12 @@ export const deleteListEntryQuery = `
   }
 `;
 
-export const toggleFavouriteEntryQuery = `
+export const toggleFavoriteEntryQuery = `
   mutation (
     $animeId: Int,
     $mangaId: Int,
   ) {
-    ToggleFavourite (
+    ToggleFavorite (
       animeId: $animeId,
       mangaId: $animeId,
     ) {

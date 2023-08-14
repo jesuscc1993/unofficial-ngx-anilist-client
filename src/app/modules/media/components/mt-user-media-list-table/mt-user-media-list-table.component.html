@@ -34,8 +34,8 @@
       <mat-cell *matCellDef="let entry">
         <span class="text">
           <span>{{ entry.media.title.romaji }}</span>
-          <span *ngIf="favouriteIDs?.includes(entry.media.id)">
-            {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
+          <span *ngIf="favoriteIDs?.includes(entry.media.id)">
+            {{ ' ' }}<fa-icon name="heart" class="favorite"></fa-icon>
           </span>
         </span>
       </mat-cell>
@@ -83,7 +83,9 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="{{ mediaType === 'ANIME' ? 'episodes' : 'chapters' }}">
+    <ng-container
+      matColumnDef="{{ mediaType === 'ANIME' ? 'episodes' : 'chapters' }}"
+    >
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
         getMediaTypeProgressLiteral(mediaType) | translate
       }}</mat-header-cell>

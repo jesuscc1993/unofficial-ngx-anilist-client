@@ -14,7 +14,7 @@ import { SearchFilters } from '../api/media.types';
 export interface MediaCommandsInterface {
   deleteListEntry(listEntry: ListEntry): Observable<unknown>;
 
-  getFavouriteIDs(): Observable<number[]>;
+  getFavoriteIDs(): Observable<number[]>;
 
   getListEntries(): Observable<ListEntry[]>;
 
@@ -30,7 +30,7 @@ export interface MediaCommandsInterface {
 
   getPendingMedia(): Observable<ListEntry[]>;
 
-  queryFavouriteIDs(user: User): void;
+  queryFavoriteIDs(user: User): void;
 
   queryGenres(): Observable<string[]>;
 
@@ -50,5 +50,5 @@ export interface MediaCommandsInterface {
     status: ListEntryStatus
   ): Observable<ListEntry>;
 
-  toggleFavourite(user: User, media: Media): Observable<number>;
+  toggleFavorite(user: User, media: Media): Observable<number>;
 }
