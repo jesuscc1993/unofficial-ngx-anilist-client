@@ -84,7 +84,7 @@
     </ng-container>
 
     <ng-container
-      matColumnDef="{{ mediaType === 'ANIME' ? 'episodes' : 'chapters' }}"
+      matColumnDef="{{ isAnime(mediaType) ? 'episodes' : 'chapters' }}"
     >
       <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
         getMediaTypeProgressLiteral(mediaType) | translate

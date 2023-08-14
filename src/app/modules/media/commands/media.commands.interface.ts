@@ -11,7 +11,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MediaExportEntry, MediaPage } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/media.types';
 
-export interface MediaCommandsInterface {
+export interface MediaCommands {
   deleteListEntry(listEntry: ListEntry): Observable<unknown>;
 
   getFavouriteIDs(): Observable<number[]>;

@@ -2,18 +2,30 @@ import { takeUntil, tap } from 'rxjs/operators';
 
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 import { integerPattern, scorePattern } from '../../../../../app.constants';
 import { AnimeCommands } from '../../../../anime/commands/anime.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { MangaCommands } from '../../../../manga/commands/manga.commands';
+import { WithObservableOnDestroy } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../../shared/constants/listEntry.constants';
 import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
-import { Anime, Manga, Media } from '../../../../shared/types/anilist/media.types';
+import {
+  Anime,
+  Manga,
+  Media,
+} from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
-import { getMediaProgress, getMediaTypeProgressLiteral } from '../../../domain/media.domain';
+import { MediaCommands } from '../../../commands/media.commands.interface';
+import {
+  getMediaProgress,
+  getMediaTypeProgressLiteral,
+  isAnime,
+} from '../../../domain/media.domain';
 
 type ListEntryFormModalParameters = {
   listEntry?: ListEntry;
@@ -29,15 +41,18 @@ type ListEntryFormModalParameters = {
 export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   readonly getMediaProgress = getMediaProgress;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
+  readonly isAnime = isAnime;
   readonly listEntryStatuses = listEntryStatuses;
 
   readonly origin: ModalOrigin;
   readonly media: Media;
   readonly listEntry: ListEntry;
   readonly listEntryForm: FormGroup;
+  readonly mediaCommands: MediaCommands;
 
   constructor(
     private animeCommands: AnimeCommands,
+    private mangaCommands: MangaCommands,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
@@ -50,6 +65,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     this.origin = data.origin;
     this.media = data.media;
     this.listEntry = data.listEntry;
+    this.mediaCommands = isAnime(data.media) ? animeCommands : mangaCommands;
 
     this.listEntryForm = this.formBuilder.group({
       status: [status || 'PLANNING', [Validators.required]],
@@ -79,7 +95,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
 
     const formListEntry: ListEntry = this.getFormEntry();
 
-    this.animeCommands
+    this.mediaCommands
       .saveListEntry(formListEntry)
       .pipe(
         tap((savedListEntry) => {
@@ -96,7 +112,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   deleteEntry(event?: Event) {
     this.preventDefault(event);
 
-    this.animeCommands
+    this.mediaCommands
       .deleteListEntry(this.listEntry)
       .pipe(
         tap((success) => {

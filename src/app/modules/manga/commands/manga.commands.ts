@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
-import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
+import { MediaCommands } from '../../media/commands/media.commands.interface';
 import {
   MtPromptComponent,
   PromptData,
@@ -25,7 +25,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MangaService } from '../services/manga.service';
 
 @Injectable()
-export class MangaCommands implements MediaCommandsInterface {
+export class MangaCommands implements MediaCommands {
   constructor(
     private mangaService: MangaService,
     private authStore: AuthStore,

@@ -7,7 +7,7 @@
     </div>
 
     <mt-header-picker
-      *ngIf="mediaType === 'ANIME'"
+      *ngIf="isAnime(mediaType)"
       iconName="filter"
       title="{{ 'media.format' | translate }}"
       placeholder="{{ 'media.formatValues.undefined' | translate }}"
@@ -22,12 +22,17 @@
     <mt-header-picker
       iconName="clipboard"
       title="{{ 'media.status' | translate }}"
-      placeholder="{{ 'anime.statusValues.undefined' | translate }}"
+      placeholder="{{
+        (isAnime(mediaType) ? 'anime' : 'manga') + '.statusValues.undefined'
+          | translate
+      }}"
       [multiple]="true"
       [options]="listEntryStatuses"
       [truncateMultiple]="true"
       [value]="selectedStatuses"
-      [getOptionLiteral]="getAnimeStatusLiteral"
+      [getOptionLiteral]="
+        isAnime(mediaType) ? getAnimeStatusLiteral : getMangaStatusLiteral
+      "
       [onChange]="setStatuses"
     ></mt-header-picker>
   </div>

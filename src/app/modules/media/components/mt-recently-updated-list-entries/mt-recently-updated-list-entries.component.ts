@@ -17,8 +17,8 @@ import {
   MediaFormat,
   MediaType,
 } from '../../../shared/types/anilist/media.types';
-import { MediaCommandsInterface } from '../../commands/media.commands.interface';
-import { getFormatLiteral } from '../../domain/media.domain';
+import { MediaCommands } from '../../commands/media.commands.interface';
+import { getFormatLiteral, isAnime } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
@@ -35,10 +35,11 @@ export class MtRecentlyUpdatedListEntriesComponent
   readonly getFormatLiteral = getFormatLiteral;
   readonly getAnimeStatusLiteral = getAnimeStatusLiteral;
   readonly getMangaStatusLiteral = getMangaStatusLiteral;
+  readonly isAnime = isAnime;
 
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
-  mediaCommands: MediaCommandsInterface;
+  mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
   searching = true;
 
@@ -65,10 +66,9 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   ngOnInit() {
-    this.mediaCommands =
-      this.mediaType === MediaType.ANIME
-        ? this.animeCommands
-        : this.mangaCommands;
+    this.mediaCommands = isAnime(this.mediaType)
+      ? this.animeCommands
+      : this.mangaCommands;
 
     this.mediaCommands
       .getListEntries()

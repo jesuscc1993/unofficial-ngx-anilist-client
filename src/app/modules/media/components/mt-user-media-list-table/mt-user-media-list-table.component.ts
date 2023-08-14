@@ -27,6 +27,7 @@ import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
   getMediaProgress,
   getMediaTypeProgressLiteral,
+  isAnime,
 } from '../../domain/media.domain';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
@@ -47,6 +48,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   readonly getMediaProgress = getMediaProgress;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
+  readonly isAnime = isAnime;
   pageSizeOptions = pageSizeOptions;
 
   tableRows: string[];
@@ -63,7 +65,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
       'start-date',
       'genres',
       'score',
-      this.mediaType === MediaType.ANIME ? 'episodes' : 'chapters',
+      isAnime(this.mediaType) ? 'episodes' : 'chapters',
     ];
 
     // TODO: Fix ExpressionChangedAfterItHasBeenCheckedError
@@ -115,7 +117,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
         chapters: undefined,
       };
 
-      if (this.mediaType === MediaType.ANIME) {
+      if (isAnime(this.mediaType)) {
         data.episodes = +getMediaProgress(media);
       } else {
         data.chapters = +getMediaProgress(media);

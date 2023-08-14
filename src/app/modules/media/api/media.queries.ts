@@ -285,7 +285,7 @@ export const toggleFavouriteEntryQuery = `
   ) {
     ToggleFavourite (
       animeId: $animeId,
-      mangaId: $animeId,
+      mangaId: $mangaId,
     ) {
       anime {
         nodes {

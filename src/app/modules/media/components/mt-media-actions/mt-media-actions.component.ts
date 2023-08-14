@@ -8,6 +8,7 @@ import {
   defaultModalOptions,
 } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
+import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
@@ -18,6 +19,8 @@ import {
 import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
+import { MediaCommands } from '../../commands/media.commands.interface';
+import { isAnime } from '../../domain/media.domain';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
@@ -39,10 +42,12 @@ export class MtMediaActionsComponent
   @Output() onListEntryChanges: EventEmitter<ListEntry>;
 
   user: User;
+  mediaCommands: MediaCommands;
 
   constructor(
     private dialog: MatDialog,
     private animeCommands: AnimeCommands,
+    private mangaCommands: MangaCommands,
     private authCommands: AuthCommands,
     private authStore: AuthStore
   ) {
@@ -62,6 +67,10 @@ export class MtMediaActionsComponent
   }
 
   ngOnInit() {
+    this.mediaCommands = isAnime(this.media)
+      ? this.animeCommands
+      : this.mangaCommands;
+
     if (this.media && this.media.mediaListEntry && !this.listEntry) {
       this.listEntry = this.media.mediaListEntry;
     }
@@ -81,7 +90,7 @@ export class MtMediaActionsComponent
   }
 
   setAsPlanning() {
-    this.animeCommands
+    this.mediaCommands
       .saveMediaWithStatus(this.media, ListEntryStatus.PLANNING)
       .pipe(
         tap((savedListEntry) => {
@@ -107,11 +116,11 @@ export class MtMediaActionsComponent
   }
 
   toggleFavourite() {
-    this.animeCommands.toggleFavourite(this.user, this.media).subscribe();
+    this.mediaCommands.toggleFavourite(this.user, this.media).subscribe();
   }
 
   deleteEntry() {
-    this.animeCommands
+    this.mediaCommands
       .deleteListEntry(this.listEntry)
       .pipe(
         tap((success) => {

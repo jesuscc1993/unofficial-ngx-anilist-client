@@ -1,9 +1,17 @@
 import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
-import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  Anime, Manga, Media, MediaFormat, MediaSort, MediaType,
+  ListEntriesByStatus,
+  ListEntry,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Anime,
+  Manga,
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../shared/types/anilist/media.types';
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
@@ -84,11 +92,14 @@ export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
 };
 
 export const getMediaTypeProgressLiteral = (mediaType: MediaType) => {
-  return mediaType === MediaType.ANIME ? 'media.episodes' : 'media.chapters';
+  return isAnime(mediaType) ? 'media.episodes' : 'media.chapters';
 };
 
 export const getMediaProgress = (media: Media) => {
-  return media.type === MediaType.ANIME
-    ? (media as Anime).episodes
-    : (media as Manga).chapters;
+  return isAnime(media) ? (media as Anime).episodes : (media as Manga).chapters;
+};
+
+export const isAnime = (payload: Media | MediaType) => {
+  const type = typeof payload === 'object' ? payload.type : payload;
+  return type === MediaType.ANIME;
 };

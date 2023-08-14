@@ -27,7 +27,11 @@
             <mat-option
               *ngFor="let status of listEntryStatuses"
               [value]="status"
-              >{{ 'anime.statusValues.' + status | translate }}</mat-option
+              >{{
+                (isAnime(media.type) ? 'anime' : 'manga') +
+                  '.statusValues.' +
+                  status | translate
+              }}</mat-option
             >
           </mat-select>
         </mat-form-field>

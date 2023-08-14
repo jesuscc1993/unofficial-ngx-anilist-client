@@ -7,7 +7,7 @@
     </div>
 
     <mt-header-picker
-      *ngIf="mediaType === 'ANIME'"
+      *ngIf="isAnime(mediaType)"
       iconName="filter"
       title="{{ 'media.format' | translate }}"
       placeholder="{{ 'media.formatValues.undefined' | translate }}"

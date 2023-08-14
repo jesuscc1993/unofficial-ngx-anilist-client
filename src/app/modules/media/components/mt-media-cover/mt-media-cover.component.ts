@@ -15,6 +15,9 @@ import { Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { MediaCommands } from '../../commands/media.commands.interface';
+import { isAnime } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-media-cover',
@@ -31,7 +34,13 @@ export class MtMediaCoverComponent
 
   getSizedCoverImage = getSizedCoverImage;
 
-  constructor(private dialog: MatDialog, private animeCommands: AnimeCommands) {
+  mediaCommands: MediaCommands;
+
+  constructor(
+    private dialog: MatDialog,
+    private animeCommands: AnimeCommands,
+    private mangaCommands: MangaCommands
+  ) {
     super();
 
     this.openDetailModal = this.openDetailModal.bind(this);
@@ -39,6 +48,10 @@ export class MtMediaCoverComponent
   }
 
   ngOnInit() {
+    this.mediaCommands = isAnime(this.media)
+      ? this.animeCommands
+      : this.mangaCommands;
+
     if (!this.media && this.listEntry) {
       const { media, ...mediaListEntry } = this.listEntry;
       this.media = {
@@ -76,7 +89,7 @@ export class MtMediaCoverComponent
   deleteEntry(event: Event) {
     event.stopPropagation();
 
-    this.animeCommands
+    this.mediaCommands
       .deleteListEntry(this.listEntry)
       .pipe(
         tap((success) => {

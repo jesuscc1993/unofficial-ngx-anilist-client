@@ -15,10 +15,11 @@ import {
   MediaSort,
   MediaType,
 } from '../../../shared/types/anilist/media.types';
-import { MediaCommandsInterface } from '../../commands/media.commands.interface';
+import { MediaCommands } from '../../commands/media.commands.interface';
 import {
   getFormatLiteral,
   getSortLiteral,
+  isAnime,
   sortListEntriesByMediaEndDate,
   sortListEntriesByMediaScore,
   sortListEntriesByMediaTitle,
@@ -38,10 +39,11 @@ export class MtRecentlyFinishedMediaComponent
 
   readonly getFormatLiteral = getFormatLiteral;
   readonly getSortLiteral = getSortLiteral;
+  readonly isAnime = isAnime;
   readonly mediaSorts = basicMediaSorts;
 
   filteredEntries: ListEntry[];
-  mediaCommands: MediaCommandsInterface;
+  mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
   searching = true;
 
@@ -68,10 +70,9 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   ngOnInit() {
-    this.mediaCommands =
-      this.mediaType === MediaType.ANIME
-        ? this.animeCommands
-        : this.mangaCommands;
+    this.mediaCommands = isAnime(this.mediaType)
+      ? this.animeCommands
+      : this.mangaCommands;
 
     this.mediaCommands
       .getPendingMedia()

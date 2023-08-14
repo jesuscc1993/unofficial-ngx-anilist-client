@@ -16,6 +16,7 @@ import {
 } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
+import { isAnime } from '../domain/media.domain';
 import {
   deleteListEntryQuery,
   genresQuery,
@@ -200,10 +201,9 @@ export class MediaApi extends AniListApi {
             responseData.User &&
             responseData.User.favourites
           ) {
-            const favouritesData =
-              mediaType === MediaType.ANIME
-                ? responseData.User.favourites.anime
-                : responseData.User.favourites.manga;
+            const favouritesData = isAnime(mediaType)
+              ? responseData.User.favourites.anime
+              : responseData.User.favourites.manga;
 
             favouriteIds = [
               ...favouriteIds,

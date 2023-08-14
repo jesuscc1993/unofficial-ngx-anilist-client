@@ -27,8 +27,12 @@ import {
   MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
-import { MediaCommandsInterface } from '../../commands/media.commands.interface';
-import { getFormatLiteral, getSortLiteral } from '../../domain/media.domain';
+import { MediaCommands } from '../../commands/media.commands.interface';
+import {
+  getFormatLiteral,
+  getSortLiteral,
+  isAnime,
+} from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import { MediaStore } from '../../store/media.store';
 
@@ -49,6 +53,7 @@ export class MtListRelatedMediaComponent
 
   readonly getFormatLiteral = getFormatLiteral;
   readonly getSortLiteral = getSortLiteral;
+  readonly isAnime = isAnime;
   readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
   readonly rowCount = 4;
@@ -56,7 +61,7 @@ export class MtListRelatedMediaComponent
   colCount?: number;
 
   relatedMediaIds: number[];
-  mediaCommands: MediaCommandsInterface;
+  mediaCommands: MediaCommands;
   mediaStore: MediaStore;
   mediaList: Media[];
   pagination: PageInfo;
@@ -109,7 +114,7 @@ export class MtListRelatedMediaComponent
   }
 
   ngOnInit() {
-    if (this.mediaType === MediaType.ANIME) {
+    if (isAnime(this.mediaType)) {
       this.mediaCommands = this.animeCommands;
       this.mediaStore = this.animeStore;
     } else {
@@ -182,12 +187,11 @@ export class MtListRelatedMediaComponent
       .getMediaFromIds(
         this.relatedMediaIds,
         {
-          formatIn:
-            this.mediaType === MediaType.ANIME
-              ? this.selectedFormats.length
-                ? this.selectedFormats
-                : undefined
-              : [MediaFormat.MANGA],
+          formatIn: isAnime(this.mediaType)
+            ? this.selectedFormats.length
+              ? this.selectedFormats
+              : undefined
+            : [MediaFormat.MANGA],
           onList: false,
           sort: this.selectedSort,
         },
