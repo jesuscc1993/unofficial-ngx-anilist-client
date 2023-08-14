@@ -78,7 +78,7 @@ button {
 
   &:not(.rounded) {
     $vertical-padding: $spacing-xxxs;
-    border-radius: $vertical-padding * 3*0.25;
+    border-radius: $vertical-padding * 3 * 0.25;
     padding: $spacing-xxxxs $vertical-padding;
     white-space: nowrap;
   }

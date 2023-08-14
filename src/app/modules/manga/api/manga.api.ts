@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { MediaApi } from '../../media/api/media.api';
-import { MediaInterface } from '../../media/api/media.interface';
+import { MediaApiInterface } from '../../media/api/media.api.interface';
 import { SearchFilters, ToggleFavouriteMediaResponseDto } from '../../media/api/media.types';
 import { AuthStore } from '../../shared/store/auth.store';
 import { Media, MediaType } from '../../shared/types/anilist/media.types';
@@ -16,7 +16,7 @@ import {
 import { ToggleFavouriteMangaRequest } from './manga.types';
 
 @Injectable()
-export class MangaApi extends MediaApi implements MediaInterface {
+export class MangaApi extends MediaApi implements MediaApiInterface {
   constructor(
     protected httpClient: HttpClient,
     protected authStore: AuthStore

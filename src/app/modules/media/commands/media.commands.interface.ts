@@ -1,9 +1,7 @@
 import { Observable } from 'rxjs';
 
 import {
-  ListEntriesByStatus,
-  ListEntry,
-  ListEntryStatus,
+  ListEntriesByStatus, ListEntry, ListEntryStatus,
 } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
@@ -11,7 +9,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { MediaExportEntry, MediaPage } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/media.types';
 
-export interface MediaCommandsInterface {
+export interface MediaCommands {
   deleteListEntry(listEntry: ListEntry): Observable<unknown>;
 
   getFavouriteIDs(): Observable<number[]>;

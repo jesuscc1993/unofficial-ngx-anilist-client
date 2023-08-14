@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
-import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
+import { MediaCommands } from '../../media/commands/media.commands.interface';
 import {
   MtPromptComponent, PromptData,
 } from '../../media/components/modals/mt-prompt/mt-prompt.component';
@@ -21,7 +21,7 @@ import { User } from '../../shared/types/anilist/user.types';
 import { AnimeService } from '../services/anime.service';
 
 @Injectable()
-export class AnimeCommands implements MediaCommandsInterface {
+export class AnimeCommands implements MediaCommands {
   constructor(
     private animeService: AnimeService,
     private authStore: AuthStore,
@@ -127,7 +127,7 @@ export class AnimeCommands implements MediaCommandsInterface {
         const success = mediaId !== undefined;
         if (success) {
           this.toastService.showToast(
-            this.translateService.instant('listEntry.favouriteToggle.success', {
+            this.translateService.instant('listEntry.favoriteToggle.success', {
               mediaTitle: media.title.romaji,
             })
           );

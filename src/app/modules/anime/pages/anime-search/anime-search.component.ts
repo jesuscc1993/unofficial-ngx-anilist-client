@@ -8,20 +8,18 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import {
-  animeSearchUrl,
-  integerPattern,
-  pageSizeOptions,
-} from '../../../../app.constants';
+import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../../../app.constants';
 import { SearchFilters } from '../../../media/api/media.types';
-import { MtSearchResultsTableComponent } from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
+import {
+  MtSearchResultsTableComponent,
+} from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../../media/domain/media.domain';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  mediaCountries,
-  mediaFormats,
-  mediaStatuses,
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  mediaCountries, mediaFormats, mediaStatuses,
 } from '../../../shared/constants/media.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';

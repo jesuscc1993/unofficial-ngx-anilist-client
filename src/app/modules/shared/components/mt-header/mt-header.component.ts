@@ -5,17 +5,14 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
 import {
-  animeDashboardUrl,
-  animeSearchUrl,
-  apiLoginUrl,
-  apiTokenPrefix,
-  rootUrl,
-  userAnimeListUrl,
+  animeDashboardUrl, animeSearchUrl, apiLoginUrl, apiTokenPrefix, rootUrl, userAnimeListUrl,
 } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
   selector: 'mt-header',

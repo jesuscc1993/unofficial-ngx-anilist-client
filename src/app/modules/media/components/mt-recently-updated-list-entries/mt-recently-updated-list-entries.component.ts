@@ -6,19 +6,15 @@ import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
 import { mediaFormats } from '../../../shared/constants/media.constants';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../../shared/types/anilist/listEntry.types';
-import {
-  MediaFormat,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
-import { MediaCommandsInterface } from '../../commands/media.commands.interface';
-import { getFormatLiteral } from '../../domain/media.domain';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
+import { MediaCommands } from '../../commands/media.commands.interface';
+import { getFormatLiteral, isAnime } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
@@ -35,10 +31,11 @@ export class MtRecentlyUpdatedListEntriesComponent
   readonly getFormatLiteral = getFormatLiteral;
   readonly getAnimeStatusLiteral = getAnimeStatusLiteral;
   readonly getMangaStatusLiteral = getMangaStatusLiteral;
+  readonly isAnime = isAnime;
 
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
-  mediaCommands: MediaCommandsInterface;
+  mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
   searching = true;
 
@@ -65,10 +62,9 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   ngOnInit() {
-    this.mediaCommands =
-      this.mediaType === MediaType.ANIME
-        ? this.animeCommands
-        : this.mangaCommands;
+    this.mediaCommands = isAnime(this.mediaType)
+      ? this.animeCommands
+      : this.mangaCommands;
 
     this.mediaCommands
       .getListEntries()

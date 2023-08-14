@@ -78,7 +78,7 @@ Provides multiple actions to be done with an anime
 
 - Add entry<sup>1</sup>
 - Update entry<sup>2</sup>
-- Favourite anime<sup>2</sup>
+- Favorite anime<sup>2</sup>
 - Delete entry<sup>2</sup>
 - Display the additional info modal.
 - External link to the anime on AniList.

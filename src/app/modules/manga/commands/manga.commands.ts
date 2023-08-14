@@ -7,25 +7,21 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { defaultModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
-import { MediaCommandsInterface } from '../../media/commands/media.commands.interface';
+import { MediaCommands } from '../../media/commands/media.commands.interface';
 import {
-  MtPromptComponent,
-  PromptData,
+  MtPromptComponent, PromptData,
 } from '../../media/components/modals/mt-prompt/mt-prompt.component';
 import { sortListEntriesByMediaTitle } from '../../media/domain/media.domain';
 import { ToastService } from '../../shared/services/toast.service';
 import { AuthStore } from '../../shared/store/auth.store';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MangaService } from '../services/manga.service';
 
 @Injectable()
-export class MangaCommands implements MediaCommandsInterface {
+export class MangaCommands implements MediaCommands {
   constructor(
     private mangaService: MangaService,
     private authStore: AuthStore,
@@ -131,7 +127,7 @@ export class MangaCommands implements MediaCommandsInterface {
         const success = mediaId !== undefined;
         if (success) {
           this.toastService.showToast(
-            this.translateService.instant('listEntry.favouriteToggle.success', {
+            this.translateService.instant('listEntry.favoriteToggle.success', {
               mediaTitle: media.title.romaji,
             })
           );

@@ -4,24 +4,16 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  basicMediaSorts,
-  mediaFormats,
-} from '../../../shared/constants/media.constants';
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaFormats } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { MediaFormat, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
+import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  MediaFormat,
-  MediaSort,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
-import { MediaCommandsInterface } from '../../commands/media.commands.interface';
-import {
-  getFormatLiteral,
-  getSortLiteral,
-  sortListEntriesByMediaEndDate,
-  sortListEntriesByMediaScore,
-  sortListEntriesByMediaTitle,
+  getFormatLiteral, getSortLiteral, isAnime, sortListEntriesByMediaEndDate,
+  sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -38,10 +30,11 @@ export class MtRecentlyFinishedMediaComponent
 
   readonly getFormatLiteral = getFormatLiteral;
   readonly getSortLiteral = getSortLiteral;
+  readonly isAnime = isAnime;
   readonly mediaSorts = basicMediaSorts;
 
   filteredEntries: ListEntry[];
-  mediaCommands: MediaCommandsInterface;
+  mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
   searching = true;
 
@@ -68,10 +61,9 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   ngOnInit() {
-    this.mediaCommands =
-      this.mediaType === MediaType.ANIME
-        ? this.animeCommands
-        : this.mangaCommands;
+    this.mediaCommands = isAnime(this.mediaType)
+      ? this.animeCommands
+      : this.mangaCommands;
 
     this.mediaCommands
       .getPendingMedia()

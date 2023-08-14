@@ -84,11 +84,14 @@ export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
 };
 
 export const getMediaTypeProgressLiteral = (mediaType: MediaType) => {
-  return mediaType === MediaType.ANIME ? 'media.episodes' : 'media.chapters';
+  return isAnime(mediaType) ? 'media.episodes' : 'media.chapters';
 };
 
 export const getMediaProgress = (media: Media) => {
-  return media.type === MediaType.ANIME
-    ? (media as Anime).episodes
-    : (media as Manga).chapters;
+  return isAnime(media) ? (media as Anime).episodes : (media as Manga).chapters;
+};
+
+export const isAnime = (payload: Media | MediaType) => {
+  const type = typeof payload === 'object' ? payload.type : payload;
+  return type === MediaType.ANIME;
 };
