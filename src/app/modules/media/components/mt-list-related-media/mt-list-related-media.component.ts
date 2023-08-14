@@ -109,13 +109,13 @@ export class MtListRelatedMediaComponent
   }
 
   ngOnInit() {
-    this.mediaCommands =
-      this.mediaType === MediaType.ANIME
-        ? this.animeCommands
-        : this.mangaCommands;
-
-    this.mediaStore =
-      this.mediaType === MediaType.ANIME ? this.animeStore : this.mangaStore;
+    if (this.mediaType === MediaType.ANIME) {
+      this.mediaCommands = this.animeCommands;
+      this.mediaStore = this.animeStore;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+      this.mediaStore = this.mangaStore;
+    }
 
     this.onResize();
 
