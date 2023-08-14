@@ -131,7 +131,7 @@ export class MangaCommands implements MediaCommandsInterface {
         const success = mediaId !== undefined;
         if (success) {
           this.toastService.showToast(
-            this.translateService.instant('listEntry.favouriteToggle.success', {
+            this.translateService.instant('listEntry.favoriteToggle.success', {
               mediaTitle: media.title.romaji,
             })
           );

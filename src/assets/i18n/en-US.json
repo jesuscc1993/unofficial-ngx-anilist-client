@@ -56,7 +56,7 @@
     "deletion": {
       "success": "Deleted list entry for \"{{ mediaTitle }}\"."
     },
-    "favouriteToggle": {
+    "favoriteToggle": {
       "success": "Toggled list entry \"{{ mediaTitle }}\" as favorite."
     },
     "update": {
@@ -173,7 +173,7 @@
       "noEntries": "No entries added yet.",
       "setAsPlanning": "Set as planning",
       "show": "Show",
-      "toggleFavourite": "Toggle favorite",
+      "toggleFavorite": "Toggle favorite",
       "updateEntry": "Update list entry"
     },
     "viewOnAniList": "View on AniList",
