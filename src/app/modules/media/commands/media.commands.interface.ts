@@ -1,9 +1,7 @@
 import { Observable } from 'rxjs';
 
 import {
-  ListEntriesByStatus,
-  ListEntry,
-  ListEntryStatus,
+  ListEntriesByStatus, ListEntry, ListEntryStatus,
 } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';

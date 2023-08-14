@@ -1,17 +1,9 @@
 import { Sort } from '@angular/material/sort';
 
 import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
+import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  ListEntriesByStatus,
-  ListEntry,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Anime,
-  Manga,
-  Media,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Anime, Manga, Media, MediaFormat, MediaSort, MediaType,
 } from '../../shared/types/anilist/media.types';
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {

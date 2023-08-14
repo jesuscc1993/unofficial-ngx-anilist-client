@@ -2,29 +2,21 @@ import { takeUntil, tap } from 'rxjs/operators';
 
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { integerPattern, scorePattern } from '../../../../../app.constants';
 import { AnimeCommands } from '../../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../../shared/constants/listEntry.constants';
 import { ListEntry } from '../../../../shared/types/anilist/listEntry.types';
-import {
-  Anime,
-  Manga,
-  Media,
-} from '../../../../shared/types/anilist/media.types';
+import { Anime, Manga, Media } from '../../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { MediaCommands } from '../../../commands/media.commands.interface';
 import {
-  getMediaProgress,
-  getMediaTypeProgressLiteral,
-  isAnime,
+  getMediaProgress, getMediaTypeProgressLiteral, isAnime,
 } from '../../../domain/media.domain';
 
 type ListEntryFormModalParameters = {

@@ -5,38 +5,18 @@ import { Injectable } from '@angular/core';
 
 import { AniListApi } from '../../shared/api/api';
 import { AuthStore } from '../../shared/store/auth.store';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  MediaListSort,
-  MediaSort,
-  MediaType,
-} from '../../shared/types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { isAnime } from '../domain/media.domain';
 import {
-  deleteListEntryQuery,
-  genresQuery,
-  mediaIdSearchQuery,
-  relatedMediaIdsQuery,
-  saveListEntryQuery,
+  deleteListEntryQuery, genresQuery, mediaIdSearchQuery, relatedMediaIdsQuery, saveListEntryQuery,
 } from './media.queries';
 import {
-  DeleteListEntryDto,
-  DeleteListEntryRequest,
-  FavouriteMediaDto,
-  GenreCollectionDto,
-  ListMediaDto,
-  MediaFilters,
-  PagedSearchFilters,
-  RelatedMediaIdsDto,
-  SaveListEntryDto,
-  SaveListEntryRequest,
-  SearchFilters,
-  SearchMediaDto,
+  DeleteListEntryDto, DeleteListEntryRequest, FavouriteMediaDto, GenreCollectionDto, ListMediaDto,
+  MediaFilters, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto, SaveListEntryRequest,
+  SearchFilters, SearchMediaDto,
 } from './media.types';
 
 @Injectable()

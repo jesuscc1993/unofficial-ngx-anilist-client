@@ -3,8 +3,8 @@ import { tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 
 import { AnimeCommands } from './modules/anime/commands/anime.commands';
-import { AuthStore } from './modules/shared/store/auth.store';
 import { MangaCommands } from './modules/manga/commands/manga.commands';
+import { AuthStore } from './modules/shared/store/auth.store';
 
 @Component({
   selector: 'mt-root',

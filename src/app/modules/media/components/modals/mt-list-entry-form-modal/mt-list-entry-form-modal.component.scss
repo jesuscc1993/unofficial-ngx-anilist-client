@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 @import 'src/app/styles/variables';
 
@@ -6,7 +6,9 @@
   $cols: 4;
   $col-spacing: $spacing-xs;
   display: inline-block;
-  width: calc(#{math.div(100%, $cols)} - #{math.div($col-spacing * ($cols - 1), $cols)});
+  width: calc(
+    #{math.div(100%, $cols)} - #{math.div($col-spacing * ($cols - 1), $cols)}
+  );
   margin: 0 $col-spacing * 0.5;
 
   &:nth-child(#{$cols}n + 0) {

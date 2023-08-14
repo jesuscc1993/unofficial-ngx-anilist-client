@@ -1,12 +1,6 @@
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Media,
-  MediaListSort,
-  MediaSort,
-  MediaStatus,
+  Media, MediaListSort, MediaSort, MediaStatus,
 } from '../../shared/types/anilist/media.types';
 import { PageInfo } from '../../shared/types/anilist/pageInfo.types';
 

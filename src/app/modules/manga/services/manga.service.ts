@@ -6,7 +6,10 @@ import { MangaStore } from '../store/manga.store';
 
 @Injectable()
 export class MangaService extends MediaService {
-  constructor(private mangaApi: MangaApi, private mangaStore: MangaStore) {
+  constructor(
+    private mangaApi: MangaApi,
+    private mangaStore: MangaStore
+  ) {
     super(mangaApi, mangaStore);
   }
 }

@@ -5,19 +5,13 @@ import { Injectable } from '@angular/core';
 
 import { MediaApi } from '../../media/api/media.api';
 import { MediaApiInterface } from '../../media/api/media.api.interface';
-import {
-  SearchFilters,
-  ToggleFavouriteMediaResponseDto,
-} from '../../media/api/media.types';
+import { SearchFilters, ToggleFavouriteMediaResponseDto } from '../../media/api/media.types';
 import { AuthStore } from '../../shared/store/auth.store';
 import { Media, MediaType } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import {
-  listFavouriteMangaQuery,
-  mangaListQuery,
-  mangaSearchQuery,
-  toggleFavouriteMangaEntryQuery,
+  listFavouriteMangaQuery, mangaListQuery, mangaSearchQuery, toggleFavouriteMangaEntryQuery,
 } from './manga.queries';
 import { ToggleFavouriteMangaRequest } from './manga.types';
 
