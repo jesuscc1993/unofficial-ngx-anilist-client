@@ -14,6 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { MangaStore } from '../../../manga/store/manga.store';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
   basicMediaSorts,
@@ -29,6 +30,7 @@ import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommandsInterface } from '../../commands/media.commands.interface';
 import { getFormatLiteral, getSortLiteral } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
+import { MediaStore } from '../../store/media.store';
 
 const gridCard = 96;
 const gridSpacing = 6;
@@ -55,6 +57,7 @@ export class MtListRelatedMediaComponent
 
   relatedMediaIds: number[];
   mediaCommands: MediaCommandsInterface;
+  mediaStore: MediaStore;
   mediaList: Media[];
   pagination: PageInfo;
 
@@ -75,7 +78,8 @@ export class MtListRelatedMediaComponent
   constructor(
     private animeCommands: AnimeCommands,
     private mangaCommands: MangaCommands,
-    private mediaStore: AnimeStore
+    private animeStore: AnimeStore,
+    private mangaStore: MangaStore
   ) {
     super();
 
@@ -109,6 +113,9 @@ export class MtListRelatedMediaComponent
       this.mediaType === MediaType.ANIME
         ? this.animeCommands
         : this.mangaCommands;
+
+    this.mediaStore =
+      this.mediaType === MediaType.ANIME ? this.animeStore : this.mangaStore;
 
     this.onResize();
 

@@ -53,9 +53,11 @@
           <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
           <input
             matInput
-            type="text"
-            placeholder="0"
             formControlName="repeat"
+            min="0"
+            placeholder="0"
+            step="1"
+            type="number"
           />
         </mat-form-field>
       </div>
@@ -71,8 +73,11 @@
           <input
             matInput
             type="text"
-            placeholder="0"
             formControlName="progress"
+            min="0"
+            placeholder="0"
+            step="1"
+            type="number"
           />
         </mat-form-field>
       </div>
