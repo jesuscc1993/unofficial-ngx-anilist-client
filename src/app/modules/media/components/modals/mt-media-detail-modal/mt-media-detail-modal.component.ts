@@ -4,7 +4,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { defaultMediumModalOptions } from '../../../../../app.constants';
+import { mediumModalOptions } from '../../../../../app.constants';
 import { AnimeCommands } from '../../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../../manga/commands/manga.commands';
 import {
@@ -68,7 +68,7 @@ export class MtMediaDetailModalComponent
 
   openEditionModal() {
     this.dialog.open(MtListEntryFormModalComponent, {
-      ...defaultMediumModalOptions,
+      ...mediumModalOptions,
       data: {
         origin: this.origin || 'edit',
         listEntry: { ...this.media.mediaListEntry, media: this.media },

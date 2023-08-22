@@ -3,7 +3,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { defaultMediumModalOptions, defaultModalOptions } from '../../../../app.constants';
+import { largeModalOptions, mediumModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
@@ -81,7 +81,7 @@ export class MtMediaActionsComponent
 
   openDetailModal() {
     this.dialog.open(MtMediaDetailModalComponent, {
-      ...defaultModalOptions,
+      ...largeModalOptions,
       data: {
         origin: this.origin || ModalOrigin.View,
         media: this.media,
@@ -106,7 +106,7 @@ export class MtMediaActionsComponent
 
   openEditionModal() {
     this.dialog.open(MtListEntryFormModalComponent, {
-      ...defaultMediumModalOptions,
+      ...mediumModalOptions,
       data: {
         origin: this.origin || 'edit',
         listEntry: { ...this.listEntry, media: this.media },

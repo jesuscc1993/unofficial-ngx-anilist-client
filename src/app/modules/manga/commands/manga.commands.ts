@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
-import { defaultModalOptions } from '../../../app.constants';
+import { largeModalOptions } from '../../../app.constants';
 import { SearchFilters } from '../../media/api/media.types';
 import { MediaCommands } from '../../media/commands/media.commands.interface';
 import {
@@ -75,7 +75,7 @@ export class MangaCommands implements MediaCommands {
       };
 
       this.dialog.open(MtPromptComponent, {
-        ...defaultModalOptions,
+        ...largeModalOptions,
         minWidth: '160px',
         data: {
           confirm,
