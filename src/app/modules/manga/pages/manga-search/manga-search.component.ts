@@ -8,7 +8,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { integerPattern, mangaSearchUrl, pageSizeOptions } from '../../../../app.constants';
+import {
+  integerPattern, mangaSearchUrl, minMediaYear, pageSizeOptions,
+} from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { SearchFilters } from '../../../media/api/media.types';
 import {
@@ -52,9 +54,9 @@ export class MangaSearchPageComponent
   mediaGenres: string[];
   mediaCountries = mediaCountries;
   mediaStatuses = mediaStatuses;
+  minYear = minMediaYear;
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
-  minYear = 1900;
 
   searching: boolean;
   error: Error;
@@ -171,7 +173,7 @@ export class MangaSearchPageComponent
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
-          
+
           setTimeout(() => {
             ScrollUtil.scrollIntoView(document.getElementById(this.resultsId));
           });

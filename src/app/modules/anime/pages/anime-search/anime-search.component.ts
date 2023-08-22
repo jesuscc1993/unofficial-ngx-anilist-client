@@ -8,7 +8,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../../../app.constants';
+import {
+  animeSearchUrl, integerPattern, minMediaYear, pageSizeOptions,
+} from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { SearchFilters } from '../../../media/api/media.types';
 import {
@@ -55,9 +57,9 @@ export class AnimeSearchPageComponent
   mediaCountries = mediaCountries;
   mediaFormats = mediaFormats;
   mediaStatuses = mediaStatuses;
+  minYear = minMediaYear;
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
-  minYear = 1900;
 
   searching: boolean;
   error: Error;
@@ -174,7 +176,7 @@ export class AnimeSearchPageComponent
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
-          
+
           setTimeout(() => {
             ScrollUtil.scrollIntoView(document.getElementById(this.resultsId));
           });
