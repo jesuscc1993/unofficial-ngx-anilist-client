@@ -25,12 +25,6 @@
         </mat-form-field>
       </div>
 
-      <!--<mat-form-field id="yearInput">-->
-      <!--<input matInput [matDatepicker]="startDatePicker" placeholder="Year" disabled>-->
-      <!--<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>-->
-      <!--<mat-datepicker #startDatePicker disabled="false" startView="year"></mat-datepicker>-->
-      <!--</mat-form-field>-->
-
       <mat-expansion-panel
         class="mat-elevation-z padding-bottom-s search-filters"
       >
@@ -41,26 +35,30 @@
         <mat-divider></mat-divider>
 
         <div class="vertical-padding-xs">
-          <!-- air date -->
+          <!-- release date -->
           <div class="form-group two-rows">
             <mat-form-field>
               <input
+                [min]="minYear"
                 matInput
-                type="text"
+                type="number"
                 placeholder="{{ 'media.year' | translate }} {{
                   'media.search.filters.after' | translate
                 }}..."
+                step="1"
                 formControlName="startDateGreaterThan"
               />
             </mat-form-field>
 
             <mat-form-field>
               <input
+                [min]="minYear"
                 matInput
-                type="text"
+                type="number"
                 placeholder="{{ 'media.year' | translate }} {{
                   'media.search.filters.before' | translate
                 }}..."
+                step="1"
                 formControlName="startDateSmallerThan"
               />
             </mat-form-field>
@@ -226,7 +224,11 @@
       </div>
     </mat-card>
 
-    <mat-progress-bar *ngIf="searching" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar
+      *ngIf="searching"
+      class="progress-bar"
+      mode="indeterminate"
+    ></mat-progress-bar>
     <div *ngIf="!searching" class="progress-bar"></div>
 
     <mat-card *ngIf="error" class="error">
@@ -249,7 +251,7 @@
           [tableData]="mediaList"
           (onSortChange)="sortBy($event)"
         ></mt-search-results-table>
-  
+
         <mat-paginator
           *ngIf="pagination?.total"
           [showFirstLastButtons]="true"
