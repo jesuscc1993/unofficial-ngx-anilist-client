@@ -1,5 +1,6 @@
+import { MatDialogConfig } from '@angular/material/dialog';
+
 import { environment } from '../environments/environment';
-import { ModalOptions } from './modules/shared/types/modal.types';
 
 export const apiUrl = 'https://graphql.anilist.co';
 export const apiLoginUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${environment.anilistClientId}&response_type=token`;
@@ -17,15 +18,14 @@ export const rootUrl = animeSearchUrl;
 export const integerPattern = /^\d+$/;
 export const scorePattern = /^0*([0-9]|10)(\.[0-9]{1,2})?$/;
 
-export const pageSizeOptions = [5, 10, 25, 50];
+export const pageSizeOptions = [5, 10, 25, 50, 100];
 
-export const defaultModalOptions: ModalOptions = {
+export const mediumModalOptions: MatDialogConfig = {
   minWidth: '480px',
-  width: 'auto',
-  maxWidth: '896px',
+  maxWidth: '672px',
 };
 
-export const defaultMediumModalOptions: ModalOptions = {
-  ...defaultModalOptions,
-  maxWidth: '672px',
+export const largeModalOptions: MatDialogConfig = {
+  minWidth: '720px',
+  maxWidth: '896px',
 };

@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { defaultModalOptions, pageSizeOptions } from '../../../../app.constants';
+import { largeModalOptions, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
@@ -74,7 +74,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
 
   openDetailModal(media: Media) {
     this.dialog.open(MtMediaDetailModalComponent, {
-      ...defaultModalOptions,
+      ...largeModalOptions,
       data: {
         media,
         origin: ModalOrigin.View,

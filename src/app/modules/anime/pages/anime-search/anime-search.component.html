@@ -17,6 +17,7 @@
         <mat-form-field class="medium display-block margin-auto">
           <input
             id="searchInput"
+            class="search-input"
             matInput
             placeholder="{{ 'media.search.filters.byTitle' | translate }}"
             formControlName="search"
@@ -266,8 +267,8 @@
       </div>
     </mat-card>
 
-    <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
-    <div *ngIf="!searching" class="progress-placeholder"></div>
+    <mat-progress-bar *ngIf="searching" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+    <div *ngIf="!searching" class="progress-bar"></div>
 
     <mat-card *ngIf="error" class="error">
       <h4>
@@ -283,22 +284,24 @@
       </h4>
     </mat-card>
 
-    <mat-card *ngIf="mediaList?.length > 0" class="no-padding">
-      <mt-search-results-table
-        [tableData]="mediaList"
-        (onSortChange)="sortBy($event)"
-      ></mt-search-results-table>
+    <div *ngIf="mediaList?.length > 0" id="results" class="results-wrapper">
+      <mat-card class="no-padding">
+        <mt-search-results-table
+          [tableData]="mediaList"
+          (onSortChange)="sortBy($event)"
+        ></mt-search-results-table>
 
-      <mat-paginator
-        *ngIf="pagination?.total"
-        [showFirstLastButtons]="true"
-        [length]="pagination.total"
-        [pageSize]="pagination.perPage"
-        [pageIndex]="pagination.pageIndex"
-        [pageSizeOptions]="pageSizeOptions"
-        (page)="changePage($event)"
-      >
-      </mat-paginator>
-    </mat-card>
+        <mat-paginator
+          *ngIf="pagination?.total"
+          [showFirstLastButtons]="true"
+          [length]="pagination.total"
+          [pageSize]="pagination.perPage"
+          [pageIndex]="pagination.pageIndex"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="changePage($event)"
+        >
+        </mat-paginator>
+      </mat-card>
+    </div>
   </form>
 </div>

@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { animeSearchUrl, integerPattern, pageSizeOptions } from '../../../../app.constants';
+import { ScrollUtil } from '../../../../utils/generic.util';
 import { SearchFilters } from '../../../media/api/media.types';
 import {
   MtSearchResultsTableComponent,
@@ -60,6 +61,8 @@ export class AnimeSearchPageComponent
 
   searching: boolean;
   error: Error;
+
+  private resultsId = 'results';
 
   constructor(
     private router: Router,
@@ -137,12 +140,8 @@ export class AnimeSearchPageComponent
     this.updateQueryParams();
   }
 
-  search(pageIndex?: number, perPage?: number) {
+  search(pageIndex = 0, perPage = this.pagination?.perPage) {
     this.updateQueryParams();
-
-    // if (this.resultsTable) {
-    //   ScrollUtil.scrollToRef(this.resultsTable);
-    // }
 
     this.searching = true;
     this.error = undefined;
@@ -175,6 +174,10 @@ export class AnimeSearchPageComponent
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
+          
+          setTimeout(() => {
+            ScrollUtil.scrollIntoView(document.getElementById(this.resultsId));
+          });
         }),
         catchError((error) => {
           this.error = error;
