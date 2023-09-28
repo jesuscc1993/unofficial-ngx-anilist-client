@@ -122,6 +122,7 @@
     "goToDetail": "Go to full detail",
     "meanScore": "Mean",
     "score": "Score",
+    "scoreTooltip": "(*/10)",
     "search": {
       "filters": {
         "above": "above",
@@ -141,7 +142,7 @@
           "undefined": "Both"
         }
       },
-      "limittedFeatures": "Search will be available but most other features will not.",
+      "limitedFeatures": "Search will be available but most other features will not.",
       "submit": "Search"
     },
     "searchImages": "Search images",
@@ -176,6 +177,7 @@
       "toggleFavorite": "Toggle favorite",
       "updateEntry": "Update list entry"
     },
+    "userScore": "Your Score",
     "viewOnAniList": "View on AniList",
     "volumes": "Volumes",
     "year": "Year"
