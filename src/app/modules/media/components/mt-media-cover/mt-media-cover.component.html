@@ -18,12 +18,11 @@
             {{ media.title.romaji }}
           </div>
           <div *ngIf="media.averageScore">
-            (
-            <span *ngIf="listEntry?.scoreRaw"
-              >{{ listEntry.scoreRaw / 10 }} |
-            </span>
-            <span>{{ media.averageScore / 10 }}</span>
-            )
+            (<mt-media-score
+              [listEntry]="listEntry"
+              [media]="media"
+            ></mt-media-score
+            >)
           </div>
         </div>
 

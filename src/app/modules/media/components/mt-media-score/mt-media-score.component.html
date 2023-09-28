@@ -1,0 +1,17 @@
+<ng-container *ngIf="listEntry?.scoreRaw">
+  <span title="{{ 'media.userScore' | translate }}">
+    {{ listEntry.scoreRaw / 10 }}
+  </span>
+  <span> | </span>
+</ng-container>
+
+<span title="{{ 'media.averageScore' | translate }}">
+  {{ media.averageScore / 10 }}
+</span>
+
+<ng-container *ngIf="media.averageScore !== media.meanScore">
+  <span> | </span>
+  <span title="{{ 'media.meanScore' | translate }}">
+    {{ media.meanScore / 10 }}
+  </span>
+</ng-container>
