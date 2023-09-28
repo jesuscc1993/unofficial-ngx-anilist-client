@@ -20,6 +20,7 @@ import {
 import { MtMediaActionsComponent } from './components/mt-media-actions/mt-media-actions.component';
 import { MtMediaCoverComponent } from './components/mt-media-cover/mt-media-cover.component';
 import { MtMediaInfoComponent } from './components/mt-media-info/mt-media-info.component';
+import { MtMediaScoreComponent } from './components/mt-media-score/mt-media-score.component';
 import {
   MtRecentlyFinishedMediaComponent,
 } from './components/mt-recently-finished-media/mt-recently-finished-media.component';
@@ -34,7 +35,6 @@ import {
 } from './components/mt-user-media-list-table/mt-user-media-list-table.component';
 
 const declarations = [
-  MtMediaInfoComponent,
   MtGenresOverviewComponent,
   MtListEntryFormModalComponent,
   MtListEntryGridComponent,
@@ -42,6 +42,8 @@ const declarations = [
   MtMediaActionsComponent,
   MtMediaCoverComponent,
   MtMediaDetailModalComponent,
+  MtMediaInfoComponent,
+  MtMediaScoreComponent,
   MtPromptComponent,
   MtRecentlyFinishedMediaComponent,
   MtRecentlyUpdatedListEntriesComponent,

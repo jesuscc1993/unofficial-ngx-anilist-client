@@ -121,6 +121,7 @@
     "goToDetail": "Ir al detalle completo",
     "meanScore": "Modo",
     "score": "Nota",
+    "scoreTooltip": "(*/10)",
     "search": {
       "filters": {
         "above": "por encima de",
@@ -140,7 +141,7 @@
           "undefined": "Ambos"
         }
       },
-      "limittedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
+      "limitedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
       "submit": "Buscar",
       "title": "Búsqueda de anime"
     },
@@ -176,6 +177,7 @@
       "toggleFavorite": "Alternar favorito",
       "updateEntry": "Actualizar entrada"
     },
+    "userScore": "Tu Nota",
     "viewOnAniList": "Ver en AniList",
     "volumes": "Tomos",
     "year": "Año"
