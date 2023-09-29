@@ -1,6 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -12,8 +12,8 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral, getSortLiteral, isAnime, sortListEntriesByMediaEndDate,
-  sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
+  getFormatLiteral, getMediaTypePrefixedStorageKey, getSortLiteral, isAnime,
+  sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -24,7 +24,7 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 })
 export class MtRecentlyFinishedMediaComponent
   extends WithObservableOnDestroy
-  implements OnInit
+  implements OnInit, OnChanges
 {
   @Input() mediaType: MediaType;
 
@@ -37,16 +37,8 @@ export class MtRecentlyFinishedMediaComponent
   mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
   searching = true;
-
-  selectedFormats = storageService.getItem<MediaFormat[]>(
-    StorageKeys.RecentlyFinished.Format,
-    []
-  );
-
-  selectedSort = storageService.getItem<MediaSort>(
-    StorageKeys.RecentlyFinished.Sort,
-    MediaSort.END_DATE_DESC
-  );
+  selectedFormats: MediaFormat[];
+  selectedSort: MediaSort;
 
   private listEntries: ListEntry[];
 
@@ -61,6 +53,14 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  ngOnChanges() {
+    this.initialize();
+  }
+
+  initialize() {
     this.mediaCommands = isAnime(this.mediaType)
       ? this.animeCommands
       : this.mangaCommands;
@@ -80,20 +80,47 @@ export class MtRecentlyFinishedMediaComponent
         takeUntil(this.destroyed$)
       )
       .subscribe();
-  }
 
-  setSort(selectedSort: MediaSort) {
-    this.selectedSort = selectedSort;
-    this.sortEntries();
-    storageService.setItem(StorageKeys.RecentlyFinished.Sort, selectedSort);
+    this.selectedFormats = storageService.getItem<MediaFormat[]>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Format,
+        this.mediaType
+      ),
+      []
+    );
+
+    this.selectedSort = storageService.getItem<MediaSort>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Sort,
+        this.mediaType
+      ),
+      MediaSort.END_DATE_DESC
+    );
   }
 
   setFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
+
     storageService.setItem(
-      StorageKeys.RecentlyFinished.Format,
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Format,
+        this.mediaType
+      ),
       selectedFormats
+    );
+  }
+
+  setSort(selectedSort: MediaSort) {
+    this.selectedSort = selectedSort;
+    this.sortEntries();
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Sort,
+        this.mediaType
+      ),
+      selectedSort
     );
   }
 
@@ -104,10 +131,10 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   private isFormatValid(entry: ListEntry) {
-    if (this.mediaType === MediaType.MANGA || !this.selectedFormats.length) {
+    if (this.mediaType === MediaType.MANGA || !this.selectedFormats?.length) {
       return true;
     }
-    return this.selectedFormats.includes(entry.media.format);
+    return this.selectedFormats?.includes(entry.media.format);
   }
 
   private sortEntries() {

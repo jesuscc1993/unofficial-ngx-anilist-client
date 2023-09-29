@@ -1,7 +1,9 @@
 import { of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component, ElementRef, HostListener, Input, OnChanges, OnInit, ViewChild,
+} from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
@@ -17,7 +19,9 @@ import {
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
-import { getFormatLiteral, getSortLiteral, isAnime } from '../../domain/media.domain';
+import {
+  getFormatLiteral, getMediaTypePrefixedStorageKey, getSortLiteral, isAnime,
+} from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import { MediaStore } from '../../store/media.store';
 
@@ -31,7 +35,7 @@ const gridSpacing = 6;
 })
 export class MtListRelatedMediaComponent
   extends WithObservableOnDestroy
-  implements OnInit
+  implements OnInit, OnChanges
 {
   @Input() mediaType: MediaType;
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
@@ -43,27 +47,17 @@ export class MtListRelatedMediaComponent
   readonly mediaFormats = mediaFormats;
   readonly rowCount = 4;
 
-  colCount?: number;
-
-  relatedMediaIds: number[];
-  mediaCommands: MediaCommands;
-  mediaStore: MediaStore;
-  mediaList: Media[];
-  pagination: PageInfo;
-
-  selectedFormats = storageService.getItem<MediaFormat[]>(
-    StorageKeys.RelatedMedia.Format,
-    []
-  );
-
-  selectedSort = storageService.getItem<MediaSort>(
-    StorageKeys.RelatedMedia.Sort,
-    MediaSort.END_DATE_DESC
-  );
-
-  mediaListEntriesLength: number;
-  searching: boolean;
+  colCount: number;
   error: Error;
+  mediaCommands: MediaCommands;
+  mediaList: Media[];
+  mediaListEntriesLength: number;
+  mediaStore: MediaStore;
+  pagination: PageInfo;
+  relatedMediaIds: number[];
+  searching: boolean;
+  selectedFormats: MediaFormat[];
+  selectedSort: MediaSort;
 
   constructor(
     private animeCommands: AnimeCommands,
@@ -77,7 +71,7 @@ export class MtListRelatedMediaComponent
     this.setFormats = this.setFormats.bind(this);
     this.setSort = this.setSort.bind(this);
 
-    this.initialize();
+    this.initializeState();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -91,7 +85,7 @@ export class MtListRelatedMediaComponent
         this.content.nativeElement.offsetWidth / (gridCard + gridSpacing)
       );
 
-      this.initialize();
+      this.initializeState();
       this.queryData()
         .pipe(catchError(this.onError), takeUntil(this.destroyed$))
         .subscribe();
@@ -99,6 +93,14 @@ export class MtListRelatedMediaComponent
   }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  ngOnChanges() {
+    this.initialize();
+  }
+
+  initialize() {
     if (isAnime(this.mediaType)) {
       this.mediaCommands = this.animeCommands;
       this.mediaStore = this.animeStore;
@@ -119,7 +121,7 @@ export class MtListRelatedMediaComponent
             this.mediaListEntriesLength !== mediaListEntries.length
           ) {
             this.mediaListEntriesLength = mediaListEntries.length;
-            this.initialize();
+            this.initializeState();
             return this.queryData();
           }
 
@@ -130,6 +132,22 @@ export class MtListRelatedMediaComponent
         takeUntil(this.destroyed$)
       )
       .subscribe();
+
+    this.selectedFormats = storageService.getItem<MediaFormat[]>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Format,
+        this.mediaType
+      ),
+      []
+    );
+
+    this.selectedSort = storageService.getItem<MediaSort>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Sort,
+        this.mediaType
+      ),
+      MediaSort.END_DATE_DESC
+    );
   }
 
   queryData() {
@@ -141,23 +159,37 @@ export class MtListRelatedMediaComponent
     );
   }
 
-  setSort(selectedSort: MediaSort) {
-    this.selectedSort = selectedSort;
-    this.search(0, this.pagination.perPage);
-    storageService.setItem(StorageKeys.RelatedMedia.Sort, selectedSort);
-  }
-
   setFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.search(0, this.pagination.perPage);
-    storageService.setItem(StorageKeys.RelatedMedia.Format, selectedFormats);
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Format,
+        this.mediaType
+      ),
+      selectedFormats
+    );
+  }
+
+  setSort(selectedSort: MediaSort) {
+    this.selectedSort = selectedSort;
+    this.search(0, this.pagination.perPage);
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Sort,
+        this.mediaType
+      ),
+      selectedSort
+    );
   }
 
   changePage({ pageIndex, pageSize }: PageEvent) {
     this.search(pageIndex + 1, pageSize);
   }
 
-  private initialize() {
+  private initializeState() {
     this.searching = true;
     this.relatedMediaIds = undefined;
     this.pagination = undefined;
@@ -173,7 +205,7 @@ export class MtListRelatedMediaComponent
         this.relatedMediaIds,
         {
           formatIn: isAnime(this.mediaType)
-            ? this.selectedFormats.length
+            ? this.selectedFormats?.length
               ? this.selectedFormats
               : undefined
             : [MediaFormat.MANGA],

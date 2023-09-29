@@ -7,11 +7,10 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions } from '../../../../app.constants';
-import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
 import { Anime, Media, MediaSort } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getMediaProgress, getMediaSortFromSort, getMediaTypeProgressLiteral,
+  getMediaProgress, getMediaSortFromSort, getMediaTypeProgressLiteral, getSizedCoverImage,
 } from '../../domain/media.domain';
 import {
   MtMediaDetailModalComponent,

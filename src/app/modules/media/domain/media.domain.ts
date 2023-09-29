@@ -1,6 +1,6 @@
 import { Sort } from '@angular/material/sort';
 
-import { FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
+import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
 import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
   Anime, Manga, Media, MediaFormat, MediaSort, MediaType,
@@ -94,4 +94,20 @@ export const getMediaProgress = (media: Media) => {
 export const isAnime = (payload: Media | MediaType) => {
   const type = typeof payload === 'object' ? payload.type : payload;
   return type === MediaType.ANIME;
+};
+
+export const getSizedCoverImage = (
+  coverImage: CoverImage | undefined = undefined,
+  size = CoverImageSize.Medium
+) => {
+  return coverImage?.medium
+    ? coverImage.medium.replace(/\/(small|medium|large)\//, `/${size}/`)
+    : undefined;
+};
+
+export const getMediaTypePrefixedStorageKey = (
+  key: string,
+  mediaType: MediaType
+) => {
+  return `${mediaType.toLowerCase()}_${key}`;
 };
