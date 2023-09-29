@@ -41,7 +41,10 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   tableRows: string[];
   dataSource: MatTableDataSource<ListEntry>;
 
-  constructor(private dialog: MatDialog, private elementRef: ElementRef) {}
+  constructor(
+    private dialog: MatDialog,
+    private elementRef: ElementRef
+  ) {}
 
   ngAfterViewInit() {
     this.tableRows = [
