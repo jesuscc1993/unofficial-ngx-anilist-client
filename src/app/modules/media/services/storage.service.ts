@@ -16,18 +16,20 @@ const clear = () => {
 };
 
 export const StorageKeys = {
+  AccessToken: 'accessToken',
   RecentlyFinished: {
-    Format: 'RecentlyFinishedFormat',
-    Sort: 'RecentlyFinishedSort',
+    Format: 'recentlyFinished_format',
+    Sort: 'recentlyFinished_sort',
   },
   RecentlyUpdated: {
-    Format: 'RecentlyUpdatedFormat',
-    Status: 'RecentlyUpdatedStatus',
+    Format: 'recentlyUpdated_format',
+    Status: 'recentlyUpdated_status',
   },
   RelatedMedia: {
-    Format: 'RelatedMediaFormat',
-    Sort: 'RelatedMediaSort',
+    Format: 'relatedMedia_format',
+    Sort: 'relatedMedia_sort',
   },
+  UserData: 'user',
 };
 
 export const storageService = {

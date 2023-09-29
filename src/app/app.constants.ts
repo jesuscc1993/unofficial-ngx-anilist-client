@@ -6,9 +6,6 @@ export const apiUrl = 'https://graphql.anilist.co';
 export const apiLoginUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${environment.anilistClientId}&response_type=token`;
 export const apiTokenPrefix = '#access_token=';
 
-export const accessTokenCookieKey = 'accessToken';
-export const userCookieKey = 'user';
-
 export const animeSearchUrl = '/anime-search';
 export const mangaSearchUrl = '/manga-search';
 export const animeDashboardUrl = '/anime-dashboard';

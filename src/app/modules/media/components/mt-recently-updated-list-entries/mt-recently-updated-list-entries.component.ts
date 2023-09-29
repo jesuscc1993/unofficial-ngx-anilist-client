@@ -1,6 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
@@ -14,7 +14,9 @@ import { mediaFormats } from '../../../shared/constants/media.constants';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
-import { getFormatLiteral, isAnime } from '../../domain/media.domain';
+import {
+  getFormatLiteral, getMediaTypePrefixedStorageKey, isAnime,
+} from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
@@ -24,7 +26,7 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 })
 export class MtRecentlyUpdatedListEntriesComponent
   extends WithObservableOnDestroy
-  implements OnInit
+  implements OnInit, OnChanges
 {
   @Input() mediaType: MediaType;
 
@@ -38,16 +40,8 @@ export class MtRecentlyUpdatedListEntriesComponent
   mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
   searching = true;
-
-  selectedStatuses = storageService.getItem<ListEntryStatus[]>(
-    StorageKeys.RecentlyUpdated.Status,
-    []
-  );
-
-  selectedFormats = storageService.getItem<MediaFormat[]>(
-    StorageKeys.RecentlyUpdated.Format,
-    []
-  );
+  selectedFormats: MediaFormat[];
+  selectedStatuses: ListEntryStatus[];
 
   private listEntries: ListEntry[];
 
@@ -62,6 +56,14 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  ngOnChanges() {
+    this.initialize();
+  }
+
+  initialize() {
     this.mediaCommands = isAnime(this.mediaType)
       ? this.animeCommands
       : this.mangaCommands;
@@ -87,21 +89,48 @@ export class MtRecentlyUpdatedListEntriesComponent
         takeUntil(this.destroyed$)
       )
       .subscribe();
-  }
 
-  setStatuses(selectedStatuses: ListEntryStatus[]) {
-    this.selectedStatuses = selectedStatuses;
-    this.filterEntries();
-    storageService.setItem(
-      StorageKeys.RecentlyUpdated.Status,
-      selectedStatuses
+    this.selectedFormats = storageService.getItem<MediaFormat[]>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Format,
+        this.mediaType
+      ),
+      []
+    );
+
+    this.selectedStatuses = storageService.getItem<ListEntryStatus[]>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Status,
+        this.mediaType
+      ),
+      []
     );
   }
 
   setFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
-    storageService.setItem(StorageKeys.RecentlyUpdated.Format, selectedFormats);
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Format,
+        this.mediaType
+      ),
+      selectedFormats
+    );
+  }
+
+  setStatuses(selectedStatuses: ListEntryStatus[]) {
+    this.selectedStatuses = selectedStatuses;
+    this.filterEntries();
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Status,
+        this.mediaType
+      ),
+      selectedStatuses
+    );
   }
 
   private filterEntries() {
@@ -111,16 +140,16 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   private isFormatValid(entry: ListEntry) {
-    if (this.mediaType === MediaType.MANGA || !this.selectedFormats.length) {
+    if (this.mediaType === MediaType.MANGA || !this.selectedFormats?.length) {
       return true;
     }
-    return this.selectedFormats.includes(entry.media.format);
+    return this.selectedFormats?.includes(entry.media.format);
   }
 
   private isStatusValid(entry: ListEntry) {
     if (!this.selectedStatuses.length) {
       return true;
     }
-    return this.selectedStatuses.includes(entry.status);
+    return this.selectedStatuses?.includes(entry.status);
   }
 }

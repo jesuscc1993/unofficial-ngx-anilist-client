@@ -8,11 +8,12 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import { getSizedCoverImage } from '../../../shared/domain/shared.domain';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
-import { getMediaProgress, getMediaTypeProgressLiteral, isAnime } from '../../domain/media.domain';
+import {
+  getMediaProgress, getMediaTypeProgressLiteral, getSizedCoverImage, isAnime,
+} from '../../domain/media.domain';
 import {
   MtMediaDetailModalComponent,
 } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';

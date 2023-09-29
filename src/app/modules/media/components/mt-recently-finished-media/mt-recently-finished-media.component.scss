@@ -1,6 +1,10 @@
+.content,
 .placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 594px;
+}
+
+.placeholder {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
