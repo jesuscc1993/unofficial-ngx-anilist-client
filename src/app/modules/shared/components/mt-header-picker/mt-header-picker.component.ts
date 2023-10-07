@@ -14,7 +14,7 @@ export class MtHeaderPickerComponent {
   @Input() truncate?: boolean;
   @Input() truncateMultiple?: boolean;
   @Input() value: unknown;
-  @Input() getOptionLiteral: (option: unknown) => string;
+  @Input() getOptionLiteral?: (option: unknown) => string;
   @Input() onChange: (selection: unknown) => void;
 
   shouldTruncate() {

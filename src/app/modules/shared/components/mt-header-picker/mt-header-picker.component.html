@@ -1,9 +1,5 @@
-<div class="header header-dropdown">
-  <fa-icon
-    name="{{ iconName }}"
-    iconClass="fa-fw margin-right-xxxs"
-    [title]="title"
-  ></fa-icon>
+<div class="header header-dropdown" [title]="title">
+  <fa-icon name="{{ iconName }}" iconClass="fa-fw margin-right-xxxs"></fa-icon>
 
   <mat-select
     class="width-auto"
@@ -17,7 +13,7 @@
     </mat-select-trigger>
 
     <mat-option *ngFor="let option of options" [value]="option">{{
-      getOptionLiteral(option) | translate
+      (getOptionLiteral ? getOptionLiteral(option) : option) | translate
     }}</mat-option>
   </mat-select>
 </div>

@@ -123,6 +123,9 @@
     "meanScore": "Mean",
     "score": "Score",
     "scoreTooltip": "(*/10)",
+    "scoreValues": {
+      "undefined": "Any"
+    },
     "search": {
       "filters": {
         "above": "above",
