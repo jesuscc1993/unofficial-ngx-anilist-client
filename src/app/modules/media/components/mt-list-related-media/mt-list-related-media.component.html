@@ -16,7 +16,17 @@
       [truncate]="true"
       [value]="selectedFormats"
       [getOptionLiteral]="getFormatLiteral"
-      [onChange]="setFormats"
+      [onChange]="setSelectedFormats"
+    ></mt-header-picker>
+
+    <mt-header-picker
+      iconName="award"
+      title="{{ 'media.score' | translate }}"
+      placeholder="{{ 'media.scoreValues.undefined' | translate }}"
+      [options]="mediaScores"
+      [value]="selectedScore"
+      [getOptionLiteral]="getScoreLiteral"
+      [onChange]="setSelectedScore"
     ></mt-header-picker>
 
     <mt-header-picker
@@ -25,7 +35,7 @@
       [options]="mediaSorts"
       [value]="selectedSort"
       [getOptionLiteral]="getSortLiteral"
-      [onChange]="setSort"
+      [onChange]="setSelectedSort"
     ></mt-header-picker>
   </div>
 

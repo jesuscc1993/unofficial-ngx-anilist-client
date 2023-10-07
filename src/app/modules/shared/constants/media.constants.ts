@@ -30,3 +30,5 @@ export const mediaCountries = [
   MediaCountry.KR,
   MediaCountry.TW,
 ];
+
+export const mediaScores = [undefined, 5, 6, 7, 8, 9];

@@ -16,7 +16,7 @@
       [truncate]="true"
       [value]="selectedFormats"
       [getOptionLiteral]="getFormatLiteral"
-      [onChange]="setFormats"
+      [onChange]="setSelectedFormats"
     ></mt-header-picker>
 
     <mt-header-picker
@@ -33,7 +33,7 @@
       [getOptionLiteral]="
         isAnime(mediaType) ? getAnimeStatusLiteral : getMangaStatusLiteral
       "
-      [onChange]="setStatuses"
+      [onChange]="setSelectedStatuses"
     ></mt-header-picker>
   </div>
 

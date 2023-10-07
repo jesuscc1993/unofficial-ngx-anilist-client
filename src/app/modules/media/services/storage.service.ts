@@ -4,7 +4,11 @@ const getItem = <T>(key: string, fallback = undefined): T | undefined => {
 };
 
 const setItem = <T>(key: string, value: T): void => {
-  localStorage.setItem(key, JSON.stringify(value));
+  if (value !== undefined) {
+    localStorage.setItem(key, JSON.stringify(value));
+  } else {
+    removeItem(key);
+  }
 };
 
 const removeItem = (key: string): void => {
@@ -27,6 +31,7 @@ export const StorageKeys = {
   },
   RelatedMedia: {
     Format: 'relatedMedia_format',
+    Score: 'relatedMedia_score',
     Sort: 'relatedMedia_sort',
   },
   UserData: 'user',

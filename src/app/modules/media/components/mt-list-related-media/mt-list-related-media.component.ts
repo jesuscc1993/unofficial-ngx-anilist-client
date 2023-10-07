@@ -13,7 +13,9 @@ import { MangaStore } from '../../../manga/store/manga.store';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { basicMediaSorts, mediaFormats } from '../../../shared/constants/media.constants';
+import {
+  basicMediaSorts, mediaFormats, mediaScores,
+} from '../../../shared/constants/media.constants';
 import {
   Media, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
@@ -45,6 +47,7 @@ export class MtListRelatedMediaComponent
   readonly isAnime = isAnime;
   readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
+  readonly mediaScores = mediaScores;
   readonly rowCount = 4;
 
   colCount: number;
@@ -57,6 +60,7 @@ export class MtListRelatedMediaComponent
   relatedMediaIds: number[];
   searching: boolean;
   selectedFormats: MediaFormat[];
+  selectedScore: number;
   selectedSort: MediaSort;
 
   constructor(
@@ -68,8 +72,9 @@ export class MtListRelatedMediaComponent
     super();
 
     this.onError = this.onError.bind(this);
-    this.setFormats = this.setFormats.bind(this);
-    this.setSort = this.setSort.bind(this);
+    this.setSelectedFormats = this.setSelectedFormats.bind(this);
+    this.setSelectedSort = this.setSelectedSort.bind(this);
+    this.setSelectedScore = this.setSelectedScore.bind(this);
 
     this.initializeState();
   }
@@ -141,6 +146,13 @@ export class MtListRelatedMediaComponent
       []
     );
 
+    this.selectedScore = storageService.getItem<number>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Score,
+        this.mediaType
+      )
+    );
+
     this.selectedSort = storageService.getItem<MediaSort>(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RelatedMedia.Sort,
@@ -159,7 +171,7 @@ export class MtListRelatedMediaComponent
     );
   }
 
-  setFormats(selectedFormats: MediaFormat[]) {
+  setSelectedFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.search(0, this.pagination.perPage);
 
@@ -172,7 +184,7 @@ export class MtListRelatedMediaComponent
     );
   }
 
-  setSort(selectedSort: MediaSort) {
+  setSelectedSort(selectedSort: MediaSort) {
     this.selectedSort = selectedSort;
     this.search(0, this.pagination.perPage);
 
@@ -185,8 +197,25 @@ export class MtListRelatedMediaComponent
     );
   }
 
+  setSelectedScore(score: number) {
+    this.selectedScore = score;
+    this.search(0, this.pagination.perPage);
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Score,
+        this.mediaType
+      ),
+      score
+    );
+  }
+
   changePage({ pageIndex, pageSize }: PageEvent) {
     this.search(pageIndex + 1, pageSize);
+  }
+
+  getScoreLiteral(score: number) {
+    return score ? `> ${score}` : 'media.scoreValues.undefined';
   }
 
   private initializeState() {
@@ -211,6 +240,8 @@ export class MtListRelatedMediaComponent
             : [MediaFormat.MANGA],
           onList: false,
           sort: this.selectedSort,
+          averageScoreGreaterThan:
+            this.selectedScore && this.selectedScore * 10,
         },
         {
           pageIndex,

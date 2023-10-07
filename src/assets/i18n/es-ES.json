@@ -122,6 +122,9 @@
     "meanScore": "Modo",
     "score": "Nota",
     "scoreTooltip": "(*/10)",
+    "scoreValues": {
+      "undefined": "Cualquiera"
+    },
     "search": {
       "filters": {
         "above": "por encima de",

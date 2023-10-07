@@ -48,8 +48,8 @@ export class MtRecentlyFinishedMediaComponent
   ) {
     super();
 
-    this.setFormats = this.setFormats.bind(this);
-    this.setSort = this.setSort.bind(this);
+    this.setSelectedFormats = this.setSelectedFormats.bind(this);
+    this.setSelectedSort = this.setSelectedSort.bind(this);
   }
 
   ngOnInit() {
@@ -98,7 +98,7 @@ export class MtRecentlyFinishedMediaComponent
     );
   }
 
-  setFormats(selectedFormats: MediaFormat[]) {
+  setSelectedFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
 
@@ -111,7 +111,7 @@ export class MtRecentlyFinishedMediaComponent
     );
   }
 
-  setSort(selectedSort: MediaSort) {
+  setSelectedSort(selectedSort: MediaSort) {
     this.selectedSort = selectedSort;
     this.sortEntries();
 

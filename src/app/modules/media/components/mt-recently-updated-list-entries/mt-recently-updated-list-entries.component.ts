@@ -51,8 +51,8 @@ export class MtRecentlyUpdatedListEntriesComponent
   ) {
     super();
 
-    this.setFormats = this.setFormats.bind(this);
-    this.setStatuses = this.setStatuses.bind(this);
+    this.setSelectedFormats = this.setSelectedFormats.bind(this);
+    this.setSelectedStatuses = this.setSelectedStatuses.bind(this);
   }
 
   ngOnInit() {
@@ -107,7 +107,7 @@ export class MtRecentlyUpdatedListEntriesComponent
     );
   }
 
-  setFormats(selectedFormats: MediaFormat[]) {
+  setSelectedFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
     this.filterEntries();
 
@@ -120,7 +120,7 @@ export class MtRecentlyUpdatedListEntriesComponent
     );
   }
 
-  setStatuses(selectedStatuses: ListEntryStatus[]) {
+  setSelectedStatuses(selectedStatuses: ListEntryStatus[]) {
     this.selectedStatuses = selectedStatuses;
     this.filterEntries();
 
