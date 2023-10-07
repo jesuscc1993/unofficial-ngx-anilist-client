@@ -73,8 +73,8 @@ export class MtListRelatedMediaComponent
 
     this.onError = this.onError.bind(this);
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
-    this.setSelectedSort = this.setSelectedSort.bind(this);
     this.setSelectedScore = this.setSelectedScore.bind(this);
+    this.setSelectedSort = this.setSelectedSort.bind(this);
 
     this.initializeState();
   }

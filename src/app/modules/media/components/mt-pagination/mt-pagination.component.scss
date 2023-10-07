@@ -1,0 +1,5 @@
+.uncertain {
+  ::ng-deep .mat-paginator-navigation-last {
+    display: none;
+  }
+}

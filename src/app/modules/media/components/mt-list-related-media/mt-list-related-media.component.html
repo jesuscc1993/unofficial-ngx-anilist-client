@@ -56,16 +56,12 @@
         ></mt-media-cover>
       </div>
 
-      <mat-paginator
-        *ngIf="pagination?.total"
-        [showFirstLastButtons]="true"
-        [length]="pagination.total"
-        [pageSize]="pagination.perPage"
-        [pageIndex]="pagination.pageIndex"
-        (page)="changePage($event)"
+      <mt-pagination
         class="basic negative-bottom-margin"
+        [pagination]="pagination"
+        (changePage)="changePage($event)"
       >
-      </mat-paginator>
+      </mt-pagination>
 
       <mat-card *ngIf="pagination && !pagination.total" class="info">
         <h4>

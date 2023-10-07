@@ -252,16 +252,11 @@
           (onSortChange)="sortBy($event)"
         ></mt-search-results-table>
 
-        <mat-paginator
-          *ngIf="pagination?.total"
-          [showFirstLastButtons]="true"
-          [length]="pagination.total"
-          [pageSize]="pagination.perPage"
-          [pageIndex]="pagination.pageIndex"
-          [pageSizeOptions]="pageSizeOptions"
-          (page)="changePage($event)"
+        <mt-pagination
+          [pagination]="pagination"
+          (changePage)="changePage($event)"
         >
-        </mat-paginator>
+        </mt-pagination>
       </mat-card>
     </div>
   </form>

@@ -21,6 +21,7 @@ import { MtMediaActionsComponent } from './components/mt-media-actions/mt-media-
 import { MtMediaCoverComponent } from './components/mt-media-cover/mt-media-cover.component';
 import { MtMediaInfoComponent } from './components/mt-media-info/mt-media-info.component';
 import { MtMediaScoreComponent } from './components/mt-media-score/mt-media-score.component';
+import { MtPaginationComponent } from './components/mt-pagination/mt-pagination.component';
 import {
   MtRecentlyFinishedMediaComponent,
 } from './components/mt-recently-finished-media/mt-recently-finished-media.component';
@@ -44,6 +45,7 @@ const declarations = [
   MtMediaDetailModalComponent,
   MtMediaInfoComponent,
   MtMediaScoreComponent,
+  MtPaginationComponent,
   MtPromptComponent,
   MtRecentlyFinishedMediaComponent,
   MtRecentlyUpdatedListEntriesComponent,
