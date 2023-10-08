@@ -1,3 +1,10 @@
-::ng-deep mt-header-picker + mt-header-picker .header {
-  padding-left: 0px !important;
+::ng-deep {
+  mt-header-picker + mt-header-picker .header {
+    padding-left: 0px !important;
+  }
+
+  .mat-select-panel .mat-option.compact {
+    line-height: 2.5em;
+    height: 2.5em;
+  }
 }
