@@ -23,6 +23,7 @@
       iconName="award"
       title="{{ 'media.score' | translate }}"
       placeholder="{{ 'media.scoreValues.undefined' | translate }}"
+      [compact]="true"
       [options]="mediaScores"
       [value]="selectedScore"
       [getOptionLiteral]="getScoreLiteral"
