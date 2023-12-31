@@ -8,7 +8,6 @@ $themes: (
     material-theme: mat.define-dark-theme($primary-palette, $accent-palette),
     background: mat.$dark-theme-background-palette,
     foreground: mat.$dark-theme-foreground-palette,
-    body-background: #333,
     border: rgba(white, 0.12),
     button-background: map-get(mat.$gray-palette, 700),
     success: (
@@ -32,9 +31,12 @@ $themes: (
     material-theme: mat.define-light-theme($primary-palette, $accent-palette),
     background: mat.$light-theme-background-palette,
     foreground: mat.$light-theme-foreground-palette,
-    body-background: #ccc,
     border: rgba(black, 0.12),
     button-background: map-get(mat.$gray-palette, 300),
+    success: (
+      background: map-get(mat.$green-palette, 50),
+      foreground: map-get(mat.$green-palette, 600),
+    ),
     info: (
       background: map-get(mat.$blue-palette, 50),
       foreground: map-get(mat.$blue-palette, 600),
