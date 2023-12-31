@@ -55,11 +55,6 @@ $theme: map-get($themes, dark);
 @include mat.core();
 @include mat.all-component-themes(map-get($theme, material-theme));
 
-body {
-  background-color: map-get($theme, body-background);
-  color: map-get(map-get($theme, foreground), text);
-}
-
 a {
   color: mat.get-color-from-palette($primary-palette, darker);
 
