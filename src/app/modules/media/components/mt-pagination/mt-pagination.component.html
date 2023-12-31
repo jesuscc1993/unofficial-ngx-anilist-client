@@ -4,6 +4,7 @@
   [length]="getTotal()"
   [pageIndex]="pagination.pageIndex"
   [pageSize]="pagination.perPage"
+  [pageSizeOptions]="pageSizeOptions"
   [showFirstLastButtons]="true"
   (page)="changePage.emit($event)"
 >
