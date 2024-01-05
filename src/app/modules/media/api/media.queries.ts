@@ -23,6 +23,13 @@ filterMappings.mediaCollection = `
   userId: $userId,
 `;
 
+filterTypes.listMediaCollection = `${filterTypes.mediaCollection}
+  $statusNotIn: [MediaStatus],
+`;
+filterMappings.listMediaCollection = `${filterMappings.mediaCollection}
+  status_not_in: $statusNotIn,
+`;
+
 filterTypes.media = `
   $adultContent: Boolean,
   $averageScoreGreaterThan: Int,

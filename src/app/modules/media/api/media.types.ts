@@ -22,6 +22,10 @@ export type MediaFilters = {
   userId?: number;
 };
 
+export type ListMediaFilters = MediaFilters & {
+  statusNotIn?: ListEntryStatus[];
+};
+
 export type PagedMediaFilters = MediaFilters &
   Partial<{
     page: number;

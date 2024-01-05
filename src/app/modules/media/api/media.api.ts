@@ -15,8 +15,8 @@ import {
 } from './media.queries';
 import {
   DeleteListEntryDto, DeleteListEntryRequest, FavouriteMediaDto, GenreCollectionDto, ListMediaDto,
-  MediaFilters, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto, SaveListEntryRequest,
-  SearchFilters, SearchMediaDto,
+  ListMediaFilters, MediaFilters, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto,
+  SaveListEntryRequest, SearchFilters, SearchMediaDto,
 } from './media.types';
 
 @Injectable()
@@ -117,11 +117,12 @@ export class MediaApi extends AniListApi {
   }
 
   protected _queryRelatedMediaIds(mediaType: MediaType, user: User) {
-    return this.postGraphQlRequest<RelatedMediaIdsDto, MediaFilters>(
+    return this.postGraphQlRequest<RelatedMediaIdsDto, ListMediaFilters>(
       relatedMediaIdsQuery,
       {
         mediaType,
         userId: user.id,
+        statusNotIn: [ListEntryStatus.DROPPED],
       }
     ).pipe(
       map((response) => {
