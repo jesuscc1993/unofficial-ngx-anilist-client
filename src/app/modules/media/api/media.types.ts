@@ -23,6 +23,7 @@ export type MediaFilters = {
 };
 
 export type ListMediaFilters = MediaFilters & {
+  statusIn?: ListEntryStatus[];
   statusNotIn?: ListEntryStatus[];
 };
 

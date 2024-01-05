@@ -122,7 +122,7 @@ export class MediaApi extends AniListApi {
       {
         mediaType,
         userId: user.id,
-        statusNotIn: [ListEntryStatus.DROPPED],
+        statusIn: [ListEntryStatus.COMPLETED, ListEntryStatus.REPEATING],
       }
     ).pipe(
       map((response) => {
@@ -131,15 +131,13 @@ export class MediaApi extends AniListApi {
         const listMediaDto = this.getResponseData(response);
         if (listMediaDto) {
           listMediaDto.MediaListCollection.lists.forEach((list) => {
-            if (['COMPLETED', 'REPEATING'].includes(list.entries[0].status)) {
-              list.entries.forEach((listEntry) => {
-                listEntry.media.relations.nodes.forEach((media) => {
-                  if (!mediaIds.includes(media.id)) {
-                    mediaIds.push(media.id);
-                  }
-                });
+            list.entries.forEach((listEntry) => {
+              listEntry.media.relations.nodes.forEach((media) => {
+                if (!mediaIds.includes(media.id)) {
+                  mediaIds.push(media.id);
+                }
               });
-            }
+            });
           });
         }
 

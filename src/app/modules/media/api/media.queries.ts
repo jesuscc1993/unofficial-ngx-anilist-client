@@ -24,9 +24,11 @@ filterMappings.mediaCollection = `
 `;
 
 filterTypes.listMediaCollection = `${filterTypes.mediaCollection}
-  $statusNotIn: [MediaStatus],
+  $statusIn: [MediaListStatus],
+  $statusNotIn: [MediaListStatus],
 `;
 filterMappings.listMediaCollection = `${filterMappings.mediaCollection}
+  status_in: $statusIn,
   status_not_in: $statusNotIn,
 `;
 
@@ -195,10 +197,10 @@ export const mediaIdSearchQuery = `
 
 export const relatedMediaIdsQuery = `
   query (
-    ${filterTypes.mediaCollection}
+    ${filterTypes.listMediaCollection}
   ) {
     MediaListCollection (
-      ${filterMappings.mediaCollection}
+      ${filterMappings.listMediaCollection}
     ) {
       lists {
         entries {
