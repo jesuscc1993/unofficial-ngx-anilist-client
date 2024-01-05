@@ -134,12 +134,12 @@ export class MediaApi extends AniListApi {
           listMediaDto.MediaListCollection.lists.forEach((list) => {
             list.entries.forEach((listEntry) => {
               listEntry.media.relations.edges.forEach((edge) => {
-                const media = edge.node;
+                const mediaId = edge.node.id;
                 if (
-                  !mediaIds.includes(media.id) &&
+                  !mediaIds.includes(mediaId) &&
                   relatedMediaRelationTypes.includes(edge.relationType)
                 ) {
-                  mediaIds.push(media.id);
+                  mediaIds.push(mediaId);
                 }
               });
             });
