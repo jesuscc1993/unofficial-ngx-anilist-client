@@ -25,7 +25,7 @@ export class MtPaginationComponent {
   }
 
   getTotal() {
-    return this.isUncertain() ? 9999 : 5000;
+    return this.isUncertain() ? 9999 : this.pagination?.total;
   }
 
   private isUncertain() {
