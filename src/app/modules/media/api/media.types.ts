@@ -1,6 +1,6 @@
 import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import {
-  Media, MediaListSort, MediaSort, MediaStatus,
+  Media, MediaListSort, MediaRelationType, MediaSort, MediaStatus,
 } from '../../shared/types/anilist/media.types';
 import { PageInfo } from '../../shared/types/anilist/pageInfo.types';
 
@@ -142,8 +142,11 @@ export type RelatedMediaIdsDto = {
         status: ListEntryStatus;
         media: {
           relations: {
-            nodes: {
-              id: number;
+            edges: {
+              node: {
+                id: number;
+              };
+              relationType: MediaRelationType;
             }[];
           };
         };

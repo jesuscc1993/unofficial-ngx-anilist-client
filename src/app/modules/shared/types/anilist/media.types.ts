@@ -122,6 +122,22 @@ export enum MediaStatus {
   CANCELLED = 'CANCELLED',
 }
 
+export enum MediaRelationType {
+  ADAPTATION = 'ADAPTATION',
+  ALTERNATIVE = 'ALTERNATIVE',
+  CHARACTER = 'CHARACTER',
+  COMPILATION = 'COMPILATION',
+  CONTAINS = 'CONTAINS',
+  OTHER = 'OTHER',
+  PARENT = 'PARENT',
+  PREQUEL = 'PREQUEL',
+  SEQUEL = 'SEQUEL',
+  SIDE_STORY = 'SIDE_STORY',
+  SOURCE = 'SOURCE',
+  SPIN_OFF = 'SPIN_OFF',
+  SUMMARY = 'SUMMARY',
+}
+
 export enum MediaCountry {
   JP = 'JP',
   KR = 'KR',

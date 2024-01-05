@@ -207,8 +207,11 @@ export const relatedMediaIdsQuery = `
           status
           media {
             relations {
-              nodes {
-                id
+              edges {
+                node {
+                  id
+                }
+                relationType
               }
             }
           }

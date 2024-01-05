@@ -1,4 +1,6 @@
-import { MediaCountry, MediaFormat, MediaSort, MediaStatus } from '../types/anilist/media.types';
+import {
+  MediaCountry, MediaFormat, MediaRelationType, MediaSort, MediaStatus,
+} from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
   MediaSort.END_DATE_DESC,
@@ -29,6 +31,22 @@ export const mediaCountries = [
   MediaCountry.JP,
   MediaCountry.KR,
   MediaCountry.TW,
+];
+
+export const relatedMediaRelationTypes = [
+  MediaRelationType.ADAPTATION,
+  MediaRelationType.ALTERNATIVE,
+  // MediaRelationType.CHARACTER,
+  // MediaRelationType.COMPILATION,
+  MediaRelationType.CONTAINS,
+  MediaRelationType.OTHER,
+  MediaRelationType.PARENT,
+  MediaRelationType.PREQUEL,
+  MediaRelationType.SEQUEL,
+  MediaRelationType.SIDE_STORY,
+  MediaRelationType.SOURCE,
+  MediaRelationType.SPIN_OFF,
+  // MediaRelationType.SUMMARY,
 ];
 
 export const mediaScores = [undefined, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5];

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AniListApi } from '../../shared/api/api';
+import { relatedMediaRelationTypes } from '../../shared/constants/media.constants';
 import { AuthStore } from '../../shared/store/auth.store';
 import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/media.types';
@@ -132,8 +133,12 @@ export class MediaApi extends AniListApi {
         if (listMediaDto) {
           listMediaDto.MediaListCollection.lists.forEach((list) => {
             list.entries.forEach((listEntry) => {
-              listEntry.media.relations.nodes.forEach((media) => {
-                if (!mediaIds.includes(media.id)) {
+              listEntry.media.relations.edges.forEach((edge) => {
+                const media = edge.node;
+                if (
+                  !mediaIds.includes(media.id) &&
+                  relatedMediaRelationTypes.includes(edge.relationType)
+                ) {
                   mediaIds.push(media.id);
                 }
               });
