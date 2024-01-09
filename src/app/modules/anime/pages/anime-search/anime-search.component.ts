@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -48,7 +48,7 @@ export class AnimeSearchPageComponent
 
   user: User;
   mediaList: Media[];
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   pagination: PageInfo;
   sort: MediaSort;
   excludeOnList: boolean;
@@ -75,7 +75,7 @@ export class AnimeSearchPageComponent
     private authCommands: AuthCommands,
     private authStore: AuthStore,
     private mediaStore: AnimeStore,
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     super();
 

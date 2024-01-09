@@ -1,7 +1,7 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { integerPattern, scorePattern } from '../../../../../app.constants';
@@ -39,13 +39,13 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   readonly origin: ModalOrigin;
   readonly media: Media;
   readonly listEntry: ListEntry;
-  readonly listEntryForm: FormGroup;
+  readonly listEntryForm: UntypedFormGroup;
   readonly mediaCommands: MediaCommands;
 
   constructor(
     private animeCommands: AnimeCommands,
     private mangaCommands: MangaCommands,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
