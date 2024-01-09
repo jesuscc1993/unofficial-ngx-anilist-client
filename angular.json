@@ -93,5 +93,7 @@
       }
     }
   },
-  "defaultProject": "unofficial-ngx-anilist-client"
+  "cli": {
+    "analytics": false
+  }
 }
