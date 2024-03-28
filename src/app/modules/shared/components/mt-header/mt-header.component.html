@@ -1,10 +1,6 @@
 <mat-toolbar>
   <div>
-    <span
-      class="hide-below-s"
-      title="Unofficial Angular Material Anilist Client"
-      >{{ 'app.title' | translate }}</span
-    >
+    <span class="hide-below-sm">{{ 'app.title' | translate }}</span>
   </div>
 
   <div class="centered-content section-links" *ngIf="user">
@@ -27,17 +23,17 @@
   <!-- logged in -->
   <div *ngIf="user" class="flex-box center">
     <span
-      class="padding-right-xs clickable hide-below-s"
+      class="padding-right-xs clickable hide-below-sm"
       [matMenuTriggerFor]="userMenu"
       >{{ user.name }}</span
     >
     <img
-      class="avatar clickable hide-below-s"
+      class="avatar clickable hide-below-sm"
       [matMenuTriggerFor]="userMenu"
       [src]="user.avatar.large"
     />
 
-    <a class="clickable show-below-s" [matMenuTriggerFor]="userMenu">
+    <a class="clickable show-below-sm" [matMenuTriggerFor]="userMenu">
       <fa-icon name="bars"></fa-icon>
     </a>
 
@@ -57,7 +53,7 @@
   <!-- not logged in -->
   <div *ngIf="!user" class="flex-box center">
     <a *ngIf="loginAvailable" [href]="apiLoginUrl">
-      <span class="hide-below-s">{{ 'user.logIn' | translate }}{{ ' ' }}</span>
+      <span class="hide-below-sm">{{ 'user.logIn' | translate }}{{ ' ' }}</span>
       <fa-icon name="sign-in-alt"></fa-icon>
     </a>
   </div>

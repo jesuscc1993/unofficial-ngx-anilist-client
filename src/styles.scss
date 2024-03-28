@@ -2,6 +2,7 @@
 @import 'app/styles/material';
 @import 'app/styles/cards';
 @import 'app/styles/devices';
+@import 'app/styles/font-sizes';
 @import 'app/styles/spacing';
 @import 'app/styles/series-table';
 @import 'app/styles/data-display';
@@ -14,7 +15,7 @@ body {
   margin: 0;
 
   .content-wrapper {
-    @extend .padding-s;
+    @extend .padding-sm;
     box-sizing: border-box;
     text-align: center;
 
@@ -29,12 +30,12 @@ body {
       text-align: left;
     }
 
-    @media (max-width: $screen-s) {
+    @media (max-width: $screen-sm) {
       padding: $spacing-xs !important;
     }
 
-    @media (max-width: $screen-xxs) {
-      padding: $spacing-xxs !important;
+    @media (max-width: $screen-2xs) {
+      padding: $spacing-2xs !important;
     }
   }
 }
@@ -144,5 +145,5 @@ label[for],
 
 /* overrides */
 .fa-fw {
-  width: 1em;
+  width: 1rem;
 }

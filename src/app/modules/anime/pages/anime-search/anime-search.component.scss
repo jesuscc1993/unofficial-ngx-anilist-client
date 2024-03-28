@@ -5,13 +5,12 @@ mat-form-field {
 }
 
 mat-expansion-panel-header {
-  padding: 0 $spacing-xxs;
+  padding: 0 $spacing-2xs;
 }
 
 .search-input {
-  $font-size: $font-size-m;
-  font-size: $font-size;
-  line-height: $font-size * 1.5;
+  font-size: $font-size-md;
+  line-height: 1.5;
 }
 
 .form-group {
@@ -20,7 +19,7 @@ mat-expansion-panel-header {
 
   &.two-rows {
     > * {
-      @media (min-width: #{$screen-xxs + 1}) {
+      @media (min-width: #{$screen-2xs + 1}) {
         max-width: calc(50% - #{$spacing-xs});
 
         &:first-child {
@@ -37,15 +36,15 @@ mat-expansion-panel-header {
 .progress-bar {
   border-radius: 2px;
   height: 4px;
-  margin: 0 2px;
+  margin: 0 $spacing-4xs;
 }
 
 .results-wrapper {
   min-height: 100vh;
-  padding: $spacing-s 0;
+  padding: $spacing-sm 0;
 }
 
-@media (max-width: $screen-xxs) {
+@media (max-width: $screen-2xs) {
   button {
     width: 100%;
   }

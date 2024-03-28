@@ -1,17 +1,17 @@
 @import 'variables';
 
 $sizes: (
-  xxxs: $screen-xxxs,
-  xxs: $screen-xxs,
+  3xs: $screen-3xs,
+  2xs: $screen-2xs,
   xs: $screen-xs,
-  s: $screen-s,
-  m: $screen-m,
-  l: $screen-l,
+  sm: $screen-sm,
+  md: $screen-md,
+  lg: $screen-lg,
   xl: $screen-xl,
 );
 
 @each $size, $width in $sizes {
-  @media (min-width: $width + 1) {
+  @media (min-width: #{$width + 1}) {
     .hide-above-#{$size} {
       display: none !important;
     }

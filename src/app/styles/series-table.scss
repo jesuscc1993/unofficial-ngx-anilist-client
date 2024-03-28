@@ -12,13 +12,13 @@ $mobile-horizontal-cell-padding: 40px;
   // }
 }
 
-@media (min-width: ($screen-xxs + 1)) {
+@media (min-width: ($screen-2xs + 1)) {
   :root {
     --cover-width: 88px;
   }
 }
 
-@media (max-width: $screen-xxs) {
+@media (max-width: $screen-2xs) {
   :root {
     --cover-width: 48px;
   }
@@ -67,7 +67,7 @@ $mobile-horizontal-cell-padding: 40px;
 
   .mat-cell {
     .text {
-      padding-right: $spacing-xxs;
+      padding-right: $spacing-2xs;
     }
   }
 
@@ -80,7 +80,7 @@ $mobile-horizontal-cell-padding: 40px;
 
       align-items: center;
       display: flex;
-      font-size: $font-size-m;
+      font-size: $font-size-md;
       height: 100%;
       min-height: $size;
       justify-content: center;
@@ -93,8 +93,8 @@ $mobile-horizontal-cell-padding: 40px;
 
   .mat-column-episodes {
     .duration-icon {
-      $cell-padding: $spacing-xxxxs;
-      line-height: $font-size-m * 1.25;
+      $cell-padding: $spacing-4xs;
+      line-height: $font-size-3xl;
       float: right;
     }
   }
@@ -107,10 +107,10 @@ $mobile-horizontal-cell-padding: 40px;
     .favourite {
       margin-left: auto;
 
-      @media (min-width: #{$screen-xxxs + 1}) {
-        margin-right: $spacing-xxxs;
+      @media (min-width: #{$screen-3xs + 1}) {
+        margin-right: $spacing-3xs;
       }
-      @media (max-width: $screen-xxxs) {
+      @media (max-width: $screen-3xs) {
         margin-right: -$spacing-xs;
       }
     }
@@ -121,7 +121,7 @@ $mobile-horizontal-cell-padding: 40px;
       padding: 0;
 
       mat-list-item {
-        height: $spacing-s;
+        height: $spacing-sm;
 
         .mat-list-item-content {
           padding: 0;
@@ -133,7 +133,7 @@ $mobile-horizontal-cell-padding: 40px;
               $height: 19px;
               line-height: $height;
               border-radius: $height * 0.5;
-              padding: 0 $spacing-xxs;
+              padding: 0 $spacing-2xs;
             }
           }
         }
@@ -144,7 +144,7 @@ $mobile-horizontal-cell-padding: 40px;
   .mat-column-cover-image {
     flex: 0;
     font-size: 0;
-    padding-right: calc(var(--cover-width) + $spacing-xxs);
+    padding-right: calc(var(--cover-width) + $spacing-2xs);
 
     img.cover {
       height: auto;
@@ -153,7 +153,7 @@ $mobile-horizontal-cell-padding: 40px;
     }
   }
 
-  @media (max-width: $screen-xxs) {
+  @media (max-width: $screen-2xs) {
     mat-cell:first-of-type,
     mat-footer-cell:first-of-type,
     mat-header-cell:first-of-type {
@@ -171,7 +171,7 @@ $mobile-horizontal-cell-padding: 40px;
         $size: $mobile-horizontal-cell-padding;
         width: $size;
         margin-left: -$size;
-        font-size: $font-size-l;
+        font-size: $font-size-lg;
       }
     }
   }
@@ -197,19 +197,19 @@ $mobile-horizontal-cell-padding: 40px;
     flex: 1;
   }
 
-  @media (min-width: ($screen-m + 1)) {
+  @media (min-width: ($screen-md + 1)) {
     .mat-column-title-romaji {
       flex: 9;
     }
   }
 
-  @media (max-width: $screen-m) {
+  @media (max-width: $screen-md) {
     .mat-column-title-romaji {
       flex: 4;
     }
   }
 
-  @media (max-width: $screen-s) {
+  @media (max-width: $screen-sm) {
     .mat-column-start-date,
     .mat-column-genres,
     .mat-column-score,
@@ -224,13 +224,13 @@ $mobile-horizontal-cell-padding: 40px;
     }
   }
 
-  @media (max-width: $screen-xxs) {
+  @media (max-width: $screen-2xs) {
     .mat-column-title-romaji {
       flex: 2.75;
     }
   }
 
-  @media (max-width: $screen-xxxs) {
+  @media (max-width: $screen-3xs) {
     .mat-column-cover-image,
     .mat-column-format {
       display: none;

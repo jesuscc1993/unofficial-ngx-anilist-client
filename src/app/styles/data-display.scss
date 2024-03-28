@@ -49,7 +49,7 @@
     }
   }
 
-  @media (min-width: $screen-l) {
+  @media (min-width: $screen-lg) {
     & {
       height: calc($cell-height * 4 + $cell-spacing * 3);
     }

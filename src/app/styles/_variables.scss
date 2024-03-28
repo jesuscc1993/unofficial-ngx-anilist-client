@@ -1,30 +1,32 @@
 /* spacing */
-$spacing-xxxxs: 2px;
-$spacing-xxxs: 4px;
-$spacing-xxs: 8px;
-$spacing-xs: 16px;
-$spacing-s: 24px;
-$spacing-m: 32px;
-$spacing-l: 48px;
-$spacing-xl: 64px;
-$spacing-xxl: 96px;
-$spacing-xxxl: 128px;
+$spacing-4xs: 0.125rem;
+$spacing-3xs: 0.25rem;
+$spacing-2xs: 0.5rem;
+$spacing-xs: 1rem;
+$spacing-sm: 1.5rem;
+$spacing-md: 2rem;
+$spacing-lg: 3rem;
+$spacing-xl: 4rem;
+$spacing-2xl: 6rem;
+$spacing-3xl: 8rem;
 
 /* font sizes */
-$font-size-xs: 12px;
-$font-size-s: 14px;
-$font-size-m: 16px;
-$font-size-l: 20px;
-$font-size-xl: 24px;
-$font-size-xxl: 28px;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-2xl: 1.75rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2rem;
 
 /* device sizes */
-$screen-xxxs: 320px;
-$screen-xxs: 480px;
+$screen-3xs: 320px;
+$screen-2xs: 480px;
 $screen-xs: 576px;
-$screen-s: 768px;
-$screen-m: 1024px;
-$screen-l: 1360px;
+$screen-sm: 768px;
+$screen-md: 1024px;
+$screen-lg: 1360px;
 $screen-xl: 1920px;
 
 /* material */
@@ -36,9 +38,9 @@ $modal-header-height: 70px;
 $modal-footer-height: 84px;
 
 /* generic */
-$page-padding: $spacing-m;
-$card-padding: $spacing-s;
-$expansion-panel-padding: $spacing-s;
+$page-padding: $spacing-md;
+$card-padding: $spacing-sm;
+$expansion-panel-padding: $spacing-sm;
 $max-input-size: 640px;
 $separator-thickness: 1px;
 

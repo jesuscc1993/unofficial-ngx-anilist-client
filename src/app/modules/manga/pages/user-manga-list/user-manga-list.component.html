@@ -1,7 +1,7 @@
 <div class="narrow-page">
   <mat-card *ngIf="!user" class="alert warning">
     <h4>
-      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+      <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
       {{ 'user.notLoggedIn' | translate }}
     </h4>
   </mat-card>
@@ -24,7 +24,7 @@
         </mat-form-field>
       </mat-card>
 
-      <mat-card class="margin-top-s">
+      <mat-card class="margin-top-sm">
         <h3>
           {{ 'media.userList.show' | translate }} /
           {{ 'media.userList.goTo' | translate }}
@@ -39,7 +39,7 @@
 
               <a class="go-to-link" (click)="scrollToStatus(status.value)">
                 <fa-icon
-                  class="vertically-centered margin-left-xxxs"
+                  class="vertically-centered margin-left-3xs"
                   name="arrow-down"
                 ></fa-icon>
               </a>
@@ -78,7 +78,7 @@
 
     <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
       <h4>
-        <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+        <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
         {{ 'media.userList.noEntries' | translate }}
       </h4>
     </mat-card>
@@ -86,7 +86,7 @@
 
   <mat-card *ngIf="error" class="error">
     <h4>
-      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+      <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
       {{ error }}
     </h4>
   </mat-card>

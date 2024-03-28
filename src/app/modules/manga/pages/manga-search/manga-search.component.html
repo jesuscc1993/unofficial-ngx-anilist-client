@@ -1,7 +1,7 @@
 <div class="narrow-page">
   <mat-card *ngIf="!user" class="warning margin-bottom-xs">
     <h4>
-      <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+      <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
       {{ 'user.notLoggedIn' | translate }}
       {{ 'media.search.limitedFeatures' | translate }}
     </h4>
@@ -26,7 +26,7 @@
       </div>
 
       <mat-expansion-panel
-        class="mat-elevation-z padding-bottom-s search-filters"
+        class="mat-elevation-z padding-bottom-sm search-filters"
       >
         <mat-expansion-panel-header>{{
           'media.search.filters.advanced' | translate
@@ -233,14 +233,14 @@
 
     <mat-card *ngIf="error" class="error">
       <h4>
-        <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+        <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
         {{ error }}
       </h4>
     </mat-card>
 
     <mat-card *ngIf="pagination && !pagination.total" class="info">
       <h4>
-        <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
+        <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
         {{ 'generic.noResults' | translate }}
       </h4>
     </mat-card>

@@ -1,7 +1,7 @@
 @import '../../../../styles/variables';
 
 .table-filter {
-  padding-top: $spacing-xxs !important;
+  padding-top: $spacing-2xs !important;
   padding-bottom: 0 !important;
 }
 
@@ -17,7 +17,7 @@
     min-width: 104px;
 
     .go-to-link {
-      height: $spacing-s;
+      height: $spacing-sm;
       display: inline-block;
       vertical-align: top;
     }
@@ -26,6 +26,6 @@
 
 .status-table-wrapper {
   &:not(:last-of-type) {
-    margin-bottom: $spacing-l - $spacing-xxs;
+    margin-bottom: -1 * $spacing-lg;
   }
 }

@@ -1,38 +1,30 @@
 <div *ngIf="media">
   <div
     class="cover"
+    [matTooltip]="media.title.romaji"
     [style.background-image]="
       'url(' + getSizedCoverImage(media.coverImage) + ')'
     "
   >
     <div class="backdrop">
       <div class="full-width" [ngClass]="{ 'padded-contents': listEntry }">
-        <div (click)="openDetailModal($event)" class="clickable">
-          <div
-            *ngIf="media.title"
-            class="title"
-            lines="4"
-            ngxEllipsis
-            title="{{ media.title.romaji }}"
-          >
-            {{ media.title.romaji }}
-          </div>
-          <div *ngIf="media.averageScore">
-            (<mt-media-score
-              [listEntry]="listEntry"
-              [media]="media"
-            ></mt-media-score
-            >)
-          </div>
-        </div>
-
-        <div *ngIf="listEntry" class="cover-actions-container">
+        <div class="cover-actions-container">
           <fa-icon
+            *ngIf="listEntry"
             class="cover-action clickable"
             name="pen"
             (click)="openEditionModal($event)"
           ></fa-icon>
+
           <fa-icon
+            class="cover-action clickable"
+            name="info-circle"
+            [ngClass]="{ 'text-4xl': !listEntry }"
+            (click)="openDetailModal($event)"
+          ></fa-icon>
+
+          <fa-icon
+            *ngIf="listEntry"
             class="cover-action clickable"
             name="trash"
             (click)="deleteEntry($event)"
