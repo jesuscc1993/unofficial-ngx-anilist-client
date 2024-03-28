@@ -2,29 +2,40 @@ import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  integerPattern, mangaSearchUrl, minMediaYear, pageSizeOptions,
+  integerPattern,
+  mangaSearchUrl,
+  minMediaYear,
+  pageSizeOptions,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { SearchFilters } from '../../../media/api/media.types';
-import {
-  MtSearchResultsTableComponent,
-} from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
+import { MtSearchResultsTableComponent } from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../../media/domain/media.domain';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { mediaCountries, mediaStatuses } from '../../../shared/constants/media.constants';
+  mediaCountries,
+  mediaStatuses,
+} from '../../../shared/constants/media.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
-import { Media, MediaFormat, MediaSort } from '../../../shared/types/anilist/media.types';
+import {
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { MangaCommands } from '../../commands/manga.commands';
@@ -54,6 +65,7 @@ export class MangaSearchPageComponent
   mediaGenres: string[];
   mediaCountries = mediaCountries;
   mediaStatuses = mediaStatuses;
+  mediaType = MediaType.ANIME;
   minYear = minMediaYear;
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];

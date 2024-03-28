@@ -1,5 +1,12 @@
 import {
-  AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,14 +14,20 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions } from '../../../../app.constants';
-import { Anime, Media, MediaSort } from '../../../shared/types/anilist/media.types';
+import {
+  Anime,
+  Media,
+  MediaSort,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getMediaProgress, getMediaSortFromSort, getMediaTypeProgressLiteral, getSizedCoverImage,
+  getMediaProgress,
+  getMediaSortFromSort,
+  getMediaTypeProgressLiteral,
+  getSizedCoverImage,
 } from '../../domain/media.domain';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-search-results-table',
@@ -24,6 +37,7 @@ import {
 export class MtSearchResultsTableComponent
   implements AfterViewInit, OnInit, OnChanges
 {
+  @Input() mediaType: MediaType;
   @Input() tableData: Anime[];
   @Output() onSortChange: EventEmitter<MediaSort> =
     new EventEmitter<MediaSort>();
