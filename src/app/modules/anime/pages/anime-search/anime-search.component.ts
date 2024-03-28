@@ -13,7 +13,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  animeSearchUrl,
   integerPattern,
   minMediaYear,
   pageSizeOptions,
@@ -29,6 +28,7 @@ import {
   mediaFormats,
   mediaStatuses,
 } from '../../../shared/constants/media.constants';
+import { animeSearchUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {

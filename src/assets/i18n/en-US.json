@@ -117,6 +117,7 @@
       "null": "-",
       "undefined": "Any"
     },
+    "fullDetail": "Full detail",
     "genre": "Genre",
     "genres": "Genres",
     "goToDetail": "Go to full detail",

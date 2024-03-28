@@ -6,14 +6,14 @@ import { ActivatedRoute } from '@angular/router';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../../shared/services/title.service';
 import { Media } from '../../../shared/types/anilist/media.types';
-import { AnimeCommands } from '../../commands/anime.commands';
+import { MangaCommands } from '../../commands/manga.commands';
 
 @Component({
-  selector: 'mt-anime-detail',
-  templateUrl: './anime-detail.component.html',
-  styleUrls: ['./anime-detail.component.scss'],
+  selector: 'mt-manga-detail',
+  templateUrl: './manga-detail.component.html',
+  styleUrls: ['./manga-detail.component.scss'],
 })
-export class AnimeDetailPageComponent extends WithObservableOnDestroy {
+export class MangaDetailPageComponent extends WithObservableOnDestroy {
   media: Media;
 
   searching: boolean;
@@ -22,7 +22,7 @@ export class AnimeDetailPageComponent extends WithObservableOnDestroy {
   constructor(
     private titleService: TitleService,
     private activatedRoute: ActivatedRoute,
-    private animeCommands: AnimeCommands
+    private mangaCommands: MangaCommands
   ) {
     super();
 
@@ -38,7 +38,7 @@ export class AnimeDetailPageComponent extends WithObservableOnDestroy {
     this.searching = true;
     this.errorGotten = false;
 
-    this.animeCommands
+    this.mangaCommands
       .queryMedia({ id: mediaId })
       .pipe(
         tap(

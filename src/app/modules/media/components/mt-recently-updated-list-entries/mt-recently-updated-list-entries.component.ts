@@ -6,16 +6,22 @@ import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
 import { mediaFormats } from '../../../shared/constants/media.constants';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
-import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
+import {
+  MediaFormat,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral, getMediaTypePrefixedStorageKey, isAnime,
+  getFormatLiteral,
+  getMediaTypePrefixedStorageKey,
+  isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 

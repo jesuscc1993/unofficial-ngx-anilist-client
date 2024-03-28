@@ -1,0 +1,41 @@
+@import '../../../../styles/variables';
+
+.columns-wrapper {
+  font-size: 0;
+
+  > * {
+    font-size: initial;
+  }
+
+  .column {
+    $sidebar-width: 440px;
+    $padding: $spacing-3xs * 1.5;
+    padding: 0 $padding;
+    vertical-align: top;
+    display: inline-block;
+    box-sizing: border-box;
+
+    &.left-column {
+      width: $sidebar-width;
+      padding-left: 0;
+    }
+
+    &.center-column {
+      width: calc(100% - #{$sidebar-width * 2});
+    }
+
+    &.right-column {
+      width: $sidebar-width;
+      padding-right: 0;
+    }
+
+    @media (max-width: $screen-lg) {
+      padding: $padding 0;
+      width: 100% !important;
+
+      & {
+        float: none;
+      }
+    }
+  }
+}

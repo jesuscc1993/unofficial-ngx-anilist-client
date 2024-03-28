@@ -4,15 +4,20 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
-import {
-  animeDashboardUrl, animeSearchUrl, apiLoginUrl, apiTokenPrefix, rootUrl, userAnimeListUrl,
-} from '../../../../app.constants';
+import { apiLoginUrl, apiTokenPrefix } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
+import {
+  animeDashboardUrl,
+  animeSearchUrl,
+  animeUserListUrl,
+  mangaDashboardUrl,
+  mangaSearchUrl,
+  mangaUserListUrl,
+  rootUrl,
+} from '../../constants/navigation.constants';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import {
-  WithObservableOnDestroy,
-} from '../with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
   selector: 'mt-header',
@@ -20,10 +25,9 @@ import {
   styleUrls: ['./mt-header.component.scss'],
 })
 export class MtHeaderComponent extends WithObservableOnDestroy {
-  animeDashboardUrl = animeDashboardUrl;
   animeSearchUrl = animeSearchUrl;
   apiLoginUrl = apiLoginUrl;
-  userAnimeListUrl = userAnimeListUrl;
+  animeUserListUrl = animeUserListUrl;
 
   user: User;
   page: string;
@@ -31,37 +35,37 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 
   routes = [
     {
-      path: 'anime-search',
+      path: animeSearchUrl,
       literal: 'anime.search.title',
       icon: 'tv',
       iconb: 'search',
     },
     {
-      path: 'anime-dashboard',
+      path: animeDashboardUrl,
       literal: 'anime.dashboard.title',
       icon: 'tv',
       iconb: 'columns',
     },
     {
-      path: 'user-anime-list',
+      path: animeUserListUrl,
       literal: 'anime.userList.title',
       icon: 'tv',
       iconb: 'th-list',
     },
     {
-      path: 'manga-search',
+      path: mangaSearchUrl,
       literal: 'manga.search.title',
       icon: 'book-open',
       iconb: 'search',
     },
     {
-      path: 'manga-dashboard',
+      path: mangaDashboardUrl,
       literal: 'manga.dashboard.title',
       icon: 'book-open',
       iconb: 'columns',
     },
     {
-      path: 'user-manga-list',
+      path: mangaUserListUrl,
       literal: 'manga.userList.title',
       icon: 'book-open',
       iconb: 'th-list',

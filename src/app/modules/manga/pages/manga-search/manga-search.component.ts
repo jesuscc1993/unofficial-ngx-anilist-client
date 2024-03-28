@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 import {
   integerPattern,
-  mangaSearchUrl,
   minMediaYear,
   pageSizeOptions,
 } from '../../../../app.constants';
@@ -28,6 +27,7 @@ import {
   mediaCountries,
   mediaStatuses,
 } from '../../../shared/constants/media.constants';
+import { mangaSearchUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
