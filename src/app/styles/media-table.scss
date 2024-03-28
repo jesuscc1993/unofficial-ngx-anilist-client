@@ -24,7 +24,7 @@ $mobile-horizontal-cell-padding: 40px;
   }
 }
 
-.series-table {
+.media-table {
   mat-row {
     &.completed {
       $color: map-get(mat.$green-palette, 500);
