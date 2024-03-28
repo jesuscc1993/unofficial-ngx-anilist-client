@@ -18,6 +18,7 @@
         <fa-icon
           class="cover-action clickable text-xl"
           name="id-card"
+          [ngClass]="{ 'padding-md': !listEntry }"
           (click)="openDetailModal($event)"
         ></fa-icon>
 
