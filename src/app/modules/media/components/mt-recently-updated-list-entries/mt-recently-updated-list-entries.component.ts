@@ -153,7 +153,7 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   private isStatusValid(entry: ListEntry) {
-    if (!this.selectedStatuses.length) {
+    if (!this.selectedStatuses?.length) {
       return true;
     }
     return this.selectedStatuses?.includes(entry.status);

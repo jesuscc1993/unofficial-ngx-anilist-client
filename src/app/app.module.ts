@@ -27,6 +27,7 @@ import {
   animeDetailUrl,
   animeSearchUrl,
   animeUserListUrl,
+  loginUrl,
   mangaDashboardUrl,
   mangaDetailUrl,
   mangaSearchUrl,
@@ -39,7 +40,7 @@ import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found
 
 const appRoutes: Routes = [
   { path: '', redirectTo: rootUrl, pathMatch: 'full' },
-  { path: 'login', component: LoginPageComponent },
+  { path: loginUrl, component: LoginPageComponent },
   { path: animeSearchUrl, component: AnimeSearchPageComponent },
   { path: mangaSearchUrl, component: MangaSearchPageComponent },
   { path: animeDashboardUrl, component: AnimeDashboardPageComponent },

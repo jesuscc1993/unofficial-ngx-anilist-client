@@ -1,3 +1,5 @@
+export const loginUrl = `login`;
+
 export const animeUrlPrefix = `anime`;
 export const mangaUrlPrefix = `manga`;
 export const animeSearchUrl = `${animeUrlPrefix}/search`;
