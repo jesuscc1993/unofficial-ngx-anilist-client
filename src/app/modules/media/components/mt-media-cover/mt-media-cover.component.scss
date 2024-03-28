@@ -32,15 +32,11 @@
     transition: $transition-duration;
 
     display: flex;
-    align-items: center;
+    align-items: end;
     text-align: center;
 
     background: rgba(black, math.div(2, 3));
     color: white;
-
-    .padded-contents {
-      padding-bottom: $spacing-2xs;
-    }
 
     .clickable {
       transition: $transition-duration;
@@ -98,22 +94,21 @@
 
   .cover-actions-container {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 
     position: absolute;
-    height: 100%;
+    height: calc(100% - $spacing-md * 2);
     width: 100%;
-    top: 0;
+    top: $spacing-md;
     left: 0;
 
     .cover-action {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: block;
+      padding: $spacing-3xs;
 
       text-shadow: 0 0 2px black;
-      font-size: $font-size-xl;
+      font-size: $font-size-md;
     }
   }
 }
