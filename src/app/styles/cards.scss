@@ -41,11 +41,11 @@
   }
 }
 
-@media (min-width: ($screen-s + 1)) {
-  @include setup-card-padding($spacing-s, $spacing-xs);
+@media (min-width: ($screen-sm + 1)) {
+  @include setup-card-padding($spacing-sm, $spacing-xs);
 }
 
-@media (max-width: $screen-s) {
+@media (max-width: $screen-sm) {
   @include setup-card-padding($spacing-xs, $spacing-xs);
 }
 
@@ -83,7 +83,7 @@ mat-card {
 
         .mat-select-placeholder,
         .mat-select-value-text {
-          padding: 0 $spacing-xxxs;
+          padding: 0 $spacing-3xs;
         }
       }
     }
@@ -99,7 +99,7 @@ mat-card {
   }
 
   .buttons-container {
-    $horizontalButtonMargin: $spacing-xxs;
+    $horizontalButtonMargin: $spacing-2xs;
     display: flex;
     justify-content: center;
 

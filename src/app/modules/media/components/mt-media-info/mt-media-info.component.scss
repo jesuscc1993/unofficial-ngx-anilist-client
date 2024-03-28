@@ -1,13 +1,13 @@
 @import 'src/app/styles/variables';
 
-$cover-width: $screen-xxxs * 0.5;
+$cover-width: $screen-3xs * 0.5;
 $max-cover-width: 33vw;
-$content-padding: $spacing-xs - $spacing-xxxs;
+$content-padding: $spacing-xs - $spacing-3xs;
 
 img.cover {
   width: $cover-width;
   max-width: $max-cover-width;
-  margin: 0 $content-padding $spacing-xxs 0;
+  margin: 0 $content-padding $spacing-2xs 0;
   float: left;
 }
 
@@ -19,7 +19,7 @@ img.cover {
   }
 }
 
-@media (min-width: $screen-m) {
+@media (min-width: $screen-md) {
   .row {
     display: flex;
     align-items: flex-start;
@@ -36,8 +36,8 @@ img.cover {
 
       &.right {
         width: $right-column-width;
-        margin-top: -$spacing-xxs;
-        padding: $spacing-xxs 0 $spacing-xxs $column-padding;
+        margin-top: -$spacing-2xs;
+        padding: $spacing-2xs 0 $spacing-2xs $column-padding;
         border-left-style: solid;
         border-left-width: 1px;
 

@@ -9,8 +9,8 @@
     <mt-header-picker
       *ngIf="isAnime(mediaType)"
       iconName="filter"
-      title="{{ 'media.format' | translate }}"
       placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [matTooltip]="'media.format' | translate"
       [multiple]="true"
       [options]="mediaFormats"
       [truncate]="true"
@@ -21,9 +21,9 @@
 
     <mt-header-picker
       iconName="award"
-      title="{{ 'media.score' | translate }}"
       placeholder="{{ 'media.scoreValues.undefined' | translate }}"
       [compact]="true"
+      [matTooltip]="'media.score' | translate"
       [options]="mediaScores"
       [value]="selectedScore"
       [getOptionLiteral]="getScoreLiteral"
@@ -32,7 +32,7 @@
 
     <mt-header-picker
       iconName="sort"
-      title="{{ 'generic.sort' | translate }}"
+      [matTooltip]="'generic.sort' | translate"
       [options]="mediaSorts"
       [value]="selectedSort"
       [getOptionLiteral]="getSortLiteral"
@@ -66,14 +66,14 @@
 
       <mat-card *ngIf="pagination && !pagination.total" class="info">
         <h4>
-          <fa-icon name="info-circle" class="margin-right-xxs"></fa-icon>
+          <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
           {{ 'generic.noResults' | translate }}
         </h4>
       </mat-card>
 
       <mat-card *ngIf="error" class="error">
         <h4>
-          <fa-icon name="exclamation-circle" class="margin-right-xxs"></fa-icon>
+          <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
           {{ error }}
         </h4>
       </mat-card>

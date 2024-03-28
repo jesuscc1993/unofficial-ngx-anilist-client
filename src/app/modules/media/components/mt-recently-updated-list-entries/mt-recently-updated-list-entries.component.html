@@ -9,8 +9,8 @@
     <mt-header-picker
       *ngIf="isAnime(mediaType)"
       iconName="filter"
-      title="{{ 'media.format' | translate }}"
       placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [matTooltip]="'media.format' | translate"
       [multiple]="true"
       [options]="mediaFormats"
       [truncate]="true"
@@ -21,11 +21,11 @@
 
     <mt-header-picker
       iconName="clipboard"
-      title="{{ 'media.status' | translate }}"
       placeholder="{{
         (isAnime(mediaType) ? 'anime' : 'manga') + '.statusValues.undefined'
           | translate
       }}"
+      [matTooltip]="'media.status' | translate"
       [multiple]="true"
       [options]="listEntryStatuses"
       [truncateMultiple]="true"

@@ -5,9 +5,8 @@ mat-toolbar {
   height: auto;
   padding: $spacing-xs;
 
-  $font-size: $font-size-s;
-  font-size: $font-size;
-  line-height: $font-size * 1.5;
+  font-size: $font-size-sm;
+  line-height: 1.5;
 
   .about-anilist {
     color: #444;

@@ -8,7 +8,7 @@ $themes: (
     material-theme: mat.define-dark-theme($primary-palette, $accent-palette),
     background: mat.$dark-theme-background-palette,
     foreground: mat.$dark-theme-foreground-palette,
-    border: rgba(white, 0.12),
+    border: rgba(#fff, 0.12),
     button-background: map-get(mat.$gray-palette, 700),
     success: (
       background: map-get(mat.$green-palette, 800),
@@ -118,7 +118,7 @@ mat-toolbar {
 .mat-raised-button.mat-accent,
 .mat-fab.mat-accent,
 .mat-mini-fab.mat-accent {
-  color: white;
+  color: #fff;
 }
 
 .border,
@@ -128,7 +128,11 @@ mat-toolbar {
 
 .mat-chip:not(.mat-basic-chip) {
   background-color: invert(map-get(map-get($theme, background), card), 50%);
-  color: white;
+  color: #fff;
+}
+
+.mat-tooltip {
+  background: rgba(map-get(map-get($theme, background), background), 90%);
 }
 
 mat-card {

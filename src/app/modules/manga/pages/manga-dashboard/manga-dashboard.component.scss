@@ -9,7 +9,7 @@
 
   .column {
     $sidebar-width: 440px;
-    $padding: $spacing-xxxs * 1.5;
+    $padding: $spacing-3xs * 1.5;
     padding: 0 $padding;
     vertical-align: top;
     display: inline-block;
@@ -29,7 +29,7 @@
       padding-right: 0;
     }
 
-    @media (max-width: $screen-l) {
+    @media (max-width: $screen-lg) {
       padding: $padding 0;
       width: 100% !important;
 
