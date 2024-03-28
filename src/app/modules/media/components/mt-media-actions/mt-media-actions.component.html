@@ -63,9 +63,15 @@
 
   <mat-divider></mat-divider>
 
-  <div *ngIf="viewEnabled">
+  <div *ngIf="additionalInfoEnabled">
     <mt-menu-action (onPress)="openDetailModal()" icon="id-card">{{
       'media.additionalInfo' | translate
+    }}</mt-menu-action>
+  </div>
+
+  <div *ngIf="fullDetailEnabled">
+    <mt-menu-action (onPress)="openFullDetail()" icon="id-card">{{
+      'media.fullDetail' | translate
     }}</mt-menu-action>
   </div>
 

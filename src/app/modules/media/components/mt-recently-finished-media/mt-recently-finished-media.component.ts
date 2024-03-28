@@ -4,16 +4,26 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { basicMediaSorts, mediaFormats } from '../../../shared/constants/media.constants';
+  basicMediaSorts,
+  mediaFormats,
+} from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { MediaFormat, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
+import {
+  MediaFormat,
+  MediaSort,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral, getMediaTypePrefixedStorageKey, getSortLiteral, isAnime,
-  sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
+  getFormatLiteral,
+  getMediaTypePrefixedStorageKey,
+  getSortLiteral,
+  isAnime,
+  sortListEntriesByMediaEndDate,
+  sortListEntriesByMediaScore,
+  sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -144,7 +154,9 @@ export class MtRecentlyFinishedMediaComponent
       [MediaSort.TITLE_ROMAJI]: sortListEntriesByMediaTitle,
     }[this.selectedSort];
 
-    this.listEntries = sort(this.listEntries);
+    if (sort) {
+      this.listEntries = sort(this.listEntries);
+    }
 
     this.filterEntries();
   }

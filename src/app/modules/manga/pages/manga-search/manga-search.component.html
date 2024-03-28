@@ -248,6 +248,7 @@
     <div *ngIf="mediaList?.length > 0" id="results" class="results-wrapper">
       <mat-card class="no-padding">
         <mt-search-results-table
+          [mediaType]="mediaType"
           [tableData]="mediaList"
           (onSortChange)="sortBy($event)"
         ></mt-search-results-table>

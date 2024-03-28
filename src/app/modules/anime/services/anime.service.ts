@@ -6,10 +6,7 @@ import { AnimeStore } from '../store/anime.store';
 
 @Injectable()
 export class AnimeService extends MediaService {
-  constructor(
-    private animeApi: AnimeApi,
-    private animeStore: AnimeStore
-  ) {
+  constructor(protected animeApi: AnimeApi, protected animeStore: AnimeStore) {
     super(animeApi, animeStore);
   }
 }
