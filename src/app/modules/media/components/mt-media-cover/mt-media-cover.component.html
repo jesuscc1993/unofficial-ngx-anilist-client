@@ -7,29 +7,34 @@
     "
   >
     <div class="backdrop">
-      <div class="full-width" [ngClass]="{ 'padded-contents': listEntry }">
-        <div class="cover-actions-container">
-          <fa-icon
-            *ngIf="listEntry"
-            class="cover-action clickable"
-            name="pen"
-            (click)="openEditionModal($event)"
-          ></fa-icon>
+      <div class="cover-actions-container">
+        <fa-icon
+          *ngIf="listEntry"
+          class="cover-action clickable"
+          name="pen"
+          (click)="openEditionModal($event)"
+        ></fa-icon>
 
-          <fa-icon
-            class="cover-action clickable"
-            name="id-card"
-            [ngClass]="{ 'text-4xl': !listEntry }"
-            (click)="openDetailModal($event)"
-          ></fa-icon>
+        <fa-icon
+          class="cover-action clickable text-xl"
+          name="id-card"
+          (click)="openDetailModal($event)"
+        ></fa-icon>
 
-          <fa-icon
-            *ngIf="listEntry"
-            class="cover-action clickable"
-            name="trash"
-            (click)="deleteEntry($event)"
-          ></fa-icon>
-        </div>
+        <fa-icon
+          *ngIf="listEntry"
+          class="cover-action clickable"
+          name="trash"
+          (click)="deleteEntry($event)"
+        ></fa-icon>
+      </div>
+
+      <div *ngIf="media.averageScore" class="full-width">
+        <mt-media-score
+          [listEntry]="listEntry"
+          [media]="media"
+          [tooltipsEnabled]="false"
+        ></mt-media-score>
       </div>
     </div>
 

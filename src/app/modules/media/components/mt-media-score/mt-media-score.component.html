@@ -1,17 +1,17 @@
 <ng-container *ngIf="listEntry?.scoreRaw">
-  <strong [matTooltip]="'media.userScore' | translate">
+  <span [title]="'media.userScore' | translate" class="own">
     {{ listEntry.scoreRaw / 10 }}
-  </strong>
+  </span>
   <span> | </span>
 </ng-container>
 
-<span [matTooltip]="'media.averageScore' | translate">
+<span [title]="'media.averageScore' | translate">
   {{ media.averageScore / 10 }}
 </span>
 
 <ng-container *ngIf="media.averageScore !== media.meanScore">
   <span> | </span>
-  <span [matTooltip]="'media.meanScore' | translate">
+  <span [title]="'media.meanScore' | translate">
     {{ media.meanScore / 10 }}
   </span>
 </ng-container>
