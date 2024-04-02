@@ -4,14 +4,6 @@
 $desktop-horizontal-cell-padding: 32px;
 $mobile-horizontal-cell-padding: 40px;
 
-@mixin setup-row-status($color) {
-  border-left-color: $color;
-
-  // .menu-toggle {
-  //   color: $color;
-  // }
-}
-
 @media (min-width: ($screen-2xs + 1)) {
   :root {
     --cover-width: 88px;
@@ -27,25 +19,20 @@ $mobile-horizontal-cell-padding: 40px;
 .media-table {
   mat-row {
     &.completed {
-      $color: map-get(mat.$green-palette, 500);
-      @include setup-row-status($color);
+      @extend .border-left-green;
     }
     &.repeating {
-      $color: map-get(mat.$blue-palette, 500);
-      @include setup-row-status($color);
+      @extend .border-left-blue;
     }
     &.planning,
     &.watching {
-      $color: map-get(mat.$orange-palette, 500);
-      @include setup-row-status($color);
+      @extend .border-left-orange;
     }
     &.paused {
-      $color: map-get(mat.$pink-palette, 500);
-      @include setup-row-status($color);
+      @extend .border-left-pink;
     }
     &.dropped {
-      $color: map-get(mat.$red-palette, 500);
-      @include setup-row-status($color);
+      @extend .border-left-red;
     }
   }
 
