@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use '../../../../styles/colors.scss' as mat;
 
 mat-row {
   cursor: pointer;
@@ -8,7 +8,7 @@ mat-row {
   }
 
   .favourite {
+    @extend .text-pink;
     padding: 3px 0 0;
-    color: map-get(mat.$pink-palette, 500);
   }
 }

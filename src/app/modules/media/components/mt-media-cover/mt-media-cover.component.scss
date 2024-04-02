@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use '@angular/material' as mat;
+@import 'src/app/styles/colors';
 @import 'src/app/styles/variables';
 
 .cover {
@@ -42,7 +43,7 @@
       transition: $transition-duration;
 
       &:hover {
-        color: map-get(mat.$orange-palette, 500);
+        @extend .text-orange;
       }
     }
   }
@@ -74,21 +75,21 @@
     }
 
     &.completed:after {
-      border-color: transparent map-get(mat.$green-palette, 500);
+      @extend .border-x-green;
     }
     &.repeating:after {
-      border-color: transparent map-get(mat.$blue-palette, 500);
+      @extend .border-x-blue;
     }
     &.current:after,
     &.planning:after,
     &.watching:after {
-      border-color: transparent map-get(mat.$orange-palette, 500);
+      @extend .border-x-orange;
     }
     &.paused:after {
-      border-color: transparent map-get(mat.$pink-palette, 300);
+      @extend .border-x-pink;
     }
     &.dropped:after {
-      border-color: transparent map-get(mat.$red-palette, 500);
+      @extend .border-x-red;
     }
   }
 

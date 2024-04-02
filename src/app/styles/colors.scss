@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+@import 'material-theme';
+
+$variations: (
+  green: mat.$green-palette,
+  blue: mat.$blue-palette,
+  red: mat.$red-palette,
+  orange: mat.$orange-palette,
+  pink: mat.$pink-palette,
+);
+
+$positions: top left bottom right;
+
+@each $variation, $palette in $variations {
+  $value: map-get($palette, 500);
+
+  .bg-#{$variation} {
+    border-color: $value;
+  }
+
+  .border-#{$variation} {
+    border-color: $value;
+  }
+  .border-y-#{$variation} {
+    border-color: $value transparent;
+  }
+  .border-x-#{$variation} {
+    border-color: transparent $value;
+  }
+  @each $position in $positions {
+    .border-#{$position}-#{$variation} {
+      border-#{$position}-color: $value;
+    }
+  }
+
+  .text-#{$variation} {
+    color: $value;
+  }
+}
