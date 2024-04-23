@@ -42,7 +42,7 @@
     "@angular/compiler-cli": "^14.3.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
-    "angular-cli-ghpages": "^0.6.2",
+    "angular-cli-ghpages": "^1.0.7",
     "eslint": "^8.23.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.0.2",
@@ -52,6 +52,7 @@
     "typescript": "~4.6.4"
   },
   "resolutions": {
+    "gh-pages": "^5.0.0",
     "json5": "^2.2.2",
     "semver": "^7.5.2",
     "webpack-dev-middleware": "^5.3.4"
