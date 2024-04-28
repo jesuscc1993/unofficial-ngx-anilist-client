@@ -1,5 +1,9 @@
 import {
-  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
+  filterMappings,
+  filterTypes,
+  listEntryFields,
+  mediaFields,
+  pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */

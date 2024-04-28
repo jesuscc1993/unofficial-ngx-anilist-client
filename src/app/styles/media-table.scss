@@ -80,7 +80,7 @@ $mobile-horizontal-cell-padding: 40px;
 
   .mat-column-episodes {
     .duration-icon {
-      $cell-padding: $spacing-4xs;
+      $cell-padding: $spacing-8xs;
       line-height: $font-size-3xl;
       float: right;
     }
@@ -95,7 +95,7 @@ $mobile-horizontal-cell-padding: 40px;
       margin-left: auto;
 
       @media (min-width: #{$screen-3xs + 1}) {
-        margin-right: $spacing-3xs;
+        margin-right: $spacing-4xs;
       }
       @media (max-width: $screen-3xs) {
         margin-right: -$spacing-xs;

@@ -14,54 +14,43 @@
 
     <!-- right column -->
     <div class="column right border">
-      <p
-        *ngIf="!generalInfoOnly && media.format"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="media.format" class="property-value-pair flex-box">
         <strong class="property">{{ 'media.format' | translate }}:</strong>
         <span class="value">{{
           'media.formatValues.' + media.format | translate
         }}</span>
       </p>
 
-      <p
-        *ngIf="!generalInfoOnly && getMediaProgress(media)"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="getMediaProgress(media)" class="property-value-pair flex-box">
         <strong class="property"
           >{{ getMediaTypeProgressLiteral(media.type) | translate }}:</strong
         >
         <span class="value">{{ getMediaProgress(media) }}</span>
       </p>
 
-      <p
-        *ngIf="!generalInfoOnly && media.volumes"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="media.volumes" class="property-value-pair flex-box">
         <strong class="property">{{ 'media.volumes' | translate }}:</strong>
         <span class="value">{{ media.volumes }}</span>
       </p>
 
-      <p
-        *ngIf="!generalInfoOnly && media.duration"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="media.duration" class="property-value-pair flex-box">
         <strong class="property">{{ 'media.duration' | translate }}:</strong>
         <span class="value">{{ getFormattedAnimeDuration(media) }}</span>
       </p>
 
-      <p
-        *ngIf="!generalInfoOnly && media.startDate.year"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="media.source" class="property-value-pair flex-box">
+        <strong class="property">{{ 'media.source' | translate }}:</strong>
+        <span class="value">{{
+          getSourceLiteral(media.source) | translate
+        }}</span>
+      </p>
+
+      <p *ngIf="media.startDate.year" class="property-value-pair flex-box">
         <strong class="property">{{ 'media.startDate' | translate }}:</strong>
         <span class="value">{{ getFormattedFuzzyDate(media.startDate) }}</span>
       </p>
 
-      <p
-        *ngIf="!generalInfoOnly && media.endDate.year"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="media.endDate.year" class="property-value-pair flex-box">
         <strong class="property">{{ 'media.endDate' | translate }}:</strong>
         <span class="value">{{ getFormattedFuzzyDate(media.endDate) }}</span>
       </p>
@@ -95,10 +84,7 @@
         >
       </p>
 
-      <p
-        *ngIf="!generalInfoOnly && media.averageScore"
-        class="property-value-pair flex-box"
-      >
+      <p *ngIf="media.averageScore" class="property-value-pair flex-box">
         <strong class="property" [matTooltip]="'media.scoreTooltip' | translate"
           >{{ 'media.score' | translate }}:</strong
         >
@@ -109,12 +95,12 @@
     </div>
   </div>
 
-  <!-- below columns -->
+  <!-- lower columns -->
   <p
-    *ngIf="!generalInfoOnly && media.genres?.length"
+    *ngIf="media.genres?.length"
     class="property-value-pair flex-box no-margin-bottom"
   >
-    <strong class="property">{{ 'media.genres' | translate }}:</strong>
+    <strong class="property padded">{{ 'media.genres' | translate }}:</strong>
 
     <span class="value">
       <span *ngFor="let genre of media.genres">
@@ -127,13 +113,27 @@
     *ngIf="media.tags?.length"
     class="property-value-pair flex-box no-margin-bottom"
   >
-    <strong class="property">{{ 'media.tags' | translate }}:</strong>
+    <strong class="property padded">{{ 'media.tags' | translate }}:</strong>
 
     <span class="value">
       <span *ngFor="let tag of media.tags">
         <span *ngIf="!tag.isMediaSpoiler">
           <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
         </span>
+      </span>
+    </span>
+  </p>
+
+  <p
+    *ngIf="fullDetail && media.synonyms?.length"
+    class="property-value-pair flex-box no-margin-bottom"
+  >
+    <strong class="property padded">{{ 'media.synonyms' | translate }}:</strong>
+
+    <span class="value">
+      <mat-chip *ngIf="media.title.english">{{ media.title.english }}</mat-chip>
+      <span *ngFor="let synonym of media.synonyms">
+        <mat-chip>{{ synonym }}</mat-chip>
       </span>
     </span>
   </p>

@@ -2,13 +2,19 @@
 
 $cover-width: $screen-3xs * 0.5;
 $max-cover-width: 33vw;
-$content-padding: $spacing-xs - $spacing-3xs;
+$content-padding: $spacing-xs - $spacing-4xs;
 
 img.cover {
   width: $cover-width;
   max-width: $max-cover-width;
   margin: 0 $content-padding $spacing-2xs 0;
   float: left;
+}
+
+.property {
+  &.padded {
+    padding: $spacing-8xs 0;
+  }
 }
 
 .general-info-only {

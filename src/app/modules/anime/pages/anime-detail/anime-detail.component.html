@@ -22,7 +22,12 @@
       <mat-divider></mat-divider>
 
       <div class="content">
-        <mt-media-info *ngIf="media" [media]="media" [showAsColumns]="true">
+        <mt-media-info
+          *ngIf="media"
+          [fullDetail]="true"
+          [media]="media"
+          [showAsColumns]="true"
+        >
         </mt-media-info>
       </div>
     </div>

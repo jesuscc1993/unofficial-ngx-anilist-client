@@ -17,7 +17,12 @@
   </mt-modal-header>
 
   <mt-modal-content>
-    <mt-media-info *ngIf="media" [media]="media" [showAsColumns]="true">
+    <mt-media-info
+      *ngIf="media"
+      [fullDetail]="false"
+      [media]="media"
+      [showAsColumns]="true"
+    >
     </mt-media-info>
   </mt-modal-content>
 
