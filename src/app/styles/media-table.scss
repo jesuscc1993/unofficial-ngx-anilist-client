@@ -98,7 +98,7 @@ $mobile-horizontal-cell-padding: 40px;
         margin-right: $spacing-4xs;
       }
       @media (max-width: $screen-3xs) {
-        margin-right: -$spacing-xs;
+        margin-right: -$spacing-md;
       }
     }
   }
@@ -108,7 +108,7 @@ $mobile-horizontal-cell-padding: 40px;
       padding: 0;
 
       mat-list-item {
-        height: $spacing-sm;
+        height: $spacing-xl;
 
         .mat-list-item-content {
           padding: 0;

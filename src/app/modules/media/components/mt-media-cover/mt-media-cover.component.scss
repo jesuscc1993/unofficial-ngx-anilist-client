@@ -99,9 +99,9 @@
     justify-content: space-around;
 
     position: absolute;
-    height: calc(100% - $spacing-md * 2);
+    height: calc(100% - $spacing-2xl * 2);
     width: 100%;
-    top: $spacing-md;
+    top: $spacing-2xl;
     left: 0;
 
     .cover-action {

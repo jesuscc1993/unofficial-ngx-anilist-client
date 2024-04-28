@@ -2,7 +2,7 @@
 
 $cover-width: $screen-3xs * 0.5;
 $max-cover-width: 33vw;
-$content-padding: $spacing-xs - $spacing-4xs;
+$content-padding: $spacing-md - $spacing-4xs;
 
 img.cover {
   width: $cover-width;
@@ -20,7 +20,7 @@ img.cover {
 .general-info-only {
   .property-value-pair {
     .property {
-      min-width: $spacing-xl !important;
+      min-width: $spacing-4xl !important;
     }
   }
 }
@@ -31,7 +31,7 @@ img.cover {
     align-items: flex-start;
 
     .column {
-      $column-padding: $spacing-xs;
+      $column-padding: $spacing-md;
       $right-column-width: 224px;
       display: inline-block;
 
