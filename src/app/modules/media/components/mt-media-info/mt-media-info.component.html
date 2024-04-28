@@ -104,7 +104,7 @@
 
     <span class="value">
       <span *ngFor="let genre of media.genres">
-        <mat-chip class="rounded">{{ genre }}</mat-chip>
+        <mt-chip class="rounded">{{ genre }}</mt-chip>
       </span>
     </span>
   </p>
@@ -118,7 +118,7 @@
     <span class="value">
       <span *ngFor="let tag of media.tags">
         <span *ngIf="!tag.isMediaSpoiler">
-          <mat-chip [title]="tag.description">{{ tag.name }}</mat-chip>
+          <mt-chip [title]="tag.description">{{ tag.name }}</mt-chip>
         </span>
       </span>
     </span>
@@ -131,9 +131,9 @@
     <strong class="property padded">{{ 'media.synonyms' | translate }}:</strong>
 
     <span class="value">
-      <mat-chip *ngIf="media.title.english">{{ media.title.english }}</mat-chip>
+      <mt-chip *ngIf="media.title.english">{{ media.title.english }}</mt-chip>
       <span *ngFor="let synonym of media.synonyms">
-        <mat-chip>{{ synonym }}</mat-chip>
+        <mt-chip>{{ synonym }}</mt-chip>
       </span>
     </span>
   </p>
