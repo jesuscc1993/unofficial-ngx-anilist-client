@@ -20,7 +20,7 @@ mat-expansion-panel-header {
   &.two-rows {
     > * {
       @media (min-width: #{$screen-2xs + 1}) {
-        max-width: calc(50% - #{$spacing-xs});
+        max-width: calc(50% - #{$spacing-md});
 
         &:first-child {
           float: left;
@@ -36,12 +36,12 @@ mat-expansion-panel-header {
 .progress-bar {
   border-radius: 2px;
   height: 4px;
-  margin: 0 $spacing-4xs;
+  margin: 0 $spacing-8xs;
 }
 
 .results-wrapper {
   min-height: 100vh;
-  padding: $spacing-sm 0;
+  padding: $spacing-xl 0;
 }
 
 @media (max-width: $screen-2xs) {

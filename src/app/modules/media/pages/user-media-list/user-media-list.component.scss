@@ -12,12 +12,12 @@
   }
 
   .status-wrapper {
-    margin-right: $spacing-xs;
+    margin-right: $spacing-md;
     display: inline-block;
     min-width: 104px;
 
     .go-to-link {
-      height: $spacing-sm;
+      height: $spacing-xl;
       display: inline-block;
       vertical-align: top;
     }
@@ -26,6 +26,6 @@
 
 .status-table-wrapper {
   &:not(:last-of-type) {
-    margin-bottom: -1 * $spacing-lg;
+    margin-bottom: -1 * $spacing-3xl;
   }
 }

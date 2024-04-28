@@ -26,7 +26,7 @@
 
   .backdrop {
     font-size: $font-size-sm;
-    padding: $spacing-3xs;
+    padding: $spacing-4xs;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -99,14 +99,14 @@
     justify-content: space-around;
 
     position: absolute;
-    height: calc(100% - $spacing-md * 2);
+    height: calc(100% - $spacing-2xl * 2);
     width: 100%;
-    top: $spacing-md;
+    top: $spacing-2xl;
     left: 0;
 
     .cover-action {
       display: block;
-      padding: $spacing-3xs;
+      padding: $spacing-4xs;
 
       text-shadow: 0 0 2px black;
       font-size: $font-size-md;

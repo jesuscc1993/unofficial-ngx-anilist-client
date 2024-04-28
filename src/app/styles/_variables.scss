@@ -1,14 +1,16 @@
 /* spacing */
-$spacing-4xs: 0.125rem;
-$spacing-3xs: 0.25rem;
+$spacing-8xs: 0.125rem;
+$spacing-4xs: 0.25rem;
+$spacing-3xs: 0.33rem;
 $spacing-2xs: 0.5rem;
-$spacing-xs: 1rem;
-$spacing-sm: 1.5rem;
-$spacing-md: 2rem;
-$spacing-lg: 3rem;
-$spacing-xl: 4rem;
-$spacing-2xl: 6rem;
-$spacing-3xl: 8rem;
+$spacing-xs: 0.75rem;
+$spacing-md: 1rem;
+$spacing-xl: 1.5rem;
+$spacing-2xl: 2rem;
+$spacing-3xl: 3rem;
+$spacing-4xl: 4rem;
+$spacing-6xl: 6rem;
+$spacing-8xl: 8rem;
 
 /* font sizes */
 $font-size-xs: 0.75rem;
@@ -38,9 +40,9 @@ $modal-header-height: 70px;
 $modal-footer-height: 84px;
 
 /* generic */
-$page-padding: $spacing-md;
-$card-padding: $spacing-sm;
-$expansion-panel-padding: $spacing-sm;
+$page-padding: $spacing-2xl;
+$card-padding: $spacing-xl;
+$expansion-panel-padding: $spacing-xl;
 $max-input-size: 640px;
 $separator-thickness: 1px;
 

@@ -132,6 +132,8 @@ export const mediaFields = `${basicMediaFields}
       name
     }
   }
+  source
+  synonyms
   tags {
     description
     isMediaSpoiler
@@ -139,6 +141,7 @@ export const mediaFields = `${basicMediaFields}
   }
   title {
     romaji
+    english
   }
   type
 `;

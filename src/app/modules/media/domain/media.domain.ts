@@ -54,6 +54,10 @@ export const getSortLiteral = (mediaSort: MediaSort) => {
   return `media.sortValues.${mediaSort}`;
 };
 
+export const getSourceLiteral = (mediaSource: string) => {
+  return `media.sourceValues.${mediaSource}`;
+};
+
 export const getMediaSortFromSort = (sort: Sort) => {
   const directionSuffix = sort.direction === 'desc' ? '_DESC' : '';
   return (sort.active.replace(/-/g, '_').toUpperCase() +

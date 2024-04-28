@@ -42,11 +42,11 @@
 }
 
 @media (min-width: ($screen-sm + 1)) {
-  @include setup-card-padding($spacing-sm, $spacing-xs);
+  @include setup-card-padding($spacing-xl, $spacing-md);
 }
 
 @media (max-width: $screen-sm) {
-  @include setup-card-padding($spacing-xs, $spacing-xs);
+  @include setup-card-padding($spacing-md, $spacing-md);
 }
 
 mat-card {
@@ -83,7 +83,7 @@ mat-card {
 
         .mat-select-placeholder,
         .mat-select-value-text {
-          padding: 0 $spacing-3xs;
+          padding: 0 $spacing-4xs;
         }
       }
     }

@@ -5,7 +5,7 @@ mat-toolbar {
   justify-content: space-between;
   position: relative;
   height: $mat-toolbar-height;
-  padding: 0 $spacing-sm;
+  padding: 0 $spacing-xl;
 
   > * {
     display: flex;
@@ -77,7 +77,7 @@ mat-toolbar {
 }
 
 .action-icon {
-  min-width: $spacing-sm;
+  min-width: $spacing-xl;
   display: inline-block;
   text-align: center;
 }

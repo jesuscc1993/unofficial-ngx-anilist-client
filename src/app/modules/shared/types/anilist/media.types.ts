@@ -19,6 +19,7 @@ export class MediaData {
   startDate: FuzzyDate;
   status: MediaStatus;
   studios: NodeList<Studio>;
+  synonyms: string[];
   tags: Tag[];
   title: Title;
   type: MediaType;
