@@ -12,16 +12,11 @@ import { MaterialModule } from '../material/material.module';
 import { AuthApi } from './api/auth/auth.api';
 import { AuthCommands } from './commands/auth.commands';
 import { FaIconComponent } from './components/fa-icon/fa-icon.component';
-import {
-  MtModalContentComponent,
-} from './components/modal/mt-modal-content/mt-modal-content.component';
-import {
-  MtModalFooterComponent,
-} from './components/modal/mt-modal-footer/mt-modal-footer.component';
-import {
-  MtModalHeaderComponent,
-} from './components/modal/mt-modal-header/mt-modal-header.component';
+import { MtModalContentComponent } from './components/modal/mt-modal-content/mt-modal-content.component';
+import { MtModalFooterComponent } from './components/modal/mt-modal-footer/mt-modal-footer.component';
+import { MtModalHeaderComponent } from './components/modal/mt-modal-header/mt-modal-header.component';
 import { MtModalComponent } from './components/modal/mt-modal/mt-modal.component';
+import { MtChipComponent } from './components/mt-chip/mt-chip.component';
 import { MtFooterComponent } from './components/mt-footer/mt-footer.component';
 import { MtHeaderPickerComponent } from './components/mt-header-picker/mt-header-picker.component';
 import { MtHeaderComponent } from './components/mt-header/mt-header.component';
@@ -34,6 +29,7 @@ import { AuthStore } from './store/auth.store';
 
 const declarations = [
   FaIconComponent,
+  MtChipComponent,
   MtFooterComponent,
   MtHeaderComponent,
   MtHeaderPickerComponent,
@@ -52,10 +48,10 @@ const imports = [
   FormsModule,
   HttpClientModule,
   MaterialModule,
+  NgxMultiLineEllipsisModule,
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
-  NgxMultiLineEllipsisModule,
 ];
 
 @NgModule({
