@@ -62,6 +62,7 @@ export class MtListEntryGridComponent implements OnChanges, OnInit {
       if (this.paginator) {
         this.paginator.pageIndex = this.pagination.pageIndex;
       }
+      this.onResize();
     }
   }
 
