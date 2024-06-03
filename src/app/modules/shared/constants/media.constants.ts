@@ -1,5 +1,9 @@
 import {
-  MediaCountry, MediaFormat, MediaRelationType, MediaSort, MediaStatus,
+  MediaCountry,
+  MediaFormat,
+  MediaRelationType,
+  MediaSort,
+  MediaStatus,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
@@ -50,3 +54,6 @@ export const relatedMediaRelationTypes = [
 ];
 
 export const mediaScores = [undefined, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5];
+
+export const gridCardWidth = 96;
+export const gridSpacing = 4;

@@ -1,5 +1,10 @@
+import { ElementRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
+import {
+  gridCardWidth,
+  gridSpacing,
+} from '../../shared/constants/media.constants';
 import {
   CoverImage,
   CoverImageSize,
@@ -126,4 +131,10 @@ export const getMediaTypePrefixedStorageKey = (
   mediaType: MediaType
 ) => {
   return `${mediaType.toLowerCase()}_${key}`;
+};
+
+export const getColCount = (elementRef: ElementRef<any>) => {
+  return Math.floor(
+    elementRef.nativeElement.offsetWidth / (gridCardWidth + gridSpacing)
+  );
 };

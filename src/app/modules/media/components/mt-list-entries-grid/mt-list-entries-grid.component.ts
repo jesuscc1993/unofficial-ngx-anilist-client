@@ -1,19 +1,33 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
+import { getColCount } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-list-entries-grid',
   templateUrl: './mt-list-entries-grid.component.html',
   styleUrls: ['./mt-list-entries-grid.component.scss'],
 })
-export class MtListEntryGridComponent implements OnChanges {
+export class MtListEntryGridComponent implements OnChanges, OnInit {
   @Input() listEntries: ListEntry[];
   @Input() showStatusBadge?: boolean;
   @Input() wrapperClass?: string;
+  @ViewChild('content', { read: ElementRef }) content: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  readonly rowCount = 4;
+
+  colCount: number;
   pagination: PageEvent;
 
   constructor() {
@@ -22,6 +36,20 @@ export class MtListEntryGridComponent implements OnChanges {
       pageSize: 16,
       length: 0,
     };
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    const newColCount = getColCount(this.content);
+
+    if (newColCount !== this.colCount) {
+      this.colCount = newColCount;
+      this.pagination.pageSize = newColCount * this.rowCount;
+    }
+  }
+
+  ngOnInit() {
+    this.onResize();
   }
 
   ngOnChanges({ listEntries }: SimpleChanges) {
