@@ -238,7 +238,6 @@ export class MtListRelatedMediaComponent
 
   private initializeState() {
     this.searching = false;
-    this.enabled = false;
     this.relatedMediaIds = undefined;
     this.pagination = undefined;
     this.error = undefined;
