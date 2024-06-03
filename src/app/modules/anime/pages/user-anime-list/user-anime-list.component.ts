@@ -3,7 +3,6 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
@@ -43,15 +42,12 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
   constructor(
     private router: Router,
     private titleService: TitleService,
-    private translateService: TranslateService,
     private animeCommands: AnimeCommands,
     private authStore: AuthStore
   ) {
     super();
 
-    this.titleService.setTitle(
-      this.translateService.instant('anime.userList.title')
-    );
+    this.titleService.setTranslatedTitle('anime.userList.title');
 
     this.user = this.authStore.getUser();
     this.loggedIn = this.user !== undefined;

@@ -10,7 +10,6 @@ import {
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 import {
   integerPattern,
@@ -79,7 +78,6 @@ export class MangaSearchPageComponent
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: TitleService,
-    private translateService: TranslateService,
     private mangaCommands: MangaCommands,
     private authCommands: AuthCommands,
     private authStore: AuthStore,
@@ -88,9 +86,7 @@ export class MangaSearchPageComponent
   ) {
     super();
 
-    this.titleService.setTitle(
-      this.translateService.instant('manga.search.title')
-    );
+    this.titleService.setTranslatedTitle('manga.search.title');
 
     this.user = this.authStore.getUser();
     this.setupForm();
