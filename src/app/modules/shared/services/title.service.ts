@@ -16,4 +16,8 @@ export class TitleService {
         : this.translateService.instant('app.title')
     );
   }
+
+  setTranslatedTitle(title?: string) {
+    this.setTitle(this.translateService.instant(title));
+  }
 }

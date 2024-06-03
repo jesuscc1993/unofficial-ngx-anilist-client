@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { TitleService } from '../../modules/shared/services/title.service';
 
@@ -9,12 +8,7 @@ import { TitleService } from '../../modules/shared/services/title.service';
   styleUrls: ['./page-not-found.component.scss'],
 })
 export class PageNotFoundPageComponent {
-  constructor(
-    private titleService: TitleService,
-    private translateService: TranslateService
-  ) {
-    this.titleService.setTitle(
-      this.translateService.instant('app.pageNotFound')
-    );
+  constructor(private titleService: TitleService) {
+    this.titleService.setTranslatedTitle('app.pageNotFound');
   }
 }

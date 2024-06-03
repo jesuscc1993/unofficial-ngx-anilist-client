@@ -134,7 +134,9 @@ export const getMediaTypePrefixedStorageKey = (
 };
 
 export const getColCount = (elementRef: ElementRef<any>) => {
-  return Math.floor(
-    elementRef.nativeElement.offsetWidth / (gridCardWidth + gridSpacing)
-  );
+  return elementRef
+    ? Math.floor(
+        elementRef.nativeElement.offsetWidth / (gridCardWidth + gridSpacing)
+      )
+    : undefined;
 };

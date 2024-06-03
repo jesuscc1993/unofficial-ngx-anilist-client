@@ -43,14 +43,24 @@
   <div class="content">
     <div #content>
       <div
-        *ngIf="searching"
+        *ngIf="searching || !enabled"
         class="placeholder"
         [ngClass]="{ 'with-pagination': pagination }"
       >
-        <mat-spinner mode="indeterminate"></mat-spinner>
+        <mat-spinner *ngIf="searching" mode="indeterminate"></mat-spinner>
+
+        <button
+          *ngIf="!enabled"
+          mat-raised-button
+          color="accent"
+          (click)="enable()"
+        >
+          <fa-icon name="search baseline"></fa-icon>
+          <span>{{ 'media.search.submit' | translate }}</span>
+        </button>
       </div>
 
-      <div *ngIf="!searching" class="media-cover-grid">
+      <div *ngIf="!searching && enabled" class="media-cover-grid">
         <mt-media-cover
           *ngFor="let media of mediaList"
           [media]="media"

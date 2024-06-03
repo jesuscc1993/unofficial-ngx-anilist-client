@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { TitleService } from '../../../shared/services/title.service';
 
@@ -9,12 +8,7 @@ import { TitleService } from '../../../shared/services/title.service';
   styleUrls: ['./manga-dashboard.component.scss'],
 })
 export class MangaDashboardPageComponent {
-  constructor(
-    private titleService: TitleService,
-    private translateService: TranslateService
-  ) {
-    this.titleService.setTitle(
-      this.translateService.instant('manga.dashboard.title')
-    );
+  constructor(private titleService: TitleService) {
+    this.titleService.setTranslatedTitle('manga.dashboard.title');
   }
 }

@@ -51,6 +51,7 @@ $footer-height: 82px;
 $media-aspect-ratio: 1.414; // √2
 $media-cover-width: 96px;
 $media-cover-height: round($media-cover-width * $media-aspect-ratio);
+$min-dashboard-column-height: 602px;
 
 /* other */
 $transition-duration: 0.2s;

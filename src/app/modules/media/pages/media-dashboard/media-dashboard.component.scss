@@ -16,8 +16,8 @@
     box-sizing: border-box;
 
     &.left-column {
-      width: $sidebar-width;
       padding-left: 0;
+      width: $sidebar-width;
     }
 
     &.center-column {
@@ -25,8 +25,14 @@
     }
 
     &.right-column {
-      width: $sidebar-width;
       padding-right: 0;
+      width: $sidebar-width;
+    }
+
+    &.full-column {
+      padding-left: 0;
+      padding-right: 0;
+      width: 100%;
     }
 
     @media (max-width: $screen-lg) {
