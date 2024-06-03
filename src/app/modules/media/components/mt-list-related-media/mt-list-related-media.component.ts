@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
 import {
@@ -61,6 +61,7 @@ export class MtListRelatedMediaComponent
   readonly rowCount = 4;
 
   colCount: number;
+  enabled: boolean;
   error: Error;
   mediaCommands: MediaCommands;
   mediaList: Media[];
@@ -168,13 +169,24 @@ export class MtListRelatedMediaComponent
     );
   }
 
-  queryData() {
-    return this.mediaCommands.queryRelatedMediaIds().pipe(
-      tap((relatedMediaIds) => {
-        this.relatedMediaIds = relatedMediaIds;
-        this.search(0, this.colCount * this.rowCount);
-      })
-    );
+  queryData(): Observable<number[]> {
+    return this.enabled
+      ? this.mediaCommands.queryRelatedMediaIds().pipe(
+          tap((relatedMediaIds) => {
+            this.relatedMediaIds = relatedMediaIds;
+            this.search(0, this.colCount * this.rowCount);
+          })
+        )
+      : of([]);
+  }
+
+  enable() {
+    this.enabled = true;
+    this.searching = true;
+
+    this.queryData()
+      .pipe(catchError(this.onError), takeUntil(this.destroyed$))
+      .subscribe();
   }
 
   setSelectedFormats(selectedFormats: MediaFormat[]) {
@@ -225,46 +237,49 @@ export class MtListRelatedMediaComponent
   }
 
   private initializeState() {
-    this.searching = true;
+    this.searching = false;
+    this.enabled = false;
     this.relatedMediaIds = undefined;
     this.pagination = undefined;
     this.error = undefined;
   }
 
   private search(pageIndex?: number, perPage?: number) {
-    this.searching = true;
-    this.error = undefined;
+    if (this.enabled) {
+      this.searching = true;
+      this.error = undefined;
 
-    this.mediaCommands
-      .getMediaFromIds(
-        this.relatedMediaIds,
-        {
-          formatIn: isAnime(this.mediaType)
-            ? this.selectedFormats?.length
-              ? this.selectedFormats
-              : undefined
-            : [MediaFormat.MANGA],
-          onList: false,
-          sort: this.selectedSort,
-          averageScoreGreaterThan:
-            this.selectedScore && this.selectedScore * 10,
-        },
-        {
-          pageIndex,
-          perPage,
-        }
-      )
-      .pipe(
-        tap((response) => {
-          this.mediaList = response.media;
-          this.pagination = response.pageInfo;
-          this.pagination.pageIndex = response.pageInfo.currentPage - 1;
-          this.searching = false;
-        }),
-        catchError(this.onError),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
+      this.mediaCommands
+        .getMediaFromIds(
+          this.relatedMediaIds,
+          {
+            formatIn: isAnime(this.mediaType)
+              ? this.selectedFormats?.length
+                ? this.selectedFormats
+                : undefined
+              : [MediaFormat.MANGA],
+            onList: false,
+            sort: this.selectedSort,
+            averageScoreGreaterThan:
+              this.selectedScore && this.selectedScore * 10,
+          },
+          {
+            pageIndex,
+            perPage,
+          }
+        )
+        .pipe(
+          tap((response) => {
+            this.mediaList = response.media;
+            this.pagination = response.pageInfo;
+            this.pagination.pageIndex = response.pageInfo.currentPage - 1;
+            this.searching = false;
+          }),
+          catchError(this.onError),
+          takeUntil(this.destroyed$)
+        )
+        .subscribe();
+    }
   }
 
   private onError(error: Error) {

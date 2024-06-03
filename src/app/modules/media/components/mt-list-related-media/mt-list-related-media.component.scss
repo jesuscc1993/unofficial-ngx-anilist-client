@@ -1,6 +1,8 @@
+@import '../../../../styles/variables';
+
 .content,
 .placeholder {
-  $min-height: 594px;
+  $min-height: $min-dashboard-column-height;
   $pagination-height: 40px;
 
   &.with-pagination {
