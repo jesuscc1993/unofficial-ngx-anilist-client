@@ -1,4 +1,4 @@
-<div *ngIf="listEntries?.length" [class]="wrapperClass">
+<div *ngIf="listEntries?.length" [class]="wrapperClass" #content>
   <div class="media-cover-grid">
     <mt-media-cover
       *ngFor="

@@ -2,7 +2,13 @@ import { of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  Component, ElementRef, HostListener, Input, OnChanges, OnInit, ViewChild,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -10,25 +16,29 @@ import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { MangaStore } from '../../../manga/store/manga.store';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  basicMediaSorts, mediaFormats, mediaScores,
+  basicMediaSorts,
+  mediaFormats,
+  mediaScores,
 } from '../../../shared/constants/media.constants';
 import {
-  Media, MediaFormat, MediaSort, MediaType,
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral, getMediaTypePrefixedStorageKey, getSortLiteral, isAnime,
+  getColCount,
+  getFormatLiteral,
+  getMediaTypePrefixedStorageKey,
+  getSortLiteral,
+  isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import { MediaStore } from '../../store/media.store';
-
-const gridCard = 96;
-const gridSpacing = 6;
 
 @Component({
   selector: 'mt-list-related-media',
@@ -81,14 +91,10 @@ export class MtListRelatedMediaComponent
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    const newColCount = Math.floor(
-      this.content.nativeElement.offsetWidth / (gridCard + gridSpacing)
-    );
+    const newColCount = getColCount(this.content);
 
     if (newColCount !== this.colCount) {
-      this.colCount = Math.floor(
-        this.content.nativeElement.offsetWidth / (gridCard + gridSpacing)
-      );
+      this.colCount = newColCount;
 
       this.initializeState();
       this.queryData()
