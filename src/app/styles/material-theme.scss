@@ -164,3 +164,24 @@ mat-card {
     }
   }
 }
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-track-piece {
+  background: map-get(mat.$gray-palette, 900) !important;
+}
+
+::-webkit-scrollbar {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: map-get(mat.$gray-palette, 700);
+  border: 3px solid map-get(mat.$gray-palette, 900) !important;
+  border-radius: 8px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: map-get(mat.$gray-palette, 600);
+}
