@@ -14,10 +14,7 @@ export class AuthService {
   userChange$: Observable<User>;
   private userChangeSubject: Subject<User> = new Subject<User>();
 
-  constructor(
-    private authApi: AuthApi,
-    private authStore: AuthStore
-  ) {
+  constructor(private authApi: AuthApi, private authStore: AuthStore) {
     this.userChangeSubject = new Subject<User>();
     this.userChange$ = this.userChangeSubject.asObservable();
     this.getAccessToken();
@@ -32,6 +29,10 @@ export class AuthService {
         this.userChangeSubject.next(user);
       })
     );
+  }
+
+  validateToken() {
+    return this.authApi.validateToken();
   }
 
   logOut() {

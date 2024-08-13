@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 export const apiUrl = 'https://graphql.anilist.co';
 export const apiLoginUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${environment.anilistClientId}&response_type=token`;
 export const apiTokenPrefix = '#access_token=';
+export const apiTokenError = 'Invalid token';
 
 export const integerPattern = /^\d+$/;
 export const scorePattern = /^0*([0-9]|10)(\.[0-9]{1,2})?$/;

@@ -178,6 +178,14 @@ export const userQuery = `
   }
 `;
 
+export const validateTokenQuery = `
+  {
+    Viewer {
+      id
+    }
+  }
+`;
+
 export const mediaIdSearchQuery = `
   query (
     ${filterTypes.media}
