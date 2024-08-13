@@ -69,7 +69,7 @@ export class AniListApi {
         },
         this.getRequestOptions()
       )
-      .pipe(this.mapObjectErrorToStringError());
+      .pipe(this.mapResponseErrors());
   }
 
   protected isValidResponse<T>(response: AnilistResponse<T>) {
@@ -80,9 +80,11 @@ export class AniListApi {
     return !!response && response.data;
   }
 
-  protected mapObjectErrorToStringError() {
-    return catchError((error) =>
-      throwError(JSON.stringify(error, undefined, 2))
-    );
+  protected mapResponseErrors() {
+    return catchError((response) => {
+      const { errors } = response.error;
+
+      return throwError(errors.length === 1 ? errors[0] : errors);
+    });
   }
 }

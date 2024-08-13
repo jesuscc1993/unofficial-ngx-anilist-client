@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { userQuery } from '../../../media/api/media.queries';
+import { userQuery, validateTokenQuery } from '../../../media/api/media.queries';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
 import { AniListApi } from '../api';
@@ -22,6 +22,12 @@ export class AuthApi extends AniListApi {
   queryUser(): Observable<User> {
     return this.postGraphQlRequest<UserDto>(userQuery).pipe(
       map((response) => this.getResponseData(response).Viewer)
+    );
+  }
+
+  validateToken(): Observable<void> {
+    return this.postGraphQlRequest<void>(validateTokenQuery).pipe(
+      map((response) => this.getResponseData(response))
     );
   }
 }

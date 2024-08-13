@@ -10,6 +10,10 @@ export class AuthCommands {
     return this.authService.logIn(accessToken);
   }
 
+  validateToken() {
+    return this.authService.validateToken();
+  }
+
   logOut() {
     return this.authService.logOut();
   }
