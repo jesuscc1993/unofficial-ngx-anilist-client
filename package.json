@@ -54,7 +54,11 @@
   "resolutions": {
     "gh-pages": "^5.0.0",
     "json5": "^2.2.2",
+    "path-to-regexp": "^0.1.10",
     "semver": "^7.5.2",
+    "send": "^0.19.0",
+    "serve-static": "^1.16.0",
+    "webpack": "^5.94.0",
     "webpack-dev-middleware": "^5.3.4"
   }
 }
