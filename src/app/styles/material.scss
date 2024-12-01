@@ -33,6 +33,10 @@ mat-expansion-panel {
 }
 
 mat-paginator {
+  .mat-paginator-container {
+    min-height: 0;
+  }
+
   &.basic {
     .mat-paginator-container {
       padding: 0;

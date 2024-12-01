@@ -37,13 +37,12 @@
     ></mt-header-picker>
   </div>
 
-  <div class="content">
+  <div class="content reduced-bottom-padding">
     <div *ngIf="searching" class="placeholder">
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
     <mt-list-entries-grid
-      wrapperClass="negative-bottom-margin"
       [listEntries]="filteredEntries"
       [showStatusBadge]="true"
     ></mt-list-entries-grid>

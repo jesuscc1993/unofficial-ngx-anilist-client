@@ -51,11 +51,11 @@ $max-input-size: 640px;
 $separator-thickness: 1px;
 
 /* specific */
-$footer-height: 82px;
+$footer-height: 48px;
 $media-aspect-ratio: 1.414; // √2
 $media-cover-width: 96px;
 $media-cover-height: round($media-cover-width * $media-aspect-ratio);
-$min-dashboard-column-height: 602px;
+$min-dashboard-column-height: 744px;
 
 /* other */
-$transition-duration: 0.2s;
+$transition-duration: 200ms;

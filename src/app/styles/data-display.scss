@@ -52,7 +52,7 @@
 
   @media (min-width: $screen-lg) {
     & {
-      height: calc($cell-height * 4 + $cell-spacing * 3);
+      min-height: calc($cell-height * 4 + $cell-spacing * 3);
     }
   }
 }
