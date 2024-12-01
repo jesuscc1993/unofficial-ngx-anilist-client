@@ -40,7 +40,7 @@
     ></mt-header-picker>
   </div>
 
-  <div class="content">
+  <div class="content reduced-bottom-padding">
     <div #content>
       <div
         *ngIf="searching || !enabled"
@@ -68,7 +68,7 @@
       </div>
 
       <mt-pagination
-        class="basic negative-bottom-margin"
+        class="basic"
         [pagination]="pagination"
         (changePage)="changePage($event)"
       >

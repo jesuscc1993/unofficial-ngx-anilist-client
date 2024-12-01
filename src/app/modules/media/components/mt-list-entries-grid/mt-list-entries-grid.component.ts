@@ -25,7 +25,7 @@ export class MtListEntryGridComponent implements OnChanges, OnInit {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  readonly rowCount = 4;
+  readonly rowCount = 5;
 
   colCount: number;
   pagination: PageEvent;
@@ -33,7 +33,7 @@ export class MtListEntryGridComponent implements OnChanges, OnInit {
   constructor() {
     this.pagination = {
       pageIndex: 0,
-      pageSize: 16,
+      pageSize: 20,
       length: 0,
     };
   }

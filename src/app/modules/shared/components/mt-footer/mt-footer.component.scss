@@ -4,9 +4,10 @@ mat-toolbar {
   display: block;
   height: auto;
   padding: $spacing-md;
+  min-height: $footer-height;
 
   font-size: $font-size-sm;
-  line-height: 1.5;
+  line-height: 1;
 
   .about-anilist {
     color: #444;
