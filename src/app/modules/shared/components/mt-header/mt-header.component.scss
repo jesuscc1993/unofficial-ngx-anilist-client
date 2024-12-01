@@ -31,32 +31,36 @@ mat-toolbar {
   }
 
   .section-links {
+    > * {
+      &,
+      & a {
+        height: 100%;
+      }
+    }
+
     a {
-      width: 96px;
+      margin: 0 $spacing-3xs;
+      min-width: $spacing-5xl;
+      padding: $spacing-4xs 0;
+      transition: $transition-duration;
+      border-bottom: 4px solid transparent;
+      border-top: 4px solid transparent;
+      box-sizing: border-box;
       display: inline-flex;
       flex-direction: column;
-      box-sizing: border-box;
-      border-top-width: 4px;
-      border-top-style: solid;
-      border-bottom-width: 0;
-      height: 100%;
-      transition: $transition-duration;
-      font-size: 0;
-      padding: 4px 0;
+      justify-content: space-around;
 
-      > * {
-        font-size: initial;
-      }
+      .icons-container {
+        line-height: 1;
 
-      .section-icon {
-        font-size: $font-size-lg;
-        padding: 2px 0;
+        .section-icon {
+          font-size: $font-size-lg;
+        }
       }
 
       &.active {
-        border-bottom-width: 4px;
-        border-bottom-style: solid;
         pointer-events: none;
+        border-bottom-color: inherit;
       }
 
       .small {

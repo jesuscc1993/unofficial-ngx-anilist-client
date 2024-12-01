@@ -65,6 +65,11 @@ a {
   }
 }
 
+hr,
+vr {
+  border-color: map-get(map-get($theme, foreground), divider);
+}
+
 mat-card,
 .mat-snack-bar-container {
   &.success {

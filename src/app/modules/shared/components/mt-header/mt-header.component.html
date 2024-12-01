@@ -4,20 +4,39 @@
   </div>
 
   <div class="centered-content section-links" *ngIf="user">
-    <a
+    <div
       *ngFor="let route of routes"
-      [routerLink]="route.path"
-      [class.active]="onPage(route.path)"
+      class="border-box"
+      [ngClass]="{
+        'vertical-padding-xs': !route,
+        'horizontal-padding-2xs': !route
+      }"
     >
-      <span>
-        <fa-icon [name]="route.icon" class="section-icon"></fa-icon>
-        <span *ngIf="route.iconb">
-          &nbsp;
-          <fa-icon [name]="route.iconb" class="section-icon"></fa-icon>
+      <a
+        *ngIf="route"
+        [routerLink]="route.path"
+        [class.active]="onPage(route.path)"
+      >
+        <span class="icons-container">
+          <fa-icon
+            *ngIf="route.icon"
+            [name]="route.icon"
+            class="section-icon"
+          ></fa-icon>
+
+          <span *ngIf="route.icon && route.iconb"> &nbsp; </span>
+
+          <fa-icon
+            *ngIf="route.iconb"
+            [name]="route.iconb"
+            class="section-icon"
+          ></fa-icon>
         </span>
-      </span>
-      <span class="small">{{ route.literal | translate }}</span>
-    </a>
+        <span class="small">{{ route.literal | translate }}</span>
+      </a>
+
+      <vr *ngIf="!route"></vr>
+    </div>
   </div>
 
   <!-- logged in -->
