@@ -1,0 +1,8 @@
+/* vertical ruler - counterpart to vanilla's hr */
+vr {
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  display: block;
+  height: 100%;
+}
