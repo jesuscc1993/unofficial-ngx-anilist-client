@@ -60,6 +60,10 @@ $theme: map-get($themes, dark);
 a {
   color: mat.get-color-from-palette($primary-palette, darker);
 
+  &.secondary:not(.active):not(:hover) {
+    color: invert(map-get(map-get($theme, background), app-bar), 33%);
+  }
+
   &:hover {
     color: mat.get-color-from-palette($primary-palette, default);
   }

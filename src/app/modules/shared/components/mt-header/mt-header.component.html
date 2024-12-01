@@ -14,6 +14,7 @@
     >
       <a
         *ngIf="route"
+        class="secondary"
         [routerLink]="route.path"
         [class.active]="onPage(route.path)"
       >
