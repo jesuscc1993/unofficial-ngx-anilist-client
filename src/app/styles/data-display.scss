@@ -31,13 +31,15 @@
   $cell-height: $media-cover-height;
   $cell-width: $media-cover-width;
   $cell-spacing: 6px;
+  $row-count: 5;
 
   display: grid;
   grid-gap: $cell-spacing;
   grid-template-columns: repeat(auto-fill, $cell-width);
   grid-template-rows: repeat(auto-fill, $cell-height);
   justify-content: space-around;
-  min-height: 562px;
+  min-height: $media-cover-height * $row-count + $cell-spacing *
+    ($row-count - 1);
 
   mt-media-cover {
     display: inline-block;
@@ -50,9 +52,10 @@
     }
   }
 
-  @media (min-width: $screen-lg) {
-    & {
-      min-height: calc($cell-height * 4 + $cell-spacing * 3);
-    }
-  }
+  // @media (min-width: $screen-lg) {
+  //   & {
+  //     min-height: $media-cover-height * $row-count + $cell-spacing *
+  //       ($row-count - 1);
+  //   }
+  // }
 }
