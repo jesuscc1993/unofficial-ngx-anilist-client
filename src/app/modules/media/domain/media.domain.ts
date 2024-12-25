@@ -18,6 +18,7 @@ import {
   Anime,
   Manga,
   Media,
+  MediaCountry,
   MediaFormat,
   MediaSort,
   MediaType,
@@ -49,6 +50,10 @@ export const pad = (
 
 export const getDateScalarFromYear = (year: number) => {
   return year * 10000;
+};
+
+export const getCountryLiteral = (country: MediaCountry) => {
+  return `country.${country}`;
 };
 
 export const getFormatLiteral = (mediaFormat: MediaFormat) => {
@@ -113,8 +118,11 @@ export const getMediaProgress = (media: Media) => {
 };
 
 export const isAnime = (payload: Media | MediaType) => {
-  const type = typeof payload === 'object' ? payload.type : payload;
-  return type === MediaType.ANIME;
+  return getMediaPayloadType(payload) === MediaType.ANIME;
+};
+
+export const isManga = (payload: Media | MediaType) => {
+  return getMediaPayloadType(payload) === MediaType.MANGA;
 };
 
 export const getSizedCoverImage = (
@@ -139,4 +147,8 @@ export const getColCount = (elementRef: ElementRef<any>) => {
         elementRef.nativeElement.offsetWidth / (gridCardWidth + gridSpacing)
       )
     : undefined;
+};
+
+const getMediaPayloadType = (payload: Media | MediaType) => {
+  return typeof payload === 'object' ? payload.type : payload;
 };

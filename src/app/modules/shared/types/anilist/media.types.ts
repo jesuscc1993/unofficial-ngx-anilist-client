@@ -8,6 +8,7 @@ export type Studio = {
 
 export class MediaData {
   averageScore: number;
+  countryOfOrigin?: MediaCountry;
   coverImage: CoverImage;
   description: string;
   endDate?: FuzzyDate;

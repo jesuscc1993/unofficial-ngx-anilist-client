@@ -107,6 +107,7 @@ export const basicMediaFields = `
 
 export const mediaFields = `${basicMediaFields}
   averageScore
+  countryOfOrigin
   coverImage {
     large
     medium

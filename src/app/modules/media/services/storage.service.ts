@@ -22,6 +22,7 @@ const clear = () => {
 export const StorageKeys = {
   AccessToken: 'accessToken',
   RecentlyFinished: {
+    Country: 'recentlyFinished_country',
     Format: 'recentlyFinished_format',
     Sort: 'recentlyFinished_sort',
   },
