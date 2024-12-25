@@ -164,17 +164,18 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   private isFormatValid(entry: ListEntry) {
-    if (isManga(this.mediaType) || !this.selectedFormats?.length) {
-      return true;
-    }
-    return this.selectedFormats?.includes(entry.media.format);
+    return (
+      isManga(this.mediaType) ||
+      !this.selectedFormats?.length ||
+      this.selectedFormats?.includes(entry.media.format)
+    );
   }
 
   private isCountryValid(entry: ListEntry) {
-    if (isAnime(this.mediaType) || !this.selectedCountries?.length) {
-      return true;
-    }
-    return this.selectedCountries?.includes(entry.media.countryOfOrigin);
+    return (
+      !this.selectedCountries?.length ||
+      this.selectedCountries?.includes(entry.media.countryOfOrigin)
+    );
   }
 
   private sortEntries() {
