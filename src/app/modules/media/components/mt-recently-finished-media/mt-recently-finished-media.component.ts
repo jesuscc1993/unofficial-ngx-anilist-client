@@ -165,7 +165,6 @@ export class MtRecentlyFinishedMediaComponent
 
   private isFormatValid(entry: ListEntry) {
     return (
-      isManga(this.mediaType) ||
       !this.selectedFormats?.length ||
       this.selectedFormats?.includes(entry.media.format)
     );
