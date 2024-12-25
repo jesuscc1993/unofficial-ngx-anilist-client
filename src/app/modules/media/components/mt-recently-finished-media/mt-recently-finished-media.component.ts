@@ -7,20 +7,24 @@ import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
   basicMediaSorts,
+  mediaCountries,
   mediaFormats,
 } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
+  MediaCountry,
   MediaFormat,
   MediaSort,
   MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
+  getCountryLiteral,
   getFormatLiteral,
   getMediaTypePrefixedStorageKey,
   getSortLiteral,
   isAnime,
+  isManga,
   sortListEntriesByMediaEndDate,
   sortListEntriesByMediaScore,
   sortListEntriesByMediaTitle,
@@ -38,15 +42,19 @@ export class MtRecentlyFinishedMediaComponent
 {
   @Input() mediaType: MediaType;
 
+  readonly getCountryLiteral = getCountryLiteral;
   readonly getFormatLiteral = getFormatLiteral;
   readonly getSortLiteral = getSortLiteral;
   readonly isAnime = isAnime;
+  readonly isManga = isManga;
   readonly mediaSorts = basicMediaSorts;
 
   filteredEntries: ListEntry[];
   mediaCommands: MediaCommands;
+  mediaCountries: MediaCountry[];
   mediaFormats: MediaFormat[];
   searching = true;
+  selectedCountries: MediaCountry[];
   selectedFormats: MediaFormat[];
   selectedSort: MediaSort;
 
@@ -58,6 +66,7 @@ export class MtRecentlyFinishedMediaComponent
   ) {
     super();
 
+    this.setSelectedCountries = this.setSelectedCountries.bind(this);
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedSort = this.setSelectedSort.bind(this);
   }
@@ -80,6 +89,7 @@ export class MtRecentlyFinishedMediaComponent
       .pipe(
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
+          this.mediaCountries = mediaCountries;
           this.mediaFormats = mediaFormats.filter(
             (format) =>
               !!mediaListEntries.find((entry) => entry.media.format === format)
@@ -105,6 +115,19 @@ export class MtRecentlyFinishedMediaComponent
         this.mediaType
       ),
       MediaSort.END_DATE_DESC
+    );
+  }
+
+  setSelectedCountries(selectedCountries: MediaCountry[]) {
+    this.selectedCountries = selectedCountries;
+    this.filterEntries();
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Country,
+        this.mediaType
+      ),
+      selectedCountries
     );
   }
 
@@ -135,16 +158,23 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   private filterEntries() {
-    this.filteredEntries = this.listEntries.filter((entry) =>
-      this.isFormatValid(entry)
+    this.filteredEntries = this.listEntries.filter(
+      (entry) => this.isFormatValid(entry) && this.isCountryValid(entry)
     );
   }
 
   private isFormatValid(entry: ListEntry) {
-    if (this.mediaType === MediaType.MANGA || !this.selectedFormats?.length) {
-      return true;
-    }
-    return this.selectedFormats?.includes(entry.media.format);
+    return (
+      !this.selectedFormats?.length ||
+      this.selectedFormats?.includes(entry.media.format)
+    );
+  }
+
+  private isCountryValid(entry: ListEntry) {
+    return (
+      !this.selectedCountries?.length ||
+      this.selectedCountries?.includes(entry.media.countryOfOrigin)
+    );
   }
 
   private sortEntries() {

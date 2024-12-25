@@ -58,7 +58,7 @@ export class MtListRelatedMediaComponent
   readonly mediaSorts = basicMediaSorts;
   readonly mediaFormats = mediaFormats;
   readonly mediaScores = mediaScores;
-  readonly rowCount = 4;
+  readonly rowCount = 5;
 
   colCount: number;
   enabled: boolean;

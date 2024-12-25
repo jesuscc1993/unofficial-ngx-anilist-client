@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -34,9 +33,7 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   templateUrl: './mt-search-results-table.component.html',
   styleUrls: ['./mt-search-results-table.component.scss'],
 })
-export class MtSearchResultsTableComponent
-  implements AfterViewInit, OnInit, OnChanges
-{
+export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   @Input() mediaType: MediaType;
   @Input() tableData: Anime[];
   @Output() onSortChange: EventEmitter<MediaSort> =
@@ -61,8 +58,6 @@ export class MtSearchResultsTableComponent
   dataSource: MatTableDataSource<Anime>;
 
   constructor(private dialog: MatDialog) {}
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.tableData.currentValue !== changes.tableData.previousValue) {

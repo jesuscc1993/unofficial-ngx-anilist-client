@@ -20,6 +20,18 @@
     ></mt-header-picker>
 
     <mt-header-picker
+      iconName="filter"
+      placeholder="{{ 'country.undefined' | translate }}"
+      [matTooltip]="'media.search.filters.countryOfOrigin' | translate"
+      [multiple]="true"
+      [options]="mediaCountries"
+      [truncate]="true"
+      [value]="selectedCountries"
+      [getOptionLiteral]="getCountryLiteral"
+      [onChange]="setSelectedCountries"
+    ></mt-header-picker>
+
+    <mt-header-picker
       iconName="sort"
       [matTooltip]="'generic.sort' | translate"
       [options]="mediaSorts"

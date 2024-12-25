@@ -1,10 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -18,7 +18,7 @@ import { getColCount } from '../../domain/media.domain';
   templateUrl: './mt-list-entries-grid.component.html',
   styleUrls: ['./mt-list-entries-grid.component.scss'],
 })
-export class MtListEntryGridComponent implements OnChanges, OnInit {
+export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   @Input() listEntries: ListEntry[];
   @Input() showStatusBadge?: boolean;
   @Input() wrapperClass?: string;
@@ -48,7 +48,7 @@ export class MtListEntryGridComponent implements OnChanges, OnInit {
     }
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.onResize();
   }
 
