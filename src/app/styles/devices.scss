@@ -8,6 +8,7 @@ $sizes: (
   md: $screen-md,
   lg: $screen-lg,
   xl: $screen-xl,
+  2xl: $screen-2xl,
 );
 
 @each $size, $width in $sizes {
