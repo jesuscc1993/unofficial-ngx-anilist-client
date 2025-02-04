@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {
   integerPattern,
-  minMediaYear,
+  minMediaStartYear,
   pageSizeOptions,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
@@ -66,7 +66,7 @@ export class AnimeSearchPageComponent
   mediaFormats = mediaFormats;
   mediaStatuses = mediaStatuses;
   mediaType = MediaType.ANIME;
-  minYear = minMediaYear;
+  minMediaStartYear = minMediaStartYear;
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
 
@@ -232,11 +232,17 @@ export class AnimeSearchPageComponent
       search: [''],
       startDateGreaterThan: [
         undefined,
-        [Validators.pattern(integerPattern), Validators.min(this.minYear)],
+        [
+          Validators.pattern(integerPattern),
+          Validators.min(this.minMediaStartYear),
+        ],
       ],
       startDateSmallerThan: [
         undefined,
-        [Validators.pattern(integerPattern), Validators.min(this.minYear)],
+        [
+          Validators.pattern(integerPattern),
+          Validators.min(this.minMediaStartYear),
+        ],
       ],
       statusIn: [[]],
       statusNotIn: [[]],

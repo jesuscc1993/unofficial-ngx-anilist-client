@@ -57,7 +57,7 @@
         'media.year' | translate
       }}</mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <span class="text">{{ entry.media.startDate.year }}</span>
+        <span class="text">{{ getFormattedMediaYearRange(entry.media) }}</span>
       </mat-cell>
     </ng-container>
 

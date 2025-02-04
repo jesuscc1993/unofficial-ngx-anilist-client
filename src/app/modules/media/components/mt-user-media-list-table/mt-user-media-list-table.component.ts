@@ -1,5 +1,11 @@
 import {
-  AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,15 +14,20 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getMediaProgress, getMediaTypeProgressLiteral, getSizedCoverImage, isAnime,
+  getFormattedMediaYearRange,
+  getMediaProgress,
+  getMediaTypeProgressLiteral,
+  getSizedCoverImage,
+  isAnime,
 } from '../../domain/media.domain';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-user-media-list-table',
@@ -32,6 +43,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
   readonly getMediaProgress = getMediaProgress;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
@@ -41,10 +53,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   tableRows: string[];
   dataSource: MatTableDataSource<ListEntry>;
 
-  constructor(
-    private dialog: MatDialog,
-    private elementRef: ElementRef
-  ) {}
+  constructor(private dialog: MatDialog, private elementRef: ElementRef) {}
 
   ngAfterViewInit() {
     this.tableRows = [
