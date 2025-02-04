@@ -144,7 +144,8 @@
           "false": "Not on list",
           "true": "On list",
           "undefined": "Both"
-        }
+        },
+        "startYear": "Start year"
       },
       "limitedFeatures": "Search will be available but most other features will not.",
       "submit": "Search"
