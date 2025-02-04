@@ -64,7 +64,7 @@ export class MangaSearchPageComponent
   mediaGenres: string[];
   mediaCountries = mediaCountries;
   mediaStatuses = mediaStatuses;
-  mediaType = MediaType.ANIME;
+  mediaType = MediaType.MANGA;
   minMediaStartYear = minMediaStartYear;
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
