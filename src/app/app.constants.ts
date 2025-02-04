@@ -10,7 +10,7 @@ export const apiTokenError = 'Invalid token';
 export const integerPattern = /^\d+$/;
 export const scorePattern = /^0*([0-9]|10)(\.[0-9]{1,2})?$/;
 
-export const minMediaYear = 1900;
+export const minMediaStartYear = 1900;
 
 export const pageSizeOptions = [5, 10, 25, 50, 100];
 

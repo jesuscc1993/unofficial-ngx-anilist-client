@@ -36,6 +36,12 @@ export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {
   return date;
 };
 
+export const getFormattedMediaYearRange = (media: Media) => {
+  let range = media.startDate.year || '';
+  if (media.endDate.year) range += `\n-\n${media.endDate.year}`;
+  return range;
+};
+
 export const getSanitizedMediaDescription = (media: Media) => {
   return media.description.replace(/h\d+>/g, 'strong>');
 };

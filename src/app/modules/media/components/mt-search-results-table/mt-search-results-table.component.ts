@@ -21,6 +21,7 @@ import {
 } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
+  getFormattedMediaYearRange,
   getMediaProgress,
   getMediaSortFromSort,
   getMediaTypeProgressLiteral,
@@ -40,6 +41,7 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
     new EventEmitter<MediaSort>();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
   readonly getMediaProgress = getMediaProgress;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
 
