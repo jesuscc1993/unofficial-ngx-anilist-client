@@ -6,13 +6,14 @@ import { Router } from '@angular/router';
 
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { rootUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus,
-  ListEntryStatus,
+  ListEntriesByStatus, ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { MangaCommands } from '../../commands/manga.commands';
