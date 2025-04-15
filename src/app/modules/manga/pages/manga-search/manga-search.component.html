@@ -205,8 +205,8 @@
 
         <div class="text-center padding-bottom-xs">
           <button
-            mat-raised-button
             type="button"
+            mat-raised-button
             (click)="clearFilters($event)"
           >
             <span>{{ 'media.search.filters.clear' | translate }}</span>
@@ -217,7 +217,12 @@
       </mat-expansion-panel>
 
       <div class="text-center">
-        <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
+        <button
+          type="button"
+          mat-raised-button
+          color="accent"
+          [disabled]="!searchForm.valid"
+        >
           <fa-icon name="search baseline"></fa-icon>
           <span>{{ 'media.search.submit' | translate }}</span>
         </button>
