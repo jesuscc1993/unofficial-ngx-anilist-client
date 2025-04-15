@@ -109,6 +109,17 @@ button {
   padding: 0 !important;
 }
 
+/* fix accessibility warning on transparent placeholders */
+.mat-form-field-hide-placeholder {
+  .mat-select {
+    height: 1rem;
+
+    .mat-select-placeholder {
+      display: none;
+    }
+  }
+}
+
 .cdk-global-scrollblock {
   overflow-y: auto;
 }
