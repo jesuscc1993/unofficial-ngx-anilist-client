@@ -90,25 +90,22 @@ mat-toolbar {
 }
 
 .mat-button-base {
-  // background: map-get($theme, button-background);
-  // color: $foreground-light;
-  background: map-get(mat.$gray-palette, 400);
-
-  &,
-  &.mat-primary,
-  &.mat-accent,
-  &.mat-warn {
-    color: $foreground-dark;
+  @mixin apply-button-theme($palette, $shade) {
+    background: map-get($palette, $shade);
+    color: darken(map-get($palette, $shade), 50%);
   }
 
+  & {
+    @include apply-button-theme(mat.$gray-palette, 500);
+  }
   &.mat-primary {
-    background: map-get(mat.$orange-palette, 400);
+    @include apply-button-theme(mat.$orange-palette, 400);
   }
   &.mat-accent {
-    background: map-get(mat.$orange-palette, 400);
+    @include apply-button-theme(mat.$orange-palette, 400);
   }
   &.mat-warn {
-    background: map-get(mat.$red-palette, 400);
+    @include apply-button-theme(mat.$red-palette, 400);
   }
 }
 
