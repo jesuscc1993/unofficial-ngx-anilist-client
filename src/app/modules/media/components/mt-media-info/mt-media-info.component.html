@@ -2,7 +2,11 @@
   <div [class.row]="showAsColumns">
     <!-- left column -->
     <div class="column left">
-      <img [src]="media.coverImage?.large" class="cover" />
+      <img
+        [src]="media.coverImage?.large"
+        alt="Media Cover Image"
+        class="cover"
+      />
 
       <div *ngIf="media.description">
         <h4 class="no-margin-top margin-bottom-2xs">
