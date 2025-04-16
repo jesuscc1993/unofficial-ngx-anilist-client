@@ -1,37 +1,29 @@
 @use '@angular/material' as mat;
 
+$gray-0: white;
+
 $primary-palette: mat.define-palette(mat.$orange-palette);
 $accent-palette: mat.define-palette(mat.$orange-palette);
+
+@function theme-alert($background) {
+  @return (background: $background, foreground: darken($background, 50%));
+}
 
 $themes: (
   dark: (
     material-theme: mat.define-dark-theme($primary-palette, $accent-palette),
     background: mat.$dark-theme-background-palette,
     foreground: mat.$dark-theme-foreground-palette,
-    border: rgba(#fff, 0.12),
+    border: rgba($gray-0, 0.12),
     button-background: map-get(mat.$gray-palette, 700),
-    success: (
-      background: map-get(mat.$green-palette, 800),
-      foreground: map-get(mat.$green-palette, 50),
-    ),
-    info: (
-      background: map-get(mat.$blue-palette, 800),
-      foreground: map-get(mat.$blue-palette, 50),
-    ),
-    warning: (
-      background: map-get(mat.$orange-palette, 800),
-      foreground: map-get(mat.$orange-palette, 50),
-    ),
-    error: (
-      background: map-get(mat.$red-palette, 800),
-      foreground: map-get(mat.$red-palette, 50),
-    ),
+    success: theme-alert(map-get(mat.$green-palette, 500)),
+    info: theme-alert(map-get(mat.$blue-palette, 500)),
+    warning: theme-alert(map-get(mat.$orange-palette, 500)),
+    error: theme-alert(map-get(mat.$red-palette, 500)),
   ),
 );
 
 $theme: map-get($themes, dark);
-$foreground-light: white;
-$foreground-dark: rgba(black, 0.9);
 
 @include mat.core();
 @include mat.all-component-themes(map-get($theme, material-theme));
@@ -89,29 +81,24 @@ mat-toolbar {
   }
 }
 
-.mat-button-base {
-  @mixin apply-button-theme($palette, $shade) {
-    background: map-get($palette, $shade);
-    color: darken(map-get($palette, $shade), 50%);
+.mat-raised-button {
+  @mixin apply-button-theme($background) {
+    background: $background;
+    color: darken($background, 50%);
   }
 
   & {
-    @include apply-button-theme(mat.$gray-palette, 500);
+    @include apply-button-theme(map-get(mat.$gray-palette, 500));
   }
   &.mat-primary {
-    @include apply-button-theme(mat.$orange-palette, 400);
+    @include apply-button-theme(map-get(mat.$orange-palette, 400));
   }
   &.mat-accent {
-    @include apply-button-theme(mat.$orange-palette, 400);
+    @include apply-button-theme(map-get(mat.$orange-palette, 400));
   }
   &.mat-warn {
-    @include apply-button-theme(mat.$red-palette, 400);
+    @include apply-button-theme(map-get(mat.$red-palette, 400));
   }
-}
-
-.mat-fab.mat-accent,
-.mat-mini-fab.mat-accent {
-  color: $foreground-dark;
 }
 
 .mat-select .mat-select-placeholder {
@@ -125,7 +112,7 @@ mat-toolbar {
 
 .mat-chip:not(.mat-basic-chip) {
   background-color: invert(map-get(map-get($theme, background), card), 33%);
-  color: $foreground-light;
+  color: $gray-0;
 }
 
 .mat-tooltip {
