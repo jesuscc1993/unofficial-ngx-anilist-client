@@ -32,10 +32,13 @@
     </ng-container>
 
     <ng-container matColumnDef="title-romaji">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-        'media.title' | translate
-      }}</mat-header-cell>
-      <mat-cell *matCellDef="let entry">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        class="justify-start"
+        >{{ 'media.title' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let entry" class="justify-start">
         <span class="text">
           <span>{{ entry.media.title.romaji }}</span>
           <span *ngIf="favouriteIDs?.includes(entry.media.id)">
