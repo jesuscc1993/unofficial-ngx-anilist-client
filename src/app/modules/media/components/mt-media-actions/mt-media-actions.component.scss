@@ -27,6 +27,7 @@
   &:not(:hover) {
     .list-only {
       opacity: 0;
+      visibility: hidden;
     }
   }
 }

@@ -110,14 +110,8 @@ button {
 }
 
 /* fix accessibility warning on transparent placeholders */
-.mat-form-field-hide-placeholder {
-  .mat-select {
-    height: 1rem;
-
-    .mat-select-placeholder {
-      display: none;
-    }
-  }
+.mat-form-field-hide-placeholder .mat-select-placeholder {
+  visibility: hidden;
 }
 
 .cdk-global-scrollblock {

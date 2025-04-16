@@ -13,14 +13,10 @@
   overflow: hidden;
   position: relative;
 
-  &:hover {
-    .backdrop {
-      opacity: 1;
-    }
-  }
   &:not(:hover) {
     .backdrop {
       opacity: 0;
+      visibility: hidden;
     }
   }
 
