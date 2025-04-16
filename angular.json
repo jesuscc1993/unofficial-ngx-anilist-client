@@ -22,10 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/brands.min.css",
@@ -73,7 +70,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "unofficial-ngx-anilist-client:build"
+            "browserTarget": "unofficial-ngx-anilist-client:build",
+            "proxyConfig": "proxy-config.json"
           },
           "configurations": {
             "production": {
@@ -84,10 +82,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }

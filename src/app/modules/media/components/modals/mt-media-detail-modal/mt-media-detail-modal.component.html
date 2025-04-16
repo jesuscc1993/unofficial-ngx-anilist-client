@@ -28,20 +28,20 @@
 
   <mt-modal-footer>
     <div class="buttons-container">
-      <!-- <button type="button" (click)="navigateToDetail()" mat-raised-button>
+      <!-- <button mat-raised-button type="button" (click)="navigateToDetail()">
           <fa-icon name="newspaper"></fa-icon>
           <span>{{ 'media.goToDetail' | translate }}</span>
         </button> -->
 
       <div *ngIf="media.mediaListEntry && origin !== 'edit'">
-        <button type="button" (click)="openEditionModal()" mat-raised-button>
+        <button mat-raised-button type="button" (click)="openEditionModal()">
           <fa-icon name="pen"></fa-icon>
           <span>{{ 'media.userList.updateEntry' | translate }}</span>
         </button>
       </div>
 
       <div *ngIf="!media.mediaListEntry">
-        <button type="button" (click)="setAsPlanning()" mat-raised-button>
+        <button mat-raised-button type="button" (click)="setAsPlanning()">
           <fa-icon name="clock"></fa-icon>
           <span>{{ 'media.userList.setAsPlanning' | translate }}</span>
         </button>

@@ -1,0 +1,8 @@
+{
+  "/graphql": {
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "secure": true,
+    "target": "https://graphql.anilist.co"
+  }
+}
