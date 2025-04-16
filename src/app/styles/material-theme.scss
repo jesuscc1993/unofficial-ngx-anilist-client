@@ -1,7 +1,5 @@
 @use '@angular/material' as *;
 
-$gray-0: white;
-
 $primary-palette: define-palette($orange-palette);
 $accent-palette: define-palette($orange-palette);
 
@@ -13,8 +11,8 @@ $themes: (
   dark: (
     material-theme: define-dark-theme($primary-palette, $accent-palette),
     background: $dark-theme-background-palette,
-    foreground: $dark-theme-foreground-palette,
-    border: rgba($gray-0, 0.12),
+    foreground: $light-theme-foreground-palette,
+    border: rgba(white, 0.12),
     button-background: map-get($gray-palette, 500),
     success: theme-alert(map-get($green-palette, 500)),
     info: theme-alert(map-get($blue-palette, 500)),
