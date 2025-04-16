@@ -102,6 +102,21 @@ mat-toolbar {
   color: rgba(white, 0.6);
 }
 
+/* fix accessibility warning on invalid inputs */
+.mat-form-field.mat-form-field-invalid {
+  .mat-form-field-flex {
+    background: map-get($red-palette, 700);
+
+    .mat-form-field-label {
+      color: inherit;
+    }
+  }
+
+  .mat-form-field-underline {
+    visibility: hidden;
+  }
+}
+
 .border,
 .mat-divider {
   border-color: map-get($theme, border);
