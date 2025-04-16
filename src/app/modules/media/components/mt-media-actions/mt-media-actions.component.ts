@@ -143,6 +143,8 @@ export class MtMediaActionsComponent
   }
 
   openFullDetail() {
+    this.dialog.closeAll();
+
     this.router.navigate([
       (isAnime(this.media) ? animeDetailUrl : mangaDetailUrl).replace(
         ':id',

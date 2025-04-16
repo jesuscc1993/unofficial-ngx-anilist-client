@@ -15,7 +15,7 @@ $themes: (
     background: mat.$dark-theme-background-palette,
     foreground: mat.$dark-theme-foreground-palette,
     border: rgba($gray-0, 0.12),
-    button-background: map-get(mat.$gray-palette, 700),
+    button-background: map-get(mat.$gray-palette, 500),
     success: theme-alert(map-get(mat.$green-palette, 500)),
     info: theme-alert(map-get(mat.$blue-palette, 500)),
     warning: theme-alert(map-get(mat.$orange-palette, 500)),
@@ -88,7 +88,7 @@ mat-toolbar {
   }
 
   & {
-    @include apply-button-theme(map-get(mat.$gray-palette, 500));
+    @include apply-button-theme(map-get($theme, button-background));
   }
   &.mat-primary {
     @include apply-button-theme(map-get(mat.$orange-palette, 400));
