@@ -2,39 +2,29 @@ import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {
-  integerPattern,
-  minMediaStartYear,
-  pageSizeOptions,
-} from '../../../../app.constants';
+import { integerPattern, minMediaStartYear, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { SearchFilters } from '../../../media/api/media.types';
-import { MtSearchResultsTableComponent } from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
+import {
+  MtSearchResultsTableComponent,
+} from '../../../media/components/mt-search-results-table/mt-search-results-table.component';
 import { getDateScalarFromYear } from '../../../media/domain/media.domain';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  mediaCountries,
-  mediaFormats,
-  mediaStatuses,
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  mediaCountries, mediaFormats, mediaStatuses,
 } from '../../../shared/constants/media.constants';
 import { animeSearchUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
-import {
-  Media,
-  MediaSort,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
+import { Media, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { AnimeCommands } from '../../commands/anime.commands';
@@ -59,7 +49,6 @@ export class AnimeSearchPageComponent
   searchForm: UntypedFormGroup;
   pagination: PageInfo;
   sort: MediaSort;
-  excludeOnList: boolean;
 
   mediaGenres: string[];
   mediaCountries = mediaCountries;

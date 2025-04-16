@@ -1,33 +1,20 @@
 import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
+  AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions } from '../../../../app.constants';
-import {
-  Anime,
-  Media,
-  MediaSort,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
+import { Anime, Media, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getFormattedMediaYearRange,
-  getMediaProgress,
-  getMediaSortFromSort,
-  getMediaTypeProgressLiteral,
+  getFormattedMediaYearRange, getMediaProgress, getMediaSortFromSort, getMediaTypeProgressLiteral,
   getSizedCoverImage,
 } from '../../domain/media.domain';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-search-results-table',

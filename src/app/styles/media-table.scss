@@ -1,8 +1,9 @@
 @use '@angular/material' as mat;
 @import 'src/app/styles/variables';
 
-$desktop-horizontal-cell-padding: 32px;
-$mobile-horizontal-cell-padding: 40px;
+$desktop-horizontal-cell-padding: 1.5rem;
+$mobile-horizontal-cell-padding: 2rem;
+$gap: 0.5rem;
 
 @media (min-width: ($screen-2xs + 1)) {
   :root {
@@ -36,26 +37,42 @@ $mobile-horizontal-cell-padding: 40px;
     }
   }
 
-  mat-cell:first-of-type,
-  mat-footer-cell:first-of-type,
-  mat-header-cell:first-of-type {
-    padding-left: $desktop-horizontal-cell-padding;
+  mat-cell,
+  mat-footer-cell,
+  mat-header-cell {
+    --padding: #{$desktop-horizontal-cell-padding};
+
+    &:first-of-type {
+      padding-left: var(--padding);
+    }
+
+    &:last-of-type {
+      padding-right: var(--padding);
+    }
+
+    @media (max-width: $screen-2xs) {
+      --padding: #{$mobile-horizontal-cell-padding};
+    }
   }
 
-  mat-cell:last-of-type,
-  mat-footer-cell:last-of-type,
-  mat-header-cell:last-of-type {
-    padding-right: $desktop-horizontal-cell-padding;
+  mat-header-row,
+  mat-row {
+    gap: $gap;
+  }
+
+  mat-header-cell,
+  mat-cell {
+    &:not(.justify-start) {
+      justify-content: center;
+
+      .mat-sort-header-content {
+        padding-left: 18px;
+      }
+    }
   }
 
   .mat-header-row {
     min-height: 50px;
-  }
-
-  .mat-cell {
-    .text {
-      padding-right: $spacing-2xs;
-    }
   }
 
   .mat-column-actions {
@@ -63,25 +80,29 @@ $mobile-horizontal-cell-padding: 40px;
     overflow: visible;
 
     .menu-toggle {
-      $size: $desktop-horizontal-cell-padding;
+      --size: #{$desktop-horizontal-cell-padding + $gap};
 
       align-items: center;
       display: flex;
       font-size: $font-size-md;
       height: 100%;
-      min-height: $size;
       justify-content: center;
-      margin-left: -$size;
+      margin: 0 -#{$gap} 0 calc(-1 * (var(--size) - #{$gap}));
+      min-height: var(--size);
       text-align: center;
       vertical-align: bottom;
-      width: $size;
+      width: var(--size);
+
+      @media (max-width: $screen-2xs) {
+        --size: #{$mobile-horizontal-cell-padding + $gap};
+
+        font-size: $font-size-lg;
+      }
     }
   }
 
   .mat-column-cover-image {
-    flex: 0;
-    font-size: 0;
-    padding-right: calc(var(--cover-width) + $spacing-2xs);
+    flex: 0 0 var(--cover-width);
 
     img.cover {
       height: auto;
@@ -126,9 +147,11 @@ $mobile-horizontal-cell-padding: 40px;
   .mat-column-genres {
     mat-list {
       padding: 0;
+      width: 100%;
 
       mat-list-item {
         height: $spacing-xl;
+        justify-items: center;
 
         .mat-list-item-content {
           padding: 0;
@@ -144,29 +167,6 @@ $mobile-horizontal-cell-padding: 40px;
             }
           }
         }
-      }
-    }
-  }
-
-  @media (max-width: $screen-2xs) {
-    mat-cell:first-of-type,
-    mat-footer-cell:first-of-type,
-    mat-header-cell:first-of-type {
-      padding-left: $mobile-horizontal-cell-padding;
-    }
-
-    mat-cell:last-of-type,
-    mat-footer-cell:last-of-type,
-    mat-header-cell:last-of-type {
-      padding-right: $mobile-horizontal-cell-padding;
-    }
-
-    .mat-column-actions {
-      .menu-toggle {
-        $size: $mobile-horizontal-cell-padding;
-        width: $size;
-        margin-left: -$size;
-        font-size: $font-size-lg;
       }
     }
   }

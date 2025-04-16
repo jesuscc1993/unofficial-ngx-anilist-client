@@ -109,6 +109,11 @@ button {
   padding: 0 !important;
 }
 
+/* fix accessibility warning on transparent placeholders */
+.mat-form-field-hide-placeholder .mat-select-placeholder {
+  visibility: hidden;
+}
+
 .cdk-global-scrollblock {
   overflow-y: auto;
 }

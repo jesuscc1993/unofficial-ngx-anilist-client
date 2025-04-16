@@ -76,7 +76,6 @@
           >
           <input
             matInput
-            type="text"
             formControlName="progress"
             min="0"
             placeholder="0"
@@ -87,22 +86,26 @@
       </div>
     </mt-modal-content>
 
-    <mat-divider></mat-divider>
-
     <mt-modal-footer>
       <span class="buttons-container float-right">
-        <button (click)="dismiss($event)" mat-raised-button>
+        <button mat-raised-button type="button" (click)="dismiss($event)">
           <fa-icon name="times"></fa-icon>
           <span>{{ 'generic.cancel' | translate }}</span>
         </button>
 
-        <button (click)="deleteEntry($event)" mat-raised-button color="warn">
+        <button
+          mat-raised-button
+          type="button"
+          color="warn"
+          (click)="deleteEntry($event)"
+        >
           <fa-icon name="trash"></fa-icon>
           <span>{{ 'generic.delete' | translate }}</span>
         </button>
 
         <button
           mat-raised-button
+          type="submit"
           color="accent"
           [disabled]="!listEntryForm.valid || !isSubmitAvailable()"
         >

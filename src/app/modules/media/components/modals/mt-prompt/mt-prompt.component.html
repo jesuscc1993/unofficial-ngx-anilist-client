@@ -13,8 +13,9 @@
     <div class="buttons-container">
       <div *ngIf="data.hasConfirm">
         <button
-          color="{{ data.hasCancel ? '' : 'primary' }}"
           mat-raised-button
+          type="button"
+          color="{{ data.hasCancel ? '' : 'primary' }}"
           (click)="confirm()"
         >
           <span>{{ data.confirmLiteral || 'generic.yes' | translate }}</span>
@@ -22,7 +23,12 @@
       </div>
 
       <div *ngIf="data.hasCancel">
-        <button (click)="cancel()" mat-raised-button color="primary">
+        <button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="cancel()"
+        >
           <span>{{ data.cancelLiteral || 'generic.no' | translate }}</span>
         </button>
       </div>

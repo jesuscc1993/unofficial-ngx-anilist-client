@@ -2,13 +2,13 @@
 
 Anime management client demo built in [Angular](https://angular.io/) 14 and [Angular Material](https://material.angular.io/).
 
-<br/>
-
 ## Pages
+
+\* Separate anime and manga pages exist for each of these sections.
 
 ### Search
 
-Allows for paginated searching of anime series in a table format.
+Allows for paginated searching of media in a table format.
 
 Filters<sup>1</sup> can be used to refine the search. They also are stored on the URL and retrieved when loading.
 
@@ -20,19 +20,20 @@ Currently shows three sidebars:
 
 - Recently updated list entries, with optional grouping by status (multiple selection available)
 - Media related to added entries, with optional grouping by format (multiple selection available)
+  - Doesn't load by default because it requires a lot of queries.
 - Added media that recently finished airing, with optional grouping by format (multiple selection available)
 
 ### User list
 
-Allows for paginated searching of the anime series on the logged user's list.
+Allows for paginated searching of the media on the logged user's list.
 
 Allows filtering by title and watching status.
 
 It additionally displays some statistics at the page's bottom and features live reload unless disabled.
 
-### Anime detail
+### Media detail
 
-Presents all the data relevant to an anime<sup>1</sup> in a single page.
+Presents all the data relevant to a media<sup>1</sup> in a single page.
 
 \* Includes all the information displayed on the table entry and the additional info modal.
 
@@ -40,9 +41,9 @@ Presents all the data relevant to an anime<sup>1</sup> in a single page.
 
 ## Main components
 
-### Anime table entry
+### Media table entry
 
-Displays the most basic anime information<sup>1</sup> in a single row.
+Displays the most basic media information<sup>1</sup> in a single row.
 
 Different background colors<sup>2</sup> are used based for entries already on the user's list.
 
@@ -60,34 +61,34 @@ Different background colors<sup>2</sup> are used based for entries already on th
 
 ### Additional info modal
 
-Presents additional anime information<sup>1</sup> not present on the table entries.
+Presents additional media information<sup>1</sup> not present on the table entries.
 
 <sup>1</sup> description, airing status, studio and tags
 
-\* Accessible from the anime actions dropdown.
+\* Accessible from the media actions dropdown.
 
 ### Entry form modal
 
-Allows the creation of a new user list anime entry or the modification of an existing one.
+Allows the creation of a new user list media entry or the modification of an existing one.
 
-\* Accessible from the anime actions dropdown.
+\* Accessible from the media actions dropdown.
 
-### Anime actions dropdown
+### Media actions dropdown
 
-Provides multiple actions to be done with an anime
+Provides multiple actions to be done with an media
 
 - Add entry<sup>1</sup>
 - Update entry<sup>2</sup>
-- Favorite anime<sup>2</sup>
+- Favorite media<sup>2</sup>
 - Delete entry<sup>2</sup>
 - Display the additional info modal.
-- External link to the anime on AniList.
+- External link to the media on AniList.
 
 <sup>1</sup> Only available when logged in and the entry is not on the logged user's list
 
 <sup>2</sup> Only available when logged in and the entry is on the logged user's list
 
-\* Accessible from the anime table entry and additional info modal components and the anime detail page.
+\* Accessible from the media table entry and additional info modal components and the media detail page.
 
 <br/>
 
@@ -101,7 +102,7 @@ Provides multiple actions to be done with an anime
 
 ## Links
 
-- [Live demo](https://jesuscc1993.github.io/unofficial-ngx-anilist-client/anime-search)
+- [Live demo](https://jesuscc1993.github.io/unofficial-ngx-anilist-client/)
 
 ## TODO
 

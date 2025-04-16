@@ -1,27 +1,11 @@
 import { ElementRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
+import { gridCardWidth, gridSpacing } from '../../shared/constants/media.constants';
+import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
+import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  gridCardWidth,
-  gridSpacing,
-} from '../../shared/constants/media.constants';
-import {
-  CoverImage,
-  CoverImageSize,
-  FuzzyDate,
-} from '../../shared/types/anilist/dataTypes.types';
-import {
-  ListEntriesByStatus,
-  ListEntry,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Anime,
-  Manga,
-  Media,
-  MediaCountry,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Anime, Manga, Media, MediaCountry, MediaFormat, MediaSort, MediaType,
 } from '../../shared/types/anilist/media.types';
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
@@ -38,7 +22,7 @@ export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {
 
 export const getFormattedMediaYearRange = (media: Media) => {
   let range = media.startDate.year || '';
-  if (media.endDate.year) range += `\n-\n${media.endDate.year}`;
+  if (media.endDate.year) range += `\n—\n${media.endDate.year}`;
   return range;
 };
 

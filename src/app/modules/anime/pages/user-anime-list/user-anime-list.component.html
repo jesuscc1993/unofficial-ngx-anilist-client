@@ -13,7 +13,7 @@
   ></mat-spinner>
 
   <div *ngIf="ready">
-    <div *ngIf="statuses && statuses.length">
+    <div *ngIf="statuses?.length">
       <mat-card class="table-filter">
         <mat-form-field class="full-width">
           <input
@@ -66,7 +66,12 @@
       </div>
 
       <div class="text-center margin-top-xs">
-        <button mat-raised-button color="accent" (click)="exportList($event)">
+        <button
+          mat-raised-button
+          type="button"
+          color="accent"
+          (click)="exportList($event)"
+        >
           <fa-icon name="file-download"></fa-icon>
           <span>{{ 'media.userList.exportList' | translate }}</span>
         </button>
@@ -76,7 +81,7 @@
       </mt-genres-overview>
     </div>
 
-    <mat-card *ngIf="ready && !error && (!statuses || !statuses.length)">
+    <mat-card *ngIf="ready && !error && !statuses?.length">
       <h4>
         <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
         {{ 'media.userList.noEntries' | translate }}

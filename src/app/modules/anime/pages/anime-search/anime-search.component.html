@@ -258,7 +258,12 @@
       </mat-expansion-panel>
 
       <div class="text-center">
-        <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
+        <button
+          mat-raised-button
+          type="submit"
+          color="accent"
+          [disabled]="!searchForm.valid"
+        >
           <fa-icon name="search baseline"></fa-icon>
           <span>{{ 'media.search.submit' | translate }}</span>
         </button>

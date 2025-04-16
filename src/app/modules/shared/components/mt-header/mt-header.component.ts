@@ -7,17 +7,14 @@ import { environment } from '../../../../../environments/environment';
 import { apiLoginUrl, apiTokenPrefix } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import {
-  animeDashboardUrl,
-  animeSearchUrl,
-  animeUserListUrl,
-  mangaDashboardUrl,
-  mangaSearchUrl,
-  mangaUserListUrl,
-  rootUrl,
+  animeDashboardUrl, animeSearchUrl, animeUserListUrl, mangaDashboardUrl, mangaSearchUrl,
+  mangaUserListUrl, rootUrl,
 } from '../../constants/navigation.constants';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 @Component({
   selector: 'mt-header',

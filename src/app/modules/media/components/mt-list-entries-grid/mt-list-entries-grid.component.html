@@ -14,6 +14,7 @@
     </div>
 
     <mat-paginator
+      *ngIf="pagination"
       [showFirstLastButtons]="true"
       [length]="pagination.length"
       [pageSize]="pagination.pageSize"

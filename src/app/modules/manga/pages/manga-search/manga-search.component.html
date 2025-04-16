@@ -217,7 +217,12 @@
       </mat-expansion-panel>
 
       <div class="text-center">
-        <button mat-raised-button color="accent" [disabled]="!searchForm.valid">
+        <button
+          mat-raised-button
+          type="submit"
+          color="accent"
+          [disabled]="!searchForm.valid"
+        >
           <fa-icon name="search baseline"></fa-icon>
           <span>{{ 'media.search.submit' | translate }}</span>
         </button>
@@ -245,7 +250,7 @@
       </h4>
     </mat-card>
 
-    <div *ngIf="mediaList?.length > 0" id="results" class="results-wrapper">
+    <div *ngIf="mediaList?.length" id="results" class="results-wrapper">
       <mat-card class="no-padding">
         <mt-search-results-table
           [mediaType]="mediaType"

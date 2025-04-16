@@ -6,7 +6,7 @@
   <mat-table
     #table
     [dataSource]="dataSource"
-    [hidden]="!dataSource || dataSource.data.length < 1"
+    [hidden]="!dataSource?.data?.length"
     matSort
     class="media-table"
   >
@@ -23,15 +23,22 @@
         'media.cover' | translate
       }}</mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <img [src]="getSizedCoverImage(entry.media.coverImage)" class="cover" />
+        <img
+          alt="Media Cover Image"
+          [src]="getSizedCoverImage(entry.media.coverImage)"
+          class="cover"
+        />
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="title-romaji">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-        'media.title' | translate
-      }}</mat-header-cell>
-      <mat-cell *matCellDef="let entry">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        class="justify-start"
+        >{{ 'media.title' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let entry" class="justify-start">
         <span class="text">
           <span>{{ entry.media.title.romaji }}</span>
           <span *ngIf="favouriteIDs?.includes(entry.media.id)">

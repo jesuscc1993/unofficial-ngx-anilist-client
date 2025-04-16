@@ -1,71 +1,66 @@
-@use '@angular/material' as mat;
+@use '@angular/material' as *;
 
-$primary-palette: mat.define-palette(mat.$orange-palette);
-$accent-palette: mat.define-palette(mat.$orange-palette);
+$primary-palette: define-palette($orange-palette);
+$accent-palette: define-palette($orange-palette);
 
-$themes: (
-  dark: (
-    material-theme: mat.define-dark-theme($primary-palette, $accent-palette),
-    background: mat.$dark-theme-background-palette,
-    foreground: mat.$dark-theme-foreground-palette,
-    border: rgba(#fff, 0.12),
-    button-background: map-get(mat.$gray-palette, 700),
-    success: (
-      background: map-get(mat.$green-palette, 800),
-      foreground: map-get(mat.$green-palette, 50),
-    ),
-    info: (
-      background: map-get(mat.$blue-palette, 800),
-      foreground: map-get(mat.$blue-palette, 50),
-    ),
-    warning: (
-      background: map-get(mat.$orange-palette, 800),
-      foreground: map-get(mat.$orange-palette, 50),
-    ),
-    error: (
-      background: map-get(mat.$red-palette, 800),
-      foreground: map-get(mat.$red-palette, 50),
-    ),
-  ),
-  light: (
-    material-theme: mat.define-light-theme($primary-palette, $accent-palette),
-    background: mat.$light-theme-background-palette,
-    foreground: mat.$light-theme-foreground-palette,
-    border: rgba(black, 0.12),
-    button-background: map-get(mat.$gray-palette, 300),
-    success: (
-      background: map-get(mat.$green-palette, 50),
-      foreground: map-get(mat.$green-palette, 600),
-    ),
-    info: (
-      background: map-get(mat.$blue-palette, 50),
-      foreground: map-get(mat.$blue-palette, 600),
-    ),
-    warning: (
-      background: map-get(mat.$orange-palette, 50),
-      foreground: map-get(mat.$orange-palette, 600),
-    ),
-    error: (
-      background: map-get(mat.$red-palette, 50),
-      foreground: map-get(mat.$red-palette, 600),
-    ),
-  ),
+@function theme-alert($background) {
+  @return (background: $background, foreground: darken($background, 50%));
+}
+
+/* overrides ./core/theming/palette */
+$grey-palette: map-merge(
+  $grey-palette,
+  (
+    50: #fafafa,
+    150: #f0f0f0,
+    250: #e7e7e7,
+    350: #d1d1d1,
+    450: #b0b0b0,
+    550: #8a8a8a,
+    650: #6b6b6b,
+    750: #525252,
+    850: #313131,
+    950: #121212,
+  )
 );
 
-$theme: map-get($themes, dark);
+/* overrides ./core/theming/palette */
+$dark-theme-background-palette: map-merge(
+  $dark-theme-background-palette,
+  (
+    app-bar: map-get($grey-palette, 950),
+    background: map-get($grey-palette, 900),
+    card: map-get($grey-palette, 850),
+    dialog: map-get($grey-palette, 850),
+  )
+);
 
-@include mat.core();
-@include mat.all-component-themes(map-get($theme, material-theme));
+$theme: define-dark-theme($primary-palette, $accent-palette);
+
+$theme: map-merge(
+  $theme,
+  (
+    background: $dark-theme-background-palette,
+    border: rgba(white, 0.12),
+    success: theme-alert(map-get($green-palette, 500)),
+    info: theme-alert(map-get($blue-palette, 500)),
+    warning: theme-alert(map-get($orange-palette, 500)),
+    error: theme-alert(map-get($red-palette, 500)),
+  )
+);
+
+@include core();
+@include all-component-themes($theme);
 
 a {
-  color: mat.get-color-from-palette($primary-palette, darker);
+  color: get-color-from-palette($primary-palette, darker);
 
   &.secondary:not(.active):not(:hover) {
-    color: invert(map-get(map-get($theme, background), app-bar), 33%);
+    color: map-get($grey-palette, 500);
   }
 
   &:hover {
-    color: mat.get-color-from-palette($primary-palette, default);
+    color: get-color-from-palette($primary-palette, default);
   }
 }
 
@@ -76,21 +71,11 @@ vr {
 
 mat-card,
 .mat-snack-bar-container {
-  &.success {
-    background: map-get(map-get($theme, success), background);
-    color: map-get(map-get($theme, success), foreground);
-  }
-  &.info {
-    background: map-get(map-get($theme, info), background);
-    color: map-get(map-get($theme, info), foreground);
-  }
-  &.warning {
-    background: map-get(map-get($theme, warning), background);
-    color: map-get(map-get($theme, warning), foreground);
-  }
-  &.error {
-    background: map-get(map-get($theme, error), background);
-    color: map-get(map-get($theme, error), foreground);
+  @each $status in success, info, warning, error {
+    &.#{$status} {
+      background: map-get(map-get($theme, $status), background);
+      color: map-get(map-get($theme, $status), foreground);
+    }
   }
 }
 
@@ -100,20 +85,17 @@ mat-toolbar {
       border-top-color: transparent;
 
       &.active {
-        border-bottom-color: mat.get-color-from-palette(
-          $primary-palette,
-          default
-        );
+        border-bottom-color: get-color-from-palette($primary-palette, default);
 
         &,
         &:hover {
-          color: mat.get-color-from-palette($primary-palette, default);
+          color: get-color-from-palette($primary-palette, default);
         }
       }
 
       &:not(.active) {
         &:not(:hover) {
-          color: invert(map-get(map-get($theme, background), app-bar), 33%);
+          color: map-get($grey-palette, 550);
         }
       }
     }
@@ -121,13 +103,38 @@ mat-toolbar {
 }
 
 .mat-raised-button {
-  background: map-get($theme, button-background);
+  @mixin apply-button-theme($background) {
+    background: $background;
+    color: darken($background, 50%);
+  }
+
+  & {
+    @include apply-button-theme(map-get($gray-palette, 600));
+  }
+  &.mat-primary {
+    @include apply-button-theme(map-get($orange-palette, 400));
+  }
+  &.mat-accent {
+    @include apply-button-theme(map-get($orange-palette, 400));
+  }
+  &.mat-warn {
+    @include apply-button-theme(map-get($red-palette, 400));
+  }
 }
 
-.mat-raised-button.mat-accent,
-.mat-fab.mat-accent,
-.mat-mini-fab.mat-accent {
-  color: #fff;
+/* fix accessibility warning on invalid inputs */
+.mat-form-field.mat-form-field-invalid {
+  .mat-form-field-flex {
+    background: map-get($red-palette, 700);
+
+    .mat-form-field-label {
+      color: inherit;
+    }
+  }
+
+  .mat-form-field-underline {
+    visibility: hidden;
+  }
 }
 
 .border,
@@ -135,9 +142,9 @@ mat-toolbar {
   border-color: map-get($theme, border);
 }
 
-.mat-chip:not(.mat-basic-chip) {
-  background-color: invert(map-get(map-get($theme, background), card), 50%);
-  color: #fff;
+.mat-chip {
+  background-color: map-get(map-get($theme, background), unselected-chip);
+  color: map-get(map-get($theme, foreground), text);
 }
 
 .mat-tooltip {
@@ -174,10 +181,20 @@ mat-card {
   }
 }
 
+.mat-form-field.mat-form-field-hide-placeholder {
+  .mat-form-field-infix {
+    .mat-input-element::placeholder {
+      $color: map-get(map-get($theme, foreground), divider);
+      color: $color;
+      -webkit-text-fill-color: $color;
+    }
+  }
+}
+
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-corner,
 ::-webkit-scrollbar-track-piece {
-  background: map-get(mat.$gray-palette, 900) !important;
+  background: map-get($gray-palette, 900) !important;
 }
 
 ::-webkit-scrollbar {
@@ -186,11 +203,11 @@ mat-card {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: map-get(mat.$gray-palette, 700);
-  border: 3px solid map-get(mat.$gray-palette, 900) !important;
+  background: map-get($gray-palette, 700);
+  border: 3px solid map-get($gray-palette, 900) !important;
   border-radius: 8px !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: map-get(mat.$gray-palette, 600);
+  background: map-get($gray-palette, 600);
 }
