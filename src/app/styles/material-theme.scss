@@ -122,10 +122,6 @@ mat-toolbar {
   }
 }
 
-.mat-select .mat-select-placeholder {
-  color: rgba(white, 0.6);
-}
-
 /* fix accessibility warning on invalid inputs */
 .mat-form-field.mat-form-field-invalid {
   .mat-form-field-flex {
@@ -146,10 +142,9 @@ mat-toolbar {
   border-color: map-get($theme, border);
 }
 
-.mat-chip:not(.mat-basic-chip) {
-  $background: invert(map-get(map-get($theme, background), card), 33%);
-  background-color: $background;
-  color: lighten($background, 67%);
+.mat-chip {
+  background-color: map-get(map-get($theme, background), unselected-chip);
+  color: map-get(map-get($theme, foreground), text);
 }
 
 .mat-tooltip {
