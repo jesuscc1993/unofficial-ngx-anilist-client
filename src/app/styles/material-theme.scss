@@ -95,7 +95,7 @@ mat-toolbar {
 
       &:not(.active) {
         &:not(:hover) {
-          color: map-get($grey-palette, 500);
+          color: map-get($grey-palette, 550);
         }
       }
     }
@@ -109,7 +109,7 @@ mat-toolbar {
   }
 
   & {
-    @include apply-button-theme(map-get($gray-palette, 500));
+    @include apply-button-theme(map-get($gray-palette, 600));
   }
   &.mat-primary {
     @include apply-button-theme(map-get($orange-palette, 400));

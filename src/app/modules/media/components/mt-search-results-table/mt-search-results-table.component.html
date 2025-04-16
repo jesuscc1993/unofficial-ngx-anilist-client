@@ -26,11 +26,11 @@
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="title-romaji">
+  <ng-container matColumnDef="title-romaji" class="justify-start">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{
       'media.title' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let media">
+    <mat-cell *matCellDef="let media" class="justify-start">
       <span class="text">{{ media.title.romaji }}</span>
     </mat-cell>
   </ng-container>

@@ -250,7 +250,7 @@
       </h4>
     </mat-card>
 
-    <div *ngIf="mediaList?.length > 0" id="results" class="results-wrapper">
+    <div *ngIf="mediaList?.length" id="results" class="results-wrapper">
       <mat-card class="no-padding">
         <mt-search-results-table
           [mediaType]="mediaType"

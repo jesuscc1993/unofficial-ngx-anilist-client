@@ -6,7 +6,7 @@
   <mat-table
     #table
     [dataSource]="dataSource"
-    [hidden]="!dataSource || dataSource.data.length < 1"
+    [hidden]="!dataSource?.data?.length"
     matSort
     class="media-table"
   >
