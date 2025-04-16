@@ -111,8 +111,9 @@ mat-toolbar {
 }
 
 .mat-chip:not(.mat-basic-chip) {
-  background-color: invert(map-get(map-get($theme, background), card), 33%);
-  color: $gray-0;
+  $background: invert(map-get(map-get($theme, background), card), 33%);
+  background-color: $background;
+  color: lighten($background, 67%);
 }
 
 .mat-tooltip {
