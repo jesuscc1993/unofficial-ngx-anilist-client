@@ -7,24 +7,50 @@ $accent-palette: define-palette($orange-palette);
   @return (background: $background, foreground: darken($background, 50%));
 }
 
-$themes: (
-  dark: (
-    material-theme: define-dark-theme($primary-palette, $accent-palette),
+/* overrides ./core/theming/palette */
+$grey-palette: map-merge(
+  $grey-palette,
+  (
+    50: #fafafa,
+    150: #f0f0f0,
+    250: #e7e7e7,
+    350: #d1d1d1,
+    450: #b0b0b0,
+    550: #8a8a8a,
+    650: #6b6b6b,
+    750: #525252,
+    850: #313131,
+    950: #121212,
+  )
+);
+
+/* overrides ./core/theming/palette */
+$dark-theme-background-palette: map-merge(
+  $dark-theme-background-palette,
+  (
+    app-bar: map-get($grey-palette, 950),
+    background: map-get($grey-palette, 900),
+    card: map-get($grey-palette, 850),
+    dialog: map-get($grey-palette, 850),
+  )
+);
+
+$theme: define-dark-theme($primary-palette, $accent-palette);
+
+$theme: map-merge(
+  $theme,
+  (
     background: $dark-theme-background-palette,
-    foreground: $light-theme-foreground-palette,
     border: rgba(white, 0.12),
-    button-background: map-get($gray-palette, 500),
     success: theme-alert(map-get($green-palette, 500)),
     info: theme-alert(map-get($blue-palette, 500)),
     warning: theme-alert(map-get($orange-palette, 500)),
     error: theme-alert(map-get($red-palette, 500)),
-  ),
+  )
 );
 
-$theme: map-get($themes, dark);
-
 @include core();
-@include all-component-themes(map-get($theme, material-theme));
+@include all-component-themes($theme);
 
 a {
   color: get-color-from-palette($primary-palette, darker);
@@ -83,7 +109,7 @@ mat-toolbar {
   }
 
   & {
-    @include apply-button-theme(map-get($theme, button-background));
+    @include apply-button-theme(map-get($gray-palette, 500));
   }
   &.mat-primary {
     @include apply-button-theme(map-get($orange-palette, 400));
