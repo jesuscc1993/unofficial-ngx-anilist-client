@@ -22,7 +22,7 @@ export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {
 
 export const getFormattedMediaYearRange = (media: Media) => {
   let range = media.startDate.year || '';
-  if (media.endDate.year) range += `\n-\n${media.endDate.year}`;
+  if (media.endDate.year) range += `\n—\n${media.endDate.year}`;
   return range;
 };
 
