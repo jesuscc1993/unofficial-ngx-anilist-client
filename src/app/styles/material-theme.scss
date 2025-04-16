@@ -1,9 +1,9 @@
-@use '@angular/material' as mat;
+@use '@angular/material' as *;
 
 $gray-0: white;
 
-$primary-palette: mat.define-palette(mat.$orange-palette);
-$accent-palette: mat.define-palette(mat.$orange-palette);
+$primary-palette: define-palette($orange-palette);
+$accent-palette: define-palette($orange-palette);
 
 @function theme-alert($background) {
   @return (background: $background, foreground: darken($background, 50%));
@@ -11,32 +11,32 @@ $accent-palette: mat.define-palette(mat.$orange-palette);
 
 $themes: (
   dark: (
-    material-theme: mat.define-dark-theme($primary-palette, $accent-palette),
-    background: mat.$dark-theme-background-palette,
-    foreground: mat.$dark-theme-foreground-palette,
+    material-theme: define-dark-theme($primary-palette, $accent-palette),
+    background: $dark-theme-background-palette,
+    foreground: $dark-theme-foreground-palette,
     border: rgba($gray-0, 0.12),
-    button-background: map-get(mat.$gray-palette, 500),
-    success: theme-alert(map-get(mat.$green-palette, 500)),
-    info: theme-alert(map-get(mat.$blue-palette, 500)),
-    warning: theme-alert(map-get(mat.$orange-palette, 500)),
-    error: theme-alert(map-get(mat.$red-palette, 500)),
+    button-background: map-get($gray-palette, 500),
+    success: theme-alert(map-get($green-palette, 500)),
+    info: theme-alert(map-get($blue-palette, 500)),
+    warning: theme-alert(map-get($orange-palette, 500)),
+    error: theme-alert(map-get($red-palette, 500)),
   ),
 );
 
 $theme: map-get($themes, dark);
 
-@include mat.core();
-@include mat.all-component-themes(map-get($theme, material-theme));
+@include core();
+@include all-component-themes(map-get($theme, material-theme));
 
 a {
-  color: mat.get-color-from-palette($primary-palette, darker);
+  color: get-color-from-palette($primary-palette, darker);
 
   &.secondary:not(.active):not(:hover) {
-    color: map-get(mat.$grey-palette, 500);
+    color: map-get($grey-palette, 500);
   }
 
   &:hover {
-    color: mat.get-color-from-palette($primary-palette, default);
+    color: get-color-from-palette($primary-palette, default);
   }
 }
 
@@ -61,20 +61,17 @@ mat-toolbar {
       border-top-color: transparent;
 
       &.active {
-        border-bottom-color: mat.get-color-from-palette(
-          $primary-palette,
-          default
-        );
+        border-bottom-color: get-color-from-palette($primary-palette, default);
 
         &,
         &:hover {
-          color: mat.get-color-from-palette($primary-palette, default);
+          color: get-color-from-palette($primary-palette, default);
         }
       }
 
       &:not(.active) {
         &:not(:hover) {
-          color: map-get(mat.$grey-palette, 500);
+          color: map-get($grey-palette, 500);
         }
       }
     }
@@ -91,13 +88,13 @@ mat-toolbar {
     @include apply-button-theme(map-get($theme, button-background));
   }
   &.mat-primary {
-    @include apply-button-theme(map-get(mat.$orange-palette, 400));
+    @include apply-button-theme(map-get($orange-palette, 400));
   }
   &.mat-accent {
-    @include apply-button-theme(map-get(mat.$orange-palette, 400));
+    @include apply-button-theme(map-get($orange-palette, 400));
   }
   &.mat-warn {
-    @include apply-button-theme(map-get(mat.$red-palette, 400));
+    @include apply-button-theme(map-get($red-palette, 400));
   }
 }
 
@@ -163,7 +160,7 @@ mat-card {
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-corner,
 ::-webkit-scrollbar-track-piece {
-  background: map-get(mat.$gray-palette, 900) !important;
+  background: map-get($gray-palette, 900) !important;
 }
 
 ::-webkit-scrollbar {
@@ -172,11 +169,11 @@ mat-card {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: map-get(mat.$gray-palette, 700);
-  border: 3px solid map-get(mat.$gray-palette, 900) !important;
+  background: map-get($gray-palette, 700);
+  border: 3px solid map-get($gray-palette, 900) !important;
   border-radius: 8px !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: map-get(mat.$gray-palette, 600);
+  background: map-get($gray-palette, 600);
 }
