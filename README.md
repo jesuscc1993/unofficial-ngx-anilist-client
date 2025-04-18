@@ -106,9 +106,9 @@ Provides multiple actions to be done with an media
 
 ## TODO
 
+- Extract common login from anima/manga to media (specially for components and pages)
 - Add language selection
 - Add query options popup for dashboard lists
   - Include, at least, limit, sort, status and format
 - Do NOT reset pagination on list changes (reset only on filter changes)
-- Limit dashboard results to improve load times
 - Move tags to the store
