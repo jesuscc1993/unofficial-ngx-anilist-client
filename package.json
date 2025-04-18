@@ -4,7 +4,7 @@
   "license": "CC BY-NC 4.0",
   "scripts": {
     "build": "ng build --configuration production --base-href https://jesuscc1993.github.io/unofficial-ngx-anilist-client/",
-    "deploy": "git checkout master && git pl && git merge develop && git push && yarn build && yarn ngh --dir=dist/unofficial-ngx-anilist-client/ && git checkout develop",
+    "deploy": "git checkout develop && git pull && git checkout master && git pull && git merge develop && git push && yarn build && yarn ngh --dir=dist/unofficial-ngx-anilist-client/ && git checkout develop",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
@@ -48,6 +48,7 @@
     "eslint-plugin-jsdoc": "^48.0.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "sass-migrator": "^1.5.6",
+    "to-fast-properties": "^3.0.0",
     "tslint": "~6.1.0",
     "typescript": "~4.6.4"
   },
