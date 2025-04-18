@@ -109,4 +109,4 @@ Provides multiple actions to be done with an media
 - Extract common login from anima/manga to media (specially for components and pages)
 - Add language selection
 - Do NOT reset pagination on list changes (reset only on filter changes)
-- Move tags to the store
+- Move tags to the store (no idea why I meant to do this when I added the TODO)
