@@ -7,6 +7,8 @@ export type PromptData = {
   cancelLiteral?: string;
   confirmLiteral?: string;
   content?: string;
+  confirmColor?: string;
+  cancelColor?: string;
   hasCancel?: boolean;
   hasConfirm?: boolean;
   title?: string;
@@ -32,17 +34,21 @@ export class MtPromptComponent {
   }
 
   cancel() {
-    if (this.data.cancel) this.data.cancel();
-    this.dialogRef.close();
+    this.data.cancel?.();
+    this.close();
   }
 
   confirm() {
-    if (this.data.confirm) this.data.confirm();
-    this.dialogRef.close();
+    this.data.confirm?.();
+    this.close();
   }
 
   dismiss() {
-    if (this.data.dismiss) this.data.dismiss();
+    this.data.dismiss?.();
+    this.close();
+  }
+
+  close() {
     this.dialogRef.close();
   }
 }

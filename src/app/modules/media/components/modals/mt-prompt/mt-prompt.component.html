@@ -15,7 +15,7 @@
         <button
           mat-raised-button
           type="button"
-          color="{{ data.hasCancel ? '' : 'primary' }}"
+          color="{{ data.confirmColor || (data.hasCancel ? '' : 'primary') }}"
           (click)="confirm()"
         >
           <span>{{ data.confirmLiteral || 'generic.yes' | translate }}</span>
@@ -26,7 +26,7 @@
         <button
           mat-raised-button
           type="button"
-          color="primary"
+          color="{{ data.cancelColor || 'primary' }}"
           (click)="cancel()"
         >
           <span>{{ data.cancelLiteral || 'generic.no' | translate }}</span>
