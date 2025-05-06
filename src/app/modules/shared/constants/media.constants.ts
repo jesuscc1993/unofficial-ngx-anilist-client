@@ -1,5 +1,9 @@
 import {
-  MediaCountry, MediaFormat, MediaRelationType, MediaSort, MediaStatus,
+  MediaCountry,
+  MediaFormat,
+  MediaRelationType,
+  MediaSort,
+  MediaStatus,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
@@ -26,7 +30,6 @@ export const mediaStatuses = [
 ];
 
 export const mediaCountries = [
-  undefined,
   MediaCountry.CN,
   MediaCountry.JP,
   MediaCountry.KR,
