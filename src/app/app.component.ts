@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +15,8 @@ import { User } from './modules/shared/types/anilist/user.types';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
+  error: Error;
+
   constructor(
     private authCommands: AuthCommands,
     private animeCommands: AnimeCommands,
@@ -30,8 +32,12 @@ export class AppComponent implements OnInit {
   private handleUserChange() {
     return tap((user?: User) => {
       if (user) {
-        this.animeCommands.queryListEntries().subscribe();
-        this.mangaCommands.queryListEntries().subscribe();
+        forkJoin([
+          this.animeCommands.queryListEntries(),
+          this.mangaCommands.queryListEntries(),
+        ])
+          .pipe(catchError(this.onError))
+          .subscribe();
       }
     });
   }
@@ -42,7 +48,12 @@ export class AppComponent implements OnInit {
         this.authCommands.logOut();
       }
 
-      return of(error);
+      return this.onError(error);
     });
+  }
+
+  private onError(error: Error) {
+    this.error = error;
+    return of();
   }
 }
