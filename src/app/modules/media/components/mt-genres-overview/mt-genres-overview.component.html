@@ -4,6 +4,7 @@
 
 <mat-grid-list
   *ngIf="genreStatsList?.length | sort : 'amount'"
+  role="list"
   rowHeight="32px"
   [cols]="getColumnCount()"
 >
@@ -13,6 +14,7 @@
       genreStats.amount + ' ' + ('media.userList.entries' | translate)
     "
     matTooltipPosition="above"
+    role="listitem"
     >{{ genreStats.genre }} ({{ genreStats.percentage }}%)</mat-grid-tile
   >
 </mat-grid-list>

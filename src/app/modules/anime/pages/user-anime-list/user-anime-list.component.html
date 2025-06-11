@@ -33,8 +33,12 @@
             {{ 'media.userList.goTo' | translate }}
           </p>
 
-          <div class="statuses-wrapper">
-            <span *ngFor="let status of statuses" class="status-wrapper">
+          <div role="list" class="statuses-wrapper">
+            <span
+              role="listitem"
+              *ngFor="let status of statuses"
+              class="status-wrapper"
+            >
               <div *ngIf="hasDataOfStatus(status.value)">
                 <mat-checkbox [(ngModel)]="status.shown">{{
                   'anime.statusValues.' + status.value | translate

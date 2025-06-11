@@ -7,6 +7,7 @@
     <div
       *ngFor="let route of routes"
       class="border-box"
+      role="list"
       [ngClass]="{
         'vertical-padding-xs': !route,
         'horizontal-padding-2xs': !route
@@ -15,6 +16,7 @@
       <a
         *ngIf="route"
         class="secondary"
+        role="listitem"
         [routerLink]="route.path"
         [class.active]="onPage(route.path)"
       >
