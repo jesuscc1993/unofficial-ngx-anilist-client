@@ -17,7 +17,7 @@ body {
   overflow-x: hidden;
   margin: 0;
 
-  .content-wrapper {
+  main {
     @extend .padding-xs;
     box-sizing: border-box;
     text-align: center;
