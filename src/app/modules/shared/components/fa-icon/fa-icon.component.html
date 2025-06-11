@@ -1,4 +1,5 @@
 <i
   [ngClass]="[type || 'fas', 'fa-' + name, iconClass || '']"
+  attr.aria-label="{{ name }}"
   title="{{ title }}"
 ></i>
