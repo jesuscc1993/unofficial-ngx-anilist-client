@@ -61,7 +61,10 @@
         </button>
       </div>
 
-      <div *ngIf="!searching && enabled" class="media-cover-grid">
+      <div
+        *ngIf="!searching && enabled && mediaList?.length"
+        class="media-cover-grid"
+      >
         <mt-media-cover
           *ngFor="let media of mediaList"
           [media]="media"
@@ -82,7 +85,7 @@
         </p>
       </mat-card>
 
-      <mat-card *ngIf="error" class="error">
+      <mat-card *ngIf="enabled && error" class="error">
         <p class="bold">
           <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
           {{ error }}

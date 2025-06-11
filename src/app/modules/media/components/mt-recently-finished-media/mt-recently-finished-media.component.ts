@@ -1,33 +1,25 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, takeUntil, tap, timeout } from 'rxjs/operators';
 
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
+import { loadTimeout } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  basicMediaSorts,
-  mediaCountries,
-  mediaFormats,
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  basicMediaSorts, mediaCountries, mediaFormats,
 } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
-  MediaCountry,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  MediaCountry, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getCountryLiteral,
-  getFormatLiteral,
-  getMediaTypePrefixedStorageKey,
-  getSortLiteral,
-  isAnime,
-  isManga,
-  sortListEntriesByMediaEndDate,
-  sortListEntriesByMediaScore,
-  sortListEntriesByMediaTitle,
+  getCountryLiteral, getFormatLiteral, getMediaTypePrefixedStorageKey, getSortLiteral, isAnime,
+  isManga, sortListEntriesByMediaEndDate, sortListEntriesByMediaScore, sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -49,6 +41,7 @@ export class MtRecentlyFinishedMediaComponent
   readonly isManga = isManga;
   readonly mediaSorts = basicMediaSorts;
 
+  error: Error;
   filteredEntries: ListEntry[];
   mediaCommands: MediaCommands;
   mediaCountries: MediaCountry[];
@@ -69,6 +62,7 @@ export class MtRecentlyFinishedMediaComponent
     this.setSelectedCountries = this.setSelectedCountries.bind(this);
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedSort = this.setSelectedSort.bind(this);
+    this.onError = this.onError.bind(this);
   }
 
   ngOnInit() {
@@ -87,6 +81,7 @@ export class MtRecentlyFinishedMediaComponent
     this.mediaCommands
       .getPendingMedia()
       .pipe(
+        timeout(loadTimeout),
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
           this.mediaCountries = mediaCountries;
@@ -97,6 +92,7 @@ export class MtRecentlyFinishedMediaComponent
           this.sortEntries();
           this.searching = false;
         }),
+        catchError(this.onError),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -197,5 +193,12 @@ export class MtRecentlyFinishedMediaComponent
     }
 
     this.filterEntries();
+  }
+
+  private onError(error: Error) {
+    this.error = error;
+    this.searching = false;
+
+    return of();
   }
 }

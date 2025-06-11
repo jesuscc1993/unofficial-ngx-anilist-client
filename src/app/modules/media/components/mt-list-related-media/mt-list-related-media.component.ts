@@ -1,11 +1,12 @@
 import { Observable, of } from 'rxjs';
-import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, mergeMap, takeUntil, tap, timeout } from 'rxjs/operators';
 
 import {
   Component, ElementRef, HostListener, Input, OnChanges, OnInit, ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
+import { loadTimeout } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -113,6 +114,7 @@ export class MtListRelatedMediaComponent
     this.mediaStore
       .onListEntriesChanges()
       .pipe(
+        timeout(loadTimeout),
         mergeMap((mediaListEntries) => {
           // check this.mediaListEntriesLength is set to prevent reloading when the list is first loaded
           if (

@@ -1,7 +1,9 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, takeUntil, tap, timeout } from 'rxjs/operators';
 
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
+import { loadTimeout } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -35,6 +37,7 @@ export class MtRecentlyUpdatedListEntriesComponent
   readonly getMangaStatusLiteral = getMangaStatusLiteral;
   readonly isAnime = isAnime;
 
+  error: Error;
   filteredEntries: ListEntry[];
   listEntryStatuses: ListEntryStatus[];
   mediaCommands: MediaCommands;
@@ -53,6 +56,7 @@ export class MtRecentlyUpdatedListEntriesComponent
 
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedStatuses = this.setSelectedStatuses.bind(this);
+    this.onError = this.onError.bind(this);
   }
 
   ngOnInit() {
@@ -71,6 +75,7 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.mediaCommands
       .getListEntries()
       .pipe(
+        timeout(loadTimeout),
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries.sort((a, b) =>
             a.updatedAt > b.updatedAt ? -1 : 1
@@ -86,6 +91,7 @@ export class MtRecentlyUpdatedListEntriesComponent
           this.filterEntries();
           this.searching = false;
         }),
+        catchError(this.onError),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -151,5 +157,12 @@ export class MtRecentlyUpdatedListEntriesComponent
       return true;
     }
     return this.selectedStatuses?.includes(entry.status);
+  }
+
+  private onError(error: Error) {
+    this.error = error;
+    this.searching = false;
+
+    return of();
   }
 }
