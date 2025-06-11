@@ -1,15 +1,15 @@
 <div class="narrow-page">
   <mat-card *ngIf="!user" class="warning margin-bottom-xs">
-    <h4>
+    <p class="bold">
       <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
       {{ 'user.notLoggedIn' | translate }}
       {{ 'media.search.limitedFeatures' | translate }}
-    </h4>
+    </p>
   </mat-card>
 
   <form [formGroup]="searchForm" (ngSubmit)="search()">
     <mat-card class="text-center">
-      <h2>
+      <h2 class="text-150 bold">
         {{ 'manga.search.title' | translate }}
       </h2>
 
@@ -237,17 +237,17 @@
     <div *ngIf="!searching" class="progress-bar"></div>
 
     <mat-card *ngIf="error" class="error">
-      <h4>
+      <p class="bold">
         <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
         {{ error }}
-      </h4>
+      </p>
     </mat-card>
 
     <mat-card *ngIf="pagination && !pagination.total" class="info">
-      <h4>
+      <p class="bold">
         <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
         {{ 'generic.noResults' | translate }}
-      </h4>
+      </p>
     </mat-card>
 
     <div *ngIf="mediaList?.length" id="results" class="results-wrapper">

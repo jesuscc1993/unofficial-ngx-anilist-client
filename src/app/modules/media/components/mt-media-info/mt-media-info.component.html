@@ -9,9 +9,9 @@
       />
 
       <div *ngIf="media.description">
-        <h4 class="no-margin-top margin-bottom-2xs">
+    <p class="bold no-margin-top margin-bottom-2xs">
           {{ 'media.description' | translate }}:
-        </h4>
+    </p>
         <div [innerHTML]="sanitizeDescription()"></div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 <div class="narrow-page">
   <mat-card *ngIf="!user" class="alert warning">
-    <h4>
+    <p class="bold">
       <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
       {{ 'user.notLoggedIn' | translate }}
-    </h4>
+    </p>
   </mat-card>
 
   <mat-spinner
@@ -25,10 +25,10 @@
       </mat-card>
 
       <mat-card class="margin-top-sm">
-        <h3>
+        <p class="text-115 bold">
           {{ 'media.userList.show' | translate }} /
           {{ 'media.userList.goTo' | translate }}
-        </h3>
+        </p>
 
         <div class="statuses-wrapper">
           <span *ngFor="let status of statuses" class="status-wrapper">
@@ -82,17 +82,17 @@
     </div>
 
     <mat-card *ngIf="ready && !error && !statuses?.length">
-      <h4>
+      <p class="bold">
         <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
         {{ 'media.userList.noEntries' | translate }}
-      </h4>
+      </p>
     </mat-card>
   </div>
 
   <mat-card *ngIf="error" class="error">
-    <h4>
+    <p class="bold">
       <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
       {{ error }}
-    </h4>
+    </p>
   </mat-card>
 </div>

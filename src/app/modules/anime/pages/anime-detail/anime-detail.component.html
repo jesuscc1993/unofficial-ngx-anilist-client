@@ -4,7 +4,7 @@
   <mat-card class="composite">
     <div *ngIf="media">
       <div class="header">
-        <h3 class="no-margin">
+        <h2 class="text-115 bold no-margin">
           <mt-media-actions
             [additionalInfoEnabled]="false"
             [editEnabled]="false"
@@ -16,7 +16,7 @@
           >
           </mt-media-actions
           >{{ media.title.romaji }}
-        </h3>
+        </h2>
       </div>
 
       <mat-divider></mat-divider>
@@ -34,9 +34,9 @@
   </mat-card>
 
   <mat-card *ngIf="!(searching || media)" class="info">
-    <h4>
+    <p class="bold">
       <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
       {{ 'generic.noResults' | translate }}
-    </h4>
+    </p>
   </mat-card>
 </div>

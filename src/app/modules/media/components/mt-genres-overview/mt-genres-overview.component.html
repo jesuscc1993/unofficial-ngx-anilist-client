@@ -1,7 +1,7 @@
-<h3>{{ 'media.userList.genresOverview' | translate }}</h3>
+<h3 class="text-115 bold">{{ 'media.userList.genresOverview' | translate }}</h3>
 
 <mat-grid-list
-  *ngIf="genreStatsList?.length | sort: 'amount'"
+  *ngIf="genreStatsList?.length | sort : 'amount'"
   rowHeight="32px"
   [cols]="getColumnCount()"
 >

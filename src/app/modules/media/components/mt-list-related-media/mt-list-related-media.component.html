@@ -1,9 +1,9 @@
 <mat-card class="composite compact">
   <div class="composite-header">
     <div class="header flex-1">
-      <h4 class="no-margin">
+      <h3 class="bold no-margin">
         {{ mediaType.toLowerCase() + '.dashboard.relatedMedia' | translate }}
-      </h4>
+      </h3>
     </div>
 
     <mt-header-picker
@@ -76,17 +76,17 @@
       </mt-pagination>
 
       <mat-card *ngIf="pagination && !pagination.total" class="info">
-        <h4>
+        <p class="bold">
           <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
           {{ 'generic.noResults' | translate }}
-        </h4>
+        </p>
       </mat-card>
 
       <mat-card *ngIf="error" class="error">
-        <h4>
+        <p class="bold">
           <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
           {{ error }}
-        </h4>
+        </p>
       </mat-card>
     </div>
   </div>
