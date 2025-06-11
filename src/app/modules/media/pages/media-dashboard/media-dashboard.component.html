@@ -1,5 +1,5 @@
 <div class="columns-wrapper">
-  <div
+  <section
     class="column left-column"
     *ngIf="showLeftColumn"
     [ngClass]="{ 'full-column': !showCenterColumn && !showRightColumn }"
@@ -7,17 +7,17 @@
     <mt-recently-updated-list-entries
       [mediaType]="mediaType"
     ></mt-recently-updated-list-entries>
-  </div>
+  </section>
 
-  <div
+  <section
     class="column center-column"
     *ngIf="showCenterColumn"
     [ngClass]="{ 'full-column': !showLeftColumn && !showRightColumn }"
   >
     <mt-list-related-media [mediaType]="mediaType"></mt-list-related-media>
-  </div>
+  </section>
 
-  <div
+  <section
     class="column right-column"
     *ngIf="showRightColumn"
     [ngClass]="{ 'full-column': !showLeftColumn && !showCenterColumn }"
@@ -25,5 +25,5 @@
     <mt-recently-finished-media
       [mediaType]="mediaType"
     ></mt-recently-finished-media>
-  </div>
+  </section>
 </div>

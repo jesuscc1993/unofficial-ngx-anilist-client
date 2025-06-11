@@ -3,7 +3,7 @@
     <h1 class="hide-below-sm">{{ 'app.title' | translate }}</h1>
   </div>
 
-  <div class="centered-content section-links" *ngIf="user">
+  <nav class="centered-content section-links" *ngIf="user">
     <div
       *ngFor="let route of routes"
       class="border-box"
@@ -38,7 +38,7 @@
 
       <vr *ngIf="!route"></vr>
     </div>
-  </div>
+  </nav>
 
   <!-- logged in -->
   <div *ngIf="user" class="flex-box center">
