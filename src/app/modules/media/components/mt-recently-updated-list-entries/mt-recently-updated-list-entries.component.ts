@@ -1,9 +1,8 @@
 import { of } from 'rxjs';
-import { catchError, takeUntil, tap, timeout } from 'rxjs/operators';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { loadTimeout } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -28,7 +27,7 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 })
 export class MtRecentlyUpdatedListEntriesComponent
   extends WithObservableOnDestroy
-  implements OnInit, OnChanges
+  implements OnInit
 {
   @Input() mediaType: MediaType;
 
@@ -63,10 +62,6 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.initialize();
   }
 
-  ngOnChanges() {
-    this.initialize();
-  }
-
   initialize() {
     this.mediaCommands = isAnime(this.mediaType)
       ? this.animeCommands
@@ -75,7 +70,6 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.mediaCommands
       .getListEntries()
       .pipe(
-        timeout(loadTimeout),
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries.sort((a, b) =>
             a.updatedAt > b.updatedAt ? -1 : 1

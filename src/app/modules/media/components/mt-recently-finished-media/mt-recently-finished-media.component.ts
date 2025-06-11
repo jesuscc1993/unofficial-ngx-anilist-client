@@ -1,9 +1,8 @@
 import { of } from 'rxjs';
-import { catchError, takeUntil, tap, timeout } from 'rxjs/operators';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { loadTimeout } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import {
@@ -30,7 +29,7 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 })
 export class MtRecentlyFinishedMediaComponent
   extends WithObservableOnDestroy
-  implements OnInit, OnChanges
+  implements OnInit
 {
   @Input() mediaType: MediaType;
 
@@ -69,10 +68,6 @@ export class MtRecentlyFinishedMediaComponent
     this.initialize();
   }
 
-  ngOnChanges() {
-    this.initialize();
-  }
-
   initialize() {
     this.mediaCommands = isAnime(this.mediaType)
       ? this.animeCommands
@@ -81,7 +76,6 @@ export class MtRecentlyFinishedMediaComponent
     this.mediaCommands
       .getPendingMedia()
       .pipe(
-        timeout(loadTimeout),
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
           this.mediaCountries = mediaCountries;

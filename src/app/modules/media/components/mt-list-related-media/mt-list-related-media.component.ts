@@ -1,12 +1,9 @@
 import { Observable, of } from 'rxjs';
-import { catchError, mergeMap, takeUntil, tap, timeout } from 'rxjs/operators';
+import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
-import {
-  Component, ElementRef, HostListener, Input, OnChanges, OnInit, ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
-import { loadTimeout } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -35,7 +32,7 @@ import { MediaStore } from '../../store/media.store';
 })
 export class MtListRelatedMediaComponent
   extends WithObservableOnDestroy
-  implements OnInit, OnChanges
+  implements OnInit
 {
   @Input() mediaType: MediaType;
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
@@ -96,10 +93,6 @@ export class MtListRelatedMediaComponent
     this.initialize();
   }
 
-  ngOnChanges() {
-    this.initialize();
-  }
-
   initialize() {
     if (isAnime(this.mediaType)) {
       this.mediaCommands = this.animeCommands;
@@ -114,7 +107,6 @@ export class MtListRelatedMediaComponent
     this.mediaStore
       .onListEntriesChanges()
       .pipe(
-        timeout(loadTimeout),
         mergeMap((mediaListEntries) => {
           // check this.mediaListEntriesLength is set to prevent reloading when the list is first loaded
           if (

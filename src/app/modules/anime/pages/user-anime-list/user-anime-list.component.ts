@@ -1,10 +1,9 @@
 import { of } from 'rxjs';
-import { catchError, takeUntil, tap, timeout } from 'rxjs/operators';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { loadTimeout } from '../../../../app.constants';
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import {
@@ -123,7 +122,6 @@ export class UserAnimeListPageComponent extends WithObservableOnDestroy {
       this.animeCommands
         .getListEntriesGroupedByStatus()
         .pipe(
-          timeout(loadTimeout),
           tap((listEntriesByStatus) => {
             this.listEntriesByStatus = listEntriesByStatus;
             this.statuses = Object.keys(this.listEntriesByStatus)
