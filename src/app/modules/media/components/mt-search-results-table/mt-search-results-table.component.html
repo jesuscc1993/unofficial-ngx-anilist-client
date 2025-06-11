@@ -19,8 +19,8 @@
     }}</mat-header-cell>
     <mat-cell *matCellDef="let media">
       <img
-        alt="Media Cover Image"
         [src]="getSizedCoverImage(media.coverImage)"
+        alt="Cover image for {{ media.title.romaji }}"
         class="cover"
       />
     </mat-cell>
