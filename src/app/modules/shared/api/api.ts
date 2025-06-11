@@ -81,10 +81,6 @@ export class AniListApi {
   }
 
   protected mapResponseErrors() {
-    return catchError((response) => {
-      const { errors } = response.error;
-
-      return throwError(errors.length === 1 ? errors[0] : errors);
-    });
+    return catchError(({ message }) => throwError(message));
   }
 }
