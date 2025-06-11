@@ -69,7 +69,7 @@ export class AniListApi {
         },
         this.getRequestOptions()
       )
-      .pipe(this.mapResponseErrors());
+      .pipe(this.mapResponseError());
   }
 
   protected isValidResponse<T>(response: AnilistResponse<T>) {
@@ -80,7 +80,10 @@ export class AniListApi {
     return !!response && response.data;
   }
 
-  protected mapResponseErrors() {
-    return catchError(({ message }) => throwError(message));
+  protected mapResponseError() {
+    return catchError(({ message }) => {
+      console.error('Received API Error:', message);
+      return throwError(message);
+    });
   }
 }
