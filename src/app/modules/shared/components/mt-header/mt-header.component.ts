@@ -29,49 +29,10 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   apiLoginUrl = apiLoginUrl;
   animeUserListUrl = animeUserListUrl;
 
-  user: User;
-  page: string;
   loginAvailable: boolean;
-
-  routes = [
-    {
-      path: animeSearchUrl,
-      literal: 'anime.search.title',
-      icon: 'tv',
-      iconb: 'search',
-    },
-    {
-      path: animeUserListUrl,
-      literal: 'anime.userList.title',
-      icon: 'tv',
-      iconb: 'th-list',
-    },
-    {
-      path: animeDashboardUrl,
-      literal: 'anime.dashboard.title',
-      icon: 'tv',
-      iconb: 'columns',
-    },
-    undefined,
-    {
-      path: mangaDashboardUrl,
-      literal: 'manga.dashboard.title',
-      icon: 'book-open',
-      iconb: 'columns',
-    },
-    {
-      path: mangaUserListUrl,
-      literal: 'manga.userList.title',
-      icon: 'book-open',
-      iconb: 'th-list',
-    },
-    {
-      path: mangaSearchUrl,
-      literal: 'manga.search.title',
-      icon: 'book-open',
-      iconb: 'search',
-    },
-  ];
+  page: string;
+  routes: Route[];
+  user: User;
 
   constructor(
     private router: Router,
@@ -97,6 +58,50 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 
     this.loginAvailable = environment.anilistClientId >= 0;
     this.user = this.authStore.getUser();
+
+    this.routes = [
+      {
+        path: animeSearchUrl,
+        literal: 'anime.search.title',
+        icon: 'tv',
+        iconb: 'search',
+      },
+      {
+        path: animeUserListUrl,
+        literal: 'anime.userList.title',
+        icon: 'tv',
+        iconb: 'th-list',
+        enabled: !!this.user,
+      },
+      {
+        path: animeDashboardUrl,
+        literal: 'anime.dashboard.title',
+        icon: 'tv',
+        iconb: 'columns',
+        enabled: !!this.user,
+      },
+      undefined,
+      {
+        path: mangaDashboardUrl,
+        literal: 'manga.dashboard.title',
+        icon: 'book-open',
+        iconb: 'columns',
+        enabled: !!this.user,
+      },
+      {
+        path: mangaUserListUrl,
+        literal: 'manga.userList.title',
+        icon: 'book-open',
+        iconb: 'th-list',
+        enabled: !!this.user,
+      },
+      {
+        path: mangaSearchUrl,
+        literal: 'manga.search.title',
+        icon: 'book-open',
+        iconb: 'search',
+      },
+    ];
 
     this.authCommands
       .onUserChange()
@@ -128,3 +133,11 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     });
   }
 }
+
+type Route = {
+  path: string;
+  literal: string;
+  icon: string;
+  iconb: string;
+  enabled?: boolean;
+};

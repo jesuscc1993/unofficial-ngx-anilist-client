@@ -3,7 +3,7 @@
     <h1 class="hide-below-sm">{{ 'app.title' | translate }}</h1>
   </div>
 
-  <nav class="centered-content section-links" *ngIf="user">
+  <nav class="centered-content section-links">
     <div
       *ngFor="let route of routes"
       class="border-box"
@@ -14,7 +14,7 @@
       }"
     >
       <a
-        *ngIf="route"
+        *ngIf="route && route?.enabled !== false"
         class="secondary"
         role="listitem"
         [routerLink]="route.path"
