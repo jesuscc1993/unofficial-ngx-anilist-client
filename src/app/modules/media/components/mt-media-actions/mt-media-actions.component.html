@@ -1,24 +1,30 @@
 <div class="container">
-  <fa-icon
+  <button
     *ngIf="listMode"
-    class="menu-toggle clickable list-only"
-    name="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
+    class="menu-toggle list-only"
+    mat-icon-button
     (click)="$event.stopPropagation(); openEditionModal()"
-  ></fa-icon>
+  >
+    <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
+  </button>
 
-  <fa-icon
-    class="menu-toggle clickable"
-    name="bars"
-    (click)="$event.stopPropagation()"
+  <button
+    class="menu-toggle"
+    mat-icon-button
     [matMenuTriggerFor]="entryMenu"
-  ></fa-icon>
+    (click)="$event.stopPropagation()"
+  >
+    <fa-icon name="bars"></fa-icon>
+  </button>
 
-  <fa-icon
+  <button
     *ngIf="listMode"
-    class="menu-toggle clickable list-only"
-    name="external-link-alt"
+    class="menu-toggle list-only"
+    mat-icon-button
     (click)="$event.stopPropagation(); openOnAniList()"
-  ></fa-icon>
+  >
+    <fa-icon name="external-link-alt"></fa-icon>
+  </button>
 </div>
 
 <mat-menu #entryMenu="matMenu">

@@ -84,14 +84,25 @@ $gap: 0.5rem;
 
       align-items: center;
       display: flex;
-      font-size: $font-size-100;
       height: 100%;
       justify-content: center;
       margin: 0 -#{$gap} 0 calc(-1 * (var(--size) - #{$gap}));
-      min-height: var(--size);
+      height: var(--size);
       text-align: center;
       vertical-align: bottom;
       width: var(--size);
+
+      .fas {
+        font-size: $font-size-100;
+      }
+
+      @media (max-width: $screen-2xs) {
+        --size: #{$mobile-horizontal-cell-padding + $gap};
+
+        .fas {
+          font-size: $font-size-125;
+        }
+      }
 
       @media (max-width: $screen-2xs) {
         --size: #{$mobile-horizontal-cell-padding + $gap};
