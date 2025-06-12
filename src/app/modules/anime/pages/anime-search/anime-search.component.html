@@ -1,13 +1,13 @@
+<mat-card *ngIf="!user" class="warning margin-bottom-xs">
+  <p class="bold">
+    <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
+    {{ 'user.notLoggedIn' | translate }}
+    {{ 'media.search.limitedFeatures' | translate }}
+  </p>
+</mat-card>
+
 <div class="narrow-page">
   <section>
-    <mat-card *ngIf="!user" class="warning margin-bottom-xs">
-      <p class="bold">
-        <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
-        {{ 'user.notLoggedIn' | translate }}
-        {{ 'media.search.limitedFeatures' | translate }}
-      </p>
-    </mat-card>
-
     <form [formGroup]="searchForm" (ngSubmit)="search()">
       <mat-card class="text-center">
         <h2 class="text-150 bold">

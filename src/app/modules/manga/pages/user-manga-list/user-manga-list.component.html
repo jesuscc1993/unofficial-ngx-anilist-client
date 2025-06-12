@@ -1,11 +1,11 @@
-<div class="narrow-page">
-  <mat-card *ngIf="!user" class="alert warning">
-    <p class="bold">
-      <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
-      {{ 'user.notLoggedIn' | translate }}
-    </p>
-  </mat-card>
+<mat-card *ngIf="!user" class="alert warning">
+  <p class="bold">
+    <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
+    {{ 'user.notLoggedIn' | translate }}
+  </p>
+</mat-card>
 
+<div class="narrow-page">
   <mat-spinner
     *ngIf="user && !ready"
     class="full-page"
