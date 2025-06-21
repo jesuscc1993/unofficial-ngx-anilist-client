@@ -6,15 +6,11 @@ import { MangaService } from '../manga/services/manga.service';
 import { MangaStore } from '../manga/store/manga.store';
 import { MediaModule } from '../media/media.module';
 import { SharedModule } from '../shared/shared.module';
-import { MangaDashboardPageComponent } from './pages/manga-dashboard/manga-dashboard.component';
-import { MangaSearchPageComponent } from './pages/manga-search/manga-search.component';
-import { UserMangaListPageComponent } from './pages/user-manga-list/user-manga-list.component';
+import { MangaDashboardPage } from './pages/manga-dashboard/manga-dashboard.component';
+import { MangaSearchPage } from './pages/manga-search/manga-search.component';
+import { UserMangaListPage } from './pages/user-manga-list/user-manga-list.component';
 
-const declarations = [
-  MangaDashboardPageComponent,
-  MangaSearchPageComponent,
-  UserMangaListPageComponent,
-];
+const declarations = [MangaDashboardPage, MangaSearchPage, UserMangaListPage];
 
 @NgModule({
   declarations,

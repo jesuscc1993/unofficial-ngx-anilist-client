@@ -8,7 +8,7 @@ import { TitleService } from '../../modules/shared/services/title.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginPageComponent {
+export class LoginPage {
   apiLoginUrl = apiLoginUrl;
 
   constructor(private titleService: TitleService) {

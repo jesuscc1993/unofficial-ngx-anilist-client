@@ -11,7 +11,7 @@ import { User } from '../../../shared/types/anilist/user.types';
   templateUrl: './user-manga-list.component.html',
   styleUrls: ['./user-manga-list.component.scss'],
 })
-export class UserMangaListPageComponent {
+export class UserMangaListPage {
   user: User;
   loggedIn: boolean;
 

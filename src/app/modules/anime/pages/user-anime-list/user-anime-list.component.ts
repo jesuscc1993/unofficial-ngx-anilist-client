@@ -11,7 +11,7 @@ import { User } from '../../../shared/types/anilist/user.types';
   templateUrl: './user-anime-list.component.html',
   styleUrls: ['./user-anime-list.component.scss'],
 })
-export class UserAnimeListPageComponent {
+export class UserAnimeListPage {
   user: User;
   loggedIn: boolean;
 

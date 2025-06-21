@@ -10,7 +10,7 @@ import { AuthStore } from '../../../shared/store/auth.store';
   templateUrl: './manga-dashboard.component.html',
   styleUrls: ['./manga-dashboard.component.scss'],
 })
-export class MangaDashboardPageComponent {
+export class MangaDashboardPage {
   constructor(
     private router: Router,
     private titleService: TitleService,

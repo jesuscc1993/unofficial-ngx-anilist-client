@@ -10,7 +10,7 @@ import { AuthStore } from '../../../shared/store/auth.store';
   templateUrl: './anime-dashboard.component.html',
   styleUrls: ['./anime-dashboard.component.scss'],
 })
-export class AnimeDashboardPageComponent {
+export class AnimeDashboardPage {
   constructor(
     private router: Router,
     private titleService: TitleService,

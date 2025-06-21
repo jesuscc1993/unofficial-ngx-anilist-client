@@ -7,7 +7,7 @@ import { TitleService } from '../../modules/shared/services/title.service';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss'],
 })
-export class PageNotFoundPageComponent {
+export class PageNotFoundPage {
   constructor(private titleService: TitleService) {
     this.titleService.setTranslatedTitle('app.pageNotFound');
   }

@@ -9,7 +9,7 @@ import { User } from '../../../shared/types/anilist/user.types';
   templateUrl: './manga-search.component.html',
   styleUrls: ['./manga-search.component.scss'],
 })
-export class MangaSearchPageComponent {
+export class MangaSearchPage {
   user: User;
 
   constructor(
