@@ -1,6 +1,6 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
-    <div title="{{ media.title.romaji }}" class="text-ellipsis">
+    <div title="{{ media.title.romaji }}" class="flex-box center text-ellipsis">
       <mt-media-actions
         *ngIf="media"
         [editEnabled]="origin !== 'edit'"
@@ -10,6 +10,7 @@
         [additionalInfoEnabled]="false"
         (onListEntryChanges)="onListEntryChanges($event)"
         class="inline-block margin-right-2xs"
+        iconClass="text-115"
       >
       </mt-media-actions
       >{{ media.title.romaji }}
