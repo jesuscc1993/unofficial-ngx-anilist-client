@@ -1,14 +1,12 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { getTypedRouteParams } from '../../../shared/domain/navigation.domain';
 import { TitleService } from '../../../shared/services/title.service';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
@@ -16,10 +14,16 @@ import { isAnime } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-media-detail',
-  templateUrl: './media-detail.component.html',
-  styleUrls: ['./media-detail.component.scss'],
+  templateUrl: './mt-media-detail.component.html',
+  styleUrls: ['./mt-media-detail.component.scss'],
 })
-export class MediaDetailPageComponent extends WithObservableOnDestroy {
+export class MtMediaDetailComponent
+  extends WithObservableOnDestroy
+  implements OnInit
+{
+  @Input() mediaId: number;
+  @Input() mediaType: MediaType;
+
   media: Media;
   mediaCommands: MediaCommands;
 
@@ -28,17 +32,14 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
 
   constructor(
     private titleService: TitleService,
-    private activatedRoute: ActivatedRoute,
     private animeCommands: AnimeCommands,
     private mangaCommands: MangaCommands
   ) {
     super();
+  }
 
-    const { mediaId, mediaType } = getTypedRouteParams<MediaDetailPageParams>(
-      this.activatedRoute
-    );
-
-    if (isAnime(mediaType.toUpperCase() as MediaType)) {
+  ngOnInit(): void {
+    if (isAnime(this.mediaType.toUpperCase() as MediaType)) {
       this.mediaCommands = this.animeCommands;
     } else {
       this.mediaCommands = this.mangaCommands;
@@ -46,8 +47,8 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
 
     this.titleService.setTitle();
 
-    if (mediaId && mediaId > 0) {
-      this.getEntry(mediaId);
+    if (this.mediaId) {
+      this.getEntry(this.mediaId);
     }
   }
 
@@ -75,5 +76,3 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
       .subscribe();
   }
 }
-
-type MediaDetailPageParams = { mediaId: number; mediaType: MediaType };

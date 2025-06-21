@@ -5,8 +5,8 @@ import { MediaType } from '../../../shared/types/anilist/media.types';
 
 @Component({
   selector: 'mt-media-dashboard',
-  templateUrl: './media-dashboard.component.html',
-  styleUrls: ['./media-dashboard.component.scss'],
+  templateUrl: './media-dashboard.page.html',
+  styleUrls: ['./media-dashboard.page.scss'],
 })
 export class MtMediaDashboardComponent implements OnInit {
   @Input() mediaType: MediaType;

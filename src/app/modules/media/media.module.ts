@@ -19,6 +19,7 @@ import {
 } from './components/mt-list-related-media/mt-list-related-media.component';
 import { MtMediaActionsComponent } from './components/mt-media-actions/mt-media-actions.component';
 import { MtMediaCoverComponent } from './components/mt-media-cover/mt-media-cover.component';
+import { MtMediaDetailComponent } from './components/mt-media-detail/mt-media-detail.component';
 import { MtMediaInfoComponent } from './components/mt-media-info/mt-media-info.component';
 import { MtMediaScoreComponent } from './components/mt-media-score/mt-media-score.component';
 import { MtMediaSearchComponent } from './components/mt-media-search/mt-media-search.component';
@@ -38,11 +39,11 @@ import {
 import {
   MtUserMediaListComponent,
 } from './components/mt-user-media-list/mt-user-media-list.component';
-import { MtMediaDashboardComponent } from './pages/media-dashboard/media-dashboard.component';
-import { MediaDetailPageComponent } from './pages/media-detail/media-detail.component';
+import { MtMediaDashboardComponent } from './pages/media-dashboard/media-dashboard.page';
+import { MediaDetailPage } from './pages/media-detail/media-detail.page';
 
 const declarations = [
-  MediaDetailPageComponent,
+  MediaDetailPage,
   MtGenresOverviewComponent,
   MtListEntryFormModalComponent,
   MtListEntryGridComponent,
@@ -50,6 +51,7 @@ const declarations = [
   MtMediaActionsComponent,
   MtMediaCoverComponent,
   MtMediaDashboardComponent,
+  MtMediaDetailComponent,
   MtMediaDetailModalComponent,
   MtMediaInfoComponent,
   MtMediaScoreComponent,

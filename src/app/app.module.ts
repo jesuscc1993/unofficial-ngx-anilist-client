@@ -20,9 +20,7 @@ import {
 import { MangaSearchPage } from './modules/manga/pages/manga-search/manga-search.component';
 import { UserMangaListPage } from './modules/manga/pages/user-manga-list/user-manga-list.component';
 import { MediaModule } from './modules/media/media.module';
-import {
-  MediaDetailPageComponent,
-} from './modules/media/pages/media-detail/media-detail.component';
+import { MediaDetailPage } from './modules/media/pages/media-detail/media-detail.page';
 import {
   animeDashboardUrl, animeSearchUrl, animeUserListUrl, loginUrl, mangaDashboardUrl, mangaSearchUrl,
   mangaUserListUrl, mediaDetailUrl, rootUrl,
@@ -42,7 +40,7 @@ const appRoutes: Routes = [
   { path: mangaSearchUrl, component: MangaSearchPage },
   { path: mangaUserListUrl, component: UserMangaListPage },
 
-  { path: mediaDetailUrl, component: MediaDetailPageComponent },
+  { path: mediaDetailUrl, component: MediaDetailPage },
 
   { path: '', redirectTo: rootUrl, pathMatch: 'full' },
   { path: '**', component: PageNotFoundPage },
