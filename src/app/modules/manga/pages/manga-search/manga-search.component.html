@@ -131,6 +131,47 @@
               </mat-form-field>
             </div>
 
+            <!-- format -->
+            <div class="form-group two-rows">
+              <mat-form-field>
+                <mat-select
+                  placeholder="{{ 'media.format' | translate }} {{
+                    'media.search.filters.includedIn' | translate
+                  }}..."
+                  #formatInput
+                  formControlName="formatIn"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let mediaFormat of mediaFormats"
+                    [value]="mediaFormat"
+                    >{{
+                      'media.formatValues.' + mediaFormat | translate
+                    }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-select
+                  placeholder="{{ 'media.format' | translate }} {{
+                    'media.search.filters.notIncludedIn' | translate
+                  }}..."
+                  #formatInput
+                  formControlName="formatNotIn"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let mediaFormat of mediaFormats"
+                    [value]="mediaFormat"
+                    >{{
+                      'media.formatValues.' + mediaFormat | translate
+                    }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+
             <!-- status -->
             <div class="form-group two-rows">
               <mat-form-field>

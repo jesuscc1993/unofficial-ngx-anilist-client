@@ -22,12 +22,11 @@ import { mediaCountries, mediaStatuses } from '../../../shared/constants/media.c
 import { mangaSearchUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
-import {
-  Media, MediaFormat, MediaSort, MediaType,
-} from '../../../shared/types/anilist/media.types';
+import { Media, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { MangaCommands } from '../../commands/manga.commands';
+import { mangaFormats } from '../../constants/manga.constants';
 import { MangaStore } from '../../store/manga.store';
 
 @Component({
@@ -52,6 +51,7 @@ export class MangaSearchPageComponent
 
   mediaGenres: string[];
   mediaCountries = mediaCountries;
+  mediaFormats = mangaFormats;
   mediaStatuses = mediaStatuses;
   mediaType = MediaType.MANGA;
   minMediaStartYear = minMediaStartYear;
@@ -212,7 +212,8 @@ export class MangaSearchPageComponent
         [Validators.pattern(integerPattern)],
       ],
       countryOfOrigin: [[]],
-      formatIn: [[MediaFormat.MANGA]],
+      formatIn: [[]],
+      formatNotIn: [[]],
       genreIn: [[]],
       genreNotIn: [[]],
       onList: [undefined],

@@ -5,15 +5,15 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
+import { animeFormats } from '../../../anime/constants/anime.constants';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { MangaStore } from '../../../manga/store/manga.store';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  basicMediaSorts, mediaFormats, mediaScores,
-} from '../../../shared/constants/media.constants';
+import { basicMediaSorts, mediaScores } from '../../../shared/constants/media.constants';
 import {
   Media, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
@@ -41,7 +41,6 @@ export class MtListRelatedMediaComponent
   readonly getSortLiteral = getSortLiteral;
   readonly isAnime = isAnime;
   readonly mediaSorts = basicMediaSorts;
-  readonly mediaFormats = mediaFormats;
   readonly mediaScores = mediaScores;
   readonly rowCount = 5;
 
@@ -49,6 +48,7 @@ export class MtListRelatedMediaComponent
   enabled: boolean;
   error: Error;
   mediaCommands: MediaCommands;
+  mediaFormats: MediaFormat[];
   mediaList: Media[];
   mediaListEntriesLength: number;
   mediaStore: MediaStore;
@@ -97,9 +97,11 @@ export class MtListRelatedMediaComponent
     if (isAnime(this.mediaType)) {
       this.mediaCommands = this.animeCommands;
       this.mediaStore = this.animeStore;
+      this.mediaFormats = animeFormats;
     } else {
       this.mediaCommands = this.mangaCommands;
       this.mediaStore = this.mangaStore;
+      this.mediaFormats = mangaFormats;
     }
 
     this.onResize();

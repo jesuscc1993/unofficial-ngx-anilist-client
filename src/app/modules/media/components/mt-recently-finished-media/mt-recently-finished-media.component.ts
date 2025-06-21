@@ -4,13 +4,13 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
+import { animeFormats } from '../../../anime/constants/anime.constants';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { mangaFormats } from '../../../manga/constants/manga.constants';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  basicMediaSorts, mediaCountries, mediaFormats,
-} from '../../../shared/constants/media.constants';
+import { basicMediaSorts, mediaCountries } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
   MediaCountry, MediaFormat, MediaSort, MediaType,
@@ -79,7 +79,9 @@ export class MtRecentlyFinishedMediaComponent
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
           this.mediaCountries = mediaCountries;
-          this.mediaFormats = mediaFormats.filter(
+          this.mediaFormats = (
+            isAnime(this.mediaType) ? animeFormats : mangaFormats
+          ).filter(
             (format) =>
               !!mediaListEntries.find((entry) => entry.media.format === format)
           );

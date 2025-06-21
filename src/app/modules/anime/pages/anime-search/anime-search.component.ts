@@ -18,9 +18,7 @@ import { AuthCommands } from '../../../shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  mediaCountries, mediaFormats, mediaStatuses,
-} from '../../../shared/constants/media.constants';
+import { mediaCountries, mediaStatuses } from '../../../shared/constants/media.constants';
 import { animeSearchUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
@@ -28,6 +26,7 @@ import { Media, MediaSort, MediaType } from '../../../shared/types/anilist/media
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { AnimeCommands } from '../../commands/anime.commands';
+import { animeFormats } from '../../constants/anime.constants';
 import { AnimeStore } from '../../store/anime.store';
 
 @Component({
@@ -52,7 +51,7 @@ export class AnimeSearchPageComponent
 
   mediaGenres: string[];
   mediaCountries = mediaCountries;
-  mediaFormats = mediaFormats;
+  mediaFormats = animeFormats;
   mediaStatuses = mediaStatuses;
   mediaType = MediaType.ANIME;
   minMediaStartYear = minMediaStartYear;

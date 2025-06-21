@@ -4,14 +4,15 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
+import { animeFormats } from '../../../anime/constants/anime.constants';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
-import { mediaFormats } from '../../../shared/constants/media.constants';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
@@ -78,7 +79,9 @@ export class MtRecentlyUpdatedListEntriesComponent
             (status) =>
               !!mediaListEntries.find((entry) => entry.status === status)
           );
-          this.mediaFormats = mediaFormats.filter(
+          this.mediaFormats = (
+            isAnime(this.mediaType) ? animeFormats : mangaFormats
+          ).filter(
             (format) =>
               !!mediaListEntries.find((entry) => entry.media.format === format)
           );
