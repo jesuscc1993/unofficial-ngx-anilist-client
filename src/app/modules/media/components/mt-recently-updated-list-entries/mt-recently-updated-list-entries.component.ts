@@ -60,14 +60,16 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   ngOnInit() {
+    if (isAnime(this.mediaType)) {
+      this.mediaCommands = this.animeCommands;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+    }
+
     this.initialize();
   }
 
   initialize() {
-    this.mediaCommands = isAnime(this.mediaType)
-      ? this.animeCommands
-      : this.mangaCommands;
-
     this.mediaCommands
       .getListEntries()
       .pipe(

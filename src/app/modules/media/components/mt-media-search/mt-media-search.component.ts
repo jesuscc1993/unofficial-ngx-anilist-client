@@ -79,13 +79,15 @@ export class MtMediaSearchComponent
     private router: Router
   ) {
     super();
+  }
 
+  ngOnInit() {
     if (isAnime(this.mediaType)) {
+      this.mediaCommands = this.animeCommands;
       this.mediaFormats = animeFormats;
-      this.mediaCommands = animeCommands;
     } else {
+      this.mediaCommands = this.mangaCommands;
       this.mediaFormats = mangaFormats;
-      this.mediaCommands = mangaCommands;
     }
 
     this.user = this.authStore.getUser();
@@ -118,9 +120,7 @@ export class MtMediaSearchComponent
         takeUntil(this.destroyed$)
       )
       .subscribe();
-  }
 
-  ngOnInit() {
     const queryParams = this.activatedRoute.snapshot.queryParams;
     const fieldKeys = Object.keys(queryParams);
 

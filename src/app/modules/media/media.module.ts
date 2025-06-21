@@ -35,6 +35,9 @@ import {
 import {
   MtUserMediaListTableComponent,
 } from './components/mt-user-media-list-table/mt-user-media-list-table.component';
+import {
+  MtUserMediaListComponent,
+} from './components/mt-user-media-list/mt-user-media-list.component';
 import { MtMediaDashboardComponent } from './pages/media-dashboard/media-dashboard.component';
 import { MediaDetailPageComponent } from './pages/media-detail/media-detail.component';
 
@@ -56,6 +59,7 @@ const declarations = [
   MtRecentlyFinishedMediaComponent,
   MtRecentlyUpdatedListEntriesComponent,
   MtSearchResultsTableComponent,
+  MtUserMediaListComponent,
   MtUserMediaListTableComponent,
 ];
 

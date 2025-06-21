@@ -36,9 +36,11 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
     const params = this.activatedRoute.snapshot.params as MediaDetailPageParams;
     const { id, type } = params;
 
-    this.mediaCommands = isAnime(type.toUpperCase() as MediaType)
-      ? this.animeCommands
-      : this.mangaCommands;
+    if (isAnime(type.toUpperCase() as MediaType)) {
+      this.mediaCommands = this.animeCommands;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+    }
 
     this.titleService.setTitle();
 

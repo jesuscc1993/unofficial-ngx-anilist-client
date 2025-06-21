@@ -57,7 +57,12 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     this.origin = data.origin;
     this.media = data.media;
     this.listEntry = data.listEntry;
-    this.mediaCommands = isAnime(data.media) ? animeCommands : mangaCommands;
+
+    if (isAnime(data.media)) {
+      this.mediaCommands = this.animeCommands;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+    }
 
     this.listEntryForm = this.formBuilder.group({
       status: [status || 'PLANNING', [Validators.required]],

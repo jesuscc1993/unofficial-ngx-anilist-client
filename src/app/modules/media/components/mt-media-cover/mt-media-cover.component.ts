@@ -50,9 +50,11 @@ export class MtMediaCoverComponent
   }
 
   ngOnInit() {
-    this.mediaCommands = isAnime(this.media)
-      ? this.animeCommands
-      : this.mangaCommands;
+    if (isAnime(this.media)) {
+      this.mediaCommands = this.animeCommands;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+    }
 
     if (!this.media && this.listEntry) {
       const { media, ...mediaListEntry } = this.listEntry;
