@@ -128,7 +128,15 @@ export const getMediaTypePrefixedStorageKey = (
   key: string,
   mediaType: MediaType
 ) => {
-  return `${mediaType.toLowerCase()}_${key}`;
+  return `${mediaType?.toLowerCase()}_${key}`;
+};
+
+export const getMediaKey = (mediaType: MediaType, suffix: string) => {
+  return `${mediaType?.toLowerCase()}.${suffix}`;
+};
+
+export const toMediaType = (text: string): MediaType => {
+  return text.toUpperCase() as MediaType;
 };
 
 export const getColCount = (elementRef: ElementRef<any>) => {

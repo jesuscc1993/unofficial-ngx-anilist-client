@@ -39,7 +39,7 @@ export class MtMediaDetailComponent
   }
 
   ngOnInit(): void {
-    if (isAnime(this.mediaType.toUpperCase() as MediaType)) {
+    if (isAnime(this.mediaType)) {
       this.mediaCommands = this.animeCommands;
     } else {
       this.mediaCommands = this.mangaCommands;

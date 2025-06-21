@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getTypedRouteParams } from '../../../shared/domain/navigation.domain';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
+import { toMediaType } from '../../domain/media.domain';
 
 @Component({
   templateUrl: './media-detail.page.html',
@@ -22,9 +23,8 @@ export class MediaDetailPage {
     const { mediaId, mediaType } = getTypedRouteParams<MediaDetailPageParams>(
       this.activatedRoute
     );
-
     this.mediaId = mediaId;
-    this.mediaType = mediaType;
+    this.mediaType = toMediaType(mediaType);
   }
 }
 
