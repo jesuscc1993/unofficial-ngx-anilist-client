@@ -2,7 +2,7 @@
   <form [formGroup]="searchForm" (ngSubmit)="search()">
     <mat-card class="text-center">
       <h2 class="text-150 bold">
-        {{ 'anime.search.title' | translate }}
+        {{ mediaType.toLowerCase() + '.search.title' | translate }}
       </h2>
 
       <div class="form-group">
