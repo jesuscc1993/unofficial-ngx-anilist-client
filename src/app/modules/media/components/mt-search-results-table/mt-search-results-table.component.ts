@@ -24,8 +24,9 @@ import {
 export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   @Input() mediaType: MediaType;
   @Input() tableData: Anime[];
-  @Output() onSortChange: EventEmitter<MediaSort> =
-    new EventEmitter<MediaSort>();
+
+  @Output() onSortChange: EventEmitter<MediaSort>;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
@@ -46,7 +47,9 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   ];
   dataSource: MatTableDataSource<Anime>;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+    this.onSortChange = new EventEmitter<MediaSort>();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.tableData.currentValue !== changes.tableData.previousValue) {

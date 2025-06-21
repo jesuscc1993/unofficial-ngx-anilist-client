@@ -8,7 +8,7 @@
         class="cover"
       />
 
-      <div *ngIf="media.description">
+      <div *ngIf="media.description?.trim()">
         <p class="bold no-margin-top margin-bottom-2xs">
           {{ 'media.description' | translate }}:
         </p>

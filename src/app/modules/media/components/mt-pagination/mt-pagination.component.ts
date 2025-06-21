@@ -12,6 +12,7 @@ import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 export class MtPaginationComponent {
   @Input() class?: string;
   @Input() pagination?: PageInfo;
+
   @Output() changePage: EventEmitter<PageEvent>;
 
   pageSizeOptions = pageSizeOptions;

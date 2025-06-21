@@ -8,5 +8,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class MtMenuActionComponent {
   @Input() disabled?: boolean;
   @Input() icon?: string;
-  @Output() onPress: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output() onPress: EventEmitter<void>;
+
+  constructor() {
+    this.onPress = new EventEmitter<void>();
+  }
 }

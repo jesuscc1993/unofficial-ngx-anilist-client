@@ -30,6 +30,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   @Input() mediaType: MediaType;
   @Input() tableData: ListEntry[];
   @Input() tableStatus: ListEntryStatus;
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 

@@ -15,6 +15,7 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   @Input() listEntries: ListEntry[];
   @Input() showStatusBadge?: boolean;
   @Input() wrapperClass?: string;
+
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

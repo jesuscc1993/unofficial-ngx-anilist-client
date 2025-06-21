@@ -35,6 +35,7 @@ export class MtListRelatedMediaComponent
   implements OnInit
 {
   @Input() mediaType: MediaType;
+
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
 
   readonly getFormatLiteral = getFormatLiteral;

@@ -7,5 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class MtModalHeaderComponent {
   @Input() titleClass?: string;
-  @Output() onClosePressed: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output() onClosePressed: EventEmitter<void>;
+
+  constructor() {
+    this.onClosePressed = new EventEmitter<void>();
+  }
 }

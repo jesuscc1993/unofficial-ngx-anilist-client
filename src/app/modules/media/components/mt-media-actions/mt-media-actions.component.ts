@@ -43,6 +43,7 @@ export class MtMediaActionsComponent
   @Input() listMode = true;
   @Input() media: Media;
   @Input() origin?: ModalOrigin;
+
   @Output() onListEntryChanges: EventEmitter<ListEntry>;
 
   user: User;
