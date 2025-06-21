@@ -12,9 +12,6 @@ import {
   AnimeDashboardPageComponent,
 } from './modules/anime/pages/anime-dashboard/anime-dashboard.component';
 import {
-  AnimeDetailPageComponent,
-} from './modules/anime/pages/anime-detail/anime-detail.component';
-import {
   AnimeSearchPageComponent,
 } from './modules/anime/pages/anime-search/anime-search.component';
 import {
@@ -25,9 +22,6 @@ import {
   MangaDashboardPageComponent,
 } from './modules/manga/pages/manga-dashboard/manga-dashboard.component';
 import {
-  MangaDetailPageComponent,
-} from './modules/manga/pages/manga-detail/manga-detail.component';
-import {
   MangaSearchPageComponent,
 } from './modules/manga/pages/manga-search/manga-search.component';
 import {
@@ -35,24 +29,30 @@ import {
 } from './modules/manga/pages/user-manga-list/user-manga-list.component';
 import { MediaModule } from './modules/media/media.module';
 import {
-  animeDashboardUrl, animeDetailUrl, animeSearchUrl, animeUserListUrl, loginUrl, mangaDashboardUrl,
-  mangaDetailUrl, mangaSearchUrl, mangaUserListUrl, rootUrl,
+  MediaDetailPageComponent,
+} from './modules/media/pages/media-detail/media-detail.component';
+import {
+  animeDashboardUrl, animeSearchUrl, animeUserListUrl, loginUrl, mangaDashboardUrl, mangaSearchUrl,
+  mangaUserListUrl, mediaDetailUrl, rootUrl,
 } from './modules/shared/constants/navigation.constants';
 import { SharedModule } from './modules/shared/shared.module';
 import { LoginPageComponent } from './pages/login/login.component';
 import { PageNotFoundPageComponent } from './pages/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: rootUrl, pathMatch: 'full' },
   { path: loginUrl, component: LoginPageComponent },
-  { path: animeSearchUrl, component: AnimeSearchPageComponent },
-  { path: mangaSearchUrl, component: MangaSearchPageComponent },
+
   { path: animeDashboardUrl, component: AnimeDashboardPageComponent },
-  { path: mangaDashboardUrl, component: MangaDashboardPageComponent },
-  { path: animeDetailUrl, component: AnimeDetailPageComponent },
-  { path: mangaDetailUrl, component: MangaDetailPageComponent },
+  { path: animeSearchUrl, component: AnimeSearchPageComponent },
   { path: animeUserListUrl, component: UserAnimeListPageComponent },
+
+  { path: mangaDashboardUrl, component: MangaDashboardPageComponent },
+  { path: mangaSearchUrl, component: MangaSearchPageComponent },
   { path: mangaUserListUrl, component: UserMangaListPageComponent },
+
+  { path: mediaDetailUrl, component: MediaDetailPageComponent },
+
+  { path: '', redirectTo: rootUrl, pathMatch: 'full' },
   { path: '**', component: PageNotFoundPageComponent },
 ];
 

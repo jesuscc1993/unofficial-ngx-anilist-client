@@ -11,7 +11,7 @@ import { AuthCommands } from '../../../shared/commands/auth.commands';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { animeDetailUrl, mangaDetailUrl } from '../../../shared/constants/navigation.constants';
+import { mediaDetailUrl } from '../../../shared/constants/navigation.constants';
 import { AuthStore } from '../../../shared/store/auth.store';
 import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
@@ -147,10 +147,9 @@ export class MtMediaActionsComponent
     this.dialog.closeAll();
 
     this.router.navigate([
-      (isAnime(this.media) ? animeDetailUrl : mangaDetailUrl).replace(
-        ':id',
-        this.media.id.toString()
-      ),
+      mediaDetailUrl
+        .replace(':type', this.media.type.toLowerCase())
+        .replace(':id', this.media.id.toString()),
     ]);
   }
 

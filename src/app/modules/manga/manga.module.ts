@@ -7,13 +7,11 @@ import { MangaStore } from '../manga/store/manga.store';
 import { MediaModule } from '../media/media.module';
 import { SharedModule } from '../shared/shared.module';
 import { MangaDashboardPageComponent } from './pages/manga-dashboard/manga-dashboard.component';
-import { MangaDetailPageComponent } from './pages/manga-detail/manga-detail.component';
 import { MangaSearchPageComponent } from './pages/manga-search/manga-search.component';
 import { UserMangaListPageComponent } from './pages/user-manga-list/user-manga-list.component';
 
 const declarations = [
   MangaDashboardPageComponent,
-  MangaDetailPageComponent,
   MangaSearchPageComponent,
   UserMangaListPageComponent,
 ];
