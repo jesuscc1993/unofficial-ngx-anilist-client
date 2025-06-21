@@ -6,6 +6,7 @@ $spacing-3xs: 0.33rem;
 $spacing-2xs: 0.5rem;
 $spacing-xs: 0.75rem;
 $spacing-md: 1rem;
+$spacing-lg: 1.25rem;
 $spacing-xl: 1.5rem;
 $spacing-2xl: 2rem;
 $spacing-3xl: 3rem;
@@ -34,11 +35,14 @@ $screen-2xl: 1920px;
 /* material */
 $mat-toolbar-height: 56px;
 $mat-spinner-size: 128px;
+$mat-button-height: 36px;
+$mat-icon-button: 40px;
 
 /* modals */
 $modal-margin: 32px;
-$modal-header-height: 70px;
-$modal-footer-height: 84px;
+$modal-padding: 20px;
+$modal-header-height: $modal-padding + $mat-icon-button;
+$modal-footer-height: $modal-padding * 2 + $mat-button-height;
 
 /* generic */
 $page-padding: $spacing-2xl;

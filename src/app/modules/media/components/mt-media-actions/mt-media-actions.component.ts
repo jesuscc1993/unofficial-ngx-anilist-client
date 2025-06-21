@@ -38,7 +38,6 @@ export class MtMediaActionsComponent
   @Input() additionalInfoEnabled = true;
   @Input() editEnabled = true;
   @Input() fullDetailEnabled = true;
-  @Input() iconClass?: string;
   @Input() listEntry?: ListEntry;
   @Input() listMode = true;
   @Input() media: Media;
@@ -151,8 +150,8 @@ export class MtMediaActionsComponent
 
     this.router.navigate([
       mediaDetailUrl
-        .replace(':type', this.media.type.toLowerCase())
-        .replace(':id', this.media.id.toString()),
+        .replace(':mediaType', this.media.type.toLowerCase())
+        .replace(':mediaId', this.media.id.toString()),
     ]);
   }
 

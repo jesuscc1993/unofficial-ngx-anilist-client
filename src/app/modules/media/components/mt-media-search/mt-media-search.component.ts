@@ -19,6 +19,7 @@ import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { mediaCountries, mediaStatuses } from '../../../shared/constants/media.constants';
+import { getTypedQueryParams } from '../../../shared/domain/navigation.domain';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
   Media, MediaFormat, MediaSort, MediaType,
@@ -121,7 +122,7 @@ export class MtMediaSearchComponent
       )
       .subscribe();
 
-    const queryParams = this.activatedRoute.snapshot.queryParams;
+    const queryParams = getTypedQueryParams(this.activatedRoute);
     const fieldKeys = Object.keys(queryParams);
 
     if (fieldKeys.length) {

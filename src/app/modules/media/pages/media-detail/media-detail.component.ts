@@ -8,6 +8,7 @@ import { MangaCommands } from '../../../manga/commands/manga.commands';
 import {
   WithObservableOnDestroy,
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { getTypedRouteParams } from '../../../shared/domain/navigation.domain';
 import { TitleService } from '../../../shared/services/title.service';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
@@ -33,10 +34,11 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
   ) {
     super();
 
-    const params = this.activatedRoute.snapshot.params as MediaDetailPageParams;
-    const { id, type } = params;
+    const { mediaId, mediaType } = getTypedRouteParams<MediaDetailPageParams>(
+      this.activatedRoute
+    );
 
-    if (isAnime(type.toUpperCase() as MediaType)) {
+    if (isAnime(mediaType.toUpperCase() as MediaType)) {
       this.mediaCommands = this.animeCommands;
     } else {
       this.mediaCommands = this.mangaCommands;
@@ -44,8 +46,8 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
 
     this.titleService.setTitle();
 
-    if (id && id > 0) {
-      this.getEntry(id);
+    if (mediaId && mediaId > 0) {
+      this.getEntry(mediaId);
     }
   }
 
@@ -74,4 +76,4 @@ export class MediaDetailPageComponent extends WithObservableOnDestroy {
   }
 }
 
-type MediaDetailPageParams = { id: number; type: MediaType };
+type MediaDetailPageParams = { mediaId: number; mediaType: MediaType };

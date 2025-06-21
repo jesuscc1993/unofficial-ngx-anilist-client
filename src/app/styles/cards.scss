@@ -1,25 +1,13 @@
 @import 'variables';
 
-@mixin setup-card-paddings($regular-padding, $compact-padding) {
-  mat-card {
-    &.composite {
-      padding: 0 !important;
-
-      &.compact {
-        @include setup-card-padding($compact-padding);
-      }
-
-      &:not(.compact) {
-        @include setup-card-padding($regular-padding);
-      }
-    }
-  }
-}
-
 @mixin setup-card-padding($padding) {
   .header,
   .footer {
     padding: $padding;
+
+    &:has(.mat-icon-button) {
+      padding: $padding / 2;
+    }
   }
 
   .content {
@@ -35,16 +23,18 @@
   }
 }
 
-@media (min-width: ($screen-sm + 1)) {
-  @include setup-card-paddings($spacing-xl, $spacing-md);
-}
-
-@media (max-width: $screen-sm) {
-  @include setup-card-paddings($spacing-md, $spacing-md);
-}
-
 mat-card {
   &.composite {
+    padding: 0 !important;
+
+    &.compact {
+      @include setup-card-padding($modal-padding * 0.8);
+    }
+
+    &:not(.compact) {
+      @include setup-card-padding($modal-padding);
+    }
+
     .composite-header {
       display: flex;
 
@@ -88,6 +78,14 @@ mat-card {
       .footer:not(.tab) {
         border-top-width: 1px;
         border-top-style: solid;
+      }
+    }
+  }
+
+  .header {
+    .mat-icon-button {
+      fa-icon {
+        font-size: $font-size-125;
       }
     }
   }
