@@ -5,18 +5,18 @@ import { AuthStore } from '../../../shared/store/auth.store';
 import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
-  selector: 'mt-anime-search',
-  templateUrl: './anime-search.component.html',
-  styleUrls: ['./anime-search.component.scss'],
+  selector: 'mt-manga-search',
+  templateUrl: './manga-search.page.html',
+  styleUrls: ['./manga-search.page.scss'],
 })
-export class AnimeSearchPage {
+export class MangaSearchPage {
   user: User;
 
   constructor(
     private authStore: AuthStore,
     private titleService: TitleService
   ) {
-    this.titleService.setTranslatedTitle('anime.search.title');
+    this.titleService.setTranslatedTitle('manga.search.title');
 
     this.user = this.authStore.getUser();
   }

@@ -8,8 +8,8 @@ import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
   selector: 'mt-user-anime-list',
-  templateUrl: './user-anime-list.component.html',
-  styleUrls: ['./user-anime-list.component.scss'],
+  templateUrl: './user-anime-list.page.html',
+  styleUrls: ['./user-anime-list.page.scss'],
 })
 export class UserAnimeListPage {
   user: User;

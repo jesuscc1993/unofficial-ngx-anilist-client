@@ -8,17 +8,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AnimeModule } from './modules/anime/anime.module';
-import {
-  AnimeDashboardPage,
-} from './modules/anime/pages/anime-dashboard/anime-dashboard.component';
-import { AnimeSearchPage } from './modules/anime/pages/anime-search/anime-search.component';
-import { UserAnimeListPage } from './modules/anime/pages/user-anime-list/user-anime-list.component';
+import { AnimeDashboardPage } from './modules/anime/pages/anime-dashboard/anime-dashboard.page';
+import { AnimeSearchPage } from './modules/anime/pages/anime-search/anime-search.page';
+import { UserAnimeListPage } from './modules/anime/pages/user-anime-list/user-anime-list.page';
 import { MangaModule } from './modules/manga/manga.module';
-import {
-  MangaDashboardPage,
-} from './modules/manga/pages/manga-dashboard/manga-dashboard.component';
-import { MangaSearchPage } from './modules/manga/pages/manga-search/manga-search.component';
-import { UserMangaListPage } from './modules/manga/pages/user-manga-list/user-manga-list.component';
+import { MangaDashboardPage } from './modules/manga/pages/manga-dashboard/manga-dashboard.page';
+import { MangaSearchPage } from './modules/manga/pages/manga-search/manga-search.page';
+import { UserMangaListPage } from './modules/manga/pages/user-manga-list/user-manga-list.page';
 import { MediaModule } from './modules/media/media.module';
 import { MediaDetailPage } from './modules/media/pages/media-detail/media-detail.page';
 import {
@@ -26,8 +22,8 @@ import {
   mangaUserListUrl, mediaDetailUrl, rootUrl,
 } from './modules/shared/constants/navigation.constants';
 import { SharedModule } from './modules/shared/shared.module';
-import { LoginPage } from './pages/login/login.component';
-import { PageNotFoundPage } from './pages/page-not-found/page-not-found.component';
+import { LoginPage } from './pages/login/login.page';
+import { PageNotFoundPage } from './pages/page-not-found/page-not-found.page';
 
 const appRoutes: Routes = [
   { path: loginUrl, component: LoginPage },

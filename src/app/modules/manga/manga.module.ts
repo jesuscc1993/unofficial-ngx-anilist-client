@@ -6,9 +6,9 @@ import { MangaService } from '../manga/services/manga.service';
 import { MangaStore } from '../manga/store/manga.store';
 import { MediaModule } from '../media/media.module';
 import { SharedModule } from '../shared/shared.module';
-import { MangaDashboardPage } from './pages/manga-dashboard/manga-dashboard.component';
-import { MangaSearchPage } from './pages/manga-search/manga-search.component';
-import { UserMangaListPage } from './pages/user-manga-list/user-manga-list.component';
+import { MangaDashboardPage } from './pages/manga-dashboard/manga-dashboard.page';
+import { MangaSearchPage } from './pages/manga-search/manga-search.page';
+import { UserMangaListPage } from './pages/user-manga-list/user-manga-list.page';
 
 const declarations = [MangaDashboardPage, MangaSearchPage, UserMangaListPage];
 

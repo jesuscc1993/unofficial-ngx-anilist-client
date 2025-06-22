@@ -6,17 +6,17 @@ import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 
 @Component({
-  selector: 'mt-anime-dashboard',
-  templateUrl: './anime-dashboard.component.html',
-  styleUrls: ['./anime-dashboard.component.scss'],
+  selector: 'mt-manga-dashboard',
+  templateUrl: './manga-dashboard.page.html',
+  styleUrls: ['./manga-dashboard.page.scss'],
 })
-export class AnimeDashboardPage {
+export class MangaDashboardPage {
   constructor(
     private router: Router,
     private titleService: TitleService,
     private authStore: AuthStore
   ) {
-    this.titleService.setTranslatedTitle('anime.dashboard.title');
+    this.titleService.setTranslatedTitle('manga.dashboard.title');
 
     if (!this.authStore.getUser()) {
       this.router.navigate([rootUrl]);

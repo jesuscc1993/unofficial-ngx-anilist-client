@@ -4,8 +4,8 @@ import { TitleService } from '../../modules/shared/services/title.service';
 
 @Component({
   selector: 'mt-page-not-found',
-  templateUrl: './page-not-found.component.html',
-  styleUrls: ['./page-not-found.component.scss'],
+  templateUrl: './page-not-found.page.html',
+  styleUrls: ['./page-not-found.page.scss'],
 })
 export class PageNotFoundPage {
   constructor(private titleService: TitleService) {
