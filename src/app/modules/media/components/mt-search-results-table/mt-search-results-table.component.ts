@@ -51,8 +51,8 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
     this.onSortChange = new EventEmitter<MediaSort>();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.tableData.currentValue !== changes.tableData.previousValue) {
+  ngOnChanges({ tableData }: SimpleChanges) {
+    if (tableData && tableData.currentValue !== tableData.previousValue) {
       this.initializeDataSource();
     }
   }

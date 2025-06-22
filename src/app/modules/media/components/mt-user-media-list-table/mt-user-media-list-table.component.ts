@@ -63,9 +63,9 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
     this.bindChildComponents();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.dataSource && changes.filter) {
-      this.dataSource.filter = changes.filter.currentValue;
+  ngOnChanges({ filter }: SimpleChanges) {
+    if (this.dataSource && filter) {
+      this.dataSource.filter = filter.currentValue;
     }
   }
 
