@@ -3,6 +3,13 @@
     *ngIf="listMode"
     class="menu-toggle list-only"
     mat-icon-button
+    matTooltipPosition="left"
+    [matTooltip]="
+      (isUpdateAvailable()
+        ? 'media.userList.updateEntry'
+        : 'media.userList.addToList'
+      ) | translate
+    "
     (click)="$event.stopPropagation(); openEditionModal()"
   >
     <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
@@ -11,6 +18,8 @@
   <button
     class="menu-toggle"
     mat-icon-button
+    matTooltipPosition="left"
+    [matTooltip]="'media.view' | translate"
     [matMenuTriggerFor]="entryMenu"
     (click)="$event.stopPropagation()"
   >
@@ -21,6 +30,8 @@
     *ngIf="listMode"
     class="menu-toggle list-only"
     mat-icon-button
+    matTooltipPosition="left"
+    [matTooltip]="'media.viewOnAniList' | translate"
     (click)="$event.stopPropagation(); openOnAniList()"
   >
     <fa-icon name="external-link-alt"></fa-icon>
@@ -33,20 +44,22 @@
       disabled="{{ !user }}"
       icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
       (onPress)="openEditionModal()"
-      >{{
+    >
+      {{
         (isUpdateAvailable()
           ? 'media.userList.updateEntry'
           : 'media.userList.addToList'
         ) | translate
-      }}</mt-menu-action
-    >
+      }}
+    </mt-menu-action>
 
     <mt-menu-action
       icon="clock"
       disabled="{{ !user }}"
       (onPress)="setAsPlanning()"
-      >{{ 'media.userList.setAsPlanning' | translate }}</mt-menu-action
     >
+      {{ 'media.userList.setAsPlanning' | translate }}
+    </mt-menu-action>
   </div>
 
   <div>
@@ -54,8 +67,9 @@
       icon="heart"
       disabled="{{ !user }}"
       (onPress)="toggleFavourite()"
-      >{{ 'media.userList.toggleFavorite' | translate }}</mt-menu-action
     >
+      {{ 'media.userList.toggleFavorite' | translate }}
+    </mt-menu-action>
   </div>
 
   <div *ngIf="listEntry">
@@ -63,31 +77,32 @@
       disabled="{{ !user }}"
       icon="trash"
       (onPress)="deleteEntry()"
-      >{{ 'media.userList.deleteFromList' | translate }}</mt-menu-action
     >
+      {{ 'media.userList.deleteFromList' | translate }}
+    </mt-menu-action>
   </div>
 
   <mat-divider></mat-divider>
 
   <div *ngIf="additionalInfoEnabled">
-    <mt-menu-action (onPress)="openDetailModal()" icon="id-card">{{
-      'media.additionalInfo' | translate
-    }}</mt-menu-action>
+    <mt-menu-action (onPress)="openDetailModal()" icon="id-card">
+      {{ 'media.additionalInfo' | translate }}
+    </mt-menu-action>
   </div>
 
   <div *ngIf="fullDetailEnabled">
-    <mt-menu-action (onPress)="openFullDetail()" icon="id-card">{{
-      'media.fullDetail' | translate
-    }}</mt-menu-action>
+    <mt-menu-action (onPress)="openFullDetail()" icon="id-card">
+      {{ 'media.fullDetail' | translate }}
+    </mt-menu-action>
   </div>
 
-  <mt-menu-action (onPress)="openOnAniList()" icon="external-link-alt">{{
-    'media.viewOnAniList' | translate
-  }}</mt-menu-action>
+  <mt-menu-action (onPress)="openOnAniList()" icon="external-link-alt">
+    {{ 'media.viewOnAniList' | translate }}
+  </mt-menu-action>
 
   <mat-divider></mat-divider>
 
-  <mt-menu-action (onPress)="searchImages()" icon="image">{{
-    'media.searchImages' | translate
-  }}</mt-menu-action>
+  <mt-menu-action (onPress)="searchImages()" icon="image">
+    {{ 'media.searchImages' | translate }}
+  </mt-menu-action>
 </mat-menu>

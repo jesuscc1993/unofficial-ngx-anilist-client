@@ -8,26 +8,38 @@
   >
     <div class="backdrop">
       <div class="cover-actions-container">
-        <fa-icon
+        <button
           *ngIf="listEntry"
           class="cover-action clickable"
-          name="pen"
+          mat-icon-button
+          matTooltipPosition="above"
+          [matTooltip]="'media.userList.updateEntry' | translate"
           (click)="openEditionModal($event)"
-        ></fa-icon>
+        >
+          <fa-icon name="pen"></fa-icon>
+        </button>
 
-        <fa-icon
+        <button
           class="cover-action clickable text-150 bold"
-          name="id-card"
+          matTooltipPosition="above"
+          mat-icon-button
+          [matTooltip]="'media.view' | translate"
           [ngClass]="{ 'padding-md': !listEntry }"
           (click)="openDetailModal($event)"
-        ></fa-icon>
+        >
+          <fa-icon name="id-card"></fa-icon>
+        </button>
 
-        <fa-icon
+        <button
           *ngIf="listEntry"
           class="cover-action clickable"
-          name="trash"
+          mat-icon-button
+          matTooltipPosition="above"
+          [matTooltip]="'media.userList.deleteFromList' | translate"
           (click)="deleteEntry($event)"
-        ></fa-icon>
+        >
+          <fa-icon name="trash"></fa-icon>
+        </button>
       </div>
 
       <div *ngIf="media.averageScore" class="full-width">
