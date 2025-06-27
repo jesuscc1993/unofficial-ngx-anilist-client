@@ -157,6 +157,7 @@
       "SCORE_DESC": "Score",
       "TITLE_ROMAJI": "Title"
     },
+    "staff": "Staff",
     "startDate": "Start Date",
     "status": "Status",
     "statusValues": {
@@ -203,6 +204,7 @@
       "updateEntry": "Update list entry"
     },
     "userScore": "Your Score",
+    "view": "View",
     "viewOnAniList": "View on AniList",
     "volumes": "Volumes",
     "year": "Year"

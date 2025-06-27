@@ -157,6 +157,7 @@
       "SCORE_DESC": "Nota",
       "TITLE_ROMAJI": "Título"
     },
+    "staff": "Staff",
     "startDate": "Fecha Inicio",
     "status": "Estado",
     "statusValues": {
@@ -203,6 +204,7 @@
       "updateEntry": "Actualizar entrada"
     },
     "userScore": "Tu Nota",
+    "view": "Ver",
     "viewOnAniList": "Ver en AniList",
     "volumes": "Tomos",
     "year": "Año"
