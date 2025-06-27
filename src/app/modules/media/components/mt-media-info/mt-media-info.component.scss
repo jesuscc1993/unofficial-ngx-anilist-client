@@ -32,20 +32,20 @@ img.cover {
 
     .column {
       $column-padding: $spacing-md;
-      $right-column-width: 224px;
       display: inline-block;
 
       &.left {
-        width: calc(100% - #{$right-column-width});
+        flex: 1;
         padding-right: $column-padding;
       }
 
       &.right {
-        width: $right-column-width;
-        margin-top: -$spacing-2xs;
-        padding: $spacing-2xs 0 $spacing-2xs $column-padding;
         border-left-style: solid;
         border-left-width: 1px;
+        box-sizing: border-box;
+        flex: 0 0 240px;
+        margin-top: -$spacing-2xs;
+        padding: $spacing-2xs 0 $spacing-2xs $column-padding;
 
         .property-value-pair {
           &:first-child {

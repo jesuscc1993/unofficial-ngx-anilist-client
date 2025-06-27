@@ -3,7 +3,7 @@
     <ng-content></ng-content>
   </p>
 
-  <button class="clickable" mat-icon-button (click)="$event.stopPropagation()">
+  <button class="clickable" mat-icon-button (click)="onClosePressed.emit()">
     <fa-icon name="times"></fa-icon>
   </button>
 </div>

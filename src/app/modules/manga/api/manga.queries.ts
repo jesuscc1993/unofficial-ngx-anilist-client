@@ -1,5 +1,9 @@
 import {
-  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
+  filterMappings,
+  filterTypes,
+  listEntryFields,
+  mediaFields,
+  pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */
@@ -7,6 +11,17 @@ import {
 const mangaFields = `${mediaFields}
   chapters
   volumes
+  staff(perPage: 2) {
+    edges {
+      role
+      node {
+        name {
+          full
+        }
+        primaryOccupations
+      }
+    }
+  }
 `;
 
 const mangaListEntryFields = `${listEntryFields}

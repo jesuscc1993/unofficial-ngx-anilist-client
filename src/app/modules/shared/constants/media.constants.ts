@@ -1,5 +1,9 @@
 import {
-  MediaCountry, MediaRelationType, MediaSort, MediaStatus,
+  MediaCountry,
+  MediaRelationType,
+  MediaSort,
+  MediaStatus,
+  StaffRole,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
@@ -20,6 +24,12 @@ export const mediaCountries = [
   MediaCountry.JP,
   MediaCountry.KR,
   MediaCountry.TW,
+];
+
+export const staffRoles = [
+  StaffRole.Art,
+  StaffRole.Story,
+  StaffRole.StoryAndArt,
 ];
 
 export const relatedMediaRelationTypes = [

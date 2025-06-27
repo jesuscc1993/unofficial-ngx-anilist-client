@@ -132,11 +132,6 @@ export const mediaFields = `${basicMediaFields}
   }
   meanScore
   status
-  studios(isMain: true) {
-    nodes {
-      name
-    }
-  }
   source
   synonyms
   tags {

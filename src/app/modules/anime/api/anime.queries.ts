@@ -1,5 +1,9 @@
 import {
-  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
+  filterMappings,
+  filterTypes,
+  listEntryFields,
+  mediaFields,
+  pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */
@@ -7,6 +11,11 @@ import {
 const animeFields = `${mediaFields}
   duration
   episodes
+  studios(isMain: true) {
+    nodes {
+      name
+    }
+  }
 `;
 
 const animeListEntryFields = `${listEntryFields}

@@ -15,10 +15,10 @@ export const pageSizeOptions = [5, 10, 25, 50, 100];
 
 export const mediumModalOptions: MatDialogConfig = {
   minWidth: '480px',
-  maxWidth: '672px',
+  maxWidth: 'max(640px, 33vw)',
 };
 
 export const largeModalOptions: MatDialogConfig = {
   minWidth: '720px',
-  maxWidth: '896px',
+  maxWidth: 'max(960px, 50vw)',
 };

@@ -1,9 +1,19 @@
 import { CoverImage, FuzzyDate, Tag, Title } from './dataTypes.types';
 import { ListEntry } from './listEntry.types';
-import { NodeList } from './nodeList.types';
+import { EdgeList, NodeList } from './nodeList.types';
 
 export type Studio = {
   name: string;
+};
+
+export type Staff = {
+  role?: string;
+};
+
+export type Person = {
+  name: {
+    full: string;
+  };
 };
 
 export class MediaData {
@@ -19,7 +29,6 @@ export class MediaData {
   mediaListEntry: ListEntry;
   startDate: FuzzyDate;
   status: MediaStatus;
-  studios: NodeList<Studio>;
   synonyms: string[];
   tags: Tag[];
   title: Title;
@@ -29,11 +38,13 @@ export class MediaData {
 export class Anime extends MediaData {
   episodes: number;
   duration: number;
+  studios: NodeList<Studio>;
 }
 
 export class Manga extends MediaData {
   chapters: number;
   volumes: number;
+  staff: EdgeList<Staff, Person>;
 }
 
 export type Media = Anime | Manga;
@@ -147,4 +158,10 @@ export enum MediaCountry {
   KR = 'KR',
   TW = 'TW',
   CN = 'CN',
+}
+
+export enum StaffRole {
+  Art = 'Art',
+  Story = 'Story',
+  StoryAndArt = 'Story & Art',
 }

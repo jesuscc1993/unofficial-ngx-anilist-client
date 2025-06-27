@@ -1,6 +1,6 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
-    <div *ngIf="data.title" title="{{ title }}" class="text-ellipsis">
+    <div *ngIf="data.title" [matTooltip]="title" class="text-ellipsis">
       {{ data.title }}
     </div>
   </mt-modal-header>

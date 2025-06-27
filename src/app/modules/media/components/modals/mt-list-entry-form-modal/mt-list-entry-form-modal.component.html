@@ -1,6 +1,6 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
-    <div title="{{ listEntry.media.title.romaji }}" class="text-ellipsis">
+    <div class="text-ellipsis">
       <mt-media-actions
         [editEnabled]="false"
         [listMode]="false"
@@ -10,8 +10,11 @@
         (onListEntryChanges)="onListEntryChanges($event)"
         class="inline-block margin-right-2xs"
       >
-      </mt-media-actions
-      >{{ listEntry.media.title.romaji }}
+      </mt-media-actions>
+
+      <span [matTooltip]="listEntry.media.title.romaji">
+        {{ listEntry.media.title.romaji }}</span
+      >
     </div>
   </mt-modal-header>
 
