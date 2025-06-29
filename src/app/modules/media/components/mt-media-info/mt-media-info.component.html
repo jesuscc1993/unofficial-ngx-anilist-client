@@ -154,10 +154,10 @@
   >
     <div class="property padded">{{ 'media.genres' | translate }}</div>
 
-    <div class="value">
-      <span *ngFor="let genre of media.genres">
+    <div role="list" class="value wrap-balance">
+      <ng-container *ngFor="let genre of media.genres">
         <mt-chip class="rounded">{{ genre }}</mt-chip>
-      </span>
+      </ng-container>
     </div>
   </div>
 
@@ -167,12 +167,12 @@
   >
     <div class="property padded">{{ 'media.tags' | translate }}</div>
 
-    <div class="value">
-      <span *ngFor="let tag of media.tags">
-        <span *ngIf="!tag.isMediaSpoiler">
+    <div role="list" class="value wrap-balance">
+      <ng-container *ngFor="let tag of media.tags">
+        <ng-container *ngIf="!tag.isMediaSpoiler">
           <mt-chip [matTooltip]="tag.description">{{ tag.name }}</mt-chip>
-        </span>
-      </span>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 
@@ -182,7 +182,7 @@
   >
     <div class="property padded">{{ 'media.synonyms' | translate }}</div>
 
-    <div role="list" class="value">
+    <div role="list" class="value wrap-balance">
       <mt-chip role="listitem" *ngIf="media.title.english">
         {{ media.title.english }}
       </mt-chip>
