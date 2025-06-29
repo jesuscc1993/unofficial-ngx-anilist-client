@@ -1,27 +1,11 @@
 import { ElementRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
+import { gridCardWidth, gridSpacing } from '../../shared/constants/media.constants';
+import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
+import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  gridCardWidth,
-  gridSpacing,
-} from '../../shared/constants/media.constants';
-import {
-  CoverImage,
-  CoverImageSize,
-  FuzzyDate,
-} from '../../shared/types/anilist/dataTypes.types';
-import {
-  ListEntriesByStatus,
-  ListEntry,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Anime,
-  Manga,
-  Media,
-  MediaCountry,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Anime, Manga, Media, MediaCountry, MediaFormat, MediaSort, MediaType,
 } from '../../shared/types/anilist/media.types';
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {

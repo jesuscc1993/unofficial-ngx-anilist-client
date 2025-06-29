@@ -33,14 +33,13 @@
 
         <div class="value">
           {{ getMediaProgress(media) }}
-        </div>
-      </div>
 
-      <div *ngIf="media.volumes" class="property-value-pair flex-box">
-        <div class="property">{{ 'media.volumes' | translate }}</div>
-
-        <div class="value">
-          {{ media.volumes }}
+          <fa-icon
+            *ngIf="media.volumes"
+            name="info-circle"
+            iconClass="text-75 vertical-top"
+            [matTooltip]="media.volumes + ' ' + ('media.volumes' | translate)"
+          ></fa-icon>
         </div>
       </div>
 

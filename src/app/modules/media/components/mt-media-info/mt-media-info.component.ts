@@ -4,11 +4,8 @@ import { getFormattedAnimeDuration } from '../../../anime/domain/anime.domain';
 import { staffRoles } from '../../../shared/constants/media.constants';
 import { Media } from '../../../shared/types/anilist/media.types';
 import {
-  getFormattedFuzzyDate,
-  getMediaProgress,
-  getMediaTypeProgressLiteral,
-  getSanitizedMediaDescription,
-  getSourceLiteral,
+  getFormattedFuzzyDate, getMediaProgress, getMediaTypeProgressLiteral,
+  getSanitizedMediaDescription, getSourceLiteral,
 } from '../../domain/media.domain';
 
 @Component({
