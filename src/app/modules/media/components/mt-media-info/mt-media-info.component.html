@@ -9,10 +9,16 @@
       />
 
       <div *ngIf="media.description?.trim()">
-        <div class="bold no-margin-top margin-bottom-2xs">
-          {{ 'media.description' | translate }}
+        <div class="margin-bottom-2xs">
+          <strong>
+            {{ 'media.description' | translate }}
+          </strong>
         </div>
-        <div [innerHTML]="sanitizeDescription()"></div>
+
+        <div
+          class="margin-bottom-2xs"
+          [innerHTML]="sanitizeDescription()"
+        ></div>
       </div>
     </div>
 
