@@ -58,7 +58,7 @@
     }
   }
 
-  // @media (min-width: $screen-lg) {
+  // @media (min-width: ($screen-lg + 1)) {
   //   & {
   //     min-height: $media-cover-height * $row-count + $cell-spacing *
   //       ($row-count - 1);

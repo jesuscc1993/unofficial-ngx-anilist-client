@@ -17,18 +17,12 @@ mat-expansion-panel-header {
   max-width: $max-input-size;
   margin: auto;
 
-  &.two-rows {
-    > * {
-      @media (min-width: #{$screen-2xs + 1}) {
-        max-width: calc(50% - #{$spacing-md});
+  @media (min-width: ($screen-2xs + 1)) {
+    display: flex;
+    gap: $spacing-md;
 
-        &:first-child {
-          float: left;
-        }
-        &:last-child {
-          float: right;
-        }
-      }
+    > * {
+      flex: 1;
     }
   }
 }

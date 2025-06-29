@@ -130,7 +130,7 @@ $gap: 0.5rem;
     .favourite {
       margin-left: auto;
 
-      @media (min-width: #{$screen-3xs + 1}) {
+      @media (min-width: ($screen-3xs + 1)) {
         margin-right: $spacing-4xs;
       }
       @media (max-width: $screen-3xs) {
