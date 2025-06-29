@@ -13,7 +13,11 @@ mat-expansion-panel {
 }
 
 .search-card {
-  padding: $spacing-md $spacing-3xl;
+  padding: $spacing-md $spacing-2xl;
+
+  @media (min-width: ($screen-md + 1)) {
+    padding: $spacing-md $spacing-3xl;
+  }
 }
 
 .search-input {
