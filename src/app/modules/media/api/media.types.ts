@@ -1,6 +1,14 @@
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import { Tag } from '../../shared/types/anilist/dataTypes.types';
 import {
-  Media, MediaListSort, MediaRelationType, MediaSort, MediaStatus,
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Media,
+  MediaListSort,
+  MediaRelationType,
+  MediaSort,
+  MediaStatus,
 } from '../../shared/types/anilist/media.types';
 import { PageInfo } from '../../shared/types/anilist/pageInfo.types';
 
@@ -46,6 +54,8 @@ export type SearchFilters = MediaFilters & {
   startDateSmallerThan?: number;
   statusIn?: Array<ListEntryStatus | MediaStatus>;
   statusNotIn?: Array<ListEntryStatus | MediaStatus>;
+  tagIn?: string[];
+  tagNotIn?: string[];
 };
 
 export type PagedSearchFilters = SearchFilters &
@@ -112,6 +122,10 @@ export type MediaPageDto = {
 
 export type GenreCollectionDto = {
   GenreCollection: string[];
+};
+
+export type MediaTagCollectionDto = {
+  MediaTagCollection: Tag[];
 };
 
 export type ListMediaDto = {

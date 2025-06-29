@@ -55,6 +55,8 @@ filterTypes.media = `
   $status: MediaStatus,
   $statusIn: [MediaStatus],
   $statusNotIn: [MediaStatus],
+  $tagIn: [String],
+  $tagNotIn: [String],
 `;
 filterMappings.media = `
   averageScore_greater: $averageScoreGreaterThan,
@@ -78,6 +80,8 @@ filterMappings.media = `
   status: $status,
   status_in: $statusIn,
   status_not_in: $statusNotIn,
+  tag_in: $tagIn,
+  tag_not_in: $tagNotIn,
   type: $mediaType,
 `;
 
@@ -151,6 +155,16 @@ export const mediaFields = `${basicMediaFields}
 export const genresQuery = `
   {
     GenreCollection
+  }
+`;
+
+export const tagsQuery = `
+  {
+    MediaTagCollection {
+      name
+      description
+      isMediaSpoiler
+    }
   }
 `;
 

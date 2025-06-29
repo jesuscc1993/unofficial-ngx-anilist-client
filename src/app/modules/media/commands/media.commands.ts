@@ -50,6 +50,10 @@ export class MediaCommands {
     return this.mediaService.queryGenres();
   }
 
+  queryTags() {
+    return this.mediaService.queryTags();
+  }
+
   queryListEntries() {
     return this.mediaService.queryListEntries(this.authStore.getUser());
   }

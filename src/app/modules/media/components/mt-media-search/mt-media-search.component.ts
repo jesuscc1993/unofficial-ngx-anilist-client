@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
@@ -68,6 +68,7 @@ export class MtMediaSearchComponent
 
   mediaCommands: MediaCommands;
   mediaGenres: string[];
+  mediaTags: string[];
   mediaCountries = [undefined, ...mediaCountries];
   mediaStatuses = mediaStatuses;
   minMediaStartYear = minMediaStartYear;
@@ -104,10 +105,12 @@ export class MtMediaSearchComponent
     this.user = this.authStore.getUser();
     this.setupForm();
 
-    this.mediaCommands
-      .queryGenres()
+    forkJoin([this.mediaCommands.queryGenres(), this.mediaCommands.queryTags()])
       .pipe(
-        tap((mediaGenres) => (this.mediaGenres = mediaGenres)),
+        tap(([mediaGenres, mediaTags]) => {
+          this.mediaGenres = mediaGenres;
+          this.mediaTags = mediaTags.map(({ name }) => name);
+        }),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -256,6 +259,8 @@ export class MtMediaSearchComponent
       ],
       statusIn: [[]],
       statusNotIn: [[]],
+      tagIn: [[]],
+      tagNotIn: [[]],
     });
   }
 

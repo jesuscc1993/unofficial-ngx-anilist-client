@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 
+import { Tag } from '../../shared/types/anilist/dataTypes.types';
 import { ListEntry } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
@@ -15,6 +16,8 @@ export interface MediaApiInterface {
   ): void;
 
   queryGenres(): Observable<string[]>;
+
+  queryTags(): Observable<Tag[]>;
 
   queryListEntries(user: User): Observable<ListEntry[]>;
 

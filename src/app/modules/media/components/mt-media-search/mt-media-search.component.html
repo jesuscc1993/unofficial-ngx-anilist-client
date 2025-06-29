@@ -87,11 +87,11 @@
             </mat-form-field>
           </div>
 
-          <!-- genre -->
+          <!-- genres -->
           <div class="form-group two-rows">
             <mat-form-field>
               <mat-select
-                placeholder="{{ 'media.genre' | translate }} {{
+                placeholder="{{ 'media.genres' | translate }} {{
                   'media.search.filters.includedIn' | translate
                 }}..."
                 formControlName="genreIn"
@@ -105,7 +105,7 @@
 
             <mat-form-field>
               <mat-select
-                placeholder="{{ 'media.genre' | translate }} {{
+                placeholder="{{ 'media.genres' | translate }} {{
                   'media.search.filters.notIncludedIn' | translate
                 }}..."
                 formControlName="genreNotIn"
@@ -113,6 +113,37 @@
               >
                 <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
                   {{ genre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- tags -->
+          <div class="form-group two-rows">
+            <mat-form-field>
+              <mat-select
+                placeholder="{{ 'media.tags' | translate }} {{
+                  'media.search.filters.includedIn' | translate
+                }}..."
+                formControlName="tagIn"
+                multiple
+              >
+                <mat-option *ngFor="let tag of mediaTags" [value]="tag">
+                  {{ tag }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select
+                placeholder="{{ 'media.tags' | translate }} {{
+                  'media.search.filters.notIncludedIn' | translate
+                }}..."
+                formControlName="tagNotIn"
+                multiple
+              >
+                <mat-option *ngFor="let tag of mediaTags" [value]="tag">
+                  {{ tag }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

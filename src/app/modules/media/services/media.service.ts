@@ -27,6 +27,10 @@ export class MediaService {
     return this.mediaApi.queryGenres();
   }
 
+  queryTags() {
+    return this.mediaApi.queryTags();
+  }
+
   queryMedia(
     query: SearchFilters,
     pageQuery?: PageQuery
