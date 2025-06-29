@@ -308,6 +308,7 @@
       ></mt-search-results-table>
 
       <mt-pagination
+        [lazy]="true"
         [pagination]="pagination"
         (changePage)="changePage($event)"
       >
