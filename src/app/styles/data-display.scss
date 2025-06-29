@@ -3,7 +3,11 @@
 .property-value-pair {
   $property-width: 80px;
   align-items: flex-start;
-  margin: 1em 0;
+  margin: $spacing-xs 0;
+
+  &.chips {
+    margin: $spacing-2xs 0;
+  }
 
   &:last-child {
     margin-bottom: 0;
