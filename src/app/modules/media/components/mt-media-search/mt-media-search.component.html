@@ -27,8 +27,8 @@
         <mat-divider></mat-divider>
 
         <div class="vertical-padding-xs">
-          <!-- release date -->
           <div class="form-group">
+            <!-- startDateGreaterThan -->
             <mat-form-field>
               <input
                 [min]="minMediaStartYear"
@@ -42,6 +42,7 @@
               />
             </mat-form-field>
 
+            <!-- startDateSmallerThan -->
             <mat-form-field>
               <input
                 [min]="minMediaStartYear"
@@ -56,8 +57,8 @@
             </mat-form-field>
           </div>
 
-          <!-- score -->
           <div class="form-group">
+            <!-- averageScoreGreaterThan -->
             <mat-form-field>
               <input
                 matInput
@@ -72,6 +73,7 @@
               />
             </mat-form-field>
 
+            <!-- averageScoreSmallerThan -->
             <mat-form-field>
               <input
                 matInput
@@ -87,8 +89,8 @@
             </mat-form-field>
           </div>
 
-          <!-- genres -->
           <div class="form-group">
+            <!-- genreIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.genres' | translate }} {{
@@ -103,6 +105,7 @@
               </mat-select>
             </mat-form-field>
 
+            <!-- genreNotIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.genres' | translate }} {{
@@ -118,8 +121,8 @@
             </mat-form-field>
           </div>
 
-          <!-- tags -->
           <div class="form-group">
+            <!-- tagIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.tags' | translate }} {{
@@ -134,6 +137,7 @@
               </mat-select>
             </mat-form-field>
 
+            <!-- tagNotIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.tags' | translate }} {{
@@ -149,8 +153,8 @@
             </mat-form-field>
           </div>
 
-          <!-- format -->
           <div class="form-group">
+            <!-- formatIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.format' | translate }} {{
@@ -169,6 +173,7 @@
               </mat-select>
             </mat-form-field>
 
+            <!-- formatNotIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.format' | translate }} {{
@@ -188,8 +193,8 @@
             </mat-form-field>
           </div>
 
-          <!-- status -->
           <div class="form-group">
+            <!-- statusIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.status' | translate }} {{
@@ -208,6 +213,7 @@
               </mat-select>
             </mat-form-field>
 
+            <!-- statusNotIn -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.status' | translate }} {{
@@ -228,7 +234,7 @@
           </div>
 
           <div class="form-group">
-            <!-- country -->
+            <!-- countryOfOrigin -->
             <mat-form-field>
               <mat-select
                 placeholder="{{
@@ -245,7 +251,7 @@
               </mat-select>
             </mat-form-field>
 
-            <!-- on list -->
+            <!-- onList -->
             <mat-form-field>
               <mat-select
                 placeholder="{{ 'media.search.filters.onList' | translate }}"
