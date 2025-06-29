@@ -122,6 +122,7 @@
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
     "meanScore": "Modo",
+    "menu": "Menú",
     "score": "Nota",
     "scoreTooltip": "(*/10)",
     "scoreValues": {
@@ -157,16 +158,6 @@
       "SCORE_DESC": "Nota",
       "TITLE_ROMAJI": "Título"
     },
-    "staff": "Staff",
-    "startDate": "Fecha Inicio",
-    "status": "Estado",
-    "statusValues": {
-      "CANCELLED": "Cancelado",
-      "FINISHED": "Finalizado",
-      "NOT_YET_RELEASED": "Sin empezar",
-      "RELEASING": "En progreso"
-    },
-    "studio": "Estudio",
     "source": "Origen",
     "sourceValues": {
       "ANIME": "Anime",
@@ -185,6 +176,16 @@
       "VISUAL_NOVEL": "Novela Visual",
       "WEB_NOVEL": "Novela Web"
     },
+    "staff": "Staff",
+    "startDate": "Fecha Inicio",
+    "status": "Estado",
+    "statusValues": {
+      "CANCELLED": "Cancelado",
+      "FINISHED": "Finalizado",
+      "NOT_YET_RELEASED": "Sin empezar",
+      "RELEASING": "En progreso"
+    },
+    "studio": "Estudio",
     "synonyms": "Sinónimos",
     "tags": "Etiquetas",
     "timesRepeated": "Veces Repetida",
