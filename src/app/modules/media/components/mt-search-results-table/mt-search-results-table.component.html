@@ -14,9 +14,9 @@
   </ng-container>
 
   <ng-container matColumnDef="cover-image">
-    <mat-header-cell *matHeaderCellDef>{{
-      'media.cover' | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'media.cover' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media">
       <img
         [src]="getSizedCoverImage(media.coverImage)"
@@ -27,38 +27,38 @@
   </ng-container>
 
   <ng-container matColumnDef="title-romaji" class="justify-start">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-      'media.title' | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'media.title' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media" class="justify-start">
       <span class="text">{{ media.title.romaji }}</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="format">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-      'media.format' | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'media.format' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media">
-      <span class="text">{{
-        'media.formatValues.' + media.format | translate
-      }}</span>
+      <span class="text">
+        {{ 'media.formatValues.' + media.format | translate }}
+      </span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="start-date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
-      'media.year' | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+      {{ 'media.year' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media">
       <span class="text">{{ getFormattedMediaYearRange(media) }}</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="genres">
-    <mat-header-cell *matHeaderCellDef>{{
-      'media.genres' | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'media.genres' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media">
       <mat-list role="list">
         <mat-list-item *ngFor="let genre of media.genres" role="listitem">
@@ -69,18 +69,18 @@
   </ng-container>
 
   <ng-container matColumnDef="score">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
-      'media.score' | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+      {{ 'media.score' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media">
       <span class="text">{{ media.averageScore / 10 }}/10</span>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="episodes">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">{{
-      getMediaTypeProgressLiteral(mediaType) | translate
-    }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+      {{ getMediaTypeProgressLiteral(mediaType) | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let media">
       <span class="text">{{ getMediaProgress(media) }}</span>
     </mat-cell>

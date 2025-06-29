@@ -20,9 +20,9 @@
       <mat-expansion-panel
         class="mat-elevation-z padding-bottom-sm search-filters"
       >
-        <mat-expansion-panel-header>{{
-          'media.search.filters.advanced' | translate
-        }}</mat-expansion-panel-header>
+        <mat-expansion-panel-header>
+          {{ 'media.search.filters.advanced' | translate }}
+        </mat-expansion-panel-header>
 
         <mat-divider></mat-divider>
 
@@ -97,9 +97,9 @@
                 formControlName="genreIn"
                 multiple
               >
-                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">{{
-                  genre
-                }}</mat-option>
+                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
+                  {{ genre }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -111,9 +111,9 @@
                 formControlName="genreNotIn"
                 multiple
               >
-                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">{{
-                  genre
-                }}</mat-option>
+                <mat-option *ngFor="let genre of mediaGenres" [value]="genre">
+                  {{ genre }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -132,10 +132,9 @@
                 <mat-option
                   *ngFor="let mediaFormat of mediaFormats"
                   [value]="mediaFormat"
-                  >{{
-                    'media.formatValues.' + mediaFormat | translate
-                  }}</mat-option
                 >
+                  {{ 'media.formatValues.' + mediaFormat | translate }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -151,10 +150,9 @@
                 <mat-option
                   *ngFor="let mediaFormat of mediaFormats"
                   [value]="mediaFormat"
-                  >{{
-                    'media.formatValues.' + mediaFormat | translate
-                  }}</mat-option
                 >
+                  {{ 'media.formatValues.' + mediaFormat | translate }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -173,10 +171,9 @@
                 <mat-option
                   *ngFor="let mediaStatus of mediaStatuses"
                   [value]="mediaStatus"
-                  >{{
-                    'media.statusValues.' + mediaStatus | translate
-                  }}</mat-option
                 >
+                  {{ 'media.statusValues.' + mediaStatus | translate }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -192,10 +189,9 @@
                 <mat-option
                   *ngFor="let mediaStatus of mediaStatuses"
                   [value]="mediaStatus"
-                  >{{
-                    'media.statusValues.' + mediaStatus | translate
-                  }}</mat-option
                 >
+                  {{ 'media.statusValues.' + mediaStatus | translate }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -227,10 +223,11 @@
                 <mat-option
                   *ngFor="let option of onListOptions"
                   [value]="option"
-                  >{{
-                    'media.search.filters.onListValues.' + option | translate
-                  }}</mat-option
                 >
+                  {{
+                    'media.search.filters.onListValues.' + option | translate
+                  }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>

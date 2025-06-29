@@ -16,9 +16,8 @@
       *ngFor="let option of options"
       class="{{ this.compact ? 'compact' : '' }}"
       [value]="option"
-      >{{
-        (getOptionLiteral ? getOptionLiteral(option) : option) | translate
-      }}</mat-option
     >
+      {{ (getOptionLiteral ? getOptionLiteral(option) : option) | translate }}
+    </mat-option>
   </mat-select>
 </div>

@@ -30,12 +30,13 @@
             <mat-option
               *ngFor="let status of listEntryStatuses"
               [value]="status"
-              >{{
+            >
+              {{
                 (isAnime(media.type) ? 'anime' : 'manga') +
                   '.statusValues.' +
                   status | translate
-              }}</mat-option
-            >
+              }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -71,12 +72,10 @@
 
       <div class="form-group">
         <mat-form-field>
-          <mat-label
-            >{{
-              getMediaTypeProgressLiteral(listEntry.media.type) | translate
-            }}
-            (*/{{ getMediaProgress(listEntry.media) || '?' }})</mat-label
-          >
+          <mat-label>
+            {{ getMediaTypeProgressLiteral(listEntry.media.type) | translate }}
+            (*/{{ getMediaProgress(listEntry.media) || '?' }})
+          </mat-label>
           <input
             matInput
             formControlName="progress"
