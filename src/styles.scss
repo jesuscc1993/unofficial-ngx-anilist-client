@@ -12,10 +12,11 @@
 
 /* core */
 body {
+  color-scheme: dark;
   font-family: 'Roboto', 'Helvetica Neue', 'sans-serif';
-  overflow-y: scroll;
-  overflow-x: hidden;
   margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   main {
     @extend .padding-xs;
@@ -64,6 +65,9 @@ a {
 
 .flex-1 {
   flex: 1;
+}
+.flex-2 {
+  flex: 2;
 }
 
 /* generic */

@@ -4,19 +4,47 @@ mat-form-field {
   width: 100%;
 }
 
-mat-expansion-panel-header {
-  padding: 0 $spacing-2xs;
+mat-expansion-panel {
+  margin: 0 -$spacing-xs;
+
+  .mat-expansion-panel-header {
+    padding: 0 $spacing-xs;
+  }
+}
+
+.search-card {
+  padding: $spacing-md $spacing-3xl;
 }
 
 .search-input {
   font-size: $font-size-100;
   line-height: 1.5;
+  margin: 0 auto;
+  max-width: $screen-xs;
+}
+
+.form-columns {
+  @media (min-width: ($screen-md + 1)) {
+    display: flex;
+    gap: $spacing-md;
+
+    > *:not(:first-child) {
+      padding-left: $spacing-md;
+      position: relative;
+
+      &::before {
+        content: '';
+        border-style: solid;
+        border-width: 0 1px 0 0;
+        height: 100%;
+        margin-left: -$spacing-md;
+        position: absolute;
+      }
+    }
+  }
 }
 
 .form-group {
-  max-width: $max-input-size;
-  margin: auto;
-
   @media (min-width: ($screen-2xs + 1)) {
     display: flex;
     gap: $spacing-md;

@@ -139,7 +139,11 @@ mat-toolbar {
 
 .border,
 .mat-divider {
-  border-color: map-get($theme, border);
+  &,
+  &::before,
+  &::after {
+    border-color: map-get($theme, border);
+  }
 }
 
 .mat-chip {
