@@ -56,7 +56,11 @@
       [src]="user.avatar.large"
     />
 
-    <a class="clickable show-below-sm" [matMenuTriggerFor]="userMenu">
+    <a
+      class="clickable show-below-sm"
+      [matMenuTriggerFor]="userMenu"
+      [matTooltip]="'media.menu' | translate"
+    >
       <fa-icon name="bars"></fa-icon>
     </a>
 
