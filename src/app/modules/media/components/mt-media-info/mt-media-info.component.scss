@@ -11,6 +11,11 @@ img.cover {
   float: left;
 }
 
+sup {
+  font-size: 0.67rem;
+  vertical-align: top;
+}
+
 .property {
   &.padded {
     padding: $spacing-8xs 0;
@@ -43,7 +48,7 @@ img.cover {
         border-left-style: solid;
         border-left-width: 1px;
         box-sizing: border-box;
-        flex: 0 0 240px;
+        flex: 0 0 192px;
         margin-top: -$spacing-2xs;
         padding: $spacing-2xs 0 $spacing-2xs $column-padding;
 

@@ -23,6 +23,13 @@
 
         <div class="value">
           {{ 'media.formatValues.' + media.format | translate }}
+
+          <sup
+            *ngIf="media.countryOfOrigin && media.countryOfOrigin !== 'JP'"
+            [matTooltip]="'media.countryOfOrigin' | translate"
+          >
+            {{ media.countryOfOrigin }}
+          </sup>
         </div>
       </div>
 
@@ -34,12 +41,9 @@
         <div class="value">
           {{ getMediaProgress(media) }}
 
-          <fa-icon
-            *ngIf="media.volumes"
-            name="info-circle"
-            iconClass="text-75 vertical-top"
-            [matTooltip]="media.volumes + ' ' + ('media.volumes' | translate)"
-          ></fa-icon>
+          <sup *ngIf="media.volumes" [matTooltip]="'media.volumes' | translate">
+            {{ media.volumes }}
+          </sup>
         </div>
       </div>
 
