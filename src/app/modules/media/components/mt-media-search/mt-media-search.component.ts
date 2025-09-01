@@ -127,8 +127,8 @@ export class MtMediaSearchComponent
       .onListEntriesChanges()
       .pipe(
         tap(() => {
-          if (this.mediaList) {
-            this.search(undefined, this.pagination?.perPage);
+          if (this.mediaList && this.searchForm.value.onList !== undefined) {
+            this.search(this.pagination?.currentPage, this.pagination?.perPage);
           }
         }),
         takeUntil(this.destroyed$)
@@ -150,8 +150,17 @@ export class MtMediaSearchComponent
 
       this.sort = queryParams.sort ? JSON.parse(queryParams.sort) : this.sort;
 
+      const currentPage = queryParams.currentPage
+        ? parseInt(queryParams.currentPage, 10)
+        : 1;
+      const perPage = queryParams.perPage
+        ? parseInt(queryParams.perPage, 10)
+        : pageSizeOptions[0];
+      this.search(
+        this.pagination?.currentPage || currentPage,
+        this.pagination?.perPage || perPage
+      );
       this.expansionPanel.open();
-      this.search(undefined, this.pagination?.perPage);
     }
   }
 
@@ -161,9 +170,7 @@ export class MtMediaSearchComponent
     this.updateQueryParams();
   }
 
-  search(pageIndex = 0, perPage = this.pagination?.perPage) {
-    this.updateQueryParams();
-
+  search(pageIndex = 1, perPage = this.pagination?.perPage) {
     this.searching = true;
     this.error = undefined;
 
@@ -195,6 +202,8 @@ export class MtMediaSearchComponent
           this.pagination = response.pageInfo;
           this.pagination.pageIndex = response.pageInfo.currentPage - 1;
           this.searching = false;
+
+          this.updateQueryParams();
 
           setTimeout(() => {
             ScrollUtil.scrollIntoView(document.getElementById(this.resultsId));
@@ -266,6 +275,8 @@ export class MtMediaSearchComponent
 
   private updateQueryParams() {
     const queryParams = {
+      currentPage: this.pagination?.currentPage,
+      perPage: this.pagination?.perPage,
       sort: JSON.stringify(this.sort),
     };
 
