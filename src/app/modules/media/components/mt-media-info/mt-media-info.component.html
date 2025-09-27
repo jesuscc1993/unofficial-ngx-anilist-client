@@ -183,12 +183,12 @@
     <div class="property padded">{{ 'media.synonyms' | translate }}</div>
 
     <div role="list" class="value wrap-balance">
-      <mt-chip role="listitem" *ngIf="media.countryOfOrigin === 'JP'">
-        {{ media.title.english }}
-      </mt-chip>
-
-      <mt-chip role="listitem" *ngIf="media.countryOfOrigin !== 'JP'">
-        {{ media.title.romaji }}
+      <mt-chip role="listitem">
+        {{
+          media.countryOfOrigin === 'JP'
+            ? media.title.english
+            : media.title.romaji
+        }}
       </mt-chip>
 
       <mt-chip role="listitem" *ngFor="let synonym of media.synonyms">
