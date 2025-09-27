@@ -104,6 +104,7 @@ export const toggleFavouriteMangaEntryQuery = `
           id
           title {
             romaji
+            english
           }
         }
       }

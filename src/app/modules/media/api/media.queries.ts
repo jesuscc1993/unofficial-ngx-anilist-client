@@ -329,6 +329,7 @@ export const toggleFavouriteEntryQuery = `
           id
           title {
             romaji
+            english
           }
         }
       }
@@ -337,6 +338,7 @@ export const toggleFavouriteEntryQuery = `
           id
           title {
             romaji
+            english
           }
         }
       }

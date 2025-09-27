@@ -98,6 +98,7 @@ export const toggleFavouriteAnimeEntryQuery = `
           id
           title {
             romaji
+            english
           }
         }
       }
