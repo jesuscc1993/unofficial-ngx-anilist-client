@@ -20,7 +20,7 @@
     <mat-cell *matCellDef="let media">
       <img
         [src]="getSizedCoverImage(media.coverImage)"
-        alt="Cover image for {{ media.title.romaji }}"
+        alt="Cover image for {{ getMediaTitle(media) }}"
         class="cover"
       />
     </mat-cell>
@@ -31,7 +31,7 @@
       {{ 'media.title' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let media" class="justify-start">
-      <span class="text">{{ media.title.romaji }}</span>
+      <span class="text">{{ getMediaTitle(media) }}</span>
     </mat-cell>
   </ng-container>
 

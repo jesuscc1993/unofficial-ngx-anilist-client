@@ -1,11 +1,27 @@
 import { ElementRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
-import { gridCardWidth, gridSpacing } from '../../shared/constants/media.constants';
-import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
-import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  Anime, Manga, Media, MediaCountry, MediaFormat, MediaSort, MediaType,
+  gridCardWidth,
+  gridSpacing,
+} from '../../shared/constants/media.constants';
+import {
+  CoverImage,
+  CoverImageSize,
+  FuzzyDate,
+} from '../../shared/types/anilist/dataTypes.types';
+import {
+  ListEntriesByStatus,
+  ListEntry,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Anime,
+  Manga,
+  Media,
+  MediaCountry,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../shared/types/anilist/media.types';
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
@@ -62,6 +78,12 @@ export const getMediaSortFromSort = (sort: Sort) => {
   const directionSuffix = sort.direction === 'desc' ? '_DESC' : '';
   return (sort.active.replace(/-/g, '_').toUpperCase() +
     directionSuffix) as MediaSort;
+};
+
+export const getMediaTitle = (media: Media) => {
+  return media.countryOfOrigin === MediaCountry.JP
+    ? media.title.romaji
+    : media.title.english;
 };
 
 export const getListEntriesByStatus = (listEntries: ListEntry[]) => {

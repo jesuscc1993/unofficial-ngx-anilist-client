@@ -12,8 +12,8 @@
       >
       </mt-media-actions>
 
-      <span [matTooltip]="listEntry.media.title.romaji">
-        {{ listEntry.media.title.romaji }}</span
+      <span [matTooltip]="getMediaTitle(listEntry.media)">
+        {{ getMediaTitle(listEntry.media) }}</span
       >
     </div>
   </mt-modal-header>

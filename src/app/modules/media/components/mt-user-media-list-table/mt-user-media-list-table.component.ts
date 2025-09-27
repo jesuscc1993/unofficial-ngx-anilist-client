@@ -1,5 +1,11 @@
 import {
-  AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,16 +14,21 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getFormattedMediaYearRange, getMediaProgress, getMediaTypeProgressLiteral, getSizedCoverImage,
+  getFormattedMediaYearRange,
+  getMediaProgress,
+  getMediaTitle,
+  getMediaTypeProgressLiteral,
+  getSizedCoverImage,
   isAnime,
 } from '../../domain/media.domain';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-user-media-list-table',
@@ -36,9 +47,11 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
 
   readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
   readonly getMediaProgress = getMediaProgress;
+  readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
   readonly isAnime = isAnime;
+
   pageSizeOptions = pageSizeOptions;
 
   tableRows: string[];
@@ -99,6 +112,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
 
       const data = {
         'title-romaji': media.title.romaji.toLowerCase(),
+        'title-english': media.title.english.toLowerCase(),
         format: media.format.toLowerCase(),
         'start-date': +media.startDate.year,
         genres: media.genres.length ? media.genres[0] : '',
@@ -120,10 +134,14 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
       listEntry: ListEntry,
       filter: string
     ) => {
-      return listEntry.media.title.romaji
-        .trim()
-        .toLowerCase()
-        .includes(filter.trim().toLowerCase());
+      return (
+        this.filterByTitle(listEntry.media.title.romaji, filter) ||
+        this.filterByTitle(listEntry.media.title.english, filter)
+      );
     };
+  }
+
+  private filterByTitle(title: string, filter: string) {
+    return title.trim().toLowerCase().includes(filter.trim().toLowerCase());
   }
 }

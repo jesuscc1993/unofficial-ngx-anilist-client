@@ -4,13 +4,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../../shared/services/title.service';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
-import { isAnime } from '../../domain/media.domain';
+import { getMediaTitle, isAnime } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-media-detail',
@@ -23,6 +21,8 @@ export class MtMediaDetailComponent
 {
   @Input() mediaId: number;
   @Input() mediaType: MediaType;
+
+  readonly getMediaTitle = getMediaTitle;
 
   media: Media;
   mediaCommands: MediaCommands;
@@ -63,7 +63,9 @@ export class MtMediaDetailComponent
           (response) => {
             this.media =
               response.media.length > 0 ? response.media[0] : undefined;
-            if (this.media) this.titleService.setTitle(this.media.title.romaji);
+            if (this.media) {
+              this.titleService.setTitle(getMediaTitle(this.media));
+            }
             this.searching = false;
           },
           () => {

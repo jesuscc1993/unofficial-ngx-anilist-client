@@ -3,23 +3,24 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { largeModalOptions, mediumModalOptions } from '../../../../app.constants';
+import {
+  largeModalOptions,
+  mediumModalOptions,
+} from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
-import { getSizedCoverImage, isAnime } from '../../domain/media.domain';
 import {
-  MtListEntryFormModalComponent,
-} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+  getMediaTitle,
+  getSizedCoverImage,
+  isAnime,
+} from '../../domain/media.domain';
+import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-cover',
@@ -34,7 +35,8 @@ export class MtMediaCoverComponent
   @Input() media: Media;
   @Input() showStatusBadge?: boolean;
 
-  getSizedCoverImage = getSizedCoverImage;
+  readonly getMediaTitle = getMediaTitle;
+  readonly getSizedCoverImage = getSizedCoverImage;
 
   mediaCommands: MediaCommands;
 

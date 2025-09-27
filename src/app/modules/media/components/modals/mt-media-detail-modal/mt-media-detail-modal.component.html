@@ -13,8 +13,8 @@
       >
       </mt-media-actions>
 
-      <span [matTooltip]="media.title.romaji">
-        {{ media.title.romaji }}
+      <span [matTooltip]="getMediaTitle(media)">
+        {{ getMediaTitle(media) }}
       </span>
     </div>
   </mt-modal-header>

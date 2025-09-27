@@ -4,7 +4,7 @@
     <div class="column left">
       <img
         [src]="media.coverImage?.large"
-        alt="Cover image for {{ media.title.romaji }}"
+        alt="Cover image for {{ getMediaTitle(media) }}"
         class="cover"
       />
 
@@ -183,8 +183,12 @@
     <div class="property padded">{{ 'media.synonyms' | translate }}</div>
 
     <div role="list" class="value wrap-balance">
-      <mt-chip role="listitem" *ngIf="media.title.english">
+      <mt-chip role="listitem" *ngIf="media.countryOfOrigin === 'JP'">
         {{ media.title.english }}
+      </mt-chip>
+
+      <mt-chip role="listitem" *ngIf="media.countryOfOrigin !== 'JP'">
+        {{ media.title.romaji }}
       </mt-chip>
 
       <mt-chip role="listitem" *ngFor="let synonym of media.synonyms">

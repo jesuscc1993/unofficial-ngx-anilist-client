@@ -1,4 +1,5 @@
 export type Title = {
+  english: string;
   romaji: string;
 };
 

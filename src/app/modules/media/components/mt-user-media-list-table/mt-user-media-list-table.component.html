@@ -40,7 +40,7 @@
       >
       <mat-cell *matCellDef="let entry" class="justify-start">
         <span class="text">
-          <span>{{ entry.media.title.romaji }}</span>
+          <span>{{ getMediaTitle(entry.media) }}</span>
           <span *ngIf="favouriteIDs?.includes(entry.media.id)">
             {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
           </span>

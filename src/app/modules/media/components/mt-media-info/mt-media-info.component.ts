@@ -4,8 +4,12 @@ import { getFormattedAnimeDuration } from '../../../anime/domain/anime.domain';
 import { staffRoles } from '../../../shared/constants/media.constants';
 import { Media } from '../../../shared/types/anilist/media.types';
 import {
-  getFormattedFuzzyDate, getMediaProgress, getMediaTypeProgressLiteral,
-  getSanitizedMediaDescription, getSourceLiteral,
+  getFormattedFuzzyDate,
+  getMediaProgress,
+  getMediaTitle,
+  getMediaTypeProgressLiteral,
+  getSanitizedMediaDescription,
+  getSourceLiteral,
 } from '../../domain/media.domain';
 
 @Component({
@@ -24,6 +28,7 @@ export class MtMediaInfoComponent {
   readonly getFormattedAnimeDuration = getFormattedAnimeDuration;
   readonly getFormattedFuzzyDate = getFormattedFuzzyDate;
   readonly getMediaProgress = getMediaProgress;
+  readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSourceLiteral = getSourceLiteral;
 

@@ -1,7 +1,7 @@
 <div *ngIf="media">
   <div
     class="cover"
-    [matTooltip]="media.title.romaji"
+    [matTooltip]="getMediaTitle(media)"
     [style.background-image]="
       'url(' + getSizedCoverImage(media.coverImage) + ')'
     "
