@@ -184,11 +184,7 @@
 
     <div role="list" class="value wrap-balance">
       <mt-chip role="listitem">
-        {{
-          media.countryOfOrigin === 'JP'
-            ? media.title.english
-            : media.title.romaji
-        }}
+        {{ getMediaTitle(media) }}
       </mt-chip>
 
       <mt-chip role="listitem" *ngFor="let synonym of media.synonyms">
