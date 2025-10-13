@@ -101,7 +101,8 @@
     left: 0;
 
     .cover-action {
-      $size: 1.75em;
+      $size: 1.25em;
+      display: contents;
       font-size: $font-size-100;
       height: $size;
       line-height: initial;
