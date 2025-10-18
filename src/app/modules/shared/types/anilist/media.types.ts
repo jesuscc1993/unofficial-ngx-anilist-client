@@ -130,6 +130,19 @@ export enum MediaListSort {
   UPDATED_TIME_DESC = 'UPDATED_TIME_DESC',
 }
 
+export enum MediaSource {
+  ANIME = 'ANIME',
+  DOUJINSHI = 'DOUJINSHI',
+  GAME = 'GAME',
+  LIGHT_NOVEL = 'LIGHT_NOVEL',
+  MANGA = 'MANGA',
+  NOVEL = 'NOVEL',
+  ORIGINAL = 'ORIGINAL',
+  OTHER = 'OTHER',
+  VIDEO_GAME = 'VIDEO_GAME',
+  VISUAL_NOVEL = 'VISUAL_NOVEL',
+}
+
 export enum MediaStatus {
   FINISHED = 'FINISHED',
   RELEASING = 'RELEASING',

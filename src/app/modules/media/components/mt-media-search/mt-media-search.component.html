@@ -184,6 +184,27 @@
               </div>
 
               <div class="form-group">
+                <!-- sourceIn -->
+                <mat-form-field>
+                  <mat-select
+                    placeholder="{{ 'media.source' | translate }} {{
+                      'media.search.filters.includedIn' | translate
+                    }}..."
+                    #formatInput
+                    formControlName="sourceIn"
+                    multiple
+                  >
+                    <mat-option
+                      *ngFor="let mediaSource of mediaSources"
+                      [value]="mediaSource"
+                    >
+                      {{ 'media.sourceValues.' + mediaSource | translate }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="form-group">
                 <!-- statusIn -->
                 <mat-form-field>
                   <mat-select

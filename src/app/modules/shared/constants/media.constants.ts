@@ -1,5 +1,5 @@
 import {
-  MediaCountry, MediaRelationType, MediaSort, MediaStatus, StaffRole,
+  MediaCountry, MediaRelationType, MediaSort, MediaSource, MediaStatus, StaffRole,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
@@ -13,6 +13,19 @@ export const mediaStatuses = [
   MediaStatus.FINISHED,
   MediaStatus.NOT_YET_RELEASED,
   MediaStatus.RELEASING,
+];
+
+export const mediaSources = [
+  MediaSource.ANIME,
+  MediaSource.DOUJINSHI,
+  MediaSource.GAME,
+  MediaSource.LIGHT_NOVEL,
+  MediaSource.MANGA,
+  MediaSource.NOVEL,
+  MediaSource.ORIGINAL,
+  MediaSource.OTHER,
+  MediaSource.VIDEO_GAME,
+  MediaSource.VISUAL_NOVEL,
 ];
 
 export const mediaCountries = [
