@@ -1,7 +1,7 @@
 {
   "anime": {
     "dashboard": {
-      "finishedAiring": "Finished airing",
+      "finishedReleasing": "Finished airing",
       "recentlyUpdated": "Latest list updates",
       "relatedMedia": "Related media",
       "title": "Anime board"
@@ -65,7 +65,7 @@
   },
   "manga": {
     "dashboard": {
-      "finishedAiring": "Finished publishing",
+      "finishedReleasing": "Finished publishing",
       "recentlyUpdated": "Latest list updates",
       "relatedMedia": "Related media",
       "title": "Manga board"
