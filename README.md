@@ -21,7 +21,7 @@ Currently shows three sidebars:
 - Recently updated list entries, with optional grouping by status (multiple selection available)
 - Media related to added entries, with optional grouping by format (multiple selection available)
   - Doesn't load by default because it requires a lot of queries.
-- Added media that recently finished airing, with optional grouping by format (multiple selection available)
+- Added media that recently finished releasing, with optional grouping by format (multiple selection available)
 
 ### User list
 
@@ -63,7 +63,8 @@ Different background colors<sup>2</sup> are used based for entries already on th
 
 Presents additional media information<sup>1</sup> not present on the table entries.
 
-<sup>1</sup> description, airing status, studio and tags
+<sup>1</sup> description, - Added media that recently finished releasing, with optional grouping by format (multiple selection available)
+status, studio and tags
 
 \* Accessible from the media actions dropdown.
 

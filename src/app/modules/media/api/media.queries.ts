@@ -267,26 +267,6 @@ export const listMediaIdsQuery = `
   }
 `;
 
-export const finishedAiringMediaQuery = `
-  query (
-    ${filterTypes.media}
-    ${filterTypes.page}
-  ) {
-    Page (
-      ${filterMappings.page}
-    ) {
-      pageInfo {
-        ${pageInfoFields}
-      }
-      media (
-        ${filterMappings.media}
-      ) {
-        ${basicMediaFields}
-      }
-    }
-  }
-`;
-
 export const saveListEntryQuery = `
   mutation (
     $mediaId: Int,

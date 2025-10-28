@@ -1,7 +1,7 @@
 {
   "anime": {
     "dashboard": {
-      "finishedAiring": "Emisiones finalizadas",
+      "finishedReleasing": "Emisiones finalizadas",
       "recentlyUpdated": "Últimas actualizaciones en su lista",
       "relatedMedia": "Media relacionada",
       "title": "Panel de anime"
@@ -65,7 +65,7 @@
   },
   "manga": {
     "dashboard": {
-      "finishedAiring": "Publicaciones finalizadas",
+      "finishedReleasing": "Publicaciones finalizadas",
       "recentlyUpdated": "Últimas actualizaciones en su lista",
       "relatedMedia": "Media relacionada",
       "title": "Panel de manga"
