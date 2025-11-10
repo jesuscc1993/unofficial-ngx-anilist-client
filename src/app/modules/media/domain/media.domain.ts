@@ -81,9 +81,10 @@ export const getMediaSortFromSort = (sort: Sort) => {
 };
 
 export const getMediaTitle = (media: Media) => {
-  return media.countryOfOrigin === MediaCountry.JP
-    ? media.title.romaji
-    : media.title.english;
+  return (
+    (media.countryOfOrigin !== MediaCountry.JP && media.title.english) ||
+    media.title.romaji
+  );
 };
 
 export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
