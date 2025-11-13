@@ -46,6 +46,7 @@
         "arrow-body-style": "off",
         "curly": ["error", "multi-line"],
         "eqeqeq": ["error", "always"],
+        "jsdoc/newline-after-description": "off",
         "no-invalid-this": "error",
         "no-multiple-empty-lines": "error",
         "no-redeclare": "error",
