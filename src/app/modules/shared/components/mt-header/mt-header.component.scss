@@ -45,12 +45,15 @@ mat-toolbar {
       transition: $transition-duration;
       border-bottom: $spacing-6xs solid transparent;
       border-top: $spacing-4xs solid transparent;
+      align-items: center;
       box-sizing: border-box;
       display: inline-flex;
       flex-direction: column;
       justify-content: space-around;
 
       .icons-container {
+        display: inline-flex;
+        gap: 0.5em;
         line-height: 1;
 
         .section-icon {
