@@ -40,6 +40,8 @@ export class AniListApi {
     query: string,
     variables?: VariablesType
   ): Observable<AnilistResponse<ResponseType>> {
+    const parsedQuery = query.replace(/\s+/g, ' ').trim();
+
     const parsedVariables = { ...variables };
     if (parsedVariables) {
       Object.keys(parsedVariables).forEach((key) => {
@@ -56,7 +58,7 @@ export class AniListApi {
     }
 
     if (this.loggingEnabled) {
-      console.debug('query:', query.replace(/\n\s*/g, '\n'));
+      console.debug('query:', parsedQuery.replace(/\n\s*/g, '\n'));
       console.debug('variables:', parsedVariables);
     }
 
@@ -64,7 +66,7 @@ export class AniListApi {
       .post(
         this.apiUrl,
         {
-          query,
+          query: parsedQuery,
           variables: parsedVariables,
         },
         this.getRequestOptions()
