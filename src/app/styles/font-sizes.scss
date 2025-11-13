@@ -2,6 +2,6 @@ $sizes: 75, 88, 100, 115, 125, 133, 150;
 
 @each $size in $sizes {
   .text-#{$size} {
-    font-size: #{$size / 100}rem !important;
+    font-size: $size * 0.01rem !important;
   }
 }
