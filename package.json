@@ -47,7 +47,6 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.0.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "sass-migrator": "^1.5.6",
     "to-fast-properties": "^3.0.0",
     "tslint": "~6.1.0",
     "typescript": "~4.6.4"
