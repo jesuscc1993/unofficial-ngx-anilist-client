@@ -9,5 +9,5 @@ export class FaIconComponent {
   @Input() iconClass?: string;
   @Input() name: string;
   @Input() title?: string;
-  @Input() type?: 'fas' | 'fab';
+  @Input() type?: 'fa-solid' | 'fa-brands';
 }
