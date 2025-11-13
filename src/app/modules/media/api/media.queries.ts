@@ -5,31 +5,31 @@ export const filterMappings: { [key: string]: string } = {};
 
 filterTypes.page = `
   $page: Int,
-  $perPage: Int,
+  $perPage: Int
 `;
 filterMappings.page = `
   page: $page,
-  perPage: $perPage,
+  perPage: $perPage
 `;
 
 filterTypes.mediaCollection = `
   $mediaType: MediaType,
   $sort: [MediaListSort],
-  $userId: Int!,
+  $userId: Int!
 `;
 filterMappings.mediaCollection = `
   sort: $sort,
   type: $mediaType,
-  userId: $userId,
+  userId: $userId
 `;
 
 filterTypes.listMediaCollection = `${filterTypes.mediaCollection}
   $statusIn: [MediaListStatus],
-  $statusNotIn: [MediaListStatus],
+  $statusNotIn: [MediaListStatus]
 `;
 filterMappings.listMediaCollection = `${filterMappings.mediaCollection}
   status_in: $statusIn,
-  status_not_in: $statusNotIn,
+  status_not_in: $statusNotIn
 `;
 
 filterTypes.media = `
@@ -57,7 +57,7 @@ filterTypes.media = `
   $statusIn: [MediaStatus],
   $statusNotIn: [MediaStatus],
   $tagIn: [String],
-  $tagNotIn: [String],
+  $tagNotIn: [String]
 `;
 filterMappings.media = `
   averageScore_greater: $averageScoreGreaterThan,
@@ -84,7 +84,7 @@ filterMappings.media = `
   status_not_in: $statusNotIn,
   tag_in: $tagIn,
   tag_not_in: $tagNotIn,
-  type: $mediaType,
+  type: $mediaType
 `;
 
 /* fields */

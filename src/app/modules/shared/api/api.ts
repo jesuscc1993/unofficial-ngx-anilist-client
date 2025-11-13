@@ -40,7 +40,11 @@ export class AniListApi {
     query: string,
     variables?: VariablesType
   ): Observable<AnilistResponse<ResponseType>> {
-    const parsedQuery = query.replace(/\s+/g, ' ').trim();
+    const parsedQuery = query
+      .replace(/\s+/g, ' ')
+      .replace(/( *[\(|\{]) */g, '$1')
+      .replace(/ *([\)|\}] *)/g, '$1')
+      .trim();
 
     const parsedVariables = { ...variables };
     if (parsedVariables) {
