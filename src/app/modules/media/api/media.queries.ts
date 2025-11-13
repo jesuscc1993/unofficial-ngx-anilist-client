@@ -296,34 +296,3 @@ export const deleteListEntryQuery = `
     }
   }
 `;
-
-export const toggleFavouriteEntryQuery = `
-  mutation (
-    $animeId: Int,
-    $mangaId: Int,
-  ) {
-    ToggleFavourite (
-      animeId: $animeId,
-      mangaId: $mangaId,
-    ) {
-      anime {
-        nodes {
-          id
-          title {
-            romaji
-            english
-          }
-        }
-      }
-      manga {
-        nodes {
-          id
-          title {
-            romaji
-            english
-          }
-        }
-      }
-    }
-  }
-`;
