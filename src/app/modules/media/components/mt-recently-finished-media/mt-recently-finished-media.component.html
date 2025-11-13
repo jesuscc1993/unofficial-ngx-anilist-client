@@ -9,20 +9,7 @@
     </div>
 
     <mt-header-picker
-      *ngIf="isAnime(mediaType)"
-      iconName="filter"
-      placeholder="{{ 'media.formatValues.undefined' | translate }}"
-      [matTooltip]="'media.format' | translate"
-      [multiple]="true"
-      [options]="mediaFormats"
-      [truncate]="true"
-      [value]="selectedFormats"
-      [getOptionLiteral]="getFormatLiteral"
-      [onChange]="setSelectedFormats"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      iconName="filter"
+      iconName="flag"
       placeholder="{{ 'country.undefined' | translate }}"
       [matTooltip]="'media.search.filters.countryOfOrigin' | translate"
       [multiple]="true"
@@ -31,6 +18,19 @@
       [value]="selectedCountries"
       [getOptionLiteral]="getCountryLiteral"
       [onChange]="setSelectedCountries"
+    ></mt-header-picker>
+
+    <mt-header-picker
+      *ngIf="isAnime(mediaType)"
+      iconName="film"
+      placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [matTooltip]="'media.format' | translate"
+      [multiple]="true"
+      [options]="mediaFormats"
+      [truncate]="true"
+      [value]="selectedFormats"
+      [getOptionLiteral]="getFormatLiteral"
+      [onChange]="setSelectedFormats"
     ></mt-header-picker>
 
     <mt-header-picker

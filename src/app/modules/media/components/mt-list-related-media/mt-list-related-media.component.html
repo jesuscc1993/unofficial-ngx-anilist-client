@@ -7,8 +7,18 @@
     </div>
 
     <mt-header-picker
+      iconName="award"
+      placeholder="{{ 'media.scoreValues.undefined' | translate }}"
+      [matTooltip]="'media.score' | translate"
+      [options]="mediaScores"
+      [value]="selectedScore"
+      [getOptionLiteral]="getScoreLiteral"
+      [onChange]="setSelectedScore"
+    ></mt-header-picker>
+
+    <mt-header-picker
       *ngIf="isAnime(mediaType)"
-      iconName="filter"
+      iconName="film"
       placeholder="{{ 'media.formatValues.undefined' | translate }}"
       [matTooltip]="'media.format' | translate"
       [multiple]="true"
@@ -17,17 +27,6 @@
       [value]="selectedFormats"
       [getOptionLiteral]="getFormatLiteral"
       [onChange]="setSelectedFormats"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      iconName="award"
-      placeholder="{{ 'media.scoreValues.undefined' | translate }}"
-      [compact]="true"
-      [matTooltip]="'media.score' | translate"
-      [options]="mediaScores"
-      [value]="selectedScore"
-      [getOptionLiteral]="getScoreLiteral"
-      [onChange]="setSelectedScore"
     ></mt-header-picker>
 
     <mt-header-picker

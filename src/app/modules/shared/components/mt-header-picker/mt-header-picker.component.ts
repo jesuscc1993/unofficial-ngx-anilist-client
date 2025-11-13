@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class MtHeaderPickerComponent {
   @Input() iconName: string;
-  @Input() compact?: boolean;
+  @Input() compact = true;
   @Input() multiple?: boolean;
   @Input() options: string[];
   @Input() placeholder?: string;
