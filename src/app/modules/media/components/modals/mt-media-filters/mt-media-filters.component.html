@@ -1,0 +1,57 @@
+<mt-modal>
+  <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
+    <div [matTooltip]="title" class="text-ellipsis">
+      {{ 'media.search.filters.advanced' | translate }}
+    </div>
+  </mt-modal-header>
+
+  <mt-modal-content>
+    <mat-select
+      *ngIf="isAnime(mediaType)"
+      iconName="video"
+      placeholder="{{ 'media.formatValues.undefined' | translate }}"
+      [getOptionLiteral]="getFormatLiteral"
+      [matTooltip]="'media.format' | translate"
+      [multiple]="true"
+      [options]="mediaFormats"
+      [truncate]="true"
+      [value]="selectedFormats"
+      [onChange]="setSelectedFormats"
+    ></mat-select>
+
+    <mat-select
+      iconName="flag"
+      placeholder="{{ 'country.undefined' | translate }}"
+      [getOptionLiteral]="getCountryLiteral"
+      [matTooltip]="'media.search.filters.countryOfOrigin' | translate"
+      [multiple]="true"
+      [options]="mediaCountries"
+      [truncate]="true"
+      [value]="selectedCountries"
+      [onChange]="setSelectedCountries"
+    ></mat-select>
+
+    <mat-select
+      iconName="sort"
+      [getOptionLiteral]="getSortLiteral"
+      [matTooltip]="'generic.sort' | translate"
+      [options]="mediaSorts"
+      [value]="selectedSort"
+      [onChange]="setSelectedSort"
+    ></mat-select>
+
+    <mat-select
+      iconName="clipboard"
+      placeholder="{{
+        mediaType.toLowerCase() + '.statusValues.undefined' | translate
+      }}"
+      [getOptionLiteral]="getStatusLiteral"
+      [matTooltip]="'media.status' | translate"
+      [multiple]="true"
+      [options]="listEntryStatuses"
+      [truncateMultiple]="true"
+      [value]="selectedStatuses"
+      [onChange]="setSelectedStatuses"
+    ></mat-select>
+  </mt-modal-content>
+</mt-modal>
