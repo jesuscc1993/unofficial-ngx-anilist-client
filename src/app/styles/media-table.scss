@@ -139,6 +139,11 @@ $gap: 0.5rem;
     }
   }
 
+  .mat-column-format {
+    display: flex;
+    gap: $spacing-6xs;
+  }
+
   .mat-column-start-date {
     .text {
       line-height: 1;
