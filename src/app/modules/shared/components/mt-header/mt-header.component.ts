@@ -19,6 +19,9 @@ import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
 import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
+const ANIME_ICON = 'display';
+const MANGA_ICON = 'lines-leaning';
+
 @Component({
   selector: 'mt-header',
   templateUrl: './mt-header.component.html',
@@ -63,20 +66,20 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       {
         path: animeSearchUrl,
         literal: 'anime.search.title',
-        icon: 'tv',
+        icon: ANIME_ICON,
         iconb: 'search',
       },
       {
         path: animeUserListUrl,
         literal: 'anime.userList.title',
-        icon: 'tv',
+        icon: ANIME_ICON,
         iconb: 'th-list',
         enabled: !!this.user,
       },
       {
         path: animeDashboardUrl,
         literal: 'anime.dashboard.title',
-        icon: 'tv',
+        icon: ANIME_ICON,
         iconb: 'columns',
         enabled: !!this.user,
       },
@@ -84,21 +87,21 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
       {
         path: mangaDashboardUrl,
         literal: 'manga.dashboard.title',
-        icon: 'book-open',
+        icon: MANGA_ICON,
         iconb: 'columns',
         enabled: !!this.user,
       },
       {
         path: mangaUserListUrl,
         literal: 'manga.userList.title',
-        icon: 'book-open',
+        icon: MANGA_ICON,
         iconb: 'th-list',
         enabled: !!this.user,
       },
       {
         path: mangaSearchUrl,
         literal: 'manga.search.title',
-        icon: 'book-open',
+        icon: MANGA_ICON,
         iconb: 'search',
       },
     ];
