@@ -50,19 +50,19 @@ mat-toolbar {
       flex-direction: column;
       justify-content: space-around;
 
+      &.active {
+        border-bottom-color: inherit;
+        pointer-events: none;
+      }
+
       .icons-container {
+        gap: $spacing-3xs;
         display: inline-flex;
-        gap: 0.33em;
-        line-height: 1;
 
         .section-icon {
           font-size: $font-size-125;
+          line-height: 1;
         }
-      }
-
-      &.active {
-        pointer-events: none;
-        border-bottom-color: inherit;
       }
 
       small {
