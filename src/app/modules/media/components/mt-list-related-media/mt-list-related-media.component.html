@@ -42,14 +42,14 @@
   <div class="content reduced-bottom-padding">
     <div #content>
       <div
-        *ngIf="searching || !enabled"
+        *ngIf="searching || !started"
         class="placeholder"
         [ngClass]="{ 'with-pagination': pagination }"
       >
         <mat-spinner *ngIf="searching" mode="indeterminate"></mat-spinner>
 
         <button
-          *ngIf="!enabled"
+          *ngIf="!started"
           mat-raised-button
           type="button"
           color="accent"
@@ -61,7 +61,7 @@
       </div>
 
       <div
-        *ngIf="!searching && enabled && mediaList?.length"
+        *ngIf="!searching && started && mediaList?.length"
         class="media-cover-grid"
       >
         <mt-media-cover
@@ -85,7 +85,7 @@
         </p>
       </mat-card>
 
-      <mat-card *ngIf="enabled && error" class="error">
+      <mat-card *ngIf="started && error" class="error">
         <p class="bold">
           <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
           {{ error }}

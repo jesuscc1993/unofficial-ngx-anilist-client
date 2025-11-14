@@ -35,6 +35,7 @@ export class MtListRelatedMediaComponent
   implements OnInit
 {
   @Input() mediaType: MediaType;
+  @Input() preload: boolean;
 
   @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
 
@@ -46,7 +47,6 @@ export class MtListRelatedMediaComponent
   readonly rowCount = 5;
 
   colCount: number;
-  enabled: boolean;
   error: Error;
   mediaCommands: MediaCommands;
   mediaFormats: MediaFormat[];
@@ -59,6 +59,7 @@ export class MtListRelatedMediaComponent
   selectedFormats: MediaFormat[];
   selectedScore: number;
   selectedSort: MediaSort;
+  started: boolean;
 
   constructor(
     private animeCommands: AnimeCommands,
@@ -154,7 +155,7 @@ export class MtListRelatedMediaComponent
   }
 
   queryData(): Observable<number[]> {
-    return this.enabled
+    return this.started
       ? this.mediaCommands.queryRelatedMediaIds().pipe(
           tap((relatedMediaIds) => {
             this.relatedMediaIds = relatedMediaIds;
@@ -165,8 +166,8 @@ export class MtListRelatedMediaComponent
   }
 
   enable() {
-    this.enabled = true;
     this.searching = true;
+    this.started = true;
 
     this.queryData()
       .pipe(catchError(this.onError), takeUntil(this.destroyed$))
@@ -221,14 +222,15 @@ export class MtListRelatedMediaComponent
   }
 
   private initializeState() {
-    this.searching = false;
-    this.relatedMediaIds = undefined;
-    this.pagination = undefined;
     this.error = undefined;
+    this.pagination = undefined;
+    this.relatedMediaIds = undefined;
+    this.searching = this.preload ?? false;
+    this.started = this.preload ?? false;
   }
 
   private search(pageIndex?: number, perPage?: number) {
-    if (this.enabled) {
+    if (this.started) {
       this.searching = true;
       this.error = undefined;
 
