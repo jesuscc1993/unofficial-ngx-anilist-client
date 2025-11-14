@@ -30,12 +30,7 @@
         <div class="value">
           {{ 'media.formatValues.' + media.format | translate }}
 
-          <sup
-            *ngIf="media.countryOfOrigin && media.countryOfOrigin !== 'JP'"
-            [matTooltip]="'media.countryOfOrigin' | translate"
-          >
-            {{ media.countryOfOrigin }}
-          </sup>
+          <mt-media-country [media]="media"></mt-media-country>
         </div>
       </div>
 
@@ -61,7 +56,10 @@
         </div>
       </div>
 
-      <div *ngIf="media.source" class="property-value-pair flex-box">
+      <div
+        *ngIf="media.source && media.source !== 'OTHER'"
+        class="property-value-pair flex-box"
+      >
         <div class="property">{{ 'media.source' | translate }}</div>
 
         <div class="value">

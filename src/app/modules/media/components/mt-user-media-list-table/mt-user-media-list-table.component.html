@@ -55,6 +55,8 @@
       <mat-cell *matCellDef="let entry">
         <span class="text">
           {{ 'media.formatValues.' + entry.media.format | translate }}
+
+          <mt-media-country [media]="entry.media"></mt-media-country>
         </span>
       </mat-cell>
     </ng-container>

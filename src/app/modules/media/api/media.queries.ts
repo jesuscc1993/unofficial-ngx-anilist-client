@@ -99,9 +99,7 @@ export const pageInfoFields = `
 
 export const listEntryFields = `
   id
-  scoreRaw: score (
-    format: POINT_100
-  )
+  scoreRaw: score (format: POINT_100)
   progress
   repeat
   status
@@ -138,7 +136,7 @@ export const mediaFields = `${basicMediaFields}
   }
   meanScore
   status
-  source
+  source (version: 3)
   synonyms
   tags {
     description
