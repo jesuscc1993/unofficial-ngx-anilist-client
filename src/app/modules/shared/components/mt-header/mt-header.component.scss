@@ -40,8 +40,7 @@ mat-toolbar {
 
     a {
       margin: 0 $spacing-3xs;
-      min-width: $spacing-5xl;
-      padding: $spacing-4xs 0 $spacing-6xs;
+      padding: $spacing-4xs $spacing-4xs $spacing-6xs;
       transition: $transition-duration;
       border-bottom: $spacing-6xs solid transparent;
       border-top: $spacing-4xs solid transparent;
