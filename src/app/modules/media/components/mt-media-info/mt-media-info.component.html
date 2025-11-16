@@ -135,7 +135,10 @@
         </div>
       </div>
 
-      <div *ngIf="media.averageScore" class="property-value-pair flex-box">
+      <div
+        *ngIf="media.averageScore || media.meanScore"
+        class="property-value-pair flex-box"
+      >
         <div class="property" [matTooltip]="'media.scoreTooltip' | translate">
           {{ 'media.score' | translate }}
         </div>

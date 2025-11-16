@@ -42,13 +42,11 @@
         </button>
       </div>
 
-      <div *ngIf="media.averageScore" class="full-width">
-        <mt-media-score
-          [listEntry]="listEntry"
-          [media]="media"
-          [tooltipsEnabled]="false"
-        ></mt-media-score>
-      </div>
+      <mt-media-score
+        [listEntry]="listEntry"
+        [media]="media"
+        [tooltipsEnabled]="false"
+      ></mt-media-score>
     </div>
 
     <div

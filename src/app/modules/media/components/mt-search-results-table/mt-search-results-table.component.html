@@ -75,7 +75,9 @@
       {{ 'media.score' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let media">
-      <span class="text">{{ media.averageScore / 10 }}/10</span>
+      <span class="text">
+        <mt-media-score [media]="media"></mt-media-score>
+      </span>
     </mat-cell>
   </ng-container>
 
