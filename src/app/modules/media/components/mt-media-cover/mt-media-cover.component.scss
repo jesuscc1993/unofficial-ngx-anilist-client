@@ -28,9 +28,9 @@
     height: 100%;
     transition: $transition-duration;
 
-    display: flex;
     align-items: end;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 
     background: rgba(black, math.div(2, 3));
     color: white;

@@ -43,6 +43,7 @@
       </div>
 
       <mt-media-score
+        *ngIf="media.status === 'FINISHED'"
         [listEntry]="listEntry"
         [media]="media"
         [tooltipsEnabled]="false"
