@@ -8,6 +8,9 @@ import { apiUrl } from '../../../app.constants';
 import { AuthStore } from '../store/auth.store';
 import { PageInfo, PageQuery } from '../types/anilist/pageInfo.types';
 import { AnilistResponse } from '../types/anilist/response.types';
+import { RequestOptions } from './api.types';
+
+const DEFAULT_CACHE_MAX_AGE = 24 * 3600;
 
 export class AniListApi {
   protected apiUrl = apiUrl;
@@ -30,6 +33,22 @@ export class AniListApi {
     return { ...authHeader, ...headers };
   }
 
+  protected getQueryUrl(urlString: string, options: RequestOptions = {}) {
+    const { cacheKey } = options;
+
+    const url = new URL(urlString, window.location.origin);
+
+    if (cacheKey) {
+      const cacheMaxAge =
+        options.cacheMaxAge || cacheKey ? DEFAULT_CACHE_MAX_AGE : undefined;
+
+      url.searchParams.set('customCacheKey', cacheKey);
+      url.searchParams.set('customCacheMaxAge', cacheMaxAge?.toString());
+    }
+
+    return url.toString();
+  }
+
   protected getPageOptions(pageOptions?: PageQuery | PageInfo) {
     return {
       page: Math.max(pageOptions?.pageIndex ?? 1, 1),
@@ -40,7 +59,7 @@ export class AniListApi {
   protected postGraphQlRequest<ResponseType, VariablesType = undefined>(
     query: string,
     variables?: VariablesType,
-    headers?: Record<string, string>
+    options?: RequestOptions
   ): Observable<AnilistResponse<ResponseType>> {
     const parsedQuery = query
       .replace(/\s+/g, ' ')
@@ -70,12 +89,12 @@ export class AniListApi {
 
     return this.httpClient
       .post(
-        this.apiUrl,
+        this.getQueryUrl(this.apiUrl, options),
         {
           query: parsedQuery,
           variables: parsedVariables,
         },
-        this.getRequestOptions(headers)
+        this.getRequestOptions()
       )
       .pipe(this.mapResponseError());
   }

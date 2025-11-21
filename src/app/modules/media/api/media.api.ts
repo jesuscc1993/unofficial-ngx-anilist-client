@@ -77,13 +77,17 @@ export class MediaApi extends AniListApi {
   }
 
   queryGenres() {
-    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).pipe(
-      map((response) => this.getResponseData(response).GenreCollection)
-    );
+    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery, undefined, {
+      cacheKey: 'queryGenres',
+    }).pipe(map((response) => this.getResponseData(response).GenreCollection));
   }
 
   queryTags() {
-    return this.postGraphQlRequest<MediaTagCollectionDto>(tagsQuery).pipe(
+    return this.postGraphQlRequest<MediaTagCollectionDto>(
+      tagsQuery,
+      undefined,
+      { cacheKey: 'queryTags' }
+    ).pipe(
       map((response) => this.getResponseData(response).MediaTagCollection)
     );
   }

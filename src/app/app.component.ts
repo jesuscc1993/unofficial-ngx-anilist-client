@@ -27,6 +27,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authStore.onUserChange().pipe(this.handleUserChange()).subscribe();
     this.authCommands.validateToken().pipe(this.handleTokenError()).subscribe();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/assets/service-workers/custom-cache.js')
+        .then((reg) =>
+          console.log('Custom cache service worker registered:', reg)
+        )
+        .catch((err) =>
+          console.error('Custom cache service worker registration failed:', err)
+        );
+    }
   }
 
   private handleUserChange() {
