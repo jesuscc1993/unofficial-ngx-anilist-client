@@ -3,11 +3,15 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
+import { withCache } from '@ngneat/cashew';
 
 import { apiUrl } from '../../../app.constants';
 import { AuthStore } from '../store/auth.store';
 import { PageInfo, PageQuery } from '../types/anilist/pageInfo.types';
 import { AnilistResponse } from '../types/anilist/response.types';
+import { RequestOptions, RequestSettings } from './api.types';
+
+const DEFAULT_CACHE_MAX_AGE = 24 * 3600000;
 
 export class AniListApi {
   protected apiUrl = apiUrl;
@@ -18,8 +22,20 @@ export class AniListApi {
     protected authStore: AuthStore
   ) {}
 
-  protected getRequestOptions(headers?: Record<string, string>) {
-    return { headers: this.getRequestHeaders(headers) };
+  protected getRequestOptions(settings?: RequestSettings) {
+    let options: RequestOptions = {
+      headers: this.getRequestHeaders(settings?.headers),
+    };
+
+    if (!settings) return options;
+
+    if (settings.cacheKey) {
+      options.context = withCache({
+        key: settings.cacheKey,
+        ttl: settings.cacheMaxAge ?? DEFAULT_CACHE_MAX_AGE,
+      });
+    }
+    return options;
   }
 
   protected getRequestHeaders(headers?: Record<string, string>) {
@@ -40,7 +56,7 @@ export class AniListApi {
   protected postGraphQlRequest<ResponseType, VariablesType = undefined>(
     query: string,
     variables?: VariablesType,
-    headers?: Record<string, string>
+    settings?: RequestSettings
   ): Observable<AnilistResponse<ResponseType>> {
     const parsedQuery = query
       .replace(/\s+/g, ' ')
@@ -75,7 +91,7 @@ export class AniListApi {
           query: parsedQuery,
           variables: parsedVariables,
         },
-        this.getRequestOptions(headers)
+        this.getRequestOptions(settings)
       )
       .pipe(this.mapResponseError());
   }

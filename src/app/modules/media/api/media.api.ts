@@ -77,13 +77,17 @@ export class MediaApi extends AniListApi {
   }
 
   queryGenres() {
-    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery).pipe(
-      map((response) => this.getResponseData(response).GenreCollection)
-    );
+    return this.postGraphQlRequest<GenreCollectionDto>(genresQuery, undefined, {
+      cacheKey: 'queryGenres',
+    }).pipe(map((response) => this.getResponseData(response).GenreCollection));
   }
 
   queryTags() {
-    return this.postGraphQlRequest<MediaTagCollectionDto>(tagsQuery).pipe(
+    return this.postGraphQlRequest<MediaTagCollectionDto>(
+      tagsQuery,
+      undefined,
+      { cacheKey: 'queryTags' }
+    ).pipe(
       map((response) => this.getResponseData(response).MediaTagCollection)
     );
   }
@@ -104,7 +108,8 @@ export class MediaApi extends AniListApi {
         ...query,
         mediaType,
         idIn: mediaIds,
-      }
+      },
+      { cacheKey: 'queryMediaList' + mediaIds.join(',') }
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 
@@ -123,7 +128,8 @@ export class MediaApi extends AniListApi {
         sort:
           query.sort ||
           (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
-      }
+      },
+      { cacheKey: 'queryMedia' }
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 

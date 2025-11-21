@@ -5,6 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import {
+  HttpCacheInterceptorModule,
+  useHttpCacheLocalStorage,
+} from '@ngneat/cashew';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MaterialModule } from '../material/material.module';
@@ -54,7 +58,7 @@ const imports = [
 
 @NgModule({
   declarations,
-  imports,
+  imports: [...imports, HttpCacheInterceptorModule.forRoot()],
   exports: [...declarations, ...imports],
   providers: [
     AuthApi,
@@ -63,6 +67,7 @@ const imports = [
     AuthStore,
     TitleService,
     ToastService,
+    useHttpCacheLocalStorage,
   ],
 })
 export class SharedModule {}

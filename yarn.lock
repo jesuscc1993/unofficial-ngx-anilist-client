@@ -1788,6 +1788,13 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@ngneat/cashew@^3.0.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@ngneat/cashew/-/cashew-3.1.0.tgz#2f879436581f93adbe83c9d7cf579f5e9e7377ba"
+  integrity sha512-LA2VUNbY+2lFwl3HKpZjYN9ptFm1eyIVYCyIQGVnQAWN0N2taxvBOp8bW7Wp9KYug48F0w7+s/G15jV/iDPIKQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngtools/webpack@16.2.16":
   version "16.2.16"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-16.2.16.tgz#512da8f3459faafd0cc1f7f7cbec96b678377be6"
