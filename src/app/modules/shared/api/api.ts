@@ -18,27 +18,29 @@ export class AniListApi {
     protected authStore: AuthStore
   ) {}
 
-  protected getRequestOptions() {
+  protected getRequestOptions(headers?: Record<string, string>) {
+    return { headers: this.getRequestHeaders(headers) };
+  }
+
+  protected getRequestHeaders(headers?: Record<string, string>) {
     const accessToken = this.authStore.getAccessToken();
-    return {
-      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
-    };
+    const authHeader = accessToken
+      ? { Authorization: `Bearer ${accessToken}` }
+      : {};
+    return { ...authHeader, ...headers };
   }
 
   protected getPageOptions(pageOptions?: PageQuery | PageInfo) {
     return {
-      page: pageOptions
-        ? pageOptions.pageIndex >= 1
-          ? pageOptions.pageIndex
-          : 1
-        : 1,
+      page: Math.max(pageOptions?.pageIndex ?? 1, 1),
       perPage: pageOptions ? pageOptions.perPage || 10 : 1,
     };
   }
 
   protected postGraphQlRequest<ResponseType, VariablesType = undefined>(
     query: string,
-    variables?: VariablesType
+    variables?: VariablesType,
+    headers?: Record<string, string>
   ): Observable<AnilistResponse<ResponseType>> {
     const parsedQuery = query
       .replace(/\s+/g, ' ')
@@ -73,7 +75,7 @@ export class AniListApi {
           query: parsedQuery,
           variables: parsedVariables,
         },
-        this.getRequestOptions()
+        this.getRequestOptions(headers)
       )
       .pipe(this.mapResponseError());
   }
