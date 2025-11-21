@@ -109,7 +109,7 @@ export class MediaApi extends AniListApi {
         mediaType,
         idIn: mediaIds,
       },
-      { cacheKey: 'queryMediaList' + mediaIds.join(',') }
+      { cacheKey: `queryMediaList_${mediaType}_${mediaIds.join(',')}` }
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 
@@ -129,7 +129,7 @@ export class MediaApi extends AniListApi {
           query.sort ||
           (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
       },
-      { cacheKey: 'queryMedia' }
+      { cacheKey: `queryMedia_${mediaType}` }
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 
