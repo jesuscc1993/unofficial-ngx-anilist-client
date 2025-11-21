@@ -72,7 +72,7 @@ const translationFactory = (
     MediaModule,
     AnimeModule,
     MangaModule,
-    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(appRoutes, {}),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
