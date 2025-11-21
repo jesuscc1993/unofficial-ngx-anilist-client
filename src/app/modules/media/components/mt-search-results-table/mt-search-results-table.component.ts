@@ -14,7 +14,6 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions } from '../../../../app.constants';
 import {
-  Anime,
   Media,
   MediaSort,
   MediaType,
@@ -37,7 +36,7 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
 })
 export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   @Input() mediaType: MediaType;
-  @Input() tableData: Anime[];
+  @Input() tableData: Media[];
 
   @Output() onSortChange: EventEmitter<MediaSort>;
 
@@ -59,7 +58,7 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
     'score',
     'episodes',
   ];
-  dataSource: MatTableDataSource<Anime>;
+  dataSource: MatTableDataSource<Media>;
 
   constructor(private dialog: MatDialog) {
     this.onSortChange = new EventEmitter<MediaSort>();
@@ -90,6 +89,6 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   }
 
   private initializeDataSource() {
-    this.dataSource = new MatTableDataSource<Anime>(this.tableData);
+    this.dataSource = new MatTableDataSource<Media>(this.tableData);
   }
 }
