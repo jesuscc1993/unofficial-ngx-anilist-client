@@ -200,7 +200,7 @@ export const validateTokenQuery = `
   }
 `;
 
-export const mediaIdSearchQuery = `
+export const mediaSearchQuery = `
   query (
     ${filterTypes.media}
     ${filterTypes.page}

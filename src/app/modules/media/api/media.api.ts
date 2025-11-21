@@ -21,7 +21,7 @@ import { isAnime } from '../domain/media.domain';
 import {
   deleteListEntryQuery,
   genresQuery,
-  mediaIdSearchQuery,
+  mediaSearchQuery,
   relatedMediaIdsQuery,
   saveListEntryQuery,
   tagsQuery,
@@ -119,7 +119,7 @@ export class MediaApi extends AniListApi {
     pageQuery?: PageQuery
   ) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(
-      mediaIdSearchQuery,
+      mediaSearchQuery,
       {
         ...this.getPageOptions(pageQuery),
         ...query,
@@ -128,8 +128,7 @@ export class MediaApi extends AniListApi {
         sort:
           query.sort ||
           (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
-      },
-      { cacheKey: `queryMedia_${mediaType}` }
+      }
     ).pipe(map((response) => this.getResponseData(response).Page));
   }
 
