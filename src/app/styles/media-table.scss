@@ -126,17 +126,6 @@ $gap: 0.5rem;
     overflow: visible;
     display: flex;
     align-items: center;
-
-    .favourite {
-      margin-left: auto;
-
-      @media (min-width: ($screen-3xs + 1)) {
-        margin-right: $spacing-4xs;
-      }
-      @media (max-width: $screen-3xs) {
-        margin-right: -$spacing-md;
-      }
-    }
   }
 
   .mat-column-format {

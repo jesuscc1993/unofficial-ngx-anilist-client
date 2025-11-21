@@ -134,9 +134,10 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
       listEntry: ListEntry,
       filter: string
     ) => {
+      const title = listEntry.media.title;
       return (
-        this.filterByTitle(listEntry.media.title.romaji, filter) ||
-        this.filterByTitle(listEntry.media.title.english, filter)
+        (title.romaji && this.filterByTitle(title.romaji, filter)) ||
+        (title.english && this.filterByTitle(title.english, filter))
       );
     };
   }
