@@ -116,13 +116,15 @@ export class MediaService {
     return this.mediaApi.queryRelatedMediaIds(user);
   }
 
-  queryFavouriteIDs(user: User) {
+  queryFavouriteIDs(user: User): Observable<number[]> {
     const storeEntries = this.mediaStore.getMediaFavouriteIDs();
     return storeEntries
-      ? undefined
-      : this.mediaApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
-          this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
-        });
+      ? of(storeEntries)
+      : this.mediaApi.queryFavouriteIDs(user).pipe(
+          tap((favouriteIDs) => {
+            this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
+          })
+        );
   }
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry> {

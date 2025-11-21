@@ -10,10 +10,7 @@ import { SearchFilters } from './media.types';
 export interface MediaApiInterface {
   deleteListEntry(listEntry: ListEntry): Observable<{ deleted: boolean }>;
 
-  queryFavouriteIDs(
-    user: User,
-    callback: (favouriteIDs: number[]) => void
-  ): void;
+  queryFavouriteIDs(user: User): Observable<number[]>;
 
   queryGenres(): Observable<string[]>;
 

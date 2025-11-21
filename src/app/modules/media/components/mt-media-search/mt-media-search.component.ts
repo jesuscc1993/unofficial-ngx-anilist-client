@@ -306,18 +306,19 @@ export class MtMediaSearchComponent
   }
 
   private subscribeToFavourites() {
-    if (this.user) {
-      this.mediaCommands
-        .getFavouriteIDs()
-        .pipe(
-          tap((favouriteIDs) => {
-            this.favouriteIDs = favouriteIDs;
-          }),
-          takeUntil(this.destroyed$)
-        )
-        .subscribe();
+    this.mediaCommands
+      .getFavouriteIDs()
+      .pipe(
+        tap((favouriteIDs) => {
+          this.favouriteIDs = favouriteIDs;
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
 
-      this.mediaCommands.queryFavouriteIDs(this.user);
-    }
+    this.mediaCommands
+      .queryFavouriteIDs()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe();
   }
 }

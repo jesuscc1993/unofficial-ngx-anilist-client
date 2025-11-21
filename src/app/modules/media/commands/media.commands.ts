@@ -8,18 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { largeModalOptions } from '../../../app.constants';
 import { ToastService } from '../../shared/services/toast.service';
 import { AuthStore } from '../../shared/store/auth.store';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { SearchFilters } from '../api/media.types';
-import {
-  MtPromptComponent,
-  PromptData,
-} from '../components/modals/mt-prompt/mt-prompt.component';
+import { MtPromptComponent, PromptData } from '../components/modals/mt-prompt/mt-prompt.component';
 import { sortListEntriesByMediaTitle } from '../domain/media.domain';
 import { MediaService } from '../services/media.service';
 
@@ -58,8 +52,8 @@ export class MediaCommands {
     return this.mediaService.queryListEntries(this.authStore.getUser());
   }
 
-  queryFavouriteIDs(user: User) {
-    return this.mediaService.queryFavouriteIDs(user);
+  queryFavouriteIDs() {
+    return this.mediaService.queryFavouriteIDs(this.authStore.getUser());
   }
 
   queryRelatedMediaIds() {

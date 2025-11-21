@@ -1,4 +1,4 @@
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,41 +6,18 @@ import { Injectable } from '@angular/core';
 import { AniListApi } from '../../shared/api/api';
 import { relatedMediaRelationTypes } from '../../shared/constants/media.constants';
 import { AuthStore } from '../../shared/store/auth.store';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  MediaListSort,
-  MediaSort,
-  MediaType,
-} from '../../shared/types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
-import { isAnime } from '../domain/media.domain';
 import {
-  deleteListEntryQuery,
-  genresQuery,
-  mediaSearchQuery,
-  relatedMediaIdsQuery,
-  saveListEntryQuery,
-  tagsQuery,
+  deleteListEntryQuery, genresQuery, listFavouritesQuery, mediaSearchQuery, relatedMediaIdsQuery,
+  saveListEntryQuery, tagsQuery,
 } from './media.queries';
 import {
-  DeleteListEntryDto,
-  DeleteListEntryRequest,
-  FavouriteMediaDto,
-  GenreCollectionDto,
-  ListMediaDto,
-  ListMediaFilters,
-  MediaFilters,
-  MediaTagCollectionDto,
-  PagedSearchFilters,
-  RelatedMediaIdsDto,
-  SaveListEntryDto,
-  SaveListEntryRequest,
-  SearchFilters,
-  SearchMediaDto,
+  DeleteListEntryDto, DeleteListEntryRequest, GenreCollectionDto, ListMediaDto, ListMediaFilters,
+  MediaFilters, MediaTagCollectionDto, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto,
+  SaveListEntryRequest, SearchFilters, SearchMediaDto,
 } from './media.types';
 
 @Injectable()
@@ -185,64 +162,25 @@ export class MediaApi extends AniListApi {
     );
   }
 
-  protected _queryFavouriteIDs(
-    mediaType: MediaType,
-    mediaQuery: string,
-    user: User,
-    callback: (favouriteIDs: number[]) => void
-  ) {
-    this._queryFavouriteIdsResultsPage(
-      mediaType,
-      mediaQuery,
-      { userId: user.id, page: 0 },
-      [],
-      callback
-    );
-  }
-
-  protected _queryFavouriteIdsResultsPage(
-    mediaType: MediaType,
-    mediaQuery: string,
-    options: { userId: number; page: number },
-    favouriteIds: number[],
-    callback: (favouriteIds: number[]) => void
-  ) {
-    return this.postGraphQlRequest<FavouriteMediaDto, PagedSearchFilters>(
-      mediaQuery,
-      options
-    )
-      .pipe(
-        tap((response) => {
-          const responseData = this.getResponseData(response);
-          if (
-            responseData &&
-            responseData.User &&
-            responseData.User.favourites
-          ) {
-            const favouritesData = isAnime(mediaType)
-              ? responseData.User.favourites.anime
-              : responseData.User.favourites.manga;
-
-            favouriteIds = [
-              ...favouriteIds,
-              ...favouritesData.nodes.map((node) => node.id),
-            ];
-
-            if (favouritesData.pageInfo.hasNextPage) {
-              options.page++;
-              this._queryFavouriteIdsResultsPage(
-                mediaType,
-                mediaQuery,
-                options,
-                favouriteIds,
-                callback
-              );
-            } else {
-              callback(favouriteIds);
-            }
-          }
-        })
+  protected _queryFavouriteIDs(mediaType: MediaType, user: User) {
+    return this.postGraphQlRequest<ListMediaDto, MediaFilters>(
+      listFavouritesQuery,
+      {
+        mediaType,
+        userId: user.id,
+      }
+    ).pipe(
+      map((response) =>
+        this.getResponseData(response).MediaListCollection.lists.reduce(
+          (favouriteIDs, list) => [
+            ...favouriteIDs,
+            ...list.entries
+              .filter((entry) => entry.media.isFavourite)
+              .map((entry) => entry.media.id),
+          ],
+          [] as number[]
+        )
       )
-      .subscribe();
+    );
   }
 }

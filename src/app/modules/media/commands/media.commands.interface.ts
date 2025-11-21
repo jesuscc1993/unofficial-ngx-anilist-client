@@ -28,7 +28,7 @@ export interface MediaCommands {
 
   getPendingMedia(): Observable<ListEntry[]>;
 
-  queryFavouriteIDs(user: User): void;
+  queryFavouriteIDs(user: User): Observable<number[]>;
 
   queryGenres(): Observable<string[]>;
 

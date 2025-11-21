@@ -101,7 +101,7 @@ export class AniListApi {
   }
 
   protected getResponseData<T>(response: AnilistResponse<T>) {
-    return !!response && response.data;
+    return response?.data;
   }
 
   protected mapResponseError() {

@@ -10,9 +10,7 @@ import { AuthStore } from '../../shared/store/auth.store';
 import { Media, MediaType } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
-import {
-  listFavouriteMangaQuery, mangaListQuery, mangaSearchQuery, toggleFavouriteMangaEntryQuery,
-} from './manga.queries';
+import { mangaListQuery, mangaSearchQuery, toggleFavouriteMangaEntryQuery } from './manga.queries';
 import { ToggleFavouriteMangaRequest } from './manga.types';
 
 @Injectable()
@@ -50,13 +48,8 @@ export class MangaApi extends MediaApi implements MediaApiInterface {
     return this._queryRelatedMediaIds(MediaType.MANGA, user);
   }
 
-  queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void) {
-    this._queryFavouriteIDs(
-      MediaType.MANGA,
-      listFavouriteMangaQuery,
-      user,
-      callback
-    );
+  queryFavouriteIDs(user: User) {
+    return this._queryFavouriteIDs(MediaType.MANGA, user);
   }
 
   toggleFavourite(manga: Media) {

@@ -265,6 +265,25 @@ export const listMediaIdsQuery = `
   }
 `;
 
+export const listFavouritesQuery = `
+  query (
+    ${filterTypes.mediaCollection}
+  ) {
+    MediaListCollection (
+      ${filterMappings.mediaCollection}
+    ) {
+      lists {
+        entries {
+          media {
+            id
+            isFavourite
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const saveListEntryQuery = `
   mutation (
     $mediaId: Int,

@@ -1,9 +1,5 @@
 import {
-  filterMappings,
-  filterTypes,
-  listEntryFields,
-  mediaFields,
-  pageInfoFields,
+  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */
@@ -56,30 +52,6 @@ export const animeListQuery = `
       lists {
         entries {
           ${animeListEntryFields}
-        }
-      }
-    }
-  }
-`;
-
-export const listFavouriteAnimeQuery = `
-  query (
-    $userId: Int!,
-    $page: Int
-  ) {
-    User (
-      id: $userId
-    ) {
-      favourites {
-        anime (
-          page: $page
-        ) {
-          nodes {
-            id
-          }
-          pageInfo {
-            ${pageInfoFields}
-          }
         }
       }
     }
