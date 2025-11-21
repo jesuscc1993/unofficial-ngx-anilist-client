@@ -117,9 +117,12 @@ export class MediaService {
   }
 
   queryFavouriteIDs(user: User) {
-    return this.mediaApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
-      this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
-    });
+    const storeEntries = this.mediaStore.getMediaFavouriteIDs();
+    return storeEntries
+      ? undefined
+      : this.mediaApi.queryFavouriteIDs(user, (favouriteIDs: number[]) => {
+          this.mediaStore.setMediaFavouriteIDs(favouriteIDs);
+        });
   }
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry> {
@@ -148,7 +151,7 @@ export class MediaService {
   toggleFavourite(user: User, media: Media) {
     return this.mediaApi.toggleFavourite(media).pipe(
       tap(() => {
-        this.queryFavouriteIDs(user);
+        this.mediaStore.toggleFavourite(media);
       })
     );
   }

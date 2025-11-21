@@ -31,7 +31,12 @@
       {{ 'media.title' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let media" class="justify-start">
-      <span class="text">{{ getMediaTitle(media) }}</span>
+      <span class="text">
+        <span>{{ getMediaTitle(media) }}</span>
+        <span *ngIf="favouriteIDs?.includes(media.id)">
+          {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
+        </span>
+      </span>
     </mat-cell>
   </ng-container>
 

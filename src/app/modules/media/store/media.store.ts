@@ -61,8 +61,18 @@ export class MediaStore extends Store<MediaStoreState> {
     this.setState({ mediaDictionary });
   }
 
+  toggleFavourite(media: Media) {
+    const ids = new Set(this.getMediaFavouriteIDs() || []);
+    ids.has(media.id) ? ids.delete(media.id) : ids.add(media.id);
+    this.setMediaFavouriteIDs([...ids]);
+  }
+
   getListEntries() {
     return this.getState().mediaListEntries;
+  }
+
+  getMediaFavouriteIDs() {
+    return this.getState().mediaFavouriteIDs;
   }
 
   onFavouriteIDsChanges() {

@@ -51,6 +51,7 @@ export class MtMediaSearchComponent
   @ViewChild(MtSearchResultsTableComponent, { read: ElementRef })
   resultsTable: ElementRef;
 
+  favouriteIDs: number[];
   mediaFormats: MediaFormat[];
   mediaList: Media[];
   pagination: PageInfo;
@@ -98,35 +99,10 @@ export class MtMediaSearchComponent
     this.user = this.authStore.getUser();
     this.setupForm();
 
-    forkJoin([this.mediaCommands.queryGenres(), this.mediaCommands.queryTags()])
-      .pipe(
-        tap(([mediaGenres, mediaTags]) => {
-          this.mediaGenres = mediaGenres;
-          this.mediaTags = mediaTags.map(({ name }) => name);
-        }),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
-
-    this.authCommands
-      .onUserChange()
-      .pipe(
-        tap((user) => (this.user = user)),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
-
-    this.mediaStore
-      .onListEntriesChanges()
-      .pipe(
-        tap(() => {
-          if (this.mediaList && this.searchForm.value.onList !== undefined) {
-            this.search(this.pagination?.currentPage, this.pagination?.perPage);
-          }
-        }),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
+    this.queryDropdowns();
+    this.subscribeToUser();
+    this.subscribeToEntries();
+    this.subscribeToFavourites();
 
     const queryParams = getTypedQueryParams(this.activatedRoute);
     const fieldKeys = Object.keys(queryParams);
@@ -286,5 +262,62 @@ export class MtMediaSearchComponent
 
   private isSet(variable: any): boolean {
     return variable !== undefined && variable !== null && variable.length !== 0;
+  }
+
+  private queryDropdowns() {
+    return forkJoin([
+      this.mediaCommands.queryGenres(),
+      this.mediaCommands.queryTags(),
+    ])
+      .pipe(
+        tap(([mediaGenres, mediaTags]) => {
+          this.mediaGenres = mediaGenres;
+          this.mediaTags = mediaTags.map(({ name }) => name);
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+  }
+
+  private subscribeToUser() {
+    return this.authCommands
+      .onUserChange()
+      .pipe(
+        tap((user) => {
+          this.user = user;
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+  }
+
+  private subscribeToEntries() {
+    return this.mediaStore
+      .onListEntriesChanges()
+      .pipe(
+        tap(() => {
+          if (this.mediaList && this.searchForm.value.onList !== undefined) {
+            this.search(this.pagination?.currentPage, this.pagination?.perPage);
+          }
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+  }
+
+  private subscribeToFavourites() {
+    if (this.user) {
+      this.mediaCommands
+        .getFavouriteIDs()
+        .pipe(
+          tap((favouriteIDs) => {
+            this.favouriteIDs = favouriteIDs;
+          }),
+          takeUntil(this.destroyed$)
+        )
+        .subscribe();
+
+      this.mediaCommands.queryFavouriteIDs(this.user);
+    }
   }
 }

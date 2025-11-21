@@ -1,8 +1,14 @@
+@use '../../../../styles/colors.scss' as mat;
+
 mat-row {
   border-left: 4px solid transparent; // status
   cursor: pointer;
 
   &:hover {
     filter: brightness(1.15);
+  }
+
+  .favourite {
+    @extend .text-pink;
   }
 }
