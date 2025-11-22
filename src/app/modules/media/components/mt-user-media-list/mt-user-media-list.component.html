@@ -10,11 +10,11 @@
       <section>
         <mat-card class="table-filter">
           <mat-form-field class="full-width">
-            <input
-              matInput
-              placeholder="{{ 'media.search.filters.byTitle' | translate }}"
-              (keyup)="applyFilter($event.target.value)"
-            />
+            <mat-label>
+              {{ 'media.search.filters.byTitle' | translate }}
+            </mat-label>
+
+            <input matInput (keyup)="applyFilter($event.target.value)" />
           </mat-form-field>
         </mat-card>
       </section>

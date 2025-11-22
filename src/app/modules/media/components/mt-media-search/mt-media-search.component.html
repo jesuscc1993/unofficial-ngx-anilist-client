@@ -7,12 +7,11 @@
 
       <div class="form-group">
         <mat-form-field class="search-input">
-          <input
-            id="searchInput"
-            matInput
-            placeholder="{{ 'media.search.filters.byTitle' | translate }}"
-            formControlName="search"
-          />
+          <mat-label>
+            {{ 'media.search.filters.byTitle' | translate }}
+          </mat-label>
+
+          <input id="searchInput" matInput formControlName="search" />
         </mat-form-field>
       </div>
 
@@ -31,13 +30,15 @@
               <div class="form-group">
                 <!-- startDateGreaterThan -->
                 <mat-form-field>
+                  <mat-label>
+                    {{ 'media.search.filters.startYear' | translate }}
+                    {{ 'media.search.filters.after' | translate }}...
+                  </mat-label>
+
                   <input
                     [min]="minMediaStartYear"
                     matInput
                     type="number"
-                    placeholder="{{
-                      'media.search.filters.startYear' | translate
-                    }} {{ 'media.search.filters.after' | translate }}..."
                     step="1"
                     formControlName="startDateGreaterThan"
                   />
@@ -45,13 +46,15 @@
 
                 <!-- startDateSmallerThan -->
                 <mat-form-field>
+                  <mat-label>
+                    {{ 'media.search.filters.startYear' | translate }}
+                    {{ 'media.search.filters.before' | translate }}...
+                  </mat-label>
+
                   <input
                     [min]="minMediaStartYear"
                     matInput
                     type="number"
-                    placeholder="{{
-                      'media.search.filters.startYear' | translate
-                    }} {{ 'media.search.filters.before' | translate }}..."
                     step="1"
                     formControlName="startDateSmallerThan"
                   />
@@ -61,14 +64,16 @@
               <div class="form-group">
                 <!-- averageScoreGreaterThan -->
                 <mat-form-field>
+                  <mat-label>
+                    {{ 'media.score' | translate }}
+                    {{ 'media.search.filters.above' | translate }}...
+                  </mat-label>
+
                   <input
                     matInput
                     formControlName="averageScoreGreaterThan"
                     max="10"
                     min="0"
-                    placeholder="{{ 'media.score' | translate }} {{
-                      'media.search.filters.above' | translate
-                    }}..."
                     step="1"
                     type="number"
                   />
@@ -76,14 +81,16 @@
 
                 <!-- averageScoreSmallerThan -->
                 <mat-form-field>
+                  <mat-label>
+                    {{ 'media.score' | translate }}
+                    {{ 'media.search.filters.below' | translate }}...
+                  </mat-label>
+
                   <input
                     matInput
                     formControlName="averageScoreSmallerThan"
                     max="10"
                     min="0"
-                    placeholder="{{ 'media.score' | translate }} {{
-                      'media.search.filters.below' | translate
-                    }}..."
                     step="1"
                     type="number"
                   />
@@ -93,13 +100,12 @@
               <div class="form-group">
                 <!-- genreIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.genres' | translate }} {{
-                      'media.search.filters.includedIn' | translate
-                    }}..."
-                    formControlName="genreIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.genres' | translate }}
+                    {{ 'media.search.filters.includedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select formControlName="genreIn" multiple>
                     <mat-option
                       *ngFor="let genre of mediaGenres"
                       [value]="genre"
@@ -111,13 +117,12 @@
 
                 <!-- genreNotIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.genres' | translate }} {{
-                      'media.search.filters.notIncludedIn' | translate
-                    }}..."
-                    formControlName="genreNotIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.genres' | translate }}
+                    {{ 'media.search.filters.notIncludedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select formControlName="genreNotIn" multiple>
                     <mat-option
                       *ngFor="let genre of mediaGenres"
                       [value]="genre"
@@ -131,13 +136,12 @@
               <div class="form-group">
                 <!-- tagIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.tags' | translate }} {{
-                      'media.search.filters.includedIn' | translate
-                    }}..."
-                    formControlName="tagIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.tags' | translate }}
+                    {{ 'media.search.filters.includedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select formControlName="tagIn" multiple>
                     <mat-option *ngFor="let tag of mediaTags" [value]="tag">
                       {{ tag }}
                     </mat-option>
@@ -146,13 +150,12 @@
 
                 <!-- tagNotIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.tags' | translate }} {{
-                      'media.search.filters.notIncludedIn' | translate
-                    }}..."
-                    formControlName="tagNotIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.tags' | translate }}
+                    {{ 'media.search.filters.notIncludedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select formControlName="tagNotIn" multiple>
                     <mat-option *ngFor="let tag of mediaTags" [value]="tag">
                       {{ tag }}
                     </mat-option>
@@ -165,14 +168,12 @@
               <div class="form-group">
                 <!-- formatIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.format' | translate }} {{
-                      'media.search.filters.includedIn' | translate
-                    }}..."
-                    #formatInput
-                    formControlName="formatIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.format' | translate }}
+                    {{ 'media.search.filters.includedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select #formatInput formControlName="formatIn" multiple>
                     <mat-option
                       *ngFor="let mediaFormat of mediaFormats"
                       [value]="mediaFormat"
@@ -186,14 +187,12 @@
               <div class="form-group">
                 <!-- sourceIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.source' | translate }} {{
-                      'media.search.filters.includedIn' | translate
-                    }}..."
-                    #formatInput
-                    formControlName="sourceIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.source' | translate }}
+                    {{ 'media.search.filters.includedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select #formatInput formControlName="sourceIn" multiple>
                     <mat-option
                       *ngFor="let mediaSource of mediaSources"
                       [value]="mediaSource"
@@ -207,14 +206,12 @@
               <div class="form-group">
                 <!-- statusIn -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{ 'media.status' | translate }} {{
-                      'media.search.filters.includedIn' | translate
-                    }}..."
-                    #formatInput
-                    formControlName="statusIn"
-                    multiple
-                  >
+                  <mat-label>
+                    {{ 'media.status' | translate }}
+                    {{ 'media.search.filters.includedIn' | translate }}...
+                  </mat-label>
+
+                  <mat-select #formatInput formControlName="statusIn" multiple>
                     <mat-option
                       *ngFor="let mediaStatus of mediaStatuses"
                       [value]="mediaStatus"
@@ -228,13 +225,11 @@
               <div class="form-group">
                 <!-- countryOfOrigin -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{
-                      'media.search.filters.countryOfOrigin' | translate
-                    }}"
-                    #formatInput
-                    formControlName="countryOfOrigin"
-                  >
+                  <mat-label>
+                    {{ 'media.search.filters.countryOfOrigin' | translate }}
+                  </mat-label>
+
+                  <mat-select #formatInput formControlName="countryOfOrigin">
                     <mat-option
                       *ngFor="let country of mediaCountries"
                       [value]="country"
@@ -247,12 +242,11 @@
               <div class="form-group">
                 <!-- onList -->
                 <mat-form-field>
-                  <mat-select
-                    placeholder="{{
-                      'media.search.filters.onList' | translate
-                    }}"
-                    formControlName="onList"
-                  >
+                  <mat-label>
+                    {{ 'media.search.filters.onList' | translate }}
+                  </mat-label>
+
+                  <mat-select formControlName="onList">
                     <mat-option
                       *ngFor="let option of onListOptions"
                       [value]="option"

@@ -23,10 +23,9 @@
       <!-- status -->
       <div class="form-group">
         <mat-form-field>
-          <mat-select
-            formControlName="status"
-            placeholder="{{ 'media.status' | translate }}"
-          >
+          <mat-label>{{ 'media.status' | translate }}</mat-label>
+
+          <mat-select formControlName="status">
             <mat-option
               *ngFor="let status of listEntryStatuses"
               [value]="status"
@@ -44,6 +43,7 @@
       <div class="form-group">
         <mat-form-field>
           <mat-label>{{ 'media.score' | translate }} (*/10)</mat-label>
+
           <input
             matInput
             formControlName="score"
@@ -59,6 +59,7 @@
       <div class="form-group">
         <mat-form-field>
           <mat-label>{{ 'media.timesRepeated' | translate }}</mat-label>
+
           <input
             matInput
             formControlName="repeat"
@@ -76,6 +77,7 @@
             {{ getMediaTypeProgressLiteral(listEntry.media.type) | translate }}
             (*/{{ getMediaProgress(listEntry.media) || '?' }})
           </mat-label>
+
           <input
             matInput
             formControlName="progress"
