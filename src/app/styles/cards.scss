@@ -61,12 +61,12 @@ mat-card {
       }
 
       .header-dropdown {
-        .mat-select-value {
+        .mat-mdc-select-value {
           max-width: 100%;
         }
 
-        .mat-select-placeholder,
-        .mat-select-value-text {
+        .mat-mdc-select-placeholder,
+        .mat-mdc-select-value-text {
           padding: 0 $spacing-4xs;
         }
       }

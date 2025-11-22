@@ -67,7 +67,7 @@
       {{ 'media.genres' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let media">
-      <mat-list role="list">
+      <mat-list role="list" class="no-padding">
         <mat-list-item *ngFor="let genre of media.genres" role="listitem">
           <mt-chip class="rounded">{{ genre }}</mt-chip>
         </mat-list-item>

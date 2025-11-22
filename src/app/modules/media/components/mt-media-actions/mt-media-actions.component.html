@@ -12,7 +12,9 @@
     "
     (click)="$event.stopPropagation(); openEditionModal()"
   >
-    <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
+    <div>
+      <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
+    </div>
   </button>
 
   <button
@@ -23,7 +25,9 @@
     [matMenuTriggerFor]="entryMenu"
     (click)="$event.stopPropagation()"
   >
-    <fa-icon name="bars"></fa-icon>
+    <div>
+      <fa-icon name="bars"></fa-icon>
+    </div>
   </button>
 
   <button
@@ -34,7 +38,9 @@
     [matTooltip]="'media.viewOnAniList' | translate"
     (click)="$event.stopPropagation(); openOnAniList()"
   >
-    <fa-icon name="external-link-alt"></fa-icon>
+    <div>
+      <fa-icon name="external-link-alt"></fa-icon>
+    </div>
   </button>
 </div>
 

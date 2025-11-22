@@ -102,7 +102,7 @@ mat-toolbar {
   }
 }
 
-.mat-raised-button {
+.mat-mdc-raised-button {
   @mixin apply-button-theme($background) {
     background: $background;
     color: darken($background, 50%);

@@ -20,6 +20,12 @@ mat-form-field {
       border-top: none !important;
     }
   }
+
+  &.no-subscript {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
 }
 
 mat-expansion-panel {
@@ -33,24 +39,24 @@ mat-expansion-panel {
 }
 
 mat-paginator {
-  .mat-paginator-container {
+  .mat-mdc-paginator-container {
     min-height: 0;
   }
 
   &.basic {
-    .mat-paginator-container {
+    .mat-mdc-paginator-container {
       padding: 0;
 
-      .mat-paginator-range-actions {
+      .mat-mdc-paginator-range-actions {
         width: 100%;
 
-        .mat-paginator-range-label {
+        .mat-mdc-paginator-range-label {
           width: 100%;
           margin: 0 0 0 $spacing-2xs;
         }
       }
 
-      .mat-paginator-page-size {
+      .mat-mdc-paginator-page-size {
         display: none;
       }
     }
@@ -96,7 +102,7 @@ button {
   font-size: $font-size-88;
 }
 
-.mat-select-panel {
+.mat-mdc-select-panel {
   max-height: 50vh !important;
 }
 
@@ -111,10 +117,16 @@ button {
 }
 
 /* fix accessibility warning on transparent placeholders */
-.mat-form-field-hide-placeholder .mat-select-placeholder {
+.mat-form-field-hide-placeholder .mat-mdc-select-placeholder {
   visibility: hidden;
 }
 
 .cdk-global-scrollblock {
   overflow-y: auto;
+}
+
+/* ng16 */
+mat-list.no-padding mat-list-item {
+  padding-left: 0;
+  padding-right: 0;
 }
