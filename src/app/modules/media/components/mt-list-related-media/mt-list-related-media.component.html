@@ -70,14 +70,16 @@
         ></mt-media-cover>
       </div>
 
-      <mt-pagination
-        class="basic"
-        [hidePageSize]="true"
-        [lazy]="true"
-        [pagination]="pagination"
-        (changePage)="changePage($event)"
-      >
-      </mt-pagination>
+      <div *ngIf="mediaList?.length" class="padding-vertical-3xs">
+        <mt-pagination
+          class="basic"
+          [hidePageSize]="true"
+          [lazy]="true"
+          [pagination]="pagination"
+          (changePage)="changePage($event)"
+        >
+        </mt-pagination>
+      </div>
 
       <mat-card *ngIf="pagination && !pagination.total" class="info">
         <p class="bold">

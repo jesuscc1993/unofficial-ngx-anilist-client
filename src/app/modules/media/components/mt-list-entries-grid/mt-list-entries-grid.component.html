@@ -13,15 +13,17 @@
       ></mt-media-cover>
     </div>
 
-    <mat-paginator
-      *ngIf="pagination"
-      [showFirstLastButtons]="true"
-      [length]="pagination.length"
-      [pageSize]="pagination.pageSize"
-      [hidePageSize]="true"
-      (page)="changePage($event)"
-      class="basic"
-    >
-    </mat-paginator>
+    <div class="padding-vertical-3xs">
+      <mat-paginator
+        *ngIf="pagination"
+        [showFirstLastButtons]="true"
+        [length]="pagination.length"
+        [pageSize]="pagination.pageSize"
+        [hidePageSize]="true"
+        (page)="changePage($event)"
+        class="basic"
+      >
+      </mat-paginator>
+    </div>
   </div>
 </div>

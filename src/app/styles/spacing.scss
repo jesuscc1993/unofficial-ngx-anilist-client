@@ -31,11 +31,11 @@ $measures: margin padding;
     }
 
     /* bidirectional */
-    .horizontal-#{$measure}-#{$spacing} {
+    .#{$measure}-horizontal-#{$spacing} {
       #{$measure}-left: $value !important;
       #{$measure}-right: $value !important;
     }
-    .vertical-#{$measure}-#{$spacing} {
+    .#{$measure}-vertical-#{$spacing} {
       #{$measure}-top: $value !important;
       #{$measure}-bottom: $value !important;
     }
@@ -57,11 +57,11 @@ $measures: margin padding;
   }
 
   /* bidirectional */
-  .no-horizontal-#{$measure} {
+  .no-#{$measure}-horizontal {
     #{$measure}-left: 0 !important;
     #{$measure}-right: 0 !important;
   }
-  .no-vertical-#{$measure} {
+  .no-#{$measure}-vertical {
     #{$measure}-top: 0 !important;
     #{$measure}-bottom: 0 !important;
   }
