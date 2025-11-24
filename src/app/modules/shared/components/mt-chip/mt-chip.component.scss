@@ -1,3 +1,5 @@
-.mat-mdc-chip {
+:host {
+  align-items: center;
+  display: inline-flex;
   max-width: 100%;
 }

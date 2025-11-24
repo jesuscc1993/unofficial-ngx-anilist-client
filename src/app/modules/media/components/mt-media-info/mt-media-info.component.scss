@@ -22,6 +22,14 @@ sup {
   }
 }
 
+.value {
+  &.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4xs;
+  }
+}
+
 .general-info-only {
   .property-value-pair {
     .property {

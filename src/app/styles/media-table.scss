@@ -126,20 +126,24 @@
         height: $spacing-xl;
         text-align: center;
 
-        .mat-list-item-content {
-          padding: 0;
-
-          .mat-mdc-chip {
-            margin: 0;
-
-            &.rounded {
-              $height: 19px;
-              line-height: $height;
-              border-radius: $height * 0.5;
-              padding: 0 $spacing-2xs;
-            }
-          }
+        mt-chip {
+          justify-content: center;
         }
+
+        // .mat-list-item-content {
+        //   padding: 0;
+
+        //   .mat-mdc-chip {
+        //     margin: 0;
+
+        //     &.rounded {
+        //       $height: 19px;
+        //       line-height: $height;
+        //       border-radius: $height * 0.5;
+        //       padding: 0 $spacing-2xs;
+        //     }
+        //   }
+        // }
       }
     }
   }

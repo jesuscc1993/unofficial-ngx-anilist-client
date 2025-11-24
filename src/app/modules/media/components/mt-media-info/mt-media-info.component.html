@@ -155,9 +155,9 @@
     *ngIf="media.genres?.length"
     class="property-value-pair chips flex-box no-margin-bottom"
   >
-    <div class="property padded">{{ 'media.genres' | translate }}</div>
+    <div class="property">{{ 'media.genres' | translate }}</div>
 
-    <div role="list" class="value wrap-balance">
+    <div role="list" class="value list wrap-balance">
       <ng-container *ngFor="let genre of media.genres">
         <mt-chip class="rounded">{{ genre }}</mt-chip>
       </ng-container>
@@ -168,9 +168,9 @@
     *ngIf="media.tags?.length"
     class="property-value-pair chips flex-box no-margin-bottom"
   >
-    <div class="property padded">{{ 'media.tags' | translate }}</div>
+    <div class="property">{{ 'media.tags' | translate }}</div>
 
-    <div role="list" class="value wrap-balance">
+    <div role="list" class="value list wrap-balance">
       <ng-container *ngFor="let tag of media.tags">
         <ng-container *ngIf="!tag.isMediaSpoiler">
           <mt-chip [matTooltip]="tag.description">{{ tag.name }}</mt-chip>
@@ -183,9 +183,9 @@
     *ngIf="media.synonyms?.length"
     class="property-value-pair chips flex-box no-margin-bottom"
   >
-    <div class="property padded">{{ 'media.synonyms' | translate }}</div>
+    <div class="property">{{ 'media.synonyms' | translate }}</div>
 
-    <div role="list" class="value wrap-balance">
+    <div role="list" class="value list wrap-balance">
       <mt-chip role="listitem">
         {{ getMediaTitle(media) }}
       </mt-chip>
