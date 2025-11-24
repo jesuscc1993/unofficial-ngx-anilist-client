@@ -146,4 +146,9 @@ html {
       min-height: $height;
     }
   }
+
+  .mat-mdc-icon-button.mat-mdc-button-base {
+    --mdc-icon-button-icon-size: #{$spacing-2xl};
+    padding: $spacing-2xs 0;
+  }
 }
