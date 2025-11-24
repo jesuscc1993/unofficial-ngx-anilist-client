@@ -16,7 +16,9 @@
           [matTooltip]="'media.userList.updateEntry' | translate"
           (click)="openEditionModal($event)"
         >
-          <fa-icon name="pen"></fa-icon>
+          <div>
+            <fa-icon name="pen"></fa-icon>
+          </div>
         </button>
 
         <button
@@ -24,10 +26,11 @@
           matTooltipPosition="above"
           mat-icon-button
           [matTooltip]="'media.view' | translate"
-          [ngClass]="{ 'padding-md': !listEntry }"
           (click)="openDetailModal($event)"
         >
-          <fa-icon name="id-card"></fa-icon>
+          <div>
+            <fa-icon name="id-card"></fa-icon>
+          </div>
         </button>
 
         <button
@@ -38,7 +41,9 @@
           [matTooltip]="'media.userList.deleteFromList' | translate"
           (click)="deleteEntry($event)"
         >
-          <fa-icon name="trash"></fa-icon>
+          <div>
+            <fa-icon name="trash"></fa-icon>
+          </div>
         </button>
       </div>
 

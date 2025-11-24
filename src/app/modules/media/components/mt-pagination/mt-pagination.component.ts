@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
-import { lazyPageSizeOptions, pageSizeOptions } from '../../../../app.constants';
+import {
+  lazyPageSizeOptions,
+  pageSizeOptions,
+} from '../../../../app.constants';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
 @Component({
@@ -11,6 +14,7 @@ import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 })
 export class MtPaginationComponent implements OnInit {
   @Input() class?: string;
+  @Input() hidePageSize?: boolean;
   @Input() lazy?: boolean;
   @Input() pagination?: PageInfo;
 

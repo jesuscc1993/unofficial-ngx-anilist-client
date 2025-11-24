@@ -101,10 +101,11 @@
     left: 0;
 
     .cover-action {
-      $size: 1.25em;
+      $size: 1.5em;
       font-size: $font-size-100;
       height: $size;
       line-height: initial;
+      padding: 0;
       text-shadow: 0 0 2px black;
       width: $size;
     }

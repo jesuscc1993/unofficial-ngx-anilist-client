@@ -1,45 +1,45 @@
 <mat-card class="composite compact">
   <div class="composite-header">
-    <div class="header flex-1">
-      <h2 class="text-100 bold no-margin">
+    <div class="header">
+      <h2 class="text-100 bold no-margin flex-1">
         {{ mediaType.toLowerCase() + '.dashboard.relatedMedia' | translate }}
       </h2>
+
+      <mt-header-picker
+        iconName="star-half-stroke"
+        placeholder="{{ 'media.scoreValues.undefined' | translate }}"
+        [matTooltip]="'media.score' | translate"
+        [options]="mediaScores"
+        [value]="selectedScore"
+        [getOptionLiteral]="getScoreLiteral"
+        [onChange]="setSelectedScore"
+      ></mt-header-picker>
+
+      <mt-header-picker
+        *ngIf="isAnime(mediaType)"
+        iconName="film"
+        placeholder="{{ 'media.formatValues.undefined' | translate }}"
+        [matTooltip]="'media.format' | translate"
+        [multiple]="true"
+        [options]="mediaFormats"
+        [truncate]="true"
+        [value]="selectedFormats"
+        [getOptionLiteral]="getFormatLiteral"
+        [onChange]="setSelectedFormats"
+      ></mt-header-picker>
+
+      <mt-header-picker
+        iconName="sort"
+        [matTooltip]="'generic.sort' | translate"
+        [options]="mediaSorts"
+        [value]="selectedSort"
+        [getOptionLiteral]="getSortLiteral"
+        [onChange]="setSelectedSort"
+      ></mt-header-picker>
     </div>
-
-    <mt-header-picker
-      iconName="star-half-stroke"
-      placeholder="{{ 'media.scoreValues.undefined' | translate }}"
-      [matTooltip]="'media.score' | translate"
-      [options]="mediaScores"
-      [value]="selectedScore"
-      [getOptionLiteral]="getScoreLiteral"
-      [onChange]="setSelectedScore"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      *ngIf="isAnime(mediaType)"
-      iconName="film"
-      placeholder="{{ 'media.formatValues.undefined' | translate }}"
-      [matTooltip]="'media.format' | translate"
-      [multiple]="true"
-      [options]="mediaFormats"
-      [truncate]="true"
-      [value]="selectedFormats"
-      [getOptionLiteral]="getFormatLiteral"
-      [onChange]="setSelectedFormats"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      iconName="sort"
-      [matTooltip]="'generic.sort' | translate"
-      [options]="mediaSorts"
-      [value]="selectedSort"
-      [getOptionLiteral]="getSortLiteral"
-      [onChange]="setSelectedSort"
-    ></mt-header-picker>
   </div>
 
-  <div class="content reduced-bottom-padding">
+  <div class="content no-padding-bottom">
     <div #content>
       <div
         *ngIf="searching || !started"
@@ -72,6 +72,7 @@
 
       <mt-pagination
         class="basic"
+        [hidePageSize]="true"
         [lazy]="true"
         [pagination]="pagination"
         (changePage)="changePage($event)"

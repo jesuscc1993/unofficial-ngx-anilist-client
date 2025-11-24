@@ -8,44 +8,43 @@
   <div *ngIf="ready">
     <div *ngIf="statuses?.length">
       <section>
-        <mat-card class="table-filter">
-          <mat-form-field class="full-width">
-            <mat-label>
-              {{ 'media.search.filters.byTitle' | translate }}
-            </mat-label>
-
-            <input matInput (keyup)="applyFilter($event.target.value)" />
-          </mat-form-field>
-        </mat-card>
+        <mat-form-field class="no-subscript full-width">
+          <mat-label>
+            {{ 'media.search.filters.byTitle' | translate }}
+          </mat-label>
+          <input matInput (keyup)="applyFilter($event.target.value)" />
+        </mat-form-field>
       </section>
 
       <section>
         <mat-card class="margin-top-sm">
-          <p class="text-115 bold">
-            {{ 'media.userList.show' | translate }} /
-            {{ 'media.userList.goTo' | translate }}
-          </p>
+          <mat-card-content class="padding-bottom-2xs">
+            <p class="text-115 bold no-margin-top">
+              {{ 'media.userList.show' | translate }} /
+              {{ 'media.userList.goTo' | translate }}
+            </p>
 
-          <div role="list" class="statuses-wrapper">
-            <span
-              role="listitem"
-              *ngFor="let status of statuses"
-              class="status-wrapper"
-            >
-              <div *ngIf="hasDataOfStatus(status.value)">
-                <mat-checkbox [(ngModel)]="status.shown">
-                  {{ 'manga.statusValues.' + status.value | translate }}
-                </mat-checkbox>
+            <div role="list" class="statuses-wrapper">
+              <span
+                role="listitem"
+                *ngFor="let status of statuses"
+                class="status-wrapper"
+              >
+                <ng-container *ngIf="hasDataOfStatus(status.value)">
+                  <mat-checkbox [(ngModel)]="status.shown">
+                    {{ 'manga.statusValues.' + status.value | translate }}
+                  </mat-checkbox>
 
-                <a class="go-to-link" (click)="scrollToStatus(status.value)">
-                  <fa-icon
-                    class="vertically-centered margin-left-3xs"
-                    name="arrow-down"
-                  ></fa-icon>
-                </a>
-              </div>
-            </span>
-          </div>
+                  <a
+                    class="margin-left-3xs"
+                    (click)="scrollToStatus(status.value)"
+                  >
+                    <fa-icon name="arrow-down"></fa-icon>
+                  </a>
+                </ng-container>
+              </span>
+            </div>
+          </mat-card-content>
         </mat-card>
       </section>
 

@@ -3,8 +3,14 @@
     <ng-content></ng-content>
   </p>
 
-  <button class="clickable" mat-icon-button (click)="onClosePressed.emit()">
-    <fa-icon name="times"></fa-icon>
+  <button
+    class="right-action clickable"
+    mat-icon-button
+    (click)="onClosePressed.emit()"
+  >
+    <div>
+      <fa-icon name="times"></fa-icon>
+    </div>
   </button>
 </div>
 

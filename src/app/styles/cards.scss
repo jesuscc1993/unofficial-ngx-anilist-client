@@ -3,23 +3,25 @@
 @mixin setup-card-padding($padding) {
   .header,
   .footer {
+    flex: 1;
     padding: $padding;
 
-    &:has(.mat-icon-button) {
-      padding: $padding / 2;
+    &:has(.mat-mdc-icon-button) {
+      $reduced-padding: $padding * 0.25;
+      padding-top: $reduced-padding;
+      padding-bottom: $reduced-padding;
+
+      &:has(.left-action) {
+        padding-left: $reduced-padding;
+      }
+      &:has(.right-action) {
+        padding-right: $reduced-padding;
+      }
     }
   }
 
   .content {
     padding: $padding;
-  }
-
-  .reduced-bottom-padding {
-    padding-bottom: $padding / 2;
-  }
-
-  .negative-bottom-margin {
-    margin-bottom: -$padding;
   }
 }
 
@@ -38,9 +40,14 @@ mat-card {
     .composite-header {
       display: flex;
 
-      .header:not(.tab) {
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
+      .header {
+        display: flex;
+        align-items: center;
+
+        &:not(.tab) {
+          border-bottom-width: 1px;
+          border-bottom-style: solid;
+        }
       }
 
       .tab {
@@ -59,17 +66,6 @@ mat-card {
           background-color: rgba(black, 0.12);
         }
       }
-
-      .header-dropdown {
-        .mat-select-value {
-          max-width: 100%;
-        }
-
-        .mat-select-placeholder,
-        .mat-select-value-text {
-          padding: 0 $spacing-4xs;
-        }
-      }
     }
 
     .composite-footer {
@@ -83,10 +79,8 @@ mat-card {
   }
 
   .header {
-    .mat-icon-button {
-      fa-icon {
-        font-size: $font-size-125;
-      }
+    .mat-mdc-icon-button {
+      --mdc-icon-button-icon-size: #{$font-size-125};
     }
   }
 

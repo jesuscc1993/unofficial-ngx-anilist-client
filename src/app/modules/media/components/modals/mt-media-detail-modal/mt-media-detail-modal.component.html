@@ -1,6 +1,6 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
-    <div class="flex-box center text-ellipsis">
+    <div class="flex-box center">
       <mt-media-actions
         *ngIf="media"
         [editEnabled]="origin !== 'edit'"
@@ -9,11 +9,11 @@
         [origin]="origin"
         [additionalInfoEnabled]="false"
         (onListEntryChanges)="onListEntryChanges($event)"
-        class="inline-block margin-right-2xs"
+        class="left-action inline-block margin-right-2xs"
       >
       </mt-media-actions>
 
-      <span [matTooltip]="getMediaTitle(media)">
+      <span class="text-ellipsis" [matTooltip]="getMediaTitle(media)">
         {{ getMediaTitle(media) }}
       </span>
     </div>

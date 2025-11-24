@@ -75,7 +75,7 @@
         {{ 'media.genres' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <mat-list role="list">
+        <mat-list role="list" class="no-padding">
           <mat-list-item
             *ngFor="let genre of entry.media.genres"
             role="listitem"

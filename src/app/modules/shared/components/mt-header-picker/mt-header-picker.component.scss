@@ -1,11 +1,44 @@
+@import '../../../../styles/variables';
+
 ::ng-deep {
-  mt-header-picker + mt-header-picker .header {
-    padding-left: 0px !important;
+  mt-header-picker {
+    & + & {
+      padding-left: $spacing-xl !important;
+    }
+
+    .mdc-notched-outline {
+      display: none !important;
+    }
+
+    .mat-mdc-select-value {
+      max-width: 100%;
+    }
+
+    .mat-mdc-select-placeholder,
+    .mat-mdc-select-value-text {
+      padding: 0 $spacing-4xs;
+    }
+
+    .mat-mdc-text-field-wrapper,
+    .mat-mdc-form-field-infix {
+      padding: 0 !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      width: auto !important;
+      min-height: 0 !important;
+
+      // .mat-mdc-select-arrow-wrapper {
+      //   height: 20px !important;
+      // }
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
   }
 
-  .mat-select-panel .mat-option.compact {
-    $height: 2.5rem;
-    line-height: $height;
-    height: $height;
+  .cdk-overlay-pane:has(.header-picker) {
+    width: auto !important;
   }
 }

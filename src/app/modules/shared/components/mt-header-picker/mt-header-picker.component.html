@@ -1,8 +1,9 @@
-<div class="header header-dropdown" [attr.title]="title || null">
+<mat-form-field appearance="outline" [attr.title]="title || null">
   <fa-icon name="{{ iconName }}" iconClass="fa-fw margin-right-3xs"></fa-icon>
 
   <mat-select
     class="width-auto"
+    panelClass="header-picker"
     [multiple]="multiple"
     [ngModel]="value"
     [placeholder]="placeholder"
@@ -12,12 +13,8 @@
       {{ getTruncatedLiteral() | translate }}
     </mat-select-trigger>
 
-    <mat-option
-      *ngFor="let option of options"
-      class="{{ this.compact ? 'compact' : '' }}"
-      [value]="option"
-    >
+    <mat-option *ngFor="let option of options" [value]="option">
       {{ (getOptionLiteral ? getOptionLiteral(option) : option) | translate }}
     </mat-option>
   </mat-select>
-</div>
+</mat-form-field>

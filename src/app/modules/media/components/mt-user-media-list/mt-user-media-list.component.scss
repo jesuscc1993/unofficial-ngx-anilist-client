@@ -1,26 +1,18 @@
 @import '../../../../styles/variables';
 
-.table-filter {
-  padding-top: $spacing-2xs !important;
-  padding-bottom: 0 !important;
-}
-
 .statuses-wrapper {
+  display: flex;
+  gap: $spacing-3xs;
+  margin: -$spacing-2xs;
+
   mat-checkbox {
     display: inline-block;
     vertical-align: text-bottom;
   }
 
   .status-wrapper {
-    margin-right: $spacing-md;
-    display: inline-block;
-    min-width: 104px;
-
-    .go-to-link {
-      height: $spacing-xl;
-      display: inline-block;
-      vertical-align: top;
-    }
+    align-items: center;
+    display: inline-flex;
   }
 }
 

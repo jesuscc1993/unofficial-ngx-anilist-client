@@ -20,6 +20,12 @@ mat-form-field {
       border-top: none !important;
     }
   }
+
+  &.no-subscript {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
 }
 
 mat-expansion-panel {
@@ -33,24 +39,25 @@ mat-expansion-panel {
 }
 
 mat-paginator {
-  .mat-paginator-container {
+  .mat-mdc-paginator-container {
     min-height: 0;
+    padding: 0.5rem;
   }
 
   &.basic {
-    .mat-paginator-container {
+    .mat-mdc-paginator-container {
       padding: 0;
 
-      .mat-paginator-range-actions {
+      .mat-mdc-paginator-range-actions {
         width: 100%;
 
-        .mat-paginator-range-label {
+        .mat-mdc-paginator-range-label {
           width: 100%;
           margin: 0 0 0 $spacing-2xs;
         }
       }
 
-      .mat-paginator-page-size {
+      .mat-mdc-paginator-page-size {
         display: none;
       }
     }
@@ -68,7 +75,7 @@ button {
   max-width: 100vw !important;
 }
 
-.mat-chip {
+.mat-mdc-chip {
   $horizontal-padding: $spacing-8xs;
   display: inline-block;
   line-height: 1rem;
@@ -96,25 +103,48 @@ button {
   font-size: $font-size-88;
 }
 
-.mat-select-panel {
-  max-height: 50vh !important;
-}
-
-.mat-tooltip {
-  font-size: $font-size-100;
-  margin: $spacing-4xs !important;
-  text-align: center;
-}
-
 .mat-menu-content {
   padding: 0 !important;
 }
 
 /* fix accessibility warning on transparent placeholders */
-.mat-form-field-hide-placeholder .mat-select-placeholder {
+.mat-form-field-hide-placeholder .mat-mdc-select-placeholder {
   visibility: hidden;
 }
 
 .cdk-global-scrollblock {
   overflow-y: auto;
+}
+
+/* ng16 */
+html {
+  mat-list.no-padding mat-list-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mdc-tooltip--multiline .mdc-tooltip__surface {
+    text-align: center;
+    font-size: 0.75rem;
+  }
+
+  div.mat-mdc-select-panel {
+    padding: 0;
+
+    .mat-mdc-option {
+      $height: 2.5rem;
+      line-height: $height;
+      min-height: $height;
+    }
+  }
+
+  div.mat-mdc-menu-content {
+    padding: 0;
+
+    .mat-mdc-menu-item {
+      $height: 2.5rem;
+      line-height: $height;
+      min-height: $height;
+    }
+  }
 }

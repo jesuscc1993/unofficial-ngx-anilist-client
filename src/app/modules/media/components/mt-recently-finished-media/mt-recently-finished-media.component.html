@@ -1,49 +1,49 @@
 <mat-card class="composite compact">
   <div class="composite-header">
-    <div class="header flex-1">
-      <h2 class="text-100 bold no-margin">
+    <div class="header">
+      <h2 class="text-100 bold no-margin flex-1">
         {{
           mediaType.toLowerCase() + '.dashboard.finishedReleasing' | translate
         }}
       </h2>
+
+      <mt-header-picker
+        iconName="flag"
+        placeholder="{{ 'country.undefined' | translate }}"
+        [matTooltip]="'media.search.filters.countryOfOrigin' | translate"
+        [multiple]="true"
+        [options]="mediaCountries"
+        [truncate]="true"
+        [value]="selectedCountries"
+        [getOptionLiteral]="getCountryLiteral"
+        [onChange]="setSelectedCountries"
+      ></mt-header-picker>
+
+      <mt-header-picker
+        *ngIf="isAnime(mediaType)"
+        iconName="film"
+        placeholder="{{ 'media.formatValues.undefined' | translate }}"
+        [matTooltip]="'media.format' | translate"
+        [multiple]="true"
+        [options]="mediaFormats"
+        [truncate]="true"
+        [value]="selectedFormats"
+        [getOptionLiteral]="getFormatLiteral"
+        [onChange]="setSelectedFormats"
+      ></mt-header-picker>
+
+      <mt-header-picker
+        iconName="sort"
+        [matTooltip]="'generic.sort' | translate"
+        [options]="mediaSorts"
+        [value]="selectedSort"
+        [getOptionLiteral]="getSortLiteral"
+        [onChange]="setSelectedSort"
+      ></mt-header-picker>
     </div>
-
-    <mt-header-picker
-      iconName="flag"
-      placeholder="{{ 'country.undefined' | translate }}"
-      [matTooltip]="'media.search.filters.countryOfOrigin' | translate"
-      [multiple]="true"
-      [options]="mediaCountries"
-      [truncate]="true"
-      [value]="selectedCountries"
-      [getOptionLiteral]="getCountryLiteral"
-      [onChange]="setSelectedCountries"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      *ngIf="isAnime(mediaType)"
-      iconName="film"
-      placeholder="{{ 'media.formatValues.undefined' | translate }}"
-      [matTooltip]="'media.format' | translate"
-      [multiple]="true"
-      [options]="mediaFormats"
-      [truncate]="true"
-      [value]="selectedFormats"
-      [getOptionLiteral]="getFormatLiteral"
-      [onChange]="setSelectedFormats"
-    ></mt-header-picker>
-
-    <mt-header-picker
-      iconName="sort"
-      [matTooltip]="'generic.sort' | translate"
-      [options]="mediaSorts"
-      [value]="selectedSort"
-      [getOptionLiteral]="getSortLiteral"
-      [onChange]="setSelectedSort"
-    ></mt-header-picker>
   </div>
 
-  <div class="content reduced-bottom-padding">
+  <div class="content no-padding-bottom">
     <div *ngIf="searching" class="placeholder">
       <mat-spinner mode="indeterminate"></mat-spinner>
     </div>

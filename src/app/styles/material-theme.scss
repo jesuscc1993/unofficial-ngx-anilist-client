@@ -102,26 +102,6 @@ mat-toolbar {
   }
 }
 
-.mat-raised-button {
-  @mixin apply-button-theme($background) {
-    background: $background;
-    color: darken($background, 50%);
-  }
-
-  & {
-    @include apply-button-theme(map-get($gray-palette, 600));
-  }
-  &.mat-primary {
-    @include apply-button-theme(map-get($orange-palette, 400));
-  }
-  &.mat-accent {
-    @include apply-button-theme(map-get($orange-palette, 400));
-  }
-  &.mat-warn {
-    @include apply-button-theme(map-get($red-palette, 400));
-  }
-}
-
 /* fix accessibility warning on invalid inputs */
 .mat-form-field.mat-form-field-invalid {
   .mat-form-field-flex {
@@ -144,15 +124,6 @@ mat-toolbar {
   &::after {
     border-color: map-get($theme, border);
   }
-}
-
-.mat-chip {
-  background-color: map-get(map-get($theme, background), unselected-chip);
-  color: map-get(map-get($theme, foreground), text);
-}
-
-.mat-tooltip {
-  background: rgba(map-get(map-get($theme, background), background), 90%);
 }
 
 mat-card {
@@ -195,23 +166,37 @@ mat-card {
   }
 }
 
-::-webkit-scrollbar,
-::-webkit-scrollbar-corner,
-::-webkit-scrollbar-track-piece {
-  background: map-get($gray-palette, 900) !important;
-}
+/* ng16 */
+html {
+  .mat-mdc-raised-button {
+    @mixin apply-button-theme($background) {
+      background: $background;
+      color: darken($background, 50%);
+    }
 
-::-webkit-scrollbar {
-  width: 17px !important;
-  height: 17px !important;
-}
+    &.mat-unthemed {
+      @include apply-button-theme(map-get($gray-palette, 600));
+    }
+    &.mat-primary {
+      @include apply-button-theme(map-get($orange-palette, 400));
+    }
+    &.mat-accent {
+      @include apply-button-theme(map-get($orange-palette, 400));
+    }
+    &.mat-warn {
+      @include apply-button-theme(map-get($red-palette, 400));
+    }
+  }
 
-::-webkit-scrollbar-thumb {
-  background: map-get($gray-palette, 700);
-  border: 3px solid map-get($gray-palette, 900) !important;
-  border-radius: 8px !important;
-}
+  .mat-mdc-chip {
+    background-color: map-get(map-get($theme, background), unselected-chip);
+    color: map-get(map-get($theme, foreground), text);
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: map-get($gray-palette, 600);
+  .mat-mdc-tooltip {
+    --mdc-plain-tooltip-container-color: #{rgba(
+        map-get(map-get($theme, background), background),
+        90%
+      )};
+  }
 }

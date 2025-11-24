@@ -1,10 +1,11 @@
 @import 'src/app/styles/variables';
 
 mat-toolbar {
-  display: block;
+  display: flex;
   height: auto;
-  padding: $spacing-md;
+  justify-content: center;
   min-height: $footer-height;
+  padding: 0 $spacing-md;
 
   font-size: $font-size-88;
   line-height: 1;

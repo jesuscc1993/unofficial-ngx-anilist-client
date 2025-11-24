@@ -36,12 +36,12 @@ $screen-2xl: 1920px;
 $mat-toolbar-height: 56px;
 $mat-spinner-size: 128px;
 $mat-button-height: 36px;
-$mat-icon-button: 40px;
+$mat-icon-button: 48px;
 
 /* modals */
 $modal-margin: 32px;
 $modal-padding: 20px;
-$modal-header-height: $modal-padding + $mat-icon-button;
+$modal-header-height: $modal-padding / 2 + $mat-icon-button;
 $modal-footer-height: $modal-padding * 2 + $mat-button-height;
 
 /* generic */
@@ -51,11 +51,11 @@ $expansion-panel-padding: $spacing-xl;
 $separator-thickness: 1px;
 
 /* specific */
-$footer-height: 48px;
+$footer-height: 40px;
 $media-aspect-ratio: 1.414; // √2
 $media-cover-width: 96px;
 $media-cover-height: round($media-cover-width * $media-aspect-ratio);
-$min-dashboard-column-height: 744px;
+$min-dashboard-column-height: 752px;
 
 /* other */
 $transition-duration: 200ms;
