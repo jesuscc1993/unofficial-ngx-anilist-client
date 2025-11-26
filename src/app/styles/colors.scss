@@ -1,12 +1,11 @@
 @use '@angular/material' as mat;
-@import 'material-theme';
 
 $variations: (
-  green: mat.$green-palette,
-  blue: mat.$blue-palette,
-  red: mat.$red-palette,
-  orange: mat.$orange-palette,
-  pink: mat.$pink-palette,
+  'blue': mat.$blue-palette,
+  'green': mat.$green-palette,
+  'orange': mat.$orange-palette,
+  'pink': mat.$pink-palette,
+  'red': mat.$red-palette,
 );
 
 $positions: top left bottom right;
