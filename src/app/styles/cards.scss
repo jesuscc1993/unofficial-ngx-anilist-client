@@ -90,10 +90,10 @@ mat-card {
     justify-content: center;
 
     &.float-left {
-      margin-left: -$horizontalButtonMargin;
+      margin-left: (-$horizontalButtonMargin);
     }
     &.float-right {
-      margin-right: -$horizontalButtonMargin;
+      margin-right: (-$horizontalButtonMargin);
     }
 
     button {

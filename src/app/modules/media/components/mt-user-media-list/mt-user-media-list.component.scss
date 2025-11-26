@@ -3,7 +3,7 @@
 .statuses-wrapper {
   display: flex;
   gap: $spacing-3xs;
-  margin: -$spacing-2xs;
+  margin: (-$spacing-2xs);
 
   mat-checkbox {
     display: inline-block;
@@ -18,6 +18,6 @@
 
 .status-table-wrapper {
   &:not(:last-of-type) {
-    margin-bottom: -1 * $spacing-3xl;
+    margin-bottom: (-$spacing-3xl);
   }
 }

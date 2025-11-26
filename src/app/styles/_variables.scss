@@ -41,7 +41,7 @@ $mat-icon-button: 48px;
 /* modals */
 $modal-margin: 32px;
 $modal-padding: 20px;
-$modal-header-height: $modal-padding / 2 + $mat-icon-button;
+$modal-header-height: $modal-padding * 0.5 + $mat-icon-button;
 $modal-footer-height: $modal-padding * 2 + $mat-button-height;
 
 /* generic */
