@@ -35,7 +35,11 @@ $dark-theme-background-palette: map-merge(
   )
 );
 
-$theme: define-dark-theme($primary-palette, $accent-palette);
+$theme: define-dark-theme(
+  $primary-palette,
+  $accent-palette,
+  $warn: define-palette($red-palette)
+);
 
 $theme: map-merge(
   $theme,
