@@ -8,9 +8,10 @@ import {
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
 @Component({
-  selector: 'mt-pagination',
-  templateUrl: './mt-pagination.component.html',
-  styleUrls: ['./mt-pagination.component.scss'],
+    selector: 'mt-pagination',
+    templateUrl: './mt-pagination.component.html',
+    styleUrls: ['./mt-pagination.component.scss'],
+    standalone: false
 })
 export class MtPaginationComponent implements OnInit {
   @Input() class?: string;

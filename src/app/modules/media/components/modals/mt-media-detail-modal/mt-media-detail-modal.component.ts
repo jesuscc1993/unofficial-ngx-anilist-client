@@ -28,9 +28,10 @@ type MediaDetailModalParameters = {
 };
 
 @Component({
-  selector: 'mt-media-detail-modal',
-  templateUrl: './mt-media-detail-modal.component.html',
-  styleUrls: ['./mt-media-detail-modal.component.scss'],
+    selector: 'mt-media-detail-modal',
+    templateUrl: './mt-media-detail-modal.component.html',
+    styleUrls: ['./mt-media-detail-modal.component.scss'],
+    standalone: false
 })
 export class MtMediaDetailModalComponent
   extends WithObservableOnDestroy

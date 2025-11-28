@@ -31,9 +31,10 @@ import {
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-  selector: 'mt-user-media-list-table',
-  templateUrl: './mt-user-media-list-table.component.html',
-  styleUrls: ['./mt-user-media-list-table.component.scss'],
+    selector: 'mt-user-media-list-table',
+    templateUrl: './mt-user-media-list-table.component.html',
+    styleUrls: ['./mt-user-media-list-table.component.scss'],
+    standalone: false
 })
 export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   @Input() favouriteIDs: number[];

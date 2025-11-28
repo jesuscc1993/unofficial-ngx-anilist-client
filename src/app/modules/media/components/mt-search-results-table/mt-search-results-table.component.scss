@@ -1,4 +1,4 @@
-@use '../../../../styles/colors.scss' as mat;
+@import 'color-utils';
 
 mat-row {
   border-left: 4px solid transparent; // status

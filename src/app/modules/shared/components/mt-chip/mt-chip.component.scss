@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'variables';
 
 :host {
@@ -7,6 +8,8 @@
   line-height: 1rem;
   max-width: 100%;
   padding: $horizontal-padding $vertical-padding;
+  background-color: map-get($grey-palette, 40);
+  color: $fg-gray;
 
   &.rounded {
     border-radius: 1rem;

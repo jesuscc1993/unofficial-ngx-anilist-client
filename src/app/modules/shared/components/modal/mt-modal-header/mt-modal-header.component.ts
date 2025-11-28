@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'mt-modal-header',
-  templateUrl: './mt-modal-header.component.html',
-  styleUrls: ['./mt-modal-header.component.scss'],
+    selector: 'mt-modal-header',
+    templateUrl: './mt-modal-header.component.html',
+    styleUrls: ['./mt-modal-header.component.scss'],
+    standalone: false
 })
 export class MtModalHeaderComponent {
   @Input() titleClass?: string;

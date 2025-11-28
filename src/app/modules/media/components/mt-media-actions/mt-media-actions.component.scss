@@ -14,8 +14,10 @@
     }
   }
 
-  .list-only {
-    font-size: $font-size-88;
+  .list-mode {
+    .menu-toggle {
+      font-size: $font-size-88;
+    }
   }
 
   .action-icon {

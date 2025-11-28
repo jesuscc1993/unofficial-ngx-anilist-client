@@ -25,9 +25,10 @@ type Status = {
 };
 
 @Component({
-  selector: 'mt-user-media-list',
-  templateUrl: './mt-user-media-list.component.html',
-  styleUrls: ['./mt-user-media-list.component.scss'],
+    selector: 'mt-user-media-list',
+    templateUrl: './mt-user-media-list.component.html',
+    styleUrls: ['./mt-user-media-list.component.scss'],
+    standalone: false
 })
 export class MtUserMediaListComponent
   extends WithObservableOnDestroy

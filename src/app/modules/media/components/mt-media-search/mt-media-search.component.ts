@@ -45,9 +45,10 @@ import { getDateScalarFromYear, isAnime } from '../../domain/media.domain';
 import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
-  selector: 'mt-media-search',
-  templateUrl: './mt-media-search.component.html',
-  styleUrls: ['./mt-media-search.component.scss'],
+    selector: 'mt-media-search',
+    templateUrl: './mt-media-search.component.html',
+    styleUrls: ['./mt-media-search.component.scss'],
+    standalone: false
 })
 export class MtMediaSearchComponent
   extends WithObservableOnDestroy

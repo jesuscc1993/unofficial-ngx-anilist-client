@@ -1,6 +1,8 @@
+@import 'colors';
+
 /* vertical ruler - counterpart to vanilla's hr */
 vr {
-  border: 1px solid var(--mat-divider-color);
+  border: 1px solid $c-border;
   box-sizing: border-box;
   display: block;
   height: 100%;

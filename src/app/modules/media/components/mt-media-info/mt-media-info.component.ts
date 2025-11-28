@@ -13,9 +13,10 @@ import {
 } from '../../domain/media.domain';
 
 @Component({
-  selector: 'mt-media-info',
-  templateUrl: './mt-media-info.component.html',
-  styleUrls: ['./mt-media-info.component.scss'],
+    selector: 'mt-media-info',
+    templateUrl: './mt-media-info.component.html',
+    styleUrls: ['./mt-media-info.component.scss'],
+    standalone: false
 })
 export class MtMediaInfoComponent {
   @Input() fullDetail? = true;

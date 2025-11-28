@@ -26,9 +26,10 @@ import { StorageKeys, storageService } from '../../services/storage.service';
 import { MediaStore } from '../../store/media.store';
 
 @Component({
-  selector: 'mt-list-related-media',
-  templateUrl: './mt-list-related-media.component.html',
-  styleUrls: ['./mt-list-related-media.component.scss'],
+    selector: 'mt-list-related-media',
+    templateUrl: './mt-list-related-media.component.html',
+    styleUrls: ['./mt-list-related-media.component.scss'],
+    standalone: false
 })
 export class MtListRelatedMediaComponent
   extends WithObservableOnDestroy

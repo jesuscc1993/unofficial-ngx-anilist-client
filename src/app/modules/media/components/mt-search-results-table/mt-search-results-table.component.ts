@@ -17,9 +17,10 @@ import {
 } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-  selector: 'mt-search-results-table',
-  templateUrl: './mt-search-results-table.component.html',
-  styleUrls: ['./mt-search-results-table.component.scss'],
+    selector: 'mt-search-results-table',
+    templateUrl: './mt-search-results-table.component.html',
+    styleUrls: ['./mt-search-results-table.component.scss'],
+    standalone: false
 })
 export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   @Input() favouriteIDs: number[];

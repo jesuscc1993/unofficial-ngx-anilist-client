@@ -18,9 +18,10 @@ export type PromptData = {
 };
 
 @Component({
-  selector: 'mt-prompt',
-  templateUrl: './mt-prompt.component.html',
-  styleUrls: ['./mt-prompt.component.scss'],
+    selector: 'mt-prompt',
+    templateUrl: './mt-prompt.component.html',
+    styleUrls: ['./mt-prompt.component.scss'],
+    standalone: false
 })
 export class MtPromptComponent {
   readonly origin: ModalOrigin;

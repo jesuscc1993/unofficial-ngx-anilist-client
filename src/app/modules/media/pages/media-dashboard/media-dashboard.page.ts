@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MediaType } from '../../../shared/types/anilist/media.types';
 
 @Component({
-  selector: 'mt-media-dashboard',
-  templateUrl: './media-dashboard.page.html',
-  styleUrls: ['./media-dashboard.page.scss'],
+    selector: 'mt-media-dashboard',
+    templateUrl: './media-dashboard.page.html',
+    styleUrls: ['./media-dashboard.page.scss'],
+    standalone: false
 })
 export class MtMediaDashboardComponent implements OnInit {
   @Input() mediaType: MediaType;

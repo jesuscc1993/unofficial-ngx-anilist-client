@@ -7,9 +7,10 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { getColCount } from '../../domain/media.domain';
 
 @Component({
-  selector: 'mt-list-entries-grid',
-  templateUrl: './mt-list-entries-grid.component.html',
-  styleUrls: ['./mt-list-entries-grid.component.scss'],
+    selector: 'mt-list-entries-grid',
+    templateUrl: './mt-list-entries-grid.component.html',
+    styleUrls: ['./mt-list-entries-grid.component.scss'],
+    standalone: false
 })
 export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   @Input() listEntries: ListEntry[];

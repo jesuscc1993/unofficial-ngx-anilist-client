@@ -23,9 +23,10 @@ import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-moda
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-  selector: 'mt-media-cover',
-  templateUrl: './mt-media-cover.component.html',
-  styleUrls: ['./mt-media-cover.component.scss'],
+    selector: 'mt-media-cover',
+    templateUrl: './mt-media-cover.component.html',
+    styleUrls: ['./mt-media-cover.component.scss'],
+    standalone: false
 })
 export class MtMediaCoverComponent
   extends WithObservableOnDestroy

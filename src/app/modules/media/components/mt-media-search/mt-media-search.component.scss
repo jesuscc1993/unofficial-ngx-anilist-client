@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'variables';
 
 mat-form-field {
@@ -40,7 +41,7 @@ mat-expansion-panel {
         content: '';
         border-style: solid;
         border-width: 0 1px 0 0;
-        border-color: var(--mat-divider-color);
+        border-color: $c-border;
         height: 100%;
         margin-left: (-$spacing-md);
         position: absolute;

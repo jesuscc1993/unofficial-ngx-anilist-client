@@ -27,9 +27,10 @@ import {
 } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-  selector: 'mt-media-actions',
-  templateUrl: './mt-media-actions.component.html',
-  styleUrls: ['./mt-media-actions.component.scss'],
+    selector: 'mt-media-actions',
+    templateUrl: './mt-media-actions.component.html',
+    styleUrls: ['./mt-media-actions.component.scss'],
+    standalone: false
 })
 export class MtMediaActionsComponent
   extends WithObservableOnDestroy

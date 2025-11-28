@@ -6,9 +6,10 @@ import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
 
 @Component({
-  selector: 'mt-anime-dashboard',
-  templateUrl: './anime-dashboard.page.html',
-  styleUrls: ['./anime-dashboard.page.scss'],
+    selector: 'mt-anime-dashboard',
+    templateUrl: './anime-dashboard.page.html',
+    styleUrls: ['./anime-dashboard.page.scss'],
+    standalone: false
 })
 export class AnimeDashboardPage {
   constructor(

@@ -1,8 +1,11 @@
 @import 'variables';
 
-html {
+body {
   --mdc-dialog-container-shape: 8px;
-  --mdc-elevated-card-container-shape: 8px;
+
+  mat-card {
+    --mdc-elevated-card-container-shape: 8px;
+  }
 }
 
 mat-dialog-container {

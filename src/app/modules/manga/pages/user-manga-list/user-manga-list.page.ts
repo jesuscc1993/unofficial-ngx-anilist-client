@@ -7,9 +7,10 @@ import { AuthStore } from '../../../shared/store/auth.store';
 import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
-  selector: 'mt-user-manga-list',
-  templateUrl: './user-manga-list.page.html',
-  styleUrls: ['./user-manga-list.page.scss'],
+    selector: 'mt-user-manga-list',
+    templateUrl: './user-manga-list.page.html',
+    styleUrls: ['./user-manga-list.page.scss'],
+    standalone: false
 })
 export class UserMangaListPage {
   user: User;

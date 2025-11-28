@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{ 'list-mode': listMode }">
   <button
     *ngIf="listMode"
     class="menu-toggle list-only"

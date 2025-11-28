@@ -7,8 +7,9 @@ import { MediaCommands } from '../../commands/media.commands';
 import { toMediaType } from '../../domain/media.domain';
 
 @Component({
-  templateUrl: './media-detail.page.html',
-  styleUrls: ['./media-detail.page.scss'],
+    templateUrl: './media-detail.page.html',
+    styleUrls: ['./media-detail.page.scss'],
+    standalone: false
 })
 export class MediaDetailPage {
   media: Media;

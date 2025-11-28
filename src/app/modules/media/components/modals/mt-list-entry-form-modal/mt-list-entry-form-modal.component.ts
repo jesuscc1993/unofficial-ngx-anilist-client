@@ -39,9 +39,10 @@ type ListEntryFormModalParameters = {
 };
 
 @Component({
-  selector: 'mt-list-entry-form-modal',
-  templateUrl: './mt-list-entry-form-modal.component.html',
-  styleUrls: ['./mt-list-entry-form-modal.component.scss'],
+    selector: 'mt-list-entry-form-modal',
+    templateUrl: './mt-list-entry-form-modal.component.html',
+    styleUrls: ['./mt-list-entry-form-modal.component.scss'],
+    standalone: false
 })
 export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   readonly getMediaProgress = getMediaProgress;

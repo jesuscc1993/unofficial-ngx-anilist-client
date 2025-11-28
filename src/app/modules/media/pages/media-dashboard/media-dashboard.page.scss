@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'variables';
 
 .columns-wrapper {
@@ -10,10 +11,11 @@
   .column {
     $sidebar-width: 542px;
     $padding: $spacing-4xs * 1.5;
+    border-color: $c-border;
+    box-sizing: border-box;
+    display: inline-block;
     padding: 0 $padding;
     vertical-align: top;
-    display: inline-block;
-    box-sizing: border-box;
 
     &.left-column {
       padding-left: 0;

@@ -11,9 +11,10 @@ import { MediaCommands } from '../../commands/media.commands';
 import { getMediaTitle, isAnime } from '../../domain/media.domain';
 
 @Component({
-  selector: 'mt-media-detail',
-  templateUrl: './mt-media-detail.component.html',
-  styleUrls: ['./mt-media-detail.component.scss'],
+    selector: 'mt-media-detail',
+    templateUrl: './mt-media-detail.component.html',
+    styleUrls: ['./mt-media-detail.component.scss'],
+    standalone: false
 })
 export class MtMediaDetailComponent
   extends WithObservableOnDestroy

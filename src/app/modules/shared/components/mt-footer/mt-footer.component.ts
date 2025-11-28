@@ -3,9 +3,10 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'mt-footer',
-  templateUrl: './mt-footer.component.html',
-  styleUrls: ['./mt-footer.component.scss'],
+    selector: 'mt-footer',
+    templateUrl: './mt-footer.component.html',
+    styleUrls: ['./mt-footer.component.scss'],
+    standalone: false
 })
 export class MtFooterComponent {
   gitHubProjectUrl =

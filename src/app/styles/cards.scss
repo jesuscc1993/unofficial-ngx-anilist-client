@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'variables';
 
 @mixin setup-card-padding($padding) {
@@ -43,7 +44,7 @@ mat-card {
       .header {
         display: flex;
         align-items: center;
-        border-color: var(--mat-divider-color);
+        border-color: $c-border;
 
         &:not(.tab) {
           border-bottom-width: 1px;
@@ -54,10 +55,8 @@ mat-card {
       .tab {
         flex: 1;
         text-align: center;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-left-width: 1px;
-        border-left-style: solid;
+        border-bottom: 1px solid $c-border;
+        border-left: 1px solid $c-border;
 
         &.active {
           border-bottom: 0;

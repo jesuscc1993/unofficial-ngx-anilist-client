@@ -34,9 +34,10 @@ import {
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
-  selector: 'mt-recently-finished-media',
-  templateUrl: './mt-recently-finished-media.component.html',
-  styleUrls: ['./mt-recently-finished-media.component.scss'],
+    selector: 'mt-recently-finished-media',
+    templateUrl: './mt-recently-finished-media.component.html',
+    styleUrls: ['./mt-recently-finished-media.component.scss'],
+    standalone: false
 })
 export class MtRecentlyFinishedMediaComponent
   extends WithObservableOnDestroy

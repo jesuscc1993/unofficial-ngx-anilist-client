@@ -22,9 +22,10 @@ import {
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
-  selector: 'mt-recently-updated-list-entries',
-  templateUrl: './mt-recently-updated-list-entries.component.html',
-  styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
+    selector: 'mt-recently-updated-list-entries',
+    templateUrl: './mt-recently-updated-list-entries.component.html',
+    styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
+    standalone: false
 })
 export class MtRecentlyUpdatedListEntriesComponent
   extends WithObservableOnDestroy

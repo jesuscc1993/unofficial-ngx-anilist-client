@@ -1,6 +1,6 @@
 import { LOCATION_INITIALIZED } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
+import { Injector, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -83,12 +83,10 @@ const translationFactory = (
     }),
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: translationFactory,
-      deps: [TranslateService, Injector],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (translationFactory)(inject(TranslateService), inject(Injector));
+        return initializerFn();
+      }),
   ],
   bootstrap: [AppComponent],
 })

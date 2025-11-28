@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'variables';
 
 mat-toolbar {
@@ -39,16 +40,21 @@ mat-toolbar {
     }
 
     a {
-      margin: 0 $spacing-3xs;
-      padding: $spacing-4xs $spacing-4xs $spacing-6xs;
-      transition: $transition-duration;
+      align-items: center;
       border-bottom: $spacing-6xs solid transparent;
       border-top: $spacing-4xs solid transparent;
-      align-items: center;
       box-sizing: border-box;
       display: inline-flex;
       flex-direction: column;
+      font-weight: bold;
       justify-content: space-around;
+      margin: 0 $spacing-3xs;
+      padding: $spacing-4xs $spacing-4xs $spacing-6xs;
+      transition: $transition-duration;
+
+      &:not(.active):not(:hover) {
+        color: map-get($grey-palette, 40);
+      }
 
       &.active {
         border-bottom-color: inherit;

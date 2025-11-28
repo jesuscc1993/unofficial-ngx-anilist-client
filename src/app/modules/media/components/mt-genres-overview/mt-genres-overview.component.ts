@@ -3,9 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GenreStats } from '../../../shared/types/anilist/genreStats.types';
 
 @Component({
-  selector: 'mt-genres-overview',
-  templateUrl: './mt-genres-overview.component.html',
-  styleUrls: ['./mt-genres-overview.component.scss'],
+    selector: 'mt-genres-overview',
+    templateUrl: './mt-genres-overview.component.html',
+    styleUrls: ['./mt-genres-overview.component.scss'],
+    standalone: false
 })
 export class MtGenresOverviewComponent implements OnInit {
   @Input() genreStatsList: GenreStats[];

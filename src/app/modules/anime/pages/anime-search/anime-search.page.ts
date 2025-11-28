@@ -5,9 +5,10 @@ import { AuthStore } from '../../../shared/store/auth.store';
 import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
-  selector: 'mt-anime-search',
-  templateUrl: './anime-search.page.html',
-  styleUrls: ['./anime-search.page.scss'],
+    selector: 'mt-anime-search',
+    templateUrl: './anime-search.page.html',
+    styleUrls: ['./anime-search.page.scss'],
+    standalone: false
 })
 export class AnimeSearchPage {
   user: User;

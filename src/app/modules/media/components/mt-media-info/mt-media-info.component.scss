@@ -1,3 +1,4 @@
+@import 'colors';
 @import 'variables';
 
 $cover-width: $screen-3xs * 0.5;
@@ -45,6 +46,7 @@ sup {
 
     .column {
       $column-padding: $spacing-md;
+      border-color: $c-border;
       display: inline-block;
 
       &.left {

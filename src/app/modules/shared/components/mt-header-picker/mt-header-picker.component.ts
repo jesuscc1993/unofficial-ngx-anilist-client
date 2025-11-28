@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'mt-header-picker',
-  templateUrl: './mt-header-picker.component.html',
-  styleUrls: ['./mt-header-picker.component.scss'],
+    selector: 'mt-header-picker',
+    templateUrl: './mt-header-picker.component.html',
+    styleUrls: ['./mt-header-picker.component.scss'],
+    standalone: false
 })
 export class MtHeaderPickerComponent {
   @Input() iconName: string;

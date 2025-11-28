@@ -11,8 +11,9 @@ import { AuthStore } from './modules/shared/store/auth.store';
 import { User } from './modules/shared/types/anilist/user.types';
 
 @Component({
-  selector: 'mt-root',
-  templateUrl: './app.component.html',
+    selector: 'mt-root',
+    templateUrl: './app.component.html',
+    standalone: false
 })
 export class AppComponent implements OnInit {
   error: Error;

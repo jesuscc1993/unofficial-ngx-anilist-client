@@ -4,9 +4,10 @@ import { apiLoginUrl } from '../../app.constants';
 import { TitleService } from '../../modules/shared/services/title.service';
 
 @Component({
-  selector: 'mt-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+    selector: 'mt-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
+    standalone: false
 })
 export class LoginPage {
   apiLoginUrl = apiLoginUrl;

@@ -23,9 +23,10 @@ const ANIME_ICON = 'display';
 const MANGA_ICON = 'lines-leaning';
 
 @Component({
-  selector: 'mt-header',
-  templateUrl: './mt-header.component.html',
-  styleUrls: ['./mt-header.component.scss'],
+    selector: 'mt-header',
+    templateUrl: './mt-header.component.html',
+    styleUrls: ['./mt-header.component.scss'],
+    standalone: false
 })
 export class MtHeaderComponent extends WithObservableOnDestroy {
   animeSearchUrl = animeSearchUrl;

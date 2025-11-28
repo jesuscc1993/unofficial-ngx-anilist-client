@@ -9,3 +9,14 @@ $warn-palette: mat.$red-palette;
 $fg-primary: map-get($primary-palette, 60);
 $fg-gray: map-get($grey-palette, 100);
 $c-border: rgba($fg-gray, 0.12);
+
+$anchor: map-get($primary-palette, 70);
+$anchor-hover: map-get($primary-palette, 60);
+$anchor-secondary: map-get($grey-palette, 50);
+
+$colors-by-status: (
+  success: mat.$green-palette,
+  info: mat.$blue-palette,
+  warning: mat.$orange-palette,
+  error: mat.$red-palette,
+);
