@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
-@import 'src/app/styles/variables';
+
+@import 'variables';
 
 @media (min-width: ($screen-2xs + 1)) {
   :root {

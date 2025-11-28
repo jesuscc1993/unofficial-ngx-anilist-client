@@ -29,6 +29,9 @@
               "node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app/styles"]
+            },
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -70,11 +73,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "unofficial-ngx-anilist-client:build"
+            "buildTarget": "unofficial-ngx-anilist-client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "unofficial-ngx-anilist-client:build:production"
+              "buildTarget": "unofficial-ngx-anilist-client:build:production"
             }
           }
         },
