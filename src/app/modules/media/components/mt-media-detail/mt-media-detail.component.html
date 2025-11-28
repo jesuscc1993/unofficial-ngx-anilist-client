@@ -33,10 +33,7 @@
     </div>
   </mat-card>
 
-  <mat-card *ngIf="!(searching || media)" class="info">
-    <p class="bold">
-      <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
-      {{ 'generic.noResults' | translate }}
-    </p>
-  </mat-card>
+  <mt-alert *ngIf="!(searching || media)" type="info">
+    {{ 'generic.noResults' | translate }}
+  </mt-alert>
 </section>

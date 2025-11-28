@@ -4,14 +4,14 @@ $variations: (
   'blue': mat.$blue-palette,
   'green': mat.$green-palette,
   'orange': mat.$orange-palette,
-  'pink': mat.$pink-palette,
+  'magenta': mat.$magenta-palette,
   'red': mat.$red-palette,
 );
 
 $positions: top left bottom right;
 
 @each $variation, $palette in $variations {
-  $value: map-get($palette, 500);
+  $value: map-get($palette, 70);
 
   .bg-#{$variation} {
     border-color: $value;

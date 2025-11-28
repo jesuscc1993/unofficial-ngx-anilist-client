@@ -1,5 +1,15 @@
+@import 'variables';
+
 :host {
-  align-items: center;
-  display: inline-flex;
+  $horizontal-padding: $spacing-8xs;
+  $vertical-padding: $spacing-4xs;
+  border-radius: $vertical-padding;
+  line-height: 1rem;
   max-width: 100%;
+  padding: $horizontal-padding $vertical-padding;
+
+  &.rounded {
+    border-radius: 1rem;
+    padding: $horizontal-padding $spacing-3xs;
+  }
 }

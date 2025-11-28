@@ -1,9 +1,7 @@
-<mat-card *ngIf="!user" class="warning alert">
-  <p class="bold">
-    <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
-    <span>{{ 'user.notLoggedIn' | translate }}</span>
-  </p>
-</mat-card>
+<mt-alert *ngIf="!user" type="warning">
+  <span>{{ 'user.notLoggedIn' | translate }} </span>
+  <span>{{ 'media.search.limitedFeatures' |translate }}</span>
+</mt-alert>
 
 <div class="narrow-page">
   <mt-user-media-list mediaType="ANIME"></mt-user-media-list>

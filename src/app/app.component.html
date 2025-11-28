@@ -3,12 +3,9 @@
 </header>
 
 <main>
-  <mat-card *ngIf="error" class="error margin-bottom-xs">
-    <p class="bold">
-      <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
-      {{ error }}
-    </p>
-  </mat-card>
+  <mt-alert *ngIf="error" type="error">
+    {{ error }}
+  </mt-alert>
 
   <router-outlet></router-outlet>
 </main>

@@ -82,7 +82,7 @@
       @extend .border-x-orange;
     }
     &.paused:after {
-      @extend .border-x-pink;
+      @extend .border-x-magenta;
     }
     &.dropped:after {
       @extend .border-x-red;

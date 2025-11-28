@@ -1,5 +1,10 @@
 @import 'variables';
 
+html {
+  --mdc-dialog-container-shape: 8px;
+  --mdc-elevated-card-container-shape: 8px;
+}
+
 mat-dialog-container {
   max-width: 100vw;
   max-height: 100vh;
@@ -75,25 +80,6 @@ button {
   max-width: 100vw !important;
 }
 
-.mat-mdc-chip {
-  $horizontal-padding: $spacing-8xs;
-  display: inline-block;
-  line-height: 1rem;
-  outline: none;
-  white-space: nowrap;
-
-  &.rounded {
-    border-radius: 100px;
-    padding: $horizontal-padding $spacing-3xs;
-  }
-
-  &:not(.rounded) {
-    $vertical-padding: $spacing-4xs;
-    border-radius: $vertical-padding;
-    padding: $horizontal-padding $vertical-padding;
-  }
-}
-
 .mat-mdc-card {
   overflow: hidden;
 }
@@ -149,6 +135,8 @@ html {
 
   .mat-mdc-icon-button.mat-mdc-button-base {
     --mdc-icon-button-icon-size: #{$spacing-2xl};
-    padding: $spacing-2xs 0;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
   }
 }

@@ -15,6 +15,9 @@
 }
 
 .media-table {
+  --mat-table-row-item-label-text-size: $font-size-100;
+  --mdc-list-list-item-label-text-size: $font-size-100;
+
   mat-row {
     &.completed {
       @extend .border-left-green;
@@ -27,7 +30,7 @@
       @extend .border-left-orange;
     }
     &.paused {
-      @extend .border-left-pink;
+      @extend .border-left-magenta;
     }
     &.dropped {
       @extend .border-left-red;

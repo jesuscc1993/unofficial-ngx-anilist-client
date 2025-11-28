@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,6 +19,7 @@ import { MtModalContentComponent } from './components/modal/mt-modal-content/mt-
 import { MtModalFooterComponent } from './components/modal/mt-modal-footer/mt-modal-footer.component';
 import { MtModalHeaderComponent } from './components/modal/mt-modal-header/mt-modal-header.component';
 import { MtModalComponent } from './components/modal/mt-modal/mt-modal.component';
+import { MtAlertComponent } from './components/mt-alert/mt-alert.component';
 import { MtChipComponent } from './components/mt-chip/mt-chip.component';
 import { MtFooterComponent } from './components/mt-footer/mt-footer.component';
 import { MtHeaderPickerComponent } from './components/mt-header-picker/mt-header-picker.component';
@@ -32,6 +33,7 @@ import { AuthStore } from './store/auth.store';
 
 const declarations = [
   FaIconComponent,
+  MtAlertComponent,
   MtChipComponent,
   MtFooterComponent,
   MtHeaderComponent,
@@ -49,7 +51,6 @@ const imports = [
   BrowserModule,
   CommonModule,
   FormsModule,
-  HttpClientModule,
   MaterialModule,
   ReactiveFormsModule,
   RouterModule,
@@ -67,6 +68,7 @@ const imports = [
     AuthStore,
     TitleService,
     ToastService,
+    provideHttpClient(),
     useHttpCacheLocalStorage,
   ],
 })

@@ -81,19 +81,13 @@
         </mt-pagination>
       </div>
 
-      <mat-card *ngIf="pagination && !pagination.total" class="info">
-        <p class="bold">
-          <fa-icon name="info-circle" class="margin-right-2xs"></fa-icon>
-          {{ 'generic.noResults' | translate }}
-        </p>
-      </mat-card>
+      <mt-alert *ngIf="pagination && !pagination.total" type="info">
+        {{ 'generic.noResults' | translate }}
+      </mt-alert>
 
-      <mat-card *ngIf="started && error" class="error">
-        <p class="bold">
-          <fa-icon name="exclamation-circle" class="margin-right-2xs"></fa-icon>
-          {{ error }}
-        </p>
-      </mat-card>
+      <mt-alert *ngIf="started && error" type="error">
+        {{ error }}
+      </mt-alert>
     </div>
   </div>
 </mat-card>

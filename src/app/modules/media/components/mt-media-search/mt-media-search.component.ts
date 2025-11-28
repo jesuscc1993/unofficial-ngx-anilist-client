@@ -2,12 +2,20 @@ import { forkJoin, of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { integerPattern, minMediaStartYear, pageSizeOptions } from '../../../../app.constants';
+import {
+  integerPattern,
+  minMediaStartYear,
+  pageSizeOptions,
+} from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { animeFormats } from '../../../anime/constants/anime.constants';
@@ -15,25 +23,26 @@ import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  mediaCountries, mediaSources, mediaStatuses,
+  mediaCountries,
+  mediaSources,
+  mediaStatuses,
 } from '../../../shared/constants/media.constants';
 import { getTypedQueryParams } from '../../../shared/domain/navigation.domain';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  Media, MediaFormat, MediaSort, MediaType,
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { SearchFilters } from '../../api/media.types';
 import { MediaCommands } from '../../commands/media.commands';
 import { getDateScalarFromYear, isAnime } from '../../domain/media.domain';
-import {
-  MtSearchResultsTableComponent,
-} from '../mt-search-results-table/mt-search-results-table.component';
+import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
   selector: 'mt-media-search',
@@ -316,9 +325,11 @@ export class MtMediaSearchComponent
       )
       .subscribe();
 
-    this.mediaCommands
-      .queryFavouriteIDs()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe();
+    if (this.user) {
+      this.mediaCommands
+        .queryFavouriteIDs()
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe();
+    }
   }
 }

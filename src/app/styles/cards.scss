@@ -7,7 +7,7 @@
     padding: $padding;
 
     &:has(.mat-mdc-icon-button) {
-      $reduced-padding: $padding * 0.25;
+      $reduced-padding: $padding * 0.5;
       padding-top: $reduced-padding;
       padding-bottom: $reduced-padding;
 
@@ -43,6 +43,7 @@ mat-card {
       .header {
         display: flex;
         align-items: center;
+        border-color: var(--mat-divider-color);
 
         &:not(.tab) {
           border-bottom-width: 1px;

@@ -1,89 +1,123 @@
-@use '@angular/material' as *;
+@use '@angular/material' as mat;
 
-$primary-palette: define-palette($orange-palette);
-$accent-palette: define-palette($orange-palette);
+@import 'material-palettes';
+@import 'color-variables';
 
-@function theme-alert($background) {
-  @return (background: $background, foreground: darken($background, 50%));
-}
+// @function theme-alert($background) {
+//   @return (background: $background, foreground: darken($background, 50%));
+// }
 
-/* overrides ./core/theming/palette */
-$grey-palette: map-merge(
-  $grey-palette,
-  (
-    50: #fafafa,
-    150: #f0f0f0,
-    250: #e7e7e7,
-    350: #d1d1d1,
-    450: #b0b0b0,
-    550: #8a8a8a,
-    650: #6b6b6b,
-    750: #525252,
-    850: #313131,
-    950: #121212,
-  )
-);
+// /* overrides ./core/theming/palette */
+// $dark-theme-background-palette: map-merge(
+//   $dark-theme-background-palette,
+//   (
+//     app-bar: map-get($grey-palette, 95),
+//     background: map-get($grey-palette, 90),
+//     card: map-get($grey-palette, 85),
+//     dialog: map-get($grey-palette, 85),
+//   )
+// );
 
-/* overrides ./core/theming/palette */
-$dark-theme-background-palette: map-merge(
-  $dark-theme-background-palette,
-  (
-    app-bar: map-get($grey-palette, 950),
-    background: map-get($grey-palette, 900),
-    card: map-get($grey-palette, 850),
-    dialog: map-get($grey-palette, 850),
-  )
-);
+// $theme: define-dark-theme(
+//   (
+//     color: (
+//       primary: $primary-palette,
+//       accent: $accent-palette,
+//     ),
+//     typography: define-typography-config(),
+//     density: 0,
+//   )
+// );
 
-$theme: define-dark-theme(
+// $theme: map-merge(
+//   $theme,
+//   (
+//     background: $dark-theme-background-palette,
+//     border: rgba(white, 0.12),
+//     success: theme-alert(map-get($green-palette, 70)),
+//     info: theme-alert(map-get($blue-palette, 70)),
+//     warning: theme-alert(map-get($orange-palette, 70)),
+//     error: theme-alert(map-get($red-palette, 70)),
+//   )
+// );
+
+// @include core();
+// @include all-component-themes($theme);
+
+@include mat.core();
+
+$theme: mat.define-theme(
   (
     color: (
-      primary: $primary-palette,
-      accent: $accent-palette,
+      theme-type: dark,
+      // "primary" == bg
+      primary: $mat-grey-palette,
+      // "tertiary" == fg
+      tertiary: mat.$orange-palette,
     ),
-    typography: define-typography-config(),
-    density: 0,
   )
 );
 
-$theme: map-merge(
-  $theme,
-  (
-    background: $dark-theme-background-palette,
-    border: rgba(white, 0.12),
-    success: theme-alert(map-get($green-palette, 500)),
-    info: theme-alert(map-get($blue-palette, 500)),
-    warning: theme-alert(map-get($orange-palette, 500)),
-    error: theme-alert(map-get($red-palette, 500)),
-  )
-);
+html {
+  @include mat.all-component-themes($theme);
+  @include mat.color-variants-backwards-compatibility($theme);
 
-@include core();
-@include all-component-themes($theme);
+  --mat-expansion-container-background-color: transparent;
+  --mat-paginator-container-background-color: transparent;
+  --mat-table-background-color: transparent;
+
+  --mat-divider-color: #{$c-border};
+  --mat-table-row-item-outline-color: #{$c-border};
+  --mat-toolbar-container-background-color: #{map-get($grey-palette, 0)};
+  --mdc-plain-tooltip-container-color: #{rgba(map-get($grey-palette, 0), 0.9)};
+  --mdc-plain-tooltip-supporting-text-color: #{$fg-gray};
+
+  --mdc-filled-text-field-container-color: #{map-get($grey-palette, 17)};
+  --mdc-filled-text-field-active-indicator-color: #{map-get($grey-palette, 35)};
+  --mdc-filled-text-field-focus-active-indicator-color: #{$fg-primary};
+
+  .mat-accent.mat-mdc-checkbox {
+    --mdc-checkbox-selected-focus-icon-color: #{$fg-primary};
+    --mdc-checkbox-selected-focus-state-layer-color: #{$fg-primary};
+    --mdc-checkbox-selected-hover-icon-color: #{$fg-primary};
+    --mdc-checkbox-selected-hover-state-layer-color: #{$fg-primary};
+    --mdc-checkbox-selected-icon-color: #{$fg-primary};
+    --mdc-checkbox-selected-pressed-icon-color: #{$fg-primary};
+    --mdc-checkbox-unselected-pressed-state-layer-color: #{$fg-primary};
+  }
+}
 
 a {
-  color: get-color-from-palette($primary-palette, darker);
+  color: map-get($primary-palette, 70);
 
   &.secondary:not(.active):not(:hover) {
-    color: map-get($grey-palette, 500);
+    color: map-get($grey-palette, 50);
   }
 
   &:hover {
-    color: get-color-from-palette($primary-palette, default);
+    color: $fg-primary;
   }
 }
 
 hr,
 vr {
-  border-color: map-get(map-get($theme, foreground), divider);
+  border-color: var(--mat-divider-color);
 }
 
 mat-card,
 .mat-snack-bar-container {
-  @each $status in success, info, warning, error {
+  @each $status,
+    $palette
+      in (
+        success: mat.$green-palette,
+        info: mat.$blue-palette,
+        warning: mat.$orange-palette,
+        error: mat.$red-palette
+      )
+  {
     &.#{$status} {
-      background: map-get(map-get($theme, $status), background);
-      color: map-get(map-get($theme, $status), foreground);
+      background-color: map-get($palette, 60);
+      color: white;
     }
   }
 }
@@ -92,29 +126,29 @@ mat-toolbar {
   .section-links {
     a {
       border-top-color: transparent;
+      font-weight: bold;
 
       &.active {
-        border-bottom-color: get-color-from-palette($primary-palette, default);
+        border-bottom-color: $fg-primary;
 
         &,
         &:hover {
-          color: get-color-from-palette($primary-palette, default);
+          color: $fg-primary;
         }
       }
 
       &:not(.active) {
         &:not(:hover) {
-          color: map-get($grey-palette, 550);
+          color: map-get($grey-palette, 40);
         }
       }
     }
   }
 }
 
-/* fix accessibility warning on invalid inputs */
 .mat-form-field.mat-form-field-invalid {
   .mat-form-field-flex {
-    background: map-get($red-palette, 700);
+    background: map-get($warn-palette, 70);
 
     .mat-form-field-label {
       color: inherit;
@@ -131,7 +165,7 @@ mat-toolbar {
   &,
   &::before,
   &::after {
-    border-color: map-get($theme, border);
+    border-color: var(--mat-divider-color);
   }
 }
 
@@ -139,27 +173,13 @@ mat-card {
   &.composite {
     .composite-header {
       .header:not(.tab) {
-        border-color: map-get(map-get($theme, foreground), divider);
-      }
-
-      .tab-group {
-        .header:not(.tab) {
-          background-color: rgba(black, 0.06);
-        }
-
-        .tab {
-          border-color: map-get(map-get($theme, foreground), divider);
-
-          &.active {
-            background-color: map-get(map-get($theme, background), card);
-          }
-        }
+        border-color: var(--mat-divider-color);
       }
     }
 
     .composite-footer {
       .footer:not(.tab) {
-        border-color: map-get(map-get($theme, foreground), divider);
+        border-color: var(--mat-divider-color);
       }
     }
   }
@@ -168,44 +188,36 @@ mat-card {
 .mat-form-field.mat-form-field-hide-placeholder {
   .mat-form-field-infix {
     .mat-input-element::placeholder {
-      $color: map-get(map-get($theme, foreground), divider);
+      $color: var(--mat-divider-color);
       color: $color;
       -webkit-text-fill-color: $color;
     }
   }
 }
 
-/* ng16 */
 html {
   .mat-mdc-raised-button {
     @mixin apply-button-theme($background) {
       background: $background;
-      color: darken($background, 50%);
+      color: darken($background, 67%);
     }
 
     &.mat-unthemed {
-      @include apply-button-theme(map-get($gray-palette, 600));
+      @include apply-button-theme(map-get($grey-palette, 50));
     }
     &.mat-primary {
-      @include apply-button-theme(map-get($orange-palette, 400));
+      @include apply-button-theme(map-get($primary-palette, 60));
     }
     &.mat-accent {
-      @include apply-button-theme(map-get($orange-palette, 400));
+      @include apply-button-theme(map-get($accent-palette, 60));
     }
     &.mat-warn {
-      @include apply-button-theme(map-get($red-palette, 400));
+      @include apply-button-theme(map-get($warn-palette, 60));
     }
   }
 
-  .mat-mdc-chip {
-    background-color: map-get(map-get($theme, background), unselected-chip);
-    color: map-get(map-get($theme, foreground), text);
-  }
-
-  .mat-mdc-tooltip {
-    --mdc-plain-tooltip-container-color: #{rgba(
-        map-get(map-get($theme, background), background),
-        90%
-      )};
+  mt-chip {
+    background-color: map-get($grey-palette, 40);
+    color: $fg-gray;
   }
 }
