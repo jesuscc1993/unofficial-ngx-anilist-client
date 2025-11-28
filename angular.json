@@ -39,10 +39,7 @@
           },
           "defaultConfiguration": "",
           "options": {
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "buildOptimizer": false,
             "extractLicenses": false,
             "index": "src/index.html",
@@ -54,9 +51,7 @@
             "scripts": [],
             "sourceMap": true,
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/app/styles"
-              ]
+              "includePaths": ["src/app/styles"]
             },
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
@@ -71,10 +66,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "serve": {
@@ -98,6 +90,32 @@
         }
       },
       "sourceRoot": "src"
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:service": {
+      "type": "service"
     }
   },
   "version": 1

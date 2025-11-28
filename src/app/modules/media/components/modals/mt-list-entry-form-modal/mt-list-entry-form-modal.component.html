@@ -26,16 +26,15 @@
           <mat-label>{{ 'media.status' | translate }}</mat-label>
 
           <mat-select formControlName="status">
-            <mat-option
-              *ngFor="let status of listEntryStatuses"
-              [value]="status"
-            >
-              {{
-                (isAnime(media.type) ? 'anime' : 'manga') +
-                  '.statusValues.' +
-                  status | translate
-              }}
-            </mat-option>
+            @for (status of listEntryStatuses; track status) {
+              <mat-option [value]="status">
+                {{
+                  (isAnime(media.type) ? 'anime' : 'manga') +
+                    '.statusValues.' +
+                    status | translate
+                }}
+              </mat-option>
+            }
           </mat-select>
         </mat-form-field>
       </div>

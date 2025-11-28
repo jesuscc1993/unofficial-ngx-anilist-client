@@ -15,18 +15,19 @@
         [onChange]="setSelectedScore"
       ></mt-header-picker>
 
-      <mt-header-picker
-        *ngIf="isAnime(mediaType)"
-        iconName="film"
-        placeholder="{{ 'media.formatValues.undefined' | translate }}"
-        [matTooltip]="'media.format' | translate"
-        [multiple]="true"
-        [options]="mediaFormats"
-        [truncate]="true"
-        [value]="selectedFormats"
-        [getOptionLiteral]="getFormatLiteral"
-        [onChange]="setSelectedFormats"
-      ></mt-header-picker>
+      @if (isAnime(mediaType)) {
+        <mt-header-picker
+          iconName="film"
+          placeholder="{{ 'media.formatValues.undefined' | translate }}"
+          [matTooltip]="'media.format' | translate"
+          [multiple]="true"
+          [options]="mediaFormats"
+          [truncate]="true"
+          [value]="selectedFormats"
+          [getOptionLiteral]="getFormatLiteral"
+          [onChange]="setSelectedFormats"
+        ></mt-header-picker>
+      }
 
       <mt-header-picker
         iconName="sort"
@@ -41,53 +42,57 @@
 
   <div class="content no-padding-bottom">
     <div #content>
-      <div
-        *ngIf="searching || !started"
-        class="placeholder"
-        [ngClass]="{ 'with-pagination': pagination }"
-      >
-        <mat-spinner *ngIf="searching" mode="indeterminate"></mat-spinner>
+      @if (searching || !started) {
+        <div class="placeholder" [ngClass]="{ 'with-pagination': pagination }">
+          @if (searching) {
+            <mat-spinner mode="indeterminate"></mat-spinner>
+          }
+          @if (!started) {
+            <button
+              mat-raised-button
+              type="button"
+              color="accent"
+              (click)="enable()"
+            >
+              <fa-icon name="search baseline"></fa-icon>
+              <span>{{ 'media.search.submit' | translate }}</span>
+            </button>
+          }
+        </div>
+      }
 
-        <button
-          *ngIf="!started"
-          mat-raised-button
-          type="button"
-          color="accent"
-          (click)="enable()"
-        >
-          <fa-icon name="search baseline"></fa-icon>
-          <span>{{ 'media.search.submit' | translate }}</span>
-        </button>
-      </div>
+      @if (!searching && started && mediaList?.length) {
+        <div class="media-cover-grid">
+          @for (media of mediaList; track media) {
+            <mt-media-cover [media]="media"></mt-media-cover>
+          }
+        </div>
+      }
 
-      <div
-        *ngIf="!searching && started && mediaList?.length"
-        class="media-cover-grid"
-      >
-        <mt-media-cover
-          *ngFor="let media of mediaList"
-          [media]="media"
-        ></mt-media-cover>
-      </div>
+      @if (mediaList?.length) {
+        <div class="padding-vertical-3xs">
+          <mt-pagination
+            class="basic"
+            [hidePageSize]="true"
+            [lazy]="true"
+            [pagination]="pagination"
+            (changePage)="changePage($event)"
+          >
+          </mt-pagination>
+        </div>
+      }
 
-      <div *ngIf="mediaList?.length" class="padding-vertical-3xs">
-        <mt-pagination
-          class="basic"
-          [hidePageSize]="true"
-          [lazy]="true"
-          [pagination]="pagination"
-          (changePage)="changePage($event)"
-        >
-        </mt-pagination>
-      </div>
+      @if (pagination && !pagination.total) {
+        <mt-alert type="info">
+          {{ 'generic.noResults' | translate }}
+        </mt-alert>
+      }
 
-      <mt-alert *ngIf="pagination && !pagination.total" type="info">
-        {{ 'generic.noResults' | translate }}
-      </mt-alert>
-
-      <mt-alert *ngIf="started && error" type="error">
-        {{ error }}
-      </mt-alert>
+      @if (started && error) {
+        <mt-alert type="error">
+          {{ error }}
+        </mt-alert>
+      }
     </div>
   </div>
 </mat-card>

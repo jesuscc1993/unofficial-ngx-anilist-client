@@ -1,6 +1,5 @@
-<sup
-  *ngIf="media?.countryOfOrigin && media.countryOfOrigin !== 'JP'"
-  [matTooltip]="'media.countryOfOrigin' | translate"
->
-  {{ media.countryOfOrigin }}
-</sup>
+@if (media?.countryOfOrigin && media.countryOfOrigin !== 'JP') {
+  <sup [matTooltip]="'media.countryOfOrigin' | translate">
+    {{ media.countryOfOrigin }}
+  </sup>
+}

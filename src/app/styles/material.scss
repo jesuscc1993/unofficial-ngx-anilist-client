@@ -1,10 +1,10 @@
 @import 'variables';
 
 body {
-  --mdc-dialog-container-shape: 8px;
+  --mat-dialog-container-shape: 8px;
 
   mat-card {
-    --mdc-elevated-card-container-shape: 8px;
+    --mat-card-elevated-container-shape: 8px;
   }
 }
 
@@ -39,6 +39,7 @@ mat-form-field {
 mat-expansion-panel {
   mat-expansion-panel-header {
     padding: 0 $spacing-2xs;
+    transition: $transition-duration;
   }
 
   .mat-expansion-panel-body {
@@ -104,8 +105,11 @@ button {
   overflow-y: auto;
 }
 
-/* ng16 */
 html {
+  &.cdk-global-scrollblock {
+    overflow-y: auto;
+  }
+
   mat-list.no-padding mat-list-item {
     padding-left: 0;
     padding-right: 0;
@@ -137,7 +141,7 @@ html {
   }
 
   .mat-mdc-icon-button.mat-mdc-button-base {
-    --mdc-icon-button-icon-size: #{$spacing-2xl};
+    --mat-icon-button-icon-size: #{$spacing-2xl};
     align-items: center;
     display: inline-flex;
     justify-content: center;

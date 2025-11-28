@@ -1,21 +1,22 @@
 <div class="container" [ngClass]="{ 'list-mode': listMode }">
-  <button
-    *ngIf="listMode"
-    class="menu-toggle list-only"
-    mat-icon-button
-    matTooltipPosition="left"
-    [matTooltip]="
-      (isUpdateAvailable()
-        ? 'media.userList.updateEntry'
-        : 'media.userList.addToList'
-      ) | translate
-    "
-    (click)="$event.stopPropagation(); openEditionModal()"
-  >
-    <div>
-      <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
-    </div>
-  </button>
+  @if (listMode) {
+    <button
+      class="menu-toggle list-only"
+      mat-icon-button
+      matTooltipPosition="left"
+      [matTooltip]="
+        (isUpdateAvailable()
+          ? 'media.userList.updateEntry'
+          : 'media.userList.addToList'
+        ) | translate
+      "
+      (click)="$event.stopPropagation(); openEditionModal()"
+    >
+      <div>
+        <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
+      </div>
+    </button>
+  }
 
   <button
     class="menu-toggle"
@@ -30,43 +31,45 @@
     </div>
   </button>
 
-  <button
-    *ngIf="listMode"
-    class="menu-toggle list-only"
-    mat-icon-button
-    matTooltipPosition="left"
-    [matTooltip]="'media.viewOnAniList' | translate"
-    (click)="$event.stopPropagation(); openOnAniList()"
-  >
-    <div>
-      <fa-icon name="external-link-alt"></fa-icon>
-    </div>
-  </button>
+  @if (listMode) {
+    <button
+      class="menu-toggle list-only"
+      mat-icon-button
+      matTooltipPosition="left"
+      [matTooltip]="'media.viewOnAniList' | translate"
+      (click)="$event.stopPropagation(); openOnAniList()"
+    >
+      <div>
+        <fa-icon name="external-link-alt"></fa-icon>
+      </div>
+    </button>
+  }
 </div>
 
 <mat-menu #entryMenu="matMenu">
-  <div *ngIf="editEnabled">
-    <mt-menu-action
-      disabled="{{ !user }}"
-      icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
-      (onPress)="openEditionModal()"
-    >
-      {{
-        (isUpdateAvailable()
-          ? 'media.userList.updateEntry'
-          : 'media.userList.addToList'
-        ) | translate
-      }}
-    </mt-menu-action>
-
-    <mt-menu-action
-      icon="clock"
-      disabled="{{ !user }}"
-      (onPress)="setAsPlanning()"
-    >
-      {{ 'media.userList.setAsPlanning' | translate }}
-    </mt-menu-action>
-  </div>
+  @if (editEnabled) {
+    <div>
+      <mt-menu-action
+        disabled="{{ !user }}"
+        icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
+        (onPress)="openEditionModal()"
+      >
+        {{
+          (isUpdateAvailable()
+            ? 'media.userList.updateEntry'
+            : 'media.userList.addToList'
+          ) | translate
+        }}
+      </mt-menu-action>
+      <mt-menu-action
+        icon="clock"
+        disabled="{{ !user }}"
+        (onPress)="setAsPlanning()"
+      >
+        {{ 'media.userList.setAsPlanning' | translate }}
+      </mt-menu-action>
+    </div>
+  }
 
   <div>
     <mt-menu-action
@@ -78,29 +81,35 @@
     </mt-menu-action>
   </div>
 
-  <div *ngIf="listEntry">
-    <mt-menu-action
-      disabled="{{ !user }}"
-      icon="trash"
-      (onPress)="deleteEntry()"
-    >
-      {{ 'media.userList.deleteFromList' | translate }}
-    </mt-menu-action>
-  </div>
+  @if (listEntry) {
+    <div>
+      <mt-menu-action
+        disabled="{{ !user }}"
+        icon="trash"
+        (onPress)="deleteEntry()"
+      >
+        {{ 'media.userList.deleteFromList' | translate }}
+      </mt-menu-action>
+    </div>
+  }
 
   <mat-divider></mat-divider>
 
-  <div *ngIf="additionalInfoEnabled">
-    <mt-menu-action (onPress)="openDetailModal()" icon="id-card">
-      {{ 'media.additionalInfo' | translate }}
-    </mt-menu-action>
-  </div>
+  @if (additionalInfoEnabled) {
+    <div>
+      <mt-menu-action (onPress)="openDetailModal()" icon="id-card">
+        {{ 'media.additionalInfo' | translate }}
+      </mt-menu-action>
+    </div>
+  }
 
-  <div *ngIf="fullDetailEnabled">
-    <mt-menu-action (onPress)="openFullDetail()" icon="id-card">
-      {{ 'media.fullDetail' | translate }}
-    </mt-menu-action>
-  </div>
+  @if (fullDetailEnabled) {
+    <div>
+      <mt-menu-action (onPress)="openFullDetail()" icon="id-card">
+        {{ 'media.fullDetail' | translate }}
+      </mt-menu-action>
+    </div>
+  }
 
   <mt-menu-action (onPress)="openOnAniList()" icon="external-link-alt">
     {{ 'media.viewOnAniList' | translate }}

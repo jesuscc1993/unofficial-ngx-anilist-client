@@ -2,19 +2,18 @@
   {{ 'media.userList.genresOverview' | translate }}
 </h2>
 
-<mat-grid-list
-  *ngIf="genreStatsList?.length | sort : 'amount'"
-  role="list"
-  rowHeight="32px"
-  [cols]="getColumnCount()"
->
-  <mat-grid-tile
-    *ngFor="let genreStats of genreStatsList"
-    [matTooltip]="
-      genreStats.amount + ' ' + ('media.userList.entries' | translate)
-    "
-    matTooltipPosition="above"
-    role="listitem"
-    >{{ genreStats.genre }} ({{ genreStats.percentage }}%)</mat-grid-tile
-  >
-</mat-grid-list>
+@if (genreStatsList?.length | sort: 'amount') {
+  <mat-grid-list role="list" rowHeight="32px" [cols]="getColumnCount()">
+    @for (genreStats of genreStatsList; track genreStats) {
+      <mat-grid-tile
+        [matTooltip]="
+          genreStats.amount + ' ' + ('media.userList.entries' | translate)
+        "
+        matTooltipPosition="above"
+        role="listitem"
+      >
+        {{ genreStats.genre }} ({{ genreStats.percentage }}%)
+      </mat-grid-tile>
+    }
+  </mat-grid-list>
+}

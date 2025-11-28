@@ -1,17 +1,18 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
     <div class="flex-box center">
-      <mt-media-actions
-        *ngIf="media"
-        [editEnabled]="origin !== 'edit'"
-        [listMode]="false"
-        [media]="media"
-        [origin]="origin"
-        [additionalInfoEnabled]="false"
-        (onListEntryChanges)="onListEntryChanges($event)"
-        class="left-action inline-block margin-right-2xs"
-      >
-      </mt-media-actions>
+      @if (media) {
+        <mt-media-actions
+          [editEnabled]="origin !== 'edit'"
+          [listMode]="false"
+          [media]="media"
+          [origin]="origin"
+          [additionalInfoEnabled]="false"
+          (onListEntryChanges)="onListEntryChanges($event)"
+          class="left-action inline-block margin-right-2xs"
+        >
+        </mt-media-actions>
+      }
 
       <span class="text-ellipsis" [matTooltip]="getMediaTitle(media)">
         {{ getMediaTitle(media) }}
@@ -20,35 +21,34 @@
   </mt-modal-header>
 
   <mt-modal-content>
-    <mt-media-info
-      *ngIf="media"
-      [fullDetail]="false"
-      [media]="media"
-      [showAsColumns]="true"
-    >
-    </mt-media-info>
+    @if (media) {
+      <mt-media-info
+        [fullDetail]="false"
+        [media]="media"
+        [showAsColumns]="true"
+      >
+      </mt-media-info>
+    }
   </mt-modal-content>
 
   <mt-modal-footer>
     <div class="buttons-container">
-      <!-- <button mat-raised-button type="button" (click)="navigateToDetail()">
-          <fa-icon name="newspaper"></fa-icon>
-          <span>{{ 'media.goToDetail' | translate }}</span>
-        </button> -->
-
-      <div *ngIf="media.mediaListEntry && origin !== 'edit'">
-        <button mat-raised-button type="button" (click)="openEditionModal()">
-          <fa-icon name="pen"></fa-icon>
-          <span>{{ 'media.userList.updateEntry' | translate }}</span>
-        </button>
-      </div>
-
-      <div *ngIf="!media.mediaListEntry">
-        <button mat-raised-button type="button" (click)="setAsPlanning()">
-          <fa-icon name="clock"></fa-icon>
-          <span>{{ 'media.userList.setAsPlanning' | translate }}</span>
-        </button>
-      </div>
+      @if (media.mediaListEntry && origin !== 'edit') {
+        <div>
+          <button mat-raised-button type="button" (click)="openEditionModal()">
+            <fa-icon name="pen"></fa-icon>
+            <span>{{ 'media.userList.updateEntry' | translate }}</span>
+          </button>
+        </div>
+      }
+      @if (!media.mediaListEntry) {
+        <div>
+          <button mat-raised-button type="button" (click)="setAsPlanning()">
+            <fa-icon name="clock"></fa-icon>
+            <span>{{ 'media.userList.setAsPlanning' | translate }}</span>
+          </button>
+        </div>
+      }
     </div>
   </mt-modal-footer>
 </mt-modal>

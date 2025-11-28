@@ -1,29 +1,32 @@
 <div class="columns-wrapper">
-  <section
-    class="column left-column"
-    *ngIf="showLeftColumn"
-    [ngClass]="{ 'full-column': !showCenterColumn && !showRightColumn }"
-  >
-    <mt-recently-updated-list-entries
-      [mediaType]="mediaType"
-    ></mt-recently-updated-list-entries>
-  </section>
+  @if (showLeftColumn) {
+    <section
+      class="column left-column"
+      [ngClass]="{ 'full-column': !showCenterColumn && !showRightColumn }"
+    >
+      <mt-recently-updated-list-entries
+        [mediaType]="mediaType"
+      ></mt-recently-updated-list-entries>
+    </section>
+  }
 
-  <section
-    class="column center-column"
-    *ngIf="showCenterColumn"
-    [ngClass]="{ 'full-column': !showLeftColumn && !showRightColumn }"
-  >
-    <mt-list-related-media [mediaType]="mediaType"></mt-list-related-media>
-  </section>
+  @if (showCenterColumn) {
+    <section
+      class="column center-column"
+      [ngClass]="{ 'full-column': !showLeftColumn && !showRightColumn }"
+    >
+      <mt-list-related-media [mediaType]="mediaType"></mt-list-related-media>
+    </section>
+  }
 
-  <section
-    class="column right-column"
-    *ngIf="showRightColumn"
-    [ngClass]="{ 'full-column': !showLeftColumn && !showCenterColumn }"
-  >
-    <mt-recently-finished-media
-      [mediaType]="mediaType"
-    ></mt-recently-finished-media>
-  </section>
+  @if (showRightColumn) {
+    <section
+      class="column right-column"
+      [ngClass]="{ 'full-column': !showLeftColumn && !showCenterColumn }"
+    >
+      <mt-recently-finished-media
+        [mediaType]="mediaType"
+      ></mt-recently-finished-media>
+    </section>
+  }
 </div>

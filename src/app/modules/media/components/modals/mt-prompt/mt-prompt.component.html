@@ -1,37 +1,44 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
-    <div *ngIf="data.title" [matTooltip]="title" class="text-ellipsis">
-      {{ data.title }}
-    </div>
+    @if (data.title) {
+      <div [matTooltip]="title" class="text-ellipsis">
+        {{ data.title }}
+      </div>
+    }
   </mt-modal-header>
 
-  <mt-modal-content *ngIf="data.content">
-    <div>{{ data.content }}</div>
-  </mt-modal-content>
+  @if (data.content) {
+    <mt-modal-content>
+      <div>{{ data.content }}</div>
+    </mt-modal-content>
+  }
 
   <mt-modal-footer>
     <div class="buttons-container">
-      <div *ngIf="data.hasConfirm">
-        <button
-          mat-raised-button
-          type="button"
-          color="{{ data.confirmColor || (data.hasCancel ? '' : 'primary') }}"
-          (click)="confirm()"
-        >
-          <span>{{ data.confirmLiteral || 'generic.yes' | translate }}</span>
-        </button>
-      </div>
-
-      <div *ngIf="data.hasCancel">
-        <button
-          mat-raised-button
-          type="button"
-          color="{{ data.cancelColor || 'primary' }}"
-          (click)="cancel()"
-        >
-          <span>{{ data.cancelLiteral || 'generic.no' | translate }}</span>
-        </button>
-      </div>
+      @if (data.hasConfirm) {
+        <div>
+          <button
+            mat-raised-button
+            type="button"
+            color="{{ data.confirmColor || (data.hasCancel ? '' : 'primary') }}"
+            (click)="confirm()"
+          >
+            <span>{{ data.confirmLiteral || 'generic.yes' | translate }}</span>
+          </button>
+        </div>
+      }
+      @if (data.hasCancel) {
+        <div>
+          <button
+            mat-raised-button
+            type="button"
+            color="{{ data.cancelColor || 'primary' }}"
+            (click)="cancel()"
+          >
+            <span>{{ data.cancelLiteral || 'generic.no' | translate }}</span>
+          </button>
+        </div>
+      }
     </div>
   </mt-modal-footer>
 </mt-modal>

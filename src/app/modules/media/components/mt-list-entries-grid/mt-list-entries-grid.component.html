@@ -1,29 +1,34 @@
 <div #content>
-  <div *ngIf="listEntries?.length" [class]="wrapperClass">
-    <div class="media-cover-grid">
-      <mt-media-cover
-        *ngFor="
-          let listEntry of listEntries
+  @if (listEntries?.length) {
+    <div [class]="wrapperClass">
+      <div class="media-cover-grid">
+        @for (
+          listEntry of listEntries
             | slice
               : pagination.pageIndex * pagination.pageSize
-              : pagination.pageIndex * pagination.pageSize + pagination.pageSize
-        "
-        [listEntry]="listEntry"
-        [showStatusBadge]="showStatusBadge"
-      ></mt-media-cover>
+              : pagination.pageIndex * pagination.pageSize +
+                  pagination.pageSize;
+          track listEntry
+        ) {
+          <mt-media-cover
+            [listEntry]="listEntry"
+            [showStatusBadge]="showStatusBadge"
+          ></mt-media-cover>
+        }
+      </div>
+      <div class="padding-vertical-3xs">
+        @if (pagination) {
+          <mat-paginator
+            [showFirstLastButtons]="true"
+            [length]="pagination.length"
+            [pageSize]="pagination.pageSize"
+            [hidePageSize]="true"
+            (page)="changePage($event)"
+            class="basic"
+          >
+          </mat-paginator>
+        }
+      </div>
     </div>
-
-    <div class="padding-vertical-3xs">
-      <mat-paginator
-        *ngIf="pagination"
-        [showFirstLastButtons]="true"
-        [length]="pagination.length"
-        [pageSize]="pagination.pageSize"
-        [hidePageSize]="true"
-        (page)="changePage($event)"
-        class="basic"
-      >
-      </mat-paginator>
-    </div>
-  </div>
+  }
 </div>

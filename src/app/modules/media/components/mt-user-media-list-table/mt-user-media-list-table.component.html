@@ -41,9 +41,11 @@
       <mat-cell *matCellDef="let entry" class="justify-start">
         <span class="text">
           <span>{{ getMediaTitle(entry.media) }}</span>
-          <span *ngIf="favouriteIDs?.includes(entry.media.id)">
-            {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
-          </span>
+          @if (favouriteIDs?.includes(entry.media.id)) {
+            <span>
+              {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
+            </span>
+          }
         </span>
       </mat-cell>
     </ng-container>
@@ -76,12 +78,11 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
         <mat-list role="list" class="no-padding">
-          <mat-list-item
-            *ngFor="let genre of entry.media.genres"
-            role="listitem"
-          >
-            <mt-chip class="rounded">{{ genre }}</mt-chip>
-          </mat-list-item>
+          @for (genre of entry.media.genres; track genre) {
+            <mat-list-item role="listitem">
+              <mt-chip class="rounded">{{ genre }}</mt-chip>
+            </mat-list-item>
+          }
         </mat-list>
       </mat-cell>
     </ng-container>

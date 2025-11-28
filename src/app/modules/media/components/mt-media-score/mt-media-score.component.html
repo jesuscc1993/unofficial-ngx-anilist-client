@@ -1,4 +1,4 @@
-<ng-container *ngIf="listEntry?.scoreRaw">
+@if (listEntry?.scoreRaw) {
   <span
     class="own"
     [matTooltip]="'media.userScore' | translate"
@@ -7,25 +7,31 @@
     {{ listEntry.scoreRaw / 10 }}
   </span>
   <span> | </span>
-</ng-container>
+}
 
-<span *ngIf="!media.averageScore && !media.meanScore" class="unknown"> ? </span>
+@if (!media.averageScore && !media.meanScore) {
+  <span class="unknown"> ? </span>
+}
 
-<span
-  *ngIf="media.averageScore"
-  [matTooltip]="'media.averageScore' | translate"
-  matTooltipPosition="above"
->
-  {{ media.averageScore / 10 }}
-</span>
-
-<ng-container *ngIf="media.averageScore !== media.meanScore">
-  <span *ngIf="media.averageScore && media.meanScore"> | </span>
+@if (media.averageScore) {
   <span
-    *ngIf="media.meanScore"
-    [matTooltip]="'media.meanScore' | translate"
+    [matTooltip]="'media.averageScore' | translate"
     matTooltipPosition="above"
   >
-    {{ media.meanScore / 10 }}
+    {{ media.averageScore / 10 }}
   </span>
-</ng-container>
+}
+
+@if (media.averageScore !== media.meanScore) {
+  @if (media.averageScore && media.meanScore) {
+    <span> | </span>
+  }
+  @if (media.meanScore) {
+    <span
+      [matTooltip]="'media.meanScore' | translate"
+      matTooltipPosition="above"
+    >
+      {{ media.meanScore / 10 }}
+    </span>
+  }
+}

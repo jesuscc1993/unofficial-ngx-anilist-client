@@ -4,82 +4,85 @@
   </div>
 
   <nav class="centered-content section-links">
-    <div
-      *ngFor="let route of routes"
-      class="border-box"
-      role="list"
-      [ngClass]="{
-        'padding-vertical-xs': !route,
-        'padding-horizontal-2xs': !route
-      }"
-    >
-      <a
-        *ngIf="route && route?.enabled !== false"
-        class="secondary"
-        role="listitem"
-        [routerLink]="route.path"
-        [class.active]="onPage(route.path)"
+    @for (route of routes; track route) {
+      <div
+        class="border-box"
+        role="list"
+        [ngClass]="{
+          'padding-vertical-xs': !route,
+          'padding-horizontal-2xs': !route,
+        }"
       >
-        <span class="icons-container">
-          <fa-icon
-            *ngIf="route.icon"
-            [name]="route.icon"
-            class="section-icon"
-          ></fa-icon>
-
-          <fa-icon
-            *ngIf="route.iconb"
-            [name]="route.iconb"
-            class="section-icon"
-          ></fa-icon>
-        </span>
-        <small>{{ route.literal | translate }}</small>
-      </a>
-
-      <vr *ngIf="!route"></vr>
-    </div>
+        @if (route && route?.enabled !== false) {
+          <a
+            class="secondary"
+            role="listitem"
+            [routerLink]="route.path"
+            [class.active]="onPage(route.path)"
+          >
+            <span class="icons-container">
+              @if (route.icon) {
+                <fa-icon [name]="route.icon" class="section-icon"></fa-icon>
+              }
+              @if (route.iconb) {
+                <fa-icon [name]="route.iconb" class="section-icon"></fa-icon>
+              }
+            </span>
+            <small>{{ route.literal | translate }}</small>
+          </a>
+        }
+        @if (!route) {
+          <vr></vr>
+        }
+      </div>
+    }
   </nav>
 
   <!-- logged in -->
-  <div *ngIf="user" class="flex-box center">
-    <span
-      class="padding-right-xs clickable hide-below-sm"
-      [matMenuTriggerFor]="userMenu"
-      >{{ user.name }}</span
-    >
-    <img
-      alt="User avatar"
-      class="avatar clickable hide-below-sm"
-      [matMenuTriggerFor]="userMenu"
-      [src]="user.avatar.large"
-    />
-
-    <a
-      class="clickable show-below-sm"
-      [matMenuTriggerFor]="userMenu"
-      [matTooltip]="'media.menu' | translate"
-    >
-      <fa-icon name="bars"></fa-icon>
-    </a>
-
-    <mat-menu #userMenu="matMenu">
-      <mt-menu-action
-        icon="external-link-alt"
-        (onPress)="openAnilistProfile()"
-        >{{ 'user.viewProfile' | translate }}</mt-menu-action
+  @if (user) {
+    <div class="flex-box center">
+      <span
+        class="padding-right-xs clickable hide-below-sm"
+        [matMenuTriggerFor]="userMenu"
+        >{{ user.name }}</span
       >
-
-      <mt-menu-action (onPress)="logOut()" icon="door-open">
-        {{ 'user.logOut' | translate }}
-      </mt-menu-action>
-    </mat-menu>
-  </div>
+      <img
+        alt="User avatar"
+        class="avatar clickable hide-below-sm"
+        [matMenuTriggerFor]="userMenu"
+        [src]="user.avatar.large"
+      />
+      <a
+        class="clickable show-below-sm"
+        [matMenuTriggerFor]="userMenu"
+        [matTooltip]="'media.menu' | translate"
+      >
+        <fa-icon name="bars"></fa-icon>
+      </a>
+      <mat-menu #userMenu="matMenu">
+        <mt-menu-action
+          icon="external-link-alt"
+          (onPress)="openAnilistProfile()"
+          >{{ 'user.viewProfile' | translate }}</mt-menu-action
+        >
+        <mt-menu-action (onPress)="logOut()" icon="door-open">
+          {{ 'user.logOut' | translate }}
+        </mt-menu-action>
+      </mat-menu>
+    </div>
+  }
 
   <!-- not logged in -->
-  <div *ngIf="!user" class="flex-box center">
-    <a *ngIf="loginAvailable" [href]="apiLoginUrl">
-      <span class="hide-below-sm">{{ 'user.logIn' | translate }}{{ ' ' }}</span>
-      <fa-icon name="sign-in-alt"></fa-icon>
-    </a>
-  </div>
+  @if (!user) {
+    <div class="flex-box center">
+      @if (loginAvailable) {
+        <a [href]="apiLoginUrl">
+          <span class="hide-below-sm"
+            >{{ 'user.logIn' | translate }}{{ ' ' }}</span
+          >
+          <fa-icon name="sign-in-alt"></fa-icon>
+        </a>
+      }
+    </div>
+  }
 </mat-toolbar>

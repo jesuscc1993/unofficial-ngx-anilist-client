@@ -1,101 +1,97 @@
 <section>
-  <mat-spinner
-    *ngIf="user && !ready"
-    class="full-page"
-    mode="indeterminate"
-  ></mat-spinner>
+  @if (user && !ready) {
+    <mat-spinner class="full-page" mode="indeterminate"></mat-spinner>
+  }
 
-  <div *ngIf="ready">
-    <div *ngIf="statuses?.length">
-      <section>
-        <mat-form-field class="no-subscript full-width">
-          <mat-label>
-            {{ 'media.search.filters.byTitle' | translate }}
-          </mat-label>
-          <input matInput (keyup)="applyFilter($event.target.value)" />
-        </mat-form-field>
-      </section>
-
-      <section>
-        <mat-card class="margin-top-sm">
-          <mat-card-content class="padding-bottom-2xs">
-            <p class="text-115 bold no-margin-top">
-              {{ 'media.userList.show' | translate }} /
-              {{ 'media.userList.goTo' | translate }}
-            </p>
-
-            <div role="list" class="statuses-wrapper">
-              <span
-                role="listitem"
-                *ngFor="let status of statuses"
-                class="status-wrapper"
-              >
-                <ng-container *ngIf="hasDataOfStatus(status.value)">
-                  <mat-checkbox [(ngModel)]="status.shown">
-                    {{ 'manga.statusValues.' + status.value | translate }}
-                  </mat-checkbox>
-
-                  <a
-                    class="margin-left-3xs"
-                    (click)="scrollToStatus(status.value)"
+  @if (ready) {
+    <div>
+      @if (statuses?.length) {
+        <div>
+          <section>
+            <mat-form-field class="no-subscript full-width">
+              <mat-label>
+                {{ 'media.search.filters.byTitle' | translate }}
+              </mat-label>
+              <input matInput (keyup)="applyFilter($event.target.value)" />
+            </mat-form-field>
+          </section>
+          <section>
+            <mat-card class="margin-top-sm">
+              <mat-card-content class="padding-bottom-2xs">
+                <p class="text-115 bold no-margin-top">
+                  {{ 'media.userList.show' | translate }} /
+                  {{ 'media.userList.goTo' | translate }}
+                </p>
+                <div role="list" class="statuses-wrapper">
+                  @for (status of statuses; track status) {
+                    <span role="listitem" class="status-wrapper">
+                      @if (hasDataOfStatus(status.value)) {
+                        <mat-checkbox [(ngModel)]="status.shown">
+                          {{ 'manga.statusValues.' + status.value | translate }}
+                        </mat-checkbox>
+                        <a
+                          class="margin-left-3xs"
+                          (click)="scrollToStatus(status.value)"
+                        >
+                          <fa-icon name="arrow-down"></fa-icon>
+                        </a>
+                      }
+                    </span>
+                  }
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </section>
+          @for (status of statuses; track status) {
+            <section>
+              @if (status.shown && hasDataOfStatus(status.value)) {
+                <div class="status-table-wrapper" id="{{ status.value }}">
+                  <mt-user-media-list-table
+                    [favouriteIDs]="favouriteIDs"
+                    [filter]="filter"
+                    [tableData]="listEntriesByStatus[status.value]"
+                    [tableStatus]="status.value"
+                    mediaType="MANGA"
                   >
-                    <fa-icon name="arrow-down"></fa-icon>
-                  </a>
-                </ng-container>
-              </span>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </section>
-
-      <section *ngFor="let status of statuses">
-        <div
-          *ngIf="status.shown && hasDataOfStatus(status.value)"
-          class="status-table-wrapper"
-          id="{{ status.value }}"
-        >
-          <mt-user-media-list-table
-            [favouriteIDs]="favouriteIDs"
-            [filter]="filter"
-            [tableData]="listEntriesByStatus[status.value]"
-            [tableStatus]="status.value"
-            mediaType="MANGA"
-          >
-          </mt-user-media-list-table>
+                  </mt-user-media-list-table>
+                </div>
+              }
+            </section>
+          }
+          <section>
+            <h2 class="text-115 bold margin-top-md">
+              {{ 'media.userList.exportList' | translate }}
+            </h2>
+            <button
+              mat-raised-button
+              type="button"
+              color="accent"
+              class="full-width"
+              (click)="exportList($event)"
+            >
+              <fa-icon name="file-download"></fa-icon>
+              <span>{{ 'media.userList.exportList' | translate }}</span>
+            </button>
+          </section>
+          <section>
+            <mt-genres-overview
+              [genreStatsList]="user.stats.favouredGenresOverview"
+            >
+            </mt-genres-overview>
+          </section>
         </div>
-      </section>
-
-      <section>
-        <h2 class="text-115 bold margin-top-md">
-          {{ 'media.userList.exportList' | translate }}
-        </h2>
-
-        <button
-          mat-raised-button
-          type="button"
-          color="accent"
-          class="full-width"
-          (click)="exportList($event)"
-        >
-          <fa-icon name="file-download"></fa-icon>
-          <span>{{ 'media.userList.exportList' | translate }}</span>
-        </button>
-      </section>
-
-      <section>
-        <mt-genres-overview
-          [genreStatsList]="user.stats.favouredGenresOverview"
-        >
-        </mt-genres-overview>
-      </section>
+      }
+      @if (ready && !error && !statuses?.length) {
+        <mt-alert type="info">
+          {{ 'media.userList.noEntries' | translate }}
+        </mt-alert>
+      }
     </div>
+  }
 
-    <mt-alert *ngIf="ready && !error && !statuses?.length" type="info">
-      {{ 'media.userList.noEntries' | translate }}
+  @if (error) {
+    <mt-alert type="error">
+      {{ error }}
     </mt-alert>
-  </div>
-
-  <mt-alert *ngIf="error" type="error">
-    {{ error }}
-  </mt-alert>
+  }
 </section>

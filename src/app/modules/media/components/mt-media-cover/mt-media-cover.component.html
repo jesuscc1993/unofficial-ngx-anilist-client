@@ -1,63 +1,63 @@
-<div *ngIf="media">
-  <div
-    class="cover"
-    [matTooltip]="getMediaTitle(media)"
-    [style.background-image]="
-      'url(' + getSizedCoverImage(media.coverImage) + ')'
-    "
-  >
-    <div class="backdrop">
-      <div class="cover-actions-container">
-        <button
-          *ngIf="listEntry"
-          class="cover-action clickable"
-          mat-icon-button
-          matTooltipPosition="above"
-          [matTooltip]="'media.userList.updateEntry' | translate"
-          (click)="openEditionModal($event)"
-        >
-          <div>
-            <fa-icon name="pen"></fa-icon>
-          </div>
-        </button>
-
-        <button
-          class="cover-action clickable text-150 bold"
-          matTooltipPosition="above"
-          mat-icon-button
-          [matTooltip]="'media.view' | translate"
-          (click)="openDetailModal($event)"
-        >
-          <div>
-            <fa-icon name="id-card"></fa-icon>
-          </div>
-        </button>
-
-        <button
-          *ngIf="listEntry"
-          class="cover-action clickable"
-          mat-icon-button
-          matTooltipPosition="above"
-          [matTooltip]="'media.userList.deleteFromList' | translate"
-          (click)="deleteEntry($event)"
-        >
-          <div>
-            <fa-icon name="trash"></fa-icon>
-          </div>
-        </button>
-      </div>
-
-      <mt-media-score
-        *ngIf="media.status === 'FINISHED'"
-        [listEntry]="listEntry"
-        [media]="media"
-        [tooltipsEnabled]="false"
-      ></mt-media-score>
-    </div>
-
+@if (media) {
+  <div>
     <div
-      *ngIf="listEntry && showStatusBadge"
-      class="status-badge {{ listEntry.status.toLowerCase() }}"
-    ></div>
+      class="cover"
+      [matTooltip]="getMediaTitle(media)"
+      [style.background-image]="
+        'url(' + getSizedCoverImage(media.coverImage) + ')'
+      "
+    >
+      <div class="backdrop">
+        <div class="cover-actions-container">
+          @if (listEntry) {
+            <button
+              class="cover-action clickable"
+              mat-icon-button
+              matTooltipPosition="above"
+              [matTooltip]="'media.userList.updateEntry' | translate"
+              (click)="openEditionModal($event)"
+            >
+              <div>
+                <fa-icon name="pen"></fa-icon>
+              </div>
+            </button>
+          }
+          <button
+            class="cover-action clickable text-150 bold"
+            matTooltipPosition="above"
+            mat-icon-button
+            [matTooltip]="'media.view' | translate"
+            (click)="openDetailModal($event)"
+          >
+            <div>
+              <fa-icon name="id-card"></fa-icon>
+            </div>
+          </button>
+          @if (listEntry) {
+            <button
+              class="cover-action clickable"
+              mat-icon-button
+              matTooltipPosition="above"
+              [matTooltip]="'media.userList.deleteFromList' | translate"
+              (click)="deleteEntry($event)"
+            >
+              <div>
+                <fa-icon name="trash"></fa-icon>
+              </div>
+            </button>
+          }
+        </div>
+        @if (media.status === 'FINISHED') {
+          <mt-media-score
+            [listEntry]="listEntry"
+            [media]="media"
+            [tooltipsEnabled]="false"
+          ></mt-media-score>
+        }
+      </div>
+      @if (listEntry && showStatusBadge) {
+        <div class="status-badge {{ listEntry.status.toLowerCase() }}"></div>
+      }
+    </div>
   </div>
-</div>
+}

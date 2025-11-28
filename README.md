@@ -1,6 +1,6 @@
 # Unofficial AniList Client
 
-AniList management client built in [Angular 19](https://v19.angular.dev/overview) and [Angular Material](https://material.angular.io/).
+AniList management client built in [Angular 20](https://v20.angular.dev/overview) and [Angular Material](https://material.angular.io/).
 
 ## Pages
 

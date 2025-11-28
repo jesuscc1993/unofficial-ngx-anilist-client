@@ -1,201 +1,181 @@
-<div *ngIf="media" [class.general-info-only]="generalInfoOnly">
-  <div [class.row]="showAsColumns">
-    <!-- left column -->
-    <div class="column left">
-      <img
-        [src]="media.coverImage?.large"
-        alt="Cover image for {{ getMediaTitle(media) }}"
-        class="cover"
-      />
-
-      <div *ngIf="media.description?.trim()">
-        <div class="margin-bottom-2xs">
-          <strong>
-            {{ 'media.description' | translate }}
-          </strong>
-        </div>
-
-        <div
-          class="margin-bottom-2xs"
-          [innerHTML]="sanitizeDescription()"
-        ></div>
+@if (media) {
+  <div [class.general-info-only]="generalInfoOnly">
+    <div [class.row]="showAsColumns">
+      <!-- left column -->
+      <div class="column left">
+        <img
+          [src]="media.coverImage?.large"
+          alt="Cover image for {{ getMediaTitle(media) }}"
+          class="cover"
+        />
+        @if (media.description?.trim()) {
+          <div>
+            <div class="margin-bottom-2xs">
+              <strong>
+                {{ 'media.description' | translate }}
+              </strong>
+            </div>
+            <div
+              class="margin-bottom-2xs"
+              [innerHTML]="sanitizeDescription()"
+            ></div>
+          </div>
+        }
+      </div>
+      <!-- right column -->
+      <div class="column right">
+        @if (media.format) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.format' | translate }}</div>
+            <div class="value">
+              {{ 'media.formatValues.' + media.format | translate }}
+              <mt-media-country [media]="media"></mt-media-country>
+            </div>
+          </div>
+        }
+        @if (getMediaProgress(media)) {
+          <div class="property-value-pair flex-box">
+            <div class="property">
+              {{ getMediaTypeProgressLiteral(media.type) | translate }}
+            </div>
+            <div class="value">
+              {{ getMediaProgress(media) }}
+              @if (media.volumes) {
+                <sup [matTooltip]="'media.volumes' | translate">
+                  {{ media.volumes }}
+                </sup>
+              }
+            </div>
+          </div>
+        }
+        @if (media.duration) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.duration' | translate }}</div>
+            <div class="value">
+              {{ getFormattedAnimeDuration(media) }}
+            </div>
+          </div>
+        }
+        @if (media.source && media.source !== 'OTHER') {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.source' | translate }}</div>
+            <div class="value">
+              {{ getSourceLiteral(media.source) | translate }}
+            </div>
+          </div>
+        }
+        @if (media.startDate.year) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.startDate' | translate }}</div>
+            <div class="value">
+              {{ getFormattedFuzzyDate(media.startDate) }}
+            </div>
+          </div>
+        }
+        @if (media.endDate.year) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.endDate' | translate }}</div>
+            <div class="value">
+              {{ getFormattedFuzzyDate(media.endDate) }}
+            </div>
+          </div>
+        }
+        @if (generalInfoOnly && media.format?.length) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.format' | translate }}</div>
+            <div class="value">
+              {{ 'media.formatValues.' + media.format | translate }}
+              <mt-media-country [media]="media"></mt-media-country>
+            </div>
+          </div>
+        }
+        @if (media.status?.length) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.status' | translate }}</div>
+            <div class="value">
+              {{ 'media.statusValues.' + media.status | translate }}
+            </div>
+          </div>
+        }
+        @if (media.studios?.nodes?.length) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.studio' | translate }}</div>
+            <div
+              class="value text-ellipsis"
+              [matTooltip]="media.studios.nodes[0].name"
+            >
+              {{ media.studios.nodes[0].name }}
+            </div>
+          </div>
+        }
+        @if (media.staff?.edges?.length) {
+          <div class="property-value-pair flex-box">
+            <div class="property">{{ 'media.staff' | translate }}</div>
+            <div class="value text-ellipsis">
+              @for (staff of media.staff.edges; track staff) {
+                @if (staffRoles.includes(staff.role)) {
+                  <div [matTooltip]="staff.role">
+                    {{ staff.node.name.full }}
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        }
+        @if (media.averageScore || media.meanScore) {
+          <div class="property-value-pair flex-box">
+            <div
+              class="property"
+              [matTooltip]="'media.scoreTooltip' | translate"
+            >
+              {{ 'media.score' | translate }}
+            </div>
+            <div class="value">
+              <mt-media-score [media]="media"></mt-media-score>
+            </div>
+          </div>
+        }
       </div>
     </div>
-
-    <!-- right column -->
-    <div class="column right">
-      <div *ngIf="media.format" class="property-value-pair flex-box">
-        <div class="property">{{ 'media.format' | translate }}</div>
-
-        <div class="value">
-          {{ 'media.formatValues.' + media.format | translate }}
-
-          <mt-media-country [media]="media"></mt-media-country>
+    <!-- lower columns -->
+    @if (media.genres?.length) {
+      <div class="property-value-pair chips flex-box no-margin-bottom">
+        <div class="property">{{ 'media.genres' | translate }}</div>
+        <div role="list" class="value list wrap-balance">
+          @for (genre of media.genres; track genre) {
+            <mt-chip class="rounded">{{ genre }}</mt-chip>
+          }
         </div>
       </div>
-
-      <div *ngIf="getMediaProgress(media)" class="property-value-pair flex-box">
-        <div class="property">
-          {{ getMediaTypeProgressLiteral(media.type) | translate }}
-        </div>
-
-        <div class="value">
-          {{ getMediaProgress(media) }}
-
-          <sup *ngIf="media.volumes" [matTooltip]="'media.volumes' | translate">
-            {{ media.volumes }}
-          </sup>
+    }
+    @if (media.tags?.length) {
+      <div class="property-value-pair chips flex-box no-margin-bottom">
+        <div class="property">{{ 'media.tags' | translate }}</div>
+        <div role="list" class="value list wrap-balance">
+          @for (tag of media.tags; track tag) {
+            @if (!tag.isMediaSpoiler) {
+              <mt-chip [matTooltip]="tag.description">{{ tag.name }}</mt-chip>
+            }
+          }
         </div>
       </div>
-
-      <div *ngIf="media.duration" class="property-value-pair flex-box">
-        <div class="property">{{ 'media.duration' | translate }}</div>
-
-        <div class="value">
-          {{ getFormattedAnimeDuration(media) }}
+    }
+    @if (media.synonyms?.length) {
+      <div class="property-value-pair chips flex-box no-margin-bottom">
+        <div class="property">{{ 'media.synonyms' | translate }}</div>
+        <div role="list" class="value list wrap-balance">
+          <mt-chip role="listitem">
+            {{ getMediaTitle(media) }}
+          </mt-chip>
+          @for (synonym of media.synonyms; track synonym) {
+            <mt-chip role="listitem">
+              {{ synonym }}
+            </mt-chip>
+          }
         </div>
       </div>
-
-      <div
-        *ngIf="media.source && media.source !== 'OTHER'"
-        class="property-value-pair flex-box"
-      >
-        <div class="property">{{ 'media.source' | translate }}</div>
-
-        <div class="value">
-          {{ getSourceLiteral(media.source) | translate }}
-        </div>
-      </div>
-
-      <div *ngIf="media.startDate.year" class="property-value-pair flex-box">
-        <div class="property">{{ 'media.startDate' | translate }}</div>
-
-        <div class="value">
-          {{ getFormattedFuzzyDate(media.startDate) }}
-        </div>
-      </div>
-
-      <div *ngIf="media.endDate.year" class="property-value-pair flex-box">
-        <div class="property">{{ 'media.endDate' | translate }}</div>
-
-        <div class="value">
-          {{ getFormattedFuzzyDate(media.endDate) }}
-        </div>
-      </div>
-
-      <div
-        *ngIf="generalInfoOnly && media.format?.length"
-        class="property-value-pair flex-box"
-      >
-        <div class="property">{{ 'media.format' | translate }}</div>
-
-        <div class="value">
-          {{ 'media.formatValues.' + media.format | translate }}
-
-          <mt-media-country [media]="media"></mt-media-country>
-        </div>
-      </div>
-
-      <div *ngIf="media.status?.length" class="property-value-pair flex-box">
-        <div class="property">{{ 'media.status' | translate }}</div>
-
-        <div class="value">
-          {{ 'media.statusValues.' + media.status | translate }}
-        </div>
-      </div>
-
-      <div
-        *ngIf="media.studios?.nodes?.length"
-        class="property-value-pair flex-box"
-      >
-        <div class="property">{{ 'media.studio' | translate }}</div>
-
-        <div
-          class="value text-ellipsis"
-          [matTooltip]="media.studios.nodes[0].name"
-        >
-          {{ media.studios.nodes[0].name }}
-        </div>
-      </div>
-
-      <div
-        *ngIf="media.staff?.edges?.length"
-        class="property-value-pair flex-box"
-      >
-        <div class="property">{{ 'media.staff' | translate }}</div>
-
-        <div class="value text-ellipsis">
-          <ng-container *ngFor="let staff of media.staff.edges">
-            <ng-container *ngIf="staffRoles.includes(staff.role)">
-              <div [matTooltip]="staff.role">
-                {{ staff.node.name.full }}
-              </div>
-            </ng-container>
-          </ng-container>
-        </div>
-      </div>
-
-      <div
-        *ngIf="media.averageScore || media.meanScore"
-        class="property-value-pair flex-box"
-      >
-        <div class="property" [matTooltip]="'media.scoreTooltip' | translate">
-          {{ 'media.score' | translate }}
-        </div>
-
-        <div class="value">
-          <mt-media-score [media]="media"></mt-media-score>
-        </div>
-      </div>
-    </div>
+    }
+    <!-- float fix -->
+    <div></div>
   </div>
-
-  <!-- lower columns -->
-  <div
-    *ngIf="media.genres?.length"
-    class="property-value-pair chips flex-box no-margin-bottom"
-  >
-    <div class="property">{{ 'media.genres' | translate }}</div>
-
-    <div role="list" class="value list wrap-balance">
-      <ng-container *ngFor="let genre of media.genres">
-        <mt-chip class="rounded">{{ genre }}</mt-chip>
-      </ng-container>
-    </div>
-  </div>
-
-  <div
-    *ngIf="media.tags?.length"
-    class="property-value-pair chips flex-box no-margin-bottom"
-  >
-    <div class="property">{{ 'media.tags' | translate }}</div>
-
-    <div role="list" class="value list wrap-balance">
-      <ng-container *ngFor="let tag of media.tags">
-        <ng-container *ngIf="!tag.isMediaSpoiler">
-          <mt-chip [matTooltip]="tag.description">{{ tag.name }}</mt-chip>
-        </ng-container>
-      </ng-container>
-    </div>
-  </div>
-
-  <div
-    *ngIf="media.synonyms?.length"
-    class="property-value-pair chips flex-box no-margin-bottom"
-  >
-    <div class="property">{{ 'media.synonyms' | translate }}</div>
-
-    <div role="list" class="value list wrap-balance">
-      <mt-chip role="listitem">
-        {{ getMediaTitle(media) }}
-      </mt-chip>
-
-      <mt-chip role="listitem" *ngFor="let synonym of media.synonyms">
-        {{ synonym }}
-      </mt-chip>
-    </div>
-  </div>
-
-  <!-- float fix -->
-  <div></div>
-</div>
+}

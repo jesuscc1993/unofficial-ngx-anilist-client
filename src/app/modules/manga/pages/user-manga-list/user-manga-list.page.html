@@ -1,7 +1,9 @@
-<mt-alert *ngIf="!user" type="warning">
-  <span>{{ 'user.notLoggedIn' | translate }} </span>
-  <span>{{ 'media.search.limitedFeatures' |translate }}</span>
-</mt-alert>
+@if (!user) {
+  <mt-alert type="warning">
+    <span>{{ 'user.notLoggedIn' | translate }} </span>
+    <span>{{ 'media.search.limitedFeatures' | translate }}</span>
+  </mt-alert>
+}
 
 <div class="narrow-page">
   <mt-user-media-list mediaType="MANGA"></mt-user-media-list>

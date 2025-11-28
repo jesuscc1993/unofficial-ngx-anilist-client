@@ -19,18 +19,19 @@
         [onChange]="setSelectedCountries"
       ></mt-header-picker>
 
-      <mt-header-picker
-        *ngIf="isAnime(mediaType)"
-        iconName="film"
-        placeholder="{{ 'media.formatValues.undefined' | translate }}"
-        [matTooltip]="'media.format' | translate"
-        [multiple]="true"
-        [options]="mediaFormats"
-        [truncate]="true"
-        [value]="selectedFormats"
-        [getOptionLiteral]="getFormatLiteral"
-        [onChange]="setSelectedFormats"
-      ></mt-header-picker>
+      @if (isAnime(mediaType)) {
+        <mt-header-picker
+          iconName="film"
+          placeholder="{{ 'media.formatValues.undefined' | translate }}"
+          [matTooltip]="'media.format' | translate"
+          [multiple]="true"
+          [options]="mediaFormats"
+          [truncate]="true"
+          [value]="selectedFormats"
+          [getOptionLiteral]="getFormatLiteral"
+          [onChange]="setSelectedFormats"
+        ></mt-header-picker>
+      }
 
       <mt-header-picker
         iconName="sort"
@@ -44,16 +45,20 @@
   </div>
 
   <div class="content no-padding-bottom">
-    <div *ngIf="searching" class="placeholder">
-      <mat-spinner mode="indeterminate"></mat-spinner>
-    </div>
+    @if (searching) {
+      <div class="placeholder">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+      </div>
+    }
 
     <mt-list-entries-grid
       [listEntries]="filteredEntries"
     ></mt-list-entries-grid>
 
-    <mt-alert *ngIf="error" type="error">
-      {{ error }}
-    </mt-alert>
+    @if (error) {
+      <mt-alert type="error">
+        {{ error }}
+      </mt-alert>
+    }
   </div>
 </mat-card>

@@ -3,9 +3,11 @@
 </header>
 
 <main>
-  <mt-alert *ngIf="error" type="error">
-    {{ error }}
-  </mt-alert>
+  @if (error) {
+    <mt-alert type="error">
+      {{ error }}
+    </mt-alert>
+  }
 
   <router-outlet></router-outlet>
 </main>

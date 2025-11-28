@@ -1,12 +1,13 @@
-<mat-paginator
-  *ngIf="pagination?.total"
-  [class]="getClass()"
-  [hidePageSize]="hidePageSize"
-  [length]="getTotal()"
-  [pageIndex]="pagination.pageIndex"
-  [pageSizeOptions]="pageSizeOptions"
-  [pageSize]="pagination.perPage"
-  [showFirstLastButtons]="true"
-  (page)="changePage.emit($event)"
->
-</mat-paginator>
+@if (pagination?.total) {
+  <mat-paginator
+    [class]="getClass()"
+    [hidePageSize]="hidePageSize"
+    [length]="getTotal()"
+    [pageIndex]="pagination.pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="pagination.perPage"
+    [showFirstLastButtons]="true"
+    (page)="changePage.emit($event)"
+  >
+  </mat-paginator>
+}

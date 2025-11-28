@@ -9,12 +9,16 @@
     [placeholder]="placeholder"
     (ngModelChange)="onChange($event)"
   >
-    <mat-select-trigger *ngIf="shouldTruncate()">
-      {{ getTruncatedLiteral() | translate }}
-    </mat-select-trigger>
+    @if (shouldTruncate()) {
+      <mat-select-trigger>
+        {{ getTruncatedLiteral() | translate }}
+      </mat-select-trigger>
+    }
 
-    <mat-option *ngFor="let option of options" [value]="option">
-      {{ (getOptionLiteral ? getOptionLiteral(option) : option) | translate }}
-    </mat-option>
+    @for (option of options; track option) {
+      <mat-option [value]="option">
+        {{ (getOptionLiteral ? getOptionLiteral(option) : option) | translate }}
+      </mat-option>
+    }
   </mat-select>
 </mat-form-field>

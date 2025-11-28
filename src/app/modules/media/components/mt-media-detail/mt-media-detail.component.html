@@ -1,39 +1,44 @@
 <section>
-  <mat-progress-bar *ngIf="searching" mode="indeterminate"></mat-progress-bar>
+  @if (searching) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 
   <mat-card class="composite">
-    <div *ngIf="media">
-      <div class="header">
-        <h2 class="text-115 bold no-margin">
-          <mt-media-actions
-            [additionalInfoEnabled]="false"
-            [editEnabled]="false"
-            [fullDetailEnabled]="false"
-            [listMode]="false"
-            [media]="media"
-            (onListEntryChanges)="onListEntryChanges($event)"
-            class="inline-block margin-right-2xs"
-          >
-          </mt-media-actions
-          >{{ getMediaTitle(media) }}
-        </h2>
+    @if (media) {
+      <div>
+        <div class="header">
+          <h2 class="text-115 bold no-margin">
+            <mt-media-actions
+              [additionalInfoEnabled]="false"
+              [editEnabled]="false"
+              [fullDetailEnabled]="false"
+              [listMode]="false"
+              [media]="media"
+              (onListEntryChanges)="onListEntryChanges($event)"
+              class="inline-block margin-right-2xs"
+            >
+            </mt-media-actions
+            >{{ getMediaTitle(media) }}
+          </h2>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="content">
+          @if (media) {
+            <mt-media-info
+              [fullDetail]="true"
+              [media]="media"
+              [showAsColumns]="true"
+            >
+            </mt-media-info>
+          }
+        </div>
       </div>
-
-      <mat-divider></mat-divider>
-
-      <div class="content">
-        <mt-media-info
-          *ngIf="media"
-          [fullDetail]="true"
-          [media]="media"
-          [showAsColumns]="true"
-        >
-        </mt-media-info>
-      </div>
-    </div>
+    }
   </mat-card>
 
-  <mt-alert *ngIf="!(searching || media)" type="info">
-    {{ 'generic.noResults' | translate }}
-  </mt-alert>
+  @if (!(searching || media)) {
+    <mt-alert type="info">
+      {{ 'generic.noResults' | translate }}
+    </mt-alert>
+  }
 </section>

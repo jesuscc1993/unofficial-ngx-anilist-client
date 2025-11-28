@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "lib": ["es2022", "dom"],
     "module": "es2022",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "target": "es2022",

@@ -1,6 +1,7 @@
-<img
-  *ngIf="media?.countryOfOrigin && media.countryOfOrigin !== 'JP'"
-  [matTooltip]="'media.countryOfOrigin' | translate"
-  [src]="getImage()"
-  class="flag"
-/>
+@if (media?.countryOfOrigin && media.countryOfOrigin !== 'JP') {
+  <img
+    [matTooltip]="'media.countryOfOrigin' | translate"
+    [src]="getImage()"
+    class="flag"
+  />
+}
