@@ -2,7 +2,7 @@
 
 @use '@angular/material' as mat;
 
-@import 'material-palettes';
+@import 'palettes';
 
 $primary-palette: mat.$orange-palette;
 $accent-palette: mat.$orange-palette;

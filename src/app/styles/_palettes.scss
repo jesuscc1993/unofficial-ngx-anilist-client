@@ -58,6 +58,8 @@ $neutral-grey-palette: map.merge(
 
 $grey-palette: $neutral-grey-palette;
 
+/* material */
+
 $mat-grey-palette: map.merge(
   $plain-grey-palette,
   (

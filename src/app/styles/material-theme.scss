@@ -3,7 +3,7 @@
 @use '@angular/material' as mat;
 
 @import 'colors';
-@import 'material-palettes';
+@import 'palettes';
 
 @include mat.elevation-classes();
 @include mat.app-background();
