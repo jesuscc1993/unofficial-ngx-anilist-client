@@ -1,6 +1,8 @@
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
-$error-palette: (
+$error: (
   0: #000000,
   10: #410002,
   20: #690005,
@@ -19,7 +21,7 @@ $error-palette: (
   100: #ffffff,
 );
 
-$plain-grey-palette: (
+$plain-grey: (
   0: #000000,
   10: #1a1a1a,
   20: #333333,
@@ -38,8 +40,8 @@ $plain-grey-palette: (
   100: #ffffff,
 );
 
-$neutral-grey-palette: map-merge(
-  $plain-grey-palette,
+$neutral-grey: map.merge(
+  $plain-grey,
   (
     4: #0a0a0a,
     6: #0f0f0f,
@@ -54,19 +56,23 @@ $neutral-grey-palette: map-merge(
   )
 );
 
-$grey-palette: $neutral-grey-palette;
+$grey: $neutral-grey;
 
-$mat-grey-palette: map-merge(
-  $plain-grey-palette,
+$mat-grey: map.merge(
+  $plain-grey,
   (
-    secondary: $plain-grey-palette,
-    neutral: $neutral-grey-palette,
-    neutral-variant: $plain-grey-palette,
-    error: $error-palette,
+    secondary: $plain-grey,
+    neutral: $neutral-grey,
+    'neutral-variant': $plain-grey,
+    error: $error,
   )
 );
 
-$mat-colors: (
+$primary: mat.$orange-palette;
+$accent: mat.$orange-palette;
+$warn: mat.$red-palette;
+
+$by-name: (
   'blue': mat.$blue-palette,
   'green': mat.$green-palette,
   'orange': mat.$orange-palette,
@@ -74,14 +80,14 @@ $mat-colors: (
   'red': mat.$red-palette,
 );
 
-$mat-colors-by-log-level: (
+$by-log-level: (
   'error': mat.$red-palette,
   'info': mat.$blue-palette,
   'success': mat.$green-palette,
   'warning': mat.$orange-palette,
 );
 
-$mat-colors-by-status: (
+$by-status: (
   'completed': mat.$green-palette,
   'current': mat.$orange-palette,
   'dropped': mat.$red-palette,

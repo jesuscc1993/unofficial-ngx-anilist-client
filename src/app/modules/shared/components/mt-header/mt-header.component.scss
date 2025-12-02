@@ -1,4 +1,7 @@
-@import 'colors';
+@use 'sass:map';
+
+@use 'palettes';
+
 @import 'variables';
 
 mat-toolbar {
@@ -53,7 +56,7 @@ mat-toolbar {
       transition: $transition-duration;
 
       &:not(.active):not(:hover) {
-        color: map-get($grey-palette, 40);
+        color: map.get(palettes.$grey, 40);
       }
 
       &.active {

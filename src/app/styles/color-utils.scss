@@ -1,32 +1,34 @@
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
-@import 'colors';
+@use 'palettes';
 
 $positions: top left bottom right;
 
-@each $variation, $palette in $mat-colors {
-  $c-bg: map-get($palette, 30);
-  $c-border: map-get($palette, 40);
-  $c-fg: map-get($palette, 70);
+@each $variation, $palette in palettes.$by-name {
+  $c-bg: map.get($palette, 30);
+  $border-color: map.get($palette, 40);
+  $c-fg: map.get($palette, 70);
 
   .bg-#{$variation} {
     background-color: $c-bg;
   }
 
   .border-#{$variation} {
-    border-color: $c-border;
+    border-color: $border-color;
   }
   .border-y-#{$variation} {
-    border-top-color: $c-border;
-    border-bottom-color: $c-border;
+    border-top-color: $border-color;
+    border-bottom-color: $border-color;
   }
   .border-x-#{$variation} {
-    border-left-color: $c-border;
-    border-right-color: $c-border;
+    border-left-color: $border-color;
+    border-right-color: $border-color;
   }
   @each $position in $positions {
     .border-#{$position}-#{$variation} {
-      border-#{$position}-color: $c-border;
+      border-#{$position}-color: $border-color;
     }
   }
 

@@ -1,7 +1,11 @@
 @use 'sass:math';
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
-@import 'color-utils';
+@use 'colors';
+@use 'palettes';
+
 @import 'variables';
 
 .cover {
@@ -39,7 +43,7 @@
       transition: $transition-duration;
 
       &:hover {
-        color: $anchor;
+        color: colors.$anchor;
       }
     }
   }
@@ -71,11 +75,11 @@
       margin-left: (-$shadow-size);
     }
 
-    @each $status, $palette in $mat-colors-by-status {
+    @each $status, $palette in palettes.$by-status {
       &.#{$status}:after {
-        $c-border: map-get($palette, 60);
-        border-left-color: $c-border;
-        border-right-color: $c-border;
+        $border-color: map.get($palette, 60);
+        border-left-color: $border-color;
+        border-right-color: $border-color;
       }
     }
   }

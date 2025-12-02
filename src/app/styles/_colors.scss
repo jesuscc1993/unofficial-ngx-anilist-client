@@ -1,16 +1,14 @@
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
-@import 'material-palettes';
+@use 'palettes';
 
-$primary-palette: mat.$orange-palette;
-$accent-palette: mat.$orange-palette;
-$warn-palette: mat.$red-palette;
+$primary_fg: map.get(palettes.$primary, 60);
+$white: map.get(palettes.$grey, 100);
+$border: rgba($white, 0.12);
+$hover: rgba($white, 0.02);
 
-$fg-primary: map-get($primary-palette, 60);
-$fg-gray: map-get($grey-palette, 100);
-$c-border: rgba($fg-gray, 0.12);
-$c-hover: rgba($fg-gray, 0.02);
-
-$anchor: map-get($primary-palette, 70);
-$anchor-hover: map-get($primary-palette, 60);
-$anchor-secondary: map-get($grey-palette, 50);
+$anchor: map.get(palettes.$primary, 70);
+$anchor-hover: map.get(palettes.$primary, 60);
+$anchor-secondary: map.get(palettes.$grey, 50);

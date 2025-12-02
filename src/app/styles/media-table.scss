@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
 
+@use 'colors';
+
 @import 'variables';
 
 @media (min-width: ($screen-2xs + 1)) {
@@ -22,7 +24,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: #{$c-hover};
+      background-color: #{colors.$hover};
       filter: brightness(1.15);
     }
 
