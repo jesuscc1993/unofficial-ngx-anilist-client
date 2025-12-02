@@ -19,6 +19,13 @@
   --mat-list-list-item-label-text-size: $font-size-100;
 
   mat-row {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #{$c-hover};
+      filter: brightness(1.15);
+    }
+
     &.completed {
       @extend .border-left-green;
     }
@@ -34,6 +41,10 @@
     }
     &.dropped {
       @extend .border-left-red;
+    }
+
+    .favourite {
+      @extend .text-magenta;
     }
   }
 
