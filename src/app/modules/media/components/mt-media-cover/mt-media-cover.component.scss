@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
 @import 'color-utils';
@@ -73,7 +75,7 @@
 
     @each $status, $palette in $mat-colors-by-status {
       &.#{$status}:after {
-        $c-border: map-get($palette, 60);
+        $c-border: map.get($palette, 60);
         border-left-color: $c-border;
         border-right-color: $c-border;
       }

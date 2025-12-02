@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
 @import 'colors';
@@ -5,9 +7,9 @@
 $positions: top left bottom right;
 
 @each $variation, $palette in $mat-colors {
-  $c-bg: map-get($palette, 30);
-  $c-border: map-get($palette, 40);
-  $c-fg: map-get($palette, 70);
+  $c-bg: map.get($palette, 30);
+  $c-border: map.get($palette, 40);
+  $c-fg: map.get($palette, 70);
 
   .bg-#{$variation} {
     background-color: $c-bg;

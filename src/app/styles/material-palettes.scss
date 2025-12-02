@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 
 $error-palette: (
@@ -38,7 +40,7 @@ $plain-grey-palette: (
   100: #ffffff,
 );
 
-$neutral-grey-palette: map-merge(
+$neutral-grey-palette: map.merge(
   $plain-grey-palette,
   (
     4: #0a0a0a,
@@ -56,7 +58,7 @@ $neutral-grey-palette: map-merge(
 
 $grey-palette: $neutral-grey-palette;
 
-$mat-grey-palette: map-merge(
+$mat-grey-palette: map.merge(
   $plain-grey-palette,
   (
     secondary: $plain-grey-palette,

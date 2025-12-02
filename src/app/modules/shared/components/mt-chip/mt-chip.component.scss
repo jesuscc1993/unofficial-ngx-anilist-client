@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 @import 'colors';
 @import 'variables';
 
@@ -8,7 +10,7 @@
   line-height: 1rem;
   max-width: 100%;
   padding: $horizontal-padding $vertical-padding;
-  background-color: map-get($grey-palette, 40);
+  background-color: map.get($grey-palette, 40);
   color: $fg-gray;
 
   &.rounded {
