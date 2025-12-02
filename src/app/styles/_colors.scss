@@ -3,10 +3,10 @@
 @use '@angular/material' as mat;
 @use 'palettes';
 
-$fg-primary: map.get(palettes.$primary, 60);
-$fg-gray: map.get(palettes.$grey, 100);
-$c-border: rgba($fg-gray, 0.12);
-$c-hover: rgba($fg-gray, 0.02);
+$primary_fg: map.get(palettes.$primary, 60);
+$white: map.get(palettes.$grey, 100);
+$border: rgba($white, 0.12);
+$hover: rgba($white, 0.02);
 
 $anchor: map.get(palettes.$primary, 70);
 $anchor-hover: map.get(palettes.$primary, 60);

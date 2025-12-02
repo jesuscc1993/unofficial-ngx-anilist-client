@@ -1,5 +1,6 @@
 @use 'sass:map';
 
+@use 'colors';
 @use 'palettes';
 
 @import 'variables';
@@ -12,7 +13,7 @@
   max-width: 100%;
   padding: $horizontal-padding $vertical-padding;
   background-color: map.get(palettes.$grey, 40);
-  color: $fg-gray;
+  color: colors.$white;
 
   &.rounded {
     border-radius: 1rem;

@@ -1,8 +1,8 @@
-@import 'colors';
+@use 'colors';
 
 /* vertical ruler - counterpart to vanilla's hr */
 vr {
-  border: 1px solid $c-border;
+  border: 1px solid colors.$border;
   box-sizing: border-box;
   display: block;
   height: 100%;

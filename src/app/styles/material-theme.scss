@@ -1,9 +1,8 @@
 @use 'sass:map';
 
 @use '@angular/material' as mat;
+@use 'colors';
 @use 'palettes';
-
-@import 'colors';
 
 @include mat.elevation-classes();
 @include mat.app-background();
@@ -25,7 +24,7 @@ body {
   @include mat.color-variants-backwards-compatibility($theme);
 
   mat-divider {
-    --mat-divider-color: #{$c-border};
+    --mat-divider-color: #{colors.$border};
   }
   mat-expansion-panel {
     --mat-expansion-container-background-color: transparent;
@@ -36,31 +35,31 @@ body {
         35
       )};
     --mat-form-field-filled-container-color: #{map.get(palettes.$grey, 17)};
-    --mat-form-field-filled-focus-active-indicator-color: #{$fg-primary};
+    --mat-form-field-filled-focus-active-indicator-color: #{colors.$primary_fg};
   }
   mat-paginator {
     --mat-paginator-container-background-color: transparent;
   }
   mat-table {
     --mat-table-background-color: transparent;
-    --mat-table-row-item-outline-color: #{$c-border};
+    --mat-table-row-item-outline-color: #{colors.$border};
   }
   mat-toolbar {
     --mat-toolbar-container-background-color: #{map.get(palettes.$grey, 0)};
   }
   mat-tooltip-component {
     --mat-tooltip-container-color: #{map.get(palettes.$grey, 4)};
-    --mat-tooltip-supporting-text-color: #{$fg-gray};
+    --mat-tooltip-supporting-text-color: #{colors.$white};
   }
 
   .mat-accent.mat-mdc-checkbox {
-    --mat-checkbox-selected-focus-icon-color: #{$fg-primary};
-    --mat-checkbox-selected-focus-state-layer-color: #{$fg-primary};
-    --mat-checkbox-selected-hover-icon-color: #{$fg-primary};
-    --mat-checkbox-selected-hover-state-layer-color: #{$fg-primary};
-    --mat-checkbox-selected-icon-color: #{$fg-primary};
-    --mat-checkbox-selected-pressed-icon-color: #{$fg-primary};
-    --mat-checkbox-unselected-pressed-state-layer-color: #{$fg-primary};
+    --mat-checkbox-selected-focus-icon-color: #{colors.$primary_fg};
+    --mat-checkbox-selected-focus-state-layer-color: #{colors.$primary_fg};
+    --mat-checkbox-selected-hover-icon-color: #{colors.$primary_fg};
+    --mat-checkbox-selected-hover-state-layer-color: #{colors.$primary_fg};
+    --mat-checkbox-selected-icon-color: #{colors.$primary_fg};
+    --mat-checkbox-selected-pressed-icon-color: #{colors.$primary_fg};
+    --mat-checkbox-unselected-pressed-state-layer-color: #{colors.$primary_fg};
   }
 
   .mat-mdc-raised-button {
@@ -85,21 +84,21 @@ body {
 }
 
 a {
-  color: $anchor;
+  color: colors.$anchor;
 
   &.secondary:not(.active):not(:hover) {
-    color: $anchor-secondary;
+    color: colors.$anchor-secondary;
   }
 
   &.active,
   &:hover {
-    color: $anchor-hover;
+    color: colors.$anchor-hover;
   }
 }
 
 hr,
 vr {
-  border-color: $c-border;
+  border-color: colors.$border;
 }
 
 mat-card-content {
@@ -124,13 +123,13 @@ mat-card {
   &.composite {
     .composite-header {
       .header:not(.tab) {
-        border-color: $c-border;
+        border-color: colors.$border;
       }
     }
 
     .composite-footer {
       .footer:not(.tab) {
-        border-color: $c-border;
+        border-color: colors.$border;
       }
     }
   }

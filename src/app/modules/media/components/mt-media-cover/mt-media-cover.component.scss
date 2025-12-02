@@ -2,9 +2,9 @@
 @use 'sass:map';
 
 @use '@angular/material' as mat;
+@use 'colors';
 @use 'palettes';
 
-@import 'colors';
 @import 'variables';
 
 .cover {
@@ -42,7 +42,7 @@
       transition: $transition-duration;
 
       &:hover {
-        color: $anchor;
+        color: colors.$anchor;
       }
     }
   }
@@ -76,9 +76,9 @@
 
     @each $status, $palette in palettes.$by-status {
       &.#{$status}:after {
-        $c-border: map.get($palette, 60);
-        border-left-color: $c-border;
-        border-right-color: $c-border;
+        $border-color: map.get($palette, 60);
+        border-left-color: $border-color;
+        border-right-color: $border-color;
       }
     }
   }
