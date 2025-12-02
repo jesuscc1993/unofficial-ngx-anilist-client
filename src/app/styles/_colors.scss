@@ -1,6 +1,7 @@
 @use 'sass:map';
 
 @use '@angular/material' as mat;
+
 @use 'palettes';
 
 $primary_fg: map.get(palettes.$primary, 60);
