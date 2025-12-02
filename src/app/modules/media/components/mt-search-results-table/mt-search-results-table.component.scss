@@ -1,14 +1,10 @@
 @import 'color-utils';
 
 mat-row {
-  border-left: 4px solid transparent; // status
-  cursor: pointer;
+  $border-size: 4px;
+  border-left: #{$border-size} solid transparent; // status
 
-  &:hover {
-    filter: brightness(1.15);
-  }
-
-  .favourite {
-    @extend .text-magenta;
+  mat-cell:first-child {
+    margin-left: -#{$border-size};
   }
 }

@@ -1,5 +1,12 @@
 import {
-  AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, ViewChild,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
@@ -7,10 +14,10 @@ import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { getColCount } from '../../domain/media.domain';
 
 @Component({
-    selector: 'mt-list-entries-grid',
-    templateUrl: './mt-list-entries-grid.component.html',
-    styleUrls: ['./mt-list-entries-grid.component.scss'],
-    standalone: false
+  selector: 'mt-list-entries-grid',
+  templateUrl: './mt-list-entries-grid.component.html',
+  styleUrls: ['./mt-list-entries-grid.component.scss'],
+  standalone: false,
 })
 export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   @Input() listEntries: ListEntry[];
@@ -33,7 +40,7 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
     };
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     const newColCount = getColCount(this.content);
 
