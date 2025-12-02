@@ -29,7 +29,10 @@ body {
     --mat-expansion-container-background-color: transparent;
   }
   mat-form-field {
-    --mat-form-field-filled-active-indicator-color: #{map-get($grey-palette, 35)};
+    --mat-form-field-filled-active-indicator-color: #{map-get(
+        $grey-palette,
+        35
+      )};
     --mat-form-field-filled-container-color: #{map-get($grey-palette, 17)};
     --mat-form-field-filled-focus-active-indicator-color: #{$fg-primary};
   }
@@ -98,7 +101,7 @@ vr {
 }
 
 mat-card-content {
-  @each $status, $palette in $colors-by-status {
+  @each $status, $palette in $mat-colors-by-log-level {
     &.#{$status} {
       background-color: map-get($palette, 60);
       color: white;
@@ -107,7 +110,7 @@ mat-card-content {
 }
 
 mat-snack-bar-container {
-  @each $status, $palette in $colors-by-status {
+  @each $status, $palette in $mat-colors-by-log-level {
     &.#{$status} .mat-mdc-snackbar-surface {
       --mat-snackbar-container-color: #{map-get($palette, 60)};
       color: white;

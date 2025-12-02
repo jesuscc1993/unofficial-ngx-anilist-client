@@ -1,38 +1,36 @@
 @use '@angular/material' as mat;
 
-$variations: (
-  'blue': mat.$blue-palette,
-  'green': mat.$green-palette,
-  'orange': mat.$orange-palette,
-  'magenta': mat.$magenta-palette,
-  'red': mat.$red-palette,
-);
+@import 'colors';
 
 $positions: top left bottom right;
 
-@each $variation, $palette in $variations {
-  $value: map-get($palette, 70);
+@each $variation, $palette in $mat-colors {
+  $c-bg: map-get($palette, 30);
+  $c-border: map-get($palette, 40);
+  $c-fg: map-get($palette, 70);
 
   .bg-#{$variation} {
-    border-color: $value;
+    background-color: $c-bg;
   }
 
   .border-#{$variation} {
-    border-color: $value;
+    border-color: $c-border;
   }
   .border-y-#{$variation} {
-    border-color: $value transparent;
+    border-top-color: $c-border;
+    border-bottom-color: $c-border;
   }
   .border-x-#{$variation} {
-    border-color: transparent $value;
+    border-left-color: $c-border;
+    border-right-color: $c-border;
   }
   @each $position in $positions {
     .border-#{$position}-#{$variation} {
-      border-#{$position}-color: $value;
+      border-#{$position}-color: $c-border;
     }
   }
 
   .text-#{$variation} {
-    color: $value;
+    color: $c-fg;
   }
 }

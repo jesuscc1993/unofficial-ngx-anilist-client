@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 $error-palette: (
   0: #000000,
   10: #410002,
@@ -62,4 +64,29 @@ $mat-grey-palette: map-merge(
     neutral-variant: $plain-grey-palette,
     error: $error-palette,
   )
+);
+
+$mat-colors: (
+  'blue': mat.$blue-palette,
+  'green': mat.$green-palette,
+  'orange': mat.$orange-palette,
+  'pink': mat.$rose-palette,
+  'red': mat.$red-palette,
+);
+
+$mat-colors-by-log-level: (
+  'error': mat.$red-palette,
+  'info': mat.$blue-palette,
+  'success': mat.$green-palette,
+  'warning': mat.$orange-palette,
+);
+
+$mat-colors-by-status: (
+  'completed': mat.$green-palette,
+  'current': mat.$orange-palette,
+  'dropped': mat.$red-palette,
+  'paused': mat.$rose-palette,
+  'planning': mat.$orange-palette,
+  'repeating': mat.$blue-palette,
+  'watching': mat.$orange-palette,
 );

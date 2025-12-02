@@ -39,7 +39,7 @@
       transition: $transition-duration;
 
       &:hover {
-        @extend .text-orange;
+        color: $anchor;
       }
     }
   }
@@ -65,27 +65,18 @@
       display: block;
       position: absolute;
 
+      border-color: transparent;
       border-style: solid;
       border-width: 0px 0px $size $size;
       margin-left: (-$shadow-size);
     }
 
-    &.completed:after {
-      @extend .border-x-green;
-    }
-    &.repeating:after {
-      @extend .border-x-blue;
-    }
-    &.current:after,
-    &.planning:after,
-    &.watching:after {
-      @extend .border-x-orange;
-    }
-    &.paused:after {
-      @extend .border-x-magenta;
-    }
-    &.dropped:after {
-      @extend .border-x-red;
+    @each $status, $palette in $mat-colors-by-status {
+      &.#{$status}:after {
+        $c-border: map-get($palette, 60);
+        border-left-color: $c-border;
+        border-right-color: $c-border;
+      }
     }
   }
 
