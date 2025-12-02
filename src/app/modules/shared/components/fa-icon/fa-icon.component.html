@@ -1,5 +1,5 @@
 <i
   [ngClass]="[type || 'fas', 'fa-' + name, iconClass || '']"
+  [attr.title]="title || null"
   attr.aria-label="{{ name }}"
-  title="{{ title }}"
 ></i>

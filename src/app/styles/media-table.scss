@@ -37,14 +37,14 @@
       @extend .border-left-orange;
     }
     &.paused {
-      @extend .border-left-magenta;
+      @extend .border-left-pink;
     }
     &.dropped {
       @extend .border-left-red;
     }
 
     .favourite {
-      @extend .text-magenta;
+      @extend .text-pink;
     }
   }
 
