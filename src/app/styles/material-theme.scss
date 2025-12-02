@@ -1,9 +1,9 @@
 @use 'sass:map';
 
 @use '@angular/material' as mat;
+@use 'palettes';
 
 @import 'colors';
-@import 'palettes';
 
 @include mat.elevation-classes();
 @include mat.app-background();
@@ -13,9 +13,9 @@ $theme: mat.define-theme(
     color: (
       theme-type: dark,
       // "primary" == bg
-      primary: $mat-grey-palette,
+      primary: palettes.$mat-grey,
       // "tertiary" == fg
-      tertiary: mat.$orange-palette,
+      tertiary: palettes.$primary,
     ),
   )
 );
@@ -32,10 +32,10 @@ body {
   }
   mat-form-field {
     --mat-form-field-filled-active-indicator-color: #{map.get(
-        $grey-palette,
+        palettes.$grey,
         35
       )};
-    --mat-form-field-filled-container-color: #{map.get($grey-palette, 17)};
+    --mat-form-field-filled-container-color: #{map.get(palettes.$grey, 17)};
     --mat-form-field-filled-focus-active-indicator-color: #{$fg-primary};
   }
   mat-paginator {
@@ -46,10 +46,10 @@ body {
     --mat-table-row-item-outline-color: #{$c-border};
   }
   mat-toolbar {
-    --mat-toolbar-container-background-color: #{map.get($grey-palette, 0)};
+    --mat-toolbar-container-background-color: #{map.get(palettes.$grey, 0)};
   }
   mat-tooltip-component {
-    --mat-tooltip-container-color: #{map.get($grey-palette, 4)};
+    --mat-tooltip-container-color: #{map.get(palettes.$grey, 4)};
     --mat-tooltip-supporting-text-color: #{$fg-gray};
   }
 
@@ -70,16 +70,16 @@ body {
     }
 
     &.mat-unthemed {
-      @include apply-button-theme(map.get($grey-palette, 50));
+      @include apply-button-theme(map.get(palettes.$grey, 50));
     }
     &.mat-primary {
-      @include apply-button-theme(map.get($primary-palette, 60));
+      @include apply-button-theme(map.get(palettes.$primary, 60));
     }
     &.mat-accent {
-      @include apply-button-theme(map.get($accent-palette, 60));
+      @include apply-button-theme(map.get(palettes.$accent, 60));
     }
     &.mat-warn {
-      @include apply-button-theme(map.get($warn-palette, 60));
+      @include apply-button-theme(map.get(palettes.$warn, 60));
     }
   }
 }
@@ -103,7 +103,7 @@ vr {
 }
 
 mat-card-content {
-  @each $status, $palette in $mat-colors-by-log-level {
+  @each $status, $palette in palettes.$by-log-level {
     &.#{$status} {
       background-color: map.get($palette, 60);
       color: white;
@@ -112,7 +112,7 @@ mat-card-content {
 }
 
 mat-snack-bar-container {
-  @each $status, $palette in $mat-colors-by-log-level {
+  @each $status, $palette in palettes.$by-log-level {
     &.#{$status} .mat-mdc-snackbar-surface {
       --mat-snackbar-container-color: #{map.get($palette, 60)};
       color: white;
