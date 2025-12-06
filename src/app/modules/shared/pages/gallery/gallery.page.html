@@ -1,0 +1,53 @@
+<h2>Cards</h2>
+
+<div class="flex-box margin-vertical-xs">
+  @for (variant of feedbackVariants; track variant) {
+    <mat-card class="flex-1 margin-horizontal-2xs">
+      <mat-card-content [class]="variant">
+        {{ variant?.toUpperCase() ?? 'Default' }} card
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
+
+<h2>Buttons</h2>
+
+<div class="flex-box margin-vertical-xs">
+  @for (variant of buttonVariants; track variant) {
+    <div class="flex-1 flex-box column margin-horizontal-2xs">
+      <button
+        mat-raised-button
+        type="button"
+        class="margin-vertical-2xs"
+        [color]="variant"
+      >
+        {{ variant?.toUpperCase() ?? 'Default' }} button (enabled)
+      </button>
+
+      <button
+        mat-raised-button
+        type="button"
+        class="margin-vertical-2xs"
+        disabled
+        [color]="variant"
+      >
+        {{ variant?.toUpperCase() ?? 'Default' }} button (disabled)
+      </button>
+    </div>
+  }
+</div>
+
+<h2>Toasts</h2>
+
+<div class="flex-box margin-vertical-xs">
+  @for (variant of feedbackVariants; track variant) {
+    <button
+      mat-raised-button
+      type="button"
+      class="flex-1 margin-horizontal-2xs"
+      (click)="showToastType(variant)"
+    >
+      {{ variant?.toUpperCase() ?? 'Default' }} snackbar
+    </button>
+  }
+</div>

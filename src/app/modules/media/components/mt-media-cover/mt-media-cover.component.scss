@@ -37,7 +37,7 @@
     justify-content: center;
 
     background: rgba(black, math.div(2, 3));
-    color: white;
+    color: colors.$default_fg;
 
     .clickable {
       transition: $transition-duration;

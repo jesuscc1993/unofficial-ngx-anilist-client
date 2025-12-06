@@ -1,4 +1,5 @@
 export const loginUrl = `login`;
+export const galleryUrl = `gallery`;
 
 export const animeUrlPrefix = `anime`;
 export const mangaUrlPrefix = `manga`;

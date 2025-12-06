@@ -1,0 +1,73 @@
+@use 'sass:map';
+
+@use '@angular/material' as mat;
+
+$error: (
+  0: #000000,
+  10: #410002,
+  20: #690005,
+  25: #7e0007,
+  30: #93000a,
+  35: #a80710,
+  40: #ba1a1a,
+  50: #de3730,
+  60: #ff5449,
+  70: #ff897d,
+  80: #ffb4ab,
+  90: #ffdad6,
+  95: #ffedea,
+  98: #fff8f7,
+  99: #fffbff,
+  100: #ffffff,
+);
+
+$plain-grey: (
+  0: #000000,
+  10: #1a1a1a,
+  20: #333333,
+  25: #404040,
+  30: #4d4d4d,
+  35: #595959,
+  40: #666666,
+  50: #7f7f7f,
+  60: #999999,
+  70: #b3b3b3,
+  80: #cccccc,
+  90: #e6e6e6,
+  95: #f2f2f2,
+  98: #fafafa,
+  99: #fdfdfd,
+  100: #ffffff,
+);
+
+$neutral-grey: map.merge(
+  $plain-grey,
+  (
+    4: #0a0a0a,
+    6: #0f0f0f,
+    12: #1f1f1f,
+    17: #2b2b2b,
+    22: #383838,
+    24: #3d3d3d,
+    87: #dedede,
+    92: #ececec,
+    94: #f1f1f1,
+    96: #f5f5f5,
+  )
+);
+
+$grey: $neutral-grey;
+
+$mat-grey: map.merge(
+  $plain-grey,
+  (
+    secondary: $plain-grey,
+    neutral: $neutral-grey,
+    'neutral-variant': $plain-grey,
+    error: $error,
+  )
+);
+
+$primary: mat.$orange-palette;
+$accent: mat.$green-palette;
+$warn: mat.$red-palette;
