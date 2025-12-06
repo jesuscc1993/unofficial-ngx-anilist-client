@@ -5,9 +5,8 @@
 @use 'palettes';
 
 $primary_fg: map.get(palettes.$primary, 60);
-$white: map.get(palettes.$grey, 100);
-$border: rgba($white, 0.12);
-$hover: rgba($white, 0.02);
+$border: rgba(white, 0.12);
+$hover: rgba(white, 0.02);
 
 $anchor: map.get(palettes.$primary, 70);
 $anchor-hover: map.get(palettes.$primary, 60);

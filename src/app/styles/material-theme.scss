@@ -50,7 +50,7 @@ body {
   }
   mat-tooltip-component {
     --mat-tooltip-container-color: #{map.get(palettes.$grey, 4)};
-    --mat-tooltip-supporting-text-color: #{colors.$white};
+    --mat-tooltip-supporting-text-color: white;
   }
 
   .mat-accent.mat-mdc-checkbox {
@@ -70,7 +70,7 @@ body {
     }
 
     &.mat-unthemed {
-      @include apply-button-theme(map.get(palettes.$grey, 50));
+      @include apply-button-theme(map.get(palettes.$grey, 40));
     }
     &.mat-primary {
       @include apply-button-theme(map.get(palettes.$primary, 60));
@@ -102,10 +102,14 @@ vr {
   border-color: colors.$border;
 }
 
+@function get-log-level-bg($palette) {
+  @return desaturate(map.get($palette, 50), 30%);
+}
+
 mat-card-content {
   @each $status, $palette in palettes.$by-log-level {
     &.#{$status} {
-      background-color: map.get($palette, 60);
+      background-color: get-log-level-bg($palette);
       color: white;
     }
   }
@@ -114,7 +118,7 @@ mat-card-content {
 mat-snack-bar-container {
   @each $status, $palette in palettes.$by-log-level {
     &.#{$status} .mat-mdc-snackbar-surface {
-      --mat-snackbar-container-color: #{map.get($palette, 60)};
+      --mat-snackbar-container-color: get-log-level-bg($palette);
       color: white;
     }
   }

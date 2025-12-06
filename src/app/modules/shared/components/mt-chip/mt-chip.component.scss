@@ -13,7 +13,7 @@
   max-width: 100%;
   padding: $horizontal-padding $vertical-padding;
   background-color: map.get(palettes.$grey, 40);
-  color: colors.$white;
+  color: white;
 
   &.rounded {
     border-radius: 1rem;
