@@ -1,6 +1,6 @@
 @import 'vanilla-extended';
-@import 'material-theme';
-@import 'material';
+@import 'mat-theme';
+@import 'mat-overrides';
 @import 'cards';
 @import 'color-utils';
 @import 'devices';
@@ -53,6 +53,10 @@ a {
 /* layout */
 .flex-box {
   display: flex;
+
+  &.column {
+    flex-direction: column;
+  }
 
   &.center {
     align-items: center;

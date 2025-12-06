@@ -1,6 +1,6 @@
 import { LOCATION_INITIALIZED } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injector, NgModule, inject, provideAppInitializer } from '@angular/core';
+import { inject, Injector, NgModule, provideAppInitializer } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -18,15 +18,17 @@ import { UserMangaListPage } from './modules/manga/pages/user-manga-list/user-ma
 import { MediaModule } from './modules/media/media.module';
 import { MediaDetailPage } from './modules/media/pages/media-detail/media-detail.page';
 import {
-  animeDashboardUrl, animeSearchUrl, animeUserListUrl, loginUrl, mangaDashboardUrl, mangaSearchUrl,
-  mangaUserListUrl, mediaDetailUrl, rootUrl,
+  animeDashboardUrl, animeSearchUrl, animeUserListUrl, galleryUrl, loginUrl, mangaDashboardUrl,
+  mangaSearchUrl, mangaUserListUrl, mediaDetailUrl, rootUrl,
 } from './modules/shared/constants/navigation.constants';
+import { GalleryPage } from './modules/shared/pages/gallery/gallery.page';
+import { LoginPage } from './modules/shared/pages/login/login.page';
+import { PageNotFoundPage } from './modules/shared/pages/page-not-found/page-not-found.page';
 import { SharedModule } from './modules/shared/shared.module';
-import { LoginPage } from './pages/login/login.page';
-import { PageNotFoundPage } from './pages/page-not-found/page-not-found.page';
 
 const appRoutes: Routes = [
   { path: loginUrl, component: LoginPage },
+  { path: galleryUrl, component: GalleryPage },
 
   { path: animeDashboardUrl, component: AnimeDashboardPage },
   { path: animeSearchUrl, component: AnimeSearchPage },
@@ -66,7 +68,7 @@ const translationFactory = (
 };
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundPage, LoginPage],
+  declarations: [AppComponent, PageNotFoundPage, LoginPage, GalleryPage],
   imports: [
     SharedModule,
     MediaModule,
@@ -84,9 +86,12 @@ const translationFactory = (
   ],
   providers: [
     provideAppInitializer(() => {
-        const initializerFn = (translationFactory)(inject(TranslateService), inject(Injector));
-        return initializerFn();
-      }),
+      const initializerFn = translationFactory(
+        inject(TranslateService),
+        inject(Injector)
+      );
+      return initializerFn();
+    }),
   ],
   bootstrap: [AppComponent],
 })

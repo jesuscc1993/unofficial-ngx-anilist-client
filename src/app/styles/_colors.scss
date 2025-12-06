@@ -2,13 +2,33 @@
 
 @use '@angular/material' as mat;
 
-@use 'palettes';
+@use 'mat-palettes';
 
-$primary_fg: map.get(palettes.$primary, 60);
-$white: map.get(palettes.$grey, 100);
-$border: rgba($white, 0.12);
-$hover: rgba($white, 0.02);
+/* theme agnostic */
 
-$anchor: map.get(palettes.$primary, 70);
-$anchor-hover: map.get(palettes.$primary, 60);
-$anchor-secondary: map.get(palettes.$grey, 50);
+$border: rgba(white, 0.12);
+$hover: rgba(white, 0.02);
+
+/* by name */
+
+$blue_bg: desaturate(map.get(mat.$blue-palette, 40), 33%);
+$green_bg: desaturate(map.get(mat.$green-palette, 50), 33%);
+$orange_bg: desaturate(map.get(mat.$orange-palette, 50), 10%);
+$red_bg: desaturate(map.get(mat.$red-palette, 50), 33%);
+
+$info_bg: $blue_bg;
+$success_bg: $green_bg;
+$warning_bg: $red_bg;
+
+/* by theme */
+
+$default_bg: map.get(mat-palettes.$grey, 40);
+$default_fg: map.get(mat-palettes.$grey, 100);
+$primary_fg: map.get(mat-palettes.$primary, 60);
+
+$anchor: map.get(mat-palettes.$primary, 70);
+$anchor-hover: map.get(mat-palettes.$primary, 60);
+$anchor-secondary: map.get(mat-palettes.$grey, 50);
+
+$primary_bg: $orange_bg;
+$accent_bg: $green_bg;

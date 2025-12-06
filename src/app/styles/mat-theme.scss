@@ -3,6 +3,7 @@
 @use '@angular/material' as mat;
 
 @use 'colors';
+@use 'mat-palettes';
 @use 'palettes';
 
 @include mat.elevation-classes();
@@ -13,9 +14,9 @@ $theme: mat.define-theme(
     color: (
       theme-type: dark,
       // "primary" == bg
-      primary: palettes.$mat-grey,
+      primary: mat-palettes.$mat-grey,
       // "tertiary" == fg
-      tertiary: palettes.$primary,
+      tertiary: mat-palettes.$primary,
     ),
   )
 );
@@ -32,10 +33,10 @@ body {
   }
   mat-form-field {
     --mat-form-field-filled-active-indicator-color: #{map.get(
-        palettes.$grey,
+        mat-palettes.$grey,
         35
       )};
-    --mat-form-field-filled-container-color: #{map.get(palettes.$grey, 17)};
+    --mat-form-field-filled-container-color: #{map.get(mat-palettes.$grey, 17)};
     --mat-form-field-filled-focus-active-indicator-color: #{colors.$primary_fg};
   }
   mat-paginator {
@@ -46,11 +47,11 @@ body {
     --mat-table-row-item-outline-color: #{colors.$border};
   }
   mat-toolbar {
-    --mat-toolbar-container-background-color: #{map.get(palettes.$grey, 0)};
+    --mat-toolbar-container-background-color: #{map.get(mat-palettes.$grey, 0)};
   }
   mat-tooltip-component {
-    --mat-tooltip-container-color: #{map.get(palettes.$grey, 4)};
-    --mat-tooltip-supporting-text-color: #{colors.$white};
+    --mat-tooltip-container-color: #{map.get(mat-palettes.$grey, 4)};
+    --mat-tooltip-supporting-text-color: #{colors.$default_fg};
   }
 
   .mat-accent.mat-mdc-checkbox {
@@ -64,22 +65,17 @@ body {
   }
 
   .mat-mdc-raised-button {
-    @mixin apply-button-theme($background) {
-      background: $background;
-      color: darken($background, 67%);
+    $fg-color: white;
+
+    @each $variant, $bg-color in palettes.$buttons {
+      &.mat-#{$variant} {
+        background: $bg-color;
+        color: $fg-color;
+      }
     }
 
-    &.mat-unthemed {
-      @include apply-button-theme(map.get(palettes.$grey, 50));
-    }
-    &.mat-primary {
-      @include apply-button-theme(map.get(palettes.$primary, 60));
-    }
-    &.mat-accent {
-      @include apply-button-theme(map.get(palettes.$accent, 60));
-    }
-    &.mat-warn {
-      @include apply-button-theme(map.get(palettes.$warn, 60));
+    &.mat-mdc-button-disabled {
+      filter: grayscale(0.76) brightness(0.5);
     }
   }
 }
@@ -102,21 +98,23 @@ vr {
   border-color: colors.$border;
 }
 
-mat-card-content {
-  @each $status, $palette in palettes.$by-log-level {
-    &.#{$status} {
-      background-color: map.get($palette, 60);
-      color: white;
-    }
-  }
+mat-snack-bar-container .mat-mdc-snackbar-surface {
+  --mat-snack-bar-container-color: #{colors.$default_bg};
+  --mat-snack-bar-supporting-text-color: #{colors.$default_fg};
 }
 
-mat-snack-bar-container {
-  @each $status, $palette in palettes.$by-log-level {
-    &.#{$status} .mat-mdc-snackbar-surface {
-      --mat-snackbar-container-color: #{map.get($palette, 60)};
-      color: white;
-    }
+@each $status, $color in palettes.$feedback {
+  $bg-color: $color;
+  $fg-color: colors.$default_fg;
+
+  mat-card-content.#{$status} {
+    background-color: $bg-color;
+    color: $fg-color;
+  }
+
+  mat-snack-bar-container.#{$status} .mat-mdc-snackbar-surface {
+    --mat-snack-bar-container-color: #{$bg-color};
+    --mat-snack-bar-supporting-text-color: #{$fg-color};
   }
 }
 

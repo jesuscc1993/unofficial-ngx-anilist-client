@@ -1,3 +1,4 @@
+import { ListEntryStatus } from '../types/anilist/listEntry.types';
 import {
   MediaCountry, MediaRelationType, MediaSort, MediaSource, MediaStatus, StaffRole,
 } from '../types/anilist/media.types';
@@ -56,6 +57,15 @@ export const relatedMediaRelationTypes = [
   MediaRelationType.SOURCE,
   MediaRelationType.SPIN_OFF,
   // MediaRelationType.SUMMARY,
+];
+
+export const listEntryStatuses: string[] = [
+  ListEntryStatus.COMPLETED,
+  ListEntryStatus.CURRENT,
+  ListEntryStatus.DROPPED,
+  ListEntryStatus.PAUSED,
+  ListEntryStatus.PLANNING,
+  ListEntryStatus.REPEATING,
 ];
 
 export const mediaScores = [undefined, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5];
