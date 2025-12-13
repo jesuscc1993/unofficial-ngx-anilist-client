@@ -47,13 +47,27 @@
             </button>
           }
         </div>
-        @if (media.status === 'FINISHED') {
-          <mt-media-score
-            [listEntry]="listEntry"
-            [media]="media"
-            [tooltipsEnabled]="false"
-          ></mt-media-score>
-        }
+        <div class="flex-box column center">
+          @if (getMediaProgress(media)) {
+            <div
+              matTooltipPosition="above"
+              [matTooltip]="getMediaTypeProgressLiteral(media.type) | translate"
+            >
+              (
+              {{ listEntry?.progress ?? '*' }}
+              /
+              {{ getMediaProgress(media) }}
+              )
+            </div>
+          }
+          @if (media.status === 'FINISHED') {
+            <mt-media-score
+              [listEntry]="listEntry"
+              [media]="media"
+              [tooltipsEnabled]="false"
+            ></mt-media-score>
+          }
+        </div>
       </div>
       @if (listEntry && showStatusBadge) {
         <div class="status-badge {{ listEntry.status.toLowerCase() }}"></div>

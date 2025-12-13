@@ -15,7 +15,9 @@ import { Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
+  getMediaProgress,
   getMediaTitle,
+  getMediaTypeProgressLiteral,
   getSizedCoverImage,
   isAnime,
 } from '../../domain/media.domain';
@@ -23,10 +25,10 @@ import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-moda
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-    selector: 'mt-media-cover',
-    templateUrl: './mt-media-cover.component.html',
-    styleUrls: ['./mt-media-cover.component.scss'],
-    standalone: false
+  selector: 'mt-media-cover',
+  templateUrl: './mt-media-cover.component.html',
+  styleUrls: ['./mt-media-cover.component.scss'],
+  standalone: false,
 })
 export class MtMediaCoverComponent
   extends WithObservableOnDestroy
@@ -36,7 +38,9 @@ export class MtMediaCoverComponent
   @Input() media: Media;
   @Input() showStatusBadge?: boolean;
 
+  readonly getMediaProgress = getMediaProgress;
   readonly getMediaTitle = getMediaTitle;
+  readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
 
   mediaCommands: MediaCommands;
