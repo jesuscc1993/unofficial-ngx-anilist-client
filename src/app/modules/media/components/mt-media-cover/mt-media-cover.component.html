@@ -54,9 +54,14 @@
               [matTooltip]="getMediaTypeProgressLiteral(media.type) | translate"
             >
               (
-              {{ listEntry?.progress ?? '*' }}
+              <span
+                [ngClass]="{
+                  bold: listEntry?.progress === getMediaProgress(media),
+                }"
+                >{{ listEntry?.progress ?? '*' }}</span
+              >
               /
-              {{ getMediaProgress(media) }}
+              <span>{{ getMediaProgress(media) }}</span>
               )
             </div>
           }
