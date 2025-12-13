@@ -55,7 +55,7 @@
         {{ 'media.format' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <span class="text">
+        <span class="text nowrap">
           {{ 'media.formatValues.' + entry.media.format | translate }}
 
           <mt-media-country [media]="entry.media"></mt-media-country>
