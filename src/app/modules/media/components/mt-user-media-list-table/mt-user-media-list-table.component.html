@@ -92,7 +92,13 @@
         {{ 'media.score' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let entry">
-        <span class="text">{{ entry.scoreRaw / 10 }}/10</span>
+        <span
+          class="text"
+          matTooltipPosition="above"
+          [matTooltip]="'media.scoreTooltip' | translate"
+        >
+          {{ entry.scoreRaw / 10 }}
+        </span>
       </mat-cell>
     </ng-container>
 
