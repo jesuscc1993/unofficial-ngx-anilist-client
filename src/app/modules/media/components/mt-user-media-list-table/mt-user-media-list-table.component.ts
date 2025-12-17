@@ -115,8 +115,8 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
       const { media } = listEntry;
 
       const data = {
-        'title-romaji': media.title.romaji.toLowerCase(),
-        'title-english': media.title.english.toLowerCase(),
+        'title-romaji': media.title.romaji?.toLowerCase(),
+        'title-english': media.title.english?.toLowerCase(),
         format: media.format.toLowerCase(),
         'start-date': +media.startDate.year,
         genres: media.genres.length ? media.genres[0] : '',
