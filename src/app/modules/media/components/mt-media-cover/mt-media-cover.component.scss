@@ -5,8 +5,7 @@
 
 @use 'colors';
 @use 'palettes';
-
-@import 'variables';
+@use 'variables' as *;
 
 .cover {
   height: $media-cover-height;

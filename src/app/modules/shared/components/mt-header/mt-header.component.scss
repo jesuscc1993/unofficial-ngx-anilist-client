@@ -1,8 +1,7 @@
 @use 'sass:map';
 
 @use 'mat-palettes';
-
-@import 'variables';
+@use 'variables' as *;
 
 mat-toolbar {
   display: flex;

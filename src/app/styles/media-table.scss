@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 
 @use 'colors';
-
-@import 'variables';
+@use 'color-utils' as *;
+@use 'variables' as *;
 
 @media (min-width: ($screen-2xs + 1)) {
   :root {

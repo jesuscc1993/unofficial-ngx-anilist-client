@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as *;
 
 $sizes: (
   3xs: $screen-3xs,

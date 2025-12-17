@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /* spacing */
 $spacing-8xs: 0.125rem;
 $spacing-6xs: 0.1875rem;
@@ -54,7 +56,7 @@ $separator-thickness: 1px;
 $footer-height: 44px;
 $media-aspect-ratio: 1.414; // √2
 $media-cover-width: 96px;
-$media-cover-height: round($media-cover-width * $media-aspect-ratio);
+$media-cover-height: math.round($media-cover-width * $media-aspect-ratio);
 $min-dashboard-column-height: 752px;
 
 /* other */

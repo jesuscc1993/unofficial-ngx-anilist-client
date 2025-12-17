@@ -1,6 +1,5 @@
 @use 'colors';
-
-@import 'variables';
+@use 'variables' as *;
 
 @mixin setup-card-padding($padding) {
   .header,

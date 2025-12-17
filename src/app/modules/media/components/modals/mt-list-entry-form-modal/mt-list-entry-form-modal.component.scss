@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import 'variables';
+@use 'variables' as *;
 
 .form-group {
   $cols: 4;

@@ -1,6 +1,5 @@
 @use 'colors';
-
-@import 'variables';
+@use 'variables' as *;
 
 $cover-width: $screen-3xs * 0.5;
 $max-cover-width: 33vw;

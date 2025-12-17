@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as *;
 
 $spacings: (
   3xs: $spacing-4xs,

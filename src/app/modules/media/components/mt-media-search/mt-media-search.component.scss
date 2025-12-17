@@ -1,6 +1,5 @@
 @use 'colors';
-
-@import 'variables';
+@use 'variables' as *;
 
 mat-form-field {
   width: 100%;
