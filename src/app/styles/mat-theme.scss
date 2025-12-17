@@ -6,8 +6,6 @@
 @use 'mat-palettes';
 @use 'palettes';
 
-@import 'variables';
-
 @include mat.elevation-classes();
 @include mat.app-background();
 
@@ -79,12 +77,6 @@ body {
     &.mat-mdc-button-disabled {
       filter: grayscale(0.76) brightness(0.5);
     }
-  }
-
-  /* Fix cut arrows */
-  .mat-sort-header-arrow,
-  [dir='rtl'] .mat-sort-header-position-before .mat-sort-header-arrow {
-    margin: 0 0 0 $spacing-4xs;
   }
 }
 
