@@ -113,25 +113,26 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
       property: string
     ) => {
       const { media } = listEntry;
-
-      const data = {
-        'title-romaji': media.title.romaji?.toLowerCase(),
-        'title-english': media.title.english?.toLowerCase(),
-        format: media.format.toLowerCase(),
-        'start-date': +media.startDate.year,
-        genres: media.genres.length ? media.genres[0] : '',
-        score: +listEntry.scoreRaw,
-        episodes: undefined,
-        chapters: undefined,
-      };
-
-      if (isAnime(this.mediaType)) {
-        data.episodes = +getMediaProgress(media);
-      } else {
-        data.chapters = +getMediaProgress(media);
+      switch (property) {
+        case 'title-romaji':
+          return media.title.romaji?.toLowerCase() ?? '';
+        case 'title-english':
+          return media.title.english?.toLowerCase() ?? '';
+        case 'format':
+          return media.format?.toLowerCase() ?? '';
+        case 'start-date':
+          return media.startDate?.year ?? 0;
+        case 'genres':
+          return media.genres.length ? media.genres[0] : '';
+        case 'score':
+          return listEntry.scoreRaw ?? 0;
+        case 'episodes':
+          return +getMediaProgress(media);
+        case 'chapters':
+          return +getMediaProgress(media);
+        default:
+          return '';
       }
-
-      return data[property];
     };
 
     this.dataSource.filterPredicate = (

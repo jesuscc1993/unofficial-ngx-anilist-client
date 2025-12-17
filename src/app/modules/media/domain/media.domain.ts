@@ -37,11 +37,12 @@ export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {
 };
 
 export const getFormattedMediaYearRange = ({ startDate, endDate }: Media) => {
-  let range = startDate.year || '';
-  if (endDate.year && endDate.year !== startDate.year) {
-    range += `\n—\n${endDate.year}`;
-  }
-  return range;
+  const startYear = startDate?.year ?? '';
+  const endYear = endDate?.year ?? '';
+
+  return endYear && endYear !== startYear
+    ? `${startYear}\n—\n${endYear}`
+    : startYear;
 };
 
 export const getSanitizedMediaDescription = (media: Media) => {

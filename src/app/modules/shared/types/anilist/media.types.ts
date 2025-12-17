@@ -28,7 +28,7 @@ export class MediaData {
   isFavourite?: boolean;
   meanScore: number;
   mediaListEntry: ListEntry;
-  startDate: FuzzyDate;
+  startDate?: FuzzyDate;
   status: MediaStatus;
   synonyms: string[];
   tags: Tag[];

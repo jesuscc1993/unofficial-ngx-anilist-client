@@ -1,114 +1,116 @@
-<mat-table
-  #table
-  [dataSource]="dataSource"
-  [hidden]="!dataSource?.data?.length"
-  class="media-table"
-  matSort
-  (matSortChange)="sortBy($event)"
->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <mt-media-actions [media]="media"></mt-media-actions>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="cover-image">
-    <mat-header-cell *matHeaderCellDef>
-      {{ 'media.cover' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <img
-        [src]="getSizedCoverImage(media.coverImage)"
-        alt="Cover image for {{ getMediaTitle(media) }}"
-        class="cover"
-      />
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="title-romaji" class="justify-start">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{ 'media.title' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media" class="justify-start">
-      <span class="text">
-        <span>{{ getMediaTitle(media) }}</span>
-        @if (favouriteIDs?.includes(media.id)) {
-          <span>
-            {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
-          </span>
-        }
-      </span>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="format">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{ 'media.format' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <span class="text nowrap">
-        {{ 'media.formatValues.' + media.format | translate }}
-
-        <mt-media-country [media]="media"></mt-media-country>
-      </span>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="start-date">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      {{ 'media.year' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <span class="text">{{ getFormattedMediaYearRange(media) }}</span>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="genres">
-    <mat-header-cell *matHeaderCellDef>
-      {{ 'media.genres' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <mat-list role="list" class="no-padding">
-        @for (genre of media.genres; track genre) {
-          <mat-list-item role="listitem">
-            <mt-chip class="rounded">{{ genre }}</mt-chip>
-          </mat-list-item>
-        }
-      </mat-list>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="score">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      {{ 'media.score' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <span class="text">
-        <mt-media-score [media]="media" [columnMode]="true"></mt-media-score>
-      </span>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="episodes">
-    <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
-      {{ getMediaTypeProgressLiteral(mediaType) | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let media">
-      <span class="text">{{ getMediaProgress(media) }}</span>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
-  <mat-row
-    *matRowDef="let media; columns: tableRows"
-    [class.completed]="media?.mediaListEntry?.status === 'COMPLETED'"
-    [class.dropped]="media?.mediaListEntry?.status === 'DROPPED'"
-    [class.paused]="media?.mediaListEntry?.status === 'PAUSED'"
-    [class.planning]="media?.mediaListEntry?.status === 'PLANNING'"
-    [class.repeating]="media?.mediaListEntry?.status === 'REPEATING'"
-    [class.watching]="media?.mediaListEntry?.status === 'CURRENT'"
-    (click)="openDetailModal(media)"
+@if (dataSource) {
+  <mat-table
+    #table
+    [dataSource]="dataSource"
+    [hidden]="!dataSource?.data?.length"
+    class="media-table"
+    matSort
+    (matSortChange)="sortBy($event)"
   >
-  </mat-row>
-</mat-table>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <mt-media-actions [media]="media"></mt-media-actions>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cover-image">
+      <mat-header-cell *matHeaderCellDef>
+        {{ 'media.cover' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <img
+          [src]="getSizedCoverImage(media.coverImage)"
+          alt="Cover image for {{ getMediaTitle(media) }}"
+          class="cover"
+        />
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title-romaji" class="justify-start">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ 'media.title' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media" class="justify-start">
+        <span class="text">
+          <span>{{ getMediaTitle(media) }}</span>
+          @if (favouriteIDs?.includes(media.id)) {
+            <span>
+              {{ ' ' }}<fa-icon name="heart" class="favourite"></fa-icon>
+            </span>
+          }
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="format">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ 'media.format' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <span class="text nowrap">
+          {{ 'media.formatValues.' + media.format | translate }}
+
+          <mt-media-country [media]="media"></mt-media-country>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="start-date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+        {{ 'media.year' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <span class="text">{{ getFormattedMediaYearRange(media) }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="genres">
+      <mat-header-cell *matHeaderCellDef>
+        {{ 'media.genres' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <mat-list role="list" class="no-padding">
+          @for (genre of media.genres; track genre) {
+            <mat-list-item role="listitem">
+              <mt-chip class="rounded">{{ genre }}</mt-chip>
+            </mat-list-item>
+          }
+        </mat-list>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+        {{ 'media.score' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <span class="text">
+          <mt-media-score [media]="media" [columnMode]="true"></mt-media-score>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="episodes">
+      <mat-header-cell *matHeaderCellDef mat-sort-header start="desc">
+        {{ getMediaTypeProgressLiteral(mediaType) | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let media">
+        <span class="text">{{ getMediaProgress(media) }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="tableRows"></mat-header-row>
+    <mat-row
+      *matRowDef="let media; columns: tableRows"
+      [class.completed]="media?.mediaListEntry?.status === 'COMPLETED'"
+      [class.dropped]="media?.mediaListEntry?.status === 'DROPPED'"
+      [class.paused]="media?.mediaListEntry?.status === 'PAUSED'"
+      [class.planning]="media?.mediaListEntry?.status === 'PLANNING'"
+      [class.repeating]="media?.mediaListEntry?.status === 'REPEATING'"
+      [class.watching]="media?.mediaListEntry?.status === 'CURRENT'"
+      (click)="openDetailModal(media)"
+    >
+    </mat-row>
+  </mat-table>
+}
