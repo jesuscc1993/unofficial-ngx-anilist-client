@@ -31,10 +31,10 @@ import {
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
-    selector: 'mt-user-media-list-table',
-    templateUrl: './mt-user-media-list-table.component.html',
-    styleUrls: ['./mt-user-media-list-table.component.scss'],
-    standalone: false
+  selector: 'mt-user-media-list-table',
+  templateUrl: './mt-user-media-list-table.component.html',
+  styleUrls: ['./mt-user-media-list-table.component.scss'],
+  standalone: false,
 })
 export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   @Input() favouriteIDs: number[];
@@ -58,7 +58,10 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   tableRows: string[];
   dataSource: MatTableDataSource<ListEntry>;
 
-  constructor(private dialog: MatDialog, private elementRef: ElementRef) {}
+  constructor(
+    private dialog: MatDialog,
+    private elementRef: ElementRef
+  ) {}
 
   ngAfterViewInit() {
     this.tableRows = [
@@ -67,9 +70,9 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
       'title-romaji',
       'format',
       'start-date',
-      'genres',
       'score',
       isAnime(this.mediaType) ? 'episodes' : 'chapters',
+      'genres',
     ];
 
     // TODO: Fix ExpressionChangedAfterItHasBeenCheckedError

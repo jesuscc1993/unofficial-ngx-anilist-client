@@ -56,6 +56,12 @@
     padding: 0 $spacing-xs;
   }
 
+  mat-cell:last-of-type,
+  mat-header-cell:last-of-type,
+  mat-footer-cell:last-of-type {
+    padding-right: $spacing-xs;
+  }
+
   mat-header-cell,
   mat-cell {
     &:not(.justify-start) {
@@ -75,12 +81,6 @@
     align-items: stretch;
     overflow: visible;
     padding: 0;
-
-    .media-table .mat-column-actions .container {
-      display: flex;
-      flex-direction: column;
-      gap: $spacing-4xs;
-    }
 
     .menu-toggle {
       --size: 2rem;
@@ -184,10 +184,11 @@
     flex: 2;
   }
   .mat-column-score {
-    flex: 1;
+    flex: 1.25;
   }
-  .mat-column-episodes {
-    flex: 1;
+  .mat-column-episodes,
+  .mat-column-chapters {
+    flex: 1.25;
   }
 
   @media (min-width: ($screen-md + 1)) {
@@ -203,10 +204,11 @@
   }
 
   @media (max-width: $screen-sm) {
-    .mat-column-start-date,
+    .mat-column-chapters,
+    .mat-column-episodes,
     .mat-column-genres,
     .mat-column-score,
-    .mat-column-episodes {
+    .mat-column-start-date {
       display: none;
     }
   }

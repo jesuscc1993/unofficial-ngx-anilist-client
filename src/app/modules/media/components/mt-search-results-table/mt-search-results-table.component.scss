@@ -1,5 +1,12 @@
+$border-size: 4px;
+
+mat-header-row {
+  mat-header-cell:first-child {
+    margin-left: #{$border-size};
+  }
+}
+
 mat-row {
-  $border-size: 4px;
   border-left: #{$border-size} solid transparent; // status
 
   mat-cell:first-child {
