@@ -1,6 +1,5 @@
 @use 'colors';
-
-@import 'variables';
+@use 'variables' as *;
 
 .columns-wrapper {
   font-size: 0;

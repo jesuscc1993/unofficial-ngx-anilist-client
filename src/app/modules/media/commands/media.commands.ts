@@ -173,8 +173,8 @@ export class MediaCommands {
     );
   }
 
-  getPendingMedia() {
-    return this.mediaService.getPendingMedia();
+  getPendingMedia(maxEndDate?: Date) {
+    return this.mediaService.getPendingMedia(maxEndDate);
   }
 
   private _deleteListEntry(listEntry: ListEntry) {

@@ -1,14 +1,4 @@
-@import 'vanilla-extended';
-@import 'mat-theme';
-@import 'mat-overrides';
-@import 'cards';
-@import 'color-utils';
-@import 'devices';
-@import 'font-sizes';
-@import 'spacing';
-@import 'media-table';
-@import 'data-display';
-@import 'utility';
+@use 'variables' as *;
 
 /* core */
 body {
@@ -19,7 +9,7 @@ body {
   overflow-y: scroll;
 
   main {
-    @extend .padding-xs;
+    padding: $spacing-md;
     box-sizing: border-box;
     text-align: center;
 

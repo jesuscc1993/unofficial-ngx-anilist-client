@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as *;
 
 .property-value-pair {
   $property-width: 80px;

@@ -5,8 +5,7 @@
 
 @use 'colors';
 @use 'palettes';
-
-@import 'variables';
+@use 'variables' as *;
 
 .cover {
   height: $media-cover-height;
@@ -55,12 +54,7 @@
     }
   }
 
-  .status-badge {
-    $size: 12px;
-    $shadow-size: $size + 1px;
-    border-color: transparent #0006;
-    border-style: solid;
-    border-width: 0px 0px $shadow-size $shadow-size;
+  .media-badge {
     position: absolute;
     top: 0;
 
@@ -68,18 +62,48 @@
       content: '';
       display: block;
       position: absolute;
-
-      border-color: transparent;
-      border-style: solid;
-      border-width: 0px 0px $size $size;
-      margin-left: (-$shadow-size);
     }
 
-    @each $status, $palette in palettes.$by-status {
-      &.#{$status}:after {
-        $border-color: map.get($palette, 60);
-        border-left-color: $border-color;
-        border-right-color: $border-color;
+    &.list-entry-status {
+      $size: 12px;
+      $shadow-size: $size + 1px;
+      border-color: transparent #0006;
+      border-style: solid;
+      border-width: 0px 0px $shadow-size $shadow-size;
+
+      &:after {
+        border-color: transparent;
+        border-style: solid;
+        border-width: 0px 0px $size $size;
+        margin-left: (-$shadow-size);
+      }
+
+      @each $status, $palette in palettes.$by-status {
+        &.#{$status}:after {
+          $border-color: map.get($palette, 60);
+          border-left-color: $border-color;
+          border-right-color: $border-color;
+        }
+      }
+    }
+
+    &.media-status {
+      border: $spacing-6xs solid colors.$primary_fg;
+      box-shadow: inset 0 0 $spacing-3xs black;
+      box-sizing: border-box;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+
+      &.not-yet-released,
+      &.releasing {
+        &:after {
+          content: '\f017';
+          font-family: var(--fa-family-classic);
+          margin: $spacing-6xs;
+          color: colors.$primary_fg;
+          text-shadow: 0 0 $spacing-4xs black;
+        }
       }
     }
   }

@@ -21,7 +21,8 @@ import { getColCount } from '../../domain/media.domain';
 })
 export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   @Input() listEntries: ListEntry[];
-  @Input() showStatusBadge?: boolean;
+  @Input() showListEntryStatus?: boolean;
+  @Input() showMediaStatus?: boolean;
   @Input() wrapperClass?: string;
 
   @ViewChild('content', { read: ElementRef }) content: ElementRef;

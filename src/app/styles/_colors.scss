@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'sass:map';
 
 @use '@angular/material' as mat;
@@ -11,10 +12,10 @@ $hover: rgba(white, 0.02);
 
 /* by name */
 
-$blue_bg: desaturate(map.get(mat.$blue-palette, 40), 33%);
-$green_bg: desaturate(map.get(mat.$green-palette, 50), 33%);
-$orange_bg: desaturate(map.get(mat.$orange-palette, 50), 10%);
-$red_bg: desaturate(map.get(mat.$red-palette, 50), 33%);
+$blue_bg: color.adjust(map.get(mat.$blue-palette, 40), $saturation: -33%);
+$green_bg: color.adjust(map.get(mat.$green-palette, 50), $saturation: -33%);
+$orange_bg: color.adjust(map.get(mat.$orange-palette, 50), $saturation: -10%);
+$red_bg: color.adjust(map.get(mat.$red-palette, 50), $saturation: -33%);
 
 $info_bg: $blue_bg;
 $success_bg: $green_bg;

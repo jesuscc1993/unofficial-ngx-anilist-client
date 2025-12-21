@@ -34,10 +34,10 @@ import {
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
-    selector: 'mt-recently-finished-media',
-    templateUrl: './mt-recently-finished-media.component.html',
-    styleUrls: ['./mt-recently-finished-media.component.scss'],
-    standalone: false
+  selector: 'mt-recently-finished-media',
+  templateUrl: './mt-recently-finished-media.component.html',
+  styleUrls: ['./mt-recently-finished-media.component.scss'],
+  standalone: false,
 })
 export class MtRecentlyFinishedMediaComponent
   extends WithObservableOnDestroy
@@ -54,6 +54,7 @@ export class MtRecentlyFinishedMediaComponent
 
   error: Error;
   filteredEntries: ListEntry[];
+  maxEndDate: Date;
   mediaCommands: MediaCommands;
   mediaCountries: MediaCountry[];
   mediaFormats: MediaFormat[];
@@ -87,6 +88,9 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   initialize() {
+    this.maxEndDate = new Date();
+    this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+
     this.selectedCountries = storageService.getItem<MediaCountry[]>(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyFinished.Country,
@@ -112,7 +116,7 @@ export class MtRecentlyFinishedMediaComponent
     );
 
     this.mediaCommands
-      .getPendingMedia()
+      .getPendingMedia(this.maxEndDate)
       .pipe(
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
