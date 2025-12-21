@@ -25,7 +25,7 @@ import {
 } from '../../shared/types/anilist/media.types';
 
 export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
-  return new Date(year, month, day);
+  return year && month && day ? new Date(year, month - 1, day) : undefined;
 };
 
 export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {

@@ -18,7 +18,7 @@ export interface MediaServiceInterface {
     query: SearchFilters,
     pageQuery?: PageQuery
   );
-  getPendingMedia();
+  getPendingMedia(maxEndDate?: Date);
   queryFavouriteIDs(user: User, callback: (favouriteIDs: number[]) => void);
   queryGenres();
   queryMedia(query: SearchFilters, pageQuery?: PageQuery);

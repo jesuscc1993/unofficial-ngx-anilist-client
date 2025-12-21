@@ -1,7 +1,9 @@
 import { Observable } from 'rxjs';
 
 import {
-  ListEntriesByStatus, ListEntry, ListEntryStatus,
+  ListEntriesByStatus,
+  ListEntry,
+  ListEntryStatus,
 } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
@@ -26,7 +28,7 @@ export interface MediaCommands {
     pageQuery?: PageQuery
   ): Observable<{ media: Media[]; pageInfo: PageInfo }>;
 
-  getPendingMedia(): Observable<ListEntry[]>;
+  getPendingMedia(maxEndDate?: Date): Observable<ListEntry[]>;
 
   queryFavouriteIDs(user: User): Observable<number[]>;
 

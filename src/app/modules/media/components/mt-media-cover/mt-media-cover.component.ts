@@ -36,7 +36,8 @@ export class MtMediaCoverComponent
 {
   @Input() listEntry?: ListEntry;
   @Input() media: Media;
-  @Input() showStatusBadge?: boolean;
+  @Input() showListEntryStatus?: boolean;
+  @Input() showMediaStatus?: boolean;
 
   readonly getMediaProgress = getMediaProgress;
   readonly getMediaTitle = getMediaTitle;

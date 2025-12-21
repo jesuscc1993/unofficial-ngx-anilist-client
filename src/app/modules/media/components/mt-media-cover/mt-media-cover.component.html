@@ -74,8 +74,19 @@
           }
         </div>
       </div>
-      @if (listEntry && showStatusBadge) {
-        <div class="status-badge {{ listEntry.status.toLowerCase() }}"></div>
+      @if (listEntry && showListEntryStatus) {
+        <div
+          class="media-badge list-entry-status {{
+            listEntry.status.toLowerCase()
+          }}"
+        ></div>
+      }
+      @if (showMediaStatus && media.status !== 'FINISHED') {
+        <div
+          class="media-badge media-status {{
+            media.status.toLowerCase().replace(/_/g, '-')
+          }}"
+        ></div>
       }
     </div>
   </div>

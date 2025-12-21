@@ -5,12 +5,16 @@ import { Injectable } from '@angular/core';
 
 import { SearchFilters } from '../../media/api/media.types';
 import { getListEntriesByStatus } from '../../media/domain/media.domain';
-import { ListEntry } from '../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
 import { Media, MediaSort } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
 import { MediaApiInterface } from '../api/media.api.interface';
+import { fuzzyDateToDate } from '../domain/media.domain';
 import { MediaStore } from '../store/media.store';
 
 @Injectable()
@@ -174,17 +178,31 @@ export class MediaService {
     return this.mediaStore.onListEntriesChanges();
   }
 
-  getPendingMedia() {
-    return this.mediaStore
-      .onListEntriesChanges()
-      .pipe(
-        map((mediaListEntries) =>
-          mediaListEntries.filter(
-            (listEntry) =>
-              ['PLANNING', 'CURRENT'].includes(listEntry.status) &&
-              listEntry.media.status === 'FINISHED'
-          )
-        )
-      );
+  getPendingMedia(maxEndDate?: Date) {
+    return this.mediaStore.onListEntriesChanges().pipe(
+      map((mediaListEntries) =>
+        mediaListEntries.filter((listEntry) => {
+          if (
+            !(
+              listEntry.status === ListEntryStatus.PLANNING ||
+              listEntry.status === ListEntryStatus.CURRENT
+            )
+          ) {
+            return false;
+          }
+
+          if (listEntry.media.status === 'FINISHED') {
+            return true;
+          }
+
+          if (maxEndDate) {
+            const endDate = fuzzyDateToDate(listEntry.media.endDate);
+            return endDate && endDate <= maxEndDate;
+          }
+
+          return false;
+        })
+      )
+    );
   }
 }
