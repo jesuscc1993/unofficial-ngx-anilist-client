@@ -75,16 +75,18 @@
       @if (listEntry && showListEntryStatus) {
         <div
           class="media-badge list-entry-status {{
-            listEntry.status.toLowerCase()
+            sanitizeClassname(listEntry.status)
           }}"
         ></div>
       }
       @if (showMediaStatus && media.status !== 'FINISHED') {
         <div
-          class="media-badge media-status {{
-            media.status.toLowerCase().replace(/_/g, '-')
-          }}"
-        ></div>
+          class="media-badge media-status {{ sanitizeClassname(media.status) }}"
+        >
+          <div class="contents">
+            {{ daysToFinish ? `${daysToFinish}d` : '' }}
+          </div>
+        </div>
       }
     </div>
   </div>
