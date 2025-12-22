@@ -10,11 +10,14 @@ import {
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { subtractDays } from '../../../shared/domain/dates.domain';
+import { sanitizeClassname } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { Media } from '../../../shared/types/anilist/media.types';
+import { Media, MediaStatus } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
+  fuzzyDateToDate,
   getMediaProgress,
   getMediaTitle,
   getMediaTypeProgressLiteral,
@@ -43,8 +46,10 @@ export class MtMediaCoverComponent
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
+  readonly sanitizeClassname = sanitizeClassname;
 
   mediaCommands: MediaCommands;
+  daysToFinish?: number;
 
   constructor(
     private dialog: MatDialog,
@@ -70,6 +75,13 @@ export class MtMediaCoverComponent
         ...media,
         mediaListEntry,
       } as Media;
+    }
+
+    if (this.showMediaStatus && this.media.status !== MediaStatus.FINISHED) {
+      this.daysToFinish = subtractDays(
+        fuzzyDateToDate(this.media.endDate),
+        new Date()
+      );
     }
   }
 
