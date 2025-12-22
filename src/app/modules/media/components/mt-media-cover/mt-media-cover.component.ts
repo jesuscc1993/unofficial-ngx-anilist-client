@@ -13,7 +13,7 @@ import { WithObservableOnDestroy } from '../../../shared/components/with-observa
 import { subtractDays } from '../../../shared/domain/dates.domain';
 import { sanitizeClassname } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { Media, MediaStatus } from '../../../shared/types/anilist/media.types';
+import { Media } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
@@ -79,7 +79,7 @@ export class MtMediaCoverComponent
       } as Media;
     }
 
-    if (this.showMediaStatus && this.media.status !== MediaStatus.FINISHED) {
+    if (this.showMediaStatus && !isMediaFinished(this.media)) {
       this.daysToFinish = subtractDays(
         fuzzyDateToDate(this.media.endDate),
         new Date()
