@@ -86,14 +86,15 @@
     }
 
     &.media-status {
-      box-sizing: border-box;
       height: 100%;
       width: 100%;
+
+      box-sizing: border-box;
+      pointer-events: none;
 
       .contents {
         font-weight: bold;
         padding: $spacing-6xs;
-        pointer-events: none;
         text-align: center;
         text-shadow: 0 0 $spacing-4xs black;
       }
