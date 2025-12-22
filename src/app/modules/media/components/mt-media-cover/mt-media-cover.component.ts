@@ -23,6 +23,7 @@ import {
   getMediaTypeProgressLiteral,
   getSizedCoverImage,
   isAnime,
+  isMediaFinished,
 } from '../../domain/media.domain';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
@@ -46,6 +47,7 @@ export class MtMediaCoverComponent
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
+  readonly isMediaFinished = isMediaFinished;
   readonly sanitizeClassname = sanitizeClassname;
 
   mediaCommands: MediaCommands;

@@ -9,7 +9,11 @@ import {
   ListEntry,
   ListEntryStatus,
 } from '../../shared/types/anilist/listEntry.types';
-import { Media, MediaSort } from '../../shared/types/anilist/media.types';
+import {
+  Media,
+  MediaSort,
+  MediaStatus,
+} from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
@@ -191,7 +195,10 @@ export class MediaService {
             return false;
           }
 
-          if (listEntry.media.status === 'FINISHED') {
+          if (
+            listEntry.media.status === MediaStatus.FINISHED ||
+            listEntry.media.status === MediaStatus.CANCELLED
+          ) {
             return true;
           }
 

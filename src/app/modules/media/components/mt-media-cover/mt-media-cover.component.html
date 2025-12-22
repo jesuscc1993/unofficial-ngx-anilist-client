@@ -79,7 +79,7 @@
           }}"
         ></div>
       }
-      @if (showMediaStatus && media.status !== 'FINISHED') {
+      @if (showMediaStatus && !isMediaFinished(media)) {
         <div
           class="media-badge media-status {{ sanitizeClassname(media.status) }}"
         >
