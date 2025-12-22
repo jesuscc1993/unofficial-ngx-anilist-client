@@ -21,6 +21,7 @@ import {
   MediaCountry,
   MediaFormat,
   MediaSort,
+  MediaStatus,
   MediaType,
 } from '../../shared/types/anilist/media.types';
 
@@ -138,6 +139,13 @@ export const isAnime = (payload: Media | MediaType) => {
 
 export const isManga = (payload: Media | MediaType) => {
   return getMediaPayloadType(payload) === MediaType.MANGA;
+};
+
+export const isMediaFinished = (media: Media) => {
+  return (
+    media.status === MediaStatus.FINISHED ||
+    media.status === MediaStatus.CANCELLED
+  );
 };
 
 export const getSizedCoverImage = (
