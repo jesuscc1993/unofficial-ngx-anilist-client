@@ -21,5 +21,5 @@ export const mediumModalOptions: MatDialogConfig = {
 
 export const largeModalOptions: MatDialogConfig = {
   minWidth: '720px',
-  maxWidth: 'max(864px, 45vw)',
+  maxWidth: 'max(960px, 50vw)',
 };
