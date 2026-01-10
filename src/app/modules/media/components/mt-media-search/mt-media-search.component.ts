@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   integerPattern,
   minMediaStartYear,
+  numberPattern,
   pageSizeOptions,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
@@ -45,10 +46,10 @@ import { getDateScalarFromYear, isAnime } from '../../domain/media.domain';
 import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
-    selector: 'mt-media-search',
-    templateUrl: './mt-media-search.component.html',
-    styleUrls: ['./mt-media-search.component.scss'],
-    standalone: false
+  selector: 'mt-media-search',
+  templateUrl: './mt-media-search.component.html',
+  styleUrls: ['./mt-media-search.component.scss'],
+  standalone: false,
 })
 export class MtMediaSearchComponent
   extends WithObservableOnDestroy
@@ -213,14 +214,8 @@ export class MtMediaSearchComponent
 
   private setupForm() {
     this.searchForm = this.formBuilder.group({
-      averageScoreGreaterThan: [
-        undefined,
-        [Validators.pattern(integerPattern)],
-      ],
-      averageScoreSmallerThan: [
-        undefined,
-        [Validators.pattern(integerPattern)],
-      ],
+      averageScoreGreaterThan: [undefined, [Validators.pattern(numberPattern)]],
+      averageScoreSmallerThan: [undefined, [Validators.pattern(numberPattern)]],
       countryOfOrigin: [[]],
       formatIn: [[]],
       formatNotIn: [[]],

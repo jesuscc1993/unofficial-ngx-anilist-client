@@ -8,6 +8,7 @@ export const apiTokenPrefix = '#access_token=';
 export const apiTokenError = 'Invalid token';
 
 export const integerPattern = /^\d+$/;
+export const numberPattern = /^\d+(\.\d+)?$/;
 export const scorePattern = /^0*([0-9]|10)(\.[0-9]{1,2})?$/;
 
 export const minMediaStartYear = 1900;
