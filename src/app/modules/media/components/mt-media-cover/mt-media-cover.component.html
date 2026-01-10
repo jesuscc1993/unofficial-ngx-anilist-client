@@ -72,21 +72,23 @@
           ></mt-media-score>
         </div>
       </div>
+      @if (showMediaStatus) {
+        <div
+          class="media-badge media-status {{ sanitizeClassname(media.status) }}"
+        >
+          <div class="contents">
+            @if (daysToFinish) {
+              <span> {{ daysToFinish }}d </span>
+            }
+          </div>
+        </div>
+      }
       @if (listEntry && showListEntryStatus) {
         <div
           class="media-badge list-entry-status {{
             sanitizeClassname(listEntry.status)
           }}"
         ></div>
-      }
-      @if (showMediaStatus) {
-        <div
-          class="media-badge media-status {{ sanitizeClassname(media.status) }}"
-        >
-          <div class="contents">
-            {{ daysToFinish ? `${daysToFinish}d` : '' }}
-          </div>
-        </div>
       }
     </div>
   </div>

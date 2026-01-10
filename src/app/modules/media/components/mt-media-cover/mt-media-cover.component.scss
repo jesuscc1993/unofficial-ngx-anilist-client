@@ -102,7 +102,7 @@
       &.cancelled,
       &.not-yet-released,
       &.releasing {
-        .contents {
+        .contents:not(:empty) {
           background: $c-backdrop;
         }
       }
@@ -126,7 +126,7 @@
         box-shadow: inset 0 0 $spacing-3xs black;
         color: colors.$primary_fg;
 
-        .contents {
+        .contents:not(:empty) {
           padding-right: $spacing-xs;
 
           &:before {
