@@ -79,7 +79,11 @@ export class MtMediaCoverComponent
       } as Media;
     }
 
-    if (this.showMediaStatus && !isMediaFinished(this.media)) {
+    if (
+      this.showMediaStatus &&
+      !isMediaFinished(this.media) &&
+      this.media.endDate
+    ) {
       this.daysToFinish = subtractDays(
         fuzzyDateToDate(this.media.endDate),
         new Date()
