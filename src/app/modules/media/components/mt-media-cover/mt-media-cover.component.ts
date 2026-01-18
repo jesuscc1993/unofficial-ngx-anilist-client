@@ -79,15 +79,9 @@ export class MtMediaCoverComponent
       } as Media;
     }
 
-    if (
-      this.showMediaStatus &&
-      !isMediaFinished(this.media) &&
-      this.media.endDate
-    ) {
-      this.daysToFinish = subtractDays(
-        fuzzyDateToDate(this.media.endDate),
-        new Date()
-      );
+    const endDate = fuzzyDateToDate(this.media.endDate);
+    if (this.showMediaStatus && !isMediaFinished(this.media) && endDate) {
+      this.daysToFinish = subtractDays(endDate, new Date());
     }
   }
 
