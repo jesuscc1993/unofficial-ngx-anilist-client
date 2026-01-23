@@ -35,6 +35,26 @@
     "TW": "Taiwan",
     "undefined": "Any"
   },
+  "date": {
+    "days": {
+      "short": "D"
+    },
+    "hours": {
+      "short": "h"
+    },
+    "minutes": {
+      "short": "m"
+    },
+    "months": {
+      "short": "M"
+    },
+    "seconds": {
+      "short": "s"
+    },
+    "years": {
+      "short": "Y"
+    }
+  },
   "footer": {
     "about": "About",
     "anilistPrefix": "Powered by the",

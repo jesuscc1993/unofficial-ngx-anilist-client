@@ -10,10 +10,14 @@ import {
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { subtractDays } from '../../../shared/domain/dates.domain';
+import {
+  formatGroupedDiff,
+  subtractDates,
+} from '../../../shared/domain/dates.domain';
 import { sanitizeClassname } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
+import { GroupedDayDiff } from '../../../shared/types/date.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
@@ -51,7 +55,7 @@ export class MtMediaCoverComponent
   readonly sanitizeClassname = sanitizeClassname;
 
   mediaCommands: MediaCommands;
-  daysToFinish?: number;
+  timeToFinish?: GroupedDayDiff;
 
   constructor(
     private dialog: MatDialog,
@@ -81,7 +85,7 @@ export class MtMediaCoverComponent
 
     const endDate = fuzzyDateToDate(this.media.endDate);
     if (this.showMediaStatus && !isMediaFinished(this.media) && endDate) {
-      this.daysToFinish = subtractDays(endDate, new Date());
+      this.timeToFinish = formatGroupedDiff(subtractDates(endDate, new Date()));
     }
   }
 

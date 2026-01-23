@@ -35,6 +35,26 @@
     "TW": "Taiwán",
     "undefined": "Cualquiera"
   },
+  "date": {
+    "days": {
+      "short": "D"
+    },
+    "hours": {
+      "short": "h"
+    },
+    "minutes": {
+      "short": "m"
+    },
+    "months": {
+      "short": "M"
+    },
+    "seconds": {
+      "short": "s"
+    },
+    "years": {
+      "short": "Y"
+    }
+  },
   "footer": {
     "about": "Acerca",
     "anilistPrefix": "Facilitado por la API de",

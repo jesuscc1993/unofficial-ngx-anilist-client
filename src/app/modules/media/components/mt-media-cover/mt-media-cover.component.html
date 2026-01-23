@@ -77,8 +77,11 @@
           class="media-badge media-status {{ sanitizeClassname(media.status) }}"
         >
           <div class="contents">
-            @if (daysToFinish) {
-              <span> {{ daysToFinish }}d </span>
+            @if (timeToFinish) {
+              <span>
+                {{ timeToFinish.months }}{{ 'date.months.short' | translate }}
+                {{ timeToFinish.days }}{{ 'date.days.short' | translate }}
+              </span>
             }
           </div>
         </div>
