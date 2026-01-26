@@ -79,8 +79,12 @@
           <div class="contents">
             @if (timeToFinish) {
               <span>
-                {{ timeToFinish.months }}{{ 'date.months.short' | translate }}
-                {{ timeToFinish.days }}{{ 'date.days.short' | translate }}
+                @if (timeToFinish.months) {
+                  {{ timeToFinish.months }}{{ 'date.months.short' | translate }}
+                }
+                @if (timeToFinish.days) {
+                  {{ timeToFinish.days }}{{ 'date.days.short' | translate }}
+                }
               </span>
             }
           </div>
