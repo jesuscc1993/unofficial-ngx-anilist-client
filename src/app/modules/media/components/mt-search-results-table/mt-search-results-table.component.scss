@@ -9,7 +9,7 @@ mat-header-row {
 mat-row {
   border-left: #{$border-size} solid transparent; // status
 
-  mat-cell:first-child {
-    margin-left: -#{$border-size};
-  }
+  // mat-cell:first-child {
+  //   margin-left: -#{$border-size};
+  // }
 }
