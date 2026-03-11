@@ -71,7 +71,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let media">
         <mat-list role="list" class="no-padding">
-          @for (genre of media.genres; track genre) {
+          @for (genre of media.genres.slice(0, 5); track genre) {
             <mat-list-item role="listitem">
               <mt-chip class="rounded">{{ genre }}</mt-chip>
             </mat-list-item>
