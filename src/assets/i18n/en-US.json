@@ -53,7 +53,8 @@
     },
     "years": {
       "short": "Y"
-    }
+    },
+    "today": "Today"
   },
   "footer": {
     "about": "About",

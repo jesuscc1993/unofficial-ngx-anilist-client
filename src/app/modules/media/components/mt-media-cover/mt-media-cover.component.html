@@ -85,6 +85,9 @@
                 @if (timeToFinish.days) {
                   {{ timeToFinish.days }}{{ 'date.days.short' | translate }}
                 }
+                @if (!timeToFinish.months && !timeToFinish.days) {
+                  {{ 'date.today' | translate }}
+                }
               </span>
             }
           </div>
