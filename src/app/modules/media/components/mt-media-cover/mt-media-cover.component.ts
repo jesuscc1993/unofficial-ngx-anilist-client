@@ -85,7 +85,10 @@ export class MtMediaCoverComponent
 
     const endDate = fuzzyDateToDate(this.media.endDate);
     if (this.showMediaStatus && !isMediaFinished(this.media) && endDate) {
-      this.timeToFinish = formatGroupedDiff(subtractDates(endDate, new Date()));
+      const timeLessDate = new Date(new Date().setHours(0, 0, 0, 0));
+      this.timeToFinish = formatGroupedDiff(
+        subtractDates(endDate, timeLessDate)
+      );
     }
   }
 
