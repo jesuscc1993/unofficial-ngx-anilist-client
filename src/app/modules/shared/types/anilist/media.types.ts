@@ -176,7 +176,9 @@ export enum MediaCountry {
 
 export enum StaffRole {
   Art = 'Art',
+  BackgroundArt = 'Background Art',
   OriginalCreator = 'Original Creator',
+  OriginalStory = 'Original Story',
   Story = 'Story',
   StoryAndArt = 'Story & Art',
 }

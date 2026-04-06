@@ -11,14 +11,13 @@ import {
 const mangaFields = `${mediaFields}
   chapters
   volumes
-  staff(perPage: 2) {
+  staff(perPage: 3) {
     edges {
       role
       node {
         name {
           full
         }
-        primaryOccupations
       }
     }
   }

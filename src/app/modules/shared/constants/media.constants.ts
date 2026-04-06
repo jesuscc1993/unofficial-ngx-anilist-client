@@ -1,6 +1,11 @@
 import { ListEntryStatus } from '../types/anilist/listEntry.types';
 import {
-  MediaCountry, MediaRelationType, MediaSort, MediaSource, MediaStatus, StaffRole,
+  MediaCountry,
+  MediaRelationType,
+  MediaSort,
+  MediaSource,
+  MediaStatus,
+  StaffRole,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
@@ -38,7 +43,9 @@ export const mediaCountries = [
 
 export const staffRoles = [
   StaffRole.Art,
+  StaffRole.BackgroundArt,
   StaffRole.OriginalCreator,
+  StaffRole.OriginalStory,
   StaffRole.Story,
   StaffRole.StoryAndArt,
 ];

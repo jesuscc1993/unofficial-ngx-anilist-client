@@ -115,6 +115,8 @@
               @for (staff of media.staff.edges; track staff) {
                 @if (staffRoles.includes(staff.role)) {
                   <div [matTooltip]="staff.role">
+                    <!-- {{ staff.role.toLowerCase().includes('art') ? '🎨' : '' }} -->
+                    <!-- {{ staff.role.toLowerCase().includes('story') ? '✍️' : '' }} -->
                     {{ staff.node.name.full }}
                   </div>
                 }
