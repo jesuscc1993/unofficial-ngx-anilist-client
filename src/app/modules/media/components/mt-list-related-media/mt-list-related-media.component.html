@@ -64,7 +64,10 @@
       @if (!searching && started && mediaList?.length) {
         <div class="media-cover-grid">
           @for (media of mediaList; track media) {
-            <mt-media-cover [media]="media"></mt-media-cover>
+            <mt-media-cover
+              [media]="media"
+              [showMediaStatus]="true"
+            ></mt-media-cover>
           }
         </div>
       }
