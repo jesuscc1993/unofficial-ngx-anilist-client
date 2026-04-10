@@ -16,7 +16,7 @@ export type Person = {
   };
 };
 
-export class MediaData {
+export interface MediaData {
   averageScore: number;
   countryOfOrigin?: MediaCountry;
   coverImage: CoverImage;
@@ -27,7 +27,7 @@ export class MediaData {
   id: number;
   isFavourite?: boolean;
   meanScore: number;
-  mediaListEntry: ListEntry;
+  mediaListEntry?: ListEntry;
   startDate?: FuzzyDate;
   status: MediaStatus;
   synonyms: string[];
@@ -36,13 +36,13 @@ export class MediaData {
   type: MediaType;
 }
 
-export class Anime extends MediaData {
+export interface Anime extends MediaData {
   episodes: number;
   duration: number;
   studios: NodeList<Studio>;
 }
 
-export class Manga extends MediaData {
+export interface Manga extends MediaData {
   chapters: number;
   volumes: number;
   staff: EdgeList<Staff, Person>;

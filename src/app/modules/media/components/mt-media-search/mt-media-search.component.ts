@@ -208,7 +208,7 @@ export class MtMediaSearchComponent
     this.search(undefined, this.pagination?.perPage);
   }
 
-  private preventDefault(event: Event) {
+  private preventDefault(event?: Event) {
     if (event) {
       event.preventDefault();
     }

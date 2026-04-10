@@ -11,7 +11,7 @@ export class Store<StoreState> {
 
   constructor(initialState: StoreState) {
     this.stateSubject = new BehaviorSubject({
-      previousState: undefined,
+      previousState: undefined as StoreState,
       currentState: initialState,
     });
   }
