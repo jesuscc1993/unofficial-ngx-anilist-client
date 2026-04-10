@@ -13,15 +13,15 @@ import {
 } from '../../domain/media.domain';
 
 @Component({
-    selector: 'mt-media-info',
-    templateUrl: './mt-media-info.component.html',
-    styleUrls: ['./mt-media-info.component.scss'],
-    standalone: false
+  selector: 'mt-media-info',
+  templateUrl: './mt-media-info.component.html',
+  styleUrls: ['./mt-media-info.component.scss'],
+  standalone: false,
 })
 export class MtMediaInfoComponent {
   @Input() fullDetail? = true;
   @Input() generalInfoOnly?: boolean;
-  @Input() media: Media;
+  @Input() media!: Media;
   @Input() showAsColumns?: boolean;
 
   readonly staffRoles = staffRoles;

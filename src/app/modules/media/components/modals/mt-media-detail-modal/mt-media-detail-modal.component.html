@@ -36,7 +36,7 @@
       @if (media.mediaListEntry && origin !== 'edit') {
         <div>
           <button mat-raised-button type="button" (click)="openEditionModal()">
-            <fa-icon name="pen"></fa-icon>
+            <mt-icon name="pen"></mt-icon>
             <span>{{ 'media.userList.updateEntry' | translate }}</span>
           </button>
         </div>
@@ -44,7 +44,7 @@
       @if (!media.mediaListEntry) {
         <div>
           <button mat-raised-button type="button" (click)="setAsPlanning()">
-            <fa-icon name="clock"></fa-icon>
+            <mt-icon name="clock"></mt-icon>
             <span>{{ 'media.userList.setAsPlanning' | translate }}</span>
           </button>
         </div>

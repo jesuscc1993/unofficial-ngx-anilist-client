@@ -43,7 +43,7 @@ export class MtRecentlyFinishedMediaComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
-  @Input() mediaType: MediaType;
+  @Input() mediaType!: MediaType;
 
   readonly getCountryLiteral = getCountryLiteral;
   readonly getFormatLiteral = getFormatLiteral;
@@ -52,18 +52,18 @@ export class MtRecentlyFinishedMediaComponent
   readonly isManga = isManga;
   readonly mediaSorts = basicMediaSorts;
 
-  error: Error;
-  filteredEntries: ListEntry[];
-  maxEndDate: Date;
-  mediaCommands: MediaCommands;
-  mediaCountries: MediaCountry[];
-  mediaFormats: MediaFormat[];
+  error?: Error;
+  filteredEntries?: ListEntry[];
+  maxEndDate?: Date;
+  mediaCommands?: MediaCommands;
+  mediaCountries?: MediaCountry[];
+  mediaFormats?: MediaFormat[];
   searching = true;
-  selectedCountries: MediaCountry[];
-  selectedFormats: MediaFormat[];
-  selectedSort: MediaSort;
+  selectedCountries?: MediaCountry[];
+  selectedFormats?: MediaFormat[];
+  selectedSort?: MediaSort;
 
-  private listEntries: ListEntry[];
+  private listEntries?: ListEntry[];
 
   constructor(
     private animeCommands: AnimeCommands,

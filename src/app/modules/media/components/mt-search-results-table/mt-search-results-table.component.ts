@@ -36,13 +36,13 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   standalone: false,
 })
 export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
-  @Input() favouriteIDs: number[];
-  @Input() mediaType: MediaType;
-  @Input() tableData: Media[];
+  @Input() favouriteIDs!: number[];
+  @Input() mediaType!: MediaType;
+  @Input() tableData!: Media[];
 
   @Output() onSortChange: EventEmitter<MediaSort>;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
   readonly getMediaProgress = getMediaProgress;
@@ -60,7 +60,7 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
     'episodes',
     'genres',
   ];
-  dataSource: MatTableDataSource<Media>;
+  dataSource?: MatTableDataSource<Media>;
 
   constructor(private dialog: MatDialog) {
     this.onSortChange = new EventEmitter<MediaSort>();
@@ -73,7 +73,9 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    if (this.dataSource) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   openDetailModal(media: Media) {

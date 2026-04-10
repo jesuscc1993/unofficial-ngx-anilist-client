@@ -37,14 +37,14 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   standalone: false,
 })
 export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
-  @Input() favouriteIDs: number[];
+  @Input() favouriteIDs!: number[];
   @Input() filter?: string;
-  @Input() mediaType: MediaType;
-  @Input() tableData: ListEntry[];
-  @Input() tableStatus: ListEntryStatus;
+  @Input() mediaType!: MediaType;
+  @Input() tableData!: ListEntry[];
+  @Input() tableStatus!: ListEntryStatus;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
   readonly getMediaProgress = getMediaProgress;
@@ -55,8 +55,8 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
 
   pageSizeOptions = pageSizeOptions;
 
-  tableRows: string[];
-  dataSource: MatTableDataSource<ListEntry>;
+  tableRows?: string[];
+  dataSource?: MatTableDataSource<ListEntry>;
 
   constructor(
     private dialog: MatDialog,
@@ -105,46 +105,48 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   }
 
   private bindChildComponents() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
 
-    this.dataSource.sortingDataAccessor = (
-      listEntry: ListEntry,
-      property: string
-    ) => {
-      const { media } = listEntry;
-      switch (property) {
-        case 'title-romaji':
-          return media.title.romaji?.toLowerCase() ?? '';
-        case 'title-english':
-          return media.title.english?.toLowerCase() ?? '';
-        case 'format':
-          return media.format?.toLowerCase() ?? '';
-        case 'start-date':
-          return media.startDate?.year ?? 0;
-        case 'genres':
-          return media.genres.length ? media.genres[0] : '';
-        case 'score':
-          return listEntry.scoreRaw ?? 0;
-        case 'episodes':
-          return +getMediaProgress(media);
-        case 'chapters':
-          return +getMediaProgress(media);
-        default:
-          return '';
-      }
-    };
+      this.dataSource.sortingDataAccessor = (
+        listEntry: ListEntry,
+        property: string
+      ) => {
+        const { media } = listEntry;
+        switch (property) {
+          case 'title-romaji':
+            return media.title.romaji?.toLowerCase() ?? '';
+          case 'title-english':
+            return media.title.english?.toLowerCase() ?? '';
+          case 'format':
+            return media.format?.toLowerCase() ?? '';
+          case 'start-date':
+            return media.startDate?.year ?? 0;
+          case 'genres':
+            return media.genres.length ? media.genres[0] : '';
+          case 'score':
+            return listEntry.scoreRaw ?? 0;
+          case 'episodes':
+            return +getMediaProgress(media);
+          case 'chapters':
+            return +getMediaProgress(media);
+          default:
+            return '';
+        }
+      };
 
-    this.dataSource.filterPredicate = (
-      listEntry: ListEntry,
-      filter: string
-    ) => {
-      const title = listEntry.media.title;
-      return (
-        (title.romaji && this.filterByTitle(title.romaji, filter)) ||
-        (title.english && this.filterByTitle(title.english, filter))
-      );
-    };
+      this.dataSource.filterPredicate = (
+        listEntry: ListEntry,
+        filter: string
+      ) => {
+        const title = listEntry.media.title;
+        return (
+          (title.romaji && this.filterByTitle(title.romaji, filter)) ||
+          (title.english && this.filterByTitle(title.english, filter))
+        );
+      };
+    }
   }
 
   private filterByTitle(title: string, filter: string) {

@@ -3,13 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GenreStats } from '../../../shared/types/anilist/genreStats.types';
 
 @Component({
-    selector: 'mt-genres-overview',
-    templateUrl: './mt-genres-overview.component.html',
-    styleUrls: ['./mt-genres-overview.component.scss'],
-    standalone: false
+  selector: 'mt-genres-overview',
+  templateUrl: './mt-genres-overview.component.html',
+  styleUrls: ['./mt-genres-overview.component.scss'],
+  standalone: false,
 })
 export class MtGenresOverviewComponent implements OnInit {
-  @Input() genreStatsList: GenreStats[];
+  @Input() genreStatsList!: GenreStats[];
 
   maxColumnCount = 5;
   minColumnWidth = 160;
@@ -34,10 +34,12 @@ export class MtGenresOverviewComponent implements OnInit {
       totalCount += genreStats.amount;
     });
 
-    this.genreStatsList.forEach((genreStats: GenreStats) => {
-      genreStats.percentage = Math.round(
-        (genreStats.amount * 100) / totalCount
-      );
-    });
+    if (totalCount > 0) {
+      this.genreStatsList.forEach((genreStats: GenreStats) => {
+        genreStats.percentage = Math.round(
+          (genreStats.amount * 100) / totalCount
+        );
+      });
+    }
   }
 }

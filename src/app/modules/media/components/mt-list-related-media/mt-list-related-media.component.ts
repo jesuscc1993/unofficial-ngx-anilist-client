@@ -49,10 +49,11 @@ export class MtListRelatedMediaComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
-  @Input() mediaType: MediaType;
-  @Input() preload: boolean;
+  @Input() mediaType!: MediaType;
+  @Input() preload!: boolean;
 
-  @ViewChild('content', { read: ElementRef, static: true }) content: ElementRef;
+  @ViewChild('content', { read: ElementRef, static: true })
+  content!: ElementRef;
 
   readonly getFormatLiteral = getFormatLiteral;
   readonly getSortLiteral = getSortLiteral;
@@ -61,20 +62,20 @@ export class MtListRelatedMediaComponent
   readonly mediaScores = mediaScores;
   readonly rowCount = 5;
 
-  colCount: number;
-  error: Error;
-  mediaCommands: MediaCommands;
-  mediaFormats: MediaFormat[];
-  mediaList: Media[];
-  mediaListEntriesLength: number;
-  mediaStore: MediaStore;
-  pagination: PageInfo;
-  relatedMediaIds: number[];
-  searching: boolean;
-  selectedFormats: MediaFormat[];
-  selectedScore: number;
-  selectedSort: MediaSort;
-  started: boolean;
+  colCount?: number;
+  error?: Error;
+  mediaCommands?: MediaCommands;
+  mediaFormats?: MediaFormat[];
+  mediaList?: Media[];
+  mediaListEntriesLength?: number;
+  mediaStore?: MediaStore;
+  pagination?: PageInfo;
+  relatedMediaIds?: number[];
+  searching?: boolean;
+  selectedFormats?: MediaFormat[];
+  selectedScore?: number;
+  selectedSort?: MediaSort;
+  started?: boolean;
 
   constructor(
     private animeCommands: AnimeCommands,

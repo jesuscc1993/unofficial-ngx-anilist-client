@@ -1,7 +1,9 @@
 export type GenreStats = {
-  amount?: number;
-  genre?: string;
-  meanScore?: number;
+  // API
+  amount: number;
+  genre: string;
+  meanScore: number;
+  timeWatched: number;
+  // enriched
   percentage?: number;
-  timeWatched?: number;
 };

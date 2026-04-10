@@ -11,6 +11,6 @@ import { Media } from '../../../shared/types/anilist/media.types';
 })
 export class MtMediaScoreComponent {
   @Input() listEntry?: ListEntry;
-  @Input() media: Media;
+  @Input() media!: Media;
   @Input() columnMode?: boolean;
 }

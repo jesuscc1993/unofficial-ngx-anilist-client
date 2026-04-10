@@ -3,8 +3,7 @@
   "overrides": [
     {
       "extends": [
-        "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "files": ["*.ts"],
@@ -17,32 +16,22 @@
           "error",
           {
             "prefix": "mt",
-            "style": "kebab-case"
+            "style": "kebab-case",
+            "type": "element"
           }
         ],
         "@angular-eslint/directive-selector": [
           "error",
           {
             "prefix": "mt",
-            "style": "camelCase"
+            "style": "camelCase",
+            "type": "attribute"
           }
         ],
         "@angular-eslint/no-output-on-prefix": "off",
-        "@typescript-eslint/member-delimiter-style": [
-          "error",
-          {
-            "multiline": {
-              "delimiter": "semi",
-              "requireLast": true
-            },
-            "singleline": {
-              "delimiter": "semi",
-              "requireLast": false
-            }
-          }
-        ],
+        "@angular-eslint/prefer-inject": "warn",
+        "@angular-eslint/prefer-standalone": "warn",
         "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/semi": ["error", "always"],
         "arrow-body-style": "off",
         "curly": ["error", "multi-line"],
         "eqeqeq": ["error", "always"],

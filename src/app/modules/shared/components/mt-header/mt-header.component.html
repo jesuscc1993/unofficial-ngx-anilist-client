@@ -22,10 +22,10 @@
           >
             <span class="icons-container">
               @if (route.icon) {
-                <fa-icon [name]="route.icon" class="section-icon"></fa-icon>
+                <mt-icon [name]="route.icon" class="section-icon"></mt-icon>
               }
               @if (route.iconb) {
-                <fa-icon [name]="route.iconb" class="section-icon"></fa-icon>
+                <mt-icon [name]="route.iconb" class="section-icon"></mt-icon>
               }
             </span>
             <small>{{ route.literal | translate }}</small>
@@ -57,7 +57,7 @@
         [matMenuTriggerFor]="userMenu"
         [matTooltip]="'media.menu' | translate"
       >
-        <fa-icon name="bars"></fa-icon>
+        <mt-icon name="bars"></mt-icon>
       </a>
       <mat-menu #userMenu="matMenu">
         <mt-menu-action
@@ -80,7 +80,7 @@
           <span class="hide-below-sm"
             >{{ 'user.logIn' | translate }}{{ ' ' }}</span
           >
-          <fa-icon name="sign-in-alt"></fa-icon>
+          <mt-icon name="sign-in-alt"></mt-icon>
         </a>
       }
     </div>

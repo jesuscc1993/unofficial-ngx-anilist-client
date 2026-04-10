@@ -43,7 +43,7 @@ export class MtMediaCoverComponent
   implements OnInit
 {
   @Input() listEntry?: ListEntry;
-  @Input() media: Media;
+  @Input() media!: Media;
   @Input() showListEntryStatus?: boolean;
   @Input() showMediaStatus?: boolean;
 
@@ -54,7 +54,7 @@ export class MtMediaCoverComponent
   readonly isMediaFinished = isMediaFinished;
   readonly sanitizeClassname = sanitizeClassname;
 
-  mediaCommands: MediaCommands;
+  mediaCommands?: MediaCommands;
   timeToFinish?: GroupedDayDiff;
 
   constructor(

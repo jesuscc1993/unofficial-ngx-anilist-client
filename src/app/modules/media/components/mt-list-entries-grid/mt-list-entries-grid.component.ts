@@ -20,17 +20,17 @@ import { getColCount } from '../../domain/media.domain';
   standalone: false,
 })
 export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
-  @Input() listEntries: ListEntry[];
+  @Input() listEntries!: ListEntry[];
   @Input() showListEntryStatus?: boolean;
   @Input() showMediaStatus?: boolean;
   @Input() wrapperClass?: string;
 
-  @ViewChild('content', { read: ElementRef }) content: ElementRef;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('content', { read: ElementRef }) content!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   readonly rowCount = 5;
 
-  colCount: number;
+  colCount?: number;
   pagination: PageEvent;
 
   constructor() {
@@ -45,7 +45,7 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   onResize() {
     const newColCount = getColCount(this.content);
 
-    if (newColCount !== this.colCount) {
+    if (newColCount && newColCount !== this.colCount) {
       this.colCount = newColCount;
       this.pagination.pageSize = newColCount * this.rowCount;
     }

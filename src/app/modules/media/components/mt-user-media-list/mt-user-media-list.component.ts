@@ -7,12 +7,11 @@ import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus, ListEntryStatus,
+  ListEntriesByStatus,
+  ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
@@ -25,27 +24,27 @@ type Status = {
 };
 
 @Component({
-    selector: 'mt-user-media-list',
-    templateUrl: './mt-user-media-list.component.html',
-    styleUrls: ['./mt-user-media-list.component.scss'],
-    standalone: false
+  selector: 'mt-user-media-list',
+  templateUrl: './mt-user-media-list.component.html',
+  styleUrls: ['./mt-user-media-list.component.scss'],
+  standalone: false,
 })
 export class MtUserMediaListComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
-  @Input() mediaType: MediaType;
+  @Input() mediaType!: MediaType;
 
-  favouriteIDs: number[];
-  listEntriesByStatus: ListEntriesByStatus;
-  mediaCommands: MediaCommands;
-  statuses: Status[];
-  user: User;
+  favouriteIDs?: number[];
+  listEntriesByStatus?: ListEntriesByStatus;
+  mediaCommands?: MediaCommands;
+  statuses?: Status[];
+  user?: User;
 
-  ready: boolean;
-  error: Error;
+  ready?: boolean;
+  error?: Error;
 
-  filter: string;
+  filter?: string;
 
   constructor(
     private animeCommands: AnimeCommands,

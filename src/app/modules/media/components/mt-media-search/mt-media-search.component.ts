@@ -57,24 +57,25 @@ export class MtMediaSearchComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
-  @Input() mediaType: MediaType;
+  @Input() mediaType!: MediaType;
 
   @ViewChild(MatExpansionPanel, { static: true })
-  expansionPanel: MatExpansionPanel;
+  expansionPanel!: MatExpansionPanel;
+
   @ViewChild(MtSearchResultsTableComponent, { read: ElementRef })
-  resultsTable: ElementRef;
+  resultsTable!: ElementRef;
 
-  favouriteIDs: number[];
-  mediaFormats: MediaFormat[];
-  mediaList: Media[];
-  pagination: PageInfo;
-  searchForm: UntypedFormGroup;
-  sort: MediaSort;
-  user: User;
+  favouriteIDs?: number[];
+  mediaFormats?: MediaFormat[];
+  mediaList?: Media[];
+  pagination?: PageInfo;
+  searchForm?: UntypedFormGroup;
+  sort?: MediaSort;
+  user?: User;
 
-  mediaCommands: MediaCommands;
-  mediaGenres: string[];
-  mediaTags: string[];
+  mediaCommands?: MediaCommands;
+  mediaGenres?: string[];
+  mediaTags?: string[];
   mediaCountries = [undefined, ...mediaCountries];
   mediaStatuses = mediaStatuses;
   mediaSources = mediaSources;
@@ -82,8 +83,8 @@ export class MtMediaSearchComponent
   pageSizeOptions = pageSizeOptions;
   onListOptions = [undefined, true, false];
 
-  searching: boolean;
-  error: Error;
+  searching?: boolean;
+  error?: Error;
 
   private resultsId = 'results';
 

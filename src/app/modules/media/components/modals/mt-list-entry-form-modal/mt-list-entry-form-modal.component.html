@@ -97,7 +97,7 @@
           color="warn"
           (click)="deleteEntry($event)"
         >
-          <fa-icon name="trash"></fa-icon>
+          <mt-icon name="trash"></mt-icon>
           <span>{{ 'generic.delete' | translate }}</span>
         </button>
 
@@ -107,7 +107,7 @@
           color="primary"
           [disabled]="!listEntryForm.valid || !isSubmitAvailable()"
         >
-          <fa-icon name="save"></fa-icon>
+          <mt-icon name="save"></mt-icon>
           <span>{{ 'generic.submit' | translate }}</span>
         </button>
       </span>

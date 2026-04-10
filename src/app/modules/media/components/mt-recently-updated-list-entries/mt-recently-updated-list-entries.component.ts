@@ -38,23 +38,23 @@ export class MtRecentlyUpdatedListEntriesComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
-  @Input() mediaType: MediaType;
+  @Input() mediaType!: MediaType;
 
   readonly getFormatLiteral = getFormatLiteral;
   readonly getAnimeStatusLiteral = getAnimeStatusLiteral;
   readonly getMangaStatusLiteral = getMangaStatusLiteral;
   readonly isAnime = isAnime;
 
-  error: Error;
-  filteredEntries: ListEntry[];
-  listEntryStatuses: ListEntryStatus[];
-  mediaCommands: MediaCommands;
-  mediaFormats: MediaFormat[];
+  error?: Error;
+  filteredEntries?: ListEntry[];
+  listEntryStatuses?: ListEntryStatus[];
+  mediaCommands?: MediaCommands;
+  mediaFormats?: MediaFormat[];
   searching = true;
-  selectedFormats: MediaFormat[];
-  selectedStatuses: ListEntryStatus[];
+  selectedFormats?: MediaFormat[];
+  selectedStatuses?: ListEntryStatus[];
 
-  private listEntries: ListEntry[];
+  private listEntries?: ListEntry[];
 
   constructor(
     private animeCommands: AnimeCommands,

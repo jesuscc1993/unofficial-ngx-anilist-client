@@ -11,25 +11,25 @@ import { MediaCommands } from '../../commands/media.commands';
 import { getMediaTitle, isAnime } from '../../domain/media.domain';
 
 @Component({
-    selector: 'mt-media-detail',
-    templateUrl: './mt-media-detail.component.html',
-    styleUrls: ['./mt-media-detail.component.scss'],
-    standalone: false
+  selector: 'mt-media-detail',
+  templateUrl: './mt-media-detail.component.html',
+  styleUrls: ['./mt-media-detail.component.scss'],
+  standalone: false,
 })
 export class MtMediaDetailComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
-  @Input() mediaId: number;
-  @Input() mediaType: MediaType;
+  @Input() mediaId!: number;
+  @Input() mediaType!: MediaType;
 
   readonly getMediaTitle = getMediaTitle;
 
-  media: Media;
-  mediaCommands: MediaCommands;
+  media?: Media;
+  mediaCommands?: MediaCommands;
 
-  searching: boolean;
-  errorGotten: boolean;
+  searching?: boolean;
+  errorGotten?: boolean;
 
   constructor(
     private titleService: TitleService,

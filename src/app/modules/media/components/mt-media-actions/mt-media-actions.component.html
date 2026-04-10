@@ -13,7 +13,7 @@
       (click)="$event.stopPropagation(); openEditionModal()"
     >
       <div>
-        <fa-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></fa-icon>
+        <mt-icon [name]="isUpdateAvailable() ? 'pen' : 'plus'"></mt-icon>
       </div>
     </button>
   }
@@ -27,7 +27,7 @@
     (click)="$event.stopPropagation()"
   >
     <div>
-      <fa-icon name="bars"></fa-icon>
+      <mt-icon name="bars"></mt-icon>
     </div>
   </button>
 
@@ -40,7 +40,7 @@
       (click)="$event.stopPropagation(); openOnAniList()"
     >
       <div>
-        <fa-icon name="external-link-alt"></fa-icon>
+        <mt-icon name="external-link-alt"></mt-icon>
       </div>
     </button>
   }

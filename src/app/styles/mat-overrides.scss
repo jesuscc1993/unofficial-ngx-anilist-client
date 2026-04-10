@@ -74,8 +74,8 @@ mat-paginator {
 }
 
 button {
-  fa-icon + *,
-  * + fa-icon {
+  mt-icon + *,
+  * + mt-icon {
     margin-left: $spacing-4xs;
   }
 }
