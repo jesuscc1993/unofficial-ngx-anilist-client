@@ -4,9 +4,7 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
-import { animeFormats } from '../../../anime/constants/anime.constants';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
   basicMediaSorts,
@@ -23,6 +21,8 @@ import { MediaCommands } from '../../commands/media.commands.interface';
 import {
   getCountryLiteral,
   getFormatLiteral,
+  getMediaFormats,
+  getMediaFormatsForListEntries,
   getMediaTypePrefixedStorageKey,
   getSortLiteral,
   isAnime,
@@ -91,6 +91,9 @@ export class MtRecentlyFinishedMediaComponent
     this.maxEndDate = new Date();
     this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
 
+    this.mediaFormats = getMediaFormats(this.mediaType);
+    this.mediaCountries = mediaCountries;
+
     this.selectedCountries = storageService.getItem<MediaCountry[]>(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyFinished.Country,
@@ -121,11 +124,9 @@ export class MtRecentlyFinishedMediaComponent
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
           this.mediaCountries = mediaCountries;
-          this.mediaFormats = (
-            isAnime(this.mediaType) ? animeFormats : mangaFormats
-          ).filter(
-            (format) =>
-              !!mediaListEntries.find((entry) => entry.media.format === format)
+          this.mediaFormats = getMediaFormatsForListEntries(
+            mediaListEntries,
+            this.mediaType
           );
           this.sortEntries();
           this.searching = false;

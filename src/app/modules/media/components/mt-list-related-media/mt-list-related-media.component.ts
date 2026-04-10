@@ -12,10 +12,8 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
-import { animeFormats } from '../../../anime/constants/anime.constants';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { MangaStore } from '../../../manga/store/manga.store';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
@@ -33,6 +31,7 @@ import { MediaCommands } from '../../commands/media.commands.interface';
 import {
   getColCount,
   getFormatLiteral,
+  getMediaFormats,
   getMediaTypePrefixedStorageKey,
   getSortLiteral,
   isAnime,
@@ -108,19 +107,19 @@ export class MtListRelatedMediaComponent
   }
 
   ngOnInit() {
+    if (isAnime(this.mediaType)) {
+      this.mediaCommands = this.animeCommands;
+      this.mediaStore = this.animeStore;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+      this.mediaStore = this.mangaStore;
+    }
+
     this.initialize();
   }
 
   initialize() {
-    if (isAnime(this.mediaType)) {
-      this.mediaCommands = this.animeCommands;
-      this.mediaStore = this.animeStore;
-      this.mediaFormats = animeFormats;
-    } else {
-      this.mediaCommands = this.mangaCommands;
-      this.mediaStore = this.mangaStore;
-      this.mediaFormats = mangaFormats;
-    }
+    this.mediaFormats = getMediaFormats(this.mediaType);
 
     this.onResize();
 

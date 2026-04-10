@@ -4,28 +4,35 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
-import { animeFormats } from '../../../anime/constants/anime.constants';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
-import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
+import {
+  MediaFormat,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral, getMediaTypePrefixedStorageKey, isAnime,
+  getFormatLiteral,
+  getMediaFormats,
+  getMediaFormatsForListEntries,
+  getMediaStatusesForListEntries,
+  getMediaTypePrefixedStorageKey,
+  isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
 @Component({
-    selector: 'mt-recently-updated-list-entries',
-    templateUrl: './mt-recently-updated-list-entries.component.html',
-    styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
-    standalone: false
+  selector: 'mt-recently-updated-list-entries',
+  templateUrl: './mt-recently-updated-list-entries.component.html',
+  styleUrls: ['./mt-recently-updated-list-entries.component.scss'],
+  standalone: false,
 })
 export class MtRecentlyUpdatedListEntriesComponent
   extends WithObservableOnDestroy
@@ -71,6 +78,9 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   initialize() {
+    this.listEntryStatuses = listEntryStatuses;
+    this.mediaFormats = getMediaFormats(this.mediaType);
+
     this.mediaCommands
       .getListEntries()
       .pipe(
@@ -78,15 +88,11 @@ export class MtRecentlyUpdatedListEntriesComponent
           this.listEntries = mediaListEntries.sort((a, b) =>
             a.updatedAt > b.updatedAt ? -1 : 1
           );
-          this.listEntryStatuses = listEntryStatuses.filter(
-            (status) =>
-              !!mediaListEntries.find((entry) => entry.status === status)
-          );
-          this.mediaFormats = (
-            isAnime(this.mediaType) ? animeFormats : mangaFormats
-          ).filter(
-            (format) =>
-              !!mediaListEntries.find((entry) => entry.media.format === format)
+          this.listEntryStatuses =
+            getMediaStatusesForListEntries(mediaListEntries);
+          this.mediaFormats = getMediaFormatsForListEntries(
+            mediaListEntries,
+            this.mediaType
           );
           this.filterEntries();
           this.searching = false;

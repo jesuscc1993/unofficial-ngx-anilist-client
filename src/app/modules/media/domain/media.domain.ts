@@ -1,6 +1,9 @@
 import { ElementRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
+import { animeFormats } from '../../anime/constants/anime.constants';
+import { mangaFormats } from '../../manga/constants/manga.constants';
+import { listEntryStatuses } from '../../shared/constants/listEntry.constants';
 import {
   gridCardWidth,
   gridSpacing,
@@ -76,6 +79,25 @@ export const getSortLiteral = (mediaSort: MediaSort) => {
 
 export const getSourceLiteral = (mediaSource: string) => {
   return `media.sourceValues.${mediaSource}`;
+};
+
+export const getMediaFormats = (mediaType: MediaType) => {
+  return isAnime(mediaType) ? animeFormats : mangaFormats;
+};
+
+export const getMediaFormatsForListEntries = (
+  listEntries: ListEntry[],
+  mediaType: MediaType
+) => {
+  return getMediaFormats(mediaType).filter(
+    (format) => !!listEntries.find((entry) => entry.media.format === format)
+  );
+};
+
+export const getMediaStatusesForListEntries = (listEntries: ListEntry[]) => {
+  return listEntryStatuses.filter(
+    (status) => !!listEntries.find((entry) => entry.status === status)
+  );
 };
 
 export const getMediaSortFromSort = (sort: Sort) => {

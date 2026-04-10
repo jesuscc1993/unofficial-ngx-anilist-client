@@ -19,10 +19,8 @@ import {
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
-import { animeFormats } from '../../../anime/constants/anime.constants';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { mangaFormats } from '../../../manga/constants/manga.constants';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
@@ -42,7 +40,11 @@ import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { SearchFilters } from '../../api/media.types';
 import { MediaCommands } from '../../commands/media.commands';
-import { getDateScalarFromYear, isAnime } from '../../domain/media.domain';
+import {
+  getDateScalarFromYear,
+  getMediaFormats,
+  isAnime,
+} from '../../domain/media.domain';
 import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
@@ -101,12 +103,11 @@ export class MtMediaSearchComponent
   ngOnInit() {
     if (isAnime(this.mediaType)) {
       this.mediaCommands = this.animeCommands;
-      this.mediaFormats = animeFormats;
     } else {
       this.mediaCommands = this.mangaCommands;
-      this.mediaFormats = mangaFormats;
     }
 
+    this.mediaFormats = getMediaFormats(this.mediaType);
     this.user = this.authStore.getUser();
     this.setupForm();
 
