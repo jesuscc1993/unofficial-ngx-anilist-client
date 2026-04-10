@@ -16,10 +16,6 @@ export class Store<StoreState> {
     });
   }
 
-  asObservable() {
-    return this.stateSubject.asObservable();
-  }
-
   changes<K extends keyof StoreState>(field: K) {
     return this.stateSubject.asObservable().pipe(
       filter(({ currentState }) => !!currentState[field]),
@@ -29,7 +25,13 @@ export class Store<StoreState> {
           !previousState ||
           currentState[field] !== previousState[field]
       ),
-      map(({ currentState }) => currentState[field])
+      map(({ currentState }) => {
+        const currentVal = currentState[field];
+        if (currentVal === undefined) {
+          throw new Error(`Field ${String(field)} has not been set yet.`);
+        }
+        return currentState[field]!;
+      })
     );
   }
 
