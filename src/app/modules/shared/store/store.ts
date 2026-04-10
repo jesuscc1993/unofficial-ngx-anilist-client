@@ -11,13 +11,9 @@ export class Store<StoreState> {
 
   constructor(initialState: StoreState) {
     this.stateSubject = new BehaviorSubject({
-      previousState: undefined,
+      previousState: undefined as StoreState,
       currentState: initialState,
     });
-  }
-
-  asObservable() {
-    return this.stateSubject.asObservable();
   }
 
   changes<K extends keyof StoreState>(field: K) {
@@ -29,7 +25,13 @@ export class Store<StoreState> {
           !previousState ||
           currentState[field] !== previousState[field]
       ),
-      map(({ currentState }) => currentState[field])
+      map(({ currentState }) => {
+        const currentVal = currentState[field];
+        if (currentVal === undefined) {
+          throw new Error(`Field ${String(field)} has not been set yet.`);
+        }
+        return currentState[field]!;
+      })
     );
   }
 

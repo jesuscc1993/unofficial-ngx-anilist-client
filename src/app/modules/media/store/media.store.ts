@@ -8,7 +8,11 @@ import { MediaStoreState } from './media.store.types';
 @Injectable()
 export class MediaStore extends Store<MediaStoreState> {
   constructor() {
-    super({ mediaDictionary: {} });
+    super({
+      mediaDictionary: {},
+      mediaFavouriteIDs: undefined,
+      mediaListEntries: undefined,
+    });
   }
 
   storeMedia(mediaList: Media[]) {
@@ -29,12 +33,12 @@ export class MediaStore extends Store<MediaStoreState> {
     return this.getState().mediaDictionary;
   }
 
-  setListEntries(listEntries: ListEntry[]) {
+  setListEntries(listEntries?: ListEntry[]) {
     this.setState({ mediaListEntries: listEntries });
-    this.storeMedia(listEntries.map((listEntry) => listEntry.media));
+    this.storeMedia(listEntries?.map((listEntry) => listEntry.media) || []);
   }
 
-  setMediaFavouriteIDs(favouriteIDs: number[]) {
+  setMediaFavouriteIDs(favouriteIDs?: number[]) {
     this.setState({ mediaFavouriteIDs: favouriteIDs });
   }
 
@@ -52,7 +56,7 @@ export class MediaStore extends Store<MediaStoreState> {
 
   deleteListEntry(listEntryToDelete: ListEntry) {
     this.setListEntries(
-      this.getListEntries().filter(
+      this.getListEntries()?.filter(
         (listEntry) => listEntry.id !== listEntryToDelete.id
       )
     );

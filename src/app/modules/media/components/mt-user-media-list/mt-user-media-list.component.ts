@@ -165,7 +165,7 @@ export class MtUserMediaListComponent
     this.getListFavouriteIDs();
   }
 
-  private preventDefault(event: Event) {
+  private preventDefault(event?: Event) {
     if (event) {
       event.preventDefault();
     }

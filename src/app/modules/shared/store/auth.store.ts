@@ -11,7 +11,10 @@ export type AuthStoreState = {
 @Injectable()
 export class AuthStore extends Store<AuthStoreState> {
   constructor() {
-    super({});
+    super({
+      accessToken: undefined,
+      user: undefined,
+    });
   }
 
   setAccessToken(accessToken: string) {

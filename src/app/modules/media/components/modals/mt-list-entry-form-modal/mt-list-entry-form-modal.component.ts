@@ -39,10 +39,10 @@ type ListEntryFormModalParameters = {
 };
 
 @Component({
-    selector: 'mt-list-entry-form-modal',
-    templateUrl: './mt-list-entry-form-modal.component.html',
-    styleUrls: ['./mt-list-entry-form-modal.component.scss'],
-    standalone: false
+  selector: 'mt-list-entry-form-modal',
+  templateUrl: './mt-list-entry-form-modal.component.html',
+  styleUrls: ['./mt-list-entry-form-modal.component.scss'],
+  standalone: false,
 })
 export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   readonly getMediaProgress = getMediaProgress;
@@ -71,7 +71,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
       data.listEntry || ({} as ListEntry);
     this.origin = data.origin;
     this.media = data.media;
-    this.listEntry = data.listEntry;
+    this.listEntry = data.listEntry!;
 
     if (isAnime(data.media)) {
       this.mediaCommands = this.animeCommands;
@@ -102,7 +102,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     });
   }
 
-  saveEntry(event) {
+  saveEntry(event?: Event) {
     this.preventDefault(event);
 
     const formListEntry: ListEntry = this.getFormEntry();
@@ -164,7 +164,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
     };
   }
 
-  private preventDefault(event: Event) {
+  private preventDefault(event?: Event) {
     if (event) {
       event.preventDefault();
     }

@@ -28,15 +28,17 @@ import {
   MediaType,
 } from '../../shared/types/anilist/media.types';
 
-export const fuzzyDateToDate = ({ year, month, day }: FuzzyDate) => {
+export const fuzzyDateToDate = (fuzzyDate?: FuzzyDate) => {
+  const { year, month, day } = fuzzyDate || {};
   return year && month && day ? new Date(year, month - 1, day) : undefined;
 };
 
-export const getFormattedFuzzyDate = (fuzzyDate: FuzzyDate) => {
+export const getFormattedFuzzyDate = (fuzzyDate?: FuzzyDate) => {
+  const { year, month, day } = fuzzyDate || {};
   let date = '-';
-  if (fuzzyDate.year) date = `${fuzzyDate.year}`;
-  if (fuzzyDate.month) date += `.${pad(fuzzyDate.month, 2)}`;
-  if (fuzzyDate.day) date += `.${pad(fuzzyDate.day, 2)}`;
+  if (year) date = `${year}`;
+  if (month) date += `.${pad(month, 2)}`;
+  if (day) date += `.${pad(day, 2)}`;
   return date;
 };
 
@@ -117,7 +119,7 @@ export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
   return listEntries.reduce(
     (listEntriesByStatus, listEntry) => ({
       ...listEntriesByStatus,
-      [listEntry.status]: [
+      [listEntry.status as string]: [
         ...(listEntriesByStatus[listEntry.status] || []),
         listEntry,
       ],
@@ -127,8 +129,9 @@ export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
 };
 
 export const sortListEntriesByMediaEndDate = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) =>
-    fuzzyDateToDate(a.endDate) > fuzzyDateToDate(b.endDate) ? -1 : 1
+  return listEntries.sort(
+    ({ media: { endDate: a } }, { media: { endDate: b } }) =>
+      fuzzyDateToDate(a)! > fuzzyDateToDate(b)! ? -1 : 1
   );
 };
 

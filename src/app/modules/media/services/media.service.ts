@@ -53,8 +53,8 @@ export class MediaService {
         }).pipe(
           map(({ media: mediaList }) => ({
             ...pageData,
-            media: mediaIds.map((id) =>
-              mediaList.find((media) => media.id === id)
+            media: mediaIds.map(
+              (id) => mediaList.find((media) => media.id === id)!
             ),
           }))
         );
@@ -68,7 +68,7 @@ export class MediaService {
     pageQuery?: PageQuery
   ): Observable<MediaPage> {
     const mediaDictionary = this.mediaStore.getMediaDictionary();
-    let missingIds: number[];
+    let missingIds: number[] = [];
 
     if (mediaDictionary) {
       const storeIds = Object.keys(mediaDictionary).map((key) =>
@@ -90,7 +90,7 @@ export class MediaService {
         });
   }
 
-  queryListEntries(user: User): Observable<ListEntry[]> {
+  queryListEntries(user?: User): Observable<ListEntry[]> {
     const storeEntries = this.mediaStore.getListEntries();
     return storeEntries
       ? of(storeEntries)
@@ -101,7 +101,7 @@ export class MediaService {
           );
   }
 
-  getListEntriesExport(user: User) {
+  getListEntriesExport(user?: User) {
     return this.queryListEntries(user).pipe(
       map((entries) =>
         entries.map(({ scoreRaw, progress, repeat, status, media }) => {
@@ -120,11 +120,11 @@ export class MediaService {
     );
   }
 
-  queryRelatedMediaIds(user: User): Observable<number[]> {
+  queryRelatedMediaIds(user?: User): Observable<number[]> {
     return this.mediaApi.queryRelatedMediaIds(user);
   }
 
-  queryFavouriteIDs(user: User): Observable<number[]> {
+  queryFavouriteIDs(user?: User): Observable<number[]> {
     const storeEntries = this.mediaStore.getMediaFavouriteIDs();
     return storeEntries
       ? of(storeEntries)
@@ -170,7 +170,9 @@ export class MediaService {
     return this.mediaStore
       .onListEntriesChanges()
       .pipe(
-        map((mediaListEntries) => getListEntriesByStatus(mediaListEntries))
+        map((mediaListEntries) =>
+          mediaListEntries ? getListEntriesByStatus(mediaListEntries) : {}
+        )
       );
   }
 
@@ -185,7 +187,7 @@ export class MediaService {
   getPendingMedia(maxEndDate?: Date) {
     return this.mediaStore.onListEntriesChanges().pipe(
       map((mediaListEntries) =>
-        mediaListEntries.filter((listEntry) => {
+        mediaListEntries?.filter((listEntry) => {
           if (
             !(
               listEntry.status === ListEntryStatus.PLANNING ||
