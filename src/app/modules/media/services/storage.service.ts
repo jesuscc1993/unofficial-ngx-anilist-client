@@ -1,4 +1,4 @@
-const getItem = <T>(key: string, fallback = undefined): T | undefined => {
+const getItem = <T>(key: string, fallback?: T): T | undefined => {
   const rawValue = localStorage.getItem(key);
   return rawValue ? JSON.parse(rawValue) : fallback;
 };

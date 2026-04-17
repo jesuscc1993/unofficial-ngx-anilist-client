@@ -24,12 +24,10 @@ import {
   getMediaFormats,
   getMediaFormatsForListEntries,
   getMediaTypePrefixedStorageKey,
+  getSortFunctionByMediaSort,
   getSortLiteral,
   isAnime,
   isManga,
-  sortListEntriesByMediaEndDate,
-  sortListEntriesByMediaScore,
-  sortListEntriesByMediaTitle,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -177,7 +175,7 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   private filterEntries() {
-    this.filteredEntries = this.listEntries.filter(
+    this.filteredEntries = this.listEntries?.filter(
       (entry) => this.isFormatValid(entry) && this.isCountryValid(entry)
     );
   }
@@ -192,19 +190,17 @@ export class MtRecentlyFinishedMediaComponent
   private isCountryValid(entry: ListEntry) {
     return (
       !this.selectedCountries?.length ||
-      this.selectedCountries?.includes(entry.media.countryOfOrigin)
+      (entry.media.countryOfOrigin &&
+        this.selectedCountries?.includes(entry.media.countryOfOrigin))
     );
   }
 
   private sortEntries() {
-    const sort = {
-      [MediaSort.END_DATE_DESC]: sortListEntriesByMediaEndDate,
-      [MediaSort.SCORE_DESC]: sortListEntriesByMediaScore,
-      [MediaSort.TITLE_ROMAJI]: sortListEntriesByMediaTitle,
-    }[this.selectedSort];
-
-    if (sort) {
-      this.listEntries = sort(this.listEntries);
+    if (this.listEntries && this.selectedSort) {
+      const sortFunction = getSortFunctionByMediaSort(this.selectedSort);
+      if (sortFunction) {
+        this.listEntries = sortFunction(this.listEntries);
+      }
     }
 
     this.filterEntries();
