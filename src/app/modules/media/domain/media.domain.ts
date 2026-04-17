@@ -30,7 +30,7 @@ import {
 
 export const fuzzyDateToDate = (fuzzyDate?: FuzzyDate) => {
   const { year, month, day } = fuzzyDate || {};
-  return year && month && day ? new Date(year, month - 1, day) : undefined;
+  return year && month ? new Date(year, month - 1, day || 0) : undefined;
 };
 
 export const getFormattedFuzzyDate = (fuzzyDate?: FuzzyDate) => {
@@ -129,26 +129,39 @@ export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
 };
 
 export const sortListEntriesByMediaEndDate = (listEntries: ListEntry[]) => {
-  return listEntries.sort(
-    ({ media: { endDate: a } }, { media: { endDate: b } }) =>
-      fuzzyDateToDate(a)! > fuzzyDateToDate(b)! ? -1 : 1
-  );
+  return listEntries.sort(({ media: a }, { media: b }) => {
+    const dateA = fuzzyDateToDate(a.endDate);
+    const dateB = fuzzyDateToDate(b.endDate);
+    return dateA && dateB ? (dateA > dateB ? -1 : 1) : 0;
+  });
 };
 
 export const sortListEntriesByMediaScore = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) =>
-    a.averageScore > b.averageScore ? -1 : 1
-  );
+  return listEntries.sort(({ media: a }, { media: b }) => {
+    const scoreA = a.averageScore;
+    const scoreB = b.averageScore;
+    return scoreA > scoreB ? -1 : 1;
+  });
 };
 
 export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) =>
-    a.title.romaji
-      .toLowerCase()
-      .localeCompare(b.title.romaji.toLowerCase(), 'en', {
-        sensitivity: 'base',
-      })
-  );
+  return listEntries.sort(({ media: a }, { media: b }) => {
+    const titleA = a.title.romaji;
+    const titleB = b.title.romaji;
+    return titleA.localeCompare(titleB, 'en', { sensitivity: 'base' });
+  });
+};
+
+const sortFunctionByMediaSort: {
+  [K in MediaSort]?: (listEntries: ListEntry[]) => ListEntry[];
+} = {
+  [MediaSort.END_DATE_DESC]: sortListEntriesByMediaEndDate,
+  [MediaSort.SCORE_DESC]: sortListEntriesByMediaScore,
+  [MediaSort.TITLE_ROMAJI]: sortListEntriesByMediaTitle,
+};
+
+export const getSortFunctionByMediaSort = (mediaSort?: MediaSort) => {
+  return mediaSort ? sortFunctionByMediaSort[mediaSort] : undefined;
 };
 
 export const getMediaTypeProgressLiteral = (mediaType: MediaType) => {

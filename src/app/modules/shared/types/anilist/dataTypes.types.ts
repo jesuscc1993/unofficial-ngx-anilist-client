@@ -6,7 +6,7 @@ export type Title = {
 export type FuzzyDate = {
   year: number;
   month: number;
-  day: number;
+  day?: number;
 };
 
 export enum CoverImageSize {
