@@ -93,10 +93,10 @@
           </div>
         </div>
       }
-      @if (listEntry && showListEntryStatus) {
+      @if (media.mediaListEntry && showListEntryStatus) {
         <div
           class="media-badge list-entry-status {{
-            sanitizeClassname(listEntry.status)
+            sanitizeClassname(media.mediaListEntry.status)
           }}"
         ></div>
       }

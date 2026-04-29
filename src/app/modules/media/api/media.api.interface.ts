@@ -5,7 +5,7 @@ import { ListEntry } from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
-import { SearchFilters } from './media.types';
+import { MediaPageDto, SearchFilters } from './media.types';
 
 export interface MediaApiInterface {
   deleteListEntry(listEntry: ListEntry): Observable<{ deleted: boolean }>;
@@ -36,6 +36,11 @@ export interface MediaApiInterface {
   }>;
 
   queryRelatedMediaIds(user: User): Observable<number[]>;
+
+  queryRecommendationsForMediaId(
+    mediaId: number,
+    pageQuery: PageQuery
+  ): Observable<MediaPageDto>;
 
   saveListEntry(listEntry: ListEntry): Observable<ListEntry>;
 

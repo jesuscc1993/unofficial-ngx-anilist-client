@@ -5,19 +5,13 @@ import { Injectable } from '@angular/core';
 
 import { SearchFilters } from '../../media/api/media.types';
 import { getListEntriesByStatus } from '../../media/domain/media.domain';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Media,
-  MediaSort,
-  MediaStatus,
-} from '../../shared/types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import { Media, MediaSort, MediaStatus } from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
 import { MediaApiInterface } from '../api/media.api.interface';
+import { MediaPageDto } from '../api/media.types';
 import { fuzzyDateToDate } from '../domain/media.domain';
 import { MediaStore } from '../store/media.store';
 
@@ -122,6 +116,13 @@ export class MediaService {
 
   queryRelatedMediaIds(user?: User): Observable<number[]> {
     return this.mediaApi.queryRelatedMediaIds(user);
+  }
+
+  queryRecommendationsForMediaId(
+    mediaId: number,
+    pageQuery: PageQuery
+  ): Observable<MediaPageDto> {
+    return this.mediaApi.queryRecommendationsForMediaId(mediaId, pageQuery);
   }
 
   queryFavouriteIDs(user?: User): Observable<number[]> {

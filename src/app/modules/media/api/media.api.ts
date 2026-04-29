@@ -11,13 +11,13 @@ import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import {
-  deleteListEntryQuery, genresQuery, listFavouritesQuery, mediaSearchQuery, relatedMediaIdsQuery,
-  saveListEntryQuery, tagsQuery,
+  deleteListEntryQuery, genresQuery, listFavouritesQuery, mediaRecommendationsQuery,
+  mediaSearchQuery, relatedMediaIdsQuery, saveListEntryQuery, tagsQuery,
 } from './media.queries';
 import {
   DeleteListEntryDto, DeleteListEntryRequest, GenreCollectionDto, ListMediaDto, ListMediaFilters,
-  MediaFilters, MediaTagCollectionDto, PagedSearchFilters, RelatedMediaIdsDto, SaveListEntryDto,
-  SaveListEntryRequest, SearchFilters, SearchMediaDto,
+  MediaFilters, MediaPageDto, MediaRecommendationsDto, MediaTagCollectionDto, PagedSearchFilters,
+  RelatedMediaIdsDto, SaveListEntryDto, SaveListEntryRequest, SearchFilters, SearchMediaDto,
 } from './media.types';
 
 @Injectable()
@@ -66,6 +66,29 @@ export class MediaApi extends AniListApi {
       { cacheKey: 'queryTags' }
     ).pipe(
       map((response) => this.getResponseData(response).MediaTagCollection)
+    );
+  }
+
+  queryRecommendationsForMediaId(mediaId: number, pageQuery: PageQuery) {
+    return this.postGraphQlRequest<
+      MediaRecommendationsDto,
+      { id: number; page: number; perPage: number; sort: string[] }
+    >(mediaRecommendationsQuery, {
+      id: mediaId,
+      sort: ['RATING_DESC'],
+      ...this.getPageOptions(pageQuery),
+    }).pipe(
+      map((response) => {
+        const recommendationsDto =
+          this.getResponseData(response)?.Media?.recommendations;
+        return {
+          pageInfo: recommendationsDto?.pageInfo,
+          media:
+            recommendationsDto?.nodes?.map(
+              (node) => node.mediaRecommendation
+            ) ?? [],
+        } as MediaPageDto;
+      })
     );
   }
 
@@ -140,9 +163,9 @@ export class MediaApi extends AniListApi {
       map((response) => {
         const mediaIds: number[] = [];
 
-        const listMediaDto = this.getResponseData(response);
-        if (listMediaDto) {
-          listMediaDto.MediaListCollection.lists.forEach((list) => {
+        const responseData = this.getResponseData(response);
+        if (responseData) {
+          responseData.MediaListCollection.lists.forEach((list) => {
             list.entries.forEach((listEntry) => {
               listEntry.media.relations.edges.forEach((edge) => {
                 const mediaId = edge.node.id;

@@ -246,6 +246,32 @@ export const relatedMediaIdsQuery = `
   }
 `;
 
+export const mediaRecommendationsQuery = `
+  query (
+    $id: Int,
+    $page: Int,
+    $perPage: Int,
+    $sort: [RecommendationSort]
+  ) {
+    Media (id: $id) {
+      recommendations (
+        page: $page,
+        perPage: $perPage,
+        sort: $sort
+      ) {
+        pageInfo {
+          ${pageInfoFields}
+        }
+        nodes {
+          mediaRecommendation {
+            ${mediaFields}
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const listMediaIdsQuery = `
   query (
     ${filterTypes.mediaCollection}
