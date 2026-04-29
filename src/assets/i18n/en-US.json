@@ -51,10 +51,10 @@
     "seconds": {
       "short": "s"
     },
+    "today": "Today",
     "years": {
       "short": "Y"
-    },
-    "today": "Today"
+    }
   },
   "footer": {
     "about": "About",
@@ -146,6 +146,7 @@
     "goToDetail": "Go to full detail",
     "meanScore": "Mean",
     "menu": "Menu",
+    "recommendations": "Recommendations",
     "score": "Score",
     "scoreTooltip": "(*/10)",
     "scoreValues": {

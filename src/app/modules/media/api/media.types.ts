@@ -1,14 +1,7 @@
 import { Tag } from '../../shared/types/anilist/dataTypes.types';
+import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Media,
-  MediaListSort,
-  MediaRelationType,
-  MediaSort,
-  MediaStatus,
+  Media, MediaListSort, MediaRelationType, MediaSort, MediaStatus,
 } from '../../shared/types/anilist/media.types';
 import { PageInfo } from '../../shared/types/anilist/pageInfo.types';
 
@@ -114,10 +107,8 @@ export type ListEntriesPageDto = {
 };
 
 export type MediaPageDto = {
-  Page: {
-    pageInfo: PageInfo;
-    media: Media[];
-  };
+  pageInfo: PageInfo;
+  media: Media[];
 };
 
 export type GenreCollectionDto = {
@@ -166,6 +157,19 @@ export type RelatedMediaIdsDto = {
         };
       }[];
     }[];
+  };
+};
+
+export type MediaRecommendationsDto = {
+  Media: {
+    recommendations: {
+      pageInfo: PageInfo;
+      nodes: {
+        mediaRecommendation?: {
+          id: number;
+        };
+      }[];
+    };
   };
 };
 

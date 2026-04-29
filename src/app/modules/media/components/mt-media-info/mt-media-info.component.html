@@ -177,6 +177,71 @@
         </div>
       </div>
     }
+
+    <!-- recommendations -->
+    @if (fullDetail) {
+      <div class="property-value-pair flex-box">
+        <div class="property">{{ 'media.recommendations' | translate }}</div>
+      </div>
+
+      @if (!searchingRecommendations && !recommendationsPagination) {
+        <button
+          mat-raised-button
+          type="button"
+          class="full-width"
+          color="primary"
+          (click)="enableRecommendations()"
+        >
+          <mt-icon name="search baseline"></mt-icon>
+          <span>{{ 'media.search.submit' | translate }}</span>
+        </button>
+      }
+
+      @if (searchingRecommendations || recommendationsPagination) {
+        <div class="recommendations">
+          @if (searchingRecommendations) {
+            <div class="recommendations-placeholder">
+              <mat-spinner mode="indeterminate"></mat-spinner>
+            </div>
+          }
+
+          @if (!searchingRecommendations) {
+            @if (recommendations?.length) {
+              <div class="media-cover-grid">
+                @for (recommendation of recommendations; track recommendation) {
+                  <mt-media-cover
+                    [media]="recommendation"
+                    [showMediaStatus]="true"
+                    [showListEntryStatus]="true"
+                  ></mt-media-cover>
+                }
+              </div>
+            }
+
+            @if (recommendationsPagination?.total === 0) {
+              <mt-alert type="info">
+                {{ 'generic.noResults' | translate }}
+              </mt-alert>
+            }
+
+            @if (error) {
+              <mt-alert type="error">{{ error }}</mt-alert>
+            }
+          }
+
+          @if (recommendationsPagination) {
+            <mt-pagination
+              [hidePageSize]="true"
+              [lazy]="true"
+              [pagination]="recommendationsPagination"
+              (changePage)="changeRecommendationsPage($event)"
+            >
+            </mt-pagination>
+          }
+        </div>
+      }
+    }
+
     <!-- float fix -->
     <div></div>
   </div>
