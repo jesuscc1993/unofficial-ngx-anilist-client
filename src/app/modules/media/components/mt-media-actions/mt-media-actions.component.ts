@@ -4,27 +4,27 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import {
-  largeModalOptions,
-  mediumModalOptions,
-} from '../../../../app.constants';
+import { largeModalOptions, mediumModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { mediaDetailUrl } from '../../../shared/constants/navigation.constants';
 import { AuthStore } from '../../../shared/store/auth.store';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import { isAnime } from '../../domain/media.domain';
-import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtListEntryFormModalComponent,
+} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-actions',
@@ -46,8 +46,9 @@ export class MtMediaActionsComponent
 
   @Output() onListEntryChanges: EventEmitter<ListEntry>;
 
+  mediaCommands!: MediaCommands;
+
   user?: User;
-  mediaCommands?: MediaCommands;
 
   constructor(
     private animeCommands: AnimeCommands,
@@ -124,20 +125,24 @@ export class MtMediaActionsComponent
   }
 
   toggleFavourite() {
-    this.mediaCommands.toggleFavourite(this.user, this.media).subscribe();
+    if (this.user) {
+      this.mediaCommands.toggleFavourite(this.user, this.media).subscribe();
+    }
   }
 
   deleteEntry() {
-    this.mediaCommands
-      .deleteListEntry(this.listEntry)
-      .pipe(
-        tap((success) => {
-          if (success) {
-            this.setListEntry(undefined);
-          }
-        })
-      )
-      .subscribe();
+    if (this.listEntry) {
+      this.mediaCommands
+        .deleteListEntry(this.listEntry)
+        .pipe(
+          tap((success) => {
+            if (success) {
+              this.setListEntry(undefined);
+            }
+          })
+        )
+        .subscribe();
+    }
   }
 
   openOnAniList() {
@@ -168,9 +173,13 @@ export class MtMediaActionsComponent
     return !!this.listEntry && !!this.user;
   }
 
-  private setListEntry(listEntry: ListEntry) {
+  private setListEntry(listEntry?: ListEntry) {
     this.media = { ...this.media, mediaListEntry: listEntry };
-    this.listEntry = { ...listEntry, media: this.media };
+
+    this.listEntry = listEntry
+      ? { ...listEntry, media: this.media }
+      : undefined;
+
     this.onListEntryChanges.emit(this.listEntry);
   }
 }

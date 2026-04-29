@@ -1,39 +1,24 @@
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { MangaStore } from '../../../manga/store/manga.store';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  basicMediaSorts,
-  mediaScores,
-} from '../../../shared/constants/media.constants';
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaScores } from '../../../shared/constants/media.constants';
 import {
-  Media,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Media, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getColCount,
-  getFormatLiteral,
-  getMediaFormats,
-  getMediaTypePrefixedStorageKey,
-  getSortLiteral,
+  getColCount, getFormatLiteral, getMediaFormats, getMediaTypePrefixedStorageKey, getSortLiteral,
   isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
@@ -62,13 +47,14 @@ export class MtListRelatedMediaComponent
   readonly mediaScores = mediaScores;
   readonly rowCount = 5;
 
-  colCount?: number;
+  mediaCommands!: MediaCommands;
+  mediaStore!: MediaStore;
+
+  colCount: number;
   error?: Error;
-  mediaCommands?: MediaCommands;
   mediaFormats?: MediaFormat[];
   mediaList?: Media[];
   mediaListEntriesLength?: number;
-  mediaStore?: MediaStore;
   pagination?: PageInfo;
   relatedMediaIds?: number[];
   searching?: boolean;
@@ -85,6 +71,8 @@ export class MtListRelatedMediaComponent
   ) {
     super();
 
+    this.colCount = 0;
+
     this.onError = this.onError.bind(this);
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedScore = this.setSelectedScore.bind(this);
@@ -96,8 +84,7 @@ export class MtListRelatedMediaComponent
   @HostListener('window:resize')
   onResize() {
     const newColCount = getColCount(this.content);
-
-    if (newColCount !== this.colCount) {
+    if (newColCount && newColCount !== this.colCount) {
       this.colCount = newColCount;
 
       this.initializeState();
@@ -192,7 +179,7 @@ export class MtListRelatedMediaComponent
 
   setSelectedFormats(selectedFormats: MediaFormat[]) {
     this.selectedFormats = selectedFormats;
-    this.search(0, this.pagination.perPage);
+    this.search(0, this.pagination?.perPage);
 
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
@@ -205,7 +192,7 @@ export class MtListRelatedMediaComponent
 
   setSelectedSort(selectedSort: MediaSort) {
     this.selectedSort = selectedSort;
-    this.search(0, this.pagination.perPage);
+    this.search(0, this.pagination?.perPage);
 
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
@@ -218,7 +205,7 @@ export class MtListRelatedMediaComponent
 
   setSelectedScore(score: number) {
     this.selectedScore = score;
-    this.search(0, this.pagination.perPage);
+    this.search(0, this.pagination?.perPage);
 
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
@@ -245,8 +232,8 @@ export class MtListRelatedMediaComponent
     this.started = this.preload ?? false;
   }
 
-  private search(pageIndex?: number, perPage?: number) {
-    if (this.started) {
+  private search(pageIndex = 0, perPage = this.pagination?.perPage || 0) {
+    if (this.relatedMediaIds) {
       this.searching = true;
       this.error = undefined;
 

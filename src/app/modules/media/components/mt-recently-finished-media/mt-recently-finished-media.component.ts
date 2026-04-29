@@ -5,29 +5,18 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  basicMediaSorts,
-  mediaCountries,
-} from '../../../shared/constants/media.constants';
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaCountries } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
-  MediaCountry,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  MediaCountry, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getCountryLiteral,
-  getFormatLiteral,
-  getMediaFormats,
-  getMediaFormatsForListEntries,
-  getMediaTypePrefixedStorageKey,
-  getSortFunctionByMediaSort,
-  getSortLiteral,
-  isAnime,
-  isManga,
+  getCountryLiteral, getFormatLiteral, getMediaFormats, getMediaFormatsForListEntries,
+  getMediaTypePrefixedStorageKey, getSortFunctionByMediaSort, getSortLiteral, isAnime, isManga,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -50,10 +39,11 @@ export class MtRecentlyFinishedMediaComponent
   readonly isManga = isManga;
   readonly mediaSorts = basicMediaSorts;
 
+  mediaCommands!: MediaCommands;
+
   error?: Error;
   filteredEntries?: ListEntry[];
   maxEndDate?: Date;
-  mediaCommands?: MediaCommands;
   mediaCountries?: MediaCountry[];
   mediaFormats?: MediaFormat[];
   searching = true;

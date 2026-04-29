@@ -42,8 +42,9 @@ export class MtMediaInfoComponent
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSourceLiteral = getSourceLiteral;
 
+  mediaCommands!: MediaCommands;
+
   error?: Error;
-  mediaCommands?: MediaCommands;
   recommendations?: Media[];
   recommendationsPagination?: PageInfo;
   searchingRecommendations?: boolean;
@@ -112,17 +113,10 @@ export class MtMediaInfoComponent
   }
 
   private searchRecommendations(pageIndex: number, perPage: number) {
-    if (!this.mediaCommands || !this.media?.id) {
-      return;
-    }
-
-    const mediaCommands = this.mediaCommands;
-    const mediaId = this.media.id;
-
     this.searchingRecommendations = true;
 
-    mediaCommands
-      .queryRecommendationsForMediaId(mediaId, { pageIndex, perPage })
+    this.mediaCommands
+      .queryRecommendationsForMediaId(this.media.id, { pageIndex, perPage })
       .pipe(
         tap(
           (response) => {
