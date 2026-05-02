@@ -2,50 +2,38 @@ import { forkJoin, of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
-  integerPattern,
-  minMediaStartYear,
-  numberPattern,
-  pageSizeOptions,
+  integerPattern, minMediaStartYear, numberPattern, pageSizeOptions,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  mediaCountries,
-  mediaSources,
-  mediaStatuses,
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  mediaCountries, mediaSources, mediaStatuses,
 } from '../../../shared/constants/media.constants';
 import { getTypedQueryParams } from '../../../shared/domain/navigation.domain';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  Media,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Media, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { SearchFilters } from '../../api/media.types';
 import { MediaCommands } from '../../commands/media.commands';
+import { getDateScalarFromYear, getMediaFormats, isAnime } from '../../domain/media.domain';
 import {
-  getDateScalarFromYear,
-  getMediaFormats,
-  isAnime,
-} from '../../domain/media.domain';
-import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
+  MtSearchResultsTableComponent,
+} from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
   selector: 'mt-media-search',
@@ -65,15 +53,16 @@ export class MtMediaSearchComponent
   @ViewChild(MtSearchResultsTableComponent, { read: ElementRef })
   resultsTable!: ElementRef;
 
+  mediaCommands!: MediaCommands;
+  searchForm!: UntypedFormGroup;
+
   favouriteIDs?: number[];
   mediaFormats?: MediaFormat[];
   mediaList?: Media[];
   pagination?: PageInfo;
-  searchForm?: UntypedFormGroup;
   sort?: MediaSort;
   user?: User;
 
-  mediaCommands?: MediaCommands;
   mediaGenres?: string[];
   mediaTags?: string[];
   mediaCountries = [undefined, ...mediaCountries];
@@ -152,7 +141,7 @@ export class MtMediaSearchComponent
     this.updateQueryParams();
   }
 
-  search(pageIndex = 1, perPage = this.pagination?.perPage) {
+  search(pageIndex = 1, perPage = this.pagination?.perPage || 0) {
     this.searching = true;
     this.error = undefined;
 
@@ -185,7 +174,10 @@ export class MtMediaSearchComponent
           this.updateQueryParams();
 
           setTimeout(() => {
-            ScrollUtil.scrollIntoView(document.getElementById(this.resultsId));
+            const element = document.getElementById(this.resultsId);
+            if (element) {
+              ScrollUtil.scrollIntoView(element);
+            }
           });
         }),
         catchError((error) => {
@@ -248,7 +240,7 @@ export class MtMediaSearchComponent
   }
 
   private updateQueryParams() {
-    const queryParams = {
+    const queryParams: Record<string, any> = {
       currentPage: this.pagination?.currentPage,
       perPage: this.pagination?.perPage,
       sort: JSON.stringify(this.sort),

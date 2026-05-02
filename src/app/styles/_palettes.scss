@@ -9,6 +9,7 @@ $by-name: (
   'green': mat.$green-palette,
   'orange': mat.$orange-palette,
   'pink': mat.$rose-palette,
+  'violet': mat.$violet-palette,
   'red': mat.$red-palette,
 );
 
@@ -30,7 +31,7 @@ $by-status: (
   'completed': mat.$green-palette,
   'current': mat.$orange-palette,
   'dropped': mat.$red-palette,
-  'paused': mat.$rose-palette,
+  'paused': mat.$violet-palette,
   'planning': mat.$orange-palette,
   'repeating': mat.$blue-palette,
   'watching': mat.$orange-palette,

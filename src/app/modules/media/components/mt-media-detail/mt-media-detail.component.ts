@@ -4,7 +4,9 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../../shared/services/title.service';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
@@ -25,8 +27,9 @@ export class MtMediaDetailComponent
 
   readonly getMediaTitle = getMediaTitle;
 
+  mediaCommands!: MediaCommands;
+
   media?: Media;
-  mediaCommands?: MediaCommands;
 
   searching?: boolean;
   errorGotten?: boolean;

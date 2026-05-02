@@ -3,17 +3,13 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import {
-  largeModalOptions,
-  mediumModalOptions,
-} from '../../../../app.constants';
+import { largeModalOptions, mediumModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  formatGroupedDiff,
-  subtractDates,
-} from '../../../shared/domain/dates.domain';
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { formatGroupedDiff, subtractDates } from '../../../shared/domain/dates.domain';
 import { sanitizeClassname } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
@@ -21,16 +17,15 @@ import { GroupedDayDiff } from '../../../shared/types/date.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  fuzzyDateToDate,
-  getMediaProgress,
-  getMediaTitle,
-  getMediaTypeProgressLiteral,
-  getSizedCoverImage,
-  isAnime,
-  isMediaFinished,
+  fuzzyDateToDate, getMediaProgress, getMediaTitle, getMediaTypeProgressLiteral, getSizedCoverImage,
+  isAnime, isMediaFinished,
 } from '../../domain/media.domain';
-import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtListEntryFormModalComponent,
+} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-cover',
@@ -54,7 +49,8 @@ export class MtMediaCoverComponent
   readonly isMediaFinished = isMediaFinished;
   readonly sanitizeClassname = sanitizeClassname;
 
-  mediaCommands?: MediaCommands;
+  mediaCommands!: MediaCommands;
+
   timeToFinish?: GroupedDayDiff;
 
   constructor(
@@ -120,16 +116,18 @@ export class MtMediaCoverComponent
   deleteEntry(event: Event) {
     event.stopPropagation();
 
-    this.mediaCommands
-      .deleteListEntry(this.listEntry)
-      .pipe(
-        tap((success) => {
-          if (success) {
-            this.dialog.closeAll();
-          }
-        }),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
+    if (this.listEntry) {
+      this.mediaCommands
+        .deleteListEntry(this.listEntry)
+        .pipe(
+          tap((success) => {
+            if (success) {
+              this.dialog.closeAll();
+            }
+          }),
+          takeUntil(this.destroyed$)
+        )
+        .subscribe();
+    }
   }
 }

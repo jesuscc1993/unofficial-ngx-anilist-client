@@ -7,11 +7,12 @@ import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus,
-  ListEntryStatus,
+  ListEntriesByStatus, ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
@@ -35,9 +36,10 @@ export class MtUserMediaListComponent
 {
   @Input() mediaType!: MediaType;
 
+  mediaCommands!: MediaCommands;
+
   favouriteIDs?: number[];
   listEntriesByStatus?: ListEntriesByStatus;
-  mediaCommands?: MediaCommands;
   statuses?: Status[];
   user?: User;
 
@@ -66,8 +68,8 @@ export class MtUserMediaListComponent
     this.updateListData();
   }
 
-  hasDataOfStatus(status: string): boolean {
-    return (
+  hasDataOfStatus(status: ListEntryStatus): boolean {
+    return !!(
       this.listEntriesByStatus &&
       this.listEntriesByStatus[status] &&
       this.listEntriesByStatus[status].length > 0
@@ -75,7 +77,10 @@ export class MtUserMediaListComponent
   }
 
   scrollToStatus(status: string) {
-    ScrollUtil.scrollIntoView(document.getElementById(status));
+    const element = document.getElementById(status);
+    if (element) {
+      ScrollUtil.scrollIntoView(element);
+    }
   }
 
   applyFilter(filterValue: string) {
@@ -95,7 +100,7 @@ export class MtUserMediaListComponent
         .pipe(
           tap((listEntries) => {
             const mediaType = this.mediaType.toLowerCase();
-            const name = this.user.name;
+            const name = this.user?.name;
             const time = Date.now();
 
             downloadFile(

@@ -7,24 +7,16 @@ import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../../shared/types/anilist/listEntry.types';
-import {
-  MediaFormat,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral,
-  getMediaFormats,
-  getMediaFormatsForListEntries,
-  getMediaStatusesForListEntries,
-  getMediaTypePrefixedStorageKey,
-  isAnime,
+  getFormatLiteral, getMediaFormats, getMediaFormatsForListEntries, getMediaStatusesForListEntries,
+  getMediaTypePrefixedStorageKey, isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -45,10 +37,11 @@ export class MtRecentlyUpdatedListEntriesComponent
   readonly getMangaStatusLiteral = getMangaStatusLiteral;
   readonly isAnime = isAnime;
 
+  mediaCommands!: MediaCommands;
+
   error?: Error;
   filteredEntries?: ListEntry[];
   listEntryStatuses?: ListEntryStatus[];
-  mediaCommands?: MediaCommands;
   mediaFormats?: MediaFormat[];
   searching = true;
   selectedFormats?: MediaFormat[];
@@ -86,7 +79,7 @@ export class MtRecentlyUpdatedListEntriesComponent
       .pipe(
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries.sort((a, b) =>
-            a.updatedAt > b.updatedAt ? -1 : 1
+            (a.updatedAt ?? -Infinity) > (b.updatedAt ?? -Infinity) ? -1 : 1
           );
           this.listEntryStatuses =
             getMediaStatusesForListEntries(mediaListEntries);
@@ -146,7 +139,7 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   private filterEntries() {
-    this.filteredEntries = this.listEntries.filter(
+    this.filteredEntries = this.listEntries?.filter(
       (entry) => this.isFormatValid(entry) && this.isStatusValid(entry)
     );
   }
