@@ -23,10 +23,10 @@ const ANIME_ICON = 'display';
 const MANGA_ICON = 'lines-leaning';
 
 @Component({
-    selector: 'mt-header',
-    templateUrl: './mt-header.component.html',
-    styleUrls: ['./mt-header.component.scss'],
-    standalone: false
+  selector: 'mt-header',
+  templateUrl: './mt-header.component.html',
+  styleUrls: ['./mt-header.component.scss'],
+  standalone: false,
 })
 export class MtHeaderComponent extends WithObservableOnDestroy {
   animeSearchUrl = animeSearchUrl;
@@ -34,9 +34,8 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   animeUserListUrl = animeUserListUrl;
 
   loginAvailable: boolean;
-  page: string;
-  routes: Route[];
-  user: User;
+  routes: (Route | undefined)[];
+  user?: User;
 
   constructor(
     private router: Router,
@@ -65,45 +64,49 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 
     this.routes = [
       {
+        class: 'inline',
+        icon: ANIME_ICON,
+        literal: 'media.sourceValues.ANIME',
+      },
+      {
+        icon: 'search',
+        literal: 'media.search.title',
         path: animeSearchUrl,
-        literal: 'anime.search.title',
-        icon: ANIME_ICON,
-        iconb: 'search',
       },
       {
+        enabled: !!this.user,
+        icon: 'th-list',
+        literal: 'media.list',
         path: animeUserListUrl,
-        literal: 'anime.userList.title',
-        icon: ANIME_ICON,
-        iconb: 'th-list',
-        enabled: !!this.user,
       },
       {
-        path: animeDashboardUrl,
-        literal: 'anime.dashboard.title',
-        icon: ANIME_ICON,
-        iconb: 'columns',
         enabled: !!this.user,
+        icon: 'columns',
+        literal: 'media.board',
+        path: animeDashboardUrl,
       },
       undefined,
       {
+        enabled: !!this.user,
+        icon: 'columns',
+        literal: 'media.board',
         path: mangaDashboardUrl,
-        literal: 'manga.dashboard.title',
-        icon: MANGA_ICON,
-        iconb: 'columns',
-        enabled: !!this.user,
       },
       {
+        enabled: !!this.user,
+        icon: 'th-list',
+        literal: 'media.list',
         path: mangaUserListUrl,
-        literal: 'manga.userList.title',
-        icon: MANGA_ICON,
-        iconb: 'th-list',
-        enabled: !!this.user,
       },
       {
+        icon: 'search',
+        literal: 'media.search.title',
         path: mangaSearchUrl,
-        literal: 'manga.search.title',
+      },
+      {
+        class: 'inline reverse',
         icon: MANGA_ICON,
-        iconb: 'search',
+        literal: 'media.sourceValues.MANGA',
       },
     ];
 
@@ -121,7 +124,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   }
 
   openAnilistProfile() {
-    window.open(`https://anilist.co/user/${this.user.name}`);
+    window.open(`https://anilist.co/user/${this.user?.name}`);
   }
 
   logOut() {
@@ -139,9 +142,9 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 }
 
 type Route = {
-  path: string;
-  literal: string;
-  icon: string;
-  iconb: string;
+  class?: string;
   enabled?: boolean;
+  icon?: string;
+  literal: string;
+  path?: string;
 };

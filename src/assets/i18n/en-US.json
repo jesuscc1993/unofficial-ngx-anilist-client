@@ -3,11 +3,7 @@
     "dashboard": {
       "finishedReleasing": "Finished releasing",
       "recentlyUpdated": "Latest list updates",
-      "relatedMedia": "Related media",
-      "title": "Anime board"
-    },
-    "search": {
-      "title": "Anime search"
+      "relatedMedia": "Related media"
     },
     "status": "Status",
     "statusValues": {
@@ -18,9 +14,6 @@
       "PLANNING": "Planning",
       "REPEATING": "Repeating",
       "undefined": "Any"
-    },
-    "userList": {
-      "title": "Anime list"
     }
   },
   "app": {
@@ -88,11 +81,7 @@
     "dashboard": {
       "finishedReleasing": "Finished releasing",
       "recentlyUpdated": "Latest list updates",
-      "relatedMedia": "Related media",
-      "title": "Manga board"
-    },
-    "search": {
-      "title": "Manga search"
+      "relatedMedia": "Related media"
     },
     "statusValues": {
       "COMPLETED": "Completed",
@@ -102,9 +91,6 @@
       "PLANNING": "Planning",
       "REPEATING": "Rereading",
       "undefined": "Any"
-    },
-    "userList": {
-      "title": "Manga list"
     }
   },
   "matPaginator": {
@@ -118,6 +104,7 @@
   "media": {
     "additionalInfo": "Additional info",
     "averageScore": "Average",
+    "board": "Board",
     "chapters": "Chapters",
     "countryOfOrigin": "Country of origin",
     "cover": "Cover",
@@ -144,6 +131,7 @@
     "genre": "Genre",
     "genres": "Genres",
     "goToDetail": "Go to full detail",
+    "list": "List",
     "meanScore": "Mean",
     "menu": "Menu",
     "recommendations": "Recommendations",
@@ -173,7 +161,8 @@
         "startYear": "Start year"
       },
       "limitedFeatures": "Search will be available but most other features will not.",
-      "submit": "Search"
+      "submit": "Search",
+      "title": "Search"
     },
     "searchImages": "Search images",
     "sortValues": {

@@ -118,6 +118,7 @@
   "media": {
     "additionalInfo": "Más información",
     "averageScore": "Media",
+    "board": "Panel",
     "chapters": "Capítulos",
     "countryOfOrigin": "País de origen",
     "cover": "Imagen",
@@ -143,6 +144,7 @@
     "genre": "Género",
     "genres": "Géneros",
     "goToDetail": "Ir al detalle completo",
+    "list": "Lista",
     "meanScore": "Modo",
     "menu": "Menú",
     "recommendations": "Recomendaciones",
@@ -173,7 +175,7 @@
       },
       "limitedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
       "submit": "Buscar",
-      "title": "Búsqueda de anime"
+      "title": "Búsqueda"
     },
     "searchImages": "Buscar imágenes",
     "sortValues": {
