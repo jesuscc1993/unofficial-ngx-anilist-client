@@ -7,13 +7,13 @@ import { AuthStore } from '../../../shared/store/auth.store';
 import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
-    selector: 'mt-user-anime-list',
-    templateUrl: './user-anime-list.page.html',
-    styleUrls: ['./user-anime-list.page.scss'],
-    standalone: false
+  selector: 'mt-user-anime-list',
+  templateUrl: './user-anime-list.page.html',
+  styleUrls: ['./user-anime-list.page.scss'],
+  standalone: false,
 })
 export class UserAnimeListPage {
-  user: User;
+  user?: User;
   loggedIn: boolean;
 
   constructor(
@@ -21,7 +21,10 @@ export class UserAnimeListPage {
     private router: Router,
     private titleService: TitleService
   ) {
-    this.titleService.setTranslatedTitle('anime.userList.title');
+    this.titleService.setTranslatedTitle(
+      'media.sourceValues.ANIME',
+      'media.list'
+    );
 
     this.user = this.authStore.getUser();
     this.loggedIn = this.user !== undefined;

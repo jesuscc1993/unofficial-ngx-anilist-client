@@ -17,7 +17,9 @@ export class TitleService {
     );
   }
 
-  setTranslatedTitle(title?: string) {
-    this.setTitle(this.translateService.instant(title));
+  setTranslatedTitle(...keys: string[]) {
+    this.setTitle(
+      keys.map((key) => this.translateService.instant(key)).join(' ')
+    );
   }
 }
