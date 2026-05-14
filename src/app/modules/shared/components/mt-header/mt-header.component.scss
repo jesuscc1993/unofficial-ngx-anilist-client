@@ -36,22 +36,44 @@ mat-toolbar {
   .section-links {
     > * {
       &,
-      & a {
+      & .list-item {
         height: 100%;
       }
     }
 
-    a {
+    .list-item {
       align-items: center;
       border-bottom: $spacing-6xs solid transparent;
       border-top: $spacing-4xs solid transparent;
       box-sizing: border-box;
       display: inline-flex;
       flex-direction: column;
-      font-weight: bold;
       justify-content: space-around;
-      margin: 0 $spacing-3xs;
+      margin: 0 $spacing-4xs;
+      min-width: 3rem;
       padding: $spacing-4xs $spacing-4xs $spacing-6xs;
+
+      &.inline {
+        flex-direction: row;
+        gap: $spacing-3xs;
+
+        &.reverse {
+          flex-direction: row-reverse;
+        }
+      }
+
+      &:not([href]) {
+        color: map.get(mat-palettes.$grey, 50);
+      }
+
+      small {
+        font-size: $font-size-75;
+        font-weight: bold;
+        line-height: 1;
+      }
+    }
+
+    a {
       transition: $transition-duration;
 
       &:not(.active):not(:hover) {
@@ -72,11 +94,10 @@ mat-toolbar {
           line-height: 1;
         }
       }
+    }
 
-      small {
-        font-size: $font-size-75;
-        line-height: 1;
-      }
+    vr {
+      border-color: map.get(mat-palettes.$grey, 30);
     }
   }
 

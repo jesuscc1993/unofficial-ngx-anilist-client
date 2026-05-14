@@ -1,6 +1,6 @@
 <mat-toolbar>
   <div>
-    <h1 class="hide-below-sm">{{ 'app.title' | translate }}</h1>
+    <h1 class="hide-below-md">{{ 'app.title' | translate }}</h1>
   </div>
 
   <nav class="centered-content section-links">
@@ -14,22 +14,31 @@
         }"
       >
         @if (route && route?.enabled !== false) {
-          <a
-            class="secondary"
-            role="listitem"
-            [routerLink]="route.path"
-            [class.active]="onPage(route.path)"
-          >
-            <span class="icons-container">
-              @if (route.icon) {
-                <mt-icon [name]="route.icon" class="section-icon"></mt-icon>
-              }
-              @if (route.iconb) {
-                <mt-icon [name]="route.iconb" class="section-icon"></mt-icon>
-              }
-            </span>
-            <small>{{ route.literal | translate }}</small>
-          </a>
+          @if (route.path) {
+            <a
+              role="listitem"
+              class="secondary list-item"
+              [ngClass]="route.class"
+              [routerLink]="route.path"
+              [class.active]="onPage(route.path)"
+            >
+              <span class="icons-container">
+                @if (route.icon) {
+                  <mt-icon [name]="route.icon" class="section-icon"></mt-icon>
+                }
+              </span>
+              <small>{{ route.literal | translate }}</small>
+            </a>
+          } @else {
+            <div role="listitem" class="list-item" [ngClass]="route.class">
+              <span class="icons-container">
+                @if (route.icon) {
+                  <mt-icon [name]="route.icon" class="section-icon"></mt-icon>
+                }
+              </span>
+              <span>{{ route.literal | translate }}</span>
+            </div>
+          }
         }
         @if (!route) {
           <vr></vr>
@@ -42,18 +51,18 @@
   @if (user) {
     <div class="flex-box center">
       <span
-        class="padding-right-xs clickable hide-below-sm"
+        class="padding-right-xs clickable hide-below-md"
         [matMenuTriggerFor]="userMenu"
         >{{ user.name }}</span
       >
       <img
         alt="User avatar"
-        class="avatar clickable hide-below-sm"
+        class="avatar clickable hide-below-md"
         [matMenuTriggerFor]="userMenu"
         [src]="user.avatar.large"
       />
       <a
-        class="clickable show-below-sm"
+        class="clickable show-below-md"
         [matMenuTriggerFor]="userMenu"
         [matTooltip]="'media.menu' | translate"
       >
