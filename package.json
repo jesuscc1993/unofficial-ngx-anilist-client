@@ -8,6 +8,7 @@
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
+    "push-and-deploy": "git push && yarn deploy",
     "start": "ng serve --no-live-reload",
     "test": "ng test",
     "tslint": "tsc --noEmit"
@@ -59,7 +60,6 @@
     "path-to-regexp": "~0.1.12",
     "semver": "^7.7.4",
     "send": "^1.1.0",
-    "serialize-javascript": "^7.0.3",
     "serve-static": "^2.2.0"
   }
 }
