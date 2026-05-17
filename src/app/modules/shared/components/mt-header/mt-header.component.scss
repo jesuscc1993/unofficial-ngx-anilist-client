@@ -34,6 +34,8 @@ mat-toolbar {
   }
 
   .section-links {
+    gap: $spacing-3xs;
+
     > * {
       &,
       & .list-item {
@@ -49,13 +51,13 @@ mat-toolbar {
       display: inline-flex;
       flex-direction: column;
       justify-content: space-around;
-      margin: 0 $spacing-4xs;
-      min-width: 3rem;
-      padding: $spacing-4xs $spacing-4xs $spacing-6xs;
+      min-width: 2.75rem;
+      padding: $spacing-4xs $spacing-6xs $spacing-6xs;
 
       &.inline {
         flex-direction: row;
         gap: $spacing-3xs;
+        padding: $spacing-3xs;
 
         &.reverse {
           flex-direction: row-reverse;
