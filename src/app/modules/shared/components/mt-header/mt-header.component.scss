@@ -57,6 +57,7 @@ mat-toolbar {
       &.inline {
         flex-direction: row;
         gap: $spacing-3xs;
+        padding: $spacing-3xs;
 
         &.reverse {
           flex-direction: row-reverse;
