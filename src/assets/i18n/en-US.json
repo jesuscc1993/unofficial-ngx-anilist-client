@@ -45,6 +45,9 @@
       "short": "s"
     },
     "today": "Today",
+    "weeks": {
+      "short": "W"
+    },
     "years": {
       "short": "Y"
     }

@@ -79,13 +79,26 @@
           <div class="contents">
             @if (timeToFinish) {
               <span>
+                <!-- Always display months if set -->
                 @if (timeToFinish.months) {
                   {{ timeToFinish.months }}{{ 'date.months.short' | translate }}
                 }
-                @if (timeToFinish.days) {
+                <!-- Always display weeks if set -->
+                @if (timeToFinish.weeks) {
+                  {{ timeToFinish.weeks }}{{ 'date.weeks.short' | translate }}
+                }
+                <!-- Only display days if they fit -->
+                @if (
+                  timeToFinish.days &&
+                  (!timeToFinish.months || !timeToFinish.weeks)
+                ) {
                   {{ timeToFinish.days }}{{ 'date.days.short' | translate }}
                 }
-                @if (!timeToFinish.months && !timeToFinish.days) {
+                @if (
+                  !timeToFinish.months &&
+                  !timeToFinish.weeks &&
+                  !timeToFinish.days
+                ) {
                   {{ 'date.today' | translate }}
                 }
               </span>
