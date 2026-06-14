@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { TitleService } from '../../services/title.service';
 
@@ -9,7 +9,9 @@ import { TitleService } from '../../services/title.service';
   standalone: false,
 })
 export class PageNotFoundPage {
-  constructor(private titleService: TitleService) {
+  private titleService = inject(TitleService);
+
+  constructor() {
     this.titleService.setTranslatedTitle('app.pageNotFound');
   }
 }

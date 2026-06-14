@@ -1,7 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-import { ModalOrigin } from '../../../../shared/types/modal.types';
 
 export type PromptData = {
   cancelLiteral?: string;
@@ -18,19 +16,20 @@ export type PromptData = {
 };
 
 @Component({
-    selector: 'mt-prompt',
-    templateUrl: './mt-prompt.component.html',
-    styleUrls: ['./mt-prompt.component.scss'],
-    standalone: false
+  selector: 'mt-prompt',
+  templateUrl: './mt-prompt.component.html',
+  styleUrls: ['./mt-prompt.component.scss'],
+  standalone: false,
 })
 export class MtPromptComponent {
-  readonly origin: ModalOrigin;
+  private dialogRef = inject<MatDialogRef<MtPromptComponent>>(MatDialogRef);
+  protected promptData = inject<PromptData>(MAT_DIALOG_DATA);
+
   readonly data: PromptData;
 
-  constructor(
-    private dialogRef: MatDialogRef<MtPromptComponent>,
-    @Inject(MAT_DIALOG_DATA) protected promptData: PromptData
-  ) {
+  constructor() {
+    const promptData = this.promptData;
+
     this.data = promptData;
   }
 

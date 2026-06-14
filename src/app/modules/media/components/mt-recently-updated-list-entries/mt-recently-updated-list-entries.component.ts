@@ -1,22 +1,30 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
-import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../../shared/types/anilist/listEntry.types';
+import {
+  MediaFormat,
+  MediaType,
+} from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral, getMediaFormats, getMediaFormatsForListEntries, getMediaStatusesForListEntries,
-  getMediaTypePrefixedStorageKey, isAnime,
+  getFormatLiteral,
+  getMediaFormats,
+  getMediaFormatsForListEntries,
+  getMediaStatusesForListEntries,
+  getMediaTypePrefixedStorageKey,
+  isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -30,6 +38,9 @@ export class MtRecentlyUpdatedListEntriesComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  private animeCommands = inject(AnimeCommands);
+  private mangaCommands = inject(MangaCommands);
+
   @Input() mediaType!: MediaType;
 
   readonly getFormatLiteral = getFormatLiteral;
@@ -49,10 +60,7 @@ export class MtRecentlyUpdatedListEntriesComponent
 
   private listEntries?: ListEntry[];
 
-  constructor(
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands
-  ) {
+  constructor() {
     super();
 
     this.setSelectedFormats = this.setSelectedFormats.bind(this);

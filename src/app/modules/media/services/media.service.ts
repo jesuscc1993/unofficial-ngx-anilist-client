@@ -5,8 +5,15 @@ import { Injectable } from '@angular/core';
 
 import { SearchFilters } from '../../media/api/media.types';
 import { getListEntriesByStatus } from '../../media/domain/media.domain';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
-import { Media, MediaSort, MediaStatus } from '../../shared/types/anilist/media.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Media,
+  MediaSort,
+  MediaStatus,
+} from '../../shared/types/anilist/media.types';
 import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
@@ -16,14 +23,9 @@ import { fuzzyDateToDate } from '../domain/media.domain';
 import { MediaStore } from '../store/media.store';
 
 @Injectable()
-export class MediaService {
-  private mediaApi: MediaApiInterface;
-  private mediaStore: MediaStore;
-
-  constructor(mediaApi: MediaApiInterface, mediaStore: MediaStore) {
-    this.mediaApi = mediaApi;
-    this.mediaStore = mediaStore;
-  }
+export abstract class MediaService {
+  protected abstract mediaApi: MediaApiInterface;
+  protected abstract mediaStore: MediaStore;
 
   queryGenres() {
     return this.mediaApi.queryGenres();
@@ -84,7 +86,7 @@ export class MediaService {
         });
   }
 
-  queryListEntries(user?: User): Observable<ListEntry[]> {
+  queryListEntries(user: User): Observable<ListEntry[]> {
     const storeEntries = this.mediaStore.getListEntries();
     return storeEntries
       ? of(storeEntries)
@@ -95,7 +97,7 @@ export class MediaService {
           );
   }
 
-  getListEntriesExport(user?: User) {
+  getListEntriesExport(user: User) {
     return this.queryListEntries(user).pipe(
       map((entries) =>
         entries.map(({ scoreRaw, progress, repeat, status, media }) => {
@@ -114,7 +116,7 @@ export class MediaService {
     );
   }
 
-  queryRelatedMediaIds(user?: User): Observable<number[]> {
+  queryRelatedMediaIds(user: User): Observable<number[]> {
     return this.mediaApi.queryRelatedMediaIds(user);
   }
 
@@ -125,7 +127,7 @@ export class MediaService {
     return this.mediaApi.queryRecommendationsForMediaId(mediaId, pageQuery);
   }
 
-  queryFavouriteIDs(user?: User): Observable<number[]> {
+  queryFavouriteIDs(user: User): Observable<number[]> {
     const storeEntries = this.mediaStore.getMediaFavouriteIDs();
     return storeEntries
       ? of(storeEntries)

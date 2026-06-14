@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { withCache } from '@ngneat/cashew';
 
 import { apiUrl } from '../../../app.constants';
@@ -13,18 +13,16 @@ import { RequestOptions, RequestSettings } from './api.types';
 
 const DEFAULT_CACHE_MAX_AGE = 24 * 3600000;
 
-export class AniListApi {
-  protected apiUrl = apiUrl;
-  private loggingEnabled = false;
+export abstract class AniListApi {
+  private authStore = inject(AuthStore);
+  private httpClient = inject(HttpClient);
 
-  constructor(
-    protected httpClient: HttpClient,
-    protected authStore: AuthStore
-  ) {}
+  private loggingEnabled = false;
+  protected apiUrl = apiUrl;
 
   protected getRequestOptions(settings?: RequestSettings) {
     let options: RequestOptions = {
-      headers: this.getRequestHeaders(settings?.headers),
+      headers: this.getRequestHeaders(settings?.headers) as HttpHeaders,
     };
 
     if (!settings) return options;
@@ -64,7 +62,7 @@ export class AniListApi {
       .replace(/ *([\)|\}] *)/g, '$1')
       .trim();
 
-    const parsedVariables = { ...variables };
+    const parsedVariables = { ...variables } as Record<string, unknown>;
     if (parsedVariables) {
       Object.keys(parsedVariables).forEach((key) => {
         const value = parsedVariables[key];
@@ -72,7 +70,8 @@ export class AniListApi {
         if (
           value === undefined ||
           value === null ||
-          (['string', 'object'].includes(typeof value) && value.length === 0)
+          (['string', 'object'].includes(typeof value) &&
+            (value as string).length === 0)
         ) {
           delete parsedVariables[key];
         }
@@ -93,7 +92,9 @@ export class AniListApi {
         },
         this.getRequestOptions(settings)
       )
-      .pipe(this.mapResponseError());
+      .pipe(this.mapResponseError()) as Observable<
+      AnilistResponse<ResponseType>
+    >;
   }
 
   protected isValidResponse<T>(response: AnilistResponse<T>) {

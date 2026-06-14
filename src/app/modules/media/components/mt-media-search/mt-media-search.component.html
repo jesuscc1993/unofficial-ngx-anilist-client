@@ -3,7 +3,8 @@
     <mat-card>
       <mat-card-content class="search-card">
         <h2 class="text-150 bold text-center no-margin-top">
-          {{ mediaType.toLowerCase() + '.search.title' | translate }}
+          {{ getSourceLiteral(mediaType) | translate }}
+          {{ 'media.search.title' | translate }}
         </h2>
 
         <div class="form-group">

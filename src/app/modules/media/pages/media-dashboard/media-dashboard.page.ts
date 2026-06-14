@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MediaType } from '../../../shared/types/anilist/media.types';
@@ -10,13 +10,13 @@ import { MediaType } from '../../../shared/types/anilist/media.types';
   standalone: false,
 })
 export class MtMediaDashboardComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+
   @Input() mediaType!: MediaType;
 
   showLeftColumn = true;
   showCenterColumn = true;
   showRightColumn = true;
-
-  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {

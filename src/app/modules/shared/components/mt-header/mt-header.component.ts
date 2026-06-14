@@ -1,6 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
@@ -29,19 +29,19 @@ const MANGA_ICON = 'lines-leaning';
   standalone: false,
 })
 export class MtHeaderComponent extends WithObservableOnDestroy {
-  animeSearchUrl = animeSearchUrl;
-  apiLoginUrl = apiLoginUrl;
-  animeUserListUrl = animeUserListUrl;
+  private authCommands = inject(AuthCommands);
+  private authStore = inject(AuthStore);
+  private router = inject(Router);
 
-  loginAvailable: boolean;
+  animeSearchUrl = animeSearchUrl;
+  animeUserListUrl = animeUserListUrl;
+  apiLoginUrl = apiLoginUrl;
+
+  loginAvailable?: boolean;
   routes: (Route | undefined)[];
   user?: User;
 
-  constructor(
-    private router: Router,
-    private authCommands: AuthCommands,
-    private authStore: AuthStore
-  ) {
+  constructor() {
     super();
 
     if (location.href.includes(apiTokenPrefix)) {

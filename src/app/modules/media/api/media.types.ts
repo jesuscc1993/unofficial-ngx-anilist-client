@@ -1,7 +1,14 @@
 import { Tag } from '../../shared/types/anilist/dataTypes.types';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
 import {
-  Media, MediaListSort, MediaRelationType, MediaSort, MediaStatus,
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Media,
+  MediaListSort,
+  MediaRelationType,
+  MediaSort,
+  MediaStatus,
 } from '../../shared/types/anilist/media.types';
 import { PageInfo } from '../../shared/types/anilist/pageInfo.types';
 
@@ -60,11 +67,11 @@ export type PagedSearchFilters = SearchFilters &
 /* requests */
 
 export type SaveListEntryRequest = {
-  status: ListEntryStatus;
   mediaId: number;
-  progress: number;
-  repeat: number;
-  scoreRaw: number;
+  progress?: number;
+  repeat?: number;
+  scoreRaw?: number;
+  status: ListEntryStatus;
 };
 
 export type DeleteListEntryRequest = {

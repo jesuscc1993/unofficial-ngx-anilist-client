@@ -1,39 +1,61 @@
 import { forkJoin, of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
-  integerPattern, minMediaStartYear, numberPattern, pageSizeOptions,
+  integerPattern,
+  minMediaStartYear,
+  numberPattern,
+  pageSizeOptions,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  mediaCountries, mediaSources, mediaStatuses,
+  mediaCountries,
+  mediaSources,
+  mediaStatuses,
 } from '../../../shared/constants/media.constants';
+import { booleanOptions } from '../../../shared/constants/shared.constants';
 import { getTypedQueryParams } from '../../../shared/domain/navigation.domain';
+import { getArrayWithOptional } from '../../../shared/domain/shared.domain';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  Media, MediaFormat, MediaSort, MediaType,
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { SearchFilters } from '../../api/media.types';
 import { MediaCommands } from '../../commands/media.commands';
-import { getDateScalarFromYear, getMediaFormats, isAnime } from '../../domain/media.domain';
 import {
-  MtSearchResultsTableComponent,
-} from '../mt-search-results-table/mt-search-results-table.component';
+  getDateScalarFromYear,
+  getMediaFormats,
+  getSourceLiteral,
+  isAnime,
+} from '../../domain/media.domain';
+import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
   selector: 'mt-media-search',
@@ -45,6 +67,17 @@ export class MtMediaSearchComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  private activatedRoute = inject(ActivatedRoute);
+  private animeCommands = inject(AnimeCommands);
+  private authCommands = inject(AuthCommands);
+  private authStore = inject(AuthStore);
+  private formBuilder = inject(UntypedFormBuilder);
+  private mangaCommands = inject(MangaCommands);
+  private mediaStore = inject(AnimeStore);
+  private router = inject(Router);
+
+  protected getSourceLiteral = getSourceLiteral;
+
   @Input() mediaType!: MediaType;
 
   @ViewChild(MatExpansionPanel, { static: true })
@@ -65,30 +98,17 @@ export class MtMediaSearchComponent
 
   mediaGenres?: string[];
   mediaTags?: string[];
-  mediaCountries = [undefined, ...mediaCountries];
+  mediaCountries = getArrayWithOptional(mediaCountries);
   mediaStatuses = mediaStatuses;
   mediaSources = mediaSources;
   minMediaStartYear = minMediaStartYear;
   pageSizeOptions = pageSizeOptions;
-  onListOptions = [undefined, true, false];
+  onListOptions = getArrayWithOptional(booleanOptions);
 
   searching?: boolean;
   error?: Error;
 
   private resultsId = 'results';
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private animeCommands: AnimeCommands,
-    private authCommands: AuthCommands,
-    private authStore: AuthStore,
-    private formBuilder: UntypedFormBuilder,
-    private mangaCommands: MangaCommands,
-    private mediaStore: AnimeStore,
-    private router: Router
-  ) {
-    super();
-  }
 
   ngOnInit() {
     if (isAnime(this.mediaType)) {

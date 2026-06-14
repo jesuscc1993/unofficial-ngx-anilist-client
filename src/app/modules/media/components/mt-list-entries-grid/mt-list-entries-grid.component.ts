@@ -31,7 +31,7 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   readonly rowCount = 5;
 
   colCount?: number;
-  pagination: PageEvent;
+  pagination!: PageEvent;
 
   constructor() {
     this.pagination = {

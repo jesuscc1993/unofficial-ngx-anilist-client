@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class MatPaginatorI18n extends MatPaginatorIntl {
-  constructor(private translateService: TranslateService) {
+  private translateService = inject(TranslateService);
+
+  constructor() {
     super();
 
     this.itemsPerPageLabel = this.translateService.instant(

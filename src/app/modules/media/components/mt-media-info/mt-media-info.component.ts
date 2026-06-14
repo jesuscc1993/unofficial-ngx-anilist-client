@@ -1,21 +1,31 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getFormattedAnimeDuration } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { staffRoles } from '../../../shared/constants/media.constants';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands';
 import {
-  getFormattedFuzzyDate, getMediaProgress, getMediaTitle, getMediaTypeProgressLiteral,
-  getSanitizedMediaDescription, getSourceLiteral, isAnime,
+  getFormattedFuzzyDate,
+  getMediaProgress,
+  getMediaTitle,
+  getMediaTypeProgressLiteral,
+  getSanitizedMediaDescription,
+  getSourceLiteral,
+  isAnime,
 } from '../../domain/media.domain';
 
 @Component({
@@ -28,6 +38,9 @@ export class MtMediaInfoComponent
   extends WithObservableOnDestroy
   implements OnInit, OnChanges
 {
+  private animeCommands = inject(AnimeCommands);
+  private mangaCommands = inject(MangaCommands);
+
   @Input() fullDetail? = true;
   @Input() generalInfoOnly?: boolean;
   @Input() media!: Media;
@@ -50,13 +63,6 @@ export class MtMediaInfoComponent
   searchingRecommendations?: boolean;
 
   private readonly recommendationsPerPage = 20;
-
-  constructor(
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     this.setMediaCommands();

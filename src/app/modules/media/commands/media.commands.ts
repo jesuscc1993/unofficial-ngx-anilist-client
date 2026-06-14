@@ -1,37 +1,36 @@
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
 import { largeModalOptions } from '../../../app.constants';
 import { ToastService } from '../../shared/services/toast.service';
 import { AuthStore } from '../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
 import { Media } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaExportEntry } from '../../shared/types/media.types';
 import { SearchFilters } from '../api/media.types';
-import { MtPromptComponent, PromptData } from '../components/modals/mt-prompt/mt-prompt.component';
+import {
+  MtPromptComponent,
+  PromptData,
+} from '../components/modals/mt-prompt/mt-prompt.component';
 import { sortListEntriesByMediaTitle } from '../domain/media.domain';
 import { MediaService } from '../services/media.service';
 
 @Injectable()
-export class MediaCommands {
-  private mediaService: MediaService;
-
-  constructor(
-    protected authStore: AuthStore,
-    protected dialog: MatDialog,
-    protected toastService: ToastService,
-    protected translateService: TranslateService,
-    mediaService: MediaService
-  ) {
-    this._deleteListEntry = this._deleteListEntry.bind(this);
-    this.mediaService = mediaService;
-  }
+export abstract class MediaCommands {
+  protected authStore = inject(AuthStore);
+  protected dialog = inject(MatDialog);
+  protected toastService = inject(ToastService);
+  protected translateService = inject(TranslateService);
+  protected abstract mediaService: MediaService;
 
   getMediaFromIds(
     mediaIds: number[],

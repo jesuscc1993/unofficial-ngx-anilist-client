@@ -1,18 +1,17 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus, ListEntryStatus,
+  ListEntriesByStatus,
+  ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
@@ -34,27 +33,20 @@ export class MtUserMediaListComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  private animeCommands = inject(AnimeCommands);
+  private authStore = inject(AuthStore);
+  private mangaCommands = inject(MangaCommands);
+
   @Input() mediaType!: MediaType;
 
-  mediaCommands!: MediaCommands;
-
+  error?: Error;
   favouriteIDs?: number[];
+  filter?: string;
   listEntriesByStatus?: ListEntriesByStatus;
+  mediaCommands!: MediaCommands;
+  ready?: boolean;
   statuses?: Status[];
   user?: User;
-
-  ready?: boolean;
-  error?: Error;
-
-  filter?: string;
-
-  constructor(
-    private animeCommands: AnimeCommands,
-    private authStore: AuthStore,
-    private mangaCommands: MangaCommands
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     if (isAnime(this.mediaType)) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { apiLoginUrl } from '../../../../app.constants';
 import { TitleService } from '../../services/title.service';
@@ -10,9 +10,11 @@ import { TitleService } from '../../services/title.service';
   standalone: false,
 })
 export class LoginPage {
+  private titleService = inject(TitleService);
+
   apiLoginUrl = apiLoginUrl;
 
-  constructor(private titleService: TitleService) {
+  constructor() {
     this.titleService.setTitle();
   }
 }
