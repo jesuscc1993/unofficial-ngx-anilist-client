@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthCommands {
-  constructor(private authService: AuthService) {}
+  private authService = inject(AuthService);
 
   logIn(accessToken: string) {
     return this.authService.logIn(accessToken);

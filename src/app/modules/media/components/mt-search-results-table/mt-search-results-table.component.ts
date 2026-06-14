@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
@@ -36,6 +37,8 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   standalone: false,
 })
 export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
+  private dialog = inject(MatDialog);
+
   @Input() favouriteIDs!: number[];
   @Input() mediaType!: MediaType;
   @Input() tableData!: Media[];
@@ -62,7 +65,7 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   ];
   dataSource?: MatTableDataSource<Media>;
 
-  constructor(private dialog: MatDialog) {
+  constructor() {
     this.onSortChange = new EventEmitter<MediaSort>();
   }
 

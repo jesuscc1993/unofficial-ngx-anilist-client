@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Input,
   OnChanges,
   SimpleChanges,
@@ -37,6 +38,9 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
   standalone: false,
 })
 export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
+  private dialog = inject(MatDialog);
+  private elementRef = inject(ElementRef);
+
   @Input() favouriteIDs!: number[];
   @Input() filter?: string;
   @Input() mediaType!: MediaType;
@@ -57,11 +61,6 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
 
   tableRows?: string[];
   dataSource?: MatTableDataSource<ListEntry>;
-
-  constructor(
-    private dialog: MatDialog,
-    private elementRef: ElementRef
-  ) {}
 
   ngAfterViewInit() {
     this.tableRows = [
@@ -141,7 +140,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
         filter: string
       ) => {
         const title = listEntry.media.title;
-        return (
+        return !!(
           (title.romaji && this.filterByTitle(title.romaji, filter)) ||
           (title.english && this.filterByTitle(title.english, filter))
         );

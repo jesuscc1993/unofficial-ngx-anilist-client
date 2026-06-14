@@ -5,3 +5,7 @@ export const toTitleCase = (text: string) => {
 export const sanitizeClassname = (classname: string) => {
   return classname.toLowerCase().replace(/_/g, '-');
 };
+
+export const getArrayWithOptional = <T>(array: T[]) => {
+  return [undefined, ...array];
+};

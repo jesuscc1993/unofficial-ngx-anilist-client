@@ -1,7 +1,7 @@
 import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { LocalStorage } from '../../../utils/local-storage.util';
 import { StorageKeys } from '../../media/services/storage.service';
@@ -11,10 +11,13 @@ import { User } from '../types/anilist/user.types';
 
 @Injectable()
 export class AuthService {
+  private authApi = inject(AuthApi);
+  private authStore = inject(AuthStore);
+
   userChange$: Observable<User>;
   private userChangeSubject: Subject<User> = new Subject<User>();
 
-  constructor(private authApi: AuthApi, private authStore: AuthStore) {
+  constructor() {
     this.userChangeSubject = new Subject<User>();
     this.userChange$ = this.userChangeSubject.asObservable();
     this.getAccessToken();
@@ -48,7 +51,9 @@ export class AuthService {
   }
   private getAccessToken() {
     const accessToken = LocalStorage.getString(StorageKeys.AccessToken);
-    this.authStore.setAccessToken(accessToken);
+    if (accessToken) {
+      this.authStore.setAccessToken(accessToken);
+    }
   }
   private removeAccessToken() {
     this.authStore.removeAccessToken();
@@ -61,7 +66,9 @@ export class AuthService {
   }
   private getUser() {
     const user = LocalStorage.getObject<User>(StorageKeys.UserData);
-    this.authStore.setUser(user);
+    if (user) {
+      this.authStore.setUser(user);
+    }
   }
   private removeUser() {
     this.authStore.removeUser();

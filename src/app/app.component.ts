@@ -1,7 +1,7 @@
 import { forkJoin, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { apiTokenError } from './app.constants';
 import { AnimeCommands } from './modules/anime/commands/anime.commands';
@@ -11,19 +11,17 @@ import { AuthStore } from './modules/shared/store/auth.store';
 import { User } from './modules/shared/types/anilist/user.types';
 
 @Component({
-    selector: 'mt-root',
-    templateUrl: './app.component.html',
-    standalone: false
+  selector: 'mt-root',
+  templateUrl: './app.component.html',
+  standalone: false,
 })
 export class AppComponent implements OnInit {
-  error: Error;
+  private authCommands = inject(AuthCommands);
+  private animeCommands = inject(AnimeCommands);
+  private mangaCommands = inject(MangaCommands);
+  private authStore = inject(AuthStore);
 
-  constructor(
-    private authCommands: AuthCommands,
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands,
-    private authStore: AuthStore
-  ) {}
+  error?: Error;
 
   ngOnInit() {
     this.authStore.onUserChange().pipe(this.handleUserChange()).subscribe();

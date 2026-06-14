@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { listEntryStatuses } from '../../constants/media.constants';
 import { TitleService } from '../../services/title.service';
-import { defaultToastOptions, ToastService } from '../../services/toast.service';
+import {
+  defaultToastOptions,
+  ToastService,
+} from '../../services/toast.service';
 
 @Component({
   selector: 'mt-gallery',
@@ -12,10 +15,10 @@ import { defaultToastOptions, ToastService } from '../../services/toast.service'
   standalone: false,
 })
 export class GalleryPage {
-  constructor(
-    private titleService: TitleService,
-    private toastService: ToastService
-  ) {
+  private titleService = inject(TitleService);
+  private toastService = inject(ToastService);
+
+  constructor() {
     this.titleService.setTranslatedTitle('app.title');
   }
 

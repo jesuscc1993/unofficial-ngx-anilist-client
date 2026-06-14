@@ -1,13 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class TitleService {
-  constructor(
-    private title: Title,
-    private translateService: TranslateService
-  ) {}
+  private title = inject(Title);
+  private translateService = inject(TranslateService);
 
   setTitle(title?: string) {
     this.title.setTitle(

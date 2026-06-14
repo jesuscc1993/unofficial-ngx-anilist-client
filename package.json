@@ -55,6 +55,7 @@
     "typescript": "~5.9.3"
   },
   "resolutions": {
+    "esbuild": "^0.28.1",
     "gh-pages": "^5.0.0",
     "json5": "^2.2.3",
     "negotiator": "^1.0.0",

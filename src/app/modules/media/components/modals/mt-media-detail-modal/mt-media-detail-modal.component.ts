@@ -1,6 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -28,32 +28,34 @@ type MediaDetailModalParameters = {
 };
 
 @Component({
-    selector: 'mt-media-detail-modal',
-    templateUrl: './mt-media-detail-modal.component.html',
-    styleUrls: ['./mt-media-detail-modal.component.scss'],
-    standalone: false
+  selector: 'mt-media-detail-modal',
+  templateUrl: './mt-media-detail-modal.component.html',
+  styleUrls: ['./mt-media-detail-modal.component.scss'],
+  standalone: false,
 })
 export class MtMediaDetailModalComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  private animeCommands = inject(AnimeCommands);
+  private dialog = inject(MatDialog);
+  private dialogRef =
+    inject<MatDialogRef<MtMediaDetailModalComponent>>(MatDialogRef);
+  private mangaCommands = inject(MangaCommands);
+  private router = inject(Router);
+  protected data = inject<MediaDetailModalParameters>(MAT_DIALOG_DATA);
+
   readonly getMediaTitle = getMediaTitle;
   readonly origin: ModalOrigin;
-  media: Media;
-  mediaCommands: MediaCommands;
 
-  constructor(
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<MtMediaDetailModalComponent>,
-    private router: Router,
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands,
-    @Inject(MAT_DIALOG_DATA) protected data: MediaDetailModalParameters
-  ) {
+  media: Media;
+  mediaCommands!: MediaCommands;
+
+  constructor() {
     super();
 
-    this.origin = data.origin;
-    this.media = data.media;
+    this.origin = this.data.origin;
+    this.media = this.data.media;
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -45,6 +45,14 @@ type ListEntryFormModalParameters = {
   standalone: false,
 })
 export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
+  private animeCommands = inject(AnimeCommands);
+  private dialog = inject(MatDialog);
+  private dialogRef =
+    inject<MatDialogRef<MtListEntryFormModalComponent>>(MatDialogRef);
+  private formBuilder = inject(UntypedFormBuilder);
+  private mangaCommands = inject(MangaCommands);
+  protected data = inject<ListEntryFormModalParameters>(MAT_DIALOG_DATA);
+
   readonly getMediaProgress = getMediaProgress;
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
@@ -57,23 +65,16 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   readonly listEntryForm: UntypedFormGroup;
   readonly mediaCommands: MediaCommands;
 
-  constructor(
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands,
-    private formBuilder: UntypedFormBuilder,
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<MtListEntryFormModalComponent>,
-    @Inject(MAT_DIALOG_DATA) protected data: ListEntryFormModalParameters
-  ) {
+  constructor() {
     super();
 
     const { progress, repeat, scoreRaw, status } =
-      data.listEntry || ({} as ListEntry);
-    this.origin = data.origin;
-    this.media = data.media;
-    this.listEntry = data.listEntry!;
+      this.data.listEntry || ({} as ListEntry);
+    this.origin = this.data.origin;
+    this.media = this.data.media;
+    this.listEntry = this.data.listEntry!;
 
-    if (isAnime(data.media)) {
+    if (isAnime(this.data.media)) {
       this.mediaCommands = this.animeCommands;
     } else {
       this.mediaCommands = this.mangaCommands;

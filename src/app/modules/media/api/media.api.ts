@@ -1,34 +1,50 @@
 import { map } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AniListApi } from '../../shared/api/api';
 import { relatedMediaRelationTypes } from '../../shared/constants/media.constants';
-import { AuthStore } from '../../shared/store/auth.store';
-import { ListEntry, ListEntryStatus } from '../../shared/types/anilist/listEntry.types';
-import { MediaListSort, MediaSort, MediaType } from '../../shared/types/anilist/media.types';
+import {
+  ListEntry,
+  ListEntryStatus,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  MediaListSort,
+  MediaSort,
+  MediaType,
+} from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import {
-  deleteListEntryQuery, genresQuery, listFavouritesQuery, mediaRecommendationsQuery,
-  mediaSearchQuery, relatedMediaIdsQuery, saveListEntryQuery, tagsQuery,
+  deleteListEntryQuery,
+  genresQuery,
+  listFavouritesQuery,
+  mediaRecommendationsQuery,
+  mediaSearchQuery,
+  relatedMediaIdsQuery,
+  saveListEntryQuery,
+  tagsQuery,
 } from './media.queries';
 import {
-  DeleteListEntryDto, DeleteListEntryRequest, GenreCollectionDto, ListMediaDto, ListMediaFilters,
-  MediaFilters, MediaPageDto, MediaRecommendationsDto, MediaTagCollectionDto, PagedSearchFilters,
-  RelatedMediaIdsDto, SaveListEntryDto, SaveListEntryRequest, SearchFilters, SearchMediaDto,
+  DeleteListEntryDto,
+  DeleteListEntryRequest,
+  GenreCollectionDto,
+  ListMediaDto,
+  ListMediaFilters,
+  MediaFilters,
+  MediaPageDto,
+  MediaRecommendationsDto,
+  MediaTagCollectionDto,
+  PagedSearchFilters,
+  RelatedMediaIdsDto,
+  SaveListEntryDto,
+  SaveListEntryRequest,
+  SearchFilters,
+  SearchMediaDto,
 } from './media.types';
 
 @Injectable()
 export class MediaApi extends AniListApi {
-  constructor(
-    protected httpClient: HttpClient,
-    protected authStore: AuthStore
-  ) {
-    super(httpClient, authStore);
-  }
-
   saveListEntry({ status, progress, repeat, scoreRaw, media }: ListEntry) {
     return this.postGraphQlRequest<SaveListEntryDto, SaveListEntryRequest>(
       saveListEntryQuery,
@@ -40,23 +56,23 @@ export class MediaApi extends AniListApi {
         status: status || ListEntryStatus.COMPLETED,
       }
     ).pipe(
-      map((response) => this.getResponseData(response).SaveMediaListEntry)
+      map((response) => this.getResponseData(response)!.SaveMediaListEntry)
     );
   }
 
   deleteListEntry(listEntry: ListEntry) {
     return this.postGraphQlRequest<DeleteListEntryDto, DeleteListEntryRequest>(
       deleteListEntryQuery,
-      { id: listEntry.id }
+      { id: listEntry.id! }
     ).pipe(
-      map((response) => this.getResponseData(response).DeleteMediaListEntry)
+      map((response) => this.getResponseData(response)!.DeleteMediaListEntry)
     );
   }
 
   queryGenres() {
     return this.postGraphQlRequest<GenreCollectionDto>(genresQuery, undefined, {
       cacheKey: 'queryGenres',
-    }).pipe(map((response) => this.getResponseData(response).GenreCollection));
+    }).pipe(map((response) => this.getResponseData(response)!.GenreCollection));
   }
 
   queryTags() {
@@ -65,7 +81,7 @@ export class MediaApi extends AniListApi {
       undefined,
       { cacheKey: 'queryTags' }
     ).pipe(
-      map((response) => this.getResponseData(response).MediaTagCollection)
+      map((response) => this.getResponseData(response)!.MediaTagCollection)
     );
   }
 
@@ -80,7 +96,7 @@ export class MediaApi extends AniListApi {
     }).pipe(
       map((response) => {
         const recommendationsDto =
-          this.getResponseData(response)?.Media?.recommendations;
+          this.getResponseData(response)!.Media?.recommendations;
         return {
           pageInfo: recommendationsDto?.pageInfo,
           media:
@@ -110,7 +126,7 @@ export class MediaApi extends AniListApi {
         idIn: mediaIds,
       },
       { cacheKey: `queryMediaList_${mediaType}_${mediaIds.join(',')}` }
-    ).pipe(map((response) => this.getResponseData(response).Page));
+    ).pipe(map((response) => this.getResponseData(response)!.Page));
   }
 
   protected _queryMedia(
@@ -129,7 +145,7 @@ export class MediaApi extends AniListApi {
           query.sort ||
           (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
       }
-    ).pipe(map((response) => this.getResponseData(response).Page));
+    ).pipe(map((response) => this.getResponseData(response)!.Page));
   }
 
   protected _queryListEntries(
@@ -143,7 +159,7 @@ export class MediaApi extends AniListApi {
       sort: MediaListSort.UPDATED_TIME_DESC,
     }).pipe(
       map((response) =>
-        this.getResponseData(response).MediaListCollection.lists.reduce(
+        this.getResponseData(response)!.MediaListCollection.lists.reduce(
           (listEntries, list) => [...listEntries, ...list.entries],
           [] as ListEntry[]
         )
@@ -194,7 +210,7 @@ export class MediaApi extends AniListApi {
       }
     ).pipe(
       map((response) =>
-        this.getResponseData(response).MediaListCollection.lists.reduce(
+        this.getResponseData(response)!.MediaListCollection.lists.reduce(
           (favouriteIDs, list) => [
             ...favouriteIDs,
             ...list.entries

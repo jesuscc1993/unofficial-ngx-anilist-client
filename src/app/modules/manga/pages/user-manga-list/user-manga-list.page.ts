@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { rootUrl } from '../../../shared/constants/navigation.constants';
@@ -13,14 +13,14 @@ import { User } from '../../../shared/types/anilist/user.types';
   standalone: false,
 })
 export class UserMangaListPage {
-  user?: User;
-  loggedIn: boolean;
+  private authStore = inject(AuthStore);
+  private router = inject(Router);
+  private titleService = inject(TitleService);
 
-  constructor(
-    private authStore: AuthStore,
-    private router: Router,
-    private titleService: TitleService
-  ) {
+  user?: User;
+  loggedIn?: boolean;
+
+  constructor() {
     this.titleService.setTranslatedTitle(
       'media.sourceValues.MANGA',
       'media.list'

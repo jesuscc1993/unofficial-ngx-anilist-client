@@ -1,6 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import {
@@ -42,6 +42,10 @@ export class MtMediaCoverComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  private animeCommands = inject(AnimeCommands);
+  private dialog = inject(MatDialog);
+  private mangaCommands = inject(MangaCommands);
+
   @Input() listEntry?: ListEntry;
   @Input() media!: Media;
   @Input() showListEntryStatus?: boolean;
@@ -58,11 +62,7 @@ export class MtMediaCoverComponent
 
   timeToFinish?: GroupedDayDiff;
 
-  constructor(
-    private dialog: MatDialog,
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands
-  ) {
+  constructor() {
     super();
 
     this.openDetailModal = this.openDetailModal.bind(this);

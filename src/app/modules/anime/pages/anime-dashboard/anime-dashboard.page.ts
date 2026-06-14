@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { rootUrl } from '../../../shared/constants/navigation.constants';
@@ -12,11 +12,11 @@ import { AuthStore } from '../../../shared/store/auth.store';
   standalone: false,
 })
 export class AnimeDashboardPage {
-  constructor(
-    private router: Router,
-    private titleService: TitleService,
-    private authStore: AuthStore
-  ) {
+  private authStore = inject(AuthStore);
+  private router = inject(Router);
+  private titleService = inject(TitleService);
+
+  constructor() {
     this.titleService.setTranslatedTitle(
       'media.sourceValues.ANIME',
       'media.board'

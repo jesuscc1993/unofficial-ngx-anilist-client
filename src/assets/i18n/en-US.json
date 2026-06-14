@@ -161,7 +161,8 @@
           "true": "On list",
           "undefined": "Both"
         },
-        "startYear": "Start year"
+        "startYear": "Start year",
+        "endYear": "End year"
       },
       "limitedFeatures": "Search will be available but most other features will not.",
       "submit": "Search",

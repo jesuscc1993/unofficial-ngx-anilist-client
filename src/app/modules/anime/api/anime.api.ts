@@ -1,27 +1,25 @@
 import { map } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { MediaApi } from '../../media/api/media.api';
 import { MediaApiInterface } from '../../media/api/media.api.interface';
-import { SearchFilters, ToggleFavouriteMediaResponseDto } from '../../media/api/media.types';
-import { AuthStore } from '../../shared/store/auth.store';
+import {
+  SearchFilters,
+  ToggleFavouriteMediaResponseDto,
+} from '../../media/api/media.types';
 import { Media, MediaType } from '../../shared/types/anilist/media.types';
 import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
-import { animeListQuery, animeSearchQuery, toggleFavouriteAnimeEntryQuery } from './anime.queries';
+import {
+  animeListQuery,
+  animeSearchQuery,
+  toggleFavouriteAnimeEntryQuery,
+} from './anime.queries';
 import { ToggleFavouriteAnimeRequest } from './anime.types';
 
 @Injectable()
 export class AnimeApi extends MediaApi implements MediaApiInterface {
-  constructor(
-    protected httpClient: HttpClient,
-    protected authStore: AuthStore
-  ) {
-    super(httpClient, authStore);
-  }
-
   queryMediaFromIds(
     mediaIds: number[],
     query: SearchFilters,
@@ -57,7 +55,7 @@ export class AnimeApi extends MediaApi implements MediaApiInterface {
       ToggleFavouriteMediaResponseDto,
       ToggleFavouriteAnimeRequest
     >(toggleFavouriteAnimeEntryQuery, { animeId: anime.id }).pipe(
-      map((response) => this.getResponseData(response).ToggleFavourite)
+      map((response) => this.getResponseData(response)!.ToggleFavourite)
     );
   }
 }

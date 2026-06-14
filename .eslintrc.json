@@ -30,7 +30,7 @@
         ],
         "@angular-eslint/no-output-on-prefix": "off",
         "@angular-eslint/prefer-inject": "warn",
-        "@angular-eslint/prefer-standalone": "warn",
+        "@angular-eslint/prefer-standalone": "off",
         "@typescript-eslint/naming-convention": "off",
         "arrow-body-style": "off",
         "curly": ["error", "multi-line"],

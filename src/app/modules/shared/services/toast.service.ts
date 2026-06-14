@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 export const defaultToastOptions: MatSnackBarConfig = {
@@ -8,7 +8,7 @@ export const defaultToastOptions: MatSnackBarConfig = {
 
 @Injectable()
 export class ToastService {
-  constructor(private matSnackBar: MatSnackBar) {}
+  private matSnackBar = inject(MatSnackBar);
 
   showToast(
     message: string,

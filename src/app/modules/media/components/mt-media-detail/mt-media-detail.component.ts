@@ -1,12 +1,10 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../../shared/services/title.service';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
@@ -22,6 +20,10 @@ export class MtMediaDetailComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  private animeCommands = inject(AnimeCommands);
+  private mangaCommands = inject(MangaCommands);
+  private titleService = inject(TitleService);
+
   @Input() mediaId!: number;
   @Input() mediaType!: MediaType;
 
@@ -33,14 +35,6 @@ export class MtMediaDetailComponent
 
   searching?: boolean;
   errorGotten?: boolean;
-
-  constructor(
-    private titleService: TitleService,
-    private animeCommands: AnimeCommands,
-    private mangaCommands: MangaCommands
-  ) {
-    super();
-  }
 
   ngOnInit(): void {
     if (isAnime(this.mediaType)) {

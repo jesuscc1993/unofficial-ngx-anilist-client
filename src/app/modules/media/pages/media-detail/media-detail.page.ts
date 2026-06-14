@@ -1,26 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { getTypedRouteParams } from '../../../shared/domain/navigation.domain';
-import { Media, MediaType } from '../../../shared/types/anilist/media.types';
-import { MediaCommands } from '../../commands/media.commands';
+import { MediaType } from '../../../shared/types/anilist/media.types';
 import { toMediaType } from '../../domain/media.domain';
 
 @Component({
-    templateUrl: './media-detail.page.html',
-    styleUrls: ['./media-detail.page.scss'],
-    standalone: false
+  templateUrl: './media-detail.page.html',
+  styleUrls: ['./media-detail.page.scss'],
+  standalone: false,
 })
 export class MediaDetailPage {
-  media: Media;
-  mediaCommands: MediaCommands;
+  private activatedRoute = inject(ActivatedRoute);
+
   mediaId: number;
   mediaType: MediaType;
 
-  errorGotten: boolean;
-  searching: boolean;
-
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor() {
     const { mediaId, mediaType } = getTypedRouteParams<MediaDetailPageParams>(
       this.activatedRoute
     );
