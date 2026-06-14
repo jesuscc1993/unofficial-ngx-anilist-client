@@ -29,7 +29,7 @@ import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
-import { isAnime } from '../../domain/media.domain';
+import { getMediaTitle, isAnime } from '../../domain/media.domain';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
@@ -169,10 +169,11 @@ export class MtMediaActionsComponent
   }
 
   searchImages() {
+    const mediaTitle = getMediaTitle(this.media);
+    const mediaType = this.media.type.toLowerCase();
+
     window.open(
-      `https://duckduckgo.com/?iax=images&ia=images&q=${
-        this.media.title.romaji
-      }+${this.media.type.toLowerCase()}`
+      `https://duckduckgo.com/?iax=images&ia=images&q=${mediaTitle}+${mediaType}`
     );
   }
 
