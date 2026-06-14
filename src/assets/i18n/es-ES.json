@@ -174,7 +174,8 @@
           "true": "En lista",
           "undefined": "Ambos"
         },
-        "startYear": "Año de inicio"
+        "startYear": "Año de inicio",
+        "endYear": "Año de fin"
       },
       "limitedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
       "submit": "Buscar",

@@ -64,6 +64,40 @@
                 </div>
 
                 <div class="form-group">
+                  <!-- endDateGreaterThan -->
+                  <mat-form-field>
+                    <mat-label>
+                      {{ 'media.search.filters.endYear' | translate }}
+                      {{ 'media.search.filters.after' | translate }}...
+                    </mat-label>
+
+                    <input
+                      [min]="minMediaStartYear"
+                      matInput
+                      type="number"
+                      step="1"
+                      formControlName="endDateGreaterThan"
+                    />
+                  </mat-form-field>
+
+                  <!-- endDateSmallerThan -->
+                  <mat-form-field>
+                    <mat-label>
+                      {{ 'media.search.filters.endYear' | translate }}
+                      {{ 'media.search.filters.before' | translate }}...
+                    </mat-label>
+
+                    <input
+                      [min]="minMediaStartYear"
+                      matInput
+                      type="number"
+                      step="1"
+                      formControlName="endDateSmallerThan"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="form-group">
                   <!-- averageScoreGreaterThan -->
                   <mat-form-field>
                     <mat-label>

@@ -45,6 +45,8 @@ export type SearchFilters = MediaFilters & {
   averageScoreGreaterThan?: number;
   averageScoreSmallerThan?: number;
   countryOfOrigin?: string;
+  endDateGreaterThan?: number;
+  endDateSmallerThan?: number;
   formatIn?: string[];
   formatNotIn?: string[];
   genreIn?: string[];

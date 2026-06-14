@@ -175,6 +175,12 @@ export class MtMediaSearchComponent
       startDateGreaterThan:
         filters.startDateGreaterThan &&
         getDateScalarFromYear(filters.startDateGreaterThan),
+      endDateSmallerThan:
+        filters.endDateSmallerThan &&
+        getDateScalarFromYear(filters.endDateSmallerThan),
+      endDateGreaterThan:
+        filters.endDateGreaterThan &&
+        getDateScalarFromYear(filters.endDateGreaterThan),
       averageScoreGreaterThan:
         filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10,
       averageScoreSmallerThan:
@@ -238,6 +244,20 @@ export class MtMediaSearchComponent
       onList: [undefined],
       search: [''],
       sourceIn: [[]],
+      endDateGreaterThan: [
+        undefined,
+        [
+          Validators.pattern(integerPattern),
+          Validators.min(this.minMediaStartYear),
+        ],
+      ],
+      endDateSmallerThan: [
+        undefined,
+        [
+          Validators.pattern(integerPattern),
+          Validators.min(this.minMediaStartYear),
+        ],
+      ],
       startDateGreaterThan: [
         undefined,
         [
