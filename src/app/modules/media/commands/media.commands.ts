@@ -21,7 +21,10 @@ import {
   MtPromptComponent,
   PromptData,
 } from '../components/modals/mt-prompt/mt-prompt.component';
-import { sortListEntriesByMediaTitle } from '../domain/media.domain';
+import {
+  getMediaTitle,
+  sortListEntriesByMediaTitle,
+} from '../domain/media.domain';
 import { MediaService } from '../services/media.service';
 
 @Injectable()
@@ -49,15 +52,15 @@ export abstract class MediaCommands {
   }
 
   queryListEntries() {
-    return this.mediaService.queryListEntries(this.authStore.getUser());
+    return this.mediaService.queryListEntries(this.authStore.getUser()!);
   }
 
   queryFavouriteIDs() {
-    return this.mediaService.queryFavouriteIDs(this.authStore.getUser());
+    return this.mediaService.queryFavouriteIDs(this.authStore.getUser()!);
   }
 
   queryRelatedMediaIds() {
-    return this.mediaService.queryRelatedMediaIds(this.authStore.getUser());
+    return this.mediaService.queryRelatedMediaIds(this.authStore.getUser()!);
   }
 
   queryRecommendationsForMediaId(mediaId: number, pageQuery: PageQuery) {
@@ -94,9 +97,7 @@ export abstract class MediaCommands {
           hasConfirm: true,
           title: this.translateService.instant(
             'media.userList.deleteDescription',
-            {
-              mediaTitle: listEntry.media.title.romaji,
-            }
+            { mediaTitle: getMediaTitle(listEntry.media) }
           ),
         } as PromptData,
       });
@@ -110,7 +111,7 @@ export abstract class MediaCommands {
         if (success) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.update.success', {
-              mediaTitle: savedListEntry.media.title.romaji,
+              mediaTitle: getMediaTitle(savedListEntry.media),
             })
           );
         }
@@ -137,7 +138,7 @@ export abstract class MediaCommands {
         if (success) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.favoriteToggle.success', {
-              mediaTitle: media.title.romaji,
+              mediaTitle: getMediaTitle(media),
             })
           );
         }
@@ -170,7 +171,7 @@ export abstract class MediaCommands {
             repeat: entry.repeat,
             scoreRaw: entry.scoreRaw,
             status: entry.status,
-            title: media.title.romaji,
+            title: getMediaTitle(media),
           } as MediaExportEntry;
         })
       )
@@ -188,7 +189,7 @@ export abstract class MediaCommands {
         if (deleted) {
           this.toastService.showToast(
             this.translateService.instant('listEntry.deletion.success', {
-              mediaTitle: listEntry.media.title.romaji,
+              mediaTitle: getMediaTitle(listEntry.media),
             })
           );
         }
