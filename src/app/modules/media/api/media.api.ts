@@ -81,7 +81,11 @@ export class MediaApi extends AniListApi {
       undefined,
       { cacheKey: 'queryTags' }
     ).pipe(
-      map((response) => this.getResponseData(response)!.MediaTagCollection)
+      map((response) =>
+        this.getResponseData(response)!.MediaTagCollection.filter(
+          (tag) => !tag.isAdult
+        )
+      )
     );
   }
 

@@ -163,6 +163,7 @@ export const tagsQuery = `
     MediaTagCollection {
       name
       description
+      isAdult
       isMediaSpoiler
     }
   }
