@@ -22,6 +22,7 @@ export type CoverImage = {
 
 export type Tag = {
   description: string;
+  isAdult: boolean;
   isMediaSpoiler: boolean;
   name: string;
 };
