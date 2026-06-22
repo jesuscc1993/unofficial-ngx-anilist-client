@@ -87,7 +87,7 @@ export class MtMediaCoverComponent
     const endDate = fuzzyDateToDate(this.media.endDate);
     if (this.showMediaStatus && !isMediaFinished(this.media) && endDate) {
       const timeLessDate = new Date(new Date().setHours(0, 0, 0, 0));
-      if (endDate.getTime() > timeLessDate.getTime()) {
+      if (endDate.getTime() >= timeLessDate.getTime()) {
         this.timeToFinish = formatGroupedDiff(
           subtractDates(endDate, timeLessDate)
         );
