@@ -16,3 +16,14 @@ export type MediaExportEntry = {
   status: ListEntryStatus;
   title: string;
 };
+
+export enum MediaColumn {
+  Actions = 'actions',
+  CoverImage = 'cover-image',
+  TitleRomaji = 'title-romaji',
+  Format = 'format',
+  Date = 'date',
+  Score = 'score',
+  Episodes = 'episodes',
+  Genres = 'genres',
+}
