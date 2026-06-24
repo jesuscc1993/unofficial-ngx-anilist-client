@@ -19,6 +19,7 @@ import {
   MediaSort,
   MediaType,
 } from '../../../shared/types/anilist/media.types';
+import { MediaColumn } from '../../../shared/types/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
   getFormattedMediaYearRange,
@@ -54,14 +55,14 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   readonly getSizedCoverImage = getSizedCoverImage;
 
   tableRows = [
-    'actions',
-    'cover-image',
-    'title-romaji',
-    'format',
-    'start-date',
-    'score',
-    'episodes',
-    'genres',
+    MediaColumn.Actions,
+    MediaColumn.CoverImage,
+    MediaColumn.TitleRomaji,
+    MediaColumn.Format,
+    MediaColumn.Date,
+    MediaColumn.Score,
+    MediaColumn.Episodes,
+    MediaColumn.Genres,
   ];
   dataSource?: MatTableDataSource<Media>;
 

@@ -27,6 +27,8 @@ import {
   MediaStatus,
   MediaType,
 } from '../../shared/types/anilist/media.types';
+import { MediaColumn } from '../../shared/types/media.types';
+import { SortDirection } from '../../shared/types/mui.types';
 
 export const fuzzyDateToDate = (fuzzyDate?: FuzzyDate) => {
   const { year, month, day } = fuzzyDate || {};
@@ -103,9 +105,23 @@ export const getMediaStatusesForListEntries = (listEntries: ListEntry[]) => {
 };
 
 export const getMediaSortFromSort = (sort: Sort) => {
-  const directionSuffix = sort.direction === 'desc' ? '_DESC' : '';
-  return (sort.active.replace(/-/g, '_').toUpperCase() +
-    directionSuffix) as MediaSort;
+  let mediaSort: MediaSort;
+
+  // very dirty, but couldn't think of a better way to do this
+  if (sort.active === MediaColumn.Date) {
+    mediaSort =
+      sort.direction === SortDirection.Descending
+        ? MediaSort.END_DATE_DESC
+        : MediaSort.START_DATE;
+  } else {
+    const directionSuffix =
+      sort.direction === SortDirection.Descending ? '_DESC' : '';
+
+    mediaSort = (sort.active.replace(/-/g, '_').toUpperCase() +
+      directionSuffix) as MediaSort;
+  }
+
+  return mediaSort;
 };
 
 export const getMediaTitle = (media: Media) => {
