@@ -130,13 +130,13 @@
       "null": "-",
       "undefined": "Any"
     },
-    "fullDetail": "Full detail",
     "genre": "Genre",
     "genres": "Genres",
-    "goToDetail": "Go to full detail",
     "list": "List",
     "meanScore": "Mean",
     "menu": "Menu",
+    "openFullDetail": "Open full detail",
+    "openInAniList": "Open in AniList",
     "recommendations": "Recommendations",
     "score": "Score",
     "scoreTooltip": "(*/10)",
@@ -153,6 +153,7 @@
         "byTitle": "Filter by name",
         "clear": "Clear filters",
         "countryOfOrigin": "Country of origin",
+        "endYear": "End year",
         "includedIn": "in",
         "notIncludedIn": "not in",
         "onList": "On list",
@@ -161,8 +162,7 @@
           "true": "On list",
           "undefined": "Both"
         },
-        "startYear": "Start year",
-        "endYear": "End year"
+        "startYear": "Start year"
       },
       "limitedFeatures": "Search will be available but most other features will not.",
       "submit": "Search",
@@ -222,7 +222,6 @@
     },
     "userScore": "Your Score",
     "view": "View",
-    "viewOnAniList": "View on AniList",
     "volumes": "Volumes",
     "year": "Year"
   },

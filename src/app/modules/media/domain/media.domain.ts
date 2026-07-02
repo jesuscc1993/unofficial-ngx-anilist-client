@@ -7,6 +7,7 @@ import { listEntryStatuses } from '../../shared/constants/listEntry.constants';
 import {
   gridCardWidth,
   gridSpacing,
+  localizedMediaType,
 } from '../../shared/constants/media.constants';
 import {
   CoverImage,
@@ -129,6 +130,13 @@ export const getMediaTitle = (media: Media) => {
     (media.countryOfOrigin !== MediaCountry.JP && media.title.english) ||
     media.title.romaji
   );
+};
+
+export const getLocalizedMediaType = (
+  mediaType: MediaType,
+  country?: MediaCountry
+) => {
+  return localizedMediaType[mediaType]?.[country ?? MediaCountry.JP];
 };
 
 export const getListEntriesByStatus = (listEntries: ListEntry[]) => {

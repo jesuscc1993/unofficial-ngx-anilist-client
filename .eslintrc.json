@@ -9,7 +9,7 @@
       "files": ["*.ts"],
       "parserOptions": {
         "createDefaultProgram": true,
-        "project": ["tsconfig.json", "e2e/tsconfig.json"]
+        "project": ["tsconfig.json"]
       },
       "rules": {
         "@angular-eslint/component-selector": [
