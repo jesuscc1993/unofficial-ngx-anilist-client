@@ -143,13 +143,13 @@
       "TV_SHORT": "Corto TV",
       "undefined": "Cualquiera"
     },
-    "fullDetail": "Detalle completo",
     "genre": "Género",
     "genres": "Géneros",
-    "goToDetail": "Ir al detalle completo",
     "list": "Lista",
     "meanScore": "Modo",
     "menu": "Menú",
+    "openFullDetail": "Abrir detalle completo",
+    "openInAniList": "Abrir en AniList",
     "recommendations": "Recomendaciones",
     "score": "Nota",
     "scoreTooltip": "(*/10)",
@@ -166,6 +166,7 @@
         "byTitle": "Filtrar por nombre",
         "clear": "Limpiar filtros",
         "countryOfOrigin": "País de origen",
+        "endYear": "Año de fin",
         "includedIn": "incluído en",
         "notIncludedIn": "no incluído en",
         "onList": "En lista",
@@ -174,8 +175,7 @@
           "true": "En lista",
           "undefined": "Ambos"
         },
-        "startYear": "Año de inicio",
-        "endYear": "Año de fin"
+        "startYear": "Año de inicio"
       },
       "limitedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
       "submit": "Buscar",
@@ -235,7 +235,6 @@
     },
     "userScore": "Tu Nota",
     "view": "Ver",
-    "viewOnAniList": "Ver en AniList",
     "volumes": "Tomos",
     "year": "Año"
   },
