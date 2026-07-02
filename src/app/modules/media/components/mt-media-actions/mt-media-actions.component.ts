@@ -1,5 +1,6 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
+import { Location } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -51,6 +52,7 @@ export class MtMediaActionsComponent
   private authCommands = inject(AuthCommands);
   private authStore = inject(AuthStore);
   private dialog = inject(MatDialog);
+  private location = inject(Location);
   private mangaCommands = inject(MangaCommands);
   private router = inject(Router);
 
@@ -161,13 +163,13 @@ export class MtMediaActionsComponent
   }
 
   getFullDetailUrl(): string {
-    return this.router.serializeUrl(
-      this.router.createUrlTree([
-        mediaDetailUrl
-          .replace(':mediaType', this.media.type.toLowerCase())
-          .replace(':mediaId', this.media.id.toString()),
-      ])
-    );
+    const urlTree = this.router.createUrlTree([
+      mediaDetailUrl
+        .replace(':mediaType', this.media.type.toLowerCase())
+        .replace(':mediaId', this.media.id.toString()),
+    ]);
+    const serializedUrl = this.router.serializeUrl(urlTree);
+    return this.location.prepareExternalUrl(serializedUrl);
   }
 
   getImageSearchUrl(): string {
