@@ -29,7 +29,11 @@ import { Media } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
-import { getMediaTitle, isAnime } from '../../domain/media.domain';
+import {
+  getLocalizedMediaType,
+  getMediaTitle,
+  isAnime,
+} from '../../domain/media.domain';
 import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
 import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
@@ -152,29 +156,28 @@ export class MtMediaActionsComponent
     }
   }
 
-  openOnAniList() {
-    window.open(
-      `https://anilist.co/${this.media.type.toLowerCase()}/${this.media.id}`
+  getAniListUrl(): string {
+    return `https://anilist.co/${this.media.type.toLowerCase()}/${this.media.id}`;
+  }
+
+  getFullDetailUrl(): string {
+    return this.router.serializeUrl(
+      this.router.createUrlTree([
+        mediaDetailUrl
+          .replace(':mediaType', this.media.type.toLowerCase())
+          .replace(':mediaId', this.media.id.toString()),
+      ])
     );
   }
 
-  openFullDetail() {
-    this.dialog.closeAll();
-
-    this.router.navigate([
-      mediaDetailUrl
-        .replace(':mediaType', this.media.type.toLowerCase())
-        .replace(':mediaId', this.media.id.toString()),
-    ]);
-  }
-
-  searchImages() {
+  getImageSearchUrl(): string {
     const mediaTitle = getMediaTitle(this.media);
-    const mediaType = this.media.type.toLowerCase();
-
-    window.open(
-      `https://duckduckgo.com/?iax=images&ia=images&q=${mediaTitle}+${mediaType}`
+    const mediaType = getLocalizedMediaType(
+      this.media.type,
+      this.media.countryOfOrigin
     );
+
+    return `https://duckduckgo.com/?iax=images&ia=images&q=${mediaTitle}+${mediaType}`;
   }
 
   isUpdateAvailable(): boolean {

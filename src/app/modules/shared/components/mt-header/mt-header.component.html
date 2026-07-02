@@ -69,14 +69,14 @@
         <mt-icon name="bars"></mt-icon>
       </a>
       <mat-menu #userMenu="matMenu">
-        <mt-menu-action
+        <mt-menu-button
           icon="external-link-alt"
           (onPress)="openAnilistProfile()"
-          >{{ 'user.viewProfile' | translate }}</mt-menu-action
+          >{{ 'user.viewProfile' | translate }}</mt-menu-button
         >
-        <mt-menu-action (onPress)="logOut()" icon="door-open">
+        <mt-menu-button (onPress)="logOut()" icon="door-open">
           {{ 'user.logOut' | translate }}
-        </mt-menu-action>
+        </mt-menu-button>
       </mat-menu>
     </div>
   }

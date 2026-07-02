@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'mt-menu-action',
-    templateUrl: './mt-menu-action.component.html',
-    styleUrls: ['./mt-menu-action.component.scss'],
-    standalone: false
+  selector: 'mt-menu-button',
+  templateUrl: './mt-menu-button.component.html',
+  styleUrls: ['./mt-menu-button.component.scss'],
+  standalone: false,
 })
-export class MtMenuActionComponent {
+export class MtMenuButtonComponent {
   @Input() disabled?: boolean;
   @Input() icon?: string;
 

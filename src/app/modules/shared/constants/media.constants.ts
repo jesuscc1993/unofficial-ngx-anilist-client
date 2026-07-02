@@ -1,11 +1,6 @@
 import { ListEntryStatus } from '../types/anilist/listEntry.types';
 import {
-  MediaCountry,
-  MediaRelationType,
-  MediaSort,
-  MediaSource,
-  MediaStatus,
-  StaffRole,
+  MediaCountry, MediaRelationType, MediaSort, MediaSource, MediaStatus, MediaType, StaffRole,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [
@@ -74,6 +69,21 @@ export const listEntryStatuses: string[] = [
   ListEntryStatus.PLANNING,
   ListEntryStatus.REPEATING,
 ];
+
+export const localizedMediaType = {
+  [MediaType.ANIME]: {
+    [MediaCountry.CN]: 'donghua',
+    [MediaCountry.JP]: 'anime',
+    [MediaCountry.KR]: 'aeni',
+    [MediaCountry.TW]: 'donghua',
+  },
+  [MediaType.MANGA]: {
+    [MediaCountry.CN]: 'manhua',
+    [MediaCountry.JP]: 'manga',
+    [MediaCountry.KR]: 'manhwa',
+    [MediaCountry.TW]: 'manhua',
+  },
+};
 
 export const mediaScores = [undefined, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5];
 

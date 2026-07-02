@@ -49,7 +49,7 @@
 <mat-menu #entryMenu="matMenu">
   @if (editEnabled) {
     <div>
-      <mt-menu-action
+      <mt-menu-button
         disabled="{{ !user }}"
         icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
         (onPress)="openEditionModal()"
@@ -60,36 +60,36 @@
             : 'media.userList.addToList'
           ) | translate
         }}
-      </mt-menu-action>
-      <mt-menu-action
+      </mt-menu-button>
+      <mt-menu-button
         icon="clock"
         disabled="{{ !user }}"
         (onPress)="setAsPlanning()"
       >
         {{ 'media.userList.setAsPlanning' | translate }}
-      </mt-menu-action>
+      </mt-menu-button>
     </div>
   }
 
   <div>
-    <mt-menu-action
+    <mt-menu-button
       icon="heart"
       disabled="{{ !user }}"
       (onPress)="toggleFavourite()"
     >
       {{ 'media.userList.toggleFavorite' | translate }}
-    </mt-menu-action>
+    </mt-menu-button>
   </div>
 
   @if (listEntry) {
     <div>
-      <mt-menu-action
+      <mt-menu-button
         disabled="{{ !user }}"
         icon="trash"
         (onPress)="deleteEntry()"
       >
         {{ 'media.userList.deleteFromList' | translate }}
-      </mt-menu-action>
+      </mt-menu-button>
     </div>
   }
 
@@ -97,27 +97,29 @@
 
   @if (additionalInfoEnabled) {
     <div>
-      <mt-menu-action (onPress)="openDetailModal()" icon="id-card">
+      <mt-menu-button (onPress)="openDetailModal()" icon="id-card">
         {{ 'media.additionalInfo' | translate }}
-      </mt-menu-action>
+      </mt-menu-button>
     </div>
   }
 
   @if (fullDetailEnabled) {
     <div>
-      <mt-menu-action (onPress)="openFullDetail()" icon="id-card">
-        {{ 'media.fullDetail' | translate }}
-      </mt-menu-action>
+      <mt-menu-anchor
+        [href]="getFullDetailUrl()"
+        target="_blank"
+        icon="id-card"
+      >
+        {{ 'media.openFullDetail' | translate }}
+      </mt-menu-anchor>
     </div>
   }
 
-  <mt-menu-action (onPress)="openOnAniList()" icon="external-link-alt">
-    {{ 'media.viewOnAniList' | translate }}
-  </mt-menu-action>
+  <mt-menu-anchor [href]="getAniListUrl()" target="_blank" icon="a">
+    {{ 'media.openInAniList' | translate }}
+  </mt-menu-anchor>
 
-  <mat-divider></mat-divider>
-
-  <mt-menu-action (onPress)="searchImages()" icon="image">
+  <mt-menu-anchor [href]="getImageSearchUrl()" target="_blank" icon="image">
     {{ 'media.searchImages' | translate }}
-  </mt-menu-action>
+  </mt-menu-anchor>
 </mat-menu>

@@ -3,7 +3,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import {
   HttpCacheInterceptorModule,
@@ -24,7 +23,8 @@ import { MtFooterComponent } from './components/mt-footer/mt-footer.component';
 import { MtHeaderPickerComponent } from './components/mt-header-picker/mt-header-picker.component';
 import { MtHeaderComponent } from './components/mt-header/mt-header.component';
 import { FaIconComponent } from './components/mt-icon/mt-icon.component';
-import { MtMenuActionComponent } from './components/mt-menu-action/mt-menu-action.component';
+import { MtMenuAnchorComponent } from './components/mt-menu-anchor/mt-menu-anchor.component';
+import { MtMenuButtonComponent } from './components/mt-menu-button/mt-menu-button.component';
 import { SortPipe } from './pipes/sort';
 import { AuthService } from './services/auth.service';
 import { TitleService } from './services/title.service';
@@ -38,7 +38,8 @@ const declarations = [
   MtFooterComponent,
   MtHeaderComponent,
   MtHeaderPickerComponent,
-  MtMenuActionComponent,
+  MtMenuAnchorComponent,
+  MtMenuButtonComponent,
   MtModalComponent,
   MtModalContentComponent,
   MtModalFooterComponent,
@@ -47,7 +48,6 @@ const declarations = [
 ];
 
 const imports = [
-  BrowserAnimationsModule,
   BrowserModule,
   CommonModule,
   FormsModule,
