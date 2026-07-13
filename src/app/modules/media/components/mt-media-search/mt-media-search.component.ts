@@ -17,6 +17,7 @@ import {
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   integerPattern,
@@ -75,8 +76,11 @@ export class MtMediaSearchComponent
   private mangaCommands = inject(MangaCommands);
   private mediaStore = inject(AnimeStore);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
   protected getSourceLiteral = getSourceLiteral;
+  protected getFilterSelectLabel = (key: string, filterKey: string) =>
+    `${this.translate.instant(key)} ${this.translate.instant(filterKey)}...`;
 
   @Input() mediaType!: MediaType;
 
