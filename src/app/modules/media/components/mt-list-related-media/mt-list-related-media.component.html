@@ -5,7 +5,7 @@
         {{ mediaType.toLowerCase() + '.dashboard.relatedMedia' | translate }}
       </h2>
 
-      <mt-header-picker
+      <mt-header-select
         iconName="star-half-stroke"
         placeholder="{{ 'media.scoreValues.undefined' | translate }}"
         [matTooltip]="'media.score' | translate"
@@ -13,10 +13,10 @@
         [value]="selectedScore"
         [getOptionLiteral]="getScoreLiteral"
         [onChange]="setSelectedScore"
-      ></mt-header-picker>
+      ></mt-header-select>
 
       @if (isAnime(mediaType)) {
-        <mt-header-picker
+        <mt-header-select
           iconName="film"
           placeholder="{{ 'media.formatValues.undefined' | translate }}"
           [matTooltip]="'media.format' | translate"
@@ -26,17 +26,17 @@
           [value]="selectedFormats"
           [getOptionLiteral]="getFormatLiteral"
           [onChange]="setSelectedFormats"
-        ></mt-header-picker>
+        ></mt-header-select>
       }
 
-      <mt-header-picker
+      <mt-header-select
         iconName="sort"
         [matTooltip]="'generic.sort' | translate"
         [options]="mediaSorts"
         [value]="selectedSort"
         [getOptionLiteral]="getSortLiteral"
         [onChange]="setSelectedSort"
-      ></mt-header-picker>
+      ></mt-header-select>
     </div>
   </div>
 

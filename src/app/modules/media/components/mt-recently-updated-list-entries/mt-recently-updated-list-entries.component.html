@@ -6,7 +6,7 @@
       </h2>
 
       @if (isAnime(mediaType)) {
-        <mt-header-picker
+        <mt-header-select
           iconName="film"
           placeholder="{{ 'media.formatValues.undefined' | translate }}"
           [matTooltip]="'media.format' | translate"
@@ -16,10 +16,10 @@
           [value]="selectedFormats"
           [getOptionLiteral]="getFormatLiteral"
           [onChange]="setSelectedFormats"
-        ></mt-header-picker>
+        ></mt-header-select>
       }
 
-      <mt-header-picker
+      <mt-header-select
         iconName="clipboard"
         placeholder="{{
           (isAnime(mediaType) ? 'anime' : 'manga') + '.statusValues.undefined'
@@ -34,7 +34,7 @@
           isAnime(mediaType) ? getAnimeStatusLiteral : getMangaStatusLiteral
         "
         [onChange]="setSelectedStatuses"
-      ></mt-header-picker>
+      ></mt-header-select>
     </div>
   </div>
 
