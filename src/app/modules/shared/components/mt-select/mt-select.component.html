@@ -1,0 +1,15 @@
+<mat-form-field>
+  <mat-label>{{ label | translate }}</mat-label>
+
+  <mat-select
+    [attr.aria-label]="label | translate"
+    [formControl]="control"
+    [multiple]="multiple"
+  >
+    @for (option of getOptions(); track option.value) {
+      <mat-option [value]="option.value">{{
+        option.label | translate
+      }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
