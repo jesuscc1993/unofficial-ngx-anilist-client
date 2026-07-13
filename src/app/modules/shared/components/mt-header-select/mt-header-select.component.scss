@@ -1,7 +1,7 @@
 @use 'variables' as *;
 
 ::ng-deep {
-  mt-header-picker {
+  mt-header-select {
     & + & {
       padding-left: $spacing-xl !important;
     }
@@ -38,7 +38,7 @@
     }
   }
 
-  .cdk-overlay-pane:has(.header-picker) {
+  .cdk-overlay-pane:has(.header-select) {
     width: auto !important;
   }
 }

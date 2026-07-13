@@ -135,175 +135,128 @@
 
                 <div class="form-group">
                   <!-- genreIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.genres' | translate }}
-                      {{ 'media.search.filters.includedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select formControlName="genreIn" multiple>
-                      @for (genre of mediaGenres; track genre) {
-                        <mat-option [value]="genre">
-                          {{ genre }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="genreIn"
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.genres',
+                        'media.search.filters.includedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaGenres"
+                  ></mt-select>
 
                   <!-- genreNotIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.genres' | translate }}
-                      {{ 'media.search.filters.notIncludedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select formControlName="genreNotIn" multiple>
-                      @for (genre of mediaGenres; track genre) {
-                        <mat-option [value]="genre">
-                          {{ genre }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="genreNotIn"
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.genres',
+                        'media.search.filters.notIncludedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaGenres"
+                  ></mt-select>
                 </div>
 
                 <div class="form-group">
                   <!-- tagIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.tags' | translate }}
-                      {{ 'media.search.filters.includedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select formControlName="tagIn" multiple>
-                      @for (tag of mediaTags; track tag) {
-                        <mat-option [value]="tag">
-                          {{ tag }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="tagIn"
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.tags',
+                        'media.search.filters.includedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaTags"
+                  ></mt-select>
 
                   <!-- tagNotIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.tags' | translate }}
-                      {{ 'media.search.filters.notIncludedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select formControlName="tagNotIn" multiple>
-                      @for (tag of mediaTags; track tag) {
-                        <mat-option [value]="tag">
-                          {{ tag }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="tagNotIn"
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.tags',
+                        'media.search.filters.notIncludedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaTags"
+                  ></mt-select>
                 </div>
               </div>
 
               <div class="flex-1">
                 <div class="form-group">
                   <!-- formatIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.format' | translate }}
-                      {{ 'media.search.filters.includedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select
-                      #formatInput
-                      formControlName="formatIn"
-                      multiple
-                    >
-                      @for (mediaFormat of mediaFormats; track mediaFormat) {
-                        <mat-option [value]="mediaFormat">
-                          {{ 'media.formatValues.' + mediaFormat | translate }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="formatIn"
+                    optionPrefixLabel="media.formatValues."
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.format',
+                        'media.search.filters.includedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaFormats"
+                  ></mt-select>
                 </div>
 
                 <div class="form-group">
                   <!-- sourceIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.source' | translate }}
-                      {{ 'media.search.filters.includedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select
-                      #formatInput
-                      formControlName="sourceIn"
-                      multiple
-                    >
-                      @for (mediaSource of mediaSources; track mediaSource) {
-                        <mat-option [value]="mediaSource">
-                          {{ 'media.sourceValues.' + mediaSource | translate }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="sourceIn"
+                    optionPrefixLabel="media.sourceValues."
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.source',
+                        'media.search.filters.includedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaSources"
+                  ></mt-select>
                 </div>
 
                 <div class="form-group">
                   <!-- statusIn -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.status' | translate }}
-                      {{ 'media.search.filters.includedIn' | translate }}...
-                    </mat-label>
-
-                    <mat-select
-                      #formatInput
-                      formControlName="statusIn"
-                      multiple
-                    >
-                      @for (mediaStatus of mediaStatuses; track mediaStatus) {
-                        <mat-option [value]="mediaStatus">
-                          {{ 'media.statusValues.' + mediaStatus | translate }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="statusIn"
+                    optionPrefixLabel="media.statusValues."
+                    [label]="
+                      getFilterSelectLabel(
+                        'media.status',
+                        'media.search.filters.includedIn'
+                      )
+                    "
+                    [multiple]="true"
+                    [values]="mediaStatuses"
+                  ></mt-select>
                 </div>
 
                 <div class="form-group">
                   <!-- countryOfOrigin -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.search.filters.countryOfOrigin' | translate }}
-                    </mat-label>
-
-                    <mat-select #formatInput formControlName="countryOfOrigin">
-                      @for (country of mediaCountries; track country) {
-                        <mat-option [value]="country">{{
-                          'country.' + country | translate
-                        }}</mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="countryOfOrigin"
+                    optionPrefixLabel="country."
+                    [label]="'media.search.filters.countryOfOrigin' | translate"
+                    [values]="mediaCountries"
+                  ></mt-select>
                 </div>
 
                 <div class="form-group">
                   <!-- onList -->
-                  <mat-form-field>
-                    <mat-label>
-                      {{ 'media.search.filters.onList' | translate }}
-                    </mat-label>
-
-                    <mat-select formControlName="onList">
-                      @for (option of onListOptions; track option) {
-                        <mat-option [value]="option">
-                          {{
-                            'media.search.filters.onListValues.' + option
-                              | translate
-                          }}
-                        </mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
+                  <mt-select
+                    controlName="onList"
+                    optionPrefixLabel="media.search.filters.onListValues."
+                    [label]="'media.search.filters.onList' | translate"
+                    [values]="onListOptions"
+                  ></mt-select>
                 </div>
               </div>
             </div>

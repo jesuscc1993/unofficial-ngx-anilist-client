@@ -20,11 +20,12 @@ import { MtModalComponent } from './components/modal/mt-modal/mt-modal.component
 import { MtAlertComponent } from './components/mt-alert/mt-alert.component';
 import { MtChipComponent } from './components/mt-chip/mt-chip.component';
 import { MtFooterComponent } from './components/mt-footer/mt-footer.component';
-import { MtHeaderPickerComponent } from './components/mt-header-picker/mt-header-picker.component';
+import { MtHeaderSelectComponent } from './components/mt-header-select/mt-header-select.component';
 import { MtHeaderComponent } from './components/mt-header/mt-header.component';
 import { FaIconComponent } from './components/mt-icon/mt-icon.component';
 import { MtMenuAnchorComponent } from './components/mt-menu-anchor/mt-menu-anchor.component';
 import { MtMenuButtonComponent } from './components/mt-menu-button/mt-menu-button.component';
+import { MtSelectComponent } from './components/mt-select/mt-select.component';
 import { SortPipe } from './pipes/sort';
 import { AuthService } from './services/auth.service';
 import { TitleService } from './services/title.service';
@@ -37,9 +38,10 @@ const declarations = [
   MtChipComponent,
   MtFooterComponent,
   MtHeaderComponent,
-  MtHeaderPickerComponent,
+  MtHeaderSelectComponent,
   MtMenuAnchorComponent,
   MtMenuButtonComponent,
+  MtSelectComponent,
   MtModalComponent,
   MtModalContentComponent,
   MtModalFooterComponent,

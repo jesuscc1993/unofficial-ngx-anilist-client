@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'mt-header-picker',
-  templateUrl: './mt-header-picker.component.html',
-  styleUrls: ['./mt-header-picker.component.scss'],
+  selector: 'mt-header-select',
+  templateUrl: './mt-header-select.component.html',
+  styleUrls: ['./mt-header-select.component.scss'],
   standalone: false,
 })
-export class MtHeaderPickerComponent {
+export class MtHeaderSelectComponent {
   @Input() iconName!: string;
   @Input() multiple?: boolean;
   @Input() options!: string[];
