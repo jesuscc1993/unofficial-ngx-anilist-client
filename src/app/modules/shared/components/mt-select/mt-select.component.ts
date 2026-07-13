@@ -70,8 +70,23 @@ export class MtSelectComponent implements OnInit, OnChanges {
 
   private generateFilteredOptions(filter: string | null): void {
     const filterValue = (filter ?? '').toLowerCase();
-    this.filteredOptions = filterValue
-      ? this.options.filter((o) => o.label.toLowerCase().includes(filterValue))
-      : this.options;
+    if (!filterValue) {
+      this.filteredOptions = this.options;
+      return;
+    }
+
+    const selectedOptions: unknown[] = this.control
+      ? this.multiple
+        ? (this.control.value ?? [])
+        : this.control.value !== null
+          ? [this.control.value]
+          : []
+      : [];
+
+    this.filteredOptions = this.options.filter(
+      (option) =>
+        option.label.toLowerCase().includes(filterValue) ||
+        selectedOptions.includes(option.value)
+    );
   }
 }
