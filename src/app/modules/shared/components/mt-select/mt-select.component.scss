@@ -2,3 +2,13 @@ mat-form-field {
   display: flex;
   flex: 1;
 }
+
+.mt-select-filter-input {
+  background: transparent;
+  border: none;
+  box-sizing: border-box;
+  font: inherit;
+  outline: none;
+  padding: 0.5em 1em;
+  width: 100%;
+}

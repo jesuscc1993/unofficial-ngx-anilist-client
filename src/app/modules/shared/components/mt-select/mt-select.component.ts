@@ -1,4 +1,6 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component, ElementRef, inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild,
+} from '@angular/core';
 import { ControlContainer, FormControl } from '@angular/forms';
 
 export interface MtSelectOption {
@@ -12,7 +14,7 @@ export interface MtSelectOption {
   styleUrls: ['./mt-select.component.scss'],
   standalone: false,
 })
-export class MtSelectComponent implements OnInit {
+export class MtSelectComponent implements OnInit, OnChanges {
   private controlContainer = inject(ControlContainer);
 
   @Input() controlName!: string;
@@ -22,6 +24,17 @@ export class MtSelectComponent implements OnInit {
   @Input() values: unknown[] = [];
 
   control!: FormControl;
+  filterControl = new FormControl('');
+  options: MtSelectOption[] = [];
+  filteredOptions: MtSelectOption[] = [];
+
+  @ViewChild('filterInput') filterInputRef!: ElementRef<HTMLInputElement>;
+
+  constructor() {
+    this.filterControl.valueChanges.subscribe((filter) => {
+      this.generateFilteredOptions(filter);
+    });
+  }
 
   ngOnInit(): void {
     const control = this.controlContainer.control?.get(this.controlName);
@@ -33,10 +46,32 @@ export class MtSelectComponent implements OnInit {
     this.control = control as FormControl;
   }
 
-  getOptions(): MtSelectOption[] {
-    return this.values.map((v) => ({
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['values'] || changes['optionPrefixLabel']) {
+      this.generateOptions();
+    }
+  }
+
+  openedChange(opened: boolean): void {
+    if (opened) {
+      setTimeout(() => this.filterInputRef.nativeElement.focus());
+    }
+  }
+
+  private generateOptions(): void {
+    this.options = this.values.map((v) => ({
       value: v,
       label: this.optionPrefixLabel + v,
     }));
+
+    const filterValue = (this.filterControl.value ?? '').toLowerCase();
+    this.generateFilteredOptions(filterValue);
+  }
+
+  private generateFilteredOptions(filter: string | null): void {
+    const filterValue = (filter ?? '').toLowerCase();
+    this.filteredOptions = filterValue
+      ? this.options.filter((o) => o.label.toLowerCase().includes(filterValue))
+      : this.options;
   }
 }

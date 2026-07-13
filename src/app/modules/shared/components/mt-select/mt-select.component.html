@@ -5,8 +5,16 @@
     [attr.aria-label]="label | translate"
     [formControl]="control"
     [multiple]="multiple"
+    (openedChange)="openedChange($event)"
   >
-    @for (option of getOptions(); track option.value) {
+    <input
+      #filterInput
+      class="mt-select-filter-input"
+      placeholder="{{ 'generic.filter' | translate }}"
+      [formControl]="filterControl"
+      (click)="$event.stopPropagation()"
+    />
+    @for (option of filteredOptions; track option.value) {
       <mat-option [value]="option.value">{{
         option.label | translate
       }}</mat-option>
