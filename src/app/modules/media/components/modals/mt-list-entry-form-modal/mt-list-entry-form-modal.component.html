@@ -74,7 +74,7 @@
         <mat-form-field>
           <mat-label>
             {{ getMediaTypeProgressLiteral(listEntry.media.type) | translate }}
-            (*/{{ getMediaProgress(listEntry.media) || '?' }})
+            (*/{{ getMediaLength(listEntry.media) || '?' }})
           </mat-label>
 
           <input

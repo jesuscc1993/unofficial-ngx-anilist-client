@@ -20,7 +20,7 @@ import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands';
 import {
   getFormattedFuzzyDate,
-  getMediaProgress,
+  getMediaLength,
   getMediaTitle,
   getMediaTypeProgressLiteral,
   getSanitizedMediaDescription,
@@ -50,7 +50,7 @@ export class MtMediaInfoComponent
 
   readonly getFormattedAnimeDuration = getFormattedAnimeDuration;
   readonly getFormattedFuzzyDate = getFormattedFuzzyDate;
-  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaLength = getMediaLength;
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSourceLiteral = getSourceLiteral;

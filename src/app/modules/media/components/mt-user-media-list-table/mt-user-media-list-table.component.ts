@@ -23,7 +23,7 @@ import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
   getFormattedMediaYearRange,
-  getMediaProgress,
+  getMediaLength,
   getMediaTitle,
   getMediaTypeProgressLiteral,
   getSizedCoverImage,
@@ -51,7 +51,7 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
-  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaLength = getMediaLength;
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;
@@ -127,9 +127,9 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
           case 'score':
             return listEntry.scoreRaw ?? 0;
           case 'episodes':
-            return +getMediaProgress(media);
+            return +getMediaLength(media);
           case 'chapters':
-            return +getMediaProgress(media);
+            return +getMediaLength(media);
           default:
             return '';
         }

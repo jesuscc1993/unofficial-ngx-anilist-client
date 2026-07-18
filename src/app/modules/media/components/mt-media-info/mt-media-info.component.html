@@ -33,18 +33,13 @@
             </div>
           </div>
         }
-        @if (getMediaProgress(media)) {
+        @if (getMediaLength(media)) {
           <div class="property-value-pair flex-box">
             <div class="property">
               {{ getMediaTypeProgressLiteral(media.type) | translate }}
             </div>
             <div class="value">
-              {{ getMediaProgress(media) }}
-              @if (media.volumes) {
-                <sup [matTooltip]="'media.volumes' | translate">
-                  {{ media.volumes }}
-                </sup>
-              }
+              <mt-media-length [media]="media"></mt-media-length>
             </div>
           </div>
         }

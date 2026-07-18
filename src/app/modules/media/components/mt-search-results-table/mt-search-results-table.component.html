@@ -96,7 +96,9 @@
         {{ getMediaTypeProgressLiteral(mediaType) | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let media">
-        <span class="text">{{ getMediaProgress(media) }}</span>
+        <span class="text">
+          <mt-media-length [media]="media"></mt-media-length>
+        </span>
       </mat-cell>
     </ng-container>
 

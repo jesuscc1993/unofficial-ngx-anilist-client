@@ -26,7 +26,7 @@ import {
 import { ModalOrigin } from '../../../../shared/types/modal.types';
 import { MediaCommands } from '../../../commands/media.commands.interface';
 import {
-  getMediaProgress,
+  getMediaLength,
   getMediaTitle,
   getMediaTypeProgressLiteral,
   isAnime,
@@ -53,7 +53,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
   private mangaCommands = inject(MangaCommands);
   protected data = inject<ListEntryFormModalParameters>(MAT_DIALOG_DATA);
 
-  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaLength = getMediaLength;
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly isAnime = isAnime;
