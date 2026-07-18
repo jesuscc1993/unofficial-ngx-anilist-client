@@ -48,7 +48,7 @@
           }
         </div>
         <div class="flex-box column center">
-          @if (getMediaProgress(media)) {
+          @if (getMediaLength(media)) {
             <div
               matTooltipPosition="above"
               [matTooltip]="getMediaTypeProgressLiteral(media.type) | translate"
@@ -56,12 +56,12 @@
               (
               <span
                 [ngClass]="{
-                  bold: listEntry?.progress === getMediaProgress(media),
+                  bold: listEntry?.progress === getMediaLength(media),
                 }"
                 >{{ listEntry?.progress ?? '*' }}</span
               >
               /
-              <span>{{ getMediaProgress(media) }}</span>
+              <span>{{ getMediaLength(media) }}</span>
               )
             </div>
           }

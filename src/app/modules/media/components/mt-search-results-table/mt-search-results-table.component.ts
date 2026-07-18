@@ -23,7 +23,7 @@ import { MediaColumn } from '../../../shared/types/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
   getFormattedMediaYearRange,
-  getMediaProgress,
+  getMediaLength,
   getMediaSortFromSort,
   getMediaTitle,
   getMediaTypeProgressLiteral,
@@ -49,7 +49,7 @@ export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   readonly getFormattedMediaYearRange = getFormattedMediaYearRange;
-  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaLength = getMediaLength;
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;

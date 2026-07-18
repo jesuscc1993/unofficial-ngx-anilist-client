@@ -22,7 +22,7 @@ import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
   fuzzyDateToDate,
-  getMediaProgress,
+  getMediaLength,
   getMediaTitle,
   getMediaTypeProgressLiteral,
   getSizedCoverImage,
@@ -51,7 +51,7 @@ export class MtMediaCoverComponent
   @Input() showListEntryStatus?: boolean;
   @Input() showMediaStatus?: boolean;
 
-  readonly getMediaProgress = getMediaProgress;
+  readonly getMediaLength = getMediaLength;
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSizedCoverImage = getSizedCoverImage;

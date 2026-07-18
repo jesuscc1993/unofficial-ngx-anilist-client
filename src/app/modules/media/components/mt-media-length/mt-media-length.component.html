@@ -1,0 +1,8 @@
+<span [matTooltip]="(anime ? 'media.episodes' : 'media.chapters') | translate">
+  {{ anime?.episodes ?? manga?.chapters }}
+</span>
+@if (manga?.volumes) {
+  <sup [matTooltip]="'media.volumes' | translate">
+    {{ manga?.volumes }}
+  </sup>
+}
