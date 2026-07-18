@@ -67,6 +67,32 @@ export const mangaListQuery = `
   }
 `;
 
+export const mangaRecommendationsQuery = `
+  query (
+    $id: Int,
+    $page: Int,
+    $perPage: Int,
+    $sort: [RecommendationSort]
+  ) {
+    Media (id: $id) {
+      recommendations (
+        page: $page,
+        perPage: $perPage,
+        sort: $sort
+      ) {
+        pageInfo {
+          ${pageInfoFields}
+        }
+        nodes {
+          mediaRecommendation {
+            ${mangaFields}
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const listFavouriteMangaQuery = `
   query (
     $userId: Int!,

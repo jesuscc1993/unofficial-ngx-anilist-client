@@ -201,26 +201,6 @@ export const validateTokenQuery = `
   }
 `;
 
-export const mediaSearchQuery = `
-  query (
-    ${filterTypes.media}
-    ${filterTypes.page}
-  ) {
-    Page (
-      ${filterMappings.page}
-    ) {
-      pageInfo {
-        ${pageInfoFields}
-      }
-      media (
-        ${filterMappings.media}
-      ) {
-        ${basicMediaFields}
-      }
-    }
-  }
-`;
-
 export const relatedMediaIdsQuery = `
   query (
     ${filterTypes.listMediaCollection}
