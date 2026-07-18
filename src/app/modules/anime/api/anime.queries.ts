@@ -1,5 +1,9 @@
 import {
-  filterMappings, filterTypes, listEntryFields, mediaFields, pageInfoFields,
+  filterMappings,
+  filterTypes,
+  listEntryFields,
+  mediaFields,
+  pageInfoFields,
 } from '../../media/api/media.queries';
 
 /* fields */
@@ -52,6 +56,32 @@ export const animeListQuery = `
       lists {
         entries {
           ${animeListEntryFields}
+        }
+      }
+    }
+  }
+`;
+
+export const animeRecommendationsQuery = `
+  query (
+    $id: Int,
+    $page: Int,
+    $perPage: Int,
+    $sort: [RecommendationSort]
+  ) {
+    Media (id: $id) {
+      recommendations (
+        page: $page,
+        perPage: $perPage,
+        sort: $sort
+      ) {
+        pageInfo {
+          ${pageInfoFields}
+        }
+        nodes {
+          mediaRecommendation {
+            ${animeFields}
+          }
         }
       }
     }

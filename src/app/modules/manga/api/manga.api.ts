@@ -13,6 +13,7 @@ import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import {
   mangaListQuery,
+  mangaRecommendationsQuery,
   mangaSearchQuery,
   toggleFavouriteMangaEntryQuery,
 } from './manga.queries';
@@ -35,11 +36,24 @@ export class MangaApi extends MediaApi implements MediaApiInterface {
   }
 
   queryMedia(query: SearchFilters, pageQuery?: PageQuery) {
-    return this._queryMedia(MediaType.MANGA, query, pageQuery);
+    return this._queryMedia(
+      MediaType.MANGA,
+      mangaSearchQuery,
+      query,
+      pageQuery
+    );
   }
 
   queryListEntries(user: User) {
     return this._queryListEntries(MediaType.MANGA, mangaListQuery, user);
+  }
+
+  queryRecommendationsForMediaId(mediaId: number, pageQuery: PageQuery) {
+    return this._queryRecommendationsForMediaId(
+      mediaId,
+      mangaRecommendationsQuery,
+      pageQuery
+    );
   }
 
   queryRelatedMediaIds(user: User) {

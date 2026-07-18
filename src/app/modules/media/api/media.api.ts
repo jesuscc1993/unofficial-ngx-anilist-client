@@ -20,7 +20,6 @@ import {
   genresQuery,
   listFavouritesQuery,
   mediaRecommendationsQuery,
-  mediaSearchQuery,
   relatedMediaIdsQuery,
   saveListEntryQuery,
   tagsQuery,
@@ -90,10 +89,22 @@ export class MediaApi extends AniListApi {
   }
 
   queryRecommendationsForMediaId(mediaId: number, pageQuery: PageQuery) {
+    return this._queryRecommendationsForMediaId(
+      mediaId,
+      mediaRecommendationsQuery,
+      pageQuery
+    );
+  }
+
+  protected _queryRecommendationsForMediaId(
+    mediaId: number,
+    mediaQuery: string,
+    pageQuery: PageQuery
+  ) {
     return this.postGraphQlRequest<
       MediaRecommendationsDto,
       { id: number; page: number; perPage: number; sort: string[] }
-    >(mediaRecommendationsQuery, {
+    >(mediaQuery, {
       id: mediaId,
       sort: ['RATING_DESC'],
       ...this.getPageOptions(pageQuery),
@@ -135,11 +146,12 @@ export class MediaApi extends AniListApi {
 
   protected _queryMedia(
     mediaType: MediaType,
+    mediaQuery: string,
     query: SearchFilters,
     pageQuery?: PageQuery
   ) {
     return this.postGraphQlRequest<SearchMediaDto, PagedSearchFilters>(
-      mediaSearchQuery,
+      mediaQuery,
       {
         ...this.getPageOptions(pageQuery),
         ...query,
