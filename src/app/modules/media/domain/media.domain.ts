@@ -137,23 +137,27 @@ export const getListEntriesByStatus = (listEntries: ListEntry[]) => {
 };
 
 export const sortListEntriesByMediaEndDate = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) => {
+  return listEntries.slice().sort(({ media: a }, { media: b }) => {
     const dateA = fuzzyDateToDate(a.endDate);
     const dateB = fuzzyDateToDate(b.endDate);
-    return dateA && dateB ? (dateA > dateB ? -1 : 1) : 0;
+    return dateA && dateB
+      ? +dateB - +dateA
+      : !dateA && !dateB
+        ? 0
+        : !dateA
+          ? 1
+          : -1;
   });
 };
 
 export const sortListEntriesByMediaScore = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) => {
-    const scoreA = a.averageScore;
-    const scoreB = b.averageScore;
-    return scoreA > scoreB ? -1 : 1;
+  return listEntries.slice().sort(({ media: a }, { media: b }) => {
+    return (b.averageScore ?? 0) - (a.averageScore ?? 0);
   });
 };
 
 export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
-  return listEntries.sort(({ media: a }, { media: b }) => {
+  return listEntries.slice().sort(({ media: a }, { media: b }) => {
     const titleA = a.title.romaji;
     const titleB = b.title.romaji;
     return titleA.localeCompare(titleB, 'en', { sensitivity: 'base' });
