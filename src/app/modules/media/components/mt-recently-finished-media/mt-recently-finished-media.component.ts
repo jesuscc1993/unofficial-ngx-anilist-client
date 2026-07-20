@@ -1,33 +1,22 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  basicMediaSorts,
-  mediaCountries,
-} from '../../../shared/constants/media.constants';
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaCountries } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
-  MediaCountry,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  MediaCountry, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getCountryLiteral,
-  getFormatLiteral,
-  getMediaFormats,
-  getMediaFormatsForListEntries,
-  getMediaTypePrefixedStorageKey,
-  getSortFunctionByMediaSort,
-  getSortLiteral,
-  isAnime,
-  isManga,
+  getCountryLiteral, getFormatLiteral, getMediaFormats, getMediaFormatsForListEntries,
+  getMediaTypePrefixedStorageKey, getSortFunctionByMediaSort, getSortLiteral, isAnime, isManga,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -122,12 +111,11 @@ export class MtRecentlyFinishedMediaComponent
       .pipe(
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
-          this.mediaCountries = mediaCountries;
           this.mediaFormats = getMediaFormatsForListEntries(
             mediaListEntries,
             this.mediaType
           );
-          this.sortEntries();
+          this.processEntries();
           this.searching = false;
         }),
         catchError(this.onError),
@@ -164,7 +152,7 @@ export class MtRecentlyFinishedMediaComponent
 
   setSelectedSort(selectedSort: MediaSort) {
     this.selectedSort = selectedSort;
-    this.sortEntries();
+    this.processEntries();
 
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
@@ -175,10 +163,22 @@ export class MtRecentlyFinishedMediaComponent
     );
   }
 
+  private sortEntries() {
+    const sortFunction = getSortFunctionByMediaSort(this.selectedSort);
+    if (sortFunction) {
+      this.listEntries = sortFunction(this.listEntries ?? []);
+    }
+  }
+
   private filterEntries() {
-    this.filteredEntries = this.listEntries?.filter(
+    this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) => this.isFormatValid(entry) && this.isCountryValid(entry)
     );
+  }
+
+  private processEntries() {
+    this.sortEntries();
+    this.filterEntries();
   }
 
   private isFormatValid(entry: ListEntry) {
@@ -194,17 +194,6 @@ export class MtRecentlyFinishedMediaComponent
       (entry.media.countryOfOrigin &&
         this.selectedCountries?.includes(entry.media.countryOfOrigin))
     );
-  }
-
-  private sortEntries() {
-    if (this.listEntries && this.selectedSort) {
-      const sortFunction = getSortFunctionByMediaSort(this.selectedSort);
-      if (sortFunction) {
-        this.listEntries = sortFunction(this.listEntries);
-      }
-    }
-
-    this.filterEntries();
   }
 
   private onError(error: Error) {

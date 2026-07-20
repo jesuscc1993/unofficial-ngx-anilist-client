@@ -1,30 +1,22 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../../shared/types/anilist/listEntry.types';
-import {
-  MediaFormat,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { MediaFormat, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral,
-  getMediaFormats,
-  getMediaFormatsForListEntries,
-  getMediaStatusesForListEntries,
-  getMediaTypePrefixedStorageKey,
-  isAnime,
+  getFormatLiteral, getMediaFormats, getMediaFormatsForListEntries, getMediaStatusesForListEntries,
+  getMediaTypePrefixedStorageKey, isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 
@@ -86,16 +78,14 @@ export class MtRecentlyUpdatedListEntriesComponent
       .getListEntries()
       .pipe(
         tap((mediaListEntries) => {
-          this.listEntries = mediaListEntries.sort((a, b) =>
-            (a.updatedAt ?? -Infinity) > (b.updatedAt ?? -Infinity) ? -1 : 1
-          );
-          this.listEntryStatuses =
-            getMediaStatusesForListEntries(mediaListEntries);
+          this.listEntries = mediaListEntries;
           this.mediaFormats = getMediaFormatsForListEntries(
             mediaListEntries,
             this.mediaType
           );
-          this.filterEntries();
+          this.listEntryStatuses =
+            getMediaStatusesForListEntries(mediaListEntries);
+          this.processEntries();
           this.searching = false;
         }),
         catchError(this.onError),
@@ -146,10 +136,21 @@ export class MtRecentlyUpdatedListEntriesComponent
     );
   }
 
+  private sortEntries() {
+    this.listEntries = (this.listEntries ?? []).sort((a, b) =>
+      (a.updatedAt ?? -Infinity) > (b.updatedAt ?? -Infinity) ? -1 : 1
+    );
+  }
+
   private filterEntries() {
-    this.filteredEntries = this.listEntries?.filter(
+    this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) => this.isFormatValid(entry) && this.isStatusValid(entry)
     );
+  }
+
+  private processEntries() {
+    this.sortEntries();
+    this.filterEntries();
   }
 
   private isFormatValid(entry: ListEntry) {
