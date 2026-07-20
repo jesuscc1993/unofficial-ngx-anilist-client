@@ -4,8 +4,11 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { TitleService } from '../../../shared/services/title.service';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands';
 import { getMediaTitle, isAnime } from '../../domain/media.domain';
@@ -47,6 +50,12 @@ export class MtMediaDetailComponent
 
     if (this.mediaId) {
       this.getEntry(this.mediaId);
+    }
+  }
+
+  onListEntryChanges(listEntry: ListEntry) {
+    if (this.media) {
+      this.media = { ...this.media, mediaListEntry: listEntry };
     }
   }
 

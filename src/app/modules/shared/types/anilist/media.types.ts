@@ -7,7 +7,7 @@ export type Studio = {
 };
 
 export type Staff = {
-  role?: string;
+  role?: StaffRole;
 };
 
 export type Person = {
@@ -28,6 +28,7 @@ export interface MediaData {
   isFavourite?: boolean;
   meanScore: number;
   mediaListEntry?: ListEntry;
+  source?: string;
   startDate?: FuzzyDate;
   status: MediaStatus;
   synonyms: string[];

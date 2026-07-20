@@ -2,9 +2,12 @@
   {{ 'media.userList.genresOverview' | translate }}
 </h2>
 
-@if (genreStatsList?.length | sort: 'amount') {
+@if (genreStatsList?.length) {
   <mat-grid-list role="list" rowHeight="32px" [cols]="getColumnCount()">
-    @for (genreStats of genreStatsList; track genreStats) {
+    @for (
+      genreStats of genreStatsList | sort: 'amount' : true;
+      track genreStats
+    ) {
       <mat-grid-tile
         [matTooltip]="
           genreStats.amount + ' ' + ('media.userList.entries' | translate)

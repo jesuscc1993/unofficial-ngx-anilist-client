@@ -1,12 +1,5 @@
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild,
+  AfterViewInit, Component, ElementRef, inject, Input, OnChanges, SimpleChanges, ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,21 +8,16 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions, pageSizeOptions } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
-import {
-  ListEntry,
-  ListEntryStatus,
-} from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
 import { Media, MediaType } from '../../../shared/types/anilist/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getFormattedMediaYearRange,
-  getMediaLength,
-  getMediaTitle,
-  getMediaTypeProgressLiteral,
-  getSizedCoverImage,
-  isAnime,
+  getFormattedMediaYearRange, getMediaLength, getMediaTitle, getMediaTypeProgressLiteral,
+  getSizedCoverImage, isAnime,
 } from '../../domain/media.domain';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-user-media-list-table',
@@ -41,10 +29,10 @@ export class MtUserMediaListTableComponent implements AfterViewInit, OnChanges {
   private dialog = inject(MatDialog);
   private elementRef = inject(ElementRef);
 
-  @Input() favouriteIDs!: number[];
+  @Input() favouriteIDs?: number[];
   @Input() filter?: string;
   @Input() mediaType!: MediaType;
-  @Input() tableData!: ListEntry[];
+  @Input() tableData?: ListEntry[];
   @Input() tableStatus!: ListEntryStatus;
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;

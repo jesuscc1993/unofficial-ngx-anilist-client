@@ -1,4 +1,8 @@
-export const downloadFile = (content, fileName, type) => {
+export const downloadFile = (
+  content: string,
+  fileName: string,
+  type: string
+) => {
   const file = new Blob([content], { type });
   const href = URL.createObjectURL(file);
 

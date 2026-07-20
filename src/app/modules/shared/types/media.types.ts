@@ -17,6 +17,14 @@ export type MediaExportEntry = {
   title: string;
 };
 
+export type GenreStats = {
+  amount: number;
+  genre: string;
+  meanScore: number;
+  percentage?: number;
+  timeWatched: number;
+};
+
 export enum MediaColumn {
   Actions = 'actions',
   CoverImage = 'cover-image',

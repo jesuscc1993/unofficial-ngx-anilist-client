@@ -50,7 +50,7 @@
   @if (editEnabled) {
     <div>
       <mt-menu-button
-        disabled="{{ !user }}"
+        [disabled]="!user"
         icon="{{ isUpdateAvailable() ? 'pen' : 'plus' }}"
         (onPress)="openEditionModal()"
       >
@@ -63,7 +63,7 @@
       </mt-menu-button>
       <mt-menu-button
         icon="clock"
-        disabled="{{ !user }}"
+        [disabled]="!user"
         (onPress)="setAsPlanning()"
       >
         {{ 'media.userList.setAsPlanning' | translate }}
@@ -74,7 +74,7 @@
   <div>
     <mt-menu-button
       icon="heart"
-      disabled="{{ !user }}"
+      [disabled]="!user"
       (onPress)="toggleFavourite()"
     >
       {{ 'media.userList.toggleFavorite' | translate }}
@@ -83,11 +83,7 @@
 
   @if (listEntry) {
     <div>
-      <mt-menu-button
-        disabled="{{ !user }}"
-        icon="trash"
-        (onPress)="deleteEntry()"
-      >
+      <mt-menu-button [disabled]="!user" icon="trash" (onPress)="deleteEntry()">
         {{ 'media.userList.deleteFromList' | translate }}
       </mt-menu-button>
     </div>

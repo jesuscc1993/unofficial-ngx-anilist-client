@@ -4,6 +4,8 @@
   (click)="onPress.emit()"
   [disabled]="disabled === true"
 >
-  <mt-icon [name]="icon"></mt-icon>
+  @if (icon) {
+    <mt-icon [name]="icon"></mt-icon>
+  }
   <ng-content></ng-content>
 </button>

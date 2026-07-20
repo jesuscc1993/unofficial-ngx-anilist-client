@@ -1,3 +1,5 @@
+import { GenreStats } from '../media.types';
+
 export type UserAvatar = {
   large: string;
 };
@@ -7,12 +9,7 @@ export type UserOptions = {
 };
 
 export type UserStats = {
-  favouredGenresOverview: {
-    amount: number;
-    genre: string;
-    meanScore: number;
-    timeWatched: number;
-  };
+  favouredGenresOverview: GenreStats[];
   watchedTime: number;
 };
 

@@ -49,9 +49,9 @@
                   <mt-user-media-list-table
                     [favouriteIDs]="favouriteIDs"
                     [filter]="filter"
-                    [tableData]="listEntriesByStatus[status.value]"
+                    [tableData]="listEntriesByStatus?.[status.value] ?? []"
                     [tableStatus]="status.value"
-                    mediaType="MANGA"
+                    [mediaType]="mediaType"
                   >
                   </mt-user-media-list-table>
                 </div>
@@ -75,7 +75,7 @@
           </section>
           <section>
             <mt-genres-overview
-              [genreStatsList]="user.stats.favouredGenresOverview"
+              [genreStatsList]="user?.stats?.favouredGenresOverview ?? []"
             >
             </mt-genres-overview>
           </section>

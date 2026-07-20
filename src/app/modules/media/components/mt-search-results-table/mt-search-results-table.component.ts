@@ -1,12 +1,5 @@
 import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
+  AfterViewInit, Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,22 +7,16 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { largeModalOptions } from '../../../../app.constants';
-import {
-  Media,
-  MediaSort,
-  MediaType,
-} from '../../../shared/types/anilist/media.types';
+import { Media, MediaSort, MediaType } from '../../../shared/types/anilist/media.types';
 import { MediaColumn } from '../../../shared/types/media.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import {
-  getFormattedMediaYearRange,
-  getMediaLength,
-  getMediaSortFromSort,
-  getMediaTitle,
-  getMediaTypeProgressLiteral,
-  getSizedCoverImage,
+  getFormattedMediaYearRange, getMediaLength, getMediaSortFromSort, getMediaTitle,
+  getMediaTypeProgressLiteral, getSizedCoverImage,
 } from '../../domain/media.domain';
-import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import {
+  MtMediaDetailModalComponent,
+} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-search-results-table',
@@ -40,7 +27,7 @@ import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-
 export class MtSearchResultsTableComponent implements AfterViewInit, OnChanges {
   private dialog = inject(MatDialog);
 
-  @Input() favouriteIDs!: number[];
+  @Input() favouriteIDs?: number[];
   @Input() mediaType!: MediaType;
   @Input() tableData!: Media[];
 

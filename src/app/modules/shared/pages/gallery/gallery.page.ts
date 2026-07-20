@@ -3,10 +3,7 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { listEntryStatuses } from '../../constants/media.constants';
 import { TitleService } from '../../services/title.service';
-import {
-  defaultToastOptions,
-  ToastService,
-} from '../../services/toast.service';
+import { defaultToastOptions, ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'mt-gallery',
@@ -34,7 +31,7 @@ export class GalleryPage {
     this.toastService.showToast(message, action, config);
   }
 
-  showToastType(type: string) {
+  showToastType(type?: string) {
     this.showToast(`${type?.toUpperCase() ?? 'Default'} toast`, undefined, {
       ...defaultToastOptions,
       // duration: 65535,
