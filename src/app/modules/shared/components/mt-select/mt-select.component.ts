@@ -21,7 +21,7 @@ export class MtSelectComponent implements OnInit, OnChanges {
   @Input() label!: string;
   @Input() optionPrefixLabel = '';
   @Input() multiple = false;
-  @Input() values: unknown[] = [];
+  @Input() values?: unknown[];
 
   control!: FormControl;
   filterControl = new FormControl('');
@@ -59,7 +59,7 @@ export class MtSelectComponent implements OnInit, OnChanges {
   }
 
   private generateOptions(): void {
-    this.options = this.values.map((v) => ({
+    this.options = (this.values ?? []).map((v) => ({
       value: v,
       label: this.optionPrefixLabel + v,
     }));

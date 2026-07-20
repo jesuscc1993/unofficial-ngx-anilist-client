@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { rootUrl } from '../../../shared/constants/navigation.constants';
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
+import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
@@ -16,6 +17,8 @@ export class UserMangaListPage {
   private authStore = inject(AuthStore);
   private router = inject(Router);
   private titleService = inject(TitleService);
+
+  readonly mediaType = MediaType.MANGA;
 
   user?: User;
   loggedIn?: boolean;

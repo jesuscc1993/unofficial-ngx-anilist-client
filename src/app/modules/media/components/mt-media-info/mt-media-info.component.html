@@ -43,11 +43,11 @@
             </div>
           </div>
         }
-        @if (media.duration) {
+        @if (anime?.duration) {
           <div class="property-value-pair flex-box">
             <div class="property">{{ 'media.duration' | translate }}</div>
             <div class="value">
-              {{ getFormattedAnimeDuration(media) }}
+              {{ getFormattedAnimeDuration(anime) }}
             </div>
           </div>
         }
@@ -59,7 +59,7 @@
             </div>
           </div>
         }
-        @if (media.startDate.year) {
+        @if (media.startDate?.year) {
           <div class="property-value-pair flex-box">
             <div class="property">{{ 'media.startDate' | translate }}</div>
             <div class="value">
@@ -67,7 +67,7 @@
             </div>
           </div>
         }
-        @if (media.endDate.year) {
+        @if (media.endDate?.year) {
           <div class="property-value-pair flex-box">
             <div class="property">{{ 'media.endDate' | translate }}</div>
             <div class="value">
@@ -92,23 +92,23 @@
             </div>
           </div>
         }
-        @if (media.studios?.nodes?.length) {
+        @if (anime?.studios?.nodes?.length) {
           <div class="property-value-pair flex-box">
             <div class="property">{{ 'media.studio' | translate }}</div>
             <div
               class="value text-ellipsis"
-              [matTooltip]="media.studios.nodes[0].name"
+              [matTooltip]="anime?.studios.nodes[0].name"
             >
-              {{ media.studios.nodes[0].name }}
+              {{ anime?.studios.nodes[0].name }}
             </div>
           </div>
         }
-        @if (media.staff?.edges?.length) {
+        @if (manga?.staff?.edges?.length) {
           <div class="property-value-pair flex-box">
             <div class="property">{{ 'media.staff' | translate }}</div>
             <div class="value text-ellipsis">
-              @for (staff of media.staff.edges; track staff) {
-                @if (staffRoles.includes(staff.role)) {
+              @for (staff of manga?.staff.edges; track staff) {
+                @if (staff.role && staffRoles?.includes(staff.role!)) {
                   <div [matTooltip]="staff.role">
                     <!-- {{ staff.role.toLowerCase().includes('art') ? '🎨' : '' }} -->
                     <!-- {{ staff.role.toLowerCase().includes('story') ? '✍️' : '' }} -->

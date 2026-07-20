@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 
 import { TitleService } from '../../../shared/services/title.service';
 import { AuthStore } from '../../../shared/store/auth.store';
+import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 
 @Component({
@@ -13,6 +14,8 @@ import { User } from '../../../shared/types/anilist/user.types';
 export class MangaSearchPage {
   private authStore = inject(AuthStore);
   private titleService = inject(TitleService);
+
+  readonly mediaType = MediaType.MANGA;
 
   user?: User;
 

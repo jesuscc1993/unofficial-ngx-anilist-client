@@ -9,14 +9,14 @@ import { Component, Input } from '@angular/core';
 export class MtHeaderSelectComponent {
   @Input() iconName!: string;
   @Input() multiple?: boolean;
-  @Input() options!: string[];
+  @Input() options?: unknown[];
   @Input() placeholder?: string;
   @Input() title!: string;
   @Input() truncate?: boolean;
   @Input() truncateMultiple?: boolean;
   @Input() value!: unknown;
-  @Input() getOptionLiteral?: (option: unknown) => string;
-  @Input() onChange!: (selection: unknown) => void;
+  @Input() getOptionLiteral?: (option: any) => string;
+  @Input() onChange!: (selection: any) => void;
 
   shouldTruncate() {
     return (
@@ -26,6 +26,12 @@ export class MtHeaderSelectComponent {
   }
 
   getTruncatedLiteral() {
-    return this.value ? 'generic.ellipsis' : undefined;
+    return this.value ? 'generic.ellipsis' : '';
+  }
+
+  getLabel(option: unknown): string {
+    return this.getOptionLiteral
+      ? this.getOptionLiteral(option)
+      : (option as string);
   }
 }

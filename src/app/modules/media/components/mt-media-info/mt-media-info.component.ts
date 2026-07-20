@@ -1,31 +1,21 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getFormattedAnimeDuration } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { staffRoles } from '../../../shared/constants/media.constants';
-import { Media } from '../../../shared/types/anilist/media.types';
+import { Anime, Manga, Media } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands';
 import {
-  getFormattedFuzzyDate,
-  getMediaLength,
-  getMediaTitle,
-  getMediaTypeProgressLiteral,
-  getSanitizedMediaDescription,
-  getSourceLiteral,
-  isAnime,
+  getFormattedFuzzyDate, getMediaLength, getMediaTitle, getMediaTypeProgressLiteral,
+  getSanitizedMediaDescription, getSourceLiteral, isAnime,
 } from '../../domain/media.domain';
 
 @Component({
@@ -57,7 +47,9 @@ export class MtMediaInfoComponent
 
   mediaCommands!: MediaCommands;
 
+  anime?: Anime;
   error?: Error;
+  manga?: Manga;
   recommendations?: Media[];
   recommendationsPagination?: PageInfo;
   searchingRecommendations?: boolean;
@@ -72,6 +64,9 @@ export class MtMediaInfoComponent
     if (media && !media.firstChange) {
       this.setMediaCommands();
       this.resetRecommendationsState();
+
+      this.anime = isAnime(this.media) ? (this.media as Anime) : undefined;
+      this.manga = isAnime(this.media) ? undefined : (this.media as Manga);
     }
   }
 

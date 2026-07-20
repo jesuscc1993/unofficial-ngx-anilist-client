@@ -1,17 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
-import {
-  lazyPageSizeOptions,
-  pageSizeOptions,
-} from '../../../../app.constants';
+import { lazyPageSizeOptions, pageSizeOptions } from '../../../../app.constants';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 
 @Component({
-    selector: 'mt-pagination',
-    templateUrl: './mt-pagination.component.html',
-    styleUrls: ['./mt-pagination.component.scss'],
-    standalone: false
+  selector: 'mt-pagination',
+  templateUrl: './mt-pagination.component.html',
+  styleUrls: ['./mt-pagination.component.scss'],
+  standalone: false,
 })
 export class MtPaginationComponent implements OnInit {
   @Input() class?: string;
@@ -21,7 +18,7 @@ export class MtPaginationComponent implements OnInit {
 
   @Output() changePage: EventEmitter<PageEvent>;
 
-  pageSizeOptions: number[];
+  pageSizeOptions!: number[];
 
   constructor() {
     this.changePage = new EventEmitter<PageEvent>();

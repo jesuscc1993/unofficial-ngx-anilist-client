@@ -1,9 +1,11 @@
 <a
   mat-menu-item
   rel="noopener noreferrer"
-  [href]="href"
+  [attr.href]="href"
   [attr.target]="target ?? null"
 >
-  <mt-icon [name]="icon"></mt-icon>
+  @if (icon) {
+    <mt-icon [name]="icon"></mt-icon>
+  }
   <ng-content></ng-content>
 </a>

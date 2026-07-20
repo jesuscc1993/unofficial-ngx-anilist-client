@@ -43,14 +43,13 @@ export class MediaStore extends Store<MediaStoreState> {
   }
 
   updateListEntry(updatedListEntry: ListEntry) {
+    const listEntries = this.getListEntries() ?? [];
     this.setListEntries(
-      this.getListEntries().find(
-        (listEntry) => listEntry.id === updatedListEntry.id
-      )
-        ? this.getListEntries().map((listEntry) =>
+      listEntries.find((listEntry) => listEntry.id === updatedListEntry.id)
+        ? listEntries.map((listEntry) =>
             listEntry.id === updatedListEntry.id ? updatedListEntry : listEntry
           )
-        : [...this.getListEntries(), updatedListEntry]
+        : [...listEntries, updatedListEntry]
     );
   }
 

@@ -1,7 +1,7 @@
 <mt-modal>
   <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
     @if (data.title) {
-      <div [matTooltip]="title" class="text-ellipsis">
+      <div [matTooltip]="data.title" class="text-ellipsis">
         {{ data.title }}
       </div>
     }
