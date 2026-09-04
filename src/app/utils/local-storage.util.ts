@@ -11,7 +11,7 @@ export class LocalStorage {
     localStorage.removeItem(key);
   }
 
-  static setObject(key: string, json: any) {
+  static setObject<T>(key: string, json: T) {
     localStorage.setItem(key, JSON.stringify(json));
   }
 

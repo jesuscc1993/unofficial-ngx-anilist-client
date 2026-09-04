@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+/* TODO give this another try; currently blocked with T | T[] | undefined handling */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 @Component({
   selector: 'mt-header-select',
   templateUrl: './mt-header-select.component.html',
@@ -14,9 +16,9 @@ export class MtHeaderSelectComponent {
   @Input() title!: string;
   @Input() truncate?: boolean;
   @Input() truncateMultiple?: boolean;
-  @Input() value!: unknown;
+  @Input() value: unknown | undefined;
   @Input() getOptionLiteral?: (option: any) => string;
-  @Input() onChange!: (selection: any) => void;
+  @Input() onChange!: (selection: any | undefined) => void;
 
   shouldTruncate() {
     return (

@@ -10,7 +10,7 @@ export type ListEntry = {
   updatedAt?: number;
 };
 
-export type ListEntriesByStatus = { [Status in ListEntryStatus]?: ListEntry[] };
+export type ListEntriesByStatus = Partial<Record<ListEntryStatus, ListEntry[]>>;
 
 export enum ListEntryStatus {
   COMPLETED = 'COMPLETED',

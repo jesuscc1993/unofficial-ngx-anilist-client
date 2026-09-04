@@ -21,7 +21,7 @@ export abstract class AniListApi {
   protected apiUrl = apiUrl;
 
   protected getRequestOptions(settings?: RequestSettings) {
-    let options: RequestOptions = {
+    const options: RequestOptions = {
       headers: this.getRequestHeaders(settings?.headers) as HttpHeaders,
     };
 

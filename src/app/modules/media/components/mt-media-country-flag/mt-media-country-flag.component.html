@@ -1,5 +1,6 @@
 @if (media?.countryOfOrigin && media.countryOfOrigin !== 'JP') {
   <img
+    [alt]="'media.countryOfOrigin' | translate"
     [matTooltip]="'media.countryOfOrigin' | translate"
     [src]="getImage()"
     class="flag"

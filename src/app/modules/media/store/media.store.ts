@@ -66,7 +66,11 @@ export class MediaStore extends Store<MediaStoreState> {
 
   toggleFavourite(media: Media) {
     const ids = new Set(this.getMediaFavouriteIDs() || []);
-    ids.has(media.id) ? ids.delete(media.id) : ids.add(media.id);
+    if (ids.has(media.id)) {
+      ids.delete(media.id);
+    } else {
+      ids.add(media.id);
+    }
     this.setMediaFavouriteIDs([...ids]);
   }
 
