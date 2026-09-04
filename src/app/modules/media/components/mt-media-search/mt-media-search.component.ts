@@ -2,61 +2,45 @@ import { forkJoin, of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  OnInit,
-  ViewChild,
+  ChangeDetectorRef, Component, ElementRef, inject, Input, OnInit, ViewChild,
 } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  integerPattern,
-  minMediaStartYear,
-  numberPattern,
-  pageSizeOptions,
+  integerPattern, minMediaStartYear, numberPattern, pageSizeOptions,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { AuthCommands } from '../../../shared/commands/auth.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  mediaCountries,
-  mediaSources,
-  mediaStatuses,
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  mediaCountries, mediaSources, mediaStatuses,
 } from '../../../shared/constants/media.constants';
 import { booleanOptions } from '../../../shared/constants/shared.constants';
 import { getTypedQueryParams } from '../../../shared/domain/navigation.domain';
 import { getArrayWithOptional } from '../../../shared/domain/shared.domain';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  Media,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Media, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { SearchFilters } from '../../api/media.types';
 import { MediaCommands } from '../../commands/media.commands';
 import {
-  getDateScalarFromYear,
-  getMediaFormats,
-  getSourceLiteral,
-  isAnime,
+  getDateScalarFromYear, getMediaFormats, getSourceLiteral, isAnime,
 } from '../../domain/media.domain';
-import { MtSearchResultsTableComponent } from '../mt-search-results-table/mt-search-results-table.component';
+import {
+  MtSearchResultsTableComponent,
+} from '../mt-search-results-table/mt-search-results-table.component';
 
 @Component({
   selector: 'mt-media-search',
@@ -72,6 +56,7 @@ export class MtMediaSearchComponent
   private animeCommands = inject(AnimeCommands);
   private authCommands = inject(AuthCommands);
   private authStore = inject(AuthStore);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private formBuilder = inject(UntypedFormBuilder);
   private mangaCommands = inject(MangaCommands);
   private mediaStore = inject(AnimeStore);
@@ -210,12 +195,8 @@ export class MtMediaSearchComponent
             }
           });
         }),
-        catchError((error) => {
-          this.error = error;
-          this.searching = false;
-
-          return of();
-        }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -328,6 +309,8 @@ export class MtMediaSearchComponent
           this.mediaGenres = mediaGenres;
           this.mediaTags = mediaTags.map(({ name }) => name);
         }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -340,6 +323,8 @@ export class MtMediaSearchComponent
         tap((user) => {
           this.user = user;
         }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -354,6 +339,8 @@ export class MtMediaSearchComponent
             this.search(this.pagination?.currentPage, this.pagination?.perPage);
           }
         }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -366,6 +353,8 @@ export class MtMediaSearchComponent
         tap((favouriteIDs) => {
           this.favouriteIDs = favouriteIDs;
         }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -373,8 +362,19 @@ export class MtMediaSearchComponent
     if (this.user) {
       this.mediaCommands
         .queryFavouriteIDs()
-        .pipe(takeUntil(this.destroyed$))
+        .pipe(
+          catchError((error) => this.onError(error)),
+          tap(() => this.changeDetectorRef.markForCheck()),
+          takeUntil(this.destroyed$)
+        )
         .subscribe();
     }
+  }
+
+  private onError(error: Error) {
+    this.error = error;
+    this.searching = false;
+
+    return of();
   }
 }

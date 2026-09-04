@@ -2,13 +2,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  Input,
-  OnInit,
-  ViewChild,
+  ChangeDetectorRef, Component, ElementRef, HostListener, inject, Input, OnInit, ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -16,25 +10,17 @@ import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { MangaStore } from '../../../manga/store/manga.store';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  basicMediaSorts,
-  mediaScores,
-} from '../../../shared/constants/media.constants';
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { basicMediaSorts, mediaScores } from '../../../shared/constants/media.constants';
 import {
-  Media,
-  MediaFormat,
-  MediaSort,
-  MediaType,
+  Media, MediaFormat, MediaSort, MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getColCount,
-  getFormatLiteral,
-  getMediaFormats,
-  getMediaTypePrefixedStorageKey,
-  getSortLiteral,
+  getColCount, getFormatLiteral, getMediaFormats, getMediaTypePrefixedStorageKey, getSortLiteral,
   isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
@@ -52,6 +38,7 @@ export class MtListRelatedMediaComponent
 {
   private animeCommands = inject(AnimeCommands);
   private animeStore = inject(AnimeStore);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private mangaCommands = inject(MangaCommands);
   private mangaStore = inject(MangaStore);
 
@@ -89,7 +76,6 @@ export class MtListRelatedMediaComponent
 
     this.colCount = 0;
 
-    this.onError = this.onError.bind(this);
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedScore = this.setSelectedScore.bind(this);
     this.setSelectedSort = this.setSelectedSort.bind(this);
@@ -105,7 +91,11 @@ export class MtListRelatedMediaComponent
 
       this.initializeState();
       this.queryData()
-        .pipe(catchError(this.onError), takeUntil(this.destroyed$))
+        .pipe(
+          catchError((error) => this.onError(error)),
+          tap(() => this.changeDetectorRef.markForCheck()),
+          takeUntil(this.destroyed$)
+        )
         .subscribe();
     }
   }
@@ -124,30 +114,6 @@ export class MtListRelatedMediaComponent
 
   initialize() {
     this.mediaFormats = getMediaFormats(this.mediaType);
-
-    this.onResize();
-
-    this.mediaStore
-      .onListEntriesChanges()
-      .pipe(
-        mergeMap((mediaListEntries) => {
-          // check this.mediaListEntriesLength is set to prevent reloading when the list is first loaded
-          if (
-            this.mediaListEntriesLength &&
-            this.mediaListEntriesLength !== mediaListEntries.length
-          ) {
-            this.mediaListEntriesLength = mediaListEntries.length;
-            this.initializeState();
-            return this.queryData();
-          }
-
-          this.mediaListEntriesLength = mediaListEntries.length;
-          return of(undefined);
-        }),
-        catchError(this.onError),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
 
     this.selectedFormats = storageService.getItem<MediaFormat[]>(
       getMediaTypePrefixedStorageKey(
@@ -171,6 +137,31 @@ export class MtListRelatedMediaComponent
       ),
       MediaSort.END_DATE_DESC
     );
+
+    this.onResize();
+
+    this.mediaStore
+      .onListEntriesChanges()
+      .pipe(
+        mergeMap((mediaListEntries) => {
+          // check this.mediaListEntriesLength is set to prevent reloading when the list is first loaded
+          if (
+            this.mediaListEntriesLength &&
+            this.mediaListEntriesLength !== mediaListEntries.length
+          ) {
+            this.mediaListEntriesLength = mediaListEntries.length;
+            this.initializeState();
+            return this.queryData();
+          }
+
+          this.mediaListEntriesLength = mediaListEntries.length;
+          return of(undefined);
+        }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
   }
 
   queryData(): Observable<number[]> {
@@ -189,7 +180,11 @@ export class MtListRelatedMediaComponent
     this.started = true;
 
     this.queryData()
-      .pipe(catchError(this.onError), takeUntil(this.destroyed$))
+      .pipe(
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
+        takeUntil(this.destroyed$)
+      )
       .subscribe();
   }
 
@@ -279,7 +274,8 @@ export class MtListRelatedMediaComponent
             this.pagination.pageIndex = response.pageInfo.currentPage - 1;
             this.searching = false;
           }),
-          catchError(this.onError),
+          catchError((error) => this.onError(error)),
+          tap(() => this.changeDetectorRef.markForCheck()),
           takeUntil(this.destroyed$)
         )
         .subscribe();

@@ -1,17 +1,18 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus,
-  ListEntryStatus,
+  ListEntriesByStatus, ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
@@ -35,6 +36,7 @@ export class MtUserMediaListComponent
 {
   private animeCommands = inject(AnimeCommands);
   private authStore = inject(AuthStore);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private mangaCommands = inject(MangaCommands);
 
   @Input() mediaType!: MediaType;
@@ -115,13 +117,18 @@ export class MtUserMediaListComponent
         tap((favouriteIDs) => {
           this.favouriteIDs = favouriteIDs;
         }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
 
     this.mediaCommands
       .queryFavouriteIDs()
-      .pipe(takeUntil(this.destroyed$))
+      .pipe(
+        catchError((error) => this.onError(error)),
+        takeUntil(this.destroyed$)
+      )
       .subscribe();
   }
 
@@ -140,12 +147,8 @@ export class MtUserMediaListComponent
               }));
             this.ready = true;
           }),
-          catchError((error) => {
-            this.error = error;
-            this.ready = true;
-
-            return of();
-          }),
+          catchError((error) => this.onError(error)),
+          tap(() => this.changeDetectorRef.markForCheck()),
           takeUntil(this.destroyed$)
         )
         .subscribe();
@@ -166,5 +169,12 @@ export class MtUserMediaListComponent
     if (event) {
       event.preventDefault();
     }
+  }
+
+  private onError(error: Error) {
+    this.error = error;
+    this.ready = true;
+
+    return of();
   }
 }

@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -31,6 +31,7 @@ export class MtRecentlyFinishedMediaComponent
   implements OnInit
 {
   private animeCommands = inject(AnimeCommands);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private mangaCommands = inject(MangaCommands);
 
   @Input() mediaType!: MediaType;
@@ -62,7 +63,6 @@ export class MtRecentlyFinishedMediaComponent
     this.setSelectedCountries = this.setSelectedCountries.bind(this);
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedSort = this.setSelectedSort.bind(this);
-    this.onError = this.onError.bind(this);
   }
 
   ngOnInit() {
@@ -118,7 +118,8 @@ export class MtRecentlyFinishedMediaComponent
           this.processEntries();
           this.searching = false;
         }),
-        catchError(this.onError),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
