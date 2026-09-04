@@ -81,7 +81,7 @@ export abstract class MediaCommands {
       };
 
       const cancel = () => {
-        observer.next();
+        observer.next(undefined);
         observer.complete();
       };
 

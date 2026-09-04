@@ -14,11 +14,10 @@ export class AuthService {
   private authApi = inject(AuthApi);
   private authStore = inject(AuthStore);
 
-  userChange$: Observable<User>;
-  private userChangeSubject: Subject<User> = new Subject<User>();
+  userChange$: Observable<User | undefined>;
+  private userChangeSubject = new Subject<User | undefined>();
 
   constructor() {
-    this.userChangeSubject = new Subject<User>();
     this.userChange$ = this.userChangeSubject.asObservable();
     this.getAccessToken();
     this.getUser();
@@ -41,7 +40,7 @@ export class AuthService {
   logOut() {
     this.removeAccessToken();
     this.removeUser();
-    this.userChangeSubject.next();
+    this.userChangeSubject.next(undefined);
     return of();
   }
 

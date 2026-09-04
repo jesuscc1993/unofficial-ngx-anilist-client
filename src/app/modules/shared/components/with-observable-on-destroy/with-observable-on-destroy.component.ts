@@ -4,7 +4,7 @@ import { Directive, OnDestroy } from '@angular/core';
 
 @Directive()
 export class WithObservableOnDestroy implements OnDestroy {
-  private destroyedSubject = new Subject();
+  private destroyedSubject = new Subject<void>();
 
   protected get destroyed$() {
     return this.destroyedSubject.asObservable();
@@ -12,5 +12,6 @@ export class WithObservableOnDestroy implements OnDestroy {
 
   ngOnDestroy() {
     this.destroyedSubject.next();
+    this.destroyedSubject.complete();
   }
 }
