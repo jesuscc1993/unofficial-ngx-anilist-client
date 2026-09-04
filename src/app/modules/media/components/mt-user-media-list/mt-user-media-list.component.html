@@ -31,7 +31,10 @@
                         </mat-checkbox>
                         <a
                           class="margin-left-3xs"
+                          tabindex="0"
                           (click)="scrollToStatus(status.value)"
+                          (keydown.enter)="scrollToStatus(status.value)"
+                          (keydown.space)="scrollToStatus(status.value)"
                         >
                           <mt-icon name="arrow-down"></mt-icon>
                         </a>

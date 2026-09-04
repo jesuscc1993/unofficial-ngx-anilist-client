@@ -284,11 +284,16 @@ export class MtMediaSearchComponent
   }
 
   private updateQueryParams() {
-    const queryParams: Record<string, any> = {
-      currentPage: this.pagination?.currentPage,
-      perPage: this.pagination?.perPage,
-      sort: JSON.stringify(this.sort),
-    };
+    const queryParams: Record<string, string> = {};
+    if (this.isSet(this.pagination?.currentPage)) {
+      queryParams.currentPage = this.pagination.currentPage.toString();
+    }
+    if (this.isSet(this.pagination?.perPage)) {
+      queryParams.perPage = this.pagination.perPage.toString();
+    }
+    if (this.isSet(this.sort)) {
+      queryParams.sort = JSON.stringify(this.sort);
+    }
 
     const filters = this.searchForm.value;
 
@@ -303,8 +308,14 @@ export class MtMediaSearchComponent
     this.router.navigate([], { relativeTo: this.activatedRoute, queryParams });
   }
 
-  private isSet(variable: any): boolean {
-    return variable !== undefined && variable !== null && variable.length !== 0;
+  private isSet(
+    variable?: string | number | null
+  ): variable is string | number {
+    return (
+      variable !== undefined &&
+      variable !== null &&
+      (typeof variable !== 'string' || variable.length !== 0)
+    );
   }
 
   private queryDropdowns() {

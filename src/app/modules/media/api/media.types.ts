@@ -54,8 +54,8 @@ export type SearchFilters = MediaFilters & {
   search?: string;
   startDateGreaterThan?: number;
   startDateSmallerThan?: number;
-  statusIn?: Array<ListEntryStatus | MediaStatus>;
-  statusNotIn?: Array<ListEntryStatus | MediaStatus>;
+  statusIn?: (ListEntryStatus | MediaStatus)[];
+  statusNotIn?: (ListEntryStatus | MediaStatus)[];
   tagIn?: string[];
   tagNotIn?: string[];
 };

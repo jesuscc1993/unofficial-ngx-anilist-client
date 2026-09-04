@@ -1,7 +1,7 @@
 @use 'colors';
 
 /* vertical ruler - counterpart to vanilla's hr */
-vr {
+.vr {
   border: 1px solid colors.$border;
   box-sizing: border-box;
   display: block;

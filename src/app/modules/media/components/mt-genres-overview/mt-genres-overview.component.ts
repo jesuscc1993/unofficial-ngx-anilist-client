@@ -14,8 +14,6 @@ export class MtGenresOverviewComponent implements OnInit {
   maxColumnCount = 5;
   minColumnWidth = 160;
 
-  constructor() {}
-
   ngOnInit() {
     this.calculateStatistics();
   }

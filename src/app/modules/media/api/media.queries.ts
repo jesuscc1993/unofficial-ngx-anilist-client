@@ -1,5 +1,5 @@
-export const filterTypes: { [key: string]: string } = {};
-export const filterMappings: { [key: string]: string } = {};
+export const filterTypes: Record<string, string> = {};
+export const filterMappings: Record<string, string> = {};
 
 /* filters */
 

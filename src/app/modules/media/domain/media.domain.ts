@@ -5,12 +5,28 @@ import { animeFormats } from '../../anime/constants/anime.constants';
 import { mangaFormats } from '../../manga/constants/manga.constants';
 import { listEntryStatuses } from '../../shared/constants/listEntry.constants';
 import {
-  gridCardWidth, gridSpacing, localizedMediaType,
+  gridCardWidth,
+  gridSpacing,
+  localizedMediaType,
 } from '../../shared/constants/media.constants';
-import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
-import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  Anime, Manga, Media, MediaCountry, MediaFormat, MediaSort, MediaStatus, MediaType,
+  CoverImage,
+  CoverImageSize,
+  FuzzyDate,
+} from '../../shared/types/anilist/dataTypes.types';
+import {
+  ListEntriesByStatus,
+  ListEntry,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Anime,
+  Manga,
+  Media,
+  MediaCountry,
+  MediaFormat,
+  MediaSort,
+  MediaStatus,
+  MediaType,
 } from '../../shared/types/anilist/media.types';
 import { MediaColumn } from '../../shared/types/media.types';
 import { SortDirection } from '../../shared/types/mui.types';
@@ -42,11 +58,7 @@ export const getSanitizedMediaDescription = (media: Media) => {
   return media.description.replace(/h\d+>/g, 'strong>');
 };
 
-export const pad = (
-  value: number | string,
-  length: number = 2,
-  character: string = '0'
-) => {
+export const pad = (value: number | string, length = 2, character = '0') => {
   return String(value).padStart(length, character);
 };
 
@@ -164,9 +176,9 @@ export const sortListEntriesByMediaTitle = (listEntries: ListEntry[]) => {
   });
 };
 
-const sortFunctionByMediaSort: {
-  [K in MediaSort]?: (listEntries: ListEntry[]) => ListEntry[];
-} = {
+const sortFunctionByMediaSort: Partial<
+  Record<MediaSort, (listEntries: ListEntry[]) => ListEntry[]>
+> = {
   [MediaSort.END_DATE_DESC]: sortListEntriesByMediaEndDate,
   [MediaSort.SCORE_DESC]: sortListEntriesByMediaScore,
   [MediaSort.TITLE_ROMAJI]: sortListEntriesByMediaTitle,
@@ -223,7 +235,7 @@ export const toMediaType = (text: string): MediaType => {
   return text.toUpperCase() as MediaType;
 };
 
-export const getColCount = (elementRef: ElementRef<any>) => {
+export const getColCount = (elementRef: ElementRef<HTMLElement>) => {
   return elementRef
     ? Math.floor(
         elementRef.nativeElement.offsetWidth / (gridCardWidth + gridSpacing)
