@@ -1,7 +1,9 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { finalize, takeUntil, tap } from 'rxjs/operators';
 
 import { Location } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -40,6 +42,7 @@ export class MtMediaActionsComponent
   private animeCommands = inject(AnimeCommands);
   private authCommands = inject(AuthCommands);
   private authStore = inject(AuthStore);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private dialog = inject(MatDialog);
   private location = inject(Location);
   private mangaCommands = inject(MangaCommands);
@@ -67,7 +70,10 @@ export class MtMediaActionsComponent
     this.authCommands
       .onUserChange()
       .pipe(
-        tap((user) => (this.user = user)),
+        tap((user) => {
+          this.user = user;
+          this.changeDetectorRef.markForCheck();
+        }),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -110,6 +116,7 @@ export class MtMediaActionsComponent
             this.setListEntry(savedListEntry);
           }
         }),
+        finalize(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -141,7 +148,9 @@ export class MtMediaActionsComponent
             if (success) {
               this.setListEntry(undefined);
             }
-          })
+          }),
+          finalize(() => this.changeDetectorRef.markForCheck()),
+          takeUntil(this.destroyed$)
         )
         .subscribe();
     }

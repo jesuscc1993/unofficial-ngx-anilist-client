@@ -24,31 +24,34 @@ export class AppComponent implements OnInit {
   error?: Error;
 
   ngOnInit() {
-    this.authStore.onUserChange().pipe(this.handleUserChange()).subscribe();
-    this.authCommands.validateToken().pipe(this.handleTokenError()).subscribe();
+    this.authStore
+      .onUserChange()
+      .pipe(tap((user?: User) => this.onUserChange(user)))
+      .subscribe();
+
+    this.authCommands
+      .validateToken()
+      .pipe(catchError((error) => this.onValidateError(error)))
+      .subscribe();
   }
 
-  private handleUserChange() {
-    return tap((user?: User) => {
-      if (user) {
-        forkJoin([
-          this.animeCommands.queryListEntries(),
-          this.mangaCommands.queryListEntries(),
-        ])
-          .pipe(catchError(this.onError))
-          .subscribe();
-      }
-    });
+  private onUserChange(user?: User) {
+    if (user) {
+      forkJoin([
+        this.animeCommands.queryListEntries(),
+        this.mangaCommands.queryListEntries(),
+      ])
+        .pipe(catchError((error) => this.onError(error)))
+        .subscribe();
+    }
   }
 
-  private handleTokenError() {
-    return catchError((error) => {
-      if (error.message === apiTokenError) {
-        this.authCommands.logOut();
-      }
+  private onValidateError(error: Error) {
+    if (error.message === apiTokenError) {
+      this.authCommands.logOut();
+    }
 
-      return this.onError(error);
-    });
+    return this.onError(error);
   }
 
   private onError(error: Error) {

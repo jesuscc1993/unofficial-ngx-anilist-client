@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
@@ -31,6 +31,7 @@ export class MtRecentlyUpdatedListEntriesComponent
   implements OnInit
 {
   private animeCommands = inject(AnimeCommands);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private mangaCommands = inject(MangaCommands);
 
   @Input() mediaType!: MediaType;
@@ -57,7 +58,6 @@ export class MtRecentlyUpdatedListEntriesComponent
 
     this.setSelectedFormats = this.setSelectedFormats.bind(this);
     this.setSelectedStatuses = this.setSelectedStatuses.bind(this);
-    this.onError = this.onError.bind(this);
   }
 
   ngOnInit() {
@@ -74,25 +74,6 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.listEntryStatuses = listEntryStatuses;
     this.mediaFormats = getMediaFormats(this.mediaType);
 
-    this.mediaCommands
-      .getListEntries()
-      .pipe(
-        tap((mediaListEntries) => {
-          this.listEntries = mediaListEntries;
-          this.mediaFormats = getMediaFormatsForListEntries(
-            mediaListEntries,
-            this.mediaType
-          );
-          this.listEntryStatuses =
-            getMediaStatusesForListEntries(mediaListEntries);
-          this.processEntries();
-          this.searching = false;
-        }),
-        catchError(this.onError),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe();
-
     this.selectedFormats = storageService.getItem<MediaFormat[]>(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyUpdated.Format,
@@ -108,6 +89,26 @@ export class MtRecentlyUpdatedListEntriesComponent
       ),
       []
     );
+
+    this.mediaCommands
+      .getListEntries()
+      .pipe(
+        tap((mediaListEntries) => {
+          this.listEntries = mediaListEntries;
+          this.mediaFormats = getMediaFormatsForListEntries(
+            mediaListEntries,
+            this.mediaType
+          );
+          this.listEntryStatuses =
+            getMediaStatusesForListEntries(mediaListEntries);
+          this.processEntries();
+          this.searching = false;
+        }),
+        catchError((error) => this.onError(error)),
+        tap(() => this.changeDetectorRef.markForCheck()),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
   }
 
   setSelectedFormats(selectedFormats: MediaFormat[]) {

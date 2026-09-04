@@ -1,23 +1,20 @@
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
 import { apiLoginUrl, apiTokenPrefix } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import {
-  animeDashboardUrl,
-  animeSearchUrl,
-  animeUserListUrl,
-  mangaDashboardUrl,
-  mangaSearchUrl,
-  mangaUserListUrl,
-  rootUrl,
+  animeDashboardUrl, animeSearchUrl, animeUserListUrl, mangaDashboardUrl, mangaSearchUrl,
+  mangaUserListUrl, rootUrl,
 } from '../../constants/navigation.constants';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
+import {
+  WithObservableOnDestroy,
+} from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 const ANIME_ICON = 'display';
 const MANGA_ICON = 'lines-leaning';
@@ -31,6 +28,7 @@ const MANGA_ICON = 'lines-leaning';
 export class MtHeaderComponent extends WithObservableOnDestroy {
   private authCommands = inject(AuthCommands);
   private authStore = inject(AuthStore);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private router = inject(Router);
 
   animeSearchUrl = animeSearchUrl;
@@ -113,7 +111,10 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
     this.authCommands
       .onUserChange()
       .pipe(
-        tap((user) => (this.user = user)),
+        tap((user) => {
+          this.user = user;
+          this.changeDetectorRef.markForCheck();
+        }),
         takeUntil(this.destroyed$)
       )
       .subscribe();

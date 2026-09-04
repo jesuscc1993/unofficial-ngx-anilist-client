@@ -1,5 +1,6 @@
 import {
-  Component, ElementRef, inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild,
+  ChangeDetectorRef, Component, ElementRef, inject, Input, OnChanges, OnInit, SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { ControlContainer, FormControl } from '@angular/forms';
 
@@ -15,6 +16,7 @@ export interface MtSelectOption {
   standalone: false,
 })
 export class MtSelectComponent implements OnInit, OnChanges {
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private controlContainer = inject(ControlContainer);
 
   @Input() controlName!: string;
@@ -33,6 +35,7 @@ export class MtSelectComponent implements OnInit, OnChanges {
   constructor() {
     this.filterControl.valueChanges.subscribe((filter) => {
       this.generateFilteredOptions(filter);
+      this.changeDetectorRef.markForCheck();
     });
   }
 

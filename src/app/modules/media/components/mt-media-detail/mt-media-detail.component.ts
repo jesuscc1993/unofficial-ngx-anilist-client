@@ -1,6 +1,6 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { finalize, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
@@ -24,6 +24,7 @@ export class MtMediaDetailComponent
   implements OnInit
 {
   private animeCommands = inject(AnimeCommands);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private mangaCommands = inject(MangaCommands);
   private titleService = inject(TitleService);
 
@@ -80,6 +81,7 @@ export class MtMediaDetailComponent
             this.searching = false;
           }
         ),
+        finalize(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();

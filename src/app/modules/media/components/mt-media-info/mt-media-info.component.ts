@@ -1,6 +1,8 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { finalize, takeUntil, tap } from 'rxjs/operators';
 
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, inject, Input, OnChanges, OnInit, SimpleChanges,
+} from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
@@ -29,6 +31,7 @@ export class MtMediaInfoComponent
   implements OnInit, OnChanges
 {
   private animeCommands = inject(AnimeCommands);
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private mangaCommands = inject(MangaCommands);
 
   @Input() fullDetail? = true;
@@ -98,6 +101,7 @@ export class MtMediaInfoComponent
             this.searchingRecommendations = false;
           }
         ),
+        finalize(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();
@@ -133,6 +137,7 @@ export class MtMediaInfoComponent
             this.searchingRecommendations = false;
           }
         ),
+        finalize(() => this.changeDetectorRef.markForCheck()),
         takeUntil(this.destroyed$)
       )
       .subscribe();

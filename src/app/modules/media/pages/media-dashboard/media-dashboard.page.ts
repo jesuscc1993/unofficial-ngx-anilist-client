@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MediaType } from '../../../shared/types/anilist/media.types';
@@ -10,6 +10,7 @@ import { MediaType } from '../../../shared/types/anilist/media.types';
   standalone: false,
 })
 export class MtMediaDashboardComponent implements OnInit {
+  private changeDetectorRef = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
 
   @Input() mediaType!: MediaType;
@@ -24,6 +25,7 @@ export class MtMediaDashboardComponent implements OnInit {
       this.showLeftColumn = !column || column === 'left';
       this.showCenterColumn = !column || column === 'center';
       this.showRightColumn = !column || column === 'right';
+      this.changeDetectorRef.markForCheck();
     });
   }
 }
