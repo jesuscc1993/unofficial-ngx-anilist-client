@@ -1,20 +1,23 @@
-import { takeUntil, tap } from 'rxjs/operators';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment';
 import { apiLoginUrl, apiTokenPrefix } from '../../../../app.constants';
 import { AuthCommands } from '../../commands/auth.commands';
 import {
-  animeDashboardUrl, animeSearchUrl, animeUserListUrl, mangaDashboardUrl, mangaSearchUrl,
-  mangaUserListUrl, rootUrl,
+  animeDashboardUrl,
+  animeSearchUrl,
+  animeUserListUrl,
+  mangaDashboardUrl,
+  mangaSearchUrl,
+  mangaUserListUrl,
+  rootUrl,
 } from '../../constants/navigation.constants';
 import { AuthStore } from '../../store/auth.store';
 import { User } from '../../types/anilist/user.types';
-import {
-  WithObservableOnDestroy,
-} from '../with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../with-observable-on-destroy/with-observable-on-destroy.component';
 
 const ANIME_ICON = 'display';
 const MANGA_ICON = 'lines-leaning';
@@ -35,6 +38,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
   animeUserListUrl = animeUserListUrl;
   apiLoginUrl = apiLoginUrl;
 
+  currentUrl: string;
   loginAvailable?: boolean;
   routes: (Route | undefined)[];
   user?: User;
@@ -59,6 +63,7 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
 
     this.loginAvailable = environment.anilistClientId >= 0;
     this.user = this.authStore.getUser();
+    this.currentUrl = this.router.url;
 
     this.routes = [
       {
@@ -118,10 +123,21 @@ export class MtHeaderComponent extends WithObservableOnDestroy {
         takeUntil(this.destroyed$)
       )
       .subscribe();
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        tap((event) => {
+          this.currentUrl = event.urlAfterRedirects;
+          this.changeDetectorRef.markForCheck();
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
   }
 
   onPage(url: string) {
-    return location.href.includes(url);
+    return this.currentUrl.includes(url);
   }
 
   openAnilistProfile() {
