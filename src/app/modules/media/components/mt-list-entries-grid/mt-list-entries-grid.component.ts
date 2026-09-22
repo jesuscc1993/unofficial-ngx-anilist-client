@@ -1,6 +1,14 @@
 import {
-  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, Input, OnChanges,
-  SimpleChanges, ViewChild,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
@@ -26,13 +34,13 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
 
   readonly rowCount = 5;
 
-  colCount?: number;
+  colCount = 5;
   pagination!: PageEvent;
 
   constructor() {
     this.pagination = {
       pageIndex: 0,
-      pageSize: 20,
+      pageSize: this.colCount * this.rowCount,
       length: 0,
     };
   }
@@ -44,7 +52,7 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
     if (newColCount && newColCount !== this.colCount) {
       this.colCount = newColCount;
       this.pagination.pageSize = newColCount * this.rowCount;
-      this.changeDetectorRef.markForCheck();
+      this.changeDetectorRef.detectChanges();
     }
   }
 
