@@ -1072,10 +1072,10 @@
   dependencies:
     "@tybys/wasm-util" "^0.10.3"
 
-"@ngneat/cashew@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@ngneat/cashew/-/cashew-3.1.0.tgz#2f879436581f93adbe83c9d7cf579f5e9e7377ba"
-  integrity "sha1-L4eUNlgfk62+g8nXz1efXp5zd7o= sha512-LA2VUNbY+2lFwl3HKpZjYN9ptFm1eyIVYCyIQGVnQAWN0N2taxvBOp8bW7Wp9KYug48F0w7+s/G15jV/iDPIKQ=="
+"@ngneat/cashew@^5.0.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@ngneat/cashew/-/cashew-5.3.0.tgz#9deb32f9de32b39d1c83a8d4720c4afc51f154cf"
+  integrity sha512-ha+g7gde7M74FP9h2lrgW4Kj04NBxZMJlinjDUnbwCPc3qNIMLAZq0dwErtYOe8wRobGKWzjzldl9TCe1wEWrA==
   dependencies:
     tslib "^2.3.0"
 

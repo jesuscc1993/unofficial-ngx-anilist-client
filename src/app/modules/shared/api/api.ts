@@ -12,6 +12,7 @@ import { AnilistResponse } from '../types/anilist/response.types';
 import { RequestOptions, RequestSettings } from './api.types';
 
 const DEFAULT_CACHE_MAX_AGE = 24 * 3600000;
+const DEFAULT_CACHE_STORAGE = 'localStorage';
 
 export abstract class AniListApi {
   private authStore = inject(AuthStore);
@@ -30,6 +31,7 @@ export abstract class AniListApi {
     if (settings.cacheKey) {
       options.context = withCache({
         key: settings.cacheKey,
+        storage: settings.cacheStorage ?? DEFAULT_CACHE_STORAGE,
         ttl: settings.cacheMaxAge ?? DEFAULT_CACHE_MAX_AGE,
       });
     }

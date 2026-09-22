@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {
-  HttpCacheInterceptorModule,
-  useHttpCacheLocalStorage,
+  provideHttpCache,
+  withHttpCacheInterceptor,
+  withLocalStorage,
 } from '@ngneat/cashew';
 import { TranslateDirective, TranslatePipe } from '@ngx-translate/core';
 
@@ -62,7 +63,7 @@ const imports = [
 
 @NgModule({
   declarations,
-  imports: [...imports, HttpCacheInterceptorModule.forRoot()],
+  imports,
   exports: [...declarations, ...imports],
   providers: [
     AuthApi,
@@ -71,8 +72,8 @@ const imports = [
     AuthStore,
     TitleService,
     ToastService,
-    provideHttpClient(),
-    useHttpCacheLocalStorage,
+    provideHttpClient(withInterceptors([withHttpCacheInterceptor()])),
+    provideHttpCache(withLocalStorage()),
   ],
 })
 export class SharedModule {}
