@@ -1,5 +1,4 @@
 import { LOCATION_INITIALIZED } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import {
   inject,
   Injector,
@@ -7,12 +6,8 @@ import {
   provideAppInitializer,
 } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService, TranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -71,7 +66,6 @@ const translationFactory = (
       const defaultLanguage = availableLanguages[0];
 
       injector.get(LOCATION_INITIALIZED, Promise.resolve()).then(() => {
-        translateService.setDefaultLang(defaultLanguage);
         translateService
           .use(
             availableLanguages.includes(navigator.language)
@@ -92,23 +86,16 @@ const translationFactory = (
     AnimeModule,
     MangaModule,
     RouterModule.forRoot(appRoutes, {}),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) =>
-          new TranslateHttpLoader(http, environment.i18nPath),
-        deps: [HttpClient],
-      },
-    }),
   ],
   providers: [
-    provideAppInitializer(() => {
-      const initializerFn = translationFactory(
-        inject(TranslateService),
-        inject(Injector)
-      );
-      return initializerFn();
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: environment.i18nPath,
+      }),
     }),
+    provideAppInitializer(() =>
+      translationFactory(inject(TranslateService), inject(Injector))()
+    ),
   ],
   bootstrap: [AppComponent],
 })

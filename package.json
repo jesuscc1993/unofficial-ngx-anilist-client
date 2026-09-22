@@ -27,8 +27,8 @@
     "@angular/router": "^22.0.0",
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@ngneat/cashew": "^3.0.0",
-    "@ngx-translate/core": "^14.0.0",
-    "@ngx-translate/http-loader": "^7.0.0",
+    "@ngx-translate/core": "^18.0.0",
+    "@ngx-translate/http-loader": "^18.0.0",
     "zone.js": "~0.15.1"
   },
   "devDependencies": {

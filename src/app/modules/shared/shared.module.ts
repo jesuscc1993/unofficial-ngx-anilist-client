@@ -8,7 +8,7 @@ import {
   HttpCacheInterceptorModule,
   useHttpCacheLocalStorage,
 } from '@ngneat/cashew';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateDirective, TranslatePipe } from '@ngx-translate/core';
 
 import { MaterialModule } from '../material/material.module';
 import { AuthApi } from './api/auth/auth.api';
@@ -56,7 +56,8 @@ const imports = [
   MaterialModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
+  TranslateDirective,
+  TranslatePipe,
 ];
 
 @NgModule({
