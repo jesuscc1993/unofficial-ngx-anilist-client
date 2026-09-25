@@ -1,14 +1,6 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild,
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, Input, OnChanges,
+  SimpleChanges, ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
@@ -25,8 +17,8 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
   private changeDetectorRef = inject(ChangeDetectorRef);
 
   @Input() listEntries!: ListEntry[];
-  @Input() showListEntryStatus?: boolean;
-  @Input() showMediaStatus?: boolean;
+  @Input() showListEntryStatus = false;
+  @Input() showMediaStatus = false;
   @Input() wrapperClass?: string;
 
   @ViewChild('content', { read: ElementRef }) content!: ElementRef;
