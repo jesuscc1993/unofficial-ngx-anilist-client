@@ -48,6 +48,10 @@
           }
         </div>
         <div class="flex-box column center">
+          <mt-media-score
+            [listEntry]="listEntry"
+            [media]="media"
+          ></mt-media-score>
           @if (getMediaLength(media)) {
             <div
               matTooltipPosition="above"
@@ -65,10 +69,6 @@
               )
             </div>
           }
-          <mt-media-score
-            [listEntry]="listEntry"
-            [media]="media"
-          ></mt-media-score>
         </div>
       </div>
       @if (showMediaStatus) {

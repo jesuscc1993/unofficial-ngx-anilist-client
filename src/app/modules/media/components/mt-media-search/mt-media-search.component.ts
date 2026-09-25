@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-  integerPattern, minMediaStartYear, numberPattern, pageSizeOptions,
+  integerPattern, minMediaStartYear, pageSizeOptions, scorePattern,
 } from '../../../../app.constants';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
@@ -170,10 +170,8 @@ export class MtMediaSearchComponent
       endDateGreaterThan:
         filters.endDateGreaterThan &&
         getDateScalarFromYear(filters.endDateGreaterThan),
-      averageScoreGreaterThan:
-        filters.averageScoreGreaterThan && filters.averageScoreGreaterThan * 10,
-      averageScoreSmallerThan:
-        filters.averageScoreSmallerThan && filters.averageScoreSmallerThan * 10,
+      averageScoreGreaterThan: filters.averageScoreGreaterThan,
+      averageScoreSmallerThan: filters.averageScoreSmallerThan,
       sort: this.sort,
     };
 
@@ -219,8 +217,8 @@ export class MtMediaSearchComponent
 
   private setupForm() {
     this.searchForm = this.formBuilder.group({
-      averageScoreGreaterThan: [undefined, [Validators.pattern(numberPattern)]],
-      averageScoreSmallerThan: [undefined, [Validators.pattern(numberPattern)]],
+      averageScoreGreaterThan: [undefined, [Validators.pattern(scorePattern)]],
+      averageScoreSmallerThan: [undefined, [Validators.pattern(scorePattern)]],
       countryOfOrigin: [[]],
       formatIn: [[]],
       formatNotIn: [[]],

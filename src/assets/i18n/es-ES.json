@@ -153,7 +153,7 @@
     "openInAniList": "Abrir en AniList",
     "recommendations": "Recomendaciones",
     "score": "Nota",
-    "scoreTooltip": "(*/10)",
+    "scoreTooltip": "(/100)",
     "scoreValues": {
       "undefined": "Cualquiera"
     },
