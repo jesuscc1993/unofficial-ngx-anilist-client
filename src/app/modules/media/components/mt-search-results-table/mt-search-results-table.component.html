@@ -19,11 +19,12 @@
         {{ 'media.cover' | translate }}
       </mat-header-cell>
       <mat-cell *matCellDef="let media">
-        <img
-          [src]="getSizedCoverImage(media.coverImage)"
-          alt="Cover image for {{ getMediaTitle(media) }}"
-          class="cover"
-        />
+        <mt-media-cover
+          [media]="media"
+          [showActions]="false"
+          [showProgress]="false"
+        >
+        </mt-media-cover>
       </mat-cell>
     </ng-container>
 
@@ -86,7 +87,10 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let media">
         <span class="text">
-          <mt-media-score [media]="media" [columnMode]="true"></mt-media-score>
+          <mt-media-score
+            [listEntry]="media?.mediaListEntry"
+            [media]="media"
+          ></mt-media-score>
         </span>
       </mat-cell>
     </ng-container>

@@ -74,7 +74,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
         [Validators.required, Validators.pattern(integerPattern)],
       ],
       score: [
-        (scoreRaw && scoreRaw / 10) || 0,
+        scoreRaw ?? 0,
         [Validators.required, Validators.pattern(scorePattern)],
       ],
       progress: [
@@ -147,7 +147,7 @@ export class MtListEntryFormModalComponent extends WithObservableOnDestroy {
       ...this.listEntry,
       status,
       repeat: parseInt(repeat, 10),
-      scoreRaw: Math.trunc(parseFloat(score) * 10),
+      scoreRaw: Math.trunc(parseFloat(score)),
       progress: parseInt(progress, 10),
     };
   }

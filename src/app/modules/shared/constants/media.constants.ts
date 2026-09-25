@@ -85,7 +85,7 @@ export const localizedMediaType = {
   },
 };
 
-export const mediaScores = [undefined, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5];
+export const mediaScores = [undefined, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95];
 
 export const gridCardWidth = 96;
 export const gridSpacing = 4;

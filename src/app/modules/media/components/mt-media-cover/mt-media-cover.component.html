@@ -7,70 +7,66 @@
         'url(' + getSizedCoverImage(media.coverImage) + ')'
       "
     >
-      <div class="backdrop">
-        <div class="cover-actions-container">
-          @if (listEntry) {
-            <button
-              class="cover-action clickable"
-              mat-icon-button
-              matTooltipPosition="above"
-              [matTooltip]="'media.userList.updateEntry' | translate"
-              (click)="openEditionModal($event)"
-            >
-              <div>
-                <mt-icon name="pen"></mt-icon>
-              </div>
-            </button>
-          }
-          <button
-            class="cover-action clickable text-150 bold"
-            matTooltipPosition="above"
-            mat-icon-button
-            [matTooltip]="'media.view' | translate"
-            (click)="openDetailModal($event)"
-          >
-            <div>
-              <mt-icon name="id-card"></mt-icon>
-            </div>
-          </button>
-          @if (listEntry) {
-            <button
-              class="cover-action clickable"
-              mat-icon-button
-              matTooltipPosition="above"
-              [matTooltip]="'media.userList.deleteFromList' | translate"
-              (click)="deleteEntry($event)"
-            >
-              <div>
-                <mt-icon name="trash"></mt-icon>
-              </div>
-            </button>
-          }
-        </div>
-        <div class="flex-box column center">
-          @if (getMediaLength(media)) {
-            <div
-              matTooltipPosition="above"
-              [matTooltip]="getMediaTypeProgressLiteral(media.type) | translate"
-            >
-              (
-              <span
-                [ngClass]="{
-                  bold: listEntry?.progress === getMediaLength(media),
-                }"
-                >{{ listEntry?.progress ?? '*' }}</span
+      @if (showActions) {
+        <div class="backdrop">
+          <div class="cover-actions-container">
+            @if (listEntry) {
+              <button
+                class="cover-action clickable"
+                mat-icon-button
+                matTooltipPosition="above"
+                [matTooltip]="'media.userList.updateEntry' | translate"
+                (click)="openEditionModal($event)"
               >
-              /
-              <span>{{ getMediaLength(media) }}</span>
-              )
-            </div>
-          }
-          <mt-media-score
-            [listEntry]="listEntry"
-            [media]="media"
-          ></mt-media-score>
+                <div>
+                  <mt-icon name="pen"></mt-icon>
+                </div>
+              </button>
+            }
+            <button
+              class="cover-action clickable text-150 bold"
+              matTooltipPosition="above"
+              mat-icon-button
+              [matTooltip]="'media.view' | translate"
+              (click)="openDetailModal($event)"
+            >
+              <div>
+                <mt-icon name="id-card"></mt-icon>
+              </div>
+            </button>
+            @if (listEntry) {
+              <button
+                class="cover-action clickable"
+                mat-icon-button
+                matTooltipPosition="above"
+                [matTooltip]="'media.userList.deleteFromList' | translate"
+                (click)="deleteEntry($event)"
+              >
+                <div>
+                  <mt-icon name="trash"></mt-icon>
+                </div>
+              </button>
+            }
+          </div>
         </div>
-      </div>
+      }
+
+      <mt-media-score
+        [isPill]="true"
+        [listEntry]="listEntry"
+        [media]="media"
+        [shouldFloat]="true"
+      ></mt-media-score>
+
+      @if (shouldShowProgress()) {
+        <mt-media-progress
+          [isPill]="true"
+          [listEntry]="listEntry"
+          [media]="media"
+          [shouldFloat]="true"
+        ></mt-media-progress>
+      }
+
       @if (showMediaStatus) {
         <div
           class="media-badge media-status {{ sanitizeClassname(media.status) }}"

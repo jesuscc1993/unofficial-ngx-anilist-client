@@ -259,8 +259,7 @@ export class MtListRelatedMediaComponent
               : [MediaFormat.MANGA],
             onList: false,
             sort: this.selectedSort,
-            averageScoreGreaterThan:
-              this.selectedScore && this.selectedScore * 10,
+            averageScoreGreaterThan: this.selectedScore,
           },
           {
             pageIndex,

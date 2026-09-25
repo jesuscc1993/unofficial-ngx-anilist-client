@@ -120,6 +120,10 @@ html {
     font-size: 0.75rem;
   }
 
+  .mdc-tooltip__surface {
+    white-space: pre-line;
+  }
+
   div.mat-mdc-select-panel {
     padding: 0;
 
