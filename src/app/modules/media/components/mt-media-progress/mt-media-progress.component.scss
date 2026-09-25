@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'sass:map';
 
 @use 'mat-palettes';
@@ -13,11 +14,10 @@
 
 .pill {
   $palette: map.get(palettes.$by-name, 'blue');
-  background: map.get($palette, 70);
+  background: color.adjust(map.get($palette, 70), $saturation: -20%);
   border-radius: $spacing-4xs;
   box-shadow: 0 0 $spacing-3xs #000c;
   color: map.get(mat-palettes.$grey, 10);
-  filter: grayscale(0.2);
   line-height: 1;
   margin: $spacing-4xs;
   padding: $spacing-6xs $spacing-4xs;
