@@ -140,7 +140,7 @@
     "openInAniList": "Open in AniList",
     "recommendations": "Recommendations",
     "score": "Score",
-    "scoreTooltip": "(*/10)",
+    "scoreTooltip": "(/100)",
     "scoreValues": {
       "undefined": "Any"
     },
