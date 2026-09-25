@@ -1,11 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
-import {
-  getMediaLength,
-  getMediaTypeProgressLiteral,
-} from '../../domain/media.domain';
+import { getMediaLength, getMediaTypeProgressLiteral } from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-media-progress',
@@ -16,7 +13,7 @@ import {
   },
   standalone: false,
 })
-export class MtMediaProgressComponent {
+export class MtMediaProgressComponent implements OnChanges {
   @Input() isPill = false;
   @Input() listEntry?: ListEntry;
   @Input() media!: Media;
@@ -25,13 +22,26 @@ export class MtMediaProgressComponent {
   readonly getMediaLength = getMediaLength;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
 
-  getProgress() {
-    const current = this.listEntry?.progress;
-    const total = this.getMediaLength(this.media);
-    if (current === total) {
-      return `<strong>${current}</strong>`;
-    } else {
-      return `<span ${total >= 100 ? 'class="small-text"' : ''}>${current ?? ''}/${total}</span>`;
+  mediaLength?: number;
+  progress = '';
+  smallText = false;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['listEntry'] || changes['media']) {
+      this.mediaLength = this.getMediaLength(this.media);
+
+      const current = this.listEntry?.progress;
+      const text =
+        current === this.mediaLength
+          ? `${current}`
+          : `${current ? `${current}/` : ''}${this.mediaLength}`;
+
+      this.progress =
+        current === this.mediaLength
+          ? `<strong>${text}</strong>`
+          : `<span>${text}</span>`;
+
+      this.smallText = text.length > 5;
     }
   }
 }

@@ -11,7 +11,7 @@ import {
 } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { formatGroupedDiff, subtractDates } from '../../../shared/domain/dates.domain';
 import { sanitizeClassname } from '../../../shared/domain/shared.domain';
-import { ListEntry, ListEntryStatus } from '../../../shared/types/anilist/listEntry.types';
+import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
 import { GroupedDayDiff } from '../../../shared/types/date.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
@@ -112,18 +112,6 @@ export class MtMediaCoverComponent
         media: this.media,
       },
     });
-  }
-
-  shouldShowProgress() {
-    return (
-      this.showProgress &&
-      this.getEntry() &&
-      [
-        ListEntryStatus.COMPLETED,
-        ListEntryStatus.CURRENT,
-        ListEntryStatus.REPEATING,
-      ].includes(this.getEntry()!.status)
-    );
   }
 
   getEntry() {
