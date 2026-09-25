@@ -128,7 +128,10 @@
               {{ 'media.score' | translate }}
             </div>
             <div class="value">
-              <mt-media-score [media]="media"></mt-media-score>
+              <mt-media-score
+                [listEntry]="media?.mediaListEntry"
+                [media]="media"
+              ></mt-media-score>
             </div>
           </div>
         }

@@ -121,12 +121,8 @@
 
   .mat-column-cover-image {
     flex: 0 0 var(--cover-width);
-
-    img.cover {
-      height: auto;
-      min-height: var(--cover-width);
-      max-width: var(--cover-width);
-    }
+    padding: 0;
+    position: relative;
   }
 
   .mat-column-title-romaji {

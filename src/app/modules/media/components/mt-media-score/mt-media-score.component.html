@@ -1,39 +1,11 @@
-<span [ngClass]="{ 'column-mode': columnMode }">
-  @if (listEntry?.scoreRaw) {
+@if (getScore()) {
+  <div [class.pill]="isPill" [ngClass]="getScoreColor(getScore())">
     <span
-      class="own"
-      [matTooltip]="'media.userScore' | translate"
+      [ngClass]="{ bold: listEntry?.scoreRaw }"
+      [matTooltip]="getTooltip()"
       matTooltipPosition="above"
     >
-      {{ listEntry.scoreRaw }}
+      {{ getScore() }}
     </span>
-    <span class="separator"> {{ columnMode ? '—' : '|' }} </span>
-  }
-
-  @if (!media.averageScore && !media.meanScore) {
-    <span class="unknown"> ? </span>
-  }
-
-  @if (media.averageScore) {
-    <span
-      [matTooltip]="'media.averageScore' | translate"
-      matTooltipPosition="above"
-    >
-      {{ media.averageScore }}
-    </span>
-  }
-
-  @if (media.averageScore !== media.meanScore) {
-    @if (media.averageScore && media.meanScore) {
-      <span class="separator"> {{ columnMode ? '—' : '|' }} </span>
-    }
-    @if (media.meanScore) {
-      <span
-        [matTooltip]="'media.meanScore' | translate"
-        matTooltipPosition="above"
-      >
-        {{ media.meanScore }}
-      </span>
-    }
-  }
-</span>
+  </div>
+}

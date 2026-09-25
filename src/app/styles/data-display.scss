@@ -51,17 +51,6 @@
   min-height: $media-cover-height * $row-count + $cell-spacing *
     ($row-count - 1);
 
-  mt-media-cover {
-    display: inline-block;
-    vertical-align: middle;
-
-    .cover {
-      width: $cell-width;
-      height: $cell-height;
-      margin: auto;
-    }
-  }
-
   // @media (min-width: ($screen-lg + 1)) {
   //   & {
   //     min-height: $media-cover-height * $row-count + $cell-spacing *
