@@ -1,6 +1,5 @@
 import { ElementRef } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-import { TranslateService } from '@ngx-translate/core';
 
 import { animeFormats } from '../../anime/constants/anime.constants';
 import { mangaFormats } from '../../manga/constants/manga.constants';
@@ -63,30 +62,6 @@ export const getScoreColor = (score: number) => {
   if (score >= 70) return 'green';
   if (score >= 50) return 'orange';
   return 'red';
-};
-
-export const getScoreTooltip = (
-  translate: TranslateService,
-  media: Media,
-  listEntry?: ListEntry
-) => {
-  const tooltipLines: string[] = [];
-  if (listEntry?.scoreRaw) {
-    tooltipLines.push(
-      `${translate.instant('media.userScore')}: ${listEntry.scoreRaw}`
-    );
-  }
-  if (media.averageScore) {
-    tooltipLines.push(
-      `${translate.instant('media.averageScore')}: ${media.averageScore}`
-    );
-  }
-  if (media.meanScore) {
-    tooltipLines.push(
-      `${translate.instant('media.meanScore')}: ${media.meanScore}`
-    );
-  }
-  return tooltipLines.join('\n');
 };
 
 export const pad = (value: number | string, length = 2, character = '0') => {
