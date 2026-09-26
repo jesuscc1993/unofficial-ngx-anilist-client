@@ -7,7 +7,7 @@
 
 .pill {
   border-radius: $spacing-4xs;
-  box-shadow: 0 0 $spacing-3xs #000c;
+  box-shadow: 0 0 $spacing-8xs #000c;
   color: map.get(mat-palettes.$grey, 10);
   line-height: 1;
   margin: $spacing-4xs;
