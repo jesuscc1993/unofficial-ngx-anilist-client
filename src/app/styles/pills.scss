@@ -5,14 +5,14 @@
 @use 'palettes';
 @use 'variables' as *;
 
-:host(.float) {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-}
-
 .pill {
+  border-radius: $spacing-4xs;
+  box-shadow: 0 0 $spacing-3xs #000c;
+  color: map.get(mat-palettes.$grey, 10);
+  line-height: 1;
+  margin: $spacing-4xs;
+  padding: $spacing-6xs;
+
   @each $name, $palette in palettes.$by-name {
     &.#{$name} {
       background: color.adjust(map.get($palette, 70), $saturation: -20%);
