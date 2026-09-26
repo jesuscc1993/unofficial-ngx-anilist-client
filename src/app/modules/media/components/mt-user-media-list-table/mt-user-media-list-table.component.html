@@ -26,6 +26,7 @@
         <mat-cell *matCellDef="let entry">
           <mt-media-cover
             [media]="entry?.media"
+            [listEntry]="entry"
             [showActions]="false"
             [showProgress]="false"
           ></mt-media-cover>
