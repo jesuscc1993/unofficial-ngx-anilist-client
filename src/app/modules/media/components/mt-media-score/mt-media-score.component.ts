@@ -38,13 +38,15 @@ export class MtMediaScoreComponent implements OnChanges {
   }
 
   getFormattedScoreCols() {
-    return ([
+    return [
       this.listEntry?.scoreRaw
         ? `<strong>${this.listEntry.scoreRaw}</strong>`
         : '',
       this.media?.averageScore,
       this.media?.meanScore,
-    ]).filter(Boolean).join(' | ');
+    ]
+      .filter(Boolean)
+      .join(' | ');
   }
 
   getFormattedScore() {
