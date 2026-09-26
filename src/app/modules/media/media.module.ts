@@ -14,7 +14,6 @@ import { MtMediaCoverComponent } from './components/mt-media-cover/mt-media-cove
 import { MtMediaDetailComponent } from './components/mt-media-detail/mt-media-detail.component';
 import { MtMediaInfoComponent } from './components/mt-media-info/mt-media-info.component';
 import { MtMediaLengthComponent } from './components/mt-media-length/mt-media-length.component';
-import { MtMediaProgressComponent } from './components/mt-media-progress/mt-media-progress.component';
 import { MtMediaScoreComponent } from './components/mt-media-score/mt-media-score.component';
 import { MtMediaSearchComponent } from './components/mt-media-search/mt-media-search.component';
 import { MtPaginationComponent } from './components/mt-pagination/mt-pagination.component';
@@ -41,7 +40,6 @@ const declarations = [
   MtMediaDetailModalComponent,
   MtMediaInfoComponent,
   MtMediaLengthComponent,
-  MtMediaProgressComponent,
   MtMediaScoreComponent,
   MtMediaSearchComponent,
   MtPaginationComponent,

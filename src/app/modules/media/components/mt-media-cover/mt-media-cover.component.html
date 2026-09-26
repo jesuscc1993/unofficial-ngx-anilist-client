@@ -58,14 +58,13 @@
         [shouldFloat]="true"
       ></mt-media-score>
 
-      @if (showProgress) {
-        <mt-media-progress
-          [isPill]="true"
-          [listEntry]="listEntry"
-          [media]="media"
-          [shouldFloat]="true"
-        ></mt-media-progress>
-      }
+      <mt-media-length
+        [isPill]="true"
+        [listEntry]="listEntry"
+        [media]="media"
+        [shouldFloat]="true"
+        [showProgress]="showProgress"
+      ></mt-media-length>
 
       @if (showMediaStatus) {
         <div
