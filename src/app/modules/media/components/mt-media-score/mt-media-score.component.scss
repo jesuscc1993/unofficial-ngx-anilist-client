@@ -11,11 +11,3 @@
   right: 0;
   z-index: 1;
 }
-
-.pill {
-  @each $name, $palette in palettes.$by-name {
-    &.#{$name} {
-      background: color.adjust(map.get($palette, 70), $saturation: -20%);
-    }
-  }
-}

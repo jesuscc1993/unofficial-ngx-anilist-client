@@ -5,28 +5,12 @@ import { animeFormats } from '../../anime/constants/anime.constants';
 import { mangaFormats } from '../../manga/constants/manga.constants';
 import { listEntryStatuses } from '../../shared/constants/listEntry.constants';
 import {
-  gridCardWidth,
-  gridSpacing,
-  localizedMediaType,
+  gridCardWidth, gridSpacing, localizedMediaType,
 } from '../../shared/constants/media.constants';
+import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
+import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  CoverImage,
-  CoverImageSize,
-  FuzzyDate,
-} from '../../shared/types/anilist/dataTypes.types';
-import {
-  ListEntriesByStatus,
-  ListEntry,
-} from '../../shared/types/anilist/listEntry.types';
-import {
-  Anime,
-  Manga,
-  Media,
-  MediaCountry,
-  MediaFormat,
-  MediaSort,
-  MediaStatus,
-  MediaType,
+  Anime, Manga, Media, MediaCountry, MediaFormat, MediaSort, MediaStatus, MediaType,
 } from '../../shared/types/anilist/media.types';
 import { MediaColumn } from '../../shared/types/media.types';
 import { SortDirection } from '../../shared/types/mui.types';
@@ -59,7 +43,9 @@ export const getSanitizedMediaDescription = (media: Media) => {
 };
 
 export const getScoreColor = (score: number) => {
-  if (score >= 70) return 'green';
+  if (score >= 80) return 'green';
+  if (score >= 70) return 'lime';
+  if (score >= 60) return 'yellow';
   if (score >= 50) return 'orange';
   return 'red';
 };
