@@ -1,10 +1,4 @@
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
@@ -44,13 +38,13 @@ export class MtMediaScoreComponent implements OnChanges {
   }
 
   getFormattedScoreCols() {
-    return [
+    return ([
       this.listEntry?.scoreRaw
         ? `<strong>${this.listEntry.scoreRaw}</strong>`
         : '',
       this.media?.averageScore,
       this.media?.meanScore,
-    ].join(' | ');
+    ]).filter(Boolean).join(' | ');
   }
 
   getFormattedScore() {
