@@ -1,5 +1,5 @@
 @if (lengthText) {
-  <div [class.pill]="isPill" matTooltipPosition="above">
+  <div [class]="isPill ? 'pill blue' : ''" matTooltipPosition="above">
     <span [class.bold]="progress === length">
       <span
         [class.small-text]="smallText"
