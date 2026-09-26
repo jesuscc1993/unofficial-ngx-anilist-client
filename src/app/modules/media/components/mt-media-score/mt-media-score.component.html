@@ -1,11 +1,11 @@
-@if (getScore()) {
-  <div [class.pill]="isPill" [ngClass]="getScoreColor(getScore())">
+@if (score) {
+  <div [class.pill]="isPill" [ngClass]="scoreColor">
     <span
       [ngClass]="{ bold: listEntry?.scoreRaw }"
       [matTooltip]="getTooltip()"
       matTooltipPosition="above"
     >
-      {{ getScore() }}
+      {{ score }}
     </span>
   </div>
 }

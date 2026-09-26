@@ -1,8 +1,15 @@
-<span [matTooltip]="(anime ? 'media.episodes' : 'media.chapters') | translate">
-  {{ anime?.episodes ?? manga?.chapters }}
-</span>
-@if (manga?.volumes) {
-  <sup [matTooltip]="'media.volumes' | translate">
-    {{ manga?.volumes }}
-  </sup>
-}
+<div [class.pill]="isPill" matTooltipPosition="above">
+  <span [class.bold]="progress === length">
+    <span
+      [class.small-text]="smallText"
+      [matTooltip]="getMediaTypeProgressLiteral(media.type) | translate"
+    >
+      {{ lengthText }}
+    </span>
+    @if (!isPill && manga?.volumes) {
+      <sup [matTooltip]="'media.volumes' | translate">
+        {{ manga?.volumes }}
+      </sup>
+    }
+  </span>
+</div>

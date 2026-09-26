@@ -1,9 +1,0 @@
-@if (getMediaLength(media)) {
-  <div
-    [class.pill]="isPill"
-    [matTooltip]="getMediaTypeProgressLiteral(media.type) | translate"
-    matTooltipPosition="above"
-  >
-    <span [innerHTML]="getProgress()"></span>
-  </div>
-}
