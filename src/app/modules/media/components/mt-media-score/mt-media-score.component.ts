@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
@@ -21,15 +27,34 @@ export class MtMediaScoreComponent implements OnChanges {
   @Input() listEntry?: ListEntry;
   @Input() media!: Media;
   @Input() shouldFloat = false;
+  @Input() showCols = false;
 
   score?: number;
+  scoreHtml = '';
   scoreColor = '';
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['listEntry'] || changes['media']) {
+    if (changes['listEntry'] || changes['media'] || changes['showCols']) {
       this.score = this.listEntry?.scoreRaw || this.media?.averageScore;
+      this.scoreHtml = this.showCols
+        ? this.getFormattedScoreCols()
+        : this.getFormattedScore();
       this.scoreColor = this.score ? getScoreColor(this.score) : '';
     }
+  }
+
+  getFormattedScoreCols() {
+    return [
+      this.listEntry?.scoreRaw
+        ? `<strong>${this.listEntry.scoreRaw}</strong>`
+        : '',
+      this.media?.averageScore,
+      this.media?.meanScore,
+    ].join(' | ');
+  }
+
+  getFormattedScore() {
+    return this.score ? this.score.toString() : '';
   }
 
   getTooltip() {
