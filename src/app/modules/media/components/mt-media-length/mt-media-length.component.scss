@@ -12,11 +12,7 @@
   z-index: 1;
 }
 
-.pill {
-  background: color.adjust(map.get(map.get(palettes.$by-name, 'blue'), 70), $saturation: -20%);
-
-  .small-text {
-    font-size: $font-size-75;
-    font-weight: bolder;
-  }
+.small-text {
+  font-size: $font-size-75;
+  font-weight: bolder;
 }
