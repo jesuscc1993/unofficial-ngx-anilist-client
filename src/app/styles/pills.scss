@@ -2,8 +2,16 @@
 @use 'sass:map';
 
 @use 'mat-palettes';
-@use 'palettes';
 @use 'variables' as *;
+
+$colors: (
+  'blue': hsl(223, 100%, 80%),
+  'red': hsl(0, 100%, 70%),
+  'orange': hsl(36, 100%, 67%),
+  'yellow': hsl(55, 100%, 70%),
+  'lime': hsl(75, 67%, 60%),
+  'green': hsl(120, 50%, 65%),
+);
 
 .pill {
   border-radius: $spacing-4xs;
@@ -13,9 +21,9 @@
   margin: $spacing-4xs;
   padding: $spacing-6xs;
 
-  @each $name, $palette in palettes.$by-name {
+  @each $name, $color in $colors {
     &.#{$name} {
-      background: color.adjust(map.get($palette, 70), $saturation: -20%);
+      background: $color;
     }
   }
 }
