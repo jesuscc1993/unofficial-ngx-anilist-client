@@ -8,8 +8,9 @@
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
-    "release": "git checkout develop && git pull && git checkout master && git pull && git merge develop && git push",
+    "prettify": "prettier --write \"src/**/*\"",
     "push-and-deploy": "git push && yarn deploy",
+    "release": "git checkout develop && git pull && git checkout master && git pull && git merge develop && git push",
     "start": "ng serve --no-live-reload",
     "test": "ng test",
     "tslint": "tsc --noEmit"
