@@ -65,7 +65,7 @@ export class MtMediaScoreComponent implements OnChanges {
         this.formatTooltipLine('media.averageScore', this.media.averageScore)
       );
     }
-    if (this.media.meanScore) {
+    if (this.media.meanScore && this.media.meanScore !== this.media.averageScore) {
       tooltipLines.push(
         this.formatTooltipLine('media.meanScore', this.media.meanScore)
       );
