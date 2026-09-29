@@ -112,9 +112,11 @@ export class MtMediaInfoComponent
   }
 
   private setMediaCommands() {
-    this.mediaCommands = isAnime(this.media)
-      ? this.animeCommands
-      : this.mangaCommands;
+    if (isAnime(this.media)) {
+      this.mediaCommands = this.animeCommands;
+    } else {
+      this.mediaCommands = this.mangaCommands;
+    }
   }
 
   private searchRecommendations(pageIndex: number, perPage: number) {

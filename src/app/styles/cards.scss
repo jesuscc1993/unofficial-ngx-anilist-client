@@ -26,79 +26,81 @@
   }
 }
 
-mat-card {
-  &.composite {
-    padding: 0 !important;
+html {
+  mat-card {
+    &.composite {
+      padding: 0 !important;
 
-    &.compact {
-      @include setup-card-padding($modal-padding * 0.8);
-    }
+      &.compact {
+        @include setup-card-padding($modal-padding * 0.8);
+      }
 
-    &:not(.compact) {
-      @include setup-card-padding($modal-padding);
-    }
+      &:not(.compact) {
+        @include setup-card-padding($modal-padding);
+      }
 
-    .composite-header {
-      display: flex;
-
-      .header {
+      .composite-header {
         display: flex;
-        align-items: center;
-        border-color: colors.$border;
 
-        &:not(.tab) {
-          border-bottom-width: 1px;
-          border-bottom-style: solid;
+        .header {
+          display: flex;
+          align-items: center;
+          border-color: colors.$border;
+
+          &:not(.tab) {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+          }
+        }
+
+        .tab {
+          flex: 1;
+          text-align: center;
+          border-bottom: 1px solid colors.$border;
+          border-left: 1px solid colors.$border;
+
+          &.active {
+            border-bottom: 0;
+          }
+
+          &:not(.active) {
+            background-color: rgba(black, 0.12);
+          }
         }
       }
 
-      .tab {
-        flex: 1;
-        text-align: center;
-        border-bottom: 1px solid colors.$border;
-        border-left: 1px solid colors.$border;
+      .composite-footer {
+        display: flex;
 
-        &.active {
-          border-bottom: 0;
-        }
-
-        &:not(.active) {
-          background-color: rgba(black, 0.12);
+        .footer:not(.tab) {
+          border-top-width: 1px;
+          border-top-style: solid;
         }
       }
     }
 
-    .composite-footer {
+    .header {
+      .mat-mdc-icon-button {
+        --mat-icon-button-icon-size: #{$font-size-125};
+      }
+    }
+
+    .buttons-container {
+      $horizontalButtonMargin: $spacing-2xs;
       display: flex;
+      justify-content: center;
 
-      .footer:not(.tab) {
-        border-top-width: 1px;
-        border-top-style: solid;
+      &.float-left {
+        margin-left: (-$horizontalButtonMargin);
       }
-    }
-  }
+      &.float-right {
+        margin-right: (-$horizontalButtonMargin);
+      }
 
-  .header {
-    .mat-mdc-icon-button {
-      --mat-icon-button-icon-size: #{$font-size-125};
-    }
-  }
-
-  .buttons-container {
-    $horizontalButtonMargin: $spacing-2xs;
-    display: flex;
-    justify-content: center;
-
-    &.float-left {
-      margin-left: (-$horizontalButtonMargin);
-    }
-    &.float-right {
-      margin-right: (-$horizontalButtonMargin);
-    }
-
-    button {
-      margin-left: $horizontalButtonMargin;
-      margin-right: $horizontalButtonMargin;
+      button {
+        margin-left: $horizontalButtonMargin;
+        margin-right: $horizontalButtonMargin;
+      }
     }
   }
 }

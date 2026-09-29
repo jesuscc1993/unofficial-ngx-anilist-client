@@ -64,18 +64,18 @@ export class MtMediaCoverComponent
   }
 
   ngOnInit() {
-    if (isAnime(this.media)) {
-      this.mediaCommands = this.animeCommands;
-    } else {
-      this.mediaCommands = this.mangaCommands;
-    }
-
     if (!this.media && this.listEntry) {
       const { media, ...mediaListEntry } = this.listEntry;
       this.media = {
         ...media,
         mediaListEntry,
       } as Media;
+    }
+
+    if (isAnime(this.media)) {
+      this.mediaCommands = this.animeCommands;
+    } else {
+      this.mediaCommands = this.mangaCommands;
     }
 
     const endDate = fuzzyDateToDate(this.media.endDate);

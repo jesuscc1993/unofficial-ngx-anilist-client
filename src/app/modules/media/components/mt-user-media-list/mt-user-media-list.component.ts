@@ -63,11 +63,7 @@ export class MtUserMediaListComponent
   }
 
   hasDataOfStatus(status: ListEntryStatus): boolean {
-    return !!(
-      this.listEntriesByStatus &&
-      this.listEntriesByStatus[status] &&
-      this.listEntriesByStatus[status].length > 0
-    );
+    return (this.listEntriesByStatus?.[status]?.length ?? 0) > 0;
   }
 
   scrollToStatus(status: string) {
