@@ -54,7 +54,7 @@ export class MtListEntryGridComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges({ listEntries }: SimpleChanges) {
     if (
-      listEntries.currentValue &&
+      listEntries?.currentValue &&
       listEntries.currentValue !== listEntries.previousValue
     ) {
       this.pagination = {

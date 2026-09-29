@@ -54,14 +54,30 @@ export class MediaStore extends Store<MediaStoreState> {
   }
 
   deleteListEntry(listEntryToDelete: ListEntry) {
-    this.setListEntries(
-      this.getListEntries()?.filter(
-        (listEntry) => listEntry.id !== listEntryToDelete.id
-      )
+    const updatedMediaListEntries = (this.getListEntries() ?? []).filter(
+      (listEntry) => {
+        const matches = listEntry.id === listEntryToDelete.id;
+        if (matches) {
+          console.debug(
+            `Deleting list entry with ID: ${listEntryToDelete.id}`
+          );
+        }
+        return !matches;
+      }
     );
-    const mediaDictionary = this.getMediaDictionary();
-    delete mediaDictionary[listEntryToDelete.media.id].mediaListEntry;
-    this.setState({ mediaDictionary });
+
+    const updatedMediaDictionary = { ...this.getMediaDictionary() };
+    if (updatedMediaDictionary[listEntryToDelete.media.id]?.mediaListEntry) {
+      console.debug(
+        `Deleting media dictionary entry with ID: ${listEntryToDelete.media.id}`
+      );
+      delete updatedMediaDictionary[listEntryToDelete.media.id].mediaListEntry;
+    }
+
+    this.setState({
+      mediaListEntries: updatedMediaListEntries,
+      mediaDictionary: updatedMediaDictionary,
+    });
   }
 
   toggleFavourite(media: Media) {
