@@ -142,7 +142,7 @@ export abstract class MediaService {
     return this.mediaApi.saveListEntry(listEntry).pipe(
       map((updatedListEntry) => ({ ...listEntry, ...updatedListEntry })),
       tap((updatedListEntry) => {
-        this.mediaStore.updateListEntry({
+        this.mediaStore.upsertListEntry({
           ...updatedListEntry,
           media: {
             ...updatedListEntry.media,
