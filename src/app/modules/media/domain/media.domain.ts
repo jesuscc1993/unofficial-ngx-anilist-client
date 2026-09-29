@@ -189,11 +189,19 @@ export const getMediaLength = (media: Media) => {
 };
 
 export const isAnime = (payload: Media | MediaType) => {
-  return getMediaPayloadType(payload) === MediaType.ANIME;
+  const mediaType = getMediaPayloadType(payload);
+  if (!mediaType) {
+    throw new Error('Unable to determine media type from payload');
+  }
+  return mediaType === MediaType.ANIME;
 };
 
 export const isManga = (payload: Media | MediaType) => {
-  return getMediaPayloadType(payload) === MediaType.MANGA;
+  const mediaType = getMediaPayloadType(payload);
+  if (!mediaType) {
+    throw new Error('Unable to determine media type from payload');
+  }
+  return mediaType === MediaType.MANGA;
 };
 
 export const isMediaFinished = (media: Media) => {
