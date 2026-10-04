@@ -42,7 +42,7 @@ export class MediaStore extends Store<MediaStoreState> {
     this.setState({ mediaFavouriteIDs: favouriteIDs });
   }
 
-  updateListEntry(updatedListEntry: ListEntry) {
+  upsertListEntry(updatedListEntry: ListEntry) {
     const listEntries = this.getListEntries() ?? [];
     this.setListEntries(
       listEntries.find((listEntry) => listEntry.id === updatedListEntry.id)
@@ -58,9 +58,7 @@ export class MediaStore extends Store<MediaStoreState> {
       (listEntry) => {
         const matches = listEntry.id === listEntryToDelete.id;
         if (matches) {
-          console.debug(
-            `Deleting list entry with ID: ${listEntryToDelete.id}`
-          );
+          console.debug(`Deleting list entry with ID: ${listEntryToDelete.id}`);
         }
         return !matches;
       }
