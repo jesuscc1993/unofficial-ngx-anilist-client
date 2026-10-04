@@ -2,6 +2,8 @@
 @use 'variables' as *;
 
 .columns-wrapper {
+  $sidebar-width: 542px;
+  $padding: $spacing-4xs * 1.5;
   font-size: 0;
 
   > * {
@@ -9,8 +11,6 @@
   }
 
   .column {
-    $sidebar-width: 542px;
-    $padding: $spacing-4xs * 1.5;
     border-color: colors.$border;
     box-sizing: border-box;
     display: inline-block;
@@ -36,13 +36,30 @@
       padding-right: 0;
       width: 100%;
     }
+  }
 
-    @media (max-width: $screen-xl) {
+  @media (max-width: $screen-xl) {
+    display: flex;
+    flex-direction: column;
+
+    .column {
       padding: $padding 0;
       width: 100% !important;
 
       & {
         float: none;
+      }
+
+      &.left-column {
+        order: 1;
+      }
+
+      &.right-column {
+        order: 2;
+      }
+
+      &.center-column {
+        order: 3;
       }
     }
   }
