@@ -138,6 +138,12 @@ export const mediaFields = `${basicMediaFields}
   status
   source (version: 3)
   synonyms
+  stats {
+    scoreDistribution {
+      amount
+      score
+    }
+  }
   tags {
     description
     isMediaSpoiler

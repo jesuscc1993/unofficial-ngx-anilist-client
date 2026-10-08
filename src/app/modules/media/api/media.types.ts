@@ -174,9 +174,7 @@ export type MediaRecommendationsDto = {
     recommendations: {
       pageInfo: PageInfo;
       nodes: {
-        mediaRecommendation?: {
-          id: number;
-        };
+        mediaRecommendation?: Media;
       }[];
     };
   };

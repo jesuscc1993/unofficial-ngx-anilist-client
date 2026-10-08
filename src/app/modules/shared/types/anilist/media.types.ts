@@ -17,7 +17,7 @@ export type Person = {
 };
 
 export interface MediaData {
-  averageScore: number;
+  averageScore?: number;
   countryOfOrigin?: MediaCountry;
   coverImage: CoverImage;
   description: string;
@@ -26,16 +26,27 @@ export interface MediaData {
   genres: string[];
   id: number;
   isFavourite?: boolean;
-  meanScore: number;
+  meanScore?: number;
   mediaListEntry?: ListEntry;
+  modeScore?: number;
   source?: string;
   startDate?: FuzzyDate;
+  stats: MediaStats;
   status: MediaStatus;
   synonyms: string[];
   tags: Tag[];
   title: Title;
   type: MediaType;
 }
+
+export type MediaStats = {
+  scoreDistribution: MediaScoreDistribution[];
+};
+
+export type MediaScoreDistribution = {
+  amount: number;
+  score: number;
+};
 
 export interface Anime extends MediaData {
   episodes: number;
