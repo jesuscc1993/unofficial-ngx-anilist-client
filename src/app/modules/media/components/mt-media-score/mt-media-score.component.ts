@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
@@ -43,7 +49,8 @@ export class MtMediaScoreComponent implements OnChanges {
         ? `<strong>${this.listEntry.scoreRaw}</strong>`
         : '',
       this.media?.averageScore,
-      this.media?.meanScore,
+      this.shouldDisplayMean() ? this.media?.meanScore : undefined,
+      this.shouldDisplayMode() ? this.media?.modeScore : undefined,
     ]
       .filter(Boolean)
       .join(' | ');
@@ -65,15 +72,31 @@ export class MtMediaScoreComponent implements OnChanges {
         this.formatTooltipLine('media.averageScore', this.media.averageScore)
       );
     }
-    if (
-      this.media.meanScore &&
-      this.media.meanScore !== this.media.averageScore
-    ) {
+    if (this.shouldDisplayMean()) {
       tooltipLines.push(
-        this.formatTooltipLine('media.meanScore', this.media.meanScore)
+        this.formatTooltipLine('media.meanScore', this.media.meanScore!)
+      );
+    }
+    if (this.shouldDisplayMode()) {
+      tooltipLines.push(
+        this.formatTooltipLine('media.modeScore', this.media.modeScore!)
       );
     }
     return tooltipLines.join('\n');
+  }
+
+  private shouldDisplayMean(): boolean {
+    return (
+      !!this.media?.meanScore &&
+      this.media.meanScore !== this.media.averageScore
+    );
+  }
+
+  private shouldDisplayMode(): boolean {
+    return (
+      !!this.media?.modeScore &&
+      this.media.modeScore !== this.media.averageScore
+    );
   }
 
   private formatTooltipLine(label: string, value: number) {

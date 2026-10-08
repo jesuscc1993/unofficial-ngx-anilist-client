@@ -9,6 +9,7 @@ import {
   ListEntryStatus,
 } from '../../shared/types/anilist/listEntry.types';
 import {
+  Media,
   MediaListSort,
   MediaSort,
   MediaType,
@@ -115,9 +116,10 @@ export class MediaApi extends AniListApi {
         return {
           pageInfo: recommendationsDto?.pageInfo,
           media:
-            recommendationsDto?.nodes?.map(
-              (node) => node.mediaRecommendation
-            ) ?? [],
+            recommendationsDto?.nodes
+              ?.map((node) => node.mediaRecommendation)
+              .filter((media): media is Media => !!media)
+              .map((media) => this._populateCustomFields(media)) ?? [],
         } as MediaPageDto;
       })
     );
@@ -141,7 +143,11 @@ export class MediaApi extends AniListApi {
         idIn: mediaIds,
       },
       { cacheKey: `queryMediaList_${mediaType}_${mediaIds.join(',')}` }
-    ).pipe(map((response) => this.getResponseData(response)!.Page));
+    ).pipe(
+      map((response) =>
+        this._populateMediaPage(this.getResponseData(response)!.Page)
+      )
+    );
   }
 
   protected _queryMedia(
@@ -161,7 +167,11 @@ export class MediaApi extends AniListApi {
           query.sort ||
           (query.search ? MediaSort.SEARCH_MATCH : MediaSort.TITLE_ROMAJI),
       }
-    ).pipe(map((response) => this.getResponseData(response)!.Page));
+    ).pipe(
+      map((response) =>
+        this._populateMediaPage(this.getResponseData(response)!.Page)
+      )
+    );
   }
 
   protected _queryListEntries(
@@ -175,12 +185,38 @@ export class MediaApi extends AniListApi {
       sort: MediaListSort.UPDATED_TIME_DESC,
     }).pipe(
       map((response) =>
-        this.getResponseData(response)!.MediaListCollection.lists.reduce(
-          (listEntries, list) => [...listEntries, ...list.entries],
-          [] as ListEntry[]
-        )
+        this.getResponseData(response)!
+          .MediaListCollection.lists.reduce(
+            (listEntries, list) => [...listEntries, ...list.entries],
+            [] as ListEntry[]
+          )
+          .map((listEntry) => ({
+            ...listEntry,
+            media: this._populateCustomFields(listEntry.media),
+          }))
       )
     );
+  }
+
+  protected _populateMediaPage<T extends { media: Media[] }>(page: T): T {
+    return {
+      ...page,
+      media: page.media.map((media) => this._populateCustomFields(media)),
+    };
+  }
+
+  protected _populateCustomFields(media: Media): Media {
+    const populatedMedia = { ...media };
+
+    const scoreDistribution = media.stats?.scoreDistribution ?? [];
+    if (scoreDistribution.length) {
+      populatedMedia.modeScore = scoreDistribution.reduce(
+        (mostCommon, distribution) =>
+          distribution.amount > mostCommon.amount ? distribution : mostCommon
+      ).score;
+    }
+
+    return populatedMedia;
   }
 
   protected _queryRelatedMediaIds(mediaType: MediaType, user: User) {
