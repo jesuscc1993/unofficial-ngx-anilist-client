@@ -5,12 +5,28 @@ import { animeFormats } from '../../anime/constants/anime.constants';
 import { mangaFormats } from '../../manga/constants/manga.constants';
 import { listEntryStatuses } from '../../shared/constants/listEntry.constants';
 import {
-  gridCardWidth, gridSpacing, localizedMediaType,
+  gridCardWidth,
+  gridSpacing,
+  localizedMediaType,
 } from '../../shared/constants/media.constants';
-import { CoverImage, CoverImageSize, FuzzyDate } from '../../shared/types/anilist/dataTypes.types';
-import { ListEntriesByStatus, ListEntry } from '../../shared/types/anilist/listEntry.types';
 import {
-  Anime, Manga, Media, MediaCountry, MediaFormat, MediaSort, MediaStatus, MediaType,
+  CoverImage,
+  CoverImageSize,
+  FuzzyDate,
+} from '../../shared/types/anilist/dataTypes.types';
+import {
+  ListEntriesByStatus,
+  ListEntry,
+} from '../../shared/types/anilist/listEntry.types';
+import {
+  Anime,
+  Manga,
+  Media,
+  MediaCountry,
+  MediaFormat,
+  MediaSort,
+  MediaStatus,
+  MediaType,
 } from '../../shared/types/anilist/media.types';
 import { MediaColumn } from '../../shared/types/media.types';
 import { SortDirection } from '../../shared/types/mui.types';

@@ -2,7 +2,14 @@ import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  ChangeDetectorRef, Component, ElementRef, HostListener, inject, Input, OnInit, ViewChild,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -10,17 +17,25 @@ import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { MangaStore } from '../../../manga/store/manga.store';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { basicMediaSorts, mediaScores } from '../../../shared/constants/media.constants';
+  basicMediaSorts,
+  mediaScores,
+} from '../../../shared/constants/media.constants';
 import {
-  Media, MediaFormat, MediaSort, MediaType,
+  Media,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getColCount, getFormatLiteral, getMediaFormats, getMediaTypePrefixedStorageKey, getSortLiteral,
+  getColCount,
+  getFormatLiteral,
+  getMediaFormats,
+  getMediaTypePrefixedStorageKey,
+  getSortLiteral,
   isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';

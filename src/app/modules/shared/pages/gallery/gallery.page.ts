@@ -3,7 +3,10 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { listEntryStatuses } from '../../constants/media.constants';
 import { TitleService } from '../../services/title.service';
-import { defaultToastOptions, ToastService } from '../../services/toast.service';
+import {
+  defaultToastOptions,
+  ToastService,
+} from '../../services/toast.service';
 
 @Component({
   selector: 'mt-gallery',

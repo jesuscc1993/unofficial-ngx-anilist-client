@@ -1,23 +1,32 @@
 import { finalize, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  ChangeDetectorRef, Component, inject, Input, OnChanges, OnInit, SimpleChanges,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { getFormattedAnimeDuration } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { staffRoles } from '../../../shared/constants/media.constants';
 import { Anime, Manga, Media } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands';
 import {
-  getFormattedFuzzyDate, getMediaLength, getMediaTitle, getMediaTypeProgressLiteral,
-  getSanitizedMediaDescription, getSourceLiteral, isAnime,
+  getFormattedFuzzyDate,
+  getMediaLength,
+  getMediaTitle,
+  getMediaTypeProgressLiteral,
+  getSanitizedMediaDescription,
+  getSourceLiteral,
+  isAnime,
 } from '../../domain/media.domain';
 
 @Component({

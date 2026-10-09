@@ -1,6 +1,14 @@
 import {
-  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, Input, OnChanges,
-  SimpleChanges, ViewChild,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 

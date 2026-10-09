@@ -1,22 +1,39 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { basicMediaSorts, mediaCountries } from '../../../shared/constants/media.constants';
+  basicMediaSorts,
+  mediaCountries,
+} from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
-  MediaCountry, MediaFormat, MediaSort, MediaType,
+  MediaCountry,
+  MediaFormat,
+  MediaSort,
+  MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getCountryLiteral, getFormatLiteral, getMediaFormats, getMediaFormatsForListEntries,
-  getMediaTypePrefixedStorageKey, getSortFunctionByMediaSort, getSortLiteral, isAnime, isManga,
+  getCountryLiteral,
+  getFormatLiteral,
+  getMediaFormats,
+  getMediaFormatsForListEntries,
+  getMediaTypePrefixedStorageKey,
+  getSortFunctionByMediaSort,
+  getSortLiteral,
+  isAnime,
+  isManga,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 

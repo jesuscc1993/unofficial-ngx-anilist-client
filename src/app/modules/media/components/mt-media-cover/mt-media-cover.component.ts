@@ -3,13 +3,17 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { largeModalOptions, mediumModalOptions } from '../../../../app.constants';
+import {
+  largeModalOptions,
+  mediumModalOptions,
+} from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { formatGroupedDiff, subtractDates } from '../../../shared/domain/dates.domain';
+  formatGroupedDiff,
+  subtractDates,
+} from '../../../shared/domain/dates.domain';
 import { sanitizeClassname } from '../../../shared/domain/shared.domain';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Media } from '../../../shared/types/anilist/media.types';
@@ -17,14 +21,14 @@ import { GroupedDayDiff } from '../../../shared/types/date.types';
 import { ModalOrigin } from '../../../shared/types/modal.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  fuzzyDateToDate, getMediaTitle, getSizedCoverImage, isAnime, isMediaFinished,
+  fuzzyDateToDate,
+  getMediaTitle,
+  getSizedCoverImage,
+  isAnime,
+  isMediaFinished,
 } from '../../domain/media.domain';
-import {
-  MtListEntryFormModalComponent,
-} from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
-import {
-  MtMediaDetailModalComponent,
-} from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
+import { MtListEntryFormModalComponent } from '../modals/mt-list-entry-form-modal/mt-list-entry-form-modal.component';
+import { MtMediaDetailModalComponent } from '../modals/mt-media-detail-modal/mt-media-detail-modal.component';
 
 @Component({
   selector: 'mt-media-cover',

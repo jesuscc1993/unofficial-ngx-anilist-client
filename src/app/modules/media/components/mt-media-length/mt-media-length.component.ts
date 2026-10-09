@@ -2,7 +2,11 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import { Anime, Manga, Media } from '../../../shared/types/anilist/media.types';
-import { getMediaLength, getMediaTypeProgressLiteral, isAnime } from '../../domain/media.domain';
+import {
+  getMediaLength,
+  getMediaTypeProgressLiteral,
+  isAnime,
+} from '../../domain/media.domain';
 
 @Component({
   selector: 'mt-media-length',

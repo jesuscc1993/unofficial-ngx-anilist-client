@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MediaType } from '../../../shared/types/anilist/media.types';

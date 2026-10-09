@@ -1,6 +1,12 @@
 import { ListEntryStatus } from '../types/anilist/listEntry.types';
 import {
-  MediaCountry, MediaRelationType, MediaSort, MediaSource, MediaStatus, MediaType, StaffRole,
+  MediaCountry,
+  MediaRelationType,
+  MediaSort,
+  MediaSource,
+  MediaStatus,
+  MediaType,
+  StaffRole,
 } from '../types/anilist/media.types';
 
 export const basicMediaSorts = [

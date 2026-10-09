@@ -1,5 +1,12 @@
 import {
-  ChangeDetectorRef, Component, ElementRef, inject, Input, OnChanges, OnInit, SimpleChanges,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ControlContainer, FormControl } from '@angular/forms';

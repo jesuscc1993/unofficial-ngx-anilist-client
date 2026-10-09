@@ -1,18 +1,23 @@
 import { of } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 
-import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 import { downloadFile } from '../../../../utils/file.util';
 import { ScrollUtil } from '../../../../utils/generic.util';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import {
-  WithObservableOnDestroy,
-} from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
+import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { AuthStore } from '../../../shared/store/auth.store';
 import {
-  ListEntriesByStatus, ListEntryStatus,
+  ListEntriesByStatus,
+  ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
