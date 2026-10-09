@@ -119,7 +119,7 @@ export class MediaApi extends AniListApi {
             recommendationsDto?.nodes
               ?.map((node) => node.mediaRecommendation)
               .filter((media): media is Media => !!media)
-              .map((media) => this._populateCustomFields(media)) ?? [],
+              .map((media) => this._processMedia(media)) ?? [],
         } as MediaPageDto;
       })
     );
@@ -145,7 +145,7 @@ export class MediaApi extends AniListApi {
       { cacheKey: `queryMediaList_${mediaType}_${mediaIds.join(',')}` }
     ).pipe(
       map((response) =>
-        this._populateMediaPage(this.getResponseData(response)!.Page)
+        this._processMediaPage(this.getResponseData(response)!.Page)
       )
     );
   }
@@ -169,7 +169,7 @@ export class MediaApi extends AniListApi {
       }
     ).pipe(
       map((response) =>
-        this._populateMediaPage(this.getResponseData(response)!.Page)
+        this._processMediaPage(this.getResponseData(response)!.Page)
       )
     );
   }
@@ -192,21 +192,28 @@ export class MediaApi extends AniListApi {
           )
           .map((listEntry) => ({
             ...listEntry,
-            media: this._populateCustomFields(listEntry.media),
+            media: this._processMedia(listEntry.media),
           }))
       )
     );
   }
 
-  protected _populateMediaPage<T extends { media: Media[] }>(page: T): T {
+  protected _processMediaPage<T extends { media: Media[] }>(page: T): T {
     return {
       ...page,
-      media: page.media.map((media) => this._populateCustomFields(media)),
+      media: page.media.map((media) => this._processMedia(media)),
     };
   }
 
-  protected _populateCustomFields(media: Media): Media {
+  protected _processMedia(media: Media): Media {
     const populatedMedia = { ...media };
+
+    if (media.description) {
+      populatedMedia.description = media.description.replace(
+        /\s*\(\s*Source:\s*.*\s*\)$/,
+        ''
+      );
+    }
 
     const scoreDistribution = media.stats?.scoreDistribution ?? [];
     if (scoreDistribution.length) {
