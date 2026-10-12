@@ -66,11 +66,13 @@
     "no": "No",
     "noResults": "No results.",
     "sort": "Sort",
+    "status": "Status",
     "submit": "Submit",
     "workInProgress": "Work in progress.",
     "yes": "Yes"
   },
   "listEntry": {
+    "status": "List Entry Status",
     "deletion": {
       "success": "Deleted list entry for \"{{ mediaTitle }}\"."
     },
@@ -196,7 +198,7 @@
     },
     "staff": "Staff",
     "startDate": "Start Date",
-    "status": "Status",
+    "status": "Media Status",
     "statusValues": {
       "CANCELLED": "Cancelled",
       "FINISHED": "Finished",
