@@ -24,10 +24,14 @@ export const StorageKeys = {
   RecentlyFinished: {
     Country: 'recentlyFinished_country',
     Format: 'recentlyFinished_format',
+    Score: 'recentlyFinished_score',
     Sort: 'recentlyFinished_sort',
   },
   RecentlyUpdated: {
+    Country: 'recentlyUpdated_country',
     Format: 'recentlyUpdated_format',
+    MediaStatus: 'recentlyUpdated_mediaStatus',
+    Score: 'recentlyUpdated_score',
     Status: 'recentlyUpdated_status',
   },
   RelatedMedia: {

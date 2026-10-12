@@ -2,10 +2,6 @@
 
 ::ng-deep {
   mt-header-select {
-    & + & {
-      padding-left: $spacing-xl !important;
-    }
-
     .mdc-notched-outline {
       display: none !important;
     }

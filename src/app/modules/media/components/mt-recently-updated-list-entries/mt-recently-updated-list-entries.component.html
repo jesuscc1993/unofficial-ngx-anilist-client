@@ -5,41 +5,20 @@
         {{ mediaType.toLowerCase() + '.dashboard.recentlyUpdated' | translate }}
       </h2>
 
-      @if (isAnime(mediaType)) {
-        <mt-header-select
-          iconName="film"
-          placeholder="{{ 'media.formatValues.undefined' | translate }}"
-          [matTooltip]="'media.format' | translate"
-          [multiple]="true"
-          [options]="mediaFormats"
-          [truncate]="true"
-          [value]="selectedFormats"
-          [getOptionLiteral]="getFormatLiteral"
-          [onChange]="setSelectedFormats"
-        ></mt-header-select>
-      }
-
-      <mt-header-select
-        iconName="clipboard"
-        placeholder="{{
-          (isAnime(mediaType) ? 'anime' : 'manga') + '.statusValues.undefined'
-            | translate
-        }}"
-        [matTooltip]="'media.status' | translate"
-        [multiple]="true"
-        [options]="listEntryStatuses"
-        [truncateMultiple]="true"
-        [value]="selectedStatuses"
-        [getOptionLiteral]="
-          isAnime(mediaType) ? getAnimeStatusLiteral : getMangaStatusLiteral
-        "
-        [onChange]="setSelectedStatuses"
-      ></mt-header-select>
+      <button
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'generic.filter' | translate"
+        [matTooltip]="'generic.filter' | translate"
+        (click)="openFilters()"
+      >
+        <mt-icon name="filter"></mt-icon>
+      </button>
     </div>
   </div>
 
   <div class="content no-padding-bottom">
-    @if (filteredEntries?.length) {
+    @if (!searching && filteredEntries?.length) {
       <mt-list-entries-grid
         [listEntries]="filteredEntries"
         [showListEntryStatus]="true"

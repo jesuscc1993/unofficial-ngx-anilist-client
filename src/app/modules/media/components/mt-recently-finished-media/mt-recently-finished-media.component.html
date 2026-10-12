@@ -8,44 +8,29 @@
       </h2>
 
       <mt-header-select
-        iconName="flag"
-        placeholder="{{ 'country.undefined' | translate }}"
-        [matTooltip]="'media.search.filters.countryOfOrigin' | translate"
-        [multiple]="true"
-        [options]="mediaCountries"
-        [truncateMultiple]="true"
-        [value]="selectedCountries"
-        [getOptionLiteral]="getCountryLiteral"
-        [onChange]="setSelectedCountries"
-      ></mt-header-select>
-
-      @if (isAnime(mediaType)) {
-        <mt-header-select
-          iconName="film"
-          placeholder="{{ 'media.formatValues.undefined' | translate }}"
-          [matTooltip]="'media.format' | translate"
-          [multiple]="true"
-          [options]="mediaFormats"
-          [truncate]="true"
-          [value]="selectedFormats"
-          [getOptionLiteral]="getFormatLiteral"
-          [onChange]="setSelectedFormats"
-        ></mt-header-select>
-      }
-
-      <mt-header-select
         iconName="sort"
-        [matTooltip]="'generic.sort' | translate"
+        class="margin-right-2xs"
+        [title]="'generic.sort' | translate"
         [options]="mediaSorts"
         [value]="selectedSort"
         [getOptionLiteral]="getSortLiteral"
         [onChange]="setSelectedSort"
       ></mt-header-select>
+
+      <button
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'generic.filter' | translate"
+        [matTooltip]="'generic.filter' | translate"
+        (click)="openFilters()"
+      >
+        <mt-icon name="filter"></mt-icon>
+      </button>
     </div>
   </div>
 
   <div class="content no-padding-bottom">
-    @if (filteredEntries?.length) {
+    @if (!searching && filteredEntries?.length) {
       <mt-list-entries-grid
         [listEntries]="filteredEntries"
         [showMediaStatus]="true"

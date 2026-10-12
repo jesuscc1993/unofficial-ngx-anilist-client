@@ -142,7 +142,9 @@ export class MediaApi extends AniListApi {
         mediaType,
         idIn: mediaIds,
       },
-      { cacheKey: `queryMediaList_${mediaType}_${mediaIds.join(',')}` }
+      {
+        cacheKey: `queryMediaList_${mediaType}_${mediaIds.join(',')}_${JSON.stringify({ query, pageQuery })}`,
+      }
     ).pipe(
       map((response) =>
         this._processMediaPage(this.getResponseData(response)!.Page)

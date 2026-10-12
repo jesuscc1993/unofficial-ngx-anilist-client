@@ -1,0 +1,88 @@
+<mt-modal>
+  <mt-modal-header (onClosePressed)="dismiss()" titleClass="overflow-hidden">
+    <div class="text-ellipsis">
+      @if (titleKey) {
+        {{ titleKey | translate }} |
+      }
+      {{ 'generic.filter' | translate }}
+    </div>
+  </mt-modal-header>
+
+  <mt-modal-content>
+    <form [formGroup]="filterForm">
+      <div class="filter-grid padding-horizontal-2xs padding-vertical-xs">
+        @if (availableFilters.includes('countries')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="countries"
+              label="media.search.filters.countryOfOrigin"
+              optionPrefixLabel="country."
+              [multiple]="true"
+              [values]="mediaCountries"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('formats')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="formats"
+              label="media.format"
+              optionPrefixLabel="media.formatValues."
+              [multiple]="true"
+              [values]="mediaFormats"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('mediaStatuses')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="mediaStatuses"
+              label="media.status"
+              optionPrefixLabel="media.statusValues."
+              [multiple]="true"
+              [values]="mediaStatusOptions"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('entryStatuses')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="entryStatuses"
+              label="listEntry.status"
+              [optionPrefixLabel]="mediaType.toLowerCase() + '.statusValues.'"
+              [multiple]="true"
+              [values]="entryStatuses"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('score')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="score"
+              label="media.score"
+              panelClass="compact-options"
+              [values]="mediaScores"
+              [getOptionLiteral]="getScoreLiteral"
+            ></mt-select>
+          </div>
+        }
+      </div>
+    </form>
+  </mt-modal-content>
+
+  <mt-modal-footer>
+    <button mat-raised-button color="primary" type="button" (click)="submit()">
+      <mt-icon name="check"></mt-icon>
+      <span>{{ 'generic.submit' | translate }}</span>
+    </button>
+  </mt-modal-footer>
+</mt-modal>

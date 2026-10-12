@@ -11,17 +11,16 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 
+import { largeModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { AnimeStore } from '../../../anime/store/anime.store';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { MangaStore } from '../../../manga/store/manga.store';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  basicMediaSorts,
-  mediaScores,
-} from '../../../shared/constants/media.constants';
+import { basicMediaSorts } from '../../../shared/constants/media.constants';
 import {
   Media,
   MediaFormat,
@@ -32,7 +31,6 @@ import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
   getColCount,
-  getFormatLiteral,
   getMediaFormats,
   getMediaTypePrefixedStorageKey,
   getSortLiteral,
@@ -40,6 +38,10 @@ import {
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import { MediaStore } from '../../store/media.store';
+import {
+  MediaFilterSelection,
+  MtMediaFiltersComponent,
+} from '../modals/mt-media-filters/mt-media-filters.component';
 
 @Component({
   selector: 'mt-list-related-media',
@@ -54,6 +56,7 @@ export class MtListRelatedMediaComponent
   private animeCommands = inject(AnimeCommands);
   private animeStore = inject(AnimeStore);
   private changeDetectorRef = inject(ChangeDetectorRef);
+  private dialog = inject(MatDialog);
   private mangaCommands = inject(MangaCommands);
   private mangaStore = inject(MangaStore);
 
@@ -63,11 +66,11 @@ export class MtListRelatedMediaComponent
   @ViewChild('content', { read: ElementRef, static: true })
   content!: ElementRef;
 
-  readonly getFormatLiteral = getFormatLiteral;
-  readonly getSortLiteral = getSortLiteral;
   readonly isAnime = isAnime;
+  readonly defaultAnimeFormats?: MediaFormat[] = undefined;
+  readonly defaultMangaFormats?: MediaFormat[] = [MediaFormat.MANGA];
+  readonly getSortLiteral = getSortLiteral;
   readonly mediaSorts = basicMediaSorts;
-  readonly mediaScores = mediaScores;
   readonly rowCount = 5;
 
   mediaCommands!: MediaCommands;
@@ -90,10 +93,6 @@ export class MtListRelatedMediaComponent
     super();
 
     this.colCount = 0;
-
-    this.setSelectedFormats = this.setSelectedFormats.bind(this);
-    this.setSelectedScore = this.setSelectedScore.bind(this);
-    this.setSelectedSort = this.setSelectedSort.bind(this);
 
     this.initializeState();
   }
@@ -203,20 +202,31 @@ export class MtListRelatedMediaComponent
       .subscribe();
   }
 
-  setSelectedFormats(selectedFormats: MediaFormat[]) {
-    this.selectedFormats = selectedFormats;
-    this.search(0, this.pagination?.perPage);
+  openFilters() {
+    const dialogRef = this.dialog.open(MtMediaFiltersComponent, {
+      ...largeModalOptions,
+      data: {
+        availableFilters: ['formats', 'score'],
+        formatOptions: this.mediaFormats ?? [],
+        mediaType: this.mediaType,
+        titleKey: `${this.mediaType.toLowerCase()}.dashboard.relatedMedia`,
+        selectedFilters: {
+          formats: this.selectedFormats ?? [],
+          score: this.selectedScore,
+        },
+      },
+    });
 
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Format,
-        this.mediaType
-      ),
-      selectedFormats
-    );
+    dialogRef.componentInstance.onSubmit.subscribe((filters) => {
+      this.applyFilters(filters);
+    });
   }
 
-  setSelectedSort(selectedSort: MediaSort) {
+  changePage({ pageIndex, pageSize }: PageEvent) {
+    this.search(pageIndex + 1, pageSize);
+  }
+
+  setSelectedSort = (selectedSort: MediaSort) => {
     this.selectedSort = selectedSort;
     this.search(0, this.pagination?.perPage);
 
@@ -227,28 +237,7 @@ export class MtListRelatedMediaComponent
       ),
       selectedSort
     );
-  }
-
-  setSelectedScore(score: number) {
-    this.selectedScore = score;
-    this.search(0, this.pagination?.perPage);
-
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Score,
-        this.mediaType
-      ),
-      score
-    );
-  }
-
-  changePage({ pageIndex, pageSize }: PageEvent) {
-    this.search(pageIndex + 1, pageSize);
-  }
-
-  getScoreLiteral(score: number) {
-    return score ? `> ${score}` : 'media.scoreValues.undefined';
-  }
+  };
 
   private initializeState() {
     this.error = undefined;
@@ -267,11 +256,11 @@ export class MtListRelatedMediaComponent
         .getMediaFromIds(
           this.relatedMediaIds,
           {
-            formatIn: isAnime(this.mediaType)
-              ? this.selectedFormats?.length
-                ? this.selectedFormats
-                : undefined
-              : [MediaFormat.MANGA],
+            formatIn: this.selectedFormats?.length
+              ? this.selectedFormats
+              : isAnime(this.mediaType)
+                ? this.defaultAnimeFormats
+                : this.defaultMangaFormats,
             onList: false,
             sort: this.selectedSort,
             averageScoreGreaterThan: this.selectedScore,
@@ -294,6 +283,27 @@ export class MtListRelatedMediaComponent
         )
         .subscribe();
     }
+  }
+
+  private applyFilters({ formats = [], score }: MediaFilterSelection) {
+    this.selectedFormats = formats;
+    this.selectedScore = score;
+    this.search(0, this.pagination?.perPage);
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Format,
+        this.mediaType
+      ),
+      formats
+    );
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RelatedMedia.Score,
+        this.mediaType
+      ),
+      score
+    );
   }
 
   private onError(error: Error) {

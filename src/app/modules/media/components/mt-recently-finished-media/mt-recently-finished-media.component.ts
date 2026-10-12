@@ -8,14 +8,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import { largeModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import {
-  basicMediaSorts,
-  mediaCountries,
-} from '../../../shared/constants/media.constants';
+import { basicMediaSorts } from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
   MediaCountry,
@@ -25,17 +24,18 @@ import {
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getCountryLiteral,
-  getFormatLiteral,
   getMediaFormats,
   getMediaFormatsForListEntries,
   getMediaTypePrefixedStorageKey,
   getSortFunctionByMediaSort,
   getSortLiteral,
   isAnime,
-  isManga,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
+import {
+  MediaFilterSelection,
+  MtMediaFiltersComponent,
+} from '../modals/mt-media-filters/mt-media-filters.component';
 
 @Component({
   selector: 'mt-recently-finished-media',
@@ -49,15 +49,13 @@ export class MtRecentlyFinishedMediaComponent
 {
   private animeCommands = inject(AnimeCommands);
   private changeDetectorRef = inject(ChangeDetectorRef);
+  private dialog = inject(MatDialog);
   private mangaCommands = inject(MangaCommands);
 
   @Input() mediaType!: MediaType;
 
-  readonly getCountryLiteral = getCountryLiteral;
-  readonly getFormatLiteral = getFormatLiteral;
-  readonly getSortLiteral = getSortLiteral;
   readonly isAnime = isAnime;
-  readonly isManga = isManga;
+  readonly getSortLiteral = getSortLiteral;
   readonly mediaSorts = basicMediaSorts;
 
   mediaCommands!: MediaCommands;
@@ -65,21 +63,17 @@ export class MtRecentlyFinishedMediaComponent
   error?: Error;
   filteredEntries?: ListEntry[];
   maxEndDate?: Date;
-  mediaCountries?: MediaCountry[];
   mediaFormats?: MediaFormat[];
   searching = true;
   selectedCountries?: MediaCountry[];
   selectedFormats?: MediaFormat[];
+  selectedScore?: number;
   selectedSort?: MediaSort;
 
   private listEntries?: ListEntry[];
 
   constructor() {
     super();
-
-    this.setSelectedCountries = this.setSelectedCountries.bind(this);
-    this.setSelectedFormats = this.setSelectedFormats.bind(this);
-    this.setSelectedSort = this.setSelectedSort.bind(this);
   }
 
   ngOnInit() {
@@ -97,7 +91,6 @@ export class MtRecentlyFinishedMediaComponent
     this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
 
     this.mediaFormats = getMediaFormats(this.mediaType);
-    this.mediaCountries = mediaCountries;
 
     this.selectedCountries = storageService.getItem<MediaCountry[]>(
       getMediaTypePrefixedStorageKey(
@@ -113,6 +106,13 @@ export class MtRecentlyFinishedMediaComponent
         this.mediaType
       ),
       []
+    );
+
+    this.selectedScore = storageService.getItem<number>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Score,
+        this.mediaType
+      )
     );
 
     this.selectedSort = storageService.getItem<MediaSort>(
@@ -133,7 +133,6 @@ export class MtRecentlyFinishedMediaComponent
             this.mediaType
           );
           this.processEntries();
-          this.searching = false;
         }),
         catchError((error) => this.onError(error)),
         tap(() => this.changeDetectorRef.markForCheck()),
@@ -142,33 +141,61 @@ export class MtRecentlyFinishedMediaComponent
       .subscribe();
   }
 
-  setSelectedCountries(selectedCountries: MediaCountry[]) {
-    this.selectedCountries = selectedCountries;
-    this.filterEntries();
+  openFilters() {
+    const dialogRef = this.dialog.open(MtMediaFiltersComponent, {
+      ...largeModalOptions,
+      data: {
+        availableFilters: ['countries', 'formats', 'score'],
+        formatOptions: this.mediaFormats ?? [],
+        mediaType: this.mediaType,
+        titleKey: `${this.mediaType.toLowerCase()}.dashboard.finishedReleasing`,
+        selectedFilters: {
+          countries: this.selectedCountries ?? [],
+          formats: this.selectedFormats ?? [],
+          score: this.selectedScore,
+        },
+      },
+    });
 
+    dialogRef.componentInstance.onSubmit.subscribe((filters) => {
+      this.applyFilters(filters);
+    });
+  }
+
+  private applyFilters({
+    countries = [],
+    formats = [],
+    score,
+  }: MediaFilterSelection) {
+    this.selectedCountries = countries;
+    this.selectedFormats = formats;
+    this.selectedScore = score;
+    this.processEntries();
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyFinished.Score,
+        this.mediaType
+      ),
+      score
+    );
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyFinished.Country,
         this.mediaType
       ),
-      selectedCountries
+      countries
     );
-  }
-
-  setSelectedFormats(selectedFormats: MediaFormat[]) {
-    this.selectedFormats = selectedFormats;
-    this.filterEntries();
-
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyFinished.Format,
         this.mediaType
       ),
-      selectedFormats
+      formats
     );
   }
 
-  setSelectedSort(selectedSort: MediaSort) {
+  setSelectedSort = (selectedSort: MediaSort) => {
     this.selectedSort = selectedSort;
     this.processEntries();
 
@@ -179,7 +206,7 @@ export class MtRecentlyFinishedMediaComponent
       ),
       selectedSort
     );
-  }
+  };
 
   private sortEntries() {
     const sortFunction = getSortFunctionByMediaSort(this.selectedSort);
@@ -190,13 +217,18 @@ export class MtRecentlyFinishedMediaComponent
 
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
-      (entry) => this.isFormatValid(entry) && this.isCountryValid(entry)
+      (entry) =>
+        this.isFormatValid(entry) &&
+        this.isCountryValid(entry) &&
+        this.isScoreValid(entry)
     );
   }
 
   private processEntries() {
     this.sortEntries();
     this.filterEntries();
+    this.searching = false;
+    this.changeDetectorRef.markForCheck();
   }
 
   private isFormatValid(entry: ListEntry) {
@@ -211,6 +243,13 @@ export class MtRecentlyFinishedMediaComponent
       !this.selectedCountries?.length ||
       (entry.media.countryOfOrigin &&
         this.selectedCountries?.includes(entry.media.countryOfOrigin))
+    );
+  }
+
+  private isScoreValid(entry: ListEntry) {
+    return (
+      this.selectedScore === undefined ||
+      (entry.media.averageScore ?? 0) > this.selectedScore
     );
   }
 

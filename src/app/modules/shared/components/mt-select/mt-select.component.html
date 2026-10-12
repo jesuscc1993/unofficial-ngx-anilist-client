@@ -5,6 +5,7 @@
     [attr.aria-label]="label | translate"
     [formControl]="control"
     [multiple]="multiple"
+    [panelClass]="panelClass ?? ''"
     (openedChange)="openedChange($event)"
   >
     <input

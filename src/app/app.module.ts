@@ -5,6 +5,7 @@ import {
   NgModule,
   provideAppInitializer,
 } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -81,6 +82,7 @@ const translationFactory = (
 @NgModule({
   declarations: [AppComponent, PageNotFoundPage, LoginPage, GalleryPage],
   imports: [
+    BrowserModule,
     SharedModule,
     MediaModule,
     AnimeModule,

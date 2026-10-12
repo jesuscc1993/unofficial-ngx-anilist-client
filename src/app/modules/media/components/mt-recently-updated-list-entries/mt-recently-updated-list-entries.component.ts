@@ -8,11 +8,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import { largeModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
-import { getAnimeStatusLiteral } from '../../../anime/domain/anime.domain';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
-import { getMangaStatusLiteral } from '../../../manga/domain/manga.domain';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
 import {
@@ -20,12 +20,13 @@ import {
   ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
 import {
+  MediaCountry,
   MediaFormat,
+  MediaStatus,
   MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
-  getFormatLiteral,
   getMediaFormats,
   getMediaFormatsForListEntries,
   getMediaStatusesForListEntries,
@@ -33,6 +34,10 @@ import {
   isAnime,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
+import {
+  MediaFilterSelection,
+  MtMediaFiltersComponent,
+} from '../modals/mt-media-filters/mt-media-filters.component';
 
 @Component({
   selector: 'mt-recently-updated-list-entries',
@@ -46,13 +51,11 @@ export class MtRecentlyUpdatedListEntriesComponent
 {
   private animeCommands = inject(AnimeCommands);
   private changeDetectorRef = inject(ChangeDetectorRef);
+  private dialog = inject(MatDialog);
   private mangaCommands = inject(MangaCommands);
 
   @Input() mediaType!: MediaType;
 
-  readonly getFormatLiteral = getFormatLiteral;
-  readonly getAnimeStatusLiteral = getAnimeStatusLiteral;
-  readonly getMangaStatusLiteral = getMangaStatusLiteral;
   readonly isAnime = isAnime;
 
   mediaCommands!: MediaCommands;
@@ -62,16 +65,16 @@ export class MtRecentlyUpdatedListEntriesComponent
   listEntryStatuses?: ListEntryStatus[];
   mediaFormats?: MediaFormat[];
   searching = true;
+  selectedCountries?: MediaCountry[];
   selectedFormats?: MediaFormat[];
+  selectedMediaStatuses?: MediaStatus[];
+  selectedScore?: number;
   selectedStatuses?: ListEntryStatus[];
 
   private listEntries?: ListEntry[];
 
   constructor() {
     super();
-
-    this.setSelectedFormats = this.setSelectedFormats.bind(this);
-    this.setSelectedStatuses = this.setSelectedStatuses.bind(this);
   }
 
   ngOnInit() {
@@ -88,6 +91,14 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.listEntryStatuses = listEntryStatuses;
     this.mediaFormats = getMediaFormats(this.mediaType);
 
+    this.selectedCountries = storageService.getItem<MediaCountry[]>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Country,
+        this.mediaType
+      ),
+      []
+    );
+
     this.selectedFormats = storageService.getItem<MediaFormat[]>(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyUpdated.Format,
@@ -103,6 +114,19 @@ export class MtRecentlyUpdatedListEntriesComponent
       ),
       []
     );
+    this.selectedMediaStatuses = storageService.getItem<MediaStatus[]>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.MediaStatus,
+        this.mediaType
+      ),
+      []
+    );
+    this.selectedScore = storageService.getItem<number>(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Score,
+        this.mediaType
+      )
+    );
 
     this.mediaCommands
       .getListEntries()
@@ -116,7 +140,6 @@ export class MtRecentlyUpdatedListEntriesComponent
           this.listEntryStatuses =
             getMediaStatusesForListEntries(mediaListEntries);
           this.processEntries();
-          this.searching = false;
         }),
         catchError((error) => this.onError(error)),
         tap(() => this.changeDetectorRef.markForCheck()),
@@ -125,29 +148,84 @@ export class MtRecentlyUpdatedListEntriesComponent
       .subscribe();
   }
 
-  setSelectedFormats(selectedFormats: MediaFormat[]) {
-    this.selectedFormats = selectedFormats;
-    this.filterEntries();
+  openFilters() {
+    const dialogRef = this.dialog.open(MtMediaFiltersComponent, {
+      ...largeModalOptions,
+      data: {
+        availableFilters: [
+          'countries',
+          'formats',
+          'entryStatuses',
+          'mediaStatuses',
+          'score',
+        ],
+        entryStatusOptions: this.listEntryStatuses ?? [],
+        formatOptions: this.mediaFormats ?? [],
+        mediaType: this.mediaType,
+        titleKey: `${this.mediaType.toLowerCase()}.dashboard.recentlyUpdated`,
+        selectedFilters: {
+          countries: this.selectedCountries ?? [],
+          entryStatuses: this.selectedStatuses ?? [],
+          formats: this.selectedFormats ?? [],
+          mediaStatuses: this.selectedMediaStatuses ?? [],
+          score: this.selectedScore,
+        },
+      },
+    });
 
+    dialogRef.componentInstance.onSubmit.subscribe((filters) => {
+      this.applyFilters(filters);
+    });
+  }
+
+  private applyFilters({
+    countries = [],
+    entryStatuses = [],
+    formats = [],
+    mediaStatuses = [],
+    score,
+  }: MediaFilterSelection) {
+    this.selectedCountries = countries;
+    this.selectedStatuses = entryStatuses;
+    this.selectedFormats = formats;
+    this.selectedMediaStatuses = mediaStatuses;
+    this.selectedScore = score;
+    this.processEntries();
+
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Score,
+        this.mediaType
+      ),
+      score
+    );
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.Country,
+        this.mediaType
+      ),
+      countries
+    );
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyUpdated.Format,
         this.mediaType
       ),
-      selectedFormats
+      formats
     );
-  }
-
-  setSelectedStatuses(selectedStatuses: ListEntryStatus[]) {
-    this.selectedStatuses = selectedStatuses;
-    this.filterEntries();
-
     storageService.setItem(
       getMediaTypePrefixedStorageKey(
         StorageKeys.RecentlyUpdated.Status,
         this.mediaType
       ),
-      selectedStatuses
+      entryStatuses
+    );
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(
+        StorageKeys.RecentlyUpdated.MediaStatus,
+        this.mediaType
+      ),
+      mediaStatuses
     );
   }
 
@@ -159,20 +237,35 @@ export class MtRecentlyUpdatedListEntriesComponent
 
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
-      (entry) => this.isFormatValid(entry) && this.isStatusValid(entry)
+      (entry) =>
+        this.isCountryValid(entry) &&
+        this.isFormatValid(entry) &&
+        this.isStatusValid(entry) &&
+        this.isMediaStatusValid(entry) &&
+        this.isScoreValid(entry)
     );
   }
 
   private processEntries() {
     this.sortEntries();
     this.filterEntries();
+    this.searching = false;
+    this.changeDetectorRef.markForCheck();
   }
 
   private isFormatValid(entry: ListEntry) {
-    if (this.mediaType === MediaType.MANGA || !this.selectedFormats?.length) {
-      return true;
-    }
-    return this.selectedFormats?.includes(entry.media.format);
+    return (
+      !this.selectedFormats?.length ||
+      this.selectedFormats?.includes(entry.media.format)
+    );
+  }
+
+  private isCountryValid(entry: ListEntry) {
+    return (
+      !this.selectedCountries?.length ||
+      (entry.media.countryOfOrigin &&
+        this.selectedCountries.includes(entry.media.countryOfOrigin))
+    );
   }
 
   private isStatusValid(entry: ListEntry) {
@@ -180,6 +273,20 @@ export class MtRecentlyUpdatedListEntriesComponent
       return true;
     }
     return this.selectedStatuses?.includes(entry.status);
+  }
+
+  private isMediaStatusValid(entry: ListEntry) {
+    if (!this.selectedMediaStatuses?.length) {
+      return true;
+    }
+    return this.selectedMediaStatuses.includes(entry.media.status);
+  }
+
+  private isScoreValid(entry: ListEntry) {
+    return (
+      this.selectedScore === undefined ||
+      (entry.media.averageScore ?? 0) > this.selectedScore
+    );
   }
 
   private onError(error: Error) {

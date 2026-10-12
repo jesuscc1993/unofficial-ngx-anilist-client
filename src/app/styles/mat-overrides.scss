@@ -75,7 +75,7 @@ mat-paginator {
 
 button {
   mt-icon + *,
-  * + mt-icon {
+  *:not(.mdc-icon-button__ripple) + mt-icon {
     margin-left: $spacing-4xs;
   }
 }
@@ -126,11 +126,16 @@ html {
 
   div.mat-mdc-select-panel {
     padding: 0;
+    max-height: max(275px, 50vh);
 
     .mat-mdc-option {
-      $height: 2.5rem;
-      line-height: $height;
-      min-height: $height;
+      --height: 2.5rem;
+      line-height: var(--height);
+      min-height: var(--height);
+    }
+
+    &.compact-options .mat-mdc-option {
+      --height: 2rem;
     }
   }
 
@@ -138,9 +143,9 @@ html {
     padding: 0;
 
     .mat-mdc-menu-item {
-      $height: 2.5rem;
-      line-height: $height;
-      min-height: $height;
+      --height: 2.5rem;
+      line-height: var(--height);
+      min-height: var(--height);
     }
   }
 

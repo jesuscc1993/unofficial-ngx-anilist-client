@@ -29,7 +29,9 @@ export class MtSelectComponent implements OnInit, OnChanges {
   @Input() controlName!: string;
   @Input() label!: string;
   @Input() optionPrefixLabel = '';
+  @Input() getOptionLiteral?: (option: unknown) => string;
   @Input() multiple = false;
+  @Input() panelClass?: string;
   @Input() values?: unknown[];
 
   control!: FormControl;
@@ -57,7 +59,11 @@ export class MtSelectComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['values'] || changes['optionPrefixLabel']) {
+    if (
+      changes['values'] ||
+      changes['optionPrefixLabel'] ||
+      changes['getOptionLiteral']
+    ) {
       this.generateOptions();
     }
   }
@@ -71,7 +77,9 @@ export class MtSelectComponent implements OnInit, OnChanges {
   private generateOptions(): void {
     this.options = (this.values ?? []).map((v) => ({
       value: v,
-      label: this.optionPrefixLabel + v,
+      label: this.getOptionLiteral
+        ? this.getOptionLiteral(v)
+        : this.optionPrefixLabel + v,
     }));
 
     const filterValue = (this.filterControl.value ?? '').toLowerCase();

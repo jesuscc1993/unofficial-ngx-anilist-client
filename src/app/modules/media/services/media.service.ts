@@ -14,7 +14,7 @@ import {
   MediaSort,
   MediaStatus,
 } from '../../shared/types/anilist/media.types';
-import { PageInfo, PageQuery } from '../../shared/types/anilist/pageInfo.types';
+import { PageQuery } from '../../shared/types/anilist/pageInfo.types';
 import { User } from '../../shared/types/anilist/user.types';
 import { MediaPage } from '../../shared/types/media.types';
 import { MediaApiInterface } from '../api/media.api.interface';
@@ -74,7 +74,7 @@ export abstract class MediaService {
     }
 
     // NOTE: all media has to be retrieved even if some exist due to search pagination
-    return missingIds.length
+    return pageQuery || missingIds.length
       ? this.mediaApi
           .queryMediaFromIds(mediaIds, query, pageQuery)
           .pipe(tap((pageData) => this.mediaStore.storeMedia(pageData.media)))
@@ -82,7 +82,14 @@ export abstract class MediaService {
           media: mediaIds
             .map((id) => mediaDictionary[id])
             .filter((media) => !!media),
-          pageInfo: pageQuery as PageInfo,
+          pageInfo: {
+            currentPage: 1,
+            hasNextPage: 0,
+            lastPage: 1,
+            pageIndex: 0,
+            perPage: mediaIds.length,
+            total: mediaIds.length,
+          },
         });
   }
 

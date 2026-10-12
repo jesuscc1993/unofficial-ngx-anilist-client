@@ -73,11 +73,13 @@
     "no": "No",
     "noResults": "Sin resultados.",
     "sort": "Orden",
+    "status": "Estado",
     "submit": "Enviar",
     "workInProgress": "Trabajo en progreso.",
     "yes": "Sí"
   },
   "listEntry": {
+    "status": "Estado en la Lista",
     "deletion": {
       "success": "Eliminada entrada para \"{{ mediaTitle }}\"."
     },
@@ -209,7 +211,7 @@
     },
     "staff": "Staff",
     "startDate": "Fecha Inicio",
-    "status": "Estado",
+    "status": "Estado de la Media",
     "statusValues": {
       "CANCELLED": "Cancelado",
       "FINISHED": "Finalizado",
