@@ -254,7 +254,8 @@ export const toMediaType = (text: string): MediaType => {
 export const getColCount = (elementRef: ElementRef<HTMLElement>) => {
   return elementRef
     ? Math.floor(
-        elementRef.nativeElement.offsetWidth / (gridCardWidth + gridSpacing)
+        (elementRef.nativeElement.offsetWidth + gridSpacing) /
+          (gridCardWidth + gridSpacing)
       )
     : undefined;
 };
