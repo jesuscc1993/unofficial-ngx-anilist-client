@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "prettify": "prettier --write",
-    "prettify-all": "prettier --write \"src/**/*\"",
+    "prettify-all": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
     "push-and-deploy": "git push && yarn deploy",
     "release": "git checkout develop && git pull && git checkout master && git pull && git merge develop && git push",
     "start": "ng serve --no-live-reload",
