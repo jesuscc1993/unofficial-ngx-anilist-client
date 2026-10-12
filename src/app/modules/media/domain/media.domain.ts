@@ -17,6 +17,7 @@ import {
 import {
   ListEntriesByStatus,
   ListEntry,
+  ListEntryStatus,
 } from '../../shared/types/anilist/listEntry.types';
 import {
   Anime,
@@ -225,6 +226,57 @@ export const isMediaFinished = (media: Media) => {
     media.status === MediaStatus.FINISHED ||
     media.status === MediaStatus.CANCELLED
   );
+};
+
+export const isCountryValidForFilter = (
+  entry: ListEntry,
+  selectedCountries?: MediaCountry[]
+) => {
+  return (
+    !selectedCountries?.length ||
+    (entry.media.countryOfOrigin &&
+      selectedCountries.includes(entry.media.countryOfOrigin))
+  );
+};
+
+export const isFormatValidForFilter = (
+  entry: ListEntry,
+  selectedFormats?: MediaFormat[]
+) => {
+  return (
+    !selectedFormats?.length ||
+    (entry.media.format && selectedFormats.includes(entry.media.format))
+  );
+};
+
+export const isMediaStatusValidForFilter = (
+  entry: ListEntry,
+  selectedMediaStatuses?: MediaStatus[]
+) => {
+  return (
+    !selectedMediaStatuses?.length ||
+    (entry.media.status && selectedMediaStatuses.includes(entry.media.status))
+  );
+};
+
+export const isScoreValidForFilter = (
+  entry: ListEntry,
+  selectedScore?: number
+) => {
+  return (
+    selectedScore === undefined ||
+    selectedScore === null ||
+    (entry.media.averageScore !== undefined &&
+      entry.media.averageScore !== null &&
+      entry.media.averageScore > selectedScore)
+  );
+};
+
+export const isStatusValidForFilter = (
+  entry: ListEntry,
+  selectedStatuses?: ListEntryStatus[]
+) => {
+  return !selectedStatuses?.length || selectedStatuses.includes(entry.status);
 };
 
 export const getSizedCoverImage = (

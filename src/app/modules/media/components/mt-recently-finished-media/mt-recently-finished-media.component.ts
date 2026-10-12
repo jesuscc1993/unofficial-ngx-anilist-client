@@ -30,6 +30,9 @@ import {
   getSortFunctionByMediaSort,
   getSortLiteral,
   isAnime,
+  isCountryValidForFilter,
+  isFormatValidForFilter,
+  isScoreValidForFilter,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import {
@@ -71,6 +74,7 @@ export class MtRecentlyFinishedMediaComponent
   selectedSort?: MediaSort;
 
   private listEntries?: ListEntry[];
+  private monthsAhead = 1;
 
   constructor() {
     super();
@@ -87,8 +91,9 @@ export class MtRecentlyFinishedMediaComponent
   }
 
   initialize() {
-    this.maxEndDate = new Date();
-    this.maxEndDate.setMonth(this.maxEndDate.getMonth() + 1);
+    const now = new Date();
+    this.maxEndDate = now;
+    this.maxEndDate.setMonth(now.getMonth() + this.monthsAhead);
 
     this.mediaFormats = getMediaFormats(this.mediaType);
 
@@ -218,9 +223,9 @@ export class MtRecentlyFinishedMediaComponent
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) =>
-        this.isFormatValid(entry) &&
-        this.isCountryValid(entry) &&
-        this.isScoreValid(entry)
+        isCountryValidForFilter(entry, this.selectedCountries) &&
+        isFormatValidForFilter(entry, this.selectedFormats) &&
+        isScoreValidForFilter(entry, this.selectedScore)
     );
   }
 
@@ -229,28 +234,6 @@ export class MtRecentlyFinishedMediaComponent
     this.filterEntries();
     this.searching = false;
     this.changeDetectorRef.markForCheck();
-  }
-
-  private isFormatValid(entry: ListEntry) {
-    return (
-      !this.selectedFormats?.length ||
-      this.selectedFormats?.includes(entry.media.format)
-    );
-  }
-
-  private isCountryValid(entry: ListEntry) {
-    return (
-      !this.selectedCountries?.length ||
-      (entry.media.countryOfOrigin &&
-        this.selectedCountries?.includes(entry.media.countryOfOrigin))
-    );
-  }
-
-  private isScoreValid(entry: ListEntry) {
-    return (
-      this.selectedScore === undefined ||
-      (entry.media.averageScore ?? 0) > this.selectedScore
-    );
   }
 
   private onError(error: Error) {

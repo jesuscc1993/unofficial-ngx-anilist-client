@@ -32,6 +32,11 @@ import {
   getMediaStatusesForListEntries,
   getMediaTypePrefixedStorageKey,
   isAnime,
+  isCountryValidForFilter,
+  isFormatValidForFilter,
+  isMediaStatusValidForFilter,
+  isScoreValidForFilter,
+  isStatusValidForFilter,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import {
@@ -238,11 +243,11 @@ export class MtRecentlyUpdatedListEntriesComponent
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) =>
-        this.isCountryValid(entry) &&
-        this.isFormatValid(entry) &&
-        this.isStatusValid(entry) &&
-        this.isMediaStatusValid(entry) &&
-        this.isScoreValid(entry)
+        isCountryValidForFilter(entry, this.selectedCountries) &&
+        isFormatValidForFilter(entry, this.selectedFormats) &&
+        isMediaStatusValidForFilter(entry, this.selectedMediaStatuses) &&
+        isScoreValidForFilter(entry, this.selectedScore) &&
+        isStatusValidForFilter(entry, this.selectedStatuses)
     );
   }
 
@@ -251,42 +256,6 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.filterEntries();
     this.searching = false;
     this.changeDetectorRef.markForCheck();
-  }
-
-  private isFormatValid(entry: ListEntry) {
-    return (
-      !this.selectedFormats?.length ||
-      this.selectedFormats?.includes(entry.media.format)
-    );
-  }
-
-  private isCountryValid(entry: ListEntry) {
-    return (
-      !this.selectedCountries?.length ||
-      (entry.media.countryOfOrigin &&
-        this.selectedCountries.includes(entry.media.countryOfOrigin))
-    );
-  }
-
-  private isStatusValid(entry: ListEntry) {
-    if (!this.selectedStatuses?.length) {
-      return true;
-    }
-    return this.selectedStatuses?.includes(entry.status);
-  }
-
-  private isMediaStatusValid(entry: ListEntry) {
-    if (!this.selectedMediaStatuses?.length) {
-      return true;
-    }
-    return this.selectedMediaStatuses.includes(entry.media.status);
-  }
-
-  private isScoreValid(entry: ListEntry) {
-    return (
-      this.selectedScore === undefined ||
-      (entry.media.averageScore ?? 0) > this.selectedScore
-    );
   }
 
   private onError(error: Error) {
