@@ -27,6 +27,7 @@ import {
   getSanitizedMediaDescription,
   getSourceLiteral,
   isAnime,
+  isManga,
 } from '../../domain/media.domain';
 
 @Component({
@@ -73,12 +74,14 @@ export class MtMediaInfoComponent
   }
 
   ngOnChanges({ media }: SimpleChanges): void {
-    if (media && !media.firstChange) {
-      this.setMediaCommands();
-      this.resetRecommendationsState();
-
+    if (media) {
       this.anime = isAnime(this.media) ? (this.media as Anime) : undefined;
-      this.manga = isAnime(this.media) ? undefined : (this.media as Manga);
+      this.manga = isManga(this.media) ? (this.media as Manga) : undefined;
+
+      if (!media.firstChange) {
+        this.setMediaCommands();
+        this.resetRecommendationsState();
+      }
     }
   }
 
