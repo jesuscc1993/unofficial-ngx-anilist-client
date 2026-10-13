@@ -66,7 +66,7 @@ export class MtMediaActionsComponent
   @Input() media!: Media;
   @Input() origin?: ModalOrigin;
 
-  @Output() onListEntryChanges: EventEmitter<ListEntry>;
+  @Output() onListEntryChanges: EventEmitter<ListEntry | undefined>;
 
   mediaCommands!: MediaCommands;
 
@@ -157,9 +157,9 @@ export class MtMediaActionsComponent
           tap((success) => {
             if (success) {
               this.setListEntry(undefined);
+              this.dialog.closeAll();
             }
           }),
-          finalize(() => this.changeDetectorRef.markForCheck()),
           takeUntil(this.destroyed$)
         )
         .subscribe();

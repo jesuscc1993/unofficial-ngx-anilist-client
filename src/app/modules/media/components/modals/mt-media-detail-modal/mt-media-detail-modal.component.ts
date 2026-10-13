@@ -101,7 +101,9 @@ export class MtMediaDetailModalComponent
       .subscribe();
   }
 
-  onListEntryChanges(listEntry: ListEntry) {
-    this.media = listEntry.media;
+  onListEntryChanges(listEntry?: ListEntry) {
+    if (listEntry) {
+      this.media = listEntry.media;
+    }
   }
 }

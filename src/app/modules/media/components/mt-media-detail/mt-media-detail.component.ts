@@ -58,7 +58,7 @@ export class MtMediaDetailComponent
     }
   }
 
-  onListEntryChanges(listEntry: ListEntry) {
+  onListEntryChanges(listEntry?: ListEntry) {
     if (this.media) {
       this.media = { ...this.media, mediaListEntry: listEntry };
     }
