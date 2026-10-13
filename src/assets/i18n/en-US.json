@@ -1,9 +1,9 @@
 {
   "anime": {
     "dashboard": {
-      "finishedReleasing": "Finished releasing",
-      "recentlyUpdated": "Latest list updates",
-      "relatedMedia": "Related media"
+      "finishedReleasing": "Finished Releasing / Finishing Soon",
+      "recentlyUpdated": "Latest List Updates",
+      "relatedMedia": "Related Media"
     },
     "status": "Status",
     "statusValues": {
@@ -85,9 +85,9 @@
   },
   "manga": {
     "dashboard": {
-      "finishedReleasing": "Finished releasing",
-      "recentlyUpdated": "Latest list updates",
-      "relatedMedia": "Related media"
+      "finishedReleasing": "Finished Releasing / Finishing Soon",
+      "recentlyUpdated": "Latest List Updates",
+      "relatedMedia": "Related Media"
     },
     "statusValues": {
       "COMPLETED": "Completed",

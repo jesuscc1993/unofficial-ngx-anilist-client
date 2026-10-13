@@ -1,10 +1,9 @@
 {
   "anime": {
     "dashboard": {
-      "finishedReleasing": "Emisiones finalizadas",
-      "recentlyUpdated": "Últimas actualizaciones en su lista",
-      "relatedMedia": "Media relacionada",
-      "title": "Panel de anime"
+      "finishedReleasing": "Emisiones Finalizadas / Finalizando Pronto",
+      "recentlyUpdated": "Últimas Actualizaciones en la Lista",
+      "relatedMedia": "Media Relacionada"
     },
     "search": {
       "title": "Búsqueda de anime"
@@ -92,10 +91,9 @@
   },
   "manga": {
     "dashboard": {
-      "finishedReleasing": "Publicaciones finalizadas",
-      "recentlyUpdated": "Últimas actualizaciones en su lista",
-      "relatedMedia": "Media relacionada",
-      "title": "Panel de manga"
+      "finishedReleasing": "Publicaciones Finalizadas / Finalizando Pronto",
+      "recentlyUpdated": "Últimas actualizaciones en la Lista",
+      "relatedMedia": "Media Relacionada"
     },
     "search": {
       "title": "Búsqueda de manga"
