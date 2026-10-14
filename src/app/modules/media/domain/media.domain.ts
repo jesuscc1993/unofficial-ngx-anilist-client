@@ -272,7 +272,7 @@ export const isScoreValidForFilter = (
     selectedScore === null ||
     (entry.media.averageScore !== undefined &&
       entry.media.averageScore !== null &&
-      entry.media.averageScore > selectedScore)
+      entry.media.averageScore >= selectedScore)
   );
 };
 

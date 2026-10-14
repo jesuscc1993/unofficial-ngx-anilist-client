@@ -81,7 +81,7 @@ export class MtMediaFiltersComponent {
 
   getScoreLiteral = (score: unknown) => {
     return typeof score === 'number' && score
-      ? `> ${score}`
+      ? `≥ ${score}`
       : 'media.scoreValues.undefined';
   };
 
