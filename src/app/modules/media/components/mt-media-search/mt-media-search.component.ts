@@ -337,6 +337,7 @@ export class MtMediaSearchComponent
       .pipe(
         tap((user) => {
           this.user = user;
+          this.changeDetectorRef.markForCheck();
         }),
         catchError((error) => this.onError(error)),
         tap(() => this.changeDetectorRef.markForCheck()),
