@@ -232,7 +232,7 @@ export const isMediaFinished = (media: Media) => {
   );
 };
 
-export const isCountryValidForFilter = (
+export const matchesCountryFilter = (
   entry: ListEntry,
   selectedCountries?: MediaCountry[]
 ) => {
@@ -243,7 +243,7 @@ export const isCountryValidForFilter = (
   );
 };
 
-export const isFormatValidForFilter = (
+export const matchesFormatFilter = (
   entry: ListEntry,
   selectedFormats?: MediaFormat[]
 ) => {
@@ -253,7 +253,7 @@ export const isFormatValidForFilter = (
   );
 };
 
-export const isMediaStatusValidForFilter = (
+export const matchesMediaStatusFilter = (
   entry: ListEntry,
   selectedMediaStatuses?: MediaStatus[]
 ) => {
@@ -263,20 +263,20 @@ export const isMediaStatusValidForFilter = (
   );
 };
 
-export const isScoreValidForFilter = (
+export const matchesScoreFilter = (
   entry: ListEntry,
   selectedScore?: number
 ) => {
+  const score =
+    entry.media.averageScore ?? entry.media.meanScore ?? entry.media.modeScore;
   return (
     selectedScore === undefined ||
     selectedScore === null ||
-    (entry.media.averageScore !== undefined &&
-      entry.media.averageScore !== null &&
-      entry.media.averageScore >= selectedScore)
+    (score !== undefined && score !== null && score >= selectedScore)
   );
 };
 
-export const isStatusValidForFilter = (
+export const matchesStatusFilter = (
   entry: ListEntry,
   selectedStatuses?: ListEntryStatus[]
 ) => {

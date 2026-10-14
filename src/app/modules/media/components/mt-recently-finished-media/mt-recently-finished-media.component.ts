@@ -30,9 +30,9 @@ import {
   getSortFunctionByMediaSort,
   getSortLiteral,
   isAnime,
-  isCountryValidForFilter,
-  isFormatValidForFilter,
-  isScoreValidForFilter,
+  matchesCountryFilter,
+  matchesFormatFilter,
+  matchesScoreFilter,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import {
@@ -223,9 +223,9 @@ export class MtRecentlyFinishedMediaComponent
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) =>
-        isCountryValidForFilter(entry, this.selectedCountries) &&
-        isFormatValidForFilter(entry, this.selectedFormats) &&
-        isScoreValidForFilter(entry, this.selectedScore)
+        matchesCountryFilter(entry, this.selectedCountries) &&
+        matchesFormatFilter(entry, this.selectedFormats) &&
+        matchesScoreFilter(entry, this.selectedScore)
     );
   }
 

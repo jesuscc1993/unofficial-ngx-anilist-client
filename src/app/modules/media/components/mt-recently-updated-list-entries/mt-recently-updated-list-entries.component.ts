@@ -32,11 +32,11 @@ import {
   getMediaStatusesForListEntries,
   getMediaTypePrefixedStorageKey,
   isAnime,
-  isCountryValidForFilter,
-  isFormatValidForFilter,
-  isMediaStatusValidForFilter,
-  isScoreValidForFilter,
-  isStatusValidForFilter,
+  matchesCountryFilter,
+  matchesFormatFilter,
+  matchesMediaStatusFilter,
+  matchesScoreFilter,
+  matchesStatusFilter,
 } from '../../domain/media.domain';
 import { StorageKeys, storageService } from '../../services/storage.service';
 import {
@@ -243,11 +243,11 @@ export class MtRecentlyUpdatedListEntriesComponent
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) =>
-        isCountryValidForFilter(entry, this.selectedCountries) &&
-        isFormatValidForFilter(entry, this.selectedFormats) &&
-        isMediaStatusValidForFilter(entry, this.selectedMediaStatuses) &&
-        isScoreValidForFilter(entry, this.selectedScore) &&
-        isStatusValidForFilter(entry, this.selectedStatuses)
+        matchesCountryFilter(entry, this.selectedCountries) &&
+        matchesFormatFilter(entry, this.selectedFormats) &&
+        matchesMediaStatusFilter(entry, this.selectedMediaStatuses) &&
+        matchesScoreFilter(entry, this.selectedScore) &&
+        matchesStatusFilter(entry, this.selectedStatuses)
     );
   }
 
