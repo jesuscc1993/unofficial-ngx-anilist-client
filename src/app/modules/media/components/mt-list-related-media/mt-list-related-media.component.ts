@@ -129,26 +129,15 @@ export class MtListRelatedMediaComponent
   initialize() {
     this.mediaFormats = getMediaFormats(this.mediaType);
 
-    this.selectedFormats = storageService.getItem<MediaFormat[]>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Format,
-        this.mediaType
-      ),
+    this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
+      StorageKeys.RelatedMedia.Format,
       []
     );
-
-    this.selectedScore = storageService.getItem<number>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Score,
-        this.mediaType
-      )
+    this.selectedScore = this.getStoredFilter<number>(
+      StorageKeys.RelatedMedia.Score
     );
-
-    this.selectedSort = storageService.getItem<MediaSort>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Sort,
-        this.mediaType
-      ),
+    this.selectedSort = this.getStoredFilter<MediaSort>(
+      StorageKeys.RelatedMedia.Sort,
       MediaSort.END_DATE_DESC
     );
 
@@ -283,6 +272,13 @@ export class MtListRelatedMediaComponent
         )
         .subscribe();
     }
+  }
+
+  private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
+    return storageService.getItem<T>(
+      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      fallback
+    );
   }
 
   private applyFilters({ formats = [], score }: MediaFilterSelection) {

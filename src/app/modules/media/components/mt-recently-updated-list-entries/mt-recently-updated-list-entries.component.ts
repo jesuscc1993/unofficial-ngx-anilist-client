@@ -96,41 +96,24 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.listEntryStatuses = listEntryStatuses;
     this.mediaFormats = getMediaFormats(this.mediaType);
 
-    this.selectedCountries = storageService.getItem<MediaCountry[]>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Country,
-        this.mediaType
-      ),
+    this.selectedCountries = this.getStoredFilter<MediaCountry[]>(
+      StorageKeys.RecentlyUpdated.Country,
       []
     );
-
-    this.selectedFormats = storageService.getItem<MediaFormat[]>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Format,
-        this.mediaType
-      ),
+    this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
+      StorageKeys.RecentlyUpdated.Format,
       []
     );
-
-    this.selectedStatuses = storageService.getItem<ListEntryStatus[]>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Status,
-        this.mediaType
-      ),
+    this.selectedStatuses = this.getStoredFilter<ListEntryStatus[]>(
+      StorageKeys.RecentlyUpdated.Status,
       []
     );
-    this.selectedMediaStatuses = storageService.getItem<MediaStatus[]>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.MediaStatus,
-        this.mediaType
-      ),
+    this.selectedMediaStatuses = this.getStoredFilter<MediaStatus[]>(
+      StorageKeys.RecentlyUpdated.MediaStatus,
       []
     );
-    this.selectedScore = storageService.getItem<number>(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Score,
-        this.mediaType
-      )
+    this.selectedScore = this.getStoredFilter<number>(
+      StorageKeys.RecentlyUpdated.Score
     );
 
     this.mediaCommands
@@ -181,6 +164,13 @@ export class MtRecentlyUpdatedListEntriesComponent
     dialogRef.componentInstance.onSubmit.subscribe((filters) => {
       this.applyFilters(filters);
     });
+  }
+
+  private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
+    return storageService.getItem<T>(
+      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      fallback
+    );
   }
 
   private applyFilters({
