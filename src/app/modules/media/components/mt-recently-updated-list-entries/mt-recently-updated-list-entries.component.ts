@@ -35,10 +35,15 @@ import {
   matchesCountryFilter,
   matchesFormatFilter,
   matchesMediaStatusFilter,
-  matchesScoreFilter,
+  matchesScoreGreaterThanFilter,
+  matchesScoreSmallerThanFilter,
   matchesStatusFilter,
 } from '../../domain/media.domain';
-import { StorageKeys, storageService } from '../../services/storage.service';
+import {
+  StorageKeys,
+  StoragePrefixes,
+  storageService,
+} from '../../services/storage.service';
 import {
   MediaFilterSelection,
   MtMediaFiltersComponent,
@@ -70,11 +75,12 @@ export class MtRecentlyUpdatedListEntriesComponent
   listEntryStatuses?: ListEntryStatus[];
   mediaFormats?: MediaFormat[];
   searching = true;
+  scoreGreaterThan?: number;
+  scoreSmallerThan?: number;
   selectedCountries?: MediaCountry[];
+  selectedEntryStatuses?: ListEntryStatus[];
   selectedFormats?: MediaFormat[];
   selectedMediaStatuses?: MediaStatus[];
-  selectedScore?: number;
-  selectedStatuses?: ListEntryStatus[];
 
   private listEntries?: ListEntry[];
 
@@ -97,23 +103,26 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.mediaFormats = getMediaFormats(this.mediaType);
 
     this.selectedCountries = this.getStoredFilter<MediaCountry[]>(
-      StorageKeys.RecentlyUpdated.Country,
+      StorageKeys.Country,
       []
     );
     this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
-      StorageKeys.RecentlyUpdated.Format,
+      StorageKeys.Format,
       []
     );
-    this.selectedStatuses = this.getStoredFilter<ListEntryStatus[]>(
-      StorageKeys.RecentlyUpdated.Status,
+    this.selectedEntryStatuses = this.getStoredFilter<ListEntryStatus[]>(
+      StorageKeys.EntryStatus,
       []
     );
     this.selectedMediaStatuses = this.getStoredFilter<MediaStatus[]>(
-      StorageKeys.RecentlyUpdated.MediaStatus,
+      StorageKeys.MediaStatus,
       []
     );
-    this.selectedScore = this.getStoredFilter<number>(
-      StorageKeys.RecentlyUpdated.Score
+    this.scoreGreaterThan = this.getStoredFilter<number>(
+      StorageKeys.ScoreGreaterThan
+    );
+    this.scoreSmallerThan = this.getStoredFilter<number>(
+      StorageKeys.ScoreSmallerThan
     );
 
     this.mediaCommands
@@ -142,8 +151,8 @@ export class MtRecentlyUpdatedListEntriesComponent
       data: {
         availableFilters: [
           'countries',
-          'formats',
           'entryStatuses',
+          'formats',
           'mediaStatuses',
           'score',
         ],
@@ -153,10 +162,11 @@ export class MtRecentlyUpdatedListEntriesComponent
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.recentlyUpdated`,
         selectedFilters: {
           countries: this.selectedCountries ?? [],
-          entryStatuses: this.selectedStatuses ?? [],
+          entryStatuses: this.selectedEntryStatuses ?? [],
           formats: this.selectedFormats ?? [],
           mediaStatuses: this.selectedMediaStatuses ?? [],
-          score: this.selectedScore,
+          scoreGreaterThan: this.scoreGreaterThan,
+          scoreSmallerThan: this.scoreSmallerThan,
         },
       },
     });
@@ -168,14 +178,20 @@ export class MtRecentlyUpdatedListEntriesComponent
 
   private setStoredFilter<T>(key: string, value: T): void {
     storageService.setItem(
-      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      getMediaTypePrefixedStorageKey(
+        storageService.getPrefixedKey(StoragePrefixes.RecentlyUpdated, key),
+        this.mediaType
+      ),
       value
     );
   }
 
   private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
     return storageService.getItem<T>(
-      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      getMediaTypePrefixedStorageKey(
+        storageService.getPrefixedKey(StoragePrefixes.RecentlyUpdated, key),
+        this.mediaType
+      ),
       fallback
     );
   }
@@ -185,23 +201,23 @@ export class MtRecentlyUpdatedListEntriesComponent
     entryStatuses = [],
     formats = [],
     mediaStatuses = [],
-    score,
+    scoreGreaterThan,
+    scoreSmallerThan,
   }: MediaFilterSelection) {
     this.selectedCountries = countries;
-    this.selectedStatuses = entryStatuses;
+    this.selectedEntryStatuses = entryStatuses;
     this.selectedFormats = formats;
     this.selectedMediaStatuses = mediaStatuses;
-    this.selectedScore = score;
+    this.scoreGreaterThan = scoreGreaterThan;
     this.processEntries();
 
-    this.setStoredFilter(StorageKeys.RecentlyUpdated.Score, score);
-    this.setStoredFilter(StorageKeys.RecentlyUpdated.Country, countries);
-    this.setStoredFilter(StorageKeys.RecentlyUpdated.Format, formats);
-    this.setStoredFilter(StorageKeys.RecentlyUpdated.Status, entryStatuses);
-    this.setStoredFilter(
-      StorageKeys.RecentlyUpdated.MediaStatus,
-      mediaStatuses
-    );
+    this.setStoredFilter(StorageKeys.Country, countries);
+    this.setStoredFilter(StorageKeys.Format, formats);
+    this.setStoredFilter(StorageKeys.MediaStatus, mediaStatuses);
+    this.setStoredFilter(StorageKeys.ScoreGreaterThan, scoreGreaterThan);
+    this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreGreaterThan);
+    this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreSmallerThan);
+    this.setStoredFilter(StorageKeys.EntryStatus, entryStatuses);
   }
 
   private sortEntries() {
@@ -216,8 +232,9 @@ export class MtRecentlyUpdatedListEntriesComponent
         matchesCountryFilter(entry, this.selectedCountries) &&
         matchesFormatFilter(entry, this.selectedFormats) &&
         matchesMediaStatusFilter(entry, this.selectedMediaStatuses) &&
-        matchesScoreFilter(entry, this.selectedScore) &&
-        matchesStatusFilter(entry, this.selectedStatuses)
+        matchesScoreGreaterThanFilter(entry, this.scoreGreaterThan) &&
+        matchesScoreSmallerThanFilter(entry, this.scoreSmallerThan) &&
+        matchesStatusFilter(entry, this.selectedEntryStatuses)
     );
   }
 

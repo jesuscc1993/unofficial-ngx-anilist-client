@@ -67,8 +67,12 @@
                   <!-- endDateGreaterThan -->
                   <mat-form-field>
                     <mat-label>
-                      {{ 'media.search.filters.endYear' | translate }}
-                      {{ 'media.search.filters.after' | translate }}...
+                      {{
+                        getFilterSelectLabel(
+                          'media.search.filters.endYear',
+                          'media.search.filters.after'
+                        )
+                      }}
                     </mat-label>
 
                     <input
@@ -83,8 +87,12 @@
                   <!-- endDateSmallerThan -->
                   <mat-form-field>
                     <mat-label>
-                      {{ 'media.search.filters.endYear' | translate }}
-                      {{ 'media.search.filters.before' | translate }}...
+                      {{
+                        getFilterSelectLabel(
+                          'media.search.filters.endYear',
+                          'media.search.filters.before'
+                        )
+                      }}
                     </mat-label>
 
                     <input
@@ -101,8 +109,12 @@
                   <!-- averageScoreGreaterThan -->
                   <mat-form-field>
                     <mat-label>
-                      {{ 'media.score' | translate }}
-                      {{ 'media.search.filters.above' | translate }}...
+                      {{
+                        getFilterSelectLabel(
+                          'media.score',
+                          'media.search.filters.above'
+                        )
+                      }}
                     </mat-label>
 
                     <input
@@ -118,8 +130,12 @@
                   <!-- averageScoreSmallerThan -->
                   <mat-form-field>
                     <mat-label>
-                      {{ 'media.score' | translate }}
-                      {{ 'media.search.filters.below' | translate }}...
+                      {{
+                        getFilterSelectLabel(
+                          'media.score',
+                          'media.search.filters.below'
+                        )
+                      }}
                     </mat-label>
 
                     <input

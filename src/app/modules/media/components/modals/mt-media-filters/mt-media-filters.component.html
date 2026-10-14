@@ -16,7 +16,12 @@
             <mt-select
               class="display-block full-width"
               controlName="countries"
-              label="media.search.filters.countryOfOrigin"
+              label="{{
+                getFilterSelectLabel(
+                  'media.search.filters.countryOfOrigin',
+                  'media.search.filters.includedIn'
+                )
+              }}"
               optionPrefixLabel="country."
               [multiple]="true"
               [values]="mediaCountries"
@@ -29,7 +34,12 @@
             <mt-select
               class="display-block full-width"
               controlName="formats"
-              label="media.format"
+              label="{{
+                getFilterSelectLabel(
+                  'media.format',
+                  'media.search.filters.includedIn'
+                )
+              }}"
               optionPrefixLabel="media.formatValues."
               [multiple]="true"
               [values]="mediaFormats"
@@ -42,7 +52,12 @@
             <mt-select
               class="display-block full-width"
               controlName="mediaStatuses"
-              label="media.status"
+              label="{{
+                getFilterSelectLabel(
+                  'media.status',
+                  'media.search.filters.includedIn'
+                )
+              }}"
               optionPrefixLabel="media.statusValues."
               [multiple]="true"
               [values]="mediaStatusOptions"
@@ -55,7 +70,12 @@
             <mt-select
               class="display-block full-width"
               controlName="entryStatuses"
-              label="listEntry.status"
+              label="{{
+                getFilterSelectLabel(
+                  'listEntry.status',
+                  'media.search.filters.includedIn'
+                )
+              }}"
               [optionPrefixLabel]="mediaType.toLowerCase() + '.statusValues.'"
               [multiple]="true"
               [values]="entryStatuses"
@@ -67,11 +87,32 @@
           <div>
             <mt-select
               class="display-block full-width"
-              controlName="score"
-              label="media.score"
+              controlName="scoreGreaterThan"
+              label="{{
+                getFilterSelectLabel(
+                  'media.score',
+                  'media.search.filters.above'
+                )
+              }}"
               panelClass="compact-options"
               [values]="mediaScores"
-              [getOptionLiteral]="getScoreLiteral"
+              [getOptionLiteral]="getScoreGreaterThanLiteral"
+            ></mt-select>
+          </div>
+
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="scoreSmallerThan"
+              label="{{
+                getFilterSelectLabel(
+                  'media.score',
+                  'media.search.filters.below'
+                )
+              }}"
+              panelClass="compact-options"
+              [values]="mediaScores"
+              [getOptionLiteral]="getScoreSmallerThanLiteral"
             ></mt-select>
           </div>
         }

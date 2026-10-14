@@ -1,3 +1,25 @@
+export const StoragePrefixes = {
+  RecentlyFinished: 'recentlyFinished',
+  RecentlyUpdated: 'recentlyUpdated',
+  RelatedMedia: 'relatedMedia',
+};
+
+export const StorageKeys = {
+  AccessToken: 'accessToken',
+  Country: 'country',
+  EntryStatus: 'entryStatus',
+  Format: 'format',
+  MediaStatus: 'mediaStatus',
+  ScoreGreaterThan: 'scoreGreaterThan',
+  ScoreSmallerThan: 'scoreSmallerThan',
+  Sort: 'sort',
+  UserData: 'user',
+};
+
+const getPrefixedKey = (prefix: string, key: string): string => {
+  return `${prefix}_${key}`;
+};
+
 const getItem = <T>(key: string, fallback?: T): T | undefined => {
   const rawValue = localStorage.getItem(key);
   return rawValue ? JSON.parse(rawValue) : fallback;
@@ -19,30 +41,8 @@ const clear = () => {
   return localStorage.clear();
 };
 
-export const StorageKeys = {
-  AccessToken: 'accessToken',
-  RecentlyFinished: {
-    Country: 'recentlyFinished_country',
-    Format: 'recentlyFinished_format',
-    Score: 'recentlyFinished_score',
-    Sort: 'recentlyFinished_sort',
-  },
-  RecentlyUpdated: {
-    Country: 'recentlyUpdated_country',
-    Format: 'recentlyUpdated_format',
-    MediaStatus: 'recentlyUpdated_mediaStatus',
-    Score: 'recentlyUpdated_score',
-    Status: 'recentlyUpdated_status',
-  },
-  RelatedMedia: {
-    Format: 'relatedMedia_format',
-    Score: 'relatedMedia_score',
-    Sort: 'relatedMedia_sort',
-  },
-  UserData: 'user',
-};
-
 export const storageService = {
+  getPrefixedKey,
   getItem,
   setItem,
   removeItem,

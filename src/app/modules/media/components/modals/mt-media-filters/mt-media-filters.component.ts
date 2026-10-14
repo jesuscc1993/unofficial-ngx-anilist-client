@@ -1,6 +1,7 @@
 import { Component, inject, output } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 import { animeFormats } from '../../../../anime/constants/anime.constants';
 import { mangaFormats } from '../../../../manga/constants/manga.constants';
@@ -32,7 +33,8 @@ export type MediaFilterSelection = {
   entryStatuses?: ListEntryStatus[];
   formats?: MediaFormat[];
   mediaStatuses?: MediaStatus[];
-  score?: number;
+  scoreGreaterThan?: number;
+  scoreSmallerThan?: number;
 };
 
 export type MediaFilterDialogData = {
@@ -56,6 +58,10 @@ export class MtMediaFiltersComponent {
   private dialogRef =
     inject<MatDialogRef<MtMediaFiltersComponent>>(MatDialogRef);
   private formBuilder = inject(UntypedFormBuilder);
+  private translate = inject(TranslateService);
+
+  protected getFilterSelectLabel = (key: string, filterKey: string) =>
+    `${this.translate.instant(key)} ${this.translate.instant(filterKey)}...`;
 
   readonly onSubmit = output<MediaFilterSelection>();
 
@@ -68,7 +74,8 @@ export class MtMediaFiltersComponent {
     entryStatuses: [this.data.selectedFilters.entryStatuses ?? []],
     formats: [this.data.selectedFilters.formats ?? []],
     mediaStatuses: [this.data.selectedFilters.mediaStatuses ?? []],
-    score: [this.data.selectedFilters.score],
+    scoreGreaterThan: [this.data.selectedFilters.scoreGreaterThan],
+    scoreSmallerThan: [this.data.selectedFilters.scoreSmallerThan],
   });
 
   readonly entryStatuses = this.data.entryStatusOptions ?? listEntryStatuses;
@@ -79,9 +86,15 @@ export class MtMediaFiltersComponent {
     this.data.formatOptions ??
     (isAnime(this.mediaType) ? animeFormats : mangaFormats);
 
-  getScoreLiteral = (score: unknown) => {
+  getScoreGreaterThanLiteral = (score: unknown) => {
     return typeof score === 'number' && score
       ? `≥ ${score}`
+      : 'media.scoreValues.undefined';
+  };
+
+  getScoreSmallerThanLiteral = (score: unknown) => {
+    return typeof score === 'number' && score
+      ? `< ${score}`
       : 'media.scoreValues.undefined';
   };
 

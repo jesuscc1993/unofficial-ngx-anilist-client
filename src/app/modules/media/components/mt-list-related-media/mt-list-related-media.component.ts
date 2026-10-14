@@ -25,6 +25,7 @@ import {
   Media,
   MediaFormat,
   MediaSort,
+  MediaStatus,
   MediaType,
 } from '../../../shared/types/anilist/media.types';
 import { PageInfo } from '../../../shared/types/anilist/pageInfo.types';
@@ -36,7 +37,11 @@ import {
   getSortLiteral,
   isAnime,
 } from '../../domain/media.domain';
-import { StorageKeys, storageService } from '../../services/storage.service';
+import {
+  StorageKeys,
+  StoragePrefixes,
+  storageService,
+} from '../../services/storage.service';
 import { MediaStore } from '../../store/media.store';
 import {
   MediaFilterSelection,
@@ -85,7 +90,9 @@ export class MtListRelatedMediaComponent
   relatedMediaIds?: number[];
   searching?: boolean;
   selectedFormats?: MediaFormat[];
-  selectedScore?: number;
+  selectedMediaStatuses?: MediaStatus[];
+  scoreGreaterThan?: number;
+  scoreSmallerThan?: number;
   selectedSort?: MediaSort;
   started?: boolean;
 
@@ -130,14 +137,21 @@ export class MtListRelatedMediaComponent
     this.mediaFormats = getMediaFormats(this.mediaType);
 
     this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
-      StorageKeys.RelatedMedia.Format,
+      StorageKeys.Format,
       []
     );
-    this.selectedScore = this.getStoredFilter<number>(
-      StorageKeys.RelatedMedia.Score
+    this.scoreGreaterThan = this.getStoredFilter<number>(
+      StorageKeys.ScoreGreaterThan
+    );
+    this.scoreSmallerThan = this.getStoredFilter<number>(
+      StorageKeys.ScoreSmallerThan
+    );
+    this.selectedMediaStatuses = this.getStoredFilter<MediaStatus[]>(
+      StorageKeys.MediaStatus,
+      []
     );
     this.selectedSort = this.getStoredFilter<MediaSort>(
-      StorageKeys.RelatedMedia.Sort,
+      StorageKeys.Sort,
       MediaSort.END_DATE_DESC
     );
 
@@ -195,13 +209,15 @@ export class MtListRelatedMediaComponent
     const dialogRef = this.dialog.open(MtMediaFiltersComponent, {
       ...largeModalOptions,
       data: {
-        availableFilters: ['formats', 'score'],
+        availableFilters: ['formats', 'mediaStatuses', 'score'],
         formatOptions: this.mediaFormats ?? [],
         mediaType: this.mediaType,
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.relatedMedia`,
         selectedFilters: {
           formats: this.selectedFormats ?? [],
-          score: this.selectedScore,
+          mediaStatuses: this.selectedMediaStatuses ?? [],
+          scoreGreaterThan: this.scoreGreaterThan,
+          scoreSmallerThan: this.scoreSmallerThan,
         },
       },
     });
@@ -219,7 +235,7 @@ export class MtListRelatedMediaComponent
     this.selectedSort = selectedSort;
     this.search(0, this.pagination?.perPage);
 
-    this.setStoredFilter(StorageKeys.RelatedMedia.Sort, selectedSort);
+    this.setStoredFilter(StorageKeys.Sort, selectedSort);
   };
 
   private initializeState() {
@@ -239,6 +255,8 @@ export class MtListRelatedMediaComponent
         .getMediaFromIds(
           this.relatedMediaIds,
           {
+            averageScoreGreaterThan: this.scoreGreaterThan,
+            averageScoreSmallerThan: this.scoreSmallerThan,
             formatIn: this.selectedFormats?.length
               ? this.selectedFormats
               : isAnime(this.mediaType)
@@ -246,7 +264,7 @@ export class MtListRelatedMediaComponent
                 : this.defaultMangaFormats,
             onList: false,
             sort: this.selectedSort,
-            averageScoreGreaterThan: this.selectedScore,
+            statusIn: this.selectedMediaStatuses ?? [],
           },
           {
             pageIndex,
@@ -270,25 +288,40 @@ export class MtListRelatedMediaComponent
 
   private setStoredFilter<T>(key: string, value: T): void {
     storageService.setItem(
-      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      getMediaTypePrefixedStorageKey(
+        storageService.getPrefixedKey(StoragePrefixes.RelatedMedia, key),
+        this.mediaType
+      ),
       value
     );
   }
 
   private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
     return storageService.getItem<T>(
-      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      getMediaTypePrefixedStorageKey(
+        storageService.getPrefixedKey(StoragePrefixes.RelatedMedia, key),
+        this.mediaType
+      ),
       fallback
     );
   }
 
-  private applyFilters({ formats = [], score }: MediaFilterSelection) {
+  private applyFilters({
+    formats = [],
+    scoreGreaterThan,
+    scoreSmallerThan,
+    mediaStatuses,
+  }: MediaFilterSelection) {
+    this.scoreGreaterThan = scoreGreaterThan;
+    this.scoreSmallerThan = scoreSmallerThan;
     this.selectedFormats = formats;
-    this.selectedScore = score;
+    this.selectedMediaStatuses = mediaStatuses;
     this.search(0, this.pagination?.perPage);
 
-    this.setStoredFilter(StorageKeys.RelatedMedia.Format, formats);
-    this.setStoredFilter(StorageKeys.RelatedMedia.Score, score);
+    this.setStoredFilter(StorageKeys.Format, formats);
+    this.setStoredFilter(StorageKeys.MediaStatus, mediaStatuses);
+    this.setStoredFilter(StorageKeys.ScoreGreaterThan, scoreGreaterThan);
+    this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreSmallerThan);
   }
 
   private onError(error: Error) {

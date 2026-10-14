@@ -32,9 +32,14 @@ import {
   isAnime,
   matchesCountryFilter,
   matchesFormatFilter,
-  matchesScoreFilter,
+  matchesScoreGreaterThanFilter,
+  matchesScoreSmallerThanFilter,
 } from '../../domain/media.domain';
-import { StorageKeys, storageService } from '../../services/storage.service';
+import {
+  StorageKeys,
+  StoragePrefixes,
+  storageService,
+} from '../../services/storage.service';
 import {
   MediaFilterSelection,
   MtMediaFiltersComponent,
@@ -70,7 +75,8 @@ export class MtRecentlyFinishedMediaComponent
   searching = true;
   selectedCountries?: MediaCountry[];
   selectedFormats?: MediaFormat[];
-  selectedScore?: number;
+  scoreGreaterThan?: number;
+  scoreSmallerThan?: number;
   selectedSort?: MediaSort;
 
   private listEntries?: ListEntry[];
@@ -98,18 +104,21 @@ export class MtRecentlyFinishedMediaComponent
     this.mediaFormats = getMediaFormats(this.mediaType);
 
     this.selectedCountries = this.getStoredFilter<MediaCountry[]>(
-      StorageKeys.RecentlyFinished.Country,
+      StorageKeys.Country,
       []
     );
     this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
-      StorageKeys.RecentlyFinished.Format,
+      StorageKeys.Format,
       []
     );
-    this.selectedScore = this.getStoredFilter<number>(
-      StorageKeys.RecentlyFinished.Score
+    this.scoreGreaterThan = this.getStoredFilter<number>(
+      StorageKeys.ScoreGreaterThan
+    );
+    this.scoreSmallerThan = this.getStoredFilter<number>(
+      StorageKeys.ScoreSmallerThan
     );
     this.selectedSort = this.getStoredFilter<MediaSort>(
-      StorageKeys.RecentlyFinished.Sort,
+      StorageKeys.Sort,
       MediaSort.END_DATE_DESC
     );
 
@@ -142,7 +151,8 @@ export class MtRecentlyFinishedMediaComponent
         selectedFilters: {
           countries: this.selectedCountries ?? [],
           formats: this.selectedFormats ?? [],
-          score: this.selectedScore,
+          scoreGreaterThan: this.scoreGreaterThan,
+          scoreSmallerThan: this.scoreSmallerThan,
         },
       },
     });
@@ -155,23 +165,26 @@ export class MtRecentlyFinishedMediaComponent
   private applyFilters({
     countries = [],
     formats = [],
-    score,
+    scoreGreaterThan,
+    scoreSmallerThan,
   }: MediaFilterSelection) {
     this.selectedCountries = countries;
     this.selectedFormats = formats;
-    this.selectedScore = score;
+    this.scoreGreaterThan = scoreGreaterThan;
+    this.scoreSmallerThan = scoreSmallerThan;
     this.processEntries();
 
-    this.setStoredFilter(StorageKeys.RecentlyFinished.Score, score);
-    this.setStoredFilter(StorageKeys.RecentlyFinished.Country, countries);
-    this.setStoredFilter(StorageKeys.RecentlyFinished.Format, formats);
+    this.setStoredFilter(StorageKeys.Country, countries);
+    this.setStoredFilter(StorageKeys.Format, formats);
+    this.setStoredFilter(StorageKeys.ScoreGreaterThan, scoreGreaterThan);
+    this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreSmallerThan);
   }
 
   setSelectedSort = (selectedSort: MediaSort) => {
     this.selectedSort = selectedSort;
     this.processEntries();
 
-    this.setStoredFilter(StorageKeys.RecentlyFinished.Sort, selectedSort);
+    this.setStoredFilter(StorageKeys.Sort, selectedSort);
   };
 
   private sortEntries() {
@@ -183,14 +196,20 @@ export class MtRecentlyFinishedMediaComponent
 
   private setStoredFilter<T>(key: string, value: T): void {
     storageService.setItem(
-      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      getMediaTypePrefixedStorageKey(
+        storageService.getPrefixedKey(StoragePrefixes.RecentlyFinished, key),
+        this.mediaType
+      ),
       value
     );
   }
 
   private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
     return storageService.getItem<T>(
-      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      getMediaTypePrefixedStorageKey(
+        storageService.getPrefixedKey(StoragePrefixes.RecentlyFinished, key),
+        this.mediaType
+      ),
       fallback
     );
   }
@@ -200,7 +219,8 @@ export class MtRecentlyFinishedMediaComponent
       (entry) =>
         matchesCountryFilter(entry, this.selectedCountries) &&
         matchesFormatFilter(entry, this.selectedFormats) &&
-        matchesScoreFilter(entry, this.selectedScore)
+        matchesScoreGreaterThanFilter(entry, this.scoreGreaterThan) &&
+        matchesScoreSmallerThanFilter(entry, this.scoreSmallerThan)
     );
   }
 

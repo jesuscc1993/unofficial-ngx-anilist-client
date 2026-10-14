@@ -263,24 +263,40 @@ export const matchesMediaStatusFilter = (
   );
 };
 
-export const matchesScoreFilter = (
+export const matchesScoreGreaterThanFilter = (
   entry: ListEntry,
-  selectedScore?: number
+  scoreGreaterThan?: number
 ) => {
   const score =
     entry.media.averageScore ?? entry.media.meanScore ?? entry.media.modeScore;
   return (
-    selectedScore === undefined ||
-    selectedScore === null ||
-    (score !== undefined && score !== null && score >= selectedScore)
+    scoreGreaterThan === undefined ||
+    scoreGreaterThan === null ||
+    (score !== undefined && score !== null && score >= scoreGreaterThan)
+  );
+};
+
+export const matchesScoreSmallerThanFilter = (
+  entry: ListEntry,
+  scoreSmallerThan?: number
+) => {
+  const score =
+    entry.media.averageScore ?? entry.media.meanScore ?? entry.media.modeScore;
+  return (
+    scoreSmallerThan === undefined ||
+    scoreSmallerThan === null ||
+    (score !== undefined && score !== null && score < scoreSmallerThan)
   );
 };
 
 export const matchesStatusFilter = (
   entry: ListEntry,
-  selectedStatuses?: ListEntryStatus[]
+  selectedEntryStatuses?: ListEntryStatus[]
 ) => {
-  return !selectedStatuses?.length || selectedStatuses.includes(entry.status);
+  return (
+    !selectedEntryStatuses?.length ||
+    selectedEntryStatuses.includes(entry.status)
+  );
 };
 
 export const getSizedCoverImage = (
