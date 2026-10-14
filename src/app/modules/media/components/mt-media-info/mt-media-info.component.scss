@@ -31,14 +31,6 @@ sup {
   }
 }
 
-.general-info-only {
-  .property-value-pair {
-    .property {
-      min-width: $spacing-4xl !important;
-    }
-  }
-}
-
 .recommendations {
   $grid-gap: 16px;
   $grid-height: $media-cover-height * 2 + $grid-gap;

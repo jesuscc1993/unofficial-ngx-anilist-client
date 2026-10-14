@@ -26,6 +26,7 @@ import {
   getMediaTypeProgressLiteral,
   getSanitizedMediaDescription,
   getSourceLiteral,
+  hasScore,
   isAnime,
   isManga,
 } from '../../domain/media.domain';
@@ -45,7 +46,6 @@ export class MtMediaInfoComponent
   private mangaCommands = inject(MangaCommands);
 
   @Input() fullDetail? = true;
-  @Input() generalInfoOnly?: boolean;
   @Input() media!: Media;
   @Input() showAsColumns?: boolean;
 
@@ -57,6 +57,7 @@ export class MtMediaInfoComponent
   readonly getMediaTitle = getMediaTitle;
   readonly getMediaTypeProgressLiteral = getMediaTypeProgressLiteral;
   readonly getSourceLiteral = getSourceLiteral;
+  readonly hasScore = hasScore;
 
   mediaCommands!: MediaCommands;
 

@@ -20,7 +20,7 @@ export type MediaExportEntry = {
 export type GenreStats = {
   amount: number;
   genre: string;
-  meanScore: number;
+  meanScore?: number;
   percentage?: number;
   timeWatched: number;
 };

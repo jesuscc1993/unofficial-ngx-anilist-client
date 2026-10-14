@@ -205,6 +205,10 @@ export const getMediaLength = (media: Media) => {
   return isAnime(media) ? (media as Anime).episodes : (media as Manga).chapters;
 };
 
+export const hasScore = (media: Media) => {
+  return media.averageScore || media.meanScore || media.modeScore;
+};
+
 export const isAnime = (payload: Media | MediaType) => {
   const mediaType = getMediaPayloadType(payload);
   if (!mediaType) {

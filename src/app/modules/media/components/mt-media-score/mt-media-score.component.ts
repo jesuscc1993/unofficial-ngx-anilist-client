@@ -35,7 +35,11 @@ export class MtMediaScoreComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['listEntry'] || changes['media'] || changes['showCols']) {
-      this.score = this.listEntry?.scoreRaw || this.media?.averageScore;
+      this.score =
+        this.listEntry?.scoreRaw ||
+        this.media?.averageScore ||
+        this.media?.meanScore ||
+        this.media?.modeScore;
       this.scoreHtml = this.showCols
         ? this.getFormattedScoreCols()
         : this.getFormattedScore();
@@ -82,7 +86,7 @@ export class MtMediaScoreComponent implements OnChanges {
         this.formatTooltipLine('media.modeScore', this.media.modeScore!)
       );
     }
-    return tooltipLines.join('\n');
+    return tooltipLines.length ? tooltipLines.join('\n') : undefined;
   }
 
   private shouldDisplayMean(): boolean {

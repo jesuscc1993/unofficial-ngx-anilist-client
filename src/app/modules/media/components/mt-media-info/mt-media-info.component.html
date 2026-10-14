@@ -1,5 +1,5 @@
 @if (media) {
-  <div [class.general-info-only]="generalInfoOnly">
+  <div>
     <div [class.row]="showAsColumns">
       <!-- left column -->
       <div class="column left">
@@ -75,7 +75,7 @@
             </div>
           </div>
         }
-        @if (generalInfoOnly && media.format?.length) {
+        @if (media.format?.length) {
           <div class="property-value-pair flex-box">
             <div class="property">{{ 'media.format' | translate }}</div>
             <div class="value">
@@ -119,7 +119,7 @@
             </div>
           </div>
         }
-        @if (media.averageScore || media.meanScore) {
+        @if (hasScore(media)) {
           <div class="property-value-pair flex-box">
             <div
               class="property"
