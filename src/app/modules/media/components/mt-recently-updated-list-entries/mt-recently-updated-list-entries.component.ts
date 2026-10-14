@@ -166,6 +166,13 @@ export class MtRecentlyUpdatedListEntriesComponent
     });
   }
 
+  private setStoredFilter<T>(key: string, value: T): void {
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      value
+    );
+  }
+
   private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
     return storageService.getItem<T>(
       getMediaTypePrefixedStorageKey(key, this.mediaType),
@@ -187,39 +194,12 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.selectedScore = score;
     this.processEntries();
 
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Score,
-        this.mediaType
-      ),
-      score
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Country,
-        this.mediaType
-      ),
-      countries
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Format,
-        this.mediaType
-      ),
-      formats
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.Status,
-        this.mediaType
-      ),
-      entryStatuses
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyUpdated.MediaStatus,
-        this.mediaType
-      ),
+    this.setStoredFilter(StorageKeys.RecentlyUpdated.Score, score);
+    this.setStoredFilter(StorageKeys.RecentlyUpdated.Country, countries);
+    this.setStoredFilter(StorageKeys.RecentlyUpdated.Format, formats);
+    this.setStoredFilter(StorageKeys.RecentlyUpdated.Status, entryStatuses);
+    this.setStoredFilter(
+      StorageKeys.RecentlyUpdated.MediaStatus,
       mediaStatuses
     );
   }

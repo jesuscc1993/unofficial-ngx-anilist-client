@@ -162,40 +162,16 @@ export class MtRecentlyFinishedMediaComponent
     this.selectedScore = score;
     this.processEntries();
 
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyFinished.Score,
-        this.mediaType
-      ),
-      score
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyFinished.Country,
-        this.mediaType
-      ),
-      countries
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyFinished.Format,
-        this.mediaType
-      ),
-      formats
-    );
+    this.setStoredFilter(StorageKeys.RecentlyFinished.Score, score);
+    this.setStoredFilter(StorageKeys.RecentlyFinished.Country, countries);
+    this.setStoredFilter(StorageKeys.RecentlyFinished.Format, formats);
   }
 
   setSelectedSort = (selectedSort: MediaSort) => {
     this.selectedSort = selectedSort;
     this.processEntries();
 
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RecentlyFinished.Sort,
-        this.mediaType
-      ),
-      selectedSort
-    );
+    this.setStoredFilter(StorageKeys.RecentlyFinished.Sort, selectedSort);
   };
 
   private sortEntries() {
@@ -203,6 +179,13 @@ export class MtRecentlyFinishedMediaComponent
     if (sortFunction) {
       this.listEntries = sortFunction(this.listEntries ?? []);
     }
+  }
+
+  private setStoredFilter<T>(key: string, value: T): void {
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      value
+    );
   }
 
   private getStoredFilter<T>(key: string, fallback?: T): T | undefined {

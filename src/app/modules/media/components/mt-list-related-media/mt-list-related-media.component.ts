@@ -219,13 +219,7 @@ export class MtListRelatedMediaComponent
     this.selectedSort = selectedSort;
     this.search(0, this.pagination?.perPage);
 
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Sort,
-        this.mediaType
-      ),
-      selectedSort
-    );
+    this.setStoredFilter(StorageKeys.RelatedMedia.Sort, selectedSort);
   };
 
   private initializeState() {
@@ -274,6 +268,13 @@ export class MtListRelatedMediaComponent
     }
   }
 
+  private setStoredFilter<T>(key: string, value: T): void {
+    storageService.setItem(
+      getMediaTypePrefixedStorageKey(key, this.mediaType),
+      value
+    );
+  }
+
   private getStoredFilter<T>(key: string, fallback?: T): T | undefined {
     return storageService.getItem<T>(
       getMediaTypePrefixedStorageKey(key, this.mediaType),
@@ -286,20 +287,8 @@ export class MtListRelatedMediaComponent
     this.selectedScore = score;
     this.search(0, this.pagination?.perPage);
 
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Format,
-        this.mediaType
-      ),
-      formats
-    );
-    storageService.setItem(
-      getMediaTypePrefixedStorageKey(
-        StorageKeys.RelatedMedia.Score,
-        this.mediaType
-      ),
-      score
-    );
+    this.setStoredFilter(StorageKeys.RelatedMedia.Format, formats);
+    this.setStoredFilter(StorageKeys.RelatedMedia.Score, score);
   }
 
   private onError(error: Error) {
