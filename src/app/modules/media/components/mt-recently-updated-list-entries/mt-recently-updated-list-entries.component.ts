@@ -32,12 +32,16 @@ import {
   getMediaStatusesForListEntries,
   getMediaTypePrefixedStorageKey,
   isAnime,
-  matchesCountryFilter,
-  matchesFormatFilter,
-  matchesMediaStatusFilter,
-  matchesScoreGreaterThanFilter,
+  matchesCountryInFilter,
+  matchesCountryNotInFilter,
+  matchesFormatInFilter,
+  matchesFormatNotInFilter,
+  matchesMediaStatusInFilter,
+  matchesMediaStatusNotInFilter,
+  matchesScoreGreaterThanInFilter,
   matchesScoreSmallerThanFilter,
-  matchesStatusFilter,
+  matchesStatusInFilter,
+  matchesStatusNotInFilter,
 } from '../../domain/media.domain';
 import {
   StorageKeys,
@@ -75,12 +79,17 @@ export class MtRecentlyUpdatedListEntriesComponent
   listEntryStatuses?: ListEntryStatus[];
   mediaFormats?: MediaFormat[];
   searching = true;
+
+  countryIn?: MediaCountry[];
+  countryNotIn?: MediaCountry[];
+  entryStatusIn?: ListEntryStatus[];
+  entryStatusNotIn?: ListEntryStatus[];
+  formatIn?: MediaFormat[];
+  formatNotIn?: MediaFormat[];
+  mediaStatusIn?: MediaStatus[];
+  mediaStatusNotIn?: MediaStatus[];
   scoreGreaterThan?: number;
   scoreSmallerThan?: number;
-  selectedCountries?: MediaCountry[];
-  selectedEntryStatuses?: ListEntryStatus[];
-  selectedFormats?: MediaFormat[];
-  selectedMediaStatuses?: MediaStatus[];
 
   private listEntries?: ListEntry[];
 
@@ -102,20 +111,36 @@ export class MtRecentlyUpdatedListEntriesComponent
     this.listEntryStatuses = listEntryStatuses;
     this.mediaFormats = getMediaFormats(this.mediaType);
 
-    this.selectedCountries = this.getStoredFilter<MediaCountry[]>(
-      StorageKeys.Country,
+    this.countryIn = this.getStoredFilter<MediaCountry[]>(
+      StorageKeys.CountryIn,
       []
     );
-    this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
-      StorageKeys.Format,
+    this.countryNotIn = this.getStoredFilter<MediaCountry[]>(
+      StorageKeys.CountryNotIn,
       []
     );
-    this.selectedEntryStatuses = this.getStoredFilter<ListEntryStatus[]>(
-      StorageKeys.EntryStatus,
+    this.formatIn = this.getStoredFilter<MediaFormat[]>(
+      StorageKeys.FormatIn,
       []
     );
-    this.selectedMediaStatuses = this.getStoredFilter<MediaStatus[]>(
-      StorageKeys.MediaStatus,
+    this.formatNotIn = this.getStoredFilter<MediaFormat[]>(
+      StorageKeys.FormatNotIn,
+      []
+    );
+    this.entryStatusIn = this.getStoredFilter<ListEntryStatus[]>(
+      StorageKeys.EntryStatusIn,
+      []
+    );
+    this.entryStatusNotIn = this.getStoredFilter<ListEntryStatus[]>(
+      StorageKeys.EntryStatusNotIn,
+      []
+    );
+    this.mediaStatusIn = this.getStoredFilter<MediaStatus[]>(
+      StorageKeys.MediaStatusIn,
+      []
+    );
+    this.mediaStatusNotIn = this.getStoredFilter<MediaStatus[]>(
+      StorageKeys.MediaStatusNotIn,
       []
     );
     this.scoreGreaterThan = this.getStoredFilter<number>(
@@ -150,10 +175,10 @@ export class MtRecentlyUpdatedListEntriesComponent
       ...largeModalOptions,
       data: {
         availableFilters: [
-          'countries',
-          'entryStatuses',
-          'formats',
-          'mediaStatuses',
+          'country',
+          'entryStatus',
+          'format',
+          'mediaStatus',
           'score',
         ],
         entryStatusOptions: this.listEntryStatuses ?? [],
@@ -161,10 +186,14 @@ export class MtRecentlyUpdatedListEntriesComponent
         mediaType: this.mediaType,
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.recentlyUpdated`,
         selectedFilters: {
-          countries: this.selectedCountries ?? [],
-          entryStatuses: this.selectedEntryStatuses ?? [],
-          formats: this.selectedFormats ?? [],
-          mediaStatuses: this.selectedMediaStatuses ?? [],
+          countryIn: this.countryIn ?? [],
+          countryNotIn: this.countryNotIn ?? [],
+          entryStatusIn: this.entryStatusIn ?? [],
+          entryStatusNotIn: this.entryStatusNotIn ?? [],
+          formatIn: this.formatIn ?? [],
+          formatNotIn: this.formatNotIn ?? [],
+          mediaStatusIn: this.mediaStatusIn ?? [],
+          mediaStatusNotIn: this.mediaStatusNotIn ?? [],
           scoreGreaterThan: this.scoreGreaterThan,
           scoreSmallerThan: this.scoreSmallerThan,
         },
@@ -197,27 +226,39 @@ export class MtRecentlyUpdatedListEntriesComponent
   }
 
   private applyFilters({
-    countries = [],
-    entryStatuses = [],
-    formats = [],
-    mediaStatuses = [],
+    countryIn = [],
+    countryNotIn = [],
+    entryStatusIn = [],
+    entryStatusNotIn = [],
+    formatIn = [],
+    formatNotIn = [],
+    mediaStatusIn = [],
+    mediaStatusNotIn = [],
     scoreGreaterThan,
     scoreSmallerThan,
   }: MediaFilterSelection) {
-    this.selectedCountries = countries;
-    this.selectedEntryStatuses = entryStatuses;
-    this.selectedFormats = formats;
-    this.selectedMediaStatuses = mediaStatuses;
     this.scoreGreaterThan = scoreGreaterThan;
+    this.countryIn = countryIn;
+    this.countryNotIn = countryNotIn;
+    this.entryStatusIn = entryStatusIn;
+    this.entryStatusNotIn = entryStatusNotIn;
+    this.formatIn = formatIn;
+    this.formatNotIn = formatNotIn;
+    this.mediaStatusIn = mediaStatusIn;
+    this.mediaStatusNotIn = mediaStatusNotIn;
     this.processEntries();
 
-    this.setStoredFilter(StorageKeys.Country, countries);
-    this.setStoredFilter(StorageKeys.Format, formats);
-    this.setStoredFilter(StorageKeys.MediaStatus, mediaStatuses);
+    this.setStoredFilter(StorageKeys.CountryIn, countryIn);
+    this.setStoredFilter(StorageKeys.CountryNotIn, countryNotIn);
+    this.setStoredFilter(StorageKeys.EntryStatusIn, entryStatusIn);
+    this.setStoredFilter(StorageKeys.EntryStatusNotIn, entryStatusNotIn);
+    this.setStoredFilter(StorageKeys.FormatIn, formatIn);
+    this.setStoredFilter(StorageKeys.FormatNotIn, formatNotIn);
+    this.setStoredFilter(StorageKeys.MediaStatusIn, mediaStatusIn);
+    this.setStoredFilter(StorageKeys.MediaStatusNotIn, mediaStatusNotIn);
     this.setStoredFilter(StorageKeys.ScoreGreaterThan, scoreGreaterThan);
     this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreGreaterThan);
     this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreSmallerThan);
-    this.setStoredFilter(StorageKeys.EntryStatus, entryStatuses);
   }
 
   private sortEntries() {
@@ -229,12 +270,16 @@ export class MtRecentlyUpdatedListEntriesComponent
   private filterEntries() {
     this.filteredEntries = (this.listEntries ?? [])?.filter(
       (entry) =>
-        matchesCountryFilter(entry, this.selectedCountries) &&
-        matchesFormatFilter(entry, this.selectedFormats) &&
-        matchesMediaStatusFilter(entry, this.selectedMediaStatuses) &&
-        matchesScoreGreaterThanFilter(entry, this.scoreGreaterThan) &&
+        matchesCountryInFilter(entry, this.countryIn) &&
+        matchesCountryNotInFilter(entry, this.countryNotIn) &&
+        matchesFormatInFilter(entry, this.formatIn) &&
+        matchesFormatNotInFilter(entry, this.formatNotIn) &&
+        matchesMediaStatusInFilter(entry, this.mediaStatusIn) &&
+        matchesMediaStatusNotInFilter(entry, this.mediaStatusNotIn) &&
+        matchesScoreGreaterThanInFilter(entry, this.scoreGreaterThan) &&
         matchesScoreSmallerThanFilter(entry, this.scoreSmallerThan) &&
-        matchesStatusFilter(entry, this.selectedEntryStatuses)
+        matchesStatusInFilter(entry, this.entryStatusIn) &&
+        matchesStatusNotInFilter(entry, this.entryStatusNotIn)
     );
   }
 

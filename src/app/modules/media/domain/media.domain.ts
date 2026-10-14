@@ -232,38 +232,65 @@ export const isMediaFinished = (media: Media) => {
   );
 };
 
-export const matchesCountryFilter = (
+export const matchesCountryInFilter = (
   entry: ListEntry,
-  selectedCountries?: MediaCountry[]
+  countryIn?: MediaCountry[]
 ) => {
   return (
-    !selectedCountries?.length ||
+    !countryIn?.length ||
     (entry.media.countryOfOrigin &&
-      selectedCountries.includes(entry.media.countryOfOrigin))
+      countryIn.includes(entry.media.countryOfOrigin))
   );
 };
 
-export const matchesFormatFilter = (
+export const matchesCountryNotInFilter = (
   entry: ListEntry,
-  selectedFormats?: MediaFormat[]
+  countryNotIn?: MediaCountry[]
 ) => {
   return (
-    !selectedFormats?.length ||
-    (entry.media.format && selectedFormats.includes(entry.media.format))
+    !entry.media.countryOfOrigin ||
+    !countryNotIn?.length ||
+    !countryNotIn.includes(entry.media.countryOfOrigin)
   );
 };
 
-export const matchesMediaStatusFilter = (
+export const matchesFormatInFilter = (
   entry: ListEntry,
-  selectedMediaStatuses?: MediaStatus[]
+  formatIn?: MediaFormat[]
 ) => {
   return (
-    !selectedMediaStatuses?.length ||
-    (entry.media.status && selectedMediaStatuses.includes(entry.media.status))
+    !formatIn?.length ||
+    (entry.media.format && formatIn.includes(entry.media.format))
   );
 };
 
-export const matchesScoreGreaterThanFilter = (
+export const matchesFormatNotInFilter = (
+  entry: ListEntry,
+  formatNotIn?: MediaFormat[]
+) => {
+  return !formatNotIn?.length || !formatNotIn.includes(entry.media.format);
+};
+
+export const matchesMediaStatusInFilter = (
+  entry: ListEntry,
+  mediaStatusIn?: MediaStatus[]
+) => {
+  return (
+    !mediaStatusIn?.length ||
+    (entry.media.status && mediaStatusIn.includes(entry.media.status))
+  );
+};
+
+export const matchesMediaStatusNotInFilter = (
+  entry: ListEntry,
+  mediaStatusNotIn?: MediaStatus[]
+) => {
+  return (
+    !mediaStatusNotIn?.length || !mediaStatusNotIn.includes(entry.media.status)
+  );
+};
+
+export const matchesScoreGreaterThanInFilter = (
   entry: ListEntry,
   scoreGreaterThan?: number
 ) => {
@@ -289,14 +316,18 @@ export const matchesScoreSmallerThanFilter = (
   );
 };
 
-export const matchesStatusFilter = (
+export const matchesStatusInFilter = (
   entry: ListEntry,
-  selectedEntryStatuses?: ListEntryStatus[]
+  entryStatusIn?: ListEntryStatus[]
 ) => {
-  return (
-    !selectedEntryStatuses?.length ||
-    selectedEntryStatuses.includes(entry.status)
-  );
+  return !entryStatusIn?.length || entryStatusIn.includes(entry.status);
+};
+
+export const matchesStatusNotInFilter = (
+  entry: ListEntry,
+  entryStatusNotIn?: ListEntryStatus[]
+) => {
+  return !entryStatusNotIn?.length || !entryStatusNotIn.includes(entry.status);
 };
 
 export const getSizedCoverImage = (

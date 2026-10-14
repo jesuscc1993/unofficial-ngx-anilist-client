@@ -10,12 +10,12 @@
 
   <mt-modal-content>
     <form [formGroup]="filterForm">
-      <div class="filter-grid padding-horizontal-2xs padding-vertical-xs">
-        @if (availableFilters.includes('countries')) {
+      <div class="filters-grid">
+        @if (availableFilters.includes('country')) {
           <div>
             <mt-select
               class="display-block full-width"
-              controlName="countries"
+              controlName="countryIn"
               label="{{
                 getFilterSelectLabel(
                   'media.search.filters.countryOfOrigin',
@@ -27,13 +27,28 @@
               [values]="mediaCountries"
             ></mt-select>
           </div>
-        }
-
-        @if (availableFilters.includes('formats')) {
           <div>
             <mt-select
               class="display-block full-width"
-              controlName="formats"
+              controlName="countryNotIn"
+              label="{{
+                getFilterSelectLabel(
+                  'media.search.filters.countryOfOrigin',
+                  'media.search.filters.notIncludedIn'
+                )
+              }}"
+              optionPrefixLabel="country."
+              [multiple]="true"
+              [values]="mediaCountries"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('format')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="formatIn"
               label="{{
                 getFilterSelectLabel(
                   'media.format',
@@ -45,13 +60,28 @@
               [values]="mediaFormats"
             ></mt-select>
           </div>
-        }
-
-        @if (availableFilters.includes('mediaStatuses')) {
           <div>
             <mt-select
               class="display-block full-width"
-              controlName="mediaStatuses"
+              controlName="formatNotIn"
+              label="{{
+                getFilterSelectLabel(
+                  'media.format',
+                  'media.search.filters.notIncludedIn'
+                )
+              }}"
+              optionPrefixLabel="media.formatValues."
+              [multiple]="true"
+              [values]="mediaFormats"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('mediaStatus')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="mediaStatusIn"
               label="{{
                 getFilterSelectLabel(
                   'media.status',
@@ -63,17 +93,47 @@
               [values]="mediaStatusOptions"
             ></mt-select>
           </div>
-        }
-
-        @if (availableFilters.includes('entryStatuses')) {
           <div>
             <mt-select
               class="display-block full-width"
-              controlName="entryStatuses"
+              controlName="mediaStatusNotIn"
+              label="{{
+                getFilterSelectLabel(
+                  'media.status',
+                  'media.search.filters.notIncludedIn'
+                )
+              }}"
+              optionPrefixLabel="media.statusValues."
+              [multiple]="true"
+              [values]="mediaStatusOptions"
+            ></mt-select>
+          </div>
+        }
+
+        @if (availableFilters.includes('entryStatus')) {
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="entryStatusIn"
               label="{{
                 getFilterSelectLabel(
                   'listEntry.status',
                   'media.search.filters.includedIn'
+                )
+              }}"
+              [optionPrefixLabel]="mediaType.toLowerCase() + '.statusValues.'"
+              [multiple]="true"
+              [values]="entryStatuses"
+            ></mt-select>
+          </div>
+          <div>
+            <mt-select
+              class="display-block full-width"
+              controlName="entryStatusNotIn"
+              label="{{
+                getFilterSelectLabel(
+                  'listEntry.status',
+                  'media.search.filters.notIncludedIn'
                 )
               }}"
               [optionPrefixLabel]="mediaType.toLowerCase() + '.statusValues.'"

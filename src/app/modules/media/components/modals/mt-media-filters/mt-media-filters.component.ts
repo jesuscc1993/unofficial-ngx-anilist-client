@@ -22,17 +22,21 @@ import {
 import { isAnime } from '../../../domain/media.domain';
 
 export type MediaFilter =
-  | 'countries'
-  | 'entryStatuses'
-  | 'formats'
-  | 'mediaStatuses'
+  | 'country'
+  | 'entryStatus'
+  | 'format'
+  | 'mediaStatus'
   | 'score';
 
 export type MediaFilterSelection = {
-  countries?: MediaCountry[];
-  entryStatuses?: ListEntryStatus[];
-  formats?: MediaFormat[];
-  mediaStatuses?: MediaStatus[];
+  countryIn?: MediaCountry[];
+  countryNotIn?: MediaCountry[];
+  entryStatusIn?: ListEntryStatus[];
+  entryStatusNotIn?: ListEntryStatus[];
+  formatIn?: MediaFormat[];
+  formatNotIn?: MediaFormat[];
+  mediaStatusIn?: MediaStatus[];
+  mediaStatusNotIn?: MediaStatus[];
   scoreGreaterThan?: number;
   scoreSmallerThan?: number;
 };
@@ -70,10 +74,14 @@ export class MtMediaFiltersComponent {
   readonly titleKey = this.data.titleKey;
 
   readonly filterForm = this.formBuilder.group({
-    countries: [this.data.selectedFilters.countries ?? []],
-    entryStatuses: [this.data.selectedFilters.entryStatuses ?? []],
-    formats: [this.data.selectedFilters.formats ?? []],
-    mediaStatuses: [this.data.selectedFilters.mediaStatuses ?? []],
+    countryIn: [this.data.selectedFilters.countryIn ?? []],
+    countryNotIn: [this.data.selectedFilters.countryNotIn ?? []],
+    entryStatusIn: [this.data.selectedFilters.entryStatusIn ?? []],
+    entryStatusNotIn: [this.data.selectedFilters.entryStatusNotIn ?? []],
+    formatIn: [this.data.selectedFilters.formatIn ?? []],
+    formatNotIn: [this.data.selectedFilters.formatNotIn ?? []],
+    mediaStatusIn: [this.data.selectedFilters.mediaStatusIn ?? []],
+    mediaStatusNotIn: [this.data.selectedFilters.mediaStatusNotIn ?? []],
     scoreGreaterThan: [this.data.selectedFilters.scoreGreaterThan],
     scoreSmallerThan: [this.data.selectedFilters.scoreSmallerThan],
   });

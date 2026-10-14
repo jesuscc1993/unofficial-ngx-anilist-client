@@ -89,12 +89,15 @@ export class MtListRelatedMediaComponent
   pagination?: PageInfo;
   relatedMediaIds?: number[];
   searching?: boolean;
-  selectedFormats?: MediaFormat[];
-  selectedMediaStatuses?: MediaStatus[];
+  started?: boolean;
+
+  formatIn?: MediaFormat[];
+  formatNotIn?: MediaFormat[];
+  mediaStatusIn?: MediaStatus[];
+  mediaStatusNotIn?: MediaStatus[];
   scoreGreaterThan?: number;
   scoreSmallerThan?: number;
-  selectedSort?: MediaSort;
-  started?: boolean;
+  sortBy?: MediaSort;
 
   constructor() {
     super();
@@ -136,8 +139,12 @@ export class MtListRelatedMediaComponent
   initialize() {
     this.mediaFormats = getMediaFormats(this.mediaType);
 
-    this.selectedFormats = this.getStoredFilter<MediaFormat[]>(
-      StorageKeys.Format,
+    this.formatIn = this.getStoredFilter<MediaFormat[]>(
+      StorageKeys.FormatIn,
+      []
+    );
+    this.formatNotIn = this.getStoredFilter<MediaFormat[]>(
+      StorageKeys.FormatNotIn,
       []
     );
     this.scoreGreaterThan = this.getStoredFilter<number>(
@@ -146,12 +153,16 @@ export class MtListRelatedMediaComponent
     this.scoreSmallerThan = this.getStoredFilter<number>(
       StorageKeys.ScoreSmallerThan
     );
-    this.selectedMediaStatuses = this.getStoredFilter<MediaStatus[]>(
-      StorageKeys.MediaStatus,
+    this.mediaStatusIn = this.getStoredFilter<MediaStatus[]>(
+      StorageKeys.MediaStatusIn,
       []
     );
-    this.selectedSort = this.getStoredFilter<MediaSort>(
-      StorageKeys.Sort,
+    this.mediaStatusNotIn = this.getStoredFilter<MediaStatus[]>(
+      StorageKeys.MediaStatusNotIn,
+      []
+    );
+    this.sortBy = this.getStoredFilter<MediaSort>(
+      StorageKeys.SortBy,
       MediaSort.END_DATE_DESC
     );
 
@@ -209,13 +220,15 @@ export class MtListRelatedMediaComponent
     const dialogRef = this.dialog.open(MtMediaFiltersComponent, {
       ...largeModalOptions,
       data: {
-        availableFilters: ['formats', 'mediaStatuses', 'score'],
+        availableFilters: ['format', 'mediaStatus', 'score'],
         formatOptions: this.mediaFormats ?? [],
         mediaType: this.mediaType,
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.relatedMedia`,
         selectedFilters: {
-          formats: this.selectedFormats ?? [],
-          mediaStatuses: this.selectedMediaStatuses ?? [],
+          formatIn: this.formatIn ?? [],
+          formatNotIn: this.formatNotIn ?? [],
+          mediaStatusIn: this.mediaStatusIn ?? [],
+          mediaStatusNotIn: this.mediaStatusNotIn ?? [],
           scoreGreaterThan: this.scoreGreaterThan,
           scoreSmallerThan: this.scoreSmallerThan,
         },
@@ -231,11 +244,11 @@ export class MtListRelatedMediaComponent
     this.search(pageIndex + 1, pageSize);
   }
 
-  setSelectedSort = (selectedSort: MediaSort) => {
-    this.selectedSort = selectedSort;
+  setSortBy = (sortBy: MediaSort) => {
+    this.sortBy = sortBy;
     this.search(0, this.pagination?.perPage);
 
-    this.setStoredFilter(StorageKeys.Sort, selectedSort);
+    this.setStoredFilter(StorageKeys.SortBy, sortBy);
   };
 
   private initializeState() {
@@ -257,14 +270,16 @@ export class MtListRelatedMediaComponent
           {
             averageScoreGreaterThan: this.scoreGreaterThan,
             averageScoreSmallerThan: this.scoreSmallerThan,
-            formatIn: this.selectedFormats?.length
-              ? this.selectedFormats
+            formatIn: this.formatIn?.length
+              ? this.formatIn
               : isAnime(this.mediaType)
                 ? this.defaultAnimeFormats
                 : this.defaultMangaFormats,
+            formatNotIn: this.formatNotIn,
             onList: false,
-            sort: this.selectedSort,
-            statusIn: this.selectedMediaStatuses ?? [],
+            sort: this.sortBy,
+            statusIn: this.mediaStatusIn ?? [],
+            statusNotIn: this.mediaStatusNotIn,
           },
           {
             pageIndex,
@@ -307,19 +322,25 @@ export class MtListRelatedMediaComponent
   }
 
   private applyFilters({
-    formats = [],
+    formatIn = [],
+    formatNotIn = [],
+    mediaStatusIn,
+    mediaStatusNotIn,
     scoreGreaterThan,
     scoreSmallerThan,
-    mediaStatuses,
   }: MediaFilterSelection) {
+    this.formatIn = formatIn;
+    this.formatNotIn = formatNotIn;
+    this.mediaStatusIn = mediaStatusIn;
+    this.mediaStatusNotIn = mediaStatusNotIn;
     this.scoreGreaterThan = scoreGreaterThan;
     this.scoreSmallerThan = scoreSmallerThan;
-    this.selectedFormats = formats;
-    this.selectedMediaStatuses = mediaStatuses;
     this.search(0, this.pagination?.perPage);
 
-    this.setStoredFilter(StorageKeys.Format, formats);
-    this.setStoredFilter(StorageKeys.MediaStatus, mediaStatuses);
+    this.setStoredFilter(StorageKeys.FormatIn, formatIn);
+    this.setStoredFilter(StorageKeys.FormatNotIn, formatNotIn);
+    this.setStoredFilter(StorageKeys.MediaStatusIn, mediaStatusIn);
+    this.setStoredFilter(StorageKeys.MediaStatusNotIn, mediaStatusNotIn);
     this.setStoredFilter(StorageKeys.ScoreGreaterThan, scoreGreaterThan);
     this.setStoredFilter(StorageKeys.ScoreSmallerThan, scoreSmallerThan);
   }

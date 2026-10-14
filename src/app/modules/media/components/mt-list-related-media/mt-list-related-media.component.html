@@ -10,9 +10,9 @@
         panelClass="margin-right-2xs"
         [title]="'generic.sort' | translate"
         [options]="mediaSorts"
-        [value]="selectedSort"
+        [value]="sortBy"
         [getOptionLiteral]="getSortLiteral"
-        [onChange]="setSelectedSort"
+        [onChange]="setSortBy"
       ></mt-header-select>
 
       <button

@@ -6,13 +6,17 @@ export const StoragePrefixes = {
 
 export const StorageKeys = {
   AccessToken: 'accessToken',
-  Country: 'country',
-  EntryStatus: 'entryStatus',
-  Format: 'format',
-  MediaStatus: 'mediaStatus',
+  CountryIn: 'countryIn',
+  CountryNotIn: 'countryNotIn',
+  EntryStatusIn: 'entryStatusIn',
+  EntryStatusNotIn: 'entryStatusNotIn',
+  FormatIn: 'formatIn',
+  FormatNotIn: 'formatNotIn',
+  MediaStatusIn: 'mediaStatusIn',
+  MediaStatusNotIn: 'mediaStatusNotIn',
   ScoreGreaterThan: 'scoreGreaterThan',
   ScoreSmallerThan: 'scoreSmallerThan',
-  Sort: 'sort',
+  SortBy: 'sortBy',
   UserData: 'user',
 };
 
@@ -26,7 +30,12 @@ const getItem = <T>(key: string, fallback?: T): T | undefined => {
 };
 
 const setItem = <T>(key: string, value: T): void => {
-  if (value !== undefined) {
+  const isSet =
+    !(Array.isArray(value) && value.length === 0) &&
+    value !== undefined &&
+    value !== null;
+
+  if (isSet) {
     localStorage.setItem(key, JSON.stringify(value));
   } else {
     removeItem(key);

@@ -8,7 +8,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
-import { Media } from '../../../shared/types/anilist/media.types';
+import { Media, MediaStatus } from '../../../shared/types/anilist/media.types';
 import { getScoreColor } from '../../domain/media.domain';
 
 @Component({
@@ -61,10 +61,14 @@ export class MtMediaScoreComponent implements OnChanges {
   }
 
   getFormattedScore() {
-    return this.score ? this.score.toString() : '';
+    return this.shouldDisplayScore() && this.score ? this.score.toString() : '';
   }
 
   getTooltip() {
+    if (!this.shouldDisplayScore()) {
+      return undefined;
+    }
+
     const tooltipLines: string[] = [];
     if (this.listEntry?.scoreRaw) {
       tooltipLines.push(
@@ -87,6 +91,10 @@ export class MtMediaScoreComponent implements OnChanges {
       );
     }
     return tooltipLines.length ? tooltipLines.join('\n') : undefined;
+  }
+
+  private shouldDisplayScore(): boolean {
+    return this.media.status !== MediaStatus.NOT_YET_RELEASED;
   }
 
   private shouldDisplayMean(): boolean {
