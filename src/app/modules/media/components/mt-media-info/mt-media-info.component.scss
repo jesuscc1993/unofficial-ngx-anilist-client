@@ -72,10 +72,11 @@ sup {
         border-left-style: solid;
         border-left-width: 1px;
         box-sizing: border-box;
-        flex: 0 0 224px;
+        flex: 0 1 auto;
         margin-top: (-$spacing-2xs);
         overflow: hidden;
-        padding: $spacing-2xs 0 $spacing-2xs $column-padding;
+        padding: $spacing-2xs $column-padding;
+        width: fit-content;
 
         .property-value-pair {
           &:first-child {
