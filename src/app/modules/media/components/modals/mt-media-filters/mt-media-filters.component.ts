@@ -21,9 +21,9 @@ import {
 } from '../../../../shared/types/anilist/media.types';
 import { isAnime } from '../../../domain/media.domain';
 
-export type MediaFilter =
+export type AvailableFilter =
   | 'country'
-  | 'entryStatus'
+  | 'entryStatuses'
   | 'format'
   | 'mediaStatus'
   | 'score';
@@ -42,12 +42,18 @@ export type MediaFilterSelection = {
 };
 
 export type MediaFilterDialogData = {
-  availableFilters: MediaFilter[];
-  entryStatusOptions?: ListEntryStatus[];
-  formatOptions?: MediaFormat[];
+  availableFilters: AvailableFilter[];
+  availableOptions: AvailableOptions;
   mediaType: MediaType;
   selectedFilters: MediaFilterSelection;
   titleKey?: string;
+};
+
+export type AvailableOptions = {
+  entryStatuses?: ListEntryStatus[];
+  formatOptions?: MediaFormat[];
+  mediaCountries?: MediaCountry[];
+  mediaStatuses?: MediaStatus[];
 };
 
 @Component({
@@ -70,6 +76,7 @@ export class MtMediaFiltersComponent {
   readonly onSubmit = output<MediaFilterSelection>();
 
   readonly availableFilters = this.data.availableFilters;
+  readonly availableOptions = this.data.availableOptions;
   readonly mediaType = this.data.mediaType;
   readonly titleKey = this.data.titleKey;
 
@@ -86,12 +93,19 @@ export class MtMediaFiltersComponent {
     scoreSmallerThan: [this.data.selectedFilters.scoreSmallerThan],
   });
 
-  readonly entryStatuses = this.data.entryStatusOptions ?? listEntryStatuses;
-  readonly mediaCountries = mediaCountries;
+  readonly entryStatuses =
+    this.availableOptions.entryStatuses ?? listEntryStatuses;
+
+  readonly mediaCountries =
+    this.availableOptions.mediaCountries ?? mediaCountries;
+
   readonly mediaScores = mediaScores;
-  readonly mediaStatusOptions = mediaStatuses;
+
+  readonly mediamediaStatuses =
+    this.availableOptions.mediaStatuses ?? mediaStatuses;
+
   readonly mediaFormats =
-    this.data.formatOptions ??
+    this.availableOptions.formatOptions ??
     (isAnime(this.mediaType) ? animeFormats : mangaFormats);
 
   getScoreGreaterThanLiteral = (score: unknown) => {

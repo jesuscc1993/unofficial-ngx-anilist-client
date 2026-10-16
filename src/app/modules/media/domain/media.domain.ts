@@ -8,6 +8,8 @@ import {
   gridCardWidth,
   gridSpacing,
   localizedMediaType,
+  mediaCountries,
+  mediaStatuses,
 } from '../../shared/constants/media.constants';
 import {
   CoverImage,
@@ -95,19 +97,39 @@ export const getMediaFormats = (mediaType: MediaType) => {
   return isAnime(mediaType) ? animeFormats : mangaFormats;
 };
 
+export const getMediaCountriesForListEntries = (listEntries: ListEntry[]) => {
+  const countriesFound = new Set(
+    listEntries.map((entry) => entry.media.countryOfOrigin)
+  );
+  return mediaCountries.filter((country) => countriesFound.has(country));
+};
+
 export const getMediaFormatsForListEntries = (
   listEntries: ListEntry[],
   mediaType: MediaType
 ) => {
-  return getMediaFormats(mediaType).filter(
-    (format) => !!listEntries.find((entry) => entry.media.format === format)
+  const formatsFound = new Set(listEntries.map((entry) => entry.media.format));
+  return getMediaFormats(mediaType).filter((format) =>
+    formatsFound.has(format)
+  );
+};
+
+export const getListEntryStatusesForListEntries = (
+  listEntries: ListEntry[]
+) => {
+  const listEntryStatusesFound = new Set(
+    listEntries.map((entry) => entry.status)
+  );
+  return listEntryStatuses.filter((status) =>
+    listEntryStatusesFound.has(status)
   );
 };
 
 export const getMediaStatusesForListEntries = (listEntries: ListEntry[]) => {
-  return listEntryStatuses.filter(
-    (status) => !!listEntries.find((entry) => entry.status === status)
+  const mediaStatusesFound = new Set(
+    listEntries.map((entry) => entry.media.status)
   );
+  return mediaStatuses.filter((status) => mediaStatusesFound.has(status));
 };
 
 export const getMediaSortFromSort = (sort: Sort) => {

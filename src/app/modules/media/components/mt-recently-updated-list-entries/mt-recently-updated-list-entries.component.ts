@@ -16,6 +16,10 @@ import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
 import { listEntryStatuses } from '../../../shared/constants/listEntry.constants';
 import {
+  mediaCountries,
+  mediaStatuses,
+} from '../../../shared/constants/media.constants';
+import {
   ListEntry,
   ListEntryStatus,
 } from '../../../shared/types/anilist/listEntry.types';
@@ -27,6 +31,8 @@ import {
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
+  getListEntryStatusesForListEntries,
+  getMediaCountriesForListEntries,
   getMediaFormats,
   getMediaFormatsForListEntries,
   getMediaStatusesForListEntries,
@@ -77,7 +83,9 @@ export class MtRecentlyUpdatedListEntriesComponent
   error?: Error;
   filteredEntries?: ListEntry[];
   listEntryStatuses?: ListEntryStatus[];
+  mediaCountries?: MediaCountry[];
   mediaFormats?: MediaFormat[];
+  mediaStatuses?: MediaStatus[];
   searching = true;
 
   countryIn?: MediaCountry[];
@@ -109,7 +117,9 @@ export class MtRecentlyUpdatedListEntriesComponent
 
   initialize() {
     this.listEntryStatuses = listEntryStatuses;
+    this.mediaCountries = mediaCountries;
     this.mediaFormats = getMediaFormats(this.mediaType);
+    this.mediaStatuses = mediaStatuses;
 
     this.countryIn = this.getStoredFilter<MediaCountry[]>(
       StorageKeys.CountryIn,
@@ -155,12 +165,20 @@ export class MtRecentlyUpdatedListEntriesComponent
       .pipe(
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
+
+          this.mediaCountries =
+            getMediaCountriesForListEntries(mediaListEntries);
+
           this.mediaFormats = getMediaFormatsForListEntries(
             mediaListEntries,
             this.mediaType
           );
+
+          this.mediaStatuses = getMediaStatusesForListEntries(mediaListEntries);
+
           this.listEntryStatuses =
-            getMediaStatusesForListEntries(mediaListEntries);
+            getListEntryStatusesForListEntries(mediaListEntries);
+
           this.processEntries();
         }),
         catchError((error) => this.onError(error)),
@@ -176,13 +194,17 @@ export class MtRecentlyUpdatedListEntriesComponent
       data: {
         availableFilters: [
           'country',
-          'entryStatus',
+          'entryStatuses',
           'format',
           'mediaStatus',
           'score',
         ],
-        entryStatusOptions: this.listEntryStatuses ?? [],
-        formatOptions: this.mediaFormats ?? [],
+        availableOptions: {
+          entryStatuses: this.listEntryStatuses ?? [],
+          formatOptions: this.mediaFormats ?? [],
+          mediaCountries: this.mediaCountries ?? [],
+          mediaStatuses: this.mediaStatuses ?? [],
+        },
         mediaType: this.mediaType,
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.recentlyUpdated`,
         selectedFilters: {

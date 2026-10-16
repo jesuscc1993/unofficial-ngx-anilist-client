@@ -221,7 +221,9 @@ export class MtListRelatedMediaComponent
       ...largeModalOptions,
       data: {
         availableFilters: ['format', 'mediaStatus', 'score'],
-        formatOptions: this.mediaFormats ?? [],
+        availableOptions: {
+          formatOptions: this.mediaFormats ?? [],
+        },
         mediaType: this.mediaType,
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.relatedMedia`,
         selectedFilters: {

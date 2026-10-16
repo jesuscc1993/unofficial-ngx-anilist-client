@@ -14,7 +14,10 @@ import { largeModalOptions } from '../../../../app.constants';
 import { AnimeCommands } from '../../../anime/commands/anime.commands';
 import { MangaCommands } from '../../../manga/commands/manga.commands';
 import { WithObservableOnDestroy } from '../../../shared/components/with-observable-on-destroy/with-observable-on-destroy.component';
-import { basicMediaSorts } from '../../../shared/constants/media.constants';
+import {
+  basicMediaSorts,
+  mediaCountries,
+} from '../../../shared/constants/media.constants';
 import { ListEntry } from '../../../shared/types/anilist/listEntry.types';
 import {
   MediaCountry,
@@ -24,6 +27,7 @@ import {
 } from '../../../shared/types/anilist/media.types';
 import { MediaCommands } from '../../commands/media.commands.interface';
 import {
+  getMediaCountriesForListEntries,
   getMediaFormats,
   getMediaFormatsForListEntries,
   getMediaTypePrefixedStorageKey,
@@ -73,6 +77,7 @@ export class MtRecentlyFinishedMediaComponent
   error?: Error;
   filteredEntries?: ListEntry[];
   maxEndDate?: Date;
+  mediaCountries?: MediaCountry[];
   mediaFormats?: MediaFormat[];
   searching = true;
 
@@ -106,6 +111,7 @@ export class MtRecentlyFinishedMediaComponent
     this.maxEndDate = now;
     this.maxEndDate.setMonth(now.getMonth() + this.monthsAhead);
 
+    this.mediaCountries = mediaCountries;
     this.mediaFormats = getMediaFormats(this.mediaType);
 
     this.countryIn = this.getStoredFilter<MediaCountry[]>(
@@ -140,10 +146,15 @@ export class MtRecentlyFinishedMediaComponent
       .pipe(
         tap((mediaListEntries) => {
           this.listEntries = mediaListEntries;
+
+          this.mediaCountries =
+            getMediaCountriesForListEntries(mediaListEntries);
+
           this.mediaFormats = getMediaFormatsForListEntries(
             mediaListEntries,
             this.mediaType
           );
+
           this.processEntries();
         }),
         catchError((error) => this.onError(error)),
@@ -158,7 +169,10 @@ export class MtRecentlyFinishedMediaComponent
       ...largeModalOptions,
       data: {
         availableFilters: ['country', 'format', 'score'],
-        formatOptions: this.mediaFormats ?? [],
+        availableOptions: {
+          formatOptions: this.mediaFormats ?? [],
+          mediaCountries: this.mediaCountries ?? [],
+        },
         mediaType: this.mediaType,
         titleKey: `${this.mediaType.toLowerCase()}.dashboard.finishedReleasing`,
         selectedFilters: {
