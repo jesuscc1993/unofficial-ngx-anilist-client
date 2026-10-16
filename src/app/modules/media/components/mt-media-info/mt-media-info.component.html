@@ -161,21 +161,26 @@
         </div>
       </div>
     }
-    @if (media.synonyms?.length) {
-      <div class="property-value-pair chips flex-box no-margin-bottom">
-        <div class="property">{{ 'media.synonyms' | translate }}</div>
-        <div role="list" class="value list wrap-balance">
+    <div class="property-value-pair chips flex-box no-margin-bottom">
+      <div class="property">{{ 'media.synonyms' | translate }}</div>
+      <div role="list" class="value list wrap-balance">
+        @if (media.title.romaji) {
           <mt-chip role="listitem">
-            {{ getMediaTitle(media) }}
+            {{ media.title.romaji }}
           </mt-chip>
-          @for (synonym of media.synonyms; track synonym) {
-            <mt-chip role="listitem">
-              {{ synonym }}
-            </mt-chip>
-          }
-        </div>
+        }
+        @if (media.title.english) {
+          <mt-chip role="listitem">
+            {{ media.title.english }}
+          </mt-chip>
+        }
+        @for (synonym of media.synonyms; track synonym) {
+          <mt-chip role="listitem">
+            {{ synonym }}
+          </mt-chip>
+        }
       </div>
-    }
+    </div>
 
     <!-- recommendations -->
     @if (fullDetail) {
