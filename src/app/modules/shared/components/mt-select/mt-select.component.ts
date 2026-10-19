@@ -33,7 +33,7 @@ export class MtSelectComponent implements OnInit, OnChanges {
   @Input() getOptionLiteral?: (option: unknown) => string;
   @Input() multiple = false;
   @Input() panelClass?: string;
-  @Input() subscriptSizing?: SubscriptSizing;
+  @Input() subscriptSizing: SubscriptSizing = 'fixed';
   @Input() values?: unknown[];
 
   control!: FormControl;
