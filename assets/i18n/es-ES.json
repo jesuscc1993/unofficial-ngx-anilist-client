@@ -66,6 +66,7 @@
   },
   "generic": {
     "cancel": "Cancelar",
+    "filterBy": "Filtrar por",
     "delete": "Eliminar",
     "ellipsis": "...",
     "filter": "Filtrar",
@@ -165,7 +166,6 @@
         "after": "después de",
         "before": "antes de",
         "below": "por debajo de",
-        "byTitle": "Filtrar por nombre",
         "clear": "Limpiar filtros",
         "countryOfOrigin": "País de origen",
         "endYear": "Año de fin",
@@ -177,7 +177,8 @@
           "true": "En lista",
           "undefined": "Ambos"
         },
-        "startYear": "Año de inicio"
+        "startYear": "Año de inicio",
+        "title": "Nombre"
       },
       "limitedFeatures": "La búsqueda estará disponible, pero la mayoría de las otras funcionalidades no.",
       "submit": "Buscar",
