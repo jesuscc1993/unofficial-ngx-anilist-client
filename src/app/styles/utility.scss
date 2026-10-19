@@ -98,3 +98,7 @@ label[for],
 .vertical-top {
   vertical-align: top;
 }
+
+.disabled {
+  filter: grayscale(1) brightness(0.5);
+}

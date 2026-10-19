@@ -1,16 +1,17 @@
 <section>
   <form [formGroup]="searchForm" (ngSubmit)="search()">
     <mat-card>
-      <mat-card-content class="search-card">
+      <mat-card-content class="padding-vertical-xs padding-horizontal-sm">
         <h2 class="text-150 bold text-center no-margin-top">
           {{ getSourceLiteral(mediaType) | translate }}
           {{ 'media.search.title' | translate }}
         </h2>
 
         <div class="form-group">
-          <mat-form-field class="search-input">
+          <mat-form-field class="display-block narrow margin-auto">
             <mat-label>
-              {{ 'media.search.filters.byTitle' | translate }}
+              {{ 'generic.filterBy' | translate }}
+              {{ 'media.search.filters.title' | translate | lowercase }}
             </mat-label>
 
             <input id="searchInput" matInput formControlName="search" />
@@ -20,11 +21,9 @@
         <mat-expansion-panel
           class="mat-elevation-z padding-bottom-sm search-filters"
         >
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header class="text-center">
             {{ 'media.search.filters.advanced' | translate }}
           </mat-expansion-panel-header>
-
-          <mat-divider></mat-divider>
 
           <div class="padding-horizontal-2xs padding-vertical-xs">
             <div class="form-columns">

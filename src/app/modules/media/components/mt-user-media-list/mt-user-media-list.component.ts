@@ -22,7 +22,7 @@ import {
 import { MediaType } from '../../../shared/types/anilist/media.types';
 import { User } from '../../../shared/types/anilist/user.types';
 import { MediaCommands } from '../../commands/media.commands';
-import { isAnime } from '../../domain/media.domain';
+import { getSourceLiteral, isAnime } from '../../domain/media.domain';
 
 type Status = {
   value: ListEntryStatus;
@@ -39,6 +39,8 @@ export class MtUserMediaListComponent
   extends WithObservableOnDestroy
   implements OnInit
 {
+  readonly getSourceLiteral = getSourceLiteral;
+
   private animeCommands = inject(AnimeCommands);
   private authStore = inject(AuthStore);
   private changeDetectorRef = inject(ChangeDetectorRef);

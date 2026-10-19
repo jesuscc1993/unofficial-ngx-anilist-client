@@ -10,7 +10,7 @@
 
   <mt-modal-content>
     <form [formGroup]="filterForm">
-      <div class="filters-grid">
+      <div class="filters-grid no-subscript">
         @if (availableFilters.includes('country')) {
           <div>
             <mt-select
@@ -23,6 +23,7 @@
                 )
               }}"
               optionPrefixLabel="country."
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="mediaCountries"
             ></mt-select>
@@ -38,6 +39,7 @@
                 )
               }}"
               optionPrefixLabel="country."
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="mediaCountries"
             ></mt-select>
@@ -56,6 +58,7 @@
                 )
               }}"
               optionPrefixLabel="media.formatValues."
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="mediaFormats"
             ></mt-select>
@@ -71,6 +74,7 @@
                 )
               }}"
               optionPrefixLabel="media.formatValues."
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="mediaFormats"
             ></mt-select>
@@ -89,6 +93,7 @@
                 )
               }}"
               optionPrefixLabel="media.statusValues."
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="mediamediaStatuses"
             ></mt-select>
@@ -104,6 +109,7 @@
                 )
               }}"
               optionPrefixLabel="media.statusValues."
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="mediamediaStatuses"
             ></mt-select>
@@ -122,6 +128,7 @@
                 )
               }}"
               [optionPrefixLabel]="mediaType.toLowerCase() + '.statusValues.'"
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="entryStatuses"
             ></mt-select>
@@ -137,6 +144,7 @@
                 )
               }}"
               [optionPrefixLabel]="mediaType.toLowerCase() + '.statusValues.'"
+              subscriptSizing="dynamic"
               [multiple]="true"
               [values]="entryStatuses"
             ></mt-select>
@@ -155,6 +163,7 @@
                 )
               }}"
               panelClass="compact-options"
+              subscriptSizing="dynamic"
               [values]="mediaScores"
               [getOptionLiteral]="getScoreGreaterThanLiteral"
             ></mt-select>
@@ -171,6 +180,7 @@
                 )
               }}"
               panelClass="compact-options"
+              subscriptSizing="dynamic"
               [values]="mediaScores"
               [getOptionLiteral]="getScoreSmallerThanLiteral"
             ></mt-select>

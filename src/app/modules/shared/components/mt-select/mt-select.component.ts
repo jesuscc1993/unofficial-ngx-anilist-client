@@ -10,6 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlContainer, FormControl } from '@angular/forms';
+import { SubscriptSizing } from '@angular/material/form-field';
 
 export interface MtSelectOption {
   label: string;
@@ -32,6 +33,7 @@ export class MtSelectComponent implements OnInit, OnChanges {
   @Input() getOptionLiteral?: (option: unknown) => string;
   @Input() multiple = false;
   @Input() panelClass?: string;
+  @Input() subscriptSizing?: SubscriptSizing;
   @Input() values?: unknown[];
 
   control!: FormControl;

@@ -3,6 +3,7 @@
 .statuses-wrapper {
   display: flex;
   gap: $spacing-3xs;
+  justify-content: center;
   margin: (-$spacing-2xs);
 
   mat-checkbox {

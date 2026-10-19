@@ -8,19 +8,26 @@
       @if (statuses?.length) {
         <div>
           <section>
-            <mat-form-field class="no-subscript full-width">
-              <mat-label>
-                {{ 'media.search.filters.byTitle' | translate }}
-              </mat-label>
-              <input matInput (keyup)="applyFilter($event.target.value)" />
-            </mat-form-field>
-          </section>
-          <section>
-            <mat-card class="margin-top-sm">
-              <mat-card-content class="padding-bottom-2xs">
-                <p class="text-115 bold no-margin-top">
-                  {{ 'media.userList.show' | translate }} /
-                  {{ 'media.userList.goTo' | translate }}
+            <mat-card>
+              <mat-card-content
+                class="padding-vertical-xs padding-horizontal-sm"
+              >
+                <h2 class="text-150 bold text-center no-margin-top">
+                  {{ getSourceLiteral(mediaType) | translate }}
+                  {{ 'media.list' | translate }}
+                </h2>
+
+                <mat-form-field class="display-block narrow margin-auto">
+                  <mat-label>
+                    {{ 'generic.filterBy' | translate }}
+                    {{ 'media.search.filters.title' | translate | lowercase }}
+                  </mat-label>
+                  <input matInput (keyup)="applyFilter($event.target.value)" />
+                </mat-form-field>
+
+                <p class="text-115 bold text-center no-margin-top">
+                  {{ 'generic.filterBy' | translate }}
+                  {{ 'generic.status' | translate | lowercase }}
                 </p>
                 <div role="list" class="statuses-wrapper">
                   @for (status of statuses; track status) {
@@ -31,7 +38,9 @@
                         </mat-checkbox>
                         <a
                           class="margin-left-3xs"
+                          [class.disabled]="!status.shown"
                           tabindex="0"
+                          title="{{ 'media.userList.goTo' | translate }}"
                           (click)="scrollToStatus(status.value)"
                           (keydown.enter)="scrollToStatus(status.value)"
                           (keydown.space)="scrollToStatus(status.value)"

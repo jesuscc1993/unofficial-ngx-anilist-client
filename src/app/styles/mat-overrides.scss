@@ -1,3 +1,4 @@
+@use 'colors';
 @use 'variables' as *;
 
 body {
@@ -33,16 +34,44 @@ mat-form-field {
       display: none;
     }
   }
+
+  &.narrow {
+    max-width: $screen-xs;
+  }
 }
 
 mat-expansion-panel {
+  $horizontal-padding: $spacing-2xs;
+
+  --mat-expansion-header-expanded-state-height: var(
+    --mat-expansion-header-collapsed-state-height
+  );
+
   mat-expansion-panel-header {
-    padding: 0 $spacing-2xs;
+    padding: 0 $horizontal-padding;
     transition: $transition-duration;
   }
 
   .mat-expansion-panel-body {
     padding: 0;
+  }
+
+  .mat-expansion-panel-header {
+    // border-bottom: 1px solid colors.$border;
+    &::after {
+      content: '';
+      border-bottom: 1px solid colors.$border;
+      bottom: 0;
+      left: $horizontal-padding;
+      position: absolute;
+      width: calc(100% - $horizontal-padding * 2);
+    }
+
+    &.text-center {
+      .mat-content {
+        justify-content: center;
+      }
+    }
   }
 }
 

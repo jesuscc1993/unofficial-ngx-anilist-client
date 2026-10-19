@@ -63,6 +63,7 @@
     "delete": "Delete",
     "ellipsis": "...",
     "filter": "Filter",
+    "filterBy": "Filter by",
     "no": "No",
     "noResults": "No results.",
     "sort": "Sort",
@@ -154,7 +155,6 @@
         "after": "after",
         "before": "before",
         "below": "below",
-        "byTitle": "Filter by name",
         "clear": "Clear filters",
         "countryOfOrigin": "Country of origin",
         "endYear": "End year",
@@ -166,7 +166,8 @@
           "true": "On list",
           "undefined": "Both"
         },
-        "startYear": "Start year"
+        "startYear": "Start year",
+        "title": "Name"
       },
       "limitedFeatures": "Search will be available but most other features will not.",
       "submit": "Search",

@@ -6,26 +6,11 @@ mat-form-field {
 }
 
 mat-expansion-panel {
-  margin: 0 (-$spacing-xs);
+  margin: 0 (-$spacing-2xs);
 
   .mat-expansion-panel-header {
     padding: 0 $spacing-xs;
   }
-}
-
-.search-card {
-  padding: $spacing-md $spacing-2xl;
-
-  @media (min-width: ($screen-md + 1)) {
-    padding: $spacing-md $spacing-3xl;
-  }
-}
-
-.search-input {
-  font-size: $font-size-100;
-  line-height: 1.5;
-  margin: 0 auto;
-  max-width: $screen-xs;
 }
 
 .form-columns {
