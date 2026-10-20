@@ -211,10 +211,9 @@ export class MediaApi extends AniListApi {
     const populatedMedia = { ...media };
 
     if (media.description) {
-      populatedMedia.description = media.description.replace(
-        /\s*\(\s*Source:\s*.*\s*\)$/,
-        ''
-      );
+      populatedMedia.description = media.description
+        .replace(/\s*\(\s*Source:\s*.*?\s*\)/, '')
+        .replace(/(?:<br\s*\/?>\s*){3,}/gi, '<br><br>');
     }
 
     const scoreDistribution = media.stats?.scoreDistribution ?? [];
