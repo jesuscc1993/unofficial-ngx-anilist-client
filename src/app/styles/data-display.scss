@@ -2,7 +2,7 @@
 
 .property-value-pair {
   $property-width: 80px;
-  align-items: flex-start;
+  align-items: baseline;
   margin: $spacing-xs 0;
 
   &.chips {
